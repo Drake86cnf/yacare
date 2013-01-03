@@ -125,7 +125,7 @@ class Persona
     /**
      * @var integer $CodigoPostal
      *
-     * @ORM\Column(name="CodigoPostal", type="integer")
+     * @ORM\Column(name="CodigoPostal", type="string", length=50)
      */
     private $CodigoPostal;
 

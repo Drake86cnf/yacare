@@ -11,19 +11,15 @@ use Yacare\BaseBundle\Entity\Persona;
 use Yacare\BaseBundle\Form\PersonaType;
 
 /**
- * Persona controller.
- *
  * @Route("persona/")
  */
 class PersonaController extends Controller
 {
     /**
-     * Lists all Persona entities.
-     *
-     * @Route("inicio/")
+     * @Route("listar/")
      * @Template()
      */
-    public function indexAction()
+    public function listarAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -35,87 +31,21 @@ class PersonaController extends Controller
     }
 
     /**
-     * Finds and displays a Persona entity.
-     *
-     * @Route("{id}/show/")
+     * @Route("editar/{id}")
+     * @Route("crear/", name="yacare_base_persona_crear")
      * @Template()
      */
-    public function showAction($id)
+    public function editarAction($id = null)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
+        if($id)
+            $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
+        else
+            $entity = new Persona();
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Persona entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Displays a form to create a new Persona entity.
-     *
-     * @Route("new/")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Persona();
-        $form   = $this->createForm(new PersonaType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a new Persona entity.
-     *
-     * @Route("create/")
-     * @Method("POST")
-     * @Template("YacareBaseBundle:Persona:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity  = new Persona();
-        $form = $this->createForm(new PersonaType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_persona_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Displays a form to edit an existing Persona entity.
-     *
-     * @Route("{id}/edit/")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Persona entity.');
+            throw $this->createNotFoundException('No se puede encontrar la persona.');
         }
 
         $editForm = $this->createForm(new PersonaType(), $entity);
@@ -123,26 +53,29 @@ class PersonaController extends Controller
 
         return array(
             'entity'      => $entity,
+            'create'      => $id ? false : true,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Edits an existing Persona entity.
-     *
-     * @Route("{id}/update/")
+     * @Route("guardar/{id}")
+     * @Route("guardar")
      * @Method("POST")
      * @Template("YacareBaseBundle:Persona:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function guardarAction(Request $request, $id=null)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
+        if($id)
+            $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
+        else
+            $entity = new Persona();
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Persona entity.');
+            throw $this->createNotFoundException('No se puede encontrar la persona.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -153,23 +86,22 @@ class PersonaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_persona_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('yacare_base_persona_listar'));
         }
 
         return array(
             'entity'      => $entity,
+            'create'      => $id ? false : true,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Deletes a Persona entity.
-     *
-     * @Route("{id}/delete/")
+     * @Route("eliminar/{id}")
      * @Method("POST")
      */
-    public function deleteAction(Request $request, $id)
+    public function eliminarAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
@@ -179,16 +111,17 @@ class PersonaController extends Controller
             $entity = $em->getRepository('YacareBaseBundle:Persona')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Persona entity.');
+                throw $this->createNotFoundException('No se puede encontrar la persona.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_persona'));
+        return $this->redirect($this->generateUrl('yacare_base_persona_listar'));
     }
 
+    
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))

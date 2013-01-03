@@ -87,7 +87,7 @@ class DependenciaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('yacare_base_dependencia_index'));
+            return $this->redirect($this->generateUrl('yacare_base_dependencia_listar'));
         }
 
         return array(
@@ -119,7 +119,7 @@ class DependenciaController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('dependencia/listar'));
+        return $this->redirect($this->generateUrl('yacare_base_dependencia_listar'));
     }
 
     private function createDeleteForm($id)
