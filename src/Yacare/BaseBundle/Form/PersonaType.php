@@ -38,7 +38,7 @@ class PersonaType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'label' => 'Fecha de Nacimiento',))
             ->add('Genero', 'choice', array(
-                'choices' => array('m' => 'Masculino', 'f' => 'Femenino'),
+                'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',
             ))
             ->add('Nacionalidad', 'entity', array('label' => 'Nacionalidad',
