@@ -12,22 +12,40 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pais
 {
+
+    /**
+     * @ORM\OneToMany(targetEntity="Persona", mappedBy="Pais")
+     */
+    private $Persona;
+    
+    public function __construct()
+    {
+        $this->Persona = new \Doctrine\Common\Collections\ArrayCollection();
+    }      
+    
     /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
      */
     private $id;
-
+        
     /**
      * @var string $Nombre
      *
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
-    private $Nombre;
+    private $Nombre;    
 
+        /**
+     * @var string $Iso
+     *
+     * @ORM\Column(name="Iso", type="string", length=2)
+     */
+    private $Iso;    
 
     /**
      * Get id

@@ -29,7 +29,9 @@ class PersonaType extends AbstractType
             ->add('Puerta', null, array('label' => 'Puerta',))
             ->add('NumeroTelefono', null, array('label' => 'Número de Teléfono',))
             ->add('Email', null, array('label' => 'e-mail',))
-            ->add('PersonaJuridica', null, array('label' => 'Persona Jurídica',))
+            ->add('PersonaJuridica', 'checkbox', array(
+                'label' => 'Persona Jurídica',
+                'required' => false,))
             ->add('CodigoPostal', null, array('label' => 'Código Postal',))
             ->add('FechaNacimiento', 'date', array(
                 'years' => range(1900,2013),
@@ -41,7 +43,8 @@ class PersonaType extends AbstractType
                 'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',
             ))
-            ->add('Nacionalidad', 'entity', array('label' => 'Nacionalidad',
+            ->add('Pais', 'entity', array(
+                'label' => 'Nacionalidad',
                 'class' => 'YacareBaseBundle:Pais',
                 'required' => true,
                 'empty_value' => false,

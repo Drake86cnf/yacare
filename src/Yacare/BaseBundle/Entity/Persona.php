@@ -55,9 +55,9 @@ class Persona
     /**
      * @var string $RazonSocial
      *
-     * @ORM\Column(name="RazonSocial", type="string", length=255)
+     * @ORM\Column(name="RazonSocial", type="string", length=255, nullable=true)
      */
-    private $RazonSocial;
+    private $RazonSocial = null;
 
     /**
      * @var integer $TipoDocumento
@@ -90,14 +90,14 @@ class Persona
     /**
      * @var integer $Piso
      *
-     * @ORM\Column(name="Piso", type="integer")
+     * @ORM\Column(name="Piso", type="integer", nullable=true)
      */
     private $Piso;
 
     /**
      * @var integer $Puerta
      *
-     * @ORM\Column(name="Puerta", type="integer")
+     * @ORM\Column(name="Puerta", type="integer", nullable=true)
      */
     private $Puerta;
 
@@ -111,14 +111,14 @@ class Persona
     /**
      * @var string $Email
      *
-     * @ORM\Column(name="Email", type="string", length=255)
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $Email;
 
     /**
      * @var boolean $PersonaJuridica
      *
-     * @ORM\Column(name="PersonaJuridica", type="boolean")
+     * @ORM\Column(name="PersonaJuridica", type="boolean", nullable=true)
      */
     private $PersonaJuridica;
 
@@ -144,12 +144,11 @@ class Persona
     private $Genero;
 
     /**
-     * @var integer $Nacionalidad
-     *
-     * @ORM\Column(name="Nacionalidad", type="integer")
+     * @ORM\ManyToOne(targetEntity="Pais", inversedBy="Persona")
+     * @ORM\JoinColumn(name="Pais", referencedColumnName="id")
      */
-    private $Nacionalidad;
-
+    protected $Pais;  
+    
     /**
      * Set Apellido
      *
@@ -519,25 +518,25 @@ class Persona
     }
 
     /**
-     * Set Nacionalidad
+     * Set Pais
      *
-     * @param integer $nacionalidad
+     * @param integer $pais
      * @return Persona
      */
-    public function setNacionalidad($nacionalidad)
+    public function setPais($pais)
     {
-        $this->Nacionalidad = $nacionalidad;
+        $this->Pais = $pais;
     
         return $this;
     }
 
     /**
-     * Get Nacionalidad
+     * Get Pais
      *
      * @return integer 
      */
-    public function getNacionalidad()
+    public function getPais()
     {
-        return $this->Nacionalidad;
+        return $this->Pais;
     }
 }

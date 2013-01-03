@@ -23,7 +23,6 @@ class Dependencia
         $this->Oficinas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * @var integer $id
      *
@@ -45,7 +44,6 @@ class Dependencia
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
-
 
     /**
      * Get id
