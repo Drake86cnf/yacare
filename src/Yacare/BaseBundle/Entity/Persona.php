@@ -15,6 +15,17 @@ class Persona
     use \Yacare\BaseBundle\Entity\Timestampable;
     
     /**
+     * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
+     */
+    public $Grupos;
+    
+    
+    public function __construct()
+    {
+        $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
+    }  
+    
+    /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
@@ -144,7 +155,7 @@ class Persona
     private $Genero;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Pais", inversedBy="Persona")
+     * @ORM\ManyToOne(targetEntity="Pais")
      * @ORM\JoinColumn(name="Pais", referencedColumnName="id")
      */
     protected $Pais;  

@@ -23,6 +23,12 @@ class PersonaType extends AbstractType
                     ),
                 'label' => 'Tipo de documento',))
             ->add('NumeroDocumento', null, array('label' => 'Número de documento',))
+            ->add('Grupos', 'entity', array(
+                'label' => 'Grupos',
+                'class' => 'YacareBaseBundle:PersonaGrupo',
+                'property' => 'Nombre',
+                'multiple' => true,
+                ))
             ->add('Calle', null, array('label' => 'Calle',))
             ->add('NumeroCalle', null, array('label' => 'Número',))
             ->add('Piso', null, array('label' => 'Piso',))

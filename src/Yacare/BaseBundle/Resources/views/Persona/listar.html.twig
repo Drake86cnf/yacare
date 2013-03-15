@@ -10,6 +10,7 @@
         <tr>
             <th>Nombre y apellido</th>
             <th>Documento</th>
+            <th>Grupos</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
         <tr>
             <td><i class="icon-user"></i> <a href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</a></td>
             <td>{{ entity.NumeroDocumento }}</td>
+            <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>{% endfor %}</td>
         </tr>
     {% endfor %}
     </tbody>

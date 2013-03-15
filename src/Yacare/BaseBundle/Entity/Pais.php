@@ -12,17 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pais
 {
-
-    /**
-     * @ORM\OneToMany(targetEntity="Persona", mappedBy="Pais")
-     */
-    private $Persona;
-    
-    public function __construct()
-    {
-        $this->Persona = new \Doctrine\Common\Collections\ArrayCollection();
-    }      
-    
     /**
      * @var integer $id
      *
