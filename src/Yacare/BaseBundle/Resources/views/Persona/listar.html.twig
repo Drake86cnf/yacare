@@ -8,17 +8,19 @@
 <table class="table bootstrap-datatable datatable">
     <thead>
         <tr>
-            <th>Nombre</th>
+            <th>Nombre y apellido</th>
+            <th>Documento</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><i class="icon-user"></i> <a href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</a></td>
+            <td>{{ entity.NumeroDocumento }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<a href="{{ path('yacare_base_persona_crear') }}" class="btn"><i class="icon-plus"></i> Crear nueva persona</a>
+<a href="{{ path('yacare_base_persona_crear') }}" class="btn"><i class="icon-plus"></i> Alta de nueva persona</a>
 {% endblock %}

@@ -42,12 +42,12 @@ class Oficina
     private $Nombre;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Dependencia", inversedBy="Oficina")
+     * @ORM\ManyToOne(targetEntity="Dependencia", inversedBy="Oficinas")
      */
     protected $Dependencia;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Edificio", inversedBy="Oficina")
+     * @ORM\ManyToOne(targetEntity="Edificio", inversedBy="Oficinas")
      * @ORM\JoinColumn(name="Edificio", referencedColumnName="id")
      */
     protected $Edificio;

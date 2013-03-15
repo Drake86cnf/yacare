@@ -13,7 +13,7 @@ class PersonaType extends AbstractType
         $builder
             ->add('Apellido', null, array('label' => 'Apellido',))
             ->add('Nombre', null, array('label' => 'Nombre',))
-            ->add('RazonSocial', null, array('label' => 'Razón Social',))
+            ->add('RazonSocial', null, array('label' => 'Razón social',))
             ->add('TipoDocumento', 'choice', array(
                 'choices'  => array(
                     '0'  => 'DNI',
@@ -21,24 +21,24 @@ class PersonaType extends AbstractType
                     '2' => 'CUIL',
                     '3' => 'CUIT',
                     ),
-                'label' => 'Tipo de Documento',))
-            ->add('NumeroDocumento', null, array('label' => 'Número de Documento',))
+                'label' => 'Tipo de documento',))
+            ->add('NumeroDocumento', null, array('label' => 'Número de documento',))
             ->add('Calle', null, array('label' => 'Calle',))
             ->add('NumeroCalle', null, array('label' => 'Número',))
             ->add('Piso', null, array('label' => 'Piso',))
             ->add('Puerta', null, array('label' => 'Puerta',))
-            ->add('NumeroTelefono', null, array('label' => 'Número de Teléfono',))
-            ->add('Email', null, array('label' => 'e-mail',))
+            ->add('NumeroTelefono', null, array('label' => 'Número de teléfono',))
+            ->add('Email', null, array('label' => 'Correo electrónico   ',))
             ->add('PersonaJuridica', 'checkbox', array(
-                'label' => 'Persona Jurídica',
+                'label' => 'Persona jurídica',
                 'required' => false,))
-            ->add('CodigoPostal', null, array('label' => 'Código Postal',))
+            ->add('CodigoPostal', null, array('label' => 'Código postal',))
             ->add('FechaNacimiento', 'date', array(
-                'years' => range(1900,2013),
+                'years' => range(1900,2099),
                 'input' => 'datetime',
-                'widget' => 'choice',
-                'format' => 'dd-MM-yyyy',
-                'label' => 'Fecha de Nacimiento',))
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'label' => 'Fecha de nacimiento',))
             ->add('Genero', 'choice', array(
                 'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',

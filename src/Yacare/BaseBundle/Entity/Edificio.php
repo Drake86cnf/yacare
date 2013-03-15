@@ -15,11 +15,11 @@ class Edificio
     /**
      * @ORM\OneToMany(targetEntity="Oficina", mappedBy="Edificio")
      */
-    private $Oficina;
+    private $Oficinas;
     
     public function __construct()
     {
-        $this->Oficina = new ORM\ArrayCollection();
+        $this->Oficinas = new ORM\ArrayCollection();
     }
     
     /**
