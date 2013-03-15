@@ -2,6 +2,7 @@
 
 namespace Tests\Knp\DoctrineBehaviors\ORM;
 
+use Knp\DoctrineBehaviors\Reflection\ClassAnalyzer;
 use Doctrine\Common\EventManager;
 
 require_once 'EntityManagerProvider.php';
@@ -25,6 +26,7 @@ class BlameableTest extends \PHPUnit_Framework_TestCase
         $em = new EventManager;
 
         $this->listener = new \Knp\DoctrineBehaviors\ORM\Blameable\BlameableListener(
+            new ClassAnalyzer(),
             $userCallback,
             $userEntity
         );
@@ -78,6 +80,29 @@ class BlameableTest extends \PHPUnit_Framework_TestCase
             $entity->getUpdatedBy(),
             'createBy and updatedBy have diverged since new update'
         );
+    }
+
+    public function testRemove()
+    {
+        $em = $this->getEntityManager($this->getEventManager('user'));
+
+        $entity = new \BehaviorFixtures\ORM\BlameableEntity();
+
+        $em->persist($entity);
+        $em->flush();
+        $id = $entity->getId();
+        $em->clear();
+
+        $listeners = $em->getEventManager()->getListeners()['preRemove'];
+        $listener = array_pop($listeners);
+        $listener->setUser('user3');
+
+        $entity = $em->getRepository('BehaviorFixtures\ORM\BlameableEntity')->find($id);
+        $em->remove($entity);
+        $em->flush();
+        $em->clear();
+
+        $this->assertEquals('user3', $entity->getDeletedBy());
     }
 
     public function testListenerWithUserCallback()

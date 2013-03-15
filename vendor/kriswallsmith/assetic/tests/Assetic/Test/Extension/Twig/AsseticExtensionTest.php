@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2012 OpenSky Project Inc
+ * (c) 2010-2013 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -213,12 +213,12 @@ class AsseticExtensionTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->renderXml('variables.twig');
         $this->assertEquals(2, $xml->url->count());
-        $this->assertEquals("js/7d0828c_foo_1.a.b.js", (string) $xml->url[0]);
-        $this->assertEquals("js/7d0828c_variable_input.a_2.a.b.js", (string) $xml->url[1]);
+        $this->assertEquals("js/7d0828c.a.b_foo_1.js", (string) $xml->url[0]);
+        $this->assertEquals("js/7d0828c.a.b_variable_input.a_2.js", (string) $xml->url[1]);
     }
 
     /**
-     * @expectedException \Twig_Error
+     * @expectedException \Twig_Error_Syntax
      */
     public function testUnclosedTag()
     {

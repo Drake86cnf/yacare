@@ -8,55 +8,21 @@ internal logic on the given documentation link.
 
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
 
-**Note:** Keep **knp-components** in sync with this bundle. If you want to use 
+**Note:** Keep **knp-components** in sync with this bundle. If you want to use
 older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
 suitable to paginate **ODM mongodb** and **ORM 2.0** queries
 
 ## Latest updates
 
-**2012-07-06**
-
-- Added method `isSorted` to the `SlidingPagination` to enable views to know if
-a given column is currently sorted.
-
-**2012-03-23**
-
-- Changed the behavior of customization for query parameters. Etc. now there is no more **alias**
-for paginations. Instead it will use organized parameter names, which can be set for each pagination
-as different or configured in default global scope, see the [documentation](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
-and [upgrade
-guide](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade_to_2.2.md)
-make sure you use **twig at least version 1.5**
-
-- If you do not wish to migrate to these new changes. Checkout paginator bundle at **v2.1** tag and
-komponents at **v1.0**
-
-**2012-03-02**
-
-- Added support for [Solarium](http://solarium-project.org), a PHP library that handles [Solr](http://lucene.apache.org/solr/) search.
-
-**2011-12-16**
-
-- Joined **count** and **items** events into one **items** which now populates
-count and item result on event. This way it is more straightforward and cleaner
-
-**2011-12-09**
-
-- Changed event names to more distinctive. Using main symfony event dispatcher service.
-- Optimazed event properties for usage by reference
-
-**2011-12-05**
-
-- Recently there was a change in repository vendor name: **knplabs** --> **KnpLabs**
-be sure to update your remotes accordingly. etc: github.com/**knplabs**/KnpPaginatorBundle.git
-to github.com/**KnpLabs**/KnpPaginatorBundle.git.
-- One-liner: `git remote set-url origin http://github.com/KnpLabs/KnpPaginatorBundle.git`
+For notes about latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
+for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade.md)
+chapter of documentation.
 
 ## Requirements:
 
-- Knp pager component **>=1.1**
-- KnpPaginatorBundle's master compatible with symfony (**>=2.0** versions).
-- Twig **>=1.5** version is required if you use twig templating engine
+- Knp pager component `>=1.1`
+- KnpPaginatorBundle's master compatible with symfony (`>=2.0` versions).
+- Twig`>=1.5` version is required if you use twig templating engine
 
 ## Features:
 
@@ -78,13 +44,15 @@ variables as keys.
 
 ## Installation and configuration:
 
-Pretty simple with [composer](http://packagist.org), add:
+Pretty simple with [Composer](http://packagist.org), add:
 
-    {
-        require: {
-            "knplabs/knp-paginator-bundle": "dev-master"
-        }
+```json
+{
+    "require": {
+        "knplabs/knp-paginator-bundle": "dev-master"
     }
+}
+```
 
 If you use a `deps` file, add:
 
@@ -110,7 +78,7 @@ Or if you want to clone the repos:
 
 You can configure default query parameter names and templates
 
-``` yaml
+```yaml
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
@@ -123,9 +91,9 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 ```
 
-### Add the namespaces to your autoloader unless you are using composer
+### Add the namespaces to your autoloader unless you are using Composer
 
-``` php
+```php
 <?php
 // File: app/autoload.php
 $loader->registerNamespaces(array(
@@ -137,17 +105,16 @@ $loader->registerNamespaces(array(
 
 ### Add PaginatorBundle to your application kernel
 
-``` php
-<?php
-    // File: app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            // ...
-        );
-    }
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        // ...
+    );
+}
 ```
 
 ## Usage examples:
@@ -156,40 +123,44 @@ $loader->registerNamespaces(array(
 
 Currently paginator can paginate:
 
-- array
-- Doctrine\ORM\Query
-- Doctrine\ORM\QueryBuilder
-- Doctrine\ODM\MongoDB\Query\Query
-- Doctrine\ODM\MongoDB\Query\Builder
-- Doctrine\Common\Collection\ArrayCollection - any doctrine relation collection including
-- ModelCriteria - Propel ORM query
-- array with Solarium_Client and Solarium_Query_Select as elements
+- `array`
+- `Doctrine\ORM\Query`
+- `Doctrine\ORM\QueryBuilder`
+- `Doctrine\ODM\MongoDB\Query\Query`
+- `Doctrine\ODM\MongoDB\Query\Builder`
+- `Doctrine\Common\Collection\ArrayCollection` - any doctrine relation collection including
+- `ModelCriteria` - Propel ORM query
+- array with `Solarium_Client` and `Solarium_Query_Select` as elements
 
-``` php
-<?php
-$em = $this->get('doctrine.orm.entity_manager');
-$dql = "SELECT a FROM VendorBlogBundle:Article a";
-$query = $em->createQuery($dql);
+```php
+// Acme\MainBundle\Controller\ArticleController.php
 
-$paginator = $this->get('knp_paginator');
-$pagination = $paginator->paginate(
-    $query,
-    $this->get('request')->query->get('page', 1)/*page number*/,
-    10/*limit per page*/
-);
+public function listAction() 
+{
+    $em    = $this->get('doctrine.orm.entity_manager');
+    $dql   = "SELECT a FROM AcmeMainBundle:Article a";
+    $query = $em->createQuery($dql);
 
-// parameters to template
-return compact('pagination');
+    $paginator  = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+        $query,
+        $this->get('request')->query->get('page', 1)/*page number*/,
+        10/*limit per page*/
+    );
+
+    // parameters to template
+    return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
+}
 ```
 
 ### View
 
-``` html
+```jinja
 <table>
 <tr>
 {# sorting of properties based on query components #}
-    <th>{{ pagination.sortable('Id', 'a.id')|raw }}</th>
-    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
 </tr>
 
 {# table body #}
@@ -202,11 +173,32 @@ return compact('pagination');
 </table>
 {# display navigation #}
 <div class="navigation">
-    {{ pagination.render()|raw }}
+    {{ knp_pagination_render(pagination) }}
 </div>
 ```
+
+### Translation in view
+For translating the following text:
+* ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
+* ```{0} No author|{1} Author|[2,Inf] Authors``` with translation key ```table_header_author```. The translation is in the domain ```messages```.
+
+translationCount and translationParameters can be combined.
+
+```jinja
+<table>
+    <tr>
+{# sorting of properties based on query components #}
+        <th>{{ pagination.sortable('table_header_name', 'a.id', {'translationDomain' : 'messages', 'translationParameter' : { '%foo%' : 'bar' } } )|raw }}</th>
+        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+        <th>{{ pagination.sortable('table_header_author', 'a.author', {'translationDomain' : 'messages', 'translationCount' : 1 } )|raw }}</th>
+    </tr>
+
+<!-- Content of the table -->
+
+</table>
+```
+
 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
-

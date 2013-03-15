@@ -11,6 +11,10 @@
 
 namespace Knp\DoctrineBehaviors\ORM\Blameable;
 
+use Knp\DoctrineBehaviors\Reflection\ClassAnalyzer;
+
+use Knp\DoctrineBehaviors\ORM\AbstractListener;
+
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -24,7 +28,7 @@ use Doctrine\Common\EventSubscriber,
  * Adds class metadata depending of user type (entity or string)
  * Listens to prePersist and PreUpdate lifecycle events
  */
-class BlameableListener implements EventSubscriber
+class BlameableListener extends AbstractListener
 {
     /**
      * @var callable
@@ -47,8 +51,10 @@ class BlameableListener implements EventSubscriber
      * @param callable
      * @param string $userEntity
      */
-    public function __construct(callable $userCallable = null, $userEntity = null)
+    public function __construct(ClassAnalyzer $classAnalyzer, callable $userCallable = null, $userEntity = null)
     {
+        parent::__construct($classAnalyzer);
+
         $this->userCallable = $userCallable;
         $this->userEntity = $userEntity;
     }
@@ -97,6 +103,14 @@ class BlameableListener implements EventSubscriber
                 'nullable'   => true,
             ]);
         }
+
+        if (!$classMetadata->hasField('deletedBy')) {
+            $classMetadata->mapField([
+                'fieldName'  => 'deletedBy',
+                'type'       => 'string',
+                'nullable'   => true,
+            ]);
+        }
     }
 
     private function mapManyToOneUser(classMetadata $classMetadata)
@@ -110,6 +124,12 @@ class BlameableListener implements EventSubscriber
         if (!$classMetadata->hasAssociation('updatedBy')) {
             $classMetadata->mapManyToOne([
                 'fieldName'    => 'updatedBy',
+                'targetEntity' => $this->userEntity,
+            ]);
+        }
+        if (!$classMetadata->hasAssociation('deletedBy')) {
+            $classMetadata->mapManyToOne([
+                'fieldName'    => 'deletedBy',
                 'targetEntity' => $this->userEntity,
             ]);
         }
@@ -147,6 +167,17 @@ class BlameableListener implements EventSubscriber
 
                     $uow->scheduleExtraUpdate($entity, [
                         'updatedBy' => [null, $user],
+                    ]);
+                }
+            }
+            if (!$entity->getDeletedBy()) {
+                $user = $this->getUser();
+                if ($this->isValidUser($user)) {
+                    $entity->setDeletedBy($user);
+                    $uow->propertyChanged($entity, 'deletedBy', null, $user);
+
+                    $uow->scheduleExtraUpdate($entity, [
+                        'deletedBy' => [null, $user],
                     ]);
                 }
             }
@@ -199,6 +230,35 @@ class BlameableListener implements EventSubscriber
     }
 
     /**
+     * Stores the current user into deletedBy property
+     *
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function preRemove(LifecycleEventArgs $eventArgs)
+    {
+        $em =$eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+        $entity = $eventArgs->getEntity();
+
+        $classMetadata = $em->getClassMetadata(get_class($entity));
+        if ($this->isEntitySupported($classMetadata->reflClass, true)) {
+            if (!$entity->isBlameable()) {
+                return;
+            }
+            $user = $this->getUser();
+            if ($this->isValidUser($user)) {
+                $oldValue = $entity->getDeletedBy();
+                $entity->setDeletedBy($user);
+                $uow->propertyChanged($entity, 'deletedBy', $oldValue, $user);
+
+                $uow->scheduleExtraUpdate($entity, [
+                    'deletedBy' => [$oldValue, $user],
+                ]);
+            }
+        }
+    }
+
+    /**
      * set a custome representation of current user
      *
      * @param mixed $user
@@ -237,16 +297,9 @@ class BlameableListener implements EventSubscriber
      */
     private function isEntitySupported(\ReflectionClass $reflClass, $isRecursive = false)
     {
-        $isSupported = in_array('Knp\DoctrineBehaviors\Model\Blameable\Blameable', $reflClass->getTraitNames())
-            || in_array('Knp\DoctrineBehaviors\Model\Blameable\BlameableMethods', $reflClass->getTraitNames())
+        return $this->getClassAnalyzer()->hasTrait($reflClass, 'Knp\DoctrineBehaviors\Model\Blameable\Blameable', $isRecursive)
+            || $this->getClassAnalyzer()->hasTrait($reflClass, 'Knp\DoctrineBehaviors\Model\Blameable\BlameableMethods', $isRecursive)
         ;
-
-        while ($isRecursive and !$isSupported and $reflClass->getParentClass()) {
-            $reflClass = $reflClass->getParentClass();
-            $isSupported = $this->isEntitySupported($reflClass, true);
-        }
-
-        return $isSupported;
     }
 
     public function getSubscribedEvents()
@@ -254,6 +307,7 @@ class BlameableListener implements EventSubscriber
         $events = [
             Events::prePersist,
             Events::preUpdate,
+            Events::preRemove,
             Events::loadClassMetadata,
         ];
 

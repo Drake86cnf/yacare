@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2012 OpenSky Project Inc
+ * (c) 2010-2013 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,29 +13,38 @@ namespace Assetic\Test\Filter;
 
 use Assetic\Asset\FileAsset;
 use Assetic\Filter\UglifyJsFilter;
+use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * @group integration
  */
-class UglifyJsFilterTest extends \PHPUnit_Framework_TestCase
+class UglifyJsFilterTest extends FilterTestCase
 {
     private $asset;
     private $filter;
 
     protected function setUp()
     {
-        if (!isset($_SERVER['UGLIFYJS_BIN'])) {
-            $this->markTestSkipped('There is no uglifyJs configuration.');
+        $uglifyjsBin = $this->findExecutable('uglifyjs', 'UGLIFYJS_BIN');
+        $nodeBin = $this->findExecutable('node', 'NODE_BIN');
+        if (!$uglifyjsBin) {
+            $this->markTestSkipped('Unable to find `uglifyjs` executable.');
+        }
+
+        // verify uglifyjs version
+        $pb = new ProcessBuilder($nodeBin ? array($nodeBin, $uglifyjsBin) : array($uglifyjsBin));
+        $pb->add('--version');
+        if (isset($_SERVER['NODE_PATH'])) {
+            $pb->setEnv('NODE_PATH', $_SERVER['NODE_PATH']);
+        }
+        if (0 === $pb->getProcess()->run()) {
+            $this->markTestSkipped('Incorrect version of UglifyJs');
         }
 
         $this->asset = new FileAsset(__DIR__.'/fixtures/uglifyjs/script.js');
         $this->asset->load();
 
-        if (isset($_SERVER['NODE_BIN'])) {
-            $this->filter = new UglifyJsFilter($_SERVER['UGLIFYJS_BIN'], $_SERVER['NODE_BIN']);
-        } else {
-            $this->filter = new UglifyJsFilter($_SERVER['UGLIFYJS_BIN']);
-        }
+        $this->filter = new UglifyJsFilter($uglifyjsBin, $nodeBin);
     }
 
     protected function tearDown()
@@ -51,9 +60,9 @@ class UglifyJsFilterTest extends \PHPUnit_Framework_TestCase
         $expected = <<<JS
 /**
  * Copyright
- */function bar(a){return var2.push(a),a}var foo=new Array(1,2,3,4),bar=Array(a,b,c),var1=new Array(5),var2=new Array(a),foo=function(a){return a};
+ */(function(){function t(e){return r.push(e),e}var e=new Array(1,2,3,4),t=Array(a,b,c),n=new Array(5),r=new Array(a),e=function(e){return e};e("abc123"),t("abc123")})();
 JS;
-        $this->assertSame($expected, $this->asset->getContent());
+        $this->assertEquals($expected, $this->asset->getContent());
     }
 
     public function testUnsafeUglify()
@@ -64,9 +73,9 @@ JS;
         $expected = <<<JS
 /**
  * Copyright
- */function bar(a){return var2.push(a),a}var foo=[1,2,3,4],bar=[a,b,c],var1=Array(5),var2=Array(a),foo=function(a){return a};
+ */(function(){function t(e){return r.push(e),e}var e=[1,2,3,4],t=[a,b,c],n=Array(5),r=Array(a),e=function(e){return e};e("abc123"),t("abc123")})();
 JS;
-        $this->assertSame($expected, $this->asset->getContent());
+        $this->assertEquals($expected, $this->asset->getContent());
     }
 
     public function testBeautifyUglify()
@@ -77,30 +86,32 @@ JS;
         $expected = <<<JS
 /**
  * Copyright
- */function bar(a) {
-    return var2.push(a), a;
-}
-
-var foo = new Array(1, 2, 3, 4), bar = Array(a, b, c), var1 = new Array(5), var2 = new Array(a), foo = function(a) {
-    return a;
-};
+ */(function() {
+    function t(e) {
+        return r.push(e), e;
+    }
+    var e = new Array(1, 2, 3, 4), t = Array(a, b, c), n = new Array(5), r = new Array(a), e = function(e) {
+        return e;
+    };
+    e("abc123"), t("abc123");
+})();
 JS;
 
-        $this->assertSame($expected, $this->asset->getContent());
+        $this->assertEquals($expected, $this->asset->getContent());
     }
 
-    public function testMangleUglify()
+    public function testNoMangleUglify()
     {
-        $this->filter->setMangle(true);
+        $this->filter->setMangle(false);
         $this->filter->filterDump($this->asset);
 
         $expected = <<<JS
 /**
  * Copyright
- */function bar(e){return var2.push(e),e}var foo=new Array(1,2,3,4),bar=Array(a,b,c),var1=new Array(5),var2=new Array(a),foo=function(e){return e};%
+ */(function(){function bar(foo){return var2.push(foo),foo}var foo=new Array(1,2,3,4),bar=Array(a,b,c),var1=new Array(5),var2=new Array(a),foo=function(var1){return var1};foo("abc123"),bar("abc123")})();
 JS;
 
-        $this->assertSame($expected, $this->asset->getContent());
+        $this->assertEquals($expected, $this->asset->getContent());
     }
 
     public function testNoCopyrightUglify()
@@ -108,7 +119,7 @@ JS;
         $this->filter->setNoCopyright(true);
         $this->filter->filterDump($this->asset);
 
-        $expected = 'function bar(a){return var2.push(a),a}var foo=new Array(1,2,3,4),bar=Array(a,b,c),var1=new Array(5),var2=new Array(a),foo=function(a){return a};';
-        $this->assertSame($expected, $this->asset->getContent());
+        $expected = '(function(){function t(e){return r.push(e),e}var e=new Array(1,2,3,4),t=Array(a,b,c),n=new Array(5),r=new Array(a),e=function(e){return e};e("abc123"),t("abc123")})();';
+        $this->assertEquals($expected, $this->asset->getContent());
     }
 }

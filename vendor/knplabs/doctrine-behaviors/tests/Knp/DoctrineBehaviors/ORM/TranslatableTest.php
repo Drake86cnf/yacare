@@ -2,6 +2,7 @@
 
 namespace Tests\Knp\DoctrineBehaviors\ORM;
 
+use Knp\DoctrineBehaviors\Reflection\ClassAnalyzer;
 use Doctrine\Common\EventManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
@@ -23,9 +24,13 @@ class TranslatableTest extends \PHPUnit_Framework_TestCase
     {
         $em = new EventManager;
 
-        $em->addEventSubscriber(new \Knp\DoctrineBehaviors\ORM\Translatable\TranslatableListener(function() {
-            return 'en';
-        }));
+        $em->addEventSubscriber(new \Knp\DoctrineBehaviors\ORM\Translatable\TranslatableListener(
+            new ClassAnalyzer(),
+            function()
+            {
+                return 'en';
+            }
+        ));
 
         return $em;
     }
@@ -147,5 +152,27 @@ class TranslatableTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('fabuleux3', $entity->translate('fr')->getTitle());
         $this->assertEquals(spl_object_hash($entity->translate('fr')), spl_object_hash($translation));
+    }
+
+    /**
+     * @test
+     */
+    public function should_remove_translation()
+    {
+        $em = $this->getEntityManager();
+
+        $entity = new \BehaviorFixtures\ORM\TranslatableEntity();
+        $entity->translate('en')->setTitle('Hello');
+        $entity->translate('nl')->setTitle('Hallo');
+        $entity->mergeNewTranslations();
+        $em->persist($entity);
+        $em->flush();
+
+        $nlTranslation = $entity->translate('nl');
+        $entity->removeTranslation($nlTranslation);
+        $em->flush();
+
+        $em->refresh($entity);
+        $this->assertNotEquals('Hallo', $entity->translate('nl')->getTitle());
     }
 }

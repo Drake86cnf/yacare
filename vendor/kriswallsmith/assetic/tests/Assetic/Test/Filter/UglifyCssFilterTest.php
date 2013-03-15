@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2012 OpenSky Project Inc
+ * (c) 2010-2013 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,25 +17,23 @@ use Assetic\Filter\UglifyCssFilter;
 /**
  * @group integration
  */
-class UglifyCssFilterTest extends \PHPUnit_Framework_TestCase
+class UglifyCssFilterTest extends FilterTestCase
 {
     private $asset;
     private $filter;
 
     protected function setUp()
     {
-        if (!isset($_SERVER['UGLIFYCSS_BIN'])) {
-            $this->markTestSkipped('There is no uglifyCss configuration.');
+        $uglifycssBin = $this->findExecutable('uglifycss', 'UGLIFYCSS_BIN');
+        $nodeBin = $this->findExecutable('node', 'NODE_BIN');
+        if (!$uglifycssBin) {
+            $this->markTestSkipped('Unable to find `uglifycss` executable.');
         }
 
         $this->asset = new FileAsset(__DIR__.'/fixtures/uglifycss/main.css');
         $this->asset->load();
 
-        if (isset($_SERVER['NODE_BIN'])) {
-            $this->filter = new UglifyCssFilter($_SERVER['UGLIFYCSS_BIN'], $_SERVER['NODE_BIN']);
-        } else {
-            $this->filter = new UglifyCssFilter($_SERVER['UGLIFYCSS_BIN']);
-        }
+        $this->filter = new UglifyCssFilter($uglifycssBin, $nodeBin);
     }
 
     protected function tearDown()

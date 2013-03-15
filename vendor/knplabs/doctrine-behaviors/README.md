@@ -62,7 +62,6 @@ All you have to do is to define a Doctrine2 entity and use traits:
 <?php
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
@@ -75,7 +74,8 @@ class Category implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
         ORMBehaviors\Timestampable\Timestampable,
         ORMBehaviors\SoftDeletable\SoftDeletable,
         ORMBehaviors\Blameable\Blameable,
-        ORMBehaviors\Geocodable\Geocodable
+        ORMBehaviors\Geocodable\Geocodable,
+        ORMBehaviors\Sluggable\Sluggable
     ;
 
     /**
@@ -130,7 +130,7 @@ You now have a working `Category` that behaves like:
     $root = $em->getRepository('Category')->getTree();
 
     $root->getParent(); // null
-    $root->getNodeChildren(); // collection
+    $root->getChildNodes(); // ArrayCollection
     $root[0][1]; // node or null
     $root->isLeaf(); // boolean
     $root->isRoot(); // boolean
@@ -151,15 +151,14 @@ In order to use Translatable trait, you will have to create this entity.
 <?php
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Knp\DoctrineBehaviors as DoctrineBehaviors;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity
  */
 class CategoryTranslation
 {
-    use DoctrineBehaviors\Translatable\Translation;
+    use ORMBehaviors\Translatable\Translation;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -247,6 +246,28 @@ so that when you try to call `getName` (for example) it will return you the tran
     $category = $em->getRepository('Category')->findOneById($id);
 
     // but i'm "deleted"
+    $category->isDeleted(); // === true
+```
+
+``` php
+
+<?php
+
+    $category = new Category;
+    $em->persist($category);
+    $em->flush();
+    
+    // I'll delete you tomorow
+    $category->setDeletedAt((new \DateTime())->modify('+1 day'));
+
+    // Ok, I'm here
+    $category->isDeleted(); // === false
+    
+    /*
+     *  24 hours later...
+     */
+     
+    // Ok I'm deleted
     $category->isDeleted(); // === true
 ```
 
@@ -353,14 +374,17 @@ You can also override the slug delimiter from the default hyphen by overriding `
 Use cases include SEO (i.e. URLs like http://mysite.com/post/3/introduction-to-php)
 ```php
 <?php
-use Knp\DoctrineBehaviors\ORM as ORMBehaviors;
+
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity
  */
 class BlogPost
 {
+    use ORMBehaviors\Sluggable\Sluggable;
+
     /**
      * @ORM\Column(type="string")
      */
@@ -384,6 +408,7 @@ Joined filters example:
 
 ```php
 <?php
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**

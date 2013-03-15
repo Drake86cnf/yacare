@@ -3,27 +3,19 @@
 namespace Knp\Bundle\PaginatorBundle\Pagination;
 
 use Knp\Component\Pager\Pagination\AbstractPagination;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
-use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class SlidingPagination extends AbstractPagination
 {
-    private $routerHelper;
     private $route;
     private $params;
-    private $translator;
-    private $engine;
     private $pageRange = 5;
     private $template;
     private $sortableTemplate;
+    private $filtrationTemplate;
     private $extraViewParams = array();
 
-    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, TranslatorInterface $translator, array $params)
+    public function __construct(array $params)
     {
-        $this->routerHelper = $routerHelper;
-        $this->engine = $engine;
-        $this->translator = $translator;
         $this->params = $params;
     }
 
@@ -42,9 +34,29 @@ class SlidingPagination extends AbstractPagination
         $this->sortableTemplate = $template;
     }
 
+    public function getSortableTemplate()
+    {
+        return $this->sortableTemplate;
+    }
+
+    public function setFiltrationTemplate($template)
+    {
+        $this->filtrationTemplate = $template;
+    }
+
+    public function getFiltrationTemplate()
+    {
+        return $this->filtrationTemplate;
+    }
+
     public function setParam($name, $value)
     {
         $this->params[$name] = $value;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
     }
 
     public function setTemplate($template)
@@ -52,34 +64,14 @@ class SlidingPagination extends AbstractPagination
         $this->template = $template;
     }
 
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
     public function setPageRange($range)
     {
         $this->pageRange = abs(intval($range));
-    }
-
-    /**
-     * Renders the pagination template
-     *
-     * @param string $template
-     * @param array $queryParams
-     * @param array $viewParams
-     * @return string
-     */
-    public function render($template = null, array $queryParams = array(), array $viewParams = array())
-    {
-        if ($template) {
-            $this->template = $template;
-        }
-        $data = $this->getPaginationData();
-        $data['route'] = $this->route;
-        $data['query'] = array_merge($this->params, $queryParams);
-        $data = array_merge(
-            $this->paginatorOptions, // options given to paginator when paginated
-            $this->customParameters, // all custom parameters for view
-            $viewParams, // additional custom parameters for view
-            $data // merging base route parameters last, to avoid broke of integrity
-        );
-        return $this->engine->render($this->template, $data);
     }
 
     /**
@@ -91,82 +83,6 @@ class SlidingPagination extends AbstractPagination
     public function getQuery(array $additionalQueryParams = array())
     {
         return array_merge($this->params, $additionalQueryParams);
-    }
-
-    /**
-     * Create a sort url for the field named $title
-     * and identified by $key which consists of
-     * alias and field. $options holds all link
-     * parameters like "alt, class" and so on.
-     *
-     * $key example: "article.title"
-     *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
-     * @param string $template
-     * @return string
-     */
-    public function sortable($title, $key, $options = array(), $params = array(), $template = null)
-    {
-        $options = array_merge(array(
-            'absolute' => false,
-            'translationParameters' => array(),
-            'translationDomain' => null,
-        ), $options);
-
-        $params = array_merge($this->params, $params);
-        $direction = isset($options[$this->getPaginatorOption('sortDirectionParameterName')])
-            ? $options[$this->getPaginatorOption('sortDirectionParameterName')]
-            : (isset($options['defaultDirection']) ? $options['defaultDirection'] : 'asc')
-        ;
-
-        $sorted = $this->isSorted($key, $params);
-
-        if ($sorted) {
-            $direction = $params[$this->getPaginatorOption('sortDirectionParameterName')];
-            $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
-            $class = $direction == 'asc' ? 'desc' : 'asc';
-            if (isset($options['class'])) {
-                $options['class'] .= ' ' . $class;
-            } else {
-                $options['class'] = $class;
-            }
-        } else {
-            $options['class'] = 'sortable';
-        }
-
-        if (is_array($title) && array_key_exists($direction, $title)) {
-            $title = $title[$direction];
-        }
-
-        $params = array_merge(
-            $params,
-            array(
-                $this->getPaginatorOption('sortFieldParameterName') => $key,
-                $this->getPaginatorOption('sortDirectionParameterName') => $direction,
-                $this->getPaginatorOption('pageParameterName') => 1 // reset to 1 on sort
-            )
-        );
-
-        $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
-
-        $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
-        if (!isset($options['title'])) {
-            $options['title'] = $title;
-        }
-
-        if ($template) {
-            $this->sortableTemplate = $template;
-        }
-        unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
-
-        return $this->engine->render($this->sortableTemplate, array_merge(
-            $this->paginatorOptions,
-            $this->customParameters,
-            compact('options', 'title', 'direction', 'sorted', 'key')
-        ));
     }
 
     public function isSorted($key, array $params = array())
@@ -202,14 +118,31 @@ class SlidingPagination extends AbstractPagination
             $pages = range($offset + 1, $offset + $this->pageRange);
         }
 
+        $proximity = floor($this->pageRange / 2);
+
+        $startPage  = $current - $proximity;
+        $endPage    = $current + $proximity;
+
+        if ($startPage < 1) {
+            $endPage = min($endPage + (1 - $startPage), $pageCount);
+            $startPage = 1;
+        }
+
+        if ($endPage > $pageCount) {
+            $startPage = max($startPage - ($endPage - $pageCount), 1);
+            $endPage = $pageCount;
+        }
+
         $viewData = array(
-            'last' => $pageCount,
-            'current' => $current,
-            'numItemsPerPage' => $this->numItemsPerPage,
-            'first' => 1,
-            'pageCount' => $pageCount,
-            'totalCount' => $this->totalCount,
-            'pageRange' => $this->pageRange,
+            'last'              => $pageCount,
+            'current'           => $current,
+            'numItemsPerPage'   => $this->numItemsPerPage,
+            'first'             => 1,
+            'pageCount'         => $pageCount,
+            'totalCount'        => $this->totalCount,
+            'pageRange'         => $this->pageRange,
+            'startPage'         => $startPage,
+            'endPage'           => $endPage
         );
 
         if ($current - 1 > 0) {
@@ -231,5 +164,15 @@ class SlidingPagination extends AbstractPagination
         }
 
         return $viewData;
+    }
+
+    public function getPaginatorOptions()
+    {
+        return $this->paginatorOptions;
+    }
+
+    public function getCustomParameters()
+    {
+        return $this->customParameters;
     }
 }
