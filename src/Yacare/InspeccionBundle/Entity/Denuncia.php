@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Pais
+class Denuncia
 {
     /**
      * @var integer $id
@@ -28,13 +28,7 @@ class Pais
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
     private $Nombre;    
-
-    /**
-     * @var string $Iso
-     *
-     * @ORM\Column(name="Iso", type="string", length=2)
-     */
-    private $Iso;    
+  
 
     /**
      * Get id

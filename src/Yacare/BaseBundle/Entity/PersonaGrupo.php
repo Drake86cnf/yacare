@@ -80,7 +80,7 @@ class PersonaGrupo
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\PersonaGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
-    private $Parent;
+    public $Parent;
     
     /**
      * Set Parent
