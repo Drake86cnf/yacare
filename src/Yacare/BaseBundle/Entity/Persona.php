@@ -62,7 +62,24 @@ class Persona
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
     private $Nombre;
+    
+    
+    /**
+     * @var string $UsuarioNombre
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $UsuarioNombre;
+    
 
+    /**
+     * @var string $PersonaJuridica
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $PersonaJuridica;
+    
+    
     /**
      * @var string $RazonSocial
      *
@@ -71,53 +88,53 @@ class Persona
     private $RazonSocial = null;
 
     /**
-     * @var integer $TipoDocumento
+     * @var integer $DocumentoTipo
      *
-     * @ORM\Column(name="TipoDocumento", type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $TipoDocumento;
+    private $DocumentoTipo;
 
     /**
-     * @var integer $NumeroDocumento
+     * @var integer $DocumentoNumero
      *
-     * @ORM\Column(name="NumeroDocumento", type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $NumeroDocumento;
+    private $DocumentoNumero;
 
     /**
-     * @var string $Calle
+     * @var string $DomicilioCalle
      *
      * @ORM\Column(name="Calle", type="string", length=255)
      */
-    private $Calle;
+    private $DomicilioCalle;
 
     /**
-     * @var integer $NumeroCalle
+     * @var integer $DomicilioNumero
      *
-     * @ORM\Column(name="NumeroCalle", type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $NumeroCalle;
+    private $DomicilioNumero;
 
     /**
-     * @var integer $Piso
+     * @var integer $DomicilioPiso
      *
-     * @ORM\Column(name="Piso", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $Piso;
+    private $DomicilioPiso;
 
     /**
-     * @var integer $Puerta
+     * @var integer $DomicilioPuerta
      *
-     * @ORM\Column(name="Puerta", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $Puerta;
+    private $DomicilioPuerta;
 
     /**
-     * @var integer $NumeroTelefono
+     * @var integer $TelefonoNumero
      *
-     * @ORM\Column(name="NumeroTelefono", type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $NumeroTelefono;
+    private $TelefonoNumero;
 
     /**
      * @var string $Email
@@ -127,18 +144,18 @@ class Persona
     private $Email;
 
     /**
-     * @var boolean $PersonaJuridica
+     * @var boolean $SituacionTributaria
      *
-     * @ORM\Column(name="PersonaJuridica", type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $PersonaJuridica;
+    private $SituacionTributaria;
 
     /**
-     * @var integer $CodigoPostal
+     * @var integer $DomicilioCodigoPostal
      *
-     * @ORM\Column(name="CodigoPostal", type="string", length=50)
+     * @ORM\Column(type="string", length=50)
      */
-    private $CodigoPostal;
+    private $DomicilioCodigoPostal;
 
     /**
      * @var \DateTime $FechaNacimiento
@@ -158,396 +175,167 @@ class Persona
      * @ORM\ManyToOne(targetEntity="Pais")
      * @ORM\JoinColumn(name="Pais", referencedColumnName="id")
      */
-    protected $Pais;  
+    protected $Pais;
+
     
-    /**
-     * Set Apellido
-     *
-     * @param string $apellido
-     * @return Persona
-     */
-    public function setApellido($apellido)
-    {
-        $this->Apellido = $apellido;
-    
-        return $this;
+    public function getAgente() {
+        return $this->Agente;
     }
 
-    /**
-     * Get Apellido
-     *
-     * @return string 
-     */
-    public function getApellido()
-    {
+    public function setAgente($Agente) {
+        $this->Agente = $Agente;
+    }
+
+    public function getApellido() {
         return $this->Apellido;
     }
 
-    /**
-     * Set Nombre
-     *
-     * @param string $nombre
-     * @return Persona
-     */
-    public function setNombre($nombre)
-    {
-        $this->Nombre = $nombre;
-    
-        return $this;
+    public function setApellido($Apellido) {
+        $this->Apellido = $Apellido;
     }
 
-    /**
-     * Get Nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->Nombre;
     }
 
-    /**
-     * Set RazonSocial
-     *
-     * @param string $razonSocial
-     * @return Persona
-     */
-    public function setRazonSocial($razonSocial)
-    {
-        $this->RazonSocial = $razonSocial;
-    
-        return $this;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
-    /**
-     * Get RazonSocial
-     *
-     * @return string 
-     */
-    public function getRazonSocial()
-    {
+    public function getUsuarioNombre() {
+        return $this->UsuarioNombre;
+    }
+
+    public function setUsuarioNombre($UsuarioNombre) {
+        $this->UsuarioNombre = $UsuarioNombre;
+    }
+
+    public function getRazonSocial() {
         return $this->RazonSocial;
     }
 
-    /**
-     * Set TipoDocumento
-     *
-     * @param integer $tipoDocumento
-     * @return Persona
-     */
-    public function setTipoDocumento($tipoDocumento)
-    {
-        $this->TipoDocumento = $tipoDocumento;
-    
-        return $this;
+    public function setRazonSocial($RazonSocial) {
+        $this->RazonSocial = $RazonSocial;
     }
 
-    /**
-     * Get TipoDocumento
-     *
-     * @return integer 
-     */
-    public function getTipoDocumento()
-    {
-        return $this->TipoDocumento;
+    public function getDocumentoTipo() {
+        return $this->DocumentoTipo;
     }
 
-    /**
-     * Set NumeroDocumento
-     *
-     * @param integer $numeroDocumento
-     * @return Persona
-     */
-    public function setNumeroDocumento($numeroDocumento)
-    {
-        $this->NumeroDocumento = $numeroDocumento;
-    
-        return $this;
+    public function setDocumentoTipo($DocumentoTipo) {
+        $this->DocumentoTipo = $DocumentoTipo;
     }
 
-    /**
-     * Get NumeroDocumento
-     *
-     * @return integer 
-     */
-    public function getNumeroDocumento()
-    {
-        return $this->NumeroDocumento;
+    public function getDocumentoNumero() {
+        return $this->DocumentoNumero;
     }
 
-    /**
-     * Set Calle
-     *
-     * @param string $calle
-     * @return Persona
-     */
-    public function setCalle($calle)
-    {
-        $this->Calle = $calle;
-    
-        return $this;
+    public function setDocumentoNumero($DocumentoNumero) {
+        $this->DocumentoNumero = $DocumentoNumero;
     }
 
-    /**
-     * Get Calle
-     *
-     * @return string 
-     */
-    public function getCalle()
-    {
-        return $this->Calle;
+    public function getDomicilioCalle() {
+        return $this->DomicilioCalle;
     }
 
-    /**
-     * Set NumeroCalle
-     *
-     * @param integer $numeroCalle
-     * @return Persona
-     */
-    public function setNumeroCalle($numeroCalle)
-    {
-        $this->NumeroCalle = $numeroCalle;
-    
-        return $this;
+    public function setDomicilioCalle($DomicilioCalle) {
+        $this->DomicilioCalle = $DomicilioCalle;
     }
 
-    /**
-     * Get NumeroCalle
-     *
-     * @return integer 
-     */
-    public function getNumeroCalle()
-    {
-        return $this->NumeroCalle;
+    public function getDomicilioNumero() {
+        return $this->DomicilioNumero;
     }
 
-    /**
-     * Set NumeroTelefono
-     *
-     * @param integer $numeroTelefono
-     * @return Persona
-     */
-    public function setNumeroTelefono($numeroTelefono)
-    {
-        $this->NumeroTelefono = $numeroTelefono;
-    
-        return $this;
+    public function setDomicilioNumero($DomicilioNumero) {
+        $this->DomicilioNumero = $DomicilioNumero;
     }
 
-    /**
-     * Get NumeroTelefono
-     *
-     * @return integer 
-     */
-    public function getNumeroTelefono()
-    {
-        return $this->NumeroTelefono;
+    public function getDomicilioPiso() {
+        return $this->DomicilioPiso;
     }
 
-    /**
-     * Set Email
-     *
-     * @param string $email
-     * @return Persona
-     */
-    public function setEmail($email)
-    {
-        $this->Email = $email;
-    
-        return $this;
+    public function setDomicilioPiso($DomicilioPiso) {
+        $this->DomicilioPiso = $DomicilioPiso;
     }
 
-    /**
-     * Get Email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
+    public function getDomicilioPuerta() {
+        return $this->DomicilioPuerta;
+    }
+
+    public function setDomicilioPuerta($DomicilioPuerta) {
+        $this->DomicilioPuerta = $DomicilioPuerta;
+    }
+
+    public function getTelefonoNumero() {
+        return $this->TelefonoNumero;
+    }
+
+    public function setTelefonoNumero($TelefonoNumero) {
+        $this->TelefonoNumero = $TelefonoNumero;
+    }
+
+    public function getEmail() {
         return $this->Email;
     }
 
-    /**
-     * Set PersonaJuridica
-     *
-     * @param boolean $personaJuridica
-     * @return Persona
-     */
-    public function setPersonaJuridica($personaJuridica)
-    {
-        $this->PersonaJuridica = $personaJuridica;
-    
-        return $this;
+    public function setEmail($Email) {
+        $this->Email = $Email;
     }
 
-    /**
-     * Get PersonaJuridica
-     *
-     * @return boolean 
-     */
-    public function getPersonaJuridica()
-    {
-        return $this->PersonaJuridica;
+    public function getSituacionTributaria() {
+        return $this->SituacionTributaria;
     }
 
-    /**
-     * Set AgenteGubernamental
-     *
-     * @param boolean $agenteGubernamental
-     * @return Persona
-     */
-    public function setAgenteGubernamental($agenteGubernamental)
-    {
-        $this->AgenteGubernamental = $agenteGubernamental;
-    
-        return $this;
+    public function setSituacionTributaria($SituacionTributaria) {
+        $this->SituacionTributaria = $SituacionTributaria;
     }
 
-    /**
-     * Get AgenteGubernamental
-     *
-     * @return boolean 
-     */
-    public function getAgenteGubernamental()
-    {
-        return $this->AgenteGubernamental;
+    public function getDomicilioCodigoPostal() {
+        return $this->DomicilioCodigoPostal;
     }
 
-    /**
-     * Set CodigoPostal
-     *
-     * @param integer $codigoPostal
-     * @return Persona
-     */
-    public function setCodigoPostal($codigoPostal)
-    {
-        $this->CodigoPostal = $codigoPostal;
-    
-        return $this;
+    public function setDomicilioCodigoPostal($DomicilioCodigoPostal) {
+        $this->DomicilioCodigoPostal = $DomicilioCodigoPostal;
     }
 
-    /**
-     * Get CodigoPostal
-     *
-     * @return integer 
-     */
-    public function getCodigoPostal()
-    {
-        return $this->CodigoPostal;
-    }
-
-    /**
-     * Set Piso
-     *
-     * @param integer $piso
-     * @return Persona
-     */
-    public function setPiso($piso)
-    {
-        $this->Piso = $piso;
-    
-        return $this;
-    }
-
-    /**
-     * Get Piso
-     *
-     * @return integer 
-     */
-    public function getPiso()
-    {
-        return $this->Piso;
-    }
-
-    /**
-     * Set Puerta
-     *
-     * @param integer $puerta
-     * @return Persona
-     */
-    public function setPuerta($puerta)
-    {
-        $this->Puerta = $puerta;
-    
-        return $this;
-    }
-
-    /**
-     * Get Puerta
-     *
-     * @return integer 
-     */
-    public function getPuerta()
-    {
-        return $this->Puerta;
-    }
-
-    /**
-     * Set FechaNacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     * @return Persona
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->FechaNacimiento = $fechaNacimiento;
-    
-        return $this;
-    }
-
-    /**
-     * Get FechaNacimiento
-     *
-     * @return \DateTime 
-     */
-    public function getFechaNacimiento()
-    {
+    public function getFechaNacimiento() {
         return $this->FechaNacimiento;
     }
 
-    /**
-     * Set Genero
-     *
-     * @param integer $genero
-     * @return Persona
-     */
-    public function setGenero($genero)
-    {
-        $this->Genero = $genero;
-    
-        return $this;
+    public function setFechaNacimiento(\DateTime $FechaNacimiento) {
+        $this->FechaNacimiento = $FechaNacimiento;
     }
 
-    /**
-     * Get Genero
-     *
-     * @return integer 
-     */
-    public function getGenero()
-    {
+    public function getGenero() {
         return $this->Genero;
     }
 
-    /**
-     * Set Pais
-     *
-     * @param integer $pais
-     * @return Persona
-     */
-    public function setPais($pais)
-    {
-        $this->Pais = $pais;
+    public function setGenero($Genero) {
+        $this->Genero = $Genero;
+    }
     
-        return $this;
+    public function getPersonaJuridica() {
+        return $this->PersonaJuridica;
     }
 
-    /**
-     * Get Pais
-     *
-     * @return integer 
-     */
-    public function getPais()
-    {
+    public function setPersonaJuridica($PersonaJuridica) {
+        $this->PersonaJuridica = $PersonaJuridica;
+    }
+    
+    public function getPais() {
         return $this->Pais;
     }
+
+    public function setPais($Pais) {
+        $this->Pais = $Pais;
+    }
+
+    public function getGrupos() {
+        return $this->Grupos;
+    }
+
+    public function setGrupos($Grupos) {
+        $this->Grupos = $Grupos;
+    }
+
 }
