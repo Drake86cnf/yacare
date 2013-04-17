@@ -78,11 +78,12 @@ class Partida
     }
     
     public function getNombre() {
+        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoAlfa . $this->MacizoNum . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
         return $this->Nombre;
     }
 
     public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
+        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoAlfa . $this->MacizoNum . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
     }
 
     public function getSeccion() {
