@@ -18,7 +18,7 @@ class Persona
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
      */
-    public $Grupos;
+    private $Grupos;
     
     
     public function __construct()
