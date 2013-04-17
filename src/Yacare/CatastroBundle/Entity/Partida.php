@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Partida
 {
+    use \Yacare\BaseBundle\Entity\Importable;
+    
     /**
      * @var integer $id
      *
@@ -21,6 +23,13 @@ class Partida
      * 
      */
     private $id;
+    
+    /**
+     * @var string $Nombre
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Nombre;
 
     /**
      * @var string $Seccion
@@ -66,6 +75,14 @@ class Partida
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getNombre() {
+        return $this->Nombre;
+    }
+
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
     public function getSeccion() {

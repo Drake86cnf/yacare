@@ -68,14 +68,14 @@ class PersonaGrupo
     {
         return $this->Nombre;
     }
-    
-    
+
+
     /**
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
      */
     protected $Personas;
 
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\PersonaGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
