@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\RecursosHumanosBundle\Entity\Agente
  *
- * @ORM\Table(name="PersonaAgente")
+ * @ORM\Table(name="Rrhh_PersonaAgente")
  * @ORM\Entity
  */
 class Agente

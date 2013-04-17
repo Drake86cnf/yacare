@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\BaseBundle\Entity\Persona
  *
- * @ORM\Table()
+ * @ORM\Table(name="Base_Persona")
  * @ORM\Entity
  */
 class Persona
@@ -16,6 +16,7 @@ class Persona
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
+     * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
      */
     public $Grupos;
     

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\BaseBundle\Entity\Comprobante
  *
- * @ORM\Table()
+ * @ORM\Table(name="Base_Comprobante")
  * @ORM\Entity
  */
 class Comprobante

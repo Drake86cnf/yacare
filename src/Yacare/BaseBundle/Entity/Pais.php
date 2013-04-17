@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\BaseBundle\Entity\Pais
  *
- * @ORM\Table()
+ * @ORM\Table(name="Base_Pais")
  * @ORM\Entity
  */
 class Pais
