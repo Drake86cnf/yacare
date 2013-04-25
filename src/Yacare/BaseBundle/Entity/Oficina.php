@@ -23,17 +23,6 @@ class Oficina
      */
     private $id;
     
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
     /**
      * @var string $Nombre
      *
@@ -58,96 +47,42 @@ class Oficina
      * @ORM\Column(name="Principal", type="boolean")
      */
     private $Principal;
-    
-    /**
-     * Set Nombre
-     *
-     * @param string $nombre
-     * @return Oficina
-     */
-    public function setNombre($nombre)
+
+
+    public function getId()
     {
-        $this->Nombre = $nombre;
-    
-        return $this;
+        return $this->id;
     }
 
-    /**
-     * Get Nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->Nombre;
     }
 
-    /**
-     * Set Dependencia
-     *
-     * @param integer $dependencia
-     * @return Oficina
-     */
-    public function setDependencia($dependencia)
-    {
-        $this->Dependencia = $dependencia;
-    
-        return $this;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
-    /**
-     * Get Dependencia
-     *
-     * @return integer 
-     */
-    public function getDependencia()
-    {
+    public function getDependencia() {
         return $this->Dependencia;
     }
 
-    /**
-     * Set Edificio
-     *
-     * @param integer $edificio
-     * @return Oficina
-     */
-    public function setEdificio($edificio)
-    {
-        $this->Edificio = $edificio;
-    
-        return $this;
+    public function setDependencia($Dependencia) {
+        $this->Dependencia = $Dependencia;
     }
 
-    /**
-     * Get Edificio
-     *
-     * @return integer 
-     */
-    public function getEdificio()
-    {
+    public function getEdificio() {
         return $this->Edificio;
     }
 
-    /**
-     * Set Principal
-     *
-     * @param boolean $principal
-     * @return Oficina
-     */
-    public function setPrincipal($principal)
-    {
-        $this->Principal = $principal;
-    
-        return $this;
+    public function setEdificio($Edificio) {
+        $this->Edificio = $Edificio;
     }
 
-    /**
-     * Get Principal
-     *
-     * @return boolean 
-     */
-    public function getPrincipal()
-    {
+    public function getPrincipal() {
         return $this->Principal;
+    }
+
+    public function setPrincipal($Principal) {
+        $this->Principal = $Principal;
     }
 }

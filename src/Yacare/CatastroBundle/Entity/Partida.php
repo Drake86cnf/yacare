@@ -26,52 +26,41 @@ class Partida
     
     /**
      * @var string $Nombre
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
 
     /**
      * @var string $Seccion
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $Seccion;
     
     /**
      * @var string $MacizoAlfa
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $MacizoAlfa;
     
     /**
      * @var string $MacizoNum
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $MacizoNum;
     
     /**
      * @var string $ParcelaAlfa
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $ParcelaAlfa;
     
     /**
      * @var string $ParcelaNum
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $ParcelaNum;
   
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
     public function getId()
     {
         return $this->id;
