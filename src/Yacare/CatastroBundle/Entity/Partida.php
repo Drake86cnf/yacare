@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Catastro_Partida")
  * @ORM\Entity
+ * 
+ * UPDATE Catastro_Partida 
+	SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);
+ * UPDATE Catastro_Partida 
+	SET CalleNumero=NULL WHERE CalleNumero=0;
+ * 
  */
 class Partida
 {
@@ -32,34 +38,51 @@ class Partida
 
     /**
      * @var string $Seccion
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Seccion;
     
     /**
      * @var string $MacizoAlfa
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $MacizoAlfa;
     
     /**
      * @var string $MacizoNum
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $MacizoNum;
     
     /**
      * @var string $ParcelaAlfa
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ParcelaAlfa;
     
     /**
      * @var string $ParcelaNum
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ParcelaNum;
-  
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Calle")
+     * @ORM\JoinColumn(name="Calle", referencedColumnName="id")
+     */
+    protected $Calle;
+
+    /**
+     * @var string $CalleNumero
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $CalleNumero;
+    
+    /**
+     * @var string $CalleNumeroExtension
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $CalleNumeroExtension;
 
     public function getId()
     {
@@ -113,6 +136,30 @@ class Partida
 
     public function setParcelaNum($ParcelaNum) {
         $this->ParcelaNum = $ParcelaNum;
+    }
+
+    public function getCalle() {
+        return $this->Calle;
+    }
+
+    public function setCalle($Calle) {
+        $this->Calle = $Calle;
+    }
+
+    public function getCalleNumero() {
+        return $this->CalleNumero;
+    }
+
+    public function setCalleNumero($CalleNumero) {
+        $this->CalleNumero = $CalleNumero;
+    }
+
+    public function getCalleNumeroExtension() {
+        return $this->CalleNumeroExtension;
+    }
+
+    public function setCalleNumeroExtension($CalleNumeroExtension) {
+        $this->CalleNumeroExtension = $CalleNumeroExtension;
     }
 
 }

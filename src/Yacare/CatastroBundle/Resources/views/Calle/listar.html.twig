@@ -1,0 +1,23 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Calles{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_catastro_calle_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

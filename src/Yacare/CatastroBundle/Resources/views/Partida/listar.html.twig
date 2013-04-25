@@ -1,0 +1,27 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Partidas{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Calle</th>
+            <th>Número</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_catastro_partida_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Calle }}</td>
+            <td>{{ entity.CalleNumero }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
