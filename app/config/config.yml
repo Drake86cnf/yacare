@@ -64,7 +64,9 @@ doctrine:
       entity_managers:
         default:
           auto_mapping: true
-          connection:       default
+          connection: default
+#        v_catastro:
+#          connection: v_catastro
 
 # Swiftmailer Configuration
 swiftmailer:

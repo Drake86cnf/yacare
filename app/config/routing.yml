@@ -1,12 +1,17 @@
+yacare_importar:
+    resource: "@YacareImportarBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 yacare_catastro:
     resource: "@YacareCatastroBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /catastro/
 
 yacare_inspeccion:
     resource: "@YacareInspeccionBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /inspeccion/
 
 yacare_base:
     resource: "@YacareBaseBundle/Controller/"
