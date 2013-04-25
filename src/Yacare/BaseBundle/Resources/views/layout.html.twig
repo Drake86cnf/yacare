@@ -14,9 +14,9 @@
 	<meta charset="UTF-8" />
 	<title>Yacaré - {% block title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" sizes="16x16" href="{{ asset('bundles/yacare/img/favicon.ico') }}" />
+	<link rel="icon" sizes="16x16" href="{{ asset('bundles/yacarebase/img/favicon.ico') }}" />
 
-	<link id="bs-css" href="{{ asset('bundles/yacare/css/bootstrap-yacare.css') }}" rel="stylesheet" />
+	<link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap-yacare.css') }}" rel="stylesheet" />
 	<style type="text/css">
 	  body {
 		padding-bottom: 40px;
@@ -25,22 +25,22 @@
 		padding: 9px 0;
 	  }
 	</style>
-	<link href="{{ asset('bundles/yacare/css/bootstrap-responsive.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/yacare-app.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/fullcalendar.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
-	<link href="{{ asset('bundles/yacare/css/chosen.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/uniform.default.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/colorbox.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/jquery.cleditor.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/jquery.noty.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/noty_theme_default.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/elfinder.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/elfinder.theme.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/jquery.iphone.toggle.css') }}" rel="stylesheet" />
-	<link href="{{ asset('bundles/yacare/css/opa-icons.css') }}" rel="stylesheet" />
-        <link href="{{ asset('bundles/yacare/css/uploadify.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/bootstrap-responsive.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/yacare-app.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/fullcalendar.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
+	<link href="{{ asset('bundles/yacarebase/css/chosen.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/uniform.default.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/colorbox.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/jquery.cleditor.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/jquery.noty.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/noty_theme_default.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/elfinder.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/elfinder.theme.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/jquery.iphone.toggle.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bundles/yacarebase/css/opa-icons.css') }}" rel="stylesheet" />
+        <link href="{{ asset('bundles/yacarebase/css/uploadify.css') }}" rel="stylesheet" />
 	
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -58,7 +58,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="{{ path('inicio') }}"> <img alt="Yacaré" src="{{ asset('bundles/yacare/img/logo-inicio.png') }}" width="24" height="24" /> <span>Municipio de Río Grande</span></a>
+				<a class="brand" href="{{ path('inicio') }}"> <img alt="Yacaré" src="{{ asset('bundles/yacarebase/img/logo-inicio.png') }}" width="24" height="24" /> <span>Municipio de Río Grande</span></a>
 
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
@@ -133,74 +133,74 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 
 	<!-- jQuery -->
-	<script src="{{ asset('bundles/yacare/js/jquery-1.8.2.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery-1.8.2.min.js') }}"></script>
 	<!-- jQuery UI -->
-	<script src="{{ asset('bundles/yacare/js/jquery-ui-1.9.0.custom.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery-ui-1.9.0.custom.min.js') }}"></script>
 	<!-- transition / effect library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-transition.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-transition.js') }}"></script>
 	<!-- alert enhancer library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-alert.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-alert.js') }}"></script>
 	<!-- modal / dialog library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-modal.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-modal.js') }}"></script>
 	<!-- custom dropdown library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-dropdown.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-dropdown.js') }}"></script>
 	<!-- scrolspy library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-scrollspy.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-scrollspy.js') }}"></script>
 	<!-- library for creating tabs -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-tab.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-tab.js') }}"></script>
 	<!-- library for advanced tooltip -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-tooltip.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-tooltip.js') }}"></script>
 	<!-- popover effect library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-popover.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-popover.js') }}"></script>
 	<!-- button enhancer library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-button.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-button.js') }}"></script>
 	<!-- accordion library (optional, not used in demo) -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-collapse.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-collapse.js') }}"></script>
 	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-carousel.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-carousel.js') }}"></script>
 	<!-- autocomplete library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-typeahead.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-typeahead.js') }}"></script>
 	<!-- tour library -->
-	<script src="{{ asset('bundles/yacare/js/bootstrap-tour.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/bootstrap-tour.js') }}"></script>
 	<!-- library for cookie management -->
-	<script src="{{ asset('bundles/yacare/js/jquery.cookie.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.cookie.js') }}"></script>
 	<!-- calander plugin -->
-	<script src="{{ asset('bundles/yacare/js/fullcalendar.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/fullcalendar.min.js') }}"></script>
 	<!-- data table plugin -->
-	<script src="{{ asset('bundles/yacare/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.dataTables.min.js') }}"></script>
 
 	<!-- chart libraries start -->
-	<script src="{{ asset('bundles/yacare/js/excanvas.js') }}"></script>
-	<script src="{{ asset('bundles/yacare/js/jquery.flot.min.js') }}"></script>
-	<script src="{{ asset('bundles/yacare/js/jquery.flot.pie.min.js') }}"></script>
-	<script src="{{ asset('bundles/yacare/js/jquery.flot.stack.js') }}"></script>
-	<script src="{{ asset('bundles/yacare/js/jquery.flot.resize.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/excanvas.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.flot.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.flot.pie.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.flot.stack.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.flot.resize.min.js') }}"></script>
 	<!-- chart libraries end -->
 
 	<!-- select or dropdown enhancer -->
-	<script src="{{ asset('bundles/yacare/js/jquery.chosen.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.chosen.min.js') }}"></script>
 	<!-- checkbox, radio, and file input styler -->
-	<script src="{{ asset('bundles/yacare/js/jquery.uniform.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.uniform.min.js') }}"></script>
 	<!-- plugin for gallery image view -->
-	<script src="{{ asset('bundles/yacare/js/jquery.colorbox.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.colorbox.min.js') }}"></script>
 	<!-- rich text editor library -->
-	<script src="{{ asset('bundles/yacare/js/jquery.cleditor.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.cleditor.min.js') }}"></script>
 	<!-- notification plugin -->
-	<script src="{{ asset('bundles/yacare/js/jquery.noty.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.noty.js') }}"></script>
 	<!-- file manager library -->
-	<script src="{{ asset('bundles/yacare/js/jquery.elfinder.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.elfinder.min.js') }}"></script>
 	<!-- star rating plugin -->
-	<script src="{{ asset('bundles/yacare/js/jquery.raty.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.raty.min.js') }}"></script>
 	<!-- for iOS style toggle switch -->
-	<script src="{{ asset('bundles/yacare/js/jquery.iphone.toggle.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.iphone.toggle.js') }}"></script>
 	<!-- autogrowing textarea plugin -->
-	<script src="{{ asset('bundles/yacare/js/jquery.autogrow-textarea.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.autogrow-textarea.js') }}"></script>
 	<!-- multiple file upload plugin -->
-	<script src="{{ asset('bundles/yacare/js/jquery.uploadify-3.1.min.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.uploadify-3.1.min.js') }}"></script>
 	<!-- history.js for cross-browser state change on ajax -->
-	<script src="{{ asset('bundles/yacare/js/jquery.history.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/jquery.history.js') }}"></script>
 	<!-- application script for Charisma demo -->
-	<script src="{{ asset('bundles/yacare/js/charisma.js') }}"></script>
+	<script src="{{ asset('bundles/yacarebase/js/charisma.js') }}"></script>
 
 </body>
 </html>
