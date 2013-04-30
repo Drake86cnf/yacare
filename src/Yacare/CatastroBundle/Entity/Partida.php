@@ -24,7 +24,7 @@ class Partida
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\id
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * 
      */

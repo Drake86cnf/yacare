@@ -24,40 +24,24 @@ class Calle
         
     /**
      * @var string $Nombre
-     *
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
-    private $Nombre;    
-  
+    private $Nombre;
+    
+    public function __toString() {
+        return $this->Nombre;
+    }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set Nombre
-     *
-     * @param string $nombre
-     * @return Calle
-     */
     public function setNombre($nombre)
     {
         $this->Nombre = $nombre;
-    
-        return $this;
     }
 
-    /**
-     * Get Nombre
-     *
-     * @return string 
-     */
     public function getNombre()
     {
         return $this->Nombre;

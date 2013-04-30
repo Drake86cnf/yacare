@@ -5,18 +5,19 @@
 {% block content_header '' %}
 
 {% block content %}
-<table class="table bootstrap-datatable datatable">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Calle</th>
-            <th>Número</th>
+            {# sorting of properties based on query components #}
+            <th{% if entities.isSorted('a.Nombre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Nombre', 'a.Nombre') }}</th>
+            <th{% if entities.isSorted('a.Calle') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Calle', 'a.Calle') }}</th>
+            <th{% if entities.isSorted('a.CalleNumero') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Número', 'a.CalleNumero') }}</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_catastro_partida_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><i class="icon-file"></i> <a href="{{ path('yacare_catastro_partida_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
             <td>{{ entity.Calle }}</td>
             <td>{{ entity.CalleNumero }}</td>
         </tr>
@@ -24,4 +25,8 @@
     </tbody>
 </table>
 
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
 {% endblock %}
