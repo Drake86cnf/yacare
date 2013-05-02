@@ -1,5 +1,10 @@
-yacare_importar:
-    resource: "@YacareImportarBundle/Controller/"
+yacare_base:
+    resource: "@YacareBaseBundle/Controller/"
+    type:     annotation
+    prefix:   /base/
+
+yacare_inicio:
+    resource: "@YacareInicioBundle/Controller/"
     type:     annotation
     prefix:   /
 
@@ -12,16 +17,6 @@ yacare_inspeccion:
     resource: "@YacareInspeccionBundle/Controller/"
     type:     annotation
     prefix:   /inspeccion/
-
-yacare_base:
-    resource: "@YacareBaseBundle/Controller/"
-    type:     annotation
-    prefix:   /base/
-
-yacare_inicio:
-    resource: "@YacareInicioBundle/Controller/"
-    type:     annotation
-    prefix:   /inicio/
 
 yacare_recursos_humanos:
     resource: "@YacareRecursosHumanosBundle/Controller/"
