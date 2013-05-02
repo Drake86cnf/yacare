@@ -11,9 +11,9 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Apellido', null, array('label' => 'Apellido',))
-            ->add('Nombre', null, array('label' => 'Nombre',))
-            ->add('RazonSocial', null, array('label' => 'Razón social',))
+            ->add('Apellido', null, array('label' => 'Apellido'))
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('RazonSocial', null, array('label' => 'Razón social'))
             ->add('DocumentoTipo', 'choice', array(
                 'choices'  => array(
                     '0'  => 'DNI',
@@ -21,22 +21,22 @@ class PersonaType extends AbstractType
                     '2' => 'CUIL',
                     '3' => 'CUIT',
                     ),
-                'label' => 'Tipo de documento',))
-            ->add('DocumentoNumero', null, array('label' => 'Número de documento',))
+                'label' => 'Tipo de documento'))
+            ->add('DocumentoNumero', null, array('label' => 'Número de documento'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('UsuarioNombre', null, array('label' => 'Nombre de usuario',))
-            ->add('DomicilioCalle', null, array('label' => 'Calle',))
-            ->add('DomicilioNumero', null, array('label' => 'Número',))
-            ->add('DomicilioPiso', null, array('label' => 'Piso',))
-            ->add('DomicilioPuerta', null, array('label' => 'Puerta',))
-            ->add('DomicilioCodigoPostal', null, array('label' => 'Código postal',))
-            ->add('TelefonoNumero', null, array('label' => 'Número de teléfono',))
-            ->add('Email', null, array('label' => 'Correo electrónico   ',))
+            ->add('UsuarioNombre', null, array('label' => 'Nombre de usuario'))
+            ->add('DomicilioCalle', null, array('label' => 'Calle'))
+            ->add('DomicilioNumero', null, array('label' => 'Número'))
+            ->add('DomicilioPiso', null, array('label' => 'Piso'))
+            ->add('DomicilioPuerta', null, array('label' => 'Puerta'))
+            ->add('DomicilioCodigoPostal', null, array('label' => 'Código postal'))
+            ->add('TelefonoNumero', null, array('label' => 'Número de teléfono'))
+            ->add('Email', null, array('label' => 'Correo electrónico   '))
             ->add('PersonaJuridica', 'checkbox', array(
                 'label' => 'Persona jurídica',
                 'required' => false,))
@@ -45,7 +45,7 @@ class PersonaType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de nacimiento',))
+                'label' => 'Fecha de nacimiento'))
             ->add('Genero', 'choice', array(
                 'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',
