@@ -54,17 +54,23 @@ class Persona
     /**
      * @var string $Apellido
      *
-     * @ORM\Column(name="Apellido", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Apellido;
 
     /**
      * @var string $Nombre
      *
-     * @ORM\Column(name="Nombre", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
     
+    /**
+     * @var string $NombreVisible
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $NombreVisible;
     
     /**
      * @var string $UsuarioNombre
@@ -178,7 +184,23 @@ class Persona
      * @ORM\JoinColumn(name="Pais", referencedColumnName="id")
      */
     protected $Pais;
+    
+    public function getNombreVisible() {
+        if($this->RazonSocial)
+            $this->NombreVisible = $this->RazonSocial;
+        else
+            $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+        return $this->NombreVisible;
+    }
 
+    public function setNombreVisible($NombreVisible) {
+        if($this->RazonSocial)
+            $this->NombreVisible = $this->RazonSocial;
+        else
+            $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+    }
+
+    
     
     public function getAgente() {
         return $this->Agente;
