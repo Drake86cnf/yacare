@@ -16,7 +16,7 @@ yacare_inspeccion:
 yacare_base:
     resource: "@YacareBaseBundle/Controller/"
     type:     annotation
-    prefix:   /admin/
+    prefix:   /base/
 
 yacare_inicio:
     resource: "@YacareInicioBundle/Controller/"
