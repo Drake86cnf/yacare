@@ -12,7 +12,14 @@
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
 		<a class="btn" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
+
+                {% if entity.id %}
+                    &nbsp;
+                    <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'relevamiento_id': entity.id }) }}">Asignar calle</a>
+                    <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'relevamiento_id': entity.id }) }}">Asignar macizo</a>
+                {% endif %}
     </div>
+    
 </form>
 
 {% if not create %}

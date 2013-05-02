@@ -1,0 +1,26 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Relevamiento{% endblock %}
+
+{% block content %}
+
+{% form_theme edit_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
+
+<form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamiento_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva asignación {% endif %}</legend>
+	{{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+		<a class="btn" href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': relevamiento_id }) }}">Cancelar</a>
+    </div>
+    
+</form>
+
+{% if not create %}
+<form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamientoasignacion_eliminar', { 'id': entity.id }) }}" method="post">
+	{{ form_widget(delete_form) }}
+	<button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Eliminar asignación</button>
+</form>
+{% endif %}
+
+{% endblock %}
