@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PersonaGrupo
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Yacare\BaseBundle\Entity\Versionable;
     
     public function __construct()
     {

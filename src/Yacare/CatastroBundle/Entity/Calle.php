@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Calle
 {
+    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\Importable;
+    
     /**
      * @var integer $id
      *

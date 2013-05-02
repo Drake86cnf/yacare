@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Persona
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Yacare\BaseBundle\Entity\Versionable;
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")

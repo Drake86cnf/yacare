@@ -12,7 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dependencia
 {
-    
+    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Yacare\BaseBundle\Entity\Versionable;
+
     /**
      * @ORM\OneToMany(targetEntity="Oficina", mappedBy="Dependencia")
      */

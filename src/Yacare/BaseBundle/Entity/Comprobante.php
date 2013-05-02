@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comprobante
 {
+    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Yacare\BaseBundle\Entity\Versionable;
+
     /**
      * @var integer $id
      *
