@@ -17,13 +17,6 @@ trait Versionable
      * @ORM\Version
      */
     private $Version;
-
-    /**
-     * @var datetime $TimeStamp
-     *
-     * @ORM\Column(name="TimeStamp", type="datetime")
-     */
-    private $TimeStamp;
     
     public function getVersion() {
         return $this->Version;
@@ -31,13 +24,5 @@ trait Versionable
 
     public function setVersion($Version) {
         $this->Version = $Version;
-    }
-
-    public function getTimeStamp() {
-        return $this->TimeStamp;
-    }
-
-    public function setTimeStamp($TimeStamp) {
-        $this->TimeStamp = $TimeStamp;
     }
 }

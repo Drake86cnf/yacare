@@ -57,6 +57,6 @@ trait Timestampable
             $this->CreatedAt = new \DateTime('now');
         }
 
-        $this->CpdatedAt = new \DateTime('now');
+        $this->UpdatedAt = new \DateTime('now');
     }
 }
