@@ -10,7 +10,9 @@ imports:
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
+            #type:         fingers_crossed
+            type:  stream
+            level: debug
             action_level: error
             handler:      nested
         nested:
