@@ -22,10 +22,10 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
     
     
     /**
-     * @Route("asignarcalle/{relevamiento_id}")
+     * @Route("asignarcalle/{id}")
      * @Template()
      */
-    public function asignarcalleAction($relevamiento_id = null)
+    public function asignarcalleAction($id = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -43,40 +43,35 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         return array(
             'entity'      => $entity,
             'create'      => true,
-            'relevamiento_id'      => $relevamiento_id,
+            'id'          => $id,
             'edit_form'   => $editForm->createView()
         );
     }
     
-    
+
     /**
-     * @Route("asignarmacizo/{relevamiento_id}")
+     * @Route("asignarmacizo/{id}")
      * @Template()
      */
     public function asignarmacizoAction($id = null)
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($id) {
-            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-        } else {
-            $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
-            $entity = new $entityName();
-        }
+        $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+        $entity = new $entityName();
 
         if (!$entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+        $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'create'      => $id ? false : true,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'create'      => true,
+            'id'          => $id,
+            'edit_form'   => $editForm->createView()
         );
     }
 }

@@ -27,23 +27,41 @@ class RelevamientoAsignacion
 
     /**
      * @var string $Nombre
-     * @ORM\Column(name="Nombre", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;    
     
     
     /**
      * @ORM\ManyToOne(targetEntity="Relevamiento")
-     * @ORM\JoinColumn(name="Relevamiento", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Relevamiento;
     
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(name="Encargado", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Calle")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Calle;
+    
+    /**
+     * @var string $Seccion
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $Seccion;
+    
+    /**
+     * @var string $Macizo
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $Macizo;
   
 
     /**
@@ -78,5 +96,27 @@ class RelevamientoAsignacion
     public function setEncargado($Encargado) {
         $this->Encargado = $Encargado;
     }
+    public function getCalle() {
+        return $this->Calle;
+    }
 
+    public function setCalle($Calle) {
+        $this->Calle = $Calle;
+    }
+
+    public function getSeccion() {
+        return $this->Seccion;
+    }
+
+    public function setSeccion($Seccion) {
+        $this->Seccion = $Seccion;
+    }
+
+    public function getMacizo() {
+        return $this->Macizo;
+    }
+
+    public function setMacizo($Macizo) {
+        $this->Macizo = $Macizo;
+    }
 }
