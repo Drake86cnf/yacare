@@ -74,20 +74,22 @@ class RelevamientoAsignacion
     }
     
     public function getNombre() {
+        $this->Nombre = $this->getEncargado()->getPersona()->getNombreVisible();
         if($this->getCalle()) {
-            $this->Nombre = $this->Calle->getNombre() . '  ' . $this->getEncargado()->getPersona()->getNombreVisible();
+            $this->Nombre .= ': calle ' . $this->Calle->getNombre();
         } else {
-            $this->Nombre = 'Sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo() . ' a ' . $this->getEncargado()->getPersona()->getNombreVisible();
+            $this->Nombre .= ': sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo();
         }
         
         return $this->Nombre;
     }
 
     public function setNombre($Nombre) {
+        $this->Nombre = $this->getEncargado()->getPersona()->getNombreVisible();
         if($this->getCalle()) {
-            $this->Nombre = $this->Calle->getNombre() . '  ' . $this->getEncargado()->getPersona()->getNombreVisible();
+            $this->Nombre .= ': calle ' . $this->Calle->getNombre();
         } else {
-            $this->Nombre = 'Sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo() . ' a ' . $this->getEncargado()->getPersona()->getNombreVisible();
+            $this->Nombre .= ': sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo();
         }
     }
     
