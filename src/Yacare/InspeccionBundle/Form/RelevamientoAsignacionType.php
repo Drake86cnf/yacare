@@ -26,8 +26,8 @@ class RelevamientoAsignacionType extends AbstractType
             ->add('Calle', 'entity', array(
                 'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
-                'required' => true,
-                'empty_value' => false,
+                'required' => false,
+                'empty_value' => 'Ninguna',
                 'property' => 'Nombre'))
             ->add('Seccion', null, array('label' => 'Sección'))
             ->add('Macizo', null, array('label' => 'Macizo'))
