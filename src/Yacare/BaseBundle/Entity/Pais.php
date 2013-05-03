@@ -27,21 +27,18 @@ class Pais
         
     /**
      * @var string $Nombre
-     *
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
     private $Nombre;    
 
     /**
      * @var string $Iso
-     *
      * @ORM\Column(name="Iso", type="string", length=2)
      */
     private $Iso;    
 
     /**
      * Get id
-     *
      * @return integer 
      */
     public function getId()
@@ -49,26 +46,20 @@ class Pais
         return $this->id;
     }
 
-    /**
-     * Set Nombre
-     *
-     * @param string $nombre
-     * @return Pais
-     */
-    public function setNombre($nombre)
-    {
-        $this->Nombre = $nombre;
-    
-        return $this;
-    }
-
-    /**
-     * Get Nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->Nombre;
     }
+
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
+    }
+
+    public function getIso() {
+        return $this->Iso;
+    }
+
+    public function setIso($Iso) {
+        $this->Iso = $Iso;
+    }
+
 }

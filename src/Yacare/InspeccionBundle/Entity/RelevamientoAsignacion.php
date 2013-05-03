@@ -27,7 +27,7 @@ class RelevamientoAsignacion
 
     /**
      * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Nombre;    
     
@@ -40,7 +40,7 @@ class RelevamientoAsignacion
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\Agente")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;
@@ -74,11 +74,21 @@ class RelevamientoAsignacion
     }
     
     public function getNombre() {
+        if($this->getCalle()) {
+            $this->Nombre = $this->Calle->getNombre() . '  ' . $this->getEncargado()->getPersona()->getNombreVisible();
+        } else {
+            $this->Nombre = 'Sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo() . ' a ' . $this->getEncargado()->getPersona()->getNombreVisible();
+        }
+        
         return $this->Nombre;
     }
 
     public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
+        if($this->getCalle()) {
+            $this->Nombre = $this->Calle->getNombre() . '  ' . $this->getEncargado()->getPersona()->getNombreVisible();
+        } else {
+            $this->Nombre = 'Sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo() . ' a ' . $this->getEncargado()->getPersona()->getNombreVisible();
+        }
     }
     
     public function getRelevamiento() {

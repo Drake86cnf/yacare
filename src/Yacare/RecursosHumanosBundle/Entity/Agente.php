@@ -68,4 +68,8 @@ class Agente
     public function setFechaIngreso(\DateTime $FechaIngreso) {
         $this->FechaIngreso = $FechaIngreso;
     }
+    
+    public function __toString() {
+        return $this->Persona->getNombreVisible();
+    }
 }

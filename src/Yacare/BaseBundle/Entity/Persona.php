@@ -362,4 +362,7 @@ class Persona
         $this->Grupos = $Grupos;
     }
 
+    public function __toString() {
+        return $this->getNombreVisible();
+    }
 }

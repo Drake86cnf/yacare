@@ -23,6 +23,15 @@ class RelevamientoAsignacionType extends AbstractType
                 'required' => true,
                 'empty_value' => false,
                 'property' => 'Persona.NombreVisible'))
+            ->add('Calle', 'entity', array(
+                'mapped' => false,
+                'label' => 'Calle',
+                'class' => 'YacareCatastroBundle:Calle',
+                'required' => true,
+                'empty_value' => false,
+                'property' => 'Nombre'))
+            ->add('Seccion', null, array('label' => 'Sección'))
+            ->add('Macizo', null, array('label' => 'Macizo'))
         ;
     }
 

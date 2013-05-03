@@ -16,7 +16,6 @@ class RelevamientoAsignacionMacizoType extends AbstractType
                 'class' => 'YacareInspeccionBundle:Relevamiento',
                 'required' => true,
                 'read_only' => true,
-                'disabled' => true,
                 'empty_value' => false,
                 'property' => 'Nombre'))
             ->add('Encargado', 'entity', array(
