@@ -5,12 +5,12 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Relevamiento
+ * RelevamientoIncidente
  *
- * @ORM\Table("Inspeccion_Relevamiento")
+ * @ORM\Table("Inspeccion_RelevamientoIncidente")
  * @ORM\Entity
  */
-class Relevamiento
+class RelevamientoIncidnte
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
@@ -31,10 +31,10 @@ class Relevamiento
     private $Nombre;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
-    private $FechaInicio;
+    private $Grupo;
 
 
     /**
@@ -50,16 +50,15 @@ class Relevamiento
         return $this->Nombre;
     }
 
-    public function setNombre($nombre) {
-        $this->Nombre = $nombre;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
-    public function getFechaInicio() {
-        return $this->FechaInicio;
+    public function getGrupo() {
+        return $this->Grupo;
     }
 
-    public function setFechaInicio(\DateTime $fechaInicio) {
-        $this->FechaInicio = $fechaInicio;
+    public function setGrupo($Grupo) {
+        $this->Grupo = $Grupo;
     }
-
 }
