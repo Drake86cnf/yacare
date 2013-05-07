@@ -27,13 +27,13 @@ class Pais
         
     /**
      * @var string $Nombre
-     * @ORM\Column(name="Nombre", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;    
 
     /**
      * @var string $Iso
-     * @ORM\Column(name="Iso", type="string", length=2)
+     * @ORM\Column(type="string", length=2)
      */
     private $Iso;    
 

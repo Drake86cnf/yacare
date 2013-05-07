@@ -1,0 +1,30 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Dispositivos{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table table-striped bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Marca y modelo</th>
+            <th>Tipo</th>
+            <th>Encargado</th>
+            <th>Serie</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-file"></i> <a href="{{ path('yacare_base_dispositivo_editar', { 'id': entity.Id }) }}">{{ entity.Marca }} {{ entity.Modelo }}</a></td>
+            <td>{{ entity.Tipo }}</td>
+            <td>{{ entity.Encargado.Persona.NombreVisible }}</td>
+            <td>{{ entity.NumeroSerie }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('yacare_base_dispositivo_editar_1') }}" class="btn"><i class="icon-plus"></i> Crear nuevo dispositivo</a>
+{% endblock %}
