@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait ConImagen
 {
     /**
-     * @var blob $Imagen
+     * @var $Imagen
      * @ORM\Column(name="Imagen", type="blob")
      */
     private $Imagen;
@@ -20,7 +20,7 @@ trait ConImagen
         return $this->Imagen;
     }
 
-    public function setImagen(blob $Imagen) {
+    public function setImagen($Imagen) {
         $this->Imagen = $Imagen;
     }
 }
