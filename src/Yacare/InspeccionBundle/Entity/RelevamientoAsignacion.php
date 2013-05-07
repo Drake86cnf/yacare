@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class RelevamientoAsignacion
 {
@@ -62,7 +63,32 @@ class RelevamientoAsignacion
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Macizo;
-  
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RelevamientoAsignacionDetalle", mappedBy="Relevamiento", orphanRemoval=true)
+     */
+    protected $Detalles;
+
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function ActualizarDetalle()
+    {
+        $this->EliminarDetalle();
+        
+        
+    }
+    
+    /**
+     * @ORM\PreRemove()
+     */
+    public function EliminarDetalle()
+    {
+        
+    }
+    
 
     /**
      * Get id
@@ -130,5 +156,12 @@ class RelevamientoAsignacion
 
     public function setMacizo($Macizo) {
         $this->Macizo = $Macizo;
+    }
+    public function getDetalles() {
+        return $this->Detalles;
+    }
+
+    public function setDetalles($Detalles) {
+        $this->Detalles = $Detalles;
     }
 }
