@@ -1,0 +1,26 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Relevamientos - Tipos de resultado{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Grupo</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_inspeccion_relevamientoresultadotipo_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Grupo }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('yacare_inspeccion_relevamientoresultadotipo_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo tipo de resultado</a>
+{% endblock %}

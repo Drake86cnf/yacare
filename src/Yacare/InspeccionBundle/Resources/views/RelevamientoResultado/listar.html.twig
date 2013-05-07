@@ -1,0 +1,23 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Relevamiento - Resultados{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Relevamiento</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_inspeccion_relevamientoresultado_editar', { 'id': entity.Id }) }}">{{ entity.Relevamiento.Nombre }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

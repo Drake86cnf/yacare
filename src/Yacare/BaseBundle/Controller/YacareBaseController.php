@@ -17,6 +17,9 @@ class YacareBaseController extends Controller
         
         if(!isset($this->UsePaginator))
             $this->UsePaginator = false;
+        
+        if(!isset($this->OrderBy))
+            $this->OrderBy = null;
     }
    
     /**
@@ -25,29 +28,32 @@ class YacareBaseController extends Controller
      */
     public function listarAction()
     {
-        if($this->UsePaginator) {
-            $em = $this->getDoctrine()->getManager();
-            $dql   = 'SELECT a FROM Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ' a';
-            $query = $em->createQuery($dql);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        
+        //$dql   = 'SELECT a FROM Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ' a';
+        //$query = $em->createQuery($dql);
+        $qb->select('r')->from('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName, 'r');
+        
+        if($this->OrderBy)
+            $qb->orderBy($this->OrderBy);
 
+        $query = $qb->getQuery();
+
+        if($this->UsePaginator) {
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
                 $query,
                 $this->get('request')->query->get('page', 1)/*page number*/,
                 10/*limit per page*/
             );
-
-            // parameters to template
-            return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':listar.html.twig', array('entities' => $entities));
         } else {
-            $em = $this->getDoctrine()->getManager();
-
-            $entities = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->findAll();
-
-            return array(
-                'entities' => $entities,
-            );
+            $entities = $query->getResult();
         }
+        
+        return array(
+            'entities' => $entities,
+        );
     }
 
 

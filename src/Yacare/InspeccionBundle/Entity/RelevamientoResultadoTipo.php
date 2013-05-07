@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * RelevamientoIncidente
  *
- * @ORM\Table("Inspeccion_RelevamientoIncidente")
+ * @ORM\Table("Inspeccion_RelevamientoResultadoTipo")
  * @ORM\Entity
  */
-class RelevamientoIncidnte
+class RelevamientoResultadoTipo
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
@@ -32,7 +32,7 @@ class RelevamientoIncidnte
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Grupo;
 
