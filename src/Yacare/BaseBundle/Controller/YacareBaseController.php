@@ -31,8 +31,6 @@ class YacareBaseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         
-        //$dql   = 'SELECT a FROM Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ' a';
-        //$query = $em->createQuery($dql);
         $qb->select('r')->from('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName, 'r');
         
         if($this->OrderBy)

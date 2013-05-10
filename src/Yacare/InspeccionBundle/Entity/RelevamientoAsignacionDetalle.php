@@ -31,7 +31,6 @@ class RelevamientoAsignacionDetalle
      */
     protected $Relevamiento;
     
-    
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -39,10 +38,46 @@ class RelevamientoAsignacionDetalle
     protected $Asignacion;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\Agente")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Encargado;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Partida;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $PartidaSeccion;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $PartidaMacizo;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $PartidaParcela;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $PartidaCalle;
+    
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $PartidaCalleNumero;
     
     /**
      * Get id
@@ -76,5 +111,44 @@ class RelevamientoAsignacionDetalle
     public function setPartida($Partida) {
         $this->Partida = $Partida;
     }
+    
+    public function getPartidaSeccion() {
+        return $this->PartidaSeccion;
+    }
 
+    public function setPartidaSeccion($PartidaSeccion) {
+        $this->PartidaSeccion = $PartidaSeccion;
+    }
+
+    public function getPartidaMacizo() {
+        return $this->PartidaMacizo;
+    }
+
+    public function setPartidaMacizo($PartidaMacizo) {
+        $this->PartidaMacizo = $PartidaMacizo;
+    }
+
+    public function getPartidaParcela() {
+        return $this->PartidaParcela;
+    }
+
+    public function setPartidaParcela($PartidaParcela) {
+        $this->PartidaParcela = $PartidaParcela;
+    }
+
+    public function getPartidaCalle() {
+        return $this->PartidaCalle;
+    }
+
+    public function setPartidaCalle($PartidaCalle) {
+        $this->PartidaCalle = $PartidaCalle;
+    }
+
+    public function getPartidaCalleNumero() {
+        return $this->PartidaCalleNumero;
+    }
+
+    public function setPartidaCalleNumero($PartidaCalleNumero) {
+        $this->PartidaCalleNumero = $PartidaCalleNumero;
+    }
 }

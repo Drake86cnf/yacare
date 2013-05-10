@@ -20,6 +20,15 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         parent::__construct();
     }
     
+    /**
+     * @Route("relevamiento/{relevamiento}")
+     * @Template()
+     */
+    public function relevamientoAction($relevamiento)
+    {
+        return parent::listarAction();
+    }
+    
     
     /**
      * @Route("guardar/{id}")
