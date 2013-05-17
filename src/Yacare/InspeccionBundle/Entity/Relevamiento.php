@@ -15,6 +15,11 @@ class Relevamiento
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     
+    public function __construct()
+    {
+        $this->Asignaciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * @var integer
      *
@@ -29,6 +34,11 @@ class Relevamiento
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RelevamientoAsignacion", mappedBy="Relevamiento")
+     */
+    private $Asignaciones;
 
     /**
      * @var \DateTime
@@ -62,4 +72,11 @@ class Relevamiento
         $this->FechaInicio = $fechaInicio;
     }
 
+    public function getAsignaciones() {
+        return $this->Asignaciones;
+    }
+
+    public function setAsignaciones($Asignaciones) {
+        $this->Asignaciones = $Asignaciones;
+    }
 }

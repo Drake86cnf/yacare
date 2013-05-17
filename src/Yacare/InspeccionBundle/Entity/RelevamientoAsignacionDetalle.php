@@ -191,4 +191,60 @@ class RelevamientoAsignacionDetalle
     public function setPartidaCalleNumero($PartidaCalleNumero) {
         $this->PartidaCalleNumero = $PartidaCalleNumero;
     }
+    
+    public function getEncargado() {
+        return $this->Encargado;
+    }
+
+    public function setEncargado($Encargado) {
+        $this->Encargado = $Encargado;
+    }
+
+    public function getResultado1() {
+        return $this->Resultado1;
+    }
+
+    public function setResultado1($Resultado1) {
+        $this->Resultado1 = $Resultado1;
+    }
+
+    public function getResultado2() {
+        return $this->Resultado2;
+    }
+
+    public function setResultado2($Resultado2) {
+        $this->Resultado2 = $Resultado2;
+    }
+
+    public function getResultado3() {
+        return $this->Resultado3;
+    }
+
+    public function setResultado3($Resultado3) {
+        $this->Resultado3 = $Resultado3;
+    }
+
+    public function getResultadoObs() {
+        return $this->ResultadoObs;
+    }
+
+    public function setResultadoObs($ResultadoObs) {
+        $this->ResultadoObs = $ResultadoObs;
+    }
+
+    public function getResultadoImagen() {
+        return $this->ResultadoImagen;
+    }
+
+    public function setResultadoImagen($ResultadoImagen) {
+        $this->ResultadoImagen = $ResultadoImagen;
+    }
+
+    public function getResultadoUbicacion() {
+        return $this->ResultadoUbicacion;
+    }
+
+    public function setResultadoUbicacion($ResultadoUbicacion) {
+        $this->ResultadoUbicacion = $ResultadoUbicacion;
+    }
 }
