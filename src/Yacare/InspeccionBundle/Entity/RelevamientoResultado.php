@@ -5,52 +5,36 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\InspeccionBundle\Entity\RelevamientoResultado
+ * RelevamientoIncidente
  *
- * @ORM\Table(name="Inspeccion_RelevamientoResultado")
+ * @ORM\Table("Inspeccion_RelevamientoResultado")
  * @ORM\Entity
  */
 class RelevamientoResultado
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\ConImagen;
-
+    
     /**
-     * @var integer $id
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
      */
     private $id;
 
     /**
-     * @var string $Fecha
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
-    private $Fecha;
-    
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Relevamiento")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Relevamiento;
-    
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Partida;
+    private $Nombre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\RelevamientoResultadoTipo")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $ResultadoTipo;
+    private $Grupo;
 
 
     /**
@@ -61,36 +45,20 @@ class RelevamientoResultado
     {
         return $this->id;
     }
-    
-    public function getFecha() {
-        return $this->Fecha;
+
+    public function getNombre() {
+        return $this->Nombre;
     }
 
-    public function setFecha($Fecha) {
-        $this->Fecha = $Fecha;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
-    public function getRelevamiento() {
-        return $this->Relevamiento;
+    public function getGrupo() {
+        return $this->Grupo;
     }
 
-    public function setRelevamiento($Relevamiento) {
-        $this->Relevamiento = $Relevamiento;
-    }
-
-    public function getPartida() {
-        return $this->Partida;
-    }
-
-    public function setPartida($Partida) {
-        $this->Partida = $Partida;
-    }
-
-    public function getResultadoTipo() {
-        return $this->ResultadoTipo;
-    }
-
-    public function setResultadoTipo($ResultadoTipo) {
-        $this->ResultadoTipo = $ResultadoTipo;
+    public function setGrupo($Grupo) {
+        $this->Grupo = $Grupo;
     }
 }

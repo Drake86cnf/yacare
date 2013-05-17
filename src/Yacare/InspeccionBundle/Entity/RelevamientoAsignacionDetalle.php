@@ -3,6 +3,7 @@
 namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle
@@ -78,6 +79,45 @@ class RelevamientoAsignacionDetalle
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $PartidaCalleNumero;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado1;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado2;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado3;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $ResultadoObs;
+    
+    
+    /**
+     * @var string
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    protected $ResultadoImagen;
+    
+    
+    /**
+     * @var string
+     * @ORM\Column(type="point", nullable=true)
+     */
+    protected $ResultadoUbicacion;
+    
     
     /**
      * Get id

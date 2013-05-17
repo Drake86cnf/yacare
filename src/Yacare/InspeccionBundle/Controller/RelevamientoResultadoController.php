@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("relevamiento/resultado/")
+ * @Route("relevamiento/resutlado/")
  */
 class RelevamientoResultadoController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
@@ -17,6 +17,7 @@ class RelevamientoResultadoController extends \Yacare\BaseBundle\Controller\Yaca
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoResultado';
         $this->UsePaginator = true;
+        $this->OrderBy = 'r.Grupo, r.Nombre';
         parent::__construct();
     }
 }
