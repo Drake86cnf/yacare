@@ -24,7 +24,6 @@
 
 {% if not create %}
 <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver asignaciones</a>
-<a href="{{ path('yacare_inspeccion_relevamiento_preparar', { 'id': entity.Id }) }}" class="btn"><i class="icon-download-alt"></i> Preparar</a>
 <br />
 <br />
 <form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamiento_eliminar', { 'id': entity.id }) }}" method="post">

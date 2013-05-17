@@ -19,34 +19,4 @@ class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareBaseCon
         $this->UsePaginator = true;
         parent::__construct();
     }
-    
-    /**
-     * @Route("relevamiento/preparar/{id}")
-     * @Template()
-     */
-    public function prepararAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-        $total_partidas = 0;
-        
-        foreach ($entity->getAsignaciones() as $Asignacion) {
-            if($Asignacion->getCalle()) {
-                // Es por calle
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Calle' => $Asignacion->getCalle()));
-                foreach ($partidas as $partida) {
-                    $total_partidas++;
-                }
-            } else {
-                // Es por S-M
-            }
-        }
-
-        return array(
-            'entity'      => $entity,
-            'total_partidas'      => $total_partidas,
-            'id'          => $id
-        );
-    }
 }

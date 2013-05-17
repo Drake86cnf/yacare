@@ -1,0 +1,14 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Cancelar asignación{% endblock %}
+
+{% block content %}
+
+<legend>Cancelar asignación</legend>
+
+<p>¿Está seguro de que desea eliminar la asignación?</p>
+
+<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoasignacion_cancelar', { 'id': id, 'confirma': 1 }) }}"><i class="icon-trash icon-white"></i> Eliminar asignación</a>
+<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_editar', { 'id': id }) }}">Cancelar</a>
+
+{% endblock %}

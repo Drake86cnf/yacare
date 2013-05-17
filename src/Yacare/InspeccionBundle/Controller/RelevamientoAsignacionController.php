@@ -29,6 +29,23 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         return parent::listarAction();
     }
     
+    /**
+     * @Route("cancelar/{id}")
+     * @Route("cancelar")
+     * @Template("YacareInspeccionBundle:RelevamientoAsignacion:cancelar.html.twig")
+     */
+    public function cancelarAction($id=null, $confirma=FALSE)
+    {
+        if($confirma)  {
+            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
+        }
+        
+        return array(
+            'id'      => $id,
+            );
+    }
+    
+    
     
     /**
      * @Route("guardar/{id}")
@@ -69,6 +86,10 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
             $total_partidas = 0;
             if($partidas) {
+                $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado IS NULL')
+                    ->setParameter('asignacion_id', $entity->getId())
+                    ->execute();
+                
                 foreach ($partidas as $partida) {
                     $total_partidas++;
                     $Deta = new \Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle();
@@ -77,6 +98,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     $Deta->setRelevamiento($entity->getRelevamiento());
                     $Deta->setPartida($partida);
                     $Deta->setPartidaCalle($partida->getCalle());
+                    $Deta->setPartidaCalleNombre($partida->getCalle());
                     $Deta->setPartidaCalleNumero($partida->getCalleNumero());
                     $Deta->setPartidaSeccion($partida->getSeccion());
                     $Deta->setPartidaMacizo($partida->getMacizoNum() . $partida->getMacizoAlfa());

@@ -69,10 +69,16 @@ class RelevamientoAsignacionDetalle
     protected $PartidaParcela;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Calle")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $PartidaCalle;
+    
+    /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $PartidaCalle;
+    protected $PartidaCalleNombre;
     
     /**
      * @var integer
@@ -247,4 +253,11 @@ class RelevamientoAsignacionDetalle
     public function setResultadoUbicacion($ResultadoUbicacion) {
         $this->ResultadoUbicacion = $ResultadoUbicacion;
     }
+    public function getPartidaCalleNombre() {
+        return $this->PartidaCalleNombre;
+    }
+
+    public function setPartidaCalleNombre($PartidaCalleNombre) {
+        $this->PartidaCalleNombre = $PartidaCalleNombre;
+    }    
 }
