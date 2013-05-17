@@ -39,6 +39,8 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
+      types:
+        point: Knp\DoctrineBehaviors\DBAL\Types\PointType
       default_connection: default
       connections:
         default:
@@ -49,6 +51,8 @@ doctrine:
           user:     "%database_user%"
           password: "%database_password%"
           charset:  UTF8
+          mapping_types:
+            point: point
         v_catastro:
           driver:   "oci8"
           host:     "192.168.100.20"
