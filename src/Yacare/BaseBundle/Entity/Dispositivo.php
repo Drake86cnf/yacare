@@ -50,6 +50,12 @@ class Dispositivo
     protected $NumeroSerie;
     
     /**
+     * @var string $IdentificadorUnico
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $IdentificadorUnico;
+    
+    /**
      * @var string $Comentario
      * @ORM\Column(type="string", length=255)
      */
@@ -115,5 +121,12 @@ class Dispositivo
 
     public function setTipo($Tipo) {
         $this->Tipo = $Tipo;
+    }
+    public function getIdentificadorUnico() {
+        return $this->IdentificadorUnico;
+    }
+
+    public function setIdentificadorUnico($IdentificadorUnico) {
+        $this->IdentificadorUnico = $IdentificadorUnico;
     }
 }
