@@ -12,6 +12,7 @@
             <th>Tipo</th>
             <th>Encargado</th>
             <th>Serie</th>
+            <th>Identificador</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td>{{ entity.Tipo }}</td>
             <td>{{ entity.Encargado.Persona.NombreVisible }}</td>
             <td>{{ entity.NumeroSerie }}</td>
+            <td>{{ entity.IdentificadorUnico }}</td>
         </tr>
     {% endfor %}
     </tbody>

@@ -24,7 +24,8 @@ class DispositivoType extends AbstractType
                 'label' => 'Tipo'))
             ->add('Marca', null, array('label' => 'Marca'))
             ->add('Modelo', null, array('label' => 'Modelo'))
-            ->add('NumeroSerie', null, array('label' => 'Identificador único'))
+            ->add('NumeroSerie', null, array('label' => 'Número de serie'))
+            ->add('IdentificadorUnico', null, array('label' => 'Identificador único'))
             ->add('Comentario', null, array('label' => 'Comentario'))
             ->add('Encargado', 'entity', array(
                 'label' => 'Encargado',
