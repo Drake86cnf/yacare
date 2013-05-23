@@ -5,22 +5,29 @@
 {% block content_header '' %}
 
 {% block content %}
-<table class="table table-striped bootstrap-datatable datatable">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Dirección</th>
-            <th>Parcela</th>
+            <th>Incidencias</th>
+            <th>Obs</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td>{{ entity.PartidaCalleNombre }} {{ entity.PartidaCalleNumero }}</td>
-            <td>{{ entity.Resultado1 }}</td>
+            <td>{{ entity.Resultado1 }} {{ entity.Resultado2 }} {{ entity.Resultado3 }}</td>
+            <td>{{ entity.ResultadoObs }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<a href="{{ path('yacare_inspeccion_relevamientoasignacion_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva asignación</a>
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_inspeccion_relevamiento_editar') }}" class="btn"><i class="icon-plus"></i> Volver al relevamiento</a>
 {% endblock %}

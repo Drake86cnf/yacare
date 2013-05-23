@@ -42,7 +42,7 @@ class YacareBaseController extends Controller
             $dql .= " ORDER BY " . $this->OrderBy;
 
         $query = $em->createQuery($dql);
-
+        
         if($this->UsePaginator) {
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
