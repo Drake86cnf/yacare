@@ -20,6 +20,9 @@ class YacareBaseController extends Controller
         
         if(!isset($this->OrderBy))
             $this->OrderBy = null;
+        
+        if(!isset($this->Where))
+            $this->Where = null;
     }
    
     /**
@@ -29,21 +32,23 @@ class YacareBaseController extends Controller
     public function listarAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+       
+        $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
-        $qb->select('r')->from('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName, 'r');
+        if($this->Where)
+            $dql .= " WHERE " . $this->Where;
         
         if($this->OrderBy)
-            $qb->orderBy($this->OrderBy);
+            $dql .= " ORDER BY " . $this->OrderBy;
 
-        $query = $qb->getQuery();
+        $query = $em->createQuery($dql);
 
         if($this->UsePaginator) {
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
                 $query,
-                $this->get('request')->query->get('page', 1)/*page number*/,
-                10/*limit per page*/
+                $this->get('request')->query->get('page', 1) /* page number */,
+                10 /* limit per page */
             );
         } else {
             $entities = $query->getResult();

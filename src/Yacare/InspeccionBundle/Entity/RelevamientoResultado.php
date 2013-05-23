@@ -61,4 +61,11 @@ class RelevamientoResultado
     public function setGrupo($Grupo) {
         $this->Grupo = $Grupo;
     }
+    
+    public function __toString() {
+        if($this->getGrupo())
+            return $this->getGrupo() . ': ' . $this->getNombre();
+        else
+            return $this->getNombre();
+    }
 }

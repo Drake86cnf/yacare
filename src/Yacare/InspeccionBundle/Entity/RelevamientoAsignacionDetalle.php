@@ -120,7 +120,7 @@ class RelevamientoAsignacionDetalle
     
     /**
      * @var string
-     * @ORM\Column(type="point", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $ResultadoUbicacion;
     

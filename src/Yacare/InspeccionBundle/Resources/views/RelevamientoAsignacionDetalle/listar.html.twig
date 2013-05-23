@@ -1,0 +1,26 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Relevamientos - Resultados{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<table class="table table-striped bootstrap-datatable datatable">
+    <thead>
+        <tr>
+            <th>Dirección</th>
+            <th>Parcela</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.PartidaCalleNombre }} {{ entity.PartidaCalleNumero }}</td>
+            <td>{{ entity.Resultado1 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('yacare_inspeccion_relevamientoasignacion_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva asignación</a>
+{% endblock %}
