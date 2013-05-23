@@ -12,7 +12,7 @@ trait ConImagen
 {
     /**
      * @var $Imagen
-     * @ORM\Column(name="Imagen", type="blob")
+     * @ORM\Column(name="Imagen", type="blob", nullable=true)
      */
     private $Imagen;
 

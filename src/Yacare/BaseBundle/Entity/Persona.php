@@ -113,14 +113,14 @@ class Persona
     /**
      * @var string $DomicilioCalle
      *
-     * @ORM\Column(name="Calle", type="string", length=255)
+     * @ORM\Column(name="Calle", type="string", length=255, nullable=true)
      */
     private $DomicilioCalle;
 
     /**
      * @var integer $DomicilioNumero
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $DomicilioNumero;
 
@@ -141,7 +141,7 @@ class Persona
     /**
      * @var integer $TelefonoNumero
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $TelefonoNumero;
 
@@ -162,21 +162,21 @@ class Persona
     /**
      * @var integer $DomicilioCodigoPostal
      *
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $DomicilioCodigoPostal;
 
     /**
      * @var \DateTime $FechaNacimiento
      *
-     * @ORM\Column(name="FechaNacimiento", type="date")
+     * @ORM\Column(name="FechaNacimiento", type="date", nullable=true)
      */
     private $FechaNacimiento;
 
     /**
      * @var integer $Genero
      *
-     * @ORM\Column(name="Genero", type="integer")
+     * @ORM\Column(name="Genero", type="integer", nullable=true)
      */
     private $Genero;
 
@@ -217,6 +217,7 @@ class Persona
 
     public function setApellido($Apellido) {
         $this->Apellido = $Apellido;
+        $this->getNombreVisible();
     }
 
     public function getNombre() {
@@ -225,6 +226,7 @@ class Persona
 
     public function setNombre($Nombre) {
         $this->Nombre = $Nombre;
+        $this->getNombreVisible();
     }
 
     public function getUsuarioNombre() {
@@ -237,6 +239,7 @@ class Persona
 
     public function getRazonSocial() {
         return $this->RazonSocial;
+        $this->getNombreVisible();
     }
 
     public function setRazonSocial($RazonSocial) {
