@@ -86,7 +86,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
             $total_partidas = 0;
             if($partidas) {
-                $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado IS NULL')
+                $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado1 IS NULL')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 
