@@ -19,7 +19,7 @@
 
 	if($mac && $estoy_conectado) {
 		$Dispositivo = $db_remota->query("SELECT id, Encargado_id, Marca, Modelo, Comentario FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
-		if($Dispositivo) {
+		if($Dispositivo && $Dispositivo['Encargado_id']) {
                     $IdDispositivo = (int)($Dispositivo['Encargado_id']);
                     $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=$IdDispositivo")->fetch();
 
