@@ -39,7 +39,7 @@
 
 	// Envío Relevamientos realizados
 	echo "Enviando detalles: ";
-	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NOT NULL";
+	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id > 0 OR Resultado1_id IS NOT NULL";
 	$cantidad_relevamiento = 0;
 	foreach ($db_local->query($sql) as $row) {
 		$cantidad_relevamiento++;	
