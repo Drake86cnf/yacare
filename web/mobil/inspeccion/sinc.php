@@ -159,6 +159,13 @@
 	echo "se importaron $cantidad_incidente registros, se saltearon $cantidad_incidente_salteado.</p>";
 
 ?>
+
+<script>
+window.setTimeout(RedireccionarSinc, 10000);
+function RedireccionarSinc() {
+    window.location='listado.php';
+}
+</script>
 </div>
 
 </body>

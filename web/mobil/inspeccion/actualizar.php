@@ -50,16 +50,18 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 }
 ?>
 
-<p>Se actualizaron <?php echo $cantidad_archivos; ?> archivos y hubo <?php echo $cantidad_errores; ?> errores.</p>
+<p>Se actualizaron <?php echo $cantidad_archivos ?> archivos y hubo <?php echo $cantidad_errores ?> errores.</p>
 <p><a href="presinc.php">Haga clic aquí para continuar.</a></p>
 
 <script type="text/javascript">
 <?php
     if($cantidad_archivos == 0 && $cantidad_errores = 0) {
+        echo "a";
 ?>
 window.location='presinc.php';
 <?php
     } else {
+        echo "b";
 ?>
 window.setTimeout(RedireccionarSinc, 4000);
 function RedireccionarSinc() {

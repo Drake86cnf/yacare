@@ -29,6 +29,12 @@ a descargar nuevas asignaciones. Haga clic en el botón &quot;Sincronzar ahora&q
 <p>El encargado de este dispositivo: <?php echo $DispositivoEncargado['NombreVisible'] . ' (' . $Dispositivo['Encargado_id'] . ')' ?></p>
 <p>Información del dispositivo: <?php echo $Dispositivo['Marca'] . ' ' . $Dispositivo['Modelo'] . ' (' . $Dispositivo['Comentario'] . ')' ?></p>
 <button onclick="parent.location='sinc.php';">Sincronizar ahora</button>
+<script>
+window.setTimeout(RedireccionarSinc, 10000);
+function RedireccionarSinc() {
+    window.location='sinc.php';
+}
+</script>
 <?php
 		} else {
 ?>
