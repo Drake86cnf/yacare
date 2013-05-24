@@ -12,7 +12,7 @@
 
 <form name="editar" action="guardar.php" method="post" onsubmit="getLocation()">
 <input type="hidden" id="id" name="id" value="<?php echo $Id; ?>" />
-<input type="hidden" id="Foto" name="Foto" />
+<input type="hidden" id="Imagen" />
 
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
@@ -133,7 +133,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
     video.style.display = 'none';
     restartbutton.style.display = '';
     canvas.style.display = '';
-    document.getElementById("Foto").value = canvas.toDataURL();
+    document.getElementById("Imagen").value = canvas.toDataURL('image/jpeg');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     }

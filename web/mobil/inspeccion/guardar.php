@@ -51,19 +51,11 @@ function dataURLtoBlob(dataURL) {
 	if(!$_POST["Foto"]) {
 		$dataURL = 'NULL';
 	}else {	
-		$imagen = $_POST["Foto"];
-		$binario = base64_decode($imagen);
+		$imagen = substr($_POST["Foto"], strpos($_POST["Foto"],",")+1);
+		$imagen_binario = base64_decode($imagen);
 		//$encoded = str_replace(' ', '+', $dataURL);
-		//$decoded = base64_decode($encoded);
-	}	
-	/*$fp = fopen('/mnt/sdcard/www/image.jpg', 'w');  
-	fwrite($fp, $decoded);  
-	fclose($fp);*/
-	
-	//$parts = explode(',', $dataURL);
-	//$data = $parts[1]; 
-	//$Foto = base64_decode($data);
-	
+1		//$decoded = base64_decode($encoded);
+	}
 
 	$update = $db_local->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle 
 		SET Resultado1_id = $Resultado1, 
@@ -74,17 +66,13 @@ function dataURLtoBlob(dataURL) {
 			ResultadoUbicacion = '$Ubicacion'
 		WHERE id = :id;");
 		$update->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
-		$update->bindValue('resultadoimagen', $binario, PDO::PARAM_LOB);
+		$update->bindValue('resultadoimagen', $imagen_binario, PDO::PARAM_LOB);
 		$update->bindValue('id', $Id, PDO::PARAM_INT);
 		$update->execute();
 	
 	echo "Incidentes guardados.<br><br>";
 	
 	//$db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Resultado1_id='$Resultado1', Resultado2_id='$Resultado2', Resultado3_id='$Resultado3', ResultadoObs='$Obs', ResultadoImagen='$dataURL', ResultadoUbicacion='$ResultadoUbicacion' WHERE id=$Id);");
-	
-
-
-
 	//echo "<br><button value='Back' onclick='goBack()' class='label-style'>Volver</button>";
 	$db_local=null;
 	$_SESSION['habilitado'] = 1;
