@@ -20,7 +20,8 @@
 	if($mac && $estoy_conectado) {
 		$Dispositivo = $db_remota->query("SELECT id, Encargado_id, Marca, Modelo, Comentario FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
 		if($Dispositivo) {
-                    $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=${Dispositivo['Encargado_id']}")->fetch();
+                    $IdDispositivo = (int)($Dispositivo['Encargado_id']);
+                    $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=$IdDispositivo")->fetch();
 
 ?>
 <h1>Sincronizar datos</h1>
