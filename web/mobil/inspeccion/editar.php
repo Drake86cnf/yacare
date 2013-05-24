@@ -85,7 +85,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 <fieldset>
 <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>
 <video id="video" width="800" height="600" autoplay></video><br />
-<canvas id="canvas" width="800" height="600" style="display: none; background-color: silver; border: 1px"></canvas>
+<canvas id="canvas" width="800" height="600" style="display: none; background-color: silver; border: 1px solid gray"></canvas>
 <fieldset>
 
 </div>
@@ -97,12 +97,9 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
   var streaming = false,
       video         = document.querySelector('#video'),
       canvas        = document.querySelector('#canvas'),
-      startbutton   = document.querySelector('#startbutton'),
       restartbutton = document.querySelector('#restartbutton'),
-      width = 640,
-      height = 0,
-      finalheight = 0,
-      state = 'intro';
+      width = 800,
+      finalheight = 600;
   function init() {
     navigator.getMedia = ( navigator.getUserMedia ||
                            navigator.webkitGetUserMedia ||
@@ -130,14 +127,16 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
   }
 
   function takepicture() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    }
+    canvas.width = video.width;
+    canvas.height = video.height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, finalheight);
     video.style.display = 'none';
     restartbutton.style.display = '';
     canvas.style.display = '';
     document.getElementById("Foto").value = canvas.toDataURL();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
   };
   
   function restart() {
@@ -148,9 +147,10 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 
 /* Event Handlers */
 
-  video.addEventListener('canplay', function(ev){
+  video.addEventListener('loadedmetadata', function(ev){
     if (!streaming) {
-      finalheight = video.videoHeight / (video.videoWidth/width);
+      if(video.videoHeight > 0)
+        finalheight = video.videoHeight / (video.videoWidth/width);
       video.setAttribute('width', width);
       video.setAttribute('height', finalheight);
       canvas.setAttribute('width', width);
