@@ -31,7 +31,7 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 			$archivo = trim(fgets($lista_archivos));
 			if($archivo) {
 				$contenido = file_get_contents('http://192.168.100.5/yacare/mobil/inspeccion/' . $archivo . '.yuf');
-                                if($carpeta_destino . $archivo)
+                                if(file_exists($carpeta_destino . $archivo))
                                     $contenido_actual = @file_get_contents($carpeta_destino . $archivo);
                                 else
                                     $contenido_actual = null;
