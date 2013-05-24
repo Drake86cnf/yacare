@@ -10,4 +10,5 @@ listado.php
 mac.php
 presinc.php
 sinc.php
+reset.php
 global.css

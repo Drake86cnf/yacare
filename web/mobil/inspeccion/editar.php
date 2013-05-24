@@ -1,16 +1,14 @@
 <?php
 	include_once 'global.php.inc';
 	include_once 'db_local.php.inc';
-?>
 
-<body>
-<?php
-	//<body onload='getLocation()'>
-	$Id = (int)($_GET["id"]);
+        $Id = (int)($_GET["id"]);
 	
 	$sql="SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$Id'";
 	$row = $db_local->query($sql)->fetch();
 ?>
+
+<body>
 
 <form name="editar" action="guardar.php" method="post" onsubmit="getLocation()">
 <input type="hidden" id="id" name="id" value="<?php echo $Id; ?>" />
@@ -72,7 +70,6 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 </select>
 </fieldset>
 
-<?php // <p id='geo'>Haga click en el botón para obtener la ubicacion actual</p> ?>
 <fieldset name='Ubicacion'>
 <legend>Georeferencia</legend>
 Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, longitud <input type='text' maxlength=16 size=5 name='lon' id='lon' readonly /><br />
