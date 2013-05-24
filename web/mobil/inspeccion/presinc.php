@@ -22,7 +22,6 @@
 		if($Dispositivo && $Dispositivo['Encargado_id']) {
                     $IdDispositivo = (int)($Dispositivo['Encargado_id']);
                     $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=$IdDispositivo")->fetch();
-
 ?>
 <h1>Sincronizar datos</h1>
 <p>Se van a enviar los resultados que pudieran existir en este dispositivo y se van
