@@ -185,7 +185,7 @@ class Persona
 
     /**
      * @ORM\ManyToOne(targetEntity="Pais")
-     * @ORM\JoinColumn(name="Pais", referencedColumnName="id")
+     * @ORM\JoinColumn(name="Pais", referencedColumnName="id", nullable=true)
      */
     protected $Pais;
     

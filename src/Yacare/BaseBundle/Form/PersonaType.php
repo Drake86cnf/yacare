@@ -49,11 +49,13 @@ class PersonaType extends AbstractType
             ->add('Genero', 'choice', array(
                 'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',
+                'empty_value' => 'Sin especificar',
             ))
             ->add('Pais', 'entity', array(
                 'label' => 'Nacionalidad',
+                'empty_value' => 'Sin especificar',
                 'class' => 'YacareBaseBundle:Pais',
-                'required' => true,
+                'required' => false,
                 'empty_value' => false,
                 'property' => 'Nombre'))
         ;

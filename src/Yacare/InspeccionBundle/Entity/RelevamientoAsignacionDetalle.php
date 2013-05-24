@@ -15,6 +15,7 @@ class RelevamientoAsignacionDetalle
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\ConImagen;
 
     /**
      * @var integer $id
@@ -109,13 +110,6 @@ class RelevamientoAsignacionDetalle
      * @ORM\Column(type="text", nullable=true)
      */
     protected $ResultadoObs;
-    
-    
-    /**
-     * @var string
-     * @ORM\Column(type="blob", nullable=true)
-     */
-    protected $ResultadoImagen;
     
     
     /**
