@@ -44,11 +44,10 @@
 	foreach ($db_local->query($sql) as $row) {
 		$cantidad_relevamiento++;	
 		$Id = $row['id'];
-		$Resultado1 = $row['Resultado1_id'];
 		$Obs = $row['ResultadoObs'];
 		$Img = $row['ResultadoImagen'];
 		$Ubicacion = $row['ResultadoUbicacion'];
-                $Resultado2 = $row['Resultado1_id'] ? $row['Resultado1_id'] : 'NULL';
+                $Resultado1 = $row['Resultado1_id'] ? $row['Resultado1_id'] : 'NULL';
 		$Resultado2 = $row['Resultado2_id'] ? $row['Resultado2_id'] : 'NULL';
 		$Resultado3 = $row['Resultado3_id'] ? $row['Resultado3_id'] : 'NULL';
 		$update = $db_remota->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle
