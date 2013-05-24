@@ -51,10 +51,10 @@ function dataURLtoBlob(dataURL) {
 	if(!$_POST["Foto"]) {
 		$dataURL = 'NULL';
 	}else {	
-		$imagen = substr($_POST["Foto"], strpos($_POST["Foto"],",")+1);
+		$imagen = substr($_POST["Foto"], strpos($_POST["Foto"], ',')+1);
 		$imagen_binario = base64_decode($imagen);
 		//$encoded = str_replace(' ', '+', $dataURL);
-1		//$decoded = base64_decode($encoded);
+		//$decoded = base64_decode($encoded);
 	}
 
 	$update = $db_local->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle 
