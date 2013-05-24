@@ -17,7 +17,7 @@
 
 $cantidad_archivos = 0;
 
-if($debug) {
+if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
 } else {
 	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
