@@ -37,10 +37,9 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
                                     $contenido_actual = null;
 				
                                 if($contenido) {
-                                        if($contenido != $contenido_actual) {
-                                            file_put_contents($carpeta_destino . $archivo, $contenido);
+                                        file_put_contents($carpeta_destino . $archivo, $contenido);
+                                        if($contenido != $contenido_actual)
                                             $cantidad_archivos++;
-                                        }
 				} else {
                                     $cantidad_errores++;
                                 }
