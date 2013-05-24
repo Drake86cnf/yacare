@@ -31,18 +31,13 @@ function dataURLtoBlob(dataURL) {
 	//$db_local->exec("CREATE TABLE Incidentes (id INTEGER PRIMARY KEY, calle INTEGER, altura INTEGER, seccion TEXT, macizo_num INTEGER, macizo_let TEXT, parcela_num INTEGER, parcela_let TEXT, tipo TEXT, obs TEXT, fecha NUMERIC, foto BLOB, lat TEXT, lon TEXT)");
 		
 	$Id = $_POST["id"];
-	$Resultado1 = $_POST["Resultado1"];
-	if (!$_POST["Resultado2"] && $_POST["Resultado3"]) {
-		$Resultado2 = $_POST["Resultado3"];
-		$Resultado3 = 'NULL';
-	} elseif($_POST["Resultado2"]) {
-		$Resultado2 = $_POST["Resultado2"];
-		$Resultado3 = $_POST["Resultado3"];
-	} elseif(!$_POST["Resultado2"] && !$_POST["Resultado3"]) {
-		$Resultado2 = 'NULL';
-		$Resultado3 = 'NULL';	
-	}
-	
+	$Resultado1 = $_POST["Resultado1"] ? $_POST["Resultado1"] : 'NULL';
+        $Resultado2 = $_POST["Resultado2"] ? $_POST["Resultado2"] : 'NULL';
+        $Resultado3 = $_POST["Resultado3"] ? $_POST["Resultado3"] : 'NULL';
+	if($Resultado3 && !$Resultado2) {
+            $Resultado2 = $Resultado3;
+            $Resultado3 = 'NULL';
+        }
 
 	$Obs = $_POST["Obs"];
 	$lat = $_POST["lat"];
