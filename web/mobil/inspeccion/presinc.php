@@ -20,6 +20,7 @@
 	if($mac && $estoy_conectado) {
 		$IdEncargadoDispositivo = $db_remota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
 		if($IdEncargadoDispositivo) {
+                    $NombreEncargadoDispositivo = $db_remota->query("SELECT NombreVisible FROM Base_Persona WHERE id='$IdEncargadoDispositivo'")->fetchColumn();
 
 ?>
 <h1>Sincronizar datos</h1>
