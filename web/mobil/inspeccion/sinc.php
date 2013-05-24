@@ -45,7 +45,7 @@
 		$cantidad_relevamiento++;	
 		$Id = $row['id'];
 		$Obs = $row['ResultadoObs'];
-		$Img = $row['ResultadoImagen'];
+		$Img = $row['Imagen'];
 		$Ubicacion = $row['ResultadoUbicacion'];
                 $Resultado1 = $row['Resultado1_id'] ? $row['Resultado1_id'] : 'NULL';
 		$Resultado2 = $row['Resultado2_id'] ? $row['Resultado2_id'] : 'NULL';
@@ -55,19 +55,18 @@
 				Resultado2_id=$Resultado2,
 				Resultado3_id=$Resultado3,
 				ResultadoObs=:resultadoobs,
-				ResultadoImagen=:resultadoimagen,
+				Imagen=:imagen,
 				ResultadoUbicacion=:resultadoubicacion,
 				UpdatedAt=NOW(),
 				Version=Version+1
 			WHERE id=:id");
 		$update->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
-		$update->bindValue('resultadoimagen', $Img, PDO::PARAM_LOB);
+		$update->bindValue('imagen', $Img, PDO::PARAM_LOB);
 		$update->bindValue('resultadoubicacion', $Ubicacion, PDO::PARAM_STR);
 		$update->bindValue('id', $Id, PDO::PARAM_INT);
 		if($update->execute()) {
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id");
 		}
-		//echo "UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Resultado1_id=$Resultado1, Resultado2_id=$Resultado2, Resultado3_id=$Resultado3, ResultadoObs='$Obs', ResultadoImagen='$Img', ResultadoUbicacion=$Ubicacion WHERE id='$Id';";
 	}
 	echo "se exportaron $cantidad_relevamiento registros.</p>";
 		
@@ -89,7 +88,7 @@
 		Encargado_id INTEGER DEFAULT NULL,
 		Resultado1_id INTEGER DEFAULT NULL,
 		ResultadoObs,
-		ResultadoImagen BLOB,
+		Imagen BLOB,
 		ResultadoUbicacion,
 		Resultado2_id INTEGER DEFAULT NULL,
 		Resultado3_id INTEGER DEFAULT NULL,

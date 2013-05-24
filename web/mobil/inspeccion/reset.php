@@ -38,7 +38,7 @@
 		Encargado_id INTEGER DEFAULT NULL,
 		Resultado1_id INTEGER DEFAULT NULL,
 		ResultadoObs,
-		ResultadoImagen BLOB,
+		Imagen BLOB,
 		ResultadoUbicacion,
 		Resultado2_id INTEGER DEFAULT NULL,
 		Resultado3_id INTEGER DEFAULT NULL,

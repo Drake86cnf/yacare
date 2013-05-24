@@ -44,11 +44,11 @@
 			Resultado2_id = $Resultado2, 
 			Resultado3_id = $Resultado3, 
 			ResultadoObs = :resultadoobs, 
-			ResultadoImagen = :resultadoimagen, 
+			Imagen = :imagen, 
 			ResultadoUbicacion = '$Ubicacion'
 		WHERE id = :id;");
 		$update->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
-		$update->bindValue('resultadoimagen', $imagen_binario, PDO::PARAM_LOB);
+		$update->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
 		$update->bindValue('id', $Id, PDO::PARAM_INT);
 		$update->execute();
 	
