@@ -39,7 +39,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
 	foreach ($db_local->query($sql) as $row) {
 ?>
-<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo']; ?>: <?php echo $row['Nombre']; ?></option>
+<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' ? '' ?><?php echo $row['Nombre']; ?></option>
 <?php
 	}
 ?>
@@ -51,7 +51,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
 	foreach ($db_local->query($sql) as $row) {		
 ?>
-<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo']; ?>: <?php echo $row['Nombre']; ?></option>
+<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' ? '' ?><?php echo $row['Nombre']; ?></option>
 <?php
 	}
 ?>
@@ -63,7 +63,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
 	foreach ($db_local->query($sql) as $row) {		
 ?>
-<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo']; ?>: <?php echo $row['Nombre']; ?></option>
+<option value="<?php echo $row['Id']; ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' ? '' ?><?php echo $row['Nombre']; ?></option>
 <?php
 	}
 ?>
