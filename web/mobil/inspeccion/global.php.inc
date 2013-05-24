@@ -1,4 +1,6 @@
 <?php
+    include_once 'debug.php.inc';
+
 	session_start();
 	$hab = $_SESSION['habilitado'];
 	if ($hab!=1) {
