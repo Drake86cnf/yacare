@@ -48,13 +48,13 @@ function dataURLtoBlob(dataURL) {
 		$Ubicacion = "POINT(".$lat." ".$lon.")";
 	}
 	
-	if(!$_POST["Foto"]) {
-		$dataURL = 'NULL';
-	}else {	
-		$imagen = substr($_POST["Foto"], strpos($_POST["Foto"], ',')+1);
+	if($_POST["Imagen"]) {
+		$imagen = substr($_POST["Imagen"], strpos($_POST["Imagen"], ',')+1);
 		$imagen_binario = base64_decode($imagen);
 		//$encoded = str_replace(' ', '+', $dataURL);
 		//$decoded = base64_decode($encoded);
+	}else {	
+		$dataURL = null;
 	}
 
 	$update = $db_local->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle 

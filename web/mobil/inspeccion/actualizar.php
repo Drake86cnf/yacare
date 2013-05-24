@@ -50,7 +50,7 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 }
 ?>
 
-<p>Se actualizaron <?php echo $cantidad_archivos; ?> archivos.</p>
+<p>Se actualizaron <?php echo $cantidad_archivos; ?> archivos y hubo <?php echo $cantidad_errores; ?> errores.</p>
 <p><a href="presinc.php">Haga clic aquí para continuar.</a></p>
 
 <script type="text/javascript">
