@@ -55,7 +55,7 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 
 <script type="text/javascript">
 <?php
-    if($cantidad_archivos > 0 || $cantidad_errores > 0) {
+    if($cantidad_archivos == 0 && $cantidad_errores = 0) {
 ?>
 window.location='presinc.php';
 <?php
