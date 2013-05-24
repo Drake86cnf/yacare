@@ -12,7 +12,7 @@
 
 <form name="editar" action="guardar.php" method="post" onsubmit="getLocation()">
 <input type="hidden" id="id" name="id" value="<?php echo $Id; ?>" />
-<input type="hidden" id="Imagen" />
+<input type="hidden" id="Imagen" name='Imagen'/>
 
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
