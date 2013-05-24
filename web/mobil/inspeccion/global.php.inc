@@ -1,5 +1,8 @@
 <?php
-    include_once 'debug.php.inc';
+    if(file_exists('debug.php.inc'))
+        include_once 'debug.php.inc';
+    else
+        $debug = FALSE;
 
 	session_start();
 	$hab = $_SESSION['habilitado'];
