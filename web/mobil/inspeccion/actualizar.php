@@ -17,7 +17,7 @@
 
 $cantidad_archivos = 0;
 
-if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
+if($debug) {
         echo "No se descargan actualizaciones.";
 } else {
 	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
@@ -53,10 +53,20 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 <p><a href="presinc.php">Haga clic aquí para continuar.</a></p>
 
 <script type="text/javascript">
+<?php
+    if($debug) {
+?>
+window.location='presinc.php';
+<?php
+    } else {
+?>
 window.setTimeout(RedireccionarSinc, 4000);
 function RedireccionarSinc() {
     window.location='presinc.php';
 }
+<?php
+    }
+?>
 </script>
 </div>
 
