@@ -26,7 +26,7 @@
 <h1>Sincronizar datos</h1>
 <p>Se van a enviar los resultados que pudieran existir en este dispositivo y se van
 a descargar nuevas asignaciones. Haga clic en el botón &quot;Sincronzar ahora&quot; a continuación:</p>
-<p>El encargado de este dispositivo: <?php echo $IdEncargadoDispositivo ?></p>
+<p>El encargado de este dispositivo: <?php echo $IdEncargadoDispositivo . ': ' . $NombreEncargadoDispositivo ?></p>
 <button onclick="parent.location='sinc.php';">Sincronizar ahora</button>
 <?php
 		} else {
