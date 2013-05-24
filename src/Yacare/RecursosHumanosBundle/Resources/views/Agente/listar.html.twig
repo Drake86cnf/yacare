@@ -16,7 +16,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-user"></i> <a href="{{ path('yacare_recursoshumanos_agente_editar', { 'id': entity.Id }) }}">{{ entity.Persona.NombreVisible }}</a></td>
+            <td><i class="icon-user"></i> <a href="{{ path('yacare_recursoshumanos_agente_editar', { 'id': entity.Id }) }}">{{ entity.NombreVisible }}</a></td>
             <td>{{ entity.Legajo }}</td>
             <td>{{ entity.FechaIngreso|date('d-m-Y') }}</td>
         </tr>

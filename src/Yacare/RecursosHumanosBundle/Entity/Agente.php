@@ -10,23 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Rrhh_Agente")
  * @ORM\Entity
  */
-class Agente
+class Agente extends \Yacare\BaseBundle\Entity\Persona
 {
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona", inversedBy="Agente")
-     * @ORM\JoinColumn(name="Persona", referencedColumnName="id")
-     */
-    protected $Persona;
-
     /**
      * @var integer $Legajo
      * @ORM\Column(name="Legajo", type="integer")
@@ -38,20 +23,6 @@ class Agente
      * @ORM\Column(name="FechaIngreso", type="date")
      */
     private $FechaIngreso;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-    public function getPersona() {
-        return $this->Persona;
-    }
-
-    public function setPersona($Persona) {
-        $this->Persona = $Persona;
-    }
 
     public function getLegajo() {
         return $this->Legajo;
@@ -67,9 +38,5 @@ class Agente
 
     public function setFechaIngreso(\DateTime $FechaIngreso) {
         $this->FechaIngreso = $FechaIngreso;
-    }
-    
-    public function __toString() {
-        return $this->Persona->getNombreVisible();
     }
 }

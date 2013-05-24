@@ -62,7 +62,7 @@ class Dispositivo
     protected $Comentario;
     
      /**
-     * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\Agente")
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;

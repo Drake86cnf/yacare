@@ -20,10 +20,10 @@ class RelevamientoAsignacionMacizoType extends AbstractType
                 'property' => 'Nombre'))
             ->add('Encargado', 'entity', array(
                 'label' => 'Encargado',
-                'class' => 'YacareRecursosHumanosBundle:Agente',
+                'class' => 'YacareBaseBundle:Persona',
                 'required' => true,
                 'empty_value' => false,
-                'property' => 'Persona.NombreVisible'))
+                'property' => 'NombreVisible'))
             ->add('Seccion', null, array('label' => 'Sección'))
             ->add('Macizo', null, array('label' => 'Macizo'))
         ;

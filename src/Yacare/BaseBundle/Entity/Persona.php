@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Base_Persona")
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="Tipo", type="string")
+ * @ORM\DiscriminatorMap({"Persona" = "Persona", "Agente" = "Yacare\RecursosHumanosBundle\Entity\Agente"})
  */
 class Persona
 {

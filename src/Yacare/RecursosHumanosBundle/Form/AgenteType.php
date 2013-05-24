@@ -11,12 +11,6 @@ class AgenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Persona', 'entity', array(
-                'label' => 'Persona',
-                'class' => 'YacareBaseBundle:Persona',
-                'required' => true,
-                'empty_value' => false,
-                'property' => 'NombreVisible'))
             ->add('Legajo', null, array('label' => 'Legajo'))
             ->add('FechaIngreso', 'date', array(
                 'years' => range(1900,2099),

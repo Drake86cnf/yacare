@@ -41,7 +41,7 @@ class RelevamientoAsignacion
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\Agente")
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;
@@ -100,7 +100,7 @@ class RelevamientoAsignacion
     }
     
     public function getNombre() {
-        $this->Nombre = $this->getEncargado()->getPersona()->getNombreVisible();
+        $this->Nombre = $this->getEncargado()->getNombreVisible();
         if($this->getCalle()) {
             $this->Nombre .= ': calle ' . $this->Calle->getNombre();
         } else {
@@ -111,7 +111,7 @@ class RelevamientoAsignacion
     }
 
     public function setNombre($Nombre) {
-        $this->Nombre = $this->getEncargado()->getPersona()->getNombreVisible();
+        $this->Nombre = $this->getEncargado()->getNombreVisible();
         if($this->getCalle()) {
             $this->Nombre .= ': calle ' . $this->Calle->getNombre();
         } else {
