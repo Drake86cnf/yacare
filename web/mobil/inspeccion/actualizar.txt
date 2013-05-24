@@ -1,0 +1,13 @@
+global.php.inc
+db_local.php.inc
+db_remota.php.inc
+actualizar.php
+editar.php
+entrada.php
+guardar.php
+index.php
+listado.php
+mac.php
+presinc.php
+sinc.php
+global.css

@@ -1,0 +1,10 @@
+#!/bin/sh
+for i in *.php
+do
+	cp -f $i $i.yuf
+done
+for i in *.inc
+do
+	cp -f $i $i.yuf
+done
+cp -f global.css global.css.yuf
