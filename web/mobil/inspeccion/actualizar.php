@@ -31,9 +31,16 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 			$archivo = trim(fgets($lista_archivos));
 			if($archivo) {
 				$contenido = file_get_contents('http://192.168.100.5/yacare/mobil/inspeccion/' . $archivo . '.yuf');
-				if($contenido) {
-					file_put_contents($carpeta_destino . $archivo, $contenido);
-					$cantidad_archivos++;
+                                if($carpeta_destino . $archivo)
+                                    $contenido_actual = @file_get_contents($carpeta_destino . $archivo);
+                                else
+                                    $contenido_actual = null;
+				
+                                if($contenido) {
+                                        if($contenido != $contenido_actual) {
+                                            file_put_contents($carpeta_destino . $archivo, $contenido);
+                                            $cantidad_archivos++;
+                                        }
 				} else {
                                     $cantidad_errores++;
                                 }

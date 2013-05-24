@@ -18,16 +18,16 @@
 		$estoy_conectado = FALSE;
 
 	if($mac && $estoy_conectado) {
-		$Dispositivo = $db_remota->query("SELECT * FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
+		$Dispositivo = $db_remota->query("SELECT id, Encargado_id, Marca, Modelo, Comentario FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
 		if($Dispositivo) {
-                    $EncargadoDispositivo = $db_remota->query("SELECT * FROM Base_Persona WHERE id='${EncargadoDispositivo['id']}'")->fetch();
+                    $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=${Dispositivo['Encargado_id']}")->fetch();
 
 ?>
 <h1>Sincronizar datos</h1>
 <p>Se van a enviar los resultados que pudieran existir en este dispositivo y se van
 a descargar nuevas asignaciones. Haga clic en el botón &quot;Sincronzar ahora&quot; a continuación:</p>
-<p>Información del dispositivo: <?php echo $Dispositivo['Nombre'] ?></p>
-<p>El encargado de este dispositivo: <?php echo $EncargadoDispositivo['NombreVisible'] . ' (' . $EncargadoDispositivo['id'] . ')' ?></p>
+<p>El encargado de este dispositivo: <?php echo $DispositivoEncargado['NombreVisible'] . ' (' . $Dispositivo['Encargado_id'] . ')' ?></p>
+<p>Información del dispositivo: <?php echo $Dispositivo['Marca'] . ' ' . $Dispositivo['Modelo'] . ' (' . $Dispositivo['Comentario'] . ')' ?></p>
 <button onclick="parent.location='sinc.php';">Sincronizar ahora</button>
 <?php
 		} else {

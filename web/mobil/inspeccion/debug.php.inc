@@ -1,4 +1,4 @@
 <?php
 	global $debug;
         
-        $debug = FALSE;
+        $debug = TRUE;
