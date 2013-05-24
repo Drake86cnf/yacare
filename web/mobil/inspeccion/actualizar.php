@@ -53,7 +53,10 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 <p><a href="presinc.php">Haga clic aquí para continuar.</a></p>
 
 <script type="text/javascript">
-window.location='presinc.php';
+window.setTimeout(RedireccionarSinc, 4000);
+function RedireccionarSinc() {
+    window.location='presinc.php';
+}
 </script>
 </div>
 
