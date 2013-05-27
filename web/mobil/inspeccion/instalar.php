@@ -15,7 +15,7 @@
 <div class="contenido">
 <h1>Instalación</h1>
 <?php
-    if($_REQUEST['confirmar']) {
+    if(isset($_REQUEST['confirmar']) && $_REQUEST['confirmar']) {
 	echo "<p>Recreando la tabla de tipos de incidente: ";
 	$db_local->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
 	$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
