@@ -11,7 +11,7 @@
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva asignación {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
-        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', { 'id': entity.id }) }}">Volver</a>
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}">Volver</a>
     </div>
     
 </form>
