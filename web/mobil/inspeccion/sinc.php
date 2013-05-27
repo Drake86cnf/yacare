@@ -69,30 +69,6 @@
 		}
 	}
 	echo "se exportaron $cantidad_relevamiento registros.</p>";
-		
-	// Traigo asignaciones (relevamientos a realizar)
-	/* $db_local->exec("DROP TABLE Inspeccion_RelevamientoAsignacionDetalle");
-	$db_local->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionDetalle
-		(id INTEGER PRIMARY KEY,
-		CreatedAt,
-		UpdatedAt,
-		Version INTEGER DEFAULT NULL,
-		Relevamiento_id INTEGER DEFAULT NULL,
-		Asignacion_id INTEGER DEFAULT NULL,
-		Partida_id INTEGER DEFAULT NULL,
-		PartidaSeccion,
-		PartidaMacizo,
-		PartidaParcela,
-		PartidaCalleNombre,
-		PartidaCalleNumero,
-		Encargado_id INTEGER DEFAULT NULL,
-		Resultado1_id INTEGER DEFAULT NULL,
-		ResultadoObs,
-		Imagen BLOB,
-		ResultadoUbicacion,
-		Resultado2_id INTEGER DEFAULT NULL,
-		Resultado3_id INTEGER DEFAULT NULL,
-		PartidaCalle_id INTEGER DEFAULT NULL)"); */
 
 	echo "<p>Recibiendo asignaciones: ";
 	$cantidad_incidente = 0;
@@ -115,7 +91,7 @@
 		$PartidaCalleNombre = $row['PartidaCalleNombre'];
 		$PartidaCalleNumero = $row['PartidaCalleNumero'];
 		$Encargado_id = $row['Encargado_id'];
-		$PartidaCalle_id = $row['PartidaCalle_id'];
+		$PartidaCalle_id = $row['PartidaCalle_id'] ? $row['PartidaCalle_id'] : 'NULL';
 		
 		// Si existen resultados para el registro que estoy por importar, no lo importo
 		// para no pisar el trabajo hecho
@@ -153,7 +129,7 @@
 					'$PartidaCalleNumero',
 					$Encargado_id,
 					$PartidaCalle_id)";
-			echo $sql;
+			//echo $sql;
                         $db_local->exec($sql);
 		}
 	}
