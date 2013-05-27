@@ -36,7 +36,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 <select name='Resultado1' style="width: 360px;" required='required'>
 <option value=''>Seleccione uno o más incidentes</option>
 <?php
-	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
+	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo, Nombre ASC";
 	foreach ($db_local->query($sql) as $row) {
 ?>
 <option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
