@@ -18,7 +18,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td>{% if entity.Imagen %}<i class="icon-picture"></i>{% endif %}{% if entity.Imagen %}<i class="icon-map-marker"></i> {% endif %}</td>
+            <td>{% if entity.Imagen %}<a href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_imagen', { 'id': entity.Id }) }}" target="_blank"><i class="icon-picture"></i></a>{% endif %}{% if entity.Imagen %}<i class="icon-map-marker"></i> {% endif %}</td>
             <td>{{ entity.PartidaCalleNombre }} {{ entity.PartidaCalleNumero }}</td>
             <td>{{ entity.PartidaSeccion }}, {{ entity.PartidaMacizo }}, {{ entity.PartidaParcela }}</td>
             <td>{{ entity.Resultado1 }} {{ entity.Resultado2 }} {{ entity.Resultado3 }}</td>
