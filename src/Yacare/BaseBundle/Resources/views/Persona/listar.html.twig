@@ -5,7 +5,7 @@
 {% block content_header '' %}
 
 {% block content %}
-<table class="table bootstrap-datatable datatable">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre y apellido</th>
@@ -25,6 +25,11 @@
     {% endfor %}
     </tbody>
 </table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
 
 <a href="{{ path('yacare_base_persona_editar_1') }}" class="btn"><i class="icon-plus"></i> Alta de nueva persona</a>
 {% endblock %}

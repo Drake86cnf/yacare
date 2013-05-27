@@ -5,7 +5,7 @@
 {% block content_header '' %}
 
 {% block content %}
-<table class="table table-striped bootstrap-datatable datatable">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -19,6 +19,11 @@
     {% endfor %}
     </tbody>
 </table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
 
 <a href="{{ path('yacare_inspeccion_relevamientoasignacion_editar_1', { 'relevamiento': id }) }}" class="btn"><i class="icon-plus"></i> Nueva asignación</a>
 <a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn"><i class="icon icon-reply"></i> Volver al relevamiento</a>

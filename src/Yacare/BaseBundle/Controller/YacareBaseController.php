@@ -15,8 +15,7 @@ class YacareBaseController extends Controller
                 // Quitar la palabra 'Bundle' del nombre del bundle
                 $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
         
-        if(!isset($this->UsePaginator))
-            $this->UsePaginator = false;
+        $this->UsePaginator = true;
         
         if(!isset($this->OrderBy))
             $this->OrderBy = null;

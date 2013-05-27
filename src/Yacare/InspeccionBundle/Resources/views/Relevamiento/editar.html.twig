@@ -9,19 +9,21 @@
 <form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamiento_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo relevamiento {% endif %}</legend>
 	{{ form_widget(edit_form) }}
+
+    {% if entity %}
+    <div class="form-actions">
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar calle</a>
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar macizo</a>
+        &nbsp;
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver asignaciones</a>
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver resultados</a>
+    </div>
+    {% endif %}
+
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
-		<a class="btn" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
     </div>
-{% if entity %}
-    <div class="form-actions">
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar calle</a>
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar macizo</a>
-&nbsp;
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver asignaciones</a>
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver resultados</a>
-    </div>
-{% endif %}
 
 </form>
 
