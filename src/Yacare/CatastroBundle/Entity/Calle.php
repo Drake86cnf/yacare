@@ -31,10 +31,6 @@ class Calle
      * @ORM\Column(name="Nombre", type="string", length=255)
      */
     private $Nombre;
-    
-    public function __toString() {
-        return $this->Nombre;
-    }
 
     public function getId()
     {
