@@ -164,4 +164,9 @@ class Partida
     public function setCalleNumeroExtension($CalleNumeroExtension) {
         $this->CalleNumeroExtension = $CalleNumeroExtension;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

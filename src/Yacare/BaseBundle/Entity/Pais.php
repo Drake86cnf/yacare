@@ -62,4 +62,8 @@ class Pais
         $this->Iso = $Iso;
     }
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

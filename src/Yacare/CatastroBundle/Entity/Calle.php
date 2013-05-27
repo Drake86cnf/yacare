@@ -50,4 +50,9 @@ class Calle
     {
         return $this->Nombre;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

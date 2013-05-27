@@ -164,4 +164,9 @@ class RelevamientoAsignacion
     public function setDetalles($Detalles) {
         $this->Detalles = $Detalles;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

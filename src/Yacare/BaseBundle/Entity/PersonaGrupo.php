@@ -107,6 +107,6 @@ class PersonaGrupo
     }
     
     public function __toString() {
-        return $this->Nombre;
+        return $this->getNombre();
     }
 }

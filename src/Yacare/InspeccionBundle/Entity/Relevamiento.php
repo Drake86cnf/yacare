@@ -79,4 +79,9 @@ class Relevamiento
     public function setAsignaciones($Asignaciones) {
         $this->Asignaciones = $Asignaciones;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

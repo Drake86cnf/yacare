@@ -86,4 +86,9 @@ class Oficina
     public function setPrincipal($Principal) {
         $this->Principal = $Principal;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

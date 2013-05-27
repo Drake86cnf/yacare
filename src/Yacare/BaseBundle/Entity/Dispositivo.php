@@ -129,4 +129,9 @@ class Dispositivo
     public function setIdentificadorUnico($IdentificadorUnico) {
         $this->IdentificadorUnico = $IdentificadorUnico;
     }
+    
+    public function __toString()
+    {
+        return trim(($this->getTipo() == 'Otro' ? '' : $this->getTipo()) . ' ' . $this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
+    }
 }

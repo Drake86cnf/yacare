@@ -106,7 +106,6 @@ class Edificio
 
     /**
      * Get Domicilio
-     *
      * @return string 
      */
     public function getDomicilio()
@@ -129,11 +128,15 @@ class Edificio
 
     /**
      * Get Telefono
-     *
      * @return integer 
      */
     public function getTelefono()
     {
         return $this->Telefono;
+    }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 }
