@@ -16,12 +16,12 @@
 <?php		
 	$Id = $_POST["id"];
 	$Resultado1 = $_POST["Resultado1"] ? $_POST["Resultado1"] : 'NULL';
-        $Resultado2 = $_POST["Resultado2"] ? $_POST["Resultado2"] : 'NULL';
-        $Resultado3 = $_POST["Resultado3"] ? $_POST["Resultado3"] : 'NULL';
+	$Resultado2 = $_POST["Resultado2"] ? $_POST["Resultado2"] : 'NULL';
+	$Resultado3 = $_POST["Resultado3"] ? $_POST["Resultado3"] : 'NULL';
 	if($Resultado3 && !$Resultado2) {
             $Resultado2 = $Resultado3;
             $Resultado3 = 'NULL';
-        }
+	}
 
 	$Obs = $_POST["Obs"];
 	$lat = $_POST["lat"];
