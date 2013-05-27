@@ -18,7 +18,7 @@
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
  <button type='submit' name='Aceptar'>Guardar</button>
- <button value='Back' type='button'><a href="listado.php">Cancelar</a></button>
+ <button type='button' onclick="parent.location='listado.php';">Cancelar</button>
 </div>
 </div>
 
