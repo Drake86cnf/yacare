@@ -32,29 +32,4 @@ class RelevamientoAsignacionDetalleController extends \Yacare\BaseBundle\Control
         
         return $res;
     }
-    
-    /**
-     * @Route("imagen/{id}")
-     */
-    public function imagenAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        /* @var $entity Document */
-        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Document entity.');
-        }
-
-        $file = stream_get_contents($entity->getImagen());
-
-        $response = new \Symfony\Component\HttpFoundation\Response($file, 200, array(
-            'Content-Type' => 'image/png',
-            'Content-Length' => strlen($file),
-            'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName . '_' . $entity->getId() . '.png"',
-        ));
-
-        return $response;
-    }
 }

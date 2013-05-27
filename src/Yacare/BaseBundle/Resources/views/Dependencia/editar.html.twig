@@ -15,11 +15,8 @@
     </div>
 </form>
 
-{% if not create %}
-<form class="form-horizontal" action="{{ path('yacare_base_dependencia_eliminar', { 'id': entity.id }) }}" method="post">
-	{{ form_widget(delete_form) }}
-	<button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Eliminar dependencia</button>
-</form>
+{% if entity %}
+<a class="btn btn-danger" href="{{ path('yacare_base_dependencia_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar dependencia</a>
 {% endif %}
 
 {% endblock %}

@@ -129,17 +129,40 @@ class YacareBaseController extends Controller
         //$this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
         return array(
             'entity'      => $entity,
-            'create'      => $id ? false : true,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'create'      => $id ? false : true
         );
     }
 
     /**
      * @Route("eliminar/{id}")
+     * @Template("YacareBaseBundle:Default:eliminar.html.twig")
+     */
+    public function eliminarAction($id)
+    {
+        $deleteForm = $this->createDeleteForm($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+
+        return array(
+            'entity'      => $entity,
+            'bundlename'  => strtolower('yacare_' . $this->BundleName),
+            'entityname'  => strtolower($this->EntityName),
+            'create'      => $id ? false : true,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+    
+    
+    /**
+     * @Route("eliminar2/{id}")
      * @Method("POST")
      */
-    public function eliminarAction(Request $request, $id)
+    public function eliminar2Action(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
@@ -158,6 +181,7 @@ class YacareBaseController extends Controller
 
         return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
     }
+    
 
     protected function createDeleteForm($id)
     {
@@ -165,5 +189,30 @@ class YacareBaseController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    
+    /**
+     * @Route("imagen/{id}")
+     */
+    public function imagenAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /* @var $entity Document */
+        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Document entity.');
+        }
+
+        $imagen_contenido = stream_get_contents($entity->getImagen());
+
+        $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, array(
+            'Content-Type' => 'image/png',
+            'Content-Length' => strlen($imagen_contenido),
+            'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName . '_' . $entity->getId() . '.png"',
+        ));
+
+        return $response;
     }
 }

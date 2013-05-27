@@ -7,17 +7,21 @@
 
 {% form_theme edit_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
 
+{% if entity %}
+{%   set relevamiento = entity.Relevamiento.Id %}
+{% else %}
+{%   set relevamiento = app.request.query.get('relevamiento') %}
+{% endif %}
 <form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamientoasignacion_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva asignación {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
-        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}">Volver</a>
+        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': relevamiento }) }}"><i class="icon icon-reply"></i> Volver</a>
     </div>
-    
 </form>
 
-{% if not create %}
-<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoasignacion_cancelar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar asignación</a>
+{% if entity %}
+<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoasignacion_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar asignación</a>
 {% endif %}
 
 {% endblock %}

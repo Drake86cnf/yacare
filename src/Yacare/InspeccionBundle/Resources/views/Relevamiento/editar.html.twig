@@ -13,7 +13,7 @@
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
 		<a class="btn" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
     </div>
-{% if not create %}
+{% if entity %}
     <div class="form-actions">
 <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar calle</a>
 <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar macizo</a>
@@ -25,13 +25,9 @@
 
 </form>
 
-{% if not create %}
-<br />
-<br />
-<form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamiento_eliminar', { 'id': entity.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Eliminar relevamiento</button>
-</form>
+{% if entity %}
+<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamiento_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar relevamiento</a>
 {% endif %}
+
 
 {% endblock %}

@@ -14,6 +14,8 @@ class DispositivoType extends AbstractType
             ->add('Tipo', 'choice', array(
                 'choices'   => array(
                     'Tableta' => 'Tableta',
+                    'Notebook' => 'Notebook',
+                    'Notebook' => 'Notebook',
                     'Teléfono celular' => 'Teléfono celular',
                     'Impresora' => 'Impresora',
                     'Localizador GPS personal' => 'Localizador GPS personal',
