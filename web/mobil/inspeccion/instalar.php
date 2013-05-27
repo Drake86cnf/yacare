@@ -13,8 +13,9 @@
 </div>
 
 <div class="contenido">
-<h1>Resultados del reset</h1>
+<h1>Instalación</h1>
 <?php
+    if($_REQUEST['confirmar']) {
 	echo "<p>Recreando la tabla de tipos de incidente: ";
 	$db_local->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
 	$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
@@ -45,6 +46,12 @@
 		PartidaCalle_id INTEGER DEFAULT NULL)");
 
 	echo "ok</p>";
+    } else {
+?>
+<p>¡ATENCIÓN! Al instalar la aplicación se borrarán todos los datos existentes en este dispositivo.</p>
+<button onclick="parent.location='instalar.php?confirmar=1';">Instalar ahora</button>
+<?php
+    }
 ?>
 </div>
 

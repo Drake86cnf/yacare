@@ -10,5 +10,5 @@ listado.php
 mac.php
 presinc.php
 sinc.php
-reset.php
+instalar.php
 global.css
