@@ -19,14 +19,17 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         $this->UsePaginator = true;
         parent::__construct();
     }
-    
+
     /**
-     * @Route("relevamiento/{relevamiento}")
-     * @Template()
+     * @Route("listarrelevamiento/{id}")
+     * @Template("YacareInspeccionBundle:RelevamientoAsignacion:listar.html.twig")
      */
-    public function relevamientoAction($relevamiento)
+    public function listarrelevamientoAction($id)
     {
-        return parent::listarAction();
+        $res = parent::listarAction();
+        $res['id'] = $id;
+        
+        return $res;
     }
     
     /**

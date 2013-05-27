@@ -10,6 +10,7 @@
         <tr>
             <th></th>
             <th>Dirección</th>
+            <th>SMP</th>
             <th>Incidencias</th>
             <th>Obs</th>
         </tr>
@@ -19,6 +20,7 @@
         <tr>
             <td>{% if entity.Imagen %}<i class="icon-picture"></i>{% endif %}{% if entity.Imagen %}<i class="icon-map-marker"></i> {% endif %}</td>
             <td>{{ entity.PartidaCalleNombre }} {{ entity.PartidaCalleNumero }}</td>
+            <td>{{ entity.PartidaSeccion }}, {{ entity.PartidaMacizo }}, {{ entity.PartidaParcela }}</td>
             <td>{{ entity.Resultado1 }} {{ entity.Resultado2 }} {{ entity.Resultado3 }}</td>
             <td>{{ entity.ResultadoObs }}</td>
         </tr>
@@ -31,5 +33,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_inspeccion_relevamiento_editar') }}" class="btn"><i class="icon-plus"></i> Volver al relevamiento</a>
+<a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn"><i class="icon icon-reply"></i> Volver al relevamiento</a>
 {% endblock %}
