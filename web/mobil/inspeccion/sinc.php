@@ -124,7 +124,7 @@
 			$cantidad_incidente_salteado++;
 		} else {
 			$cantidad_incidente++;
-			$db_local->exec("REPLACE INTO Inspeccion_RelevamientoAsignacionDetalle 
+                        $sql = "REPLACE INTO Inspeccion_RelevamientoAsignacionDetalle 
 					(id,
 					CreatedAt,
 					UpdatedAt,
@@ -152,7 +152,9 @@
 					'$PartidaCalleNombre',
 					'$PartidaCalleNumero',
 					$Encargado_id,
-					$PartidaCalle_id)");
+					$PartidaCalle_id)";
+			echo $sql;
+                        $db_local->exec($sql);
 		}
 	}
 	echo "se importaron $cantidad_incidente registros, se saltearon $cantidad_incidente_salteado.</p>";
