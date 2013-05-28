@@ -34,8 +34,12 @@ class YacareBaseController extends Controller
        
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
-        if($this->Where)
+        if($this->Where) {
+            $this->Where = trim($this->Where);
+            if(substr($this->Where, 0, 4) == "AND ")
+                    $this->Where = substr($this->Where, 4, strlen($this->Where) - 4);
             $dql .= " WHERE " . $this->Where;
+        }
         
         if($this->OrderBy)
             $dql .= " ORDER BY " . $this->OrderBy;

@@ -58,6 +58,12 @@ class Partida
     private $MacizoNum;
     
     /**
+     * @var string $Macizo
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Macizo;
+    
+    /**
      * @var string $ParcelaAlfa
      * @ORM\Column(type="string", length=50, nullable=true)
      */
@@ -68,6 +74,13 @@ class Partida
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ParcelaNum;
+    
+    /**
+     * @var string $Parcela
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Parcela;
+
     
      /**
      * @ORM\ManyToOne(targetEntity="Calle")
@@ -93,12 +106,12 @@ class Partida
     }
     
     public function getNombre() {
-        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoAlfa . $this->MacizoNum . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
+        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoNum . $this->MacizoAlfa . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
         return $this->Nombre;
     }
 
     public function setNombre($Nombre) {
-        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoAlfa . $this->MacizoNum . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
+        $this->Nombre = "Sección " . $this->Seccion . ", macizo " . $this->MacizoNum . $this->MacizoAlfa . ", parcela " . $this->ParcelaAlfa . $this->ParcelaNum;
     }
 
     public function getSeccion() {
@@ -168,5 +181,21 @@ class Partida
     public function __toString()
     {
         return $this->getNombre();
+    }
+    
+    public function getMacizo() {
+        return $this->Macizo;
+    }
+
+    public function setMacizo($Macizo) {
+        $this->Macizo = $Macizo;
+    }
+
+    public function getParcela() {
+        return $this->Parcela;
+    }
+
+    public function setParcela($Parcela) {
+        $this->Parcela = $Parcela;
     }
 }

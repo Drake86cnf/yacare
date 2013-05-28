@@ -4,24 +4,67 @@
 
 {% block content_header '' %}
 
-{% block content_listado %}
+{% block content %}
+
+{% if secciones %}
+{% set filtro_seccion = app.request.query.get('filtro_seccion') %}
+<div><fieldset>
+    <p class="btn-group">
+        <a class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '' }) }}">Todas</a>
+        {% for seccion in secciones %}
+            {% if seccion.Seccion %}
+        <a style="min-width: 8px;" class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
+            {% endif %}
+        {% endfor %}
+        <a class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '-' }) }}">Sin sección</a>
+    </span>
+    {% if filtro_seccion %}
+        {% set filtro_macizo = app.request.query.get('filtro_macizo') %}
+        &nbsp;&nbsp;&nbsp;
+        <span class="control-group">
+            <span class="control-label" for="filtro_macizo">Macizo</span>
+            <span class="controls">
+                <span class="input-append">
+                    <input type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
+                    <button class="btn btn-small" type="button" onClick="parent.location='{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo='">Todos</button>
+                </span>
+            </span>
+        </span>
+    {% endif %}
+</fieldset></div>
+<script>
+$(document).ready(function() {
+$("#filtro_macizo").keyup(function (e) {
+    if (e.which === 13) {
+        e.preventDefault();
+        parent.location='{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").attr("value");
+    }
+});
+});
+</script>
+{% endif %}
+
 <table class="table table-striped">
     <thead>
         <tr>
-            {# sorting of properties based on query components #}
-            <th{% if entities.isSorted('a.Nombre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Nombre', 'a.Nombre') }}</th>
-            <th{% if entities.isSorted('a.Calle') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Calle', 'a.Calle') }}</th>
-            <th{% if entities.isSorted('a.CalleNumero') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Número', 'a.CalleNumero') }}</th>
+            <th>Nombre</th>
+            <th>Calle</th>
+            <th>Número</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-file"></i> <a href="{{ path('yacare_catastro_partida_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Calle }}</td>
             <td>{{ entity.CalleNumero }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
 {% endblock %}

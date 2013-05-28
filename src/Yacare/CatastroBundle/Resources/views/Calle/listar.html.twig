@@ -14,7 +14,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-hdd"></i> <a href="{{ path('yacare_catastro_calle_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><a href="{{ path('yacare_catastro_calle_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
         </tr>
     {% endfor %}
     </tbody>
