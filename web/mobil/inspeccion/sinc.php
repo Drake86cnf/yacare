@@ -50,10 +50,16 @@
                 $Resultado1 = $row['Resultado1_id'] ? $row['Resultado1_id'] : 'NULL';
 		$Resultado2 = $row['Resultado2_id'] ? $row['Resultado2_id'] : 'NULL';
 		$Resultado3 = $row['Resultado3_id'] ? $row['Resultado3_id'] : 'NULL';
+		$Resultado4 = $row['Resultado4_id'] ? $row['Resultado4_id'] : 'NULL';
+		$Resultado5 = $row['Resultado5_id'] ? $row['Resultado5_id'] : 'NULL';
+		$Resultado6 = $row['Resultado6_id'] ? $row['Resultado6_id'] : 'NULL';
 		$update = $db_remota->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle
 			SET Resultado1_id=$Resultado1,
 				Resultado2_id=$Resultado2,
 				Resultado3_id=$Resultado3,
+				Resultado4_id=$Resultado4,
+				Resultado5_id=$Resultado5,
+				Resultado6_id=$Resultado6,
 				ResultadoObs=:resultadoobs,
 				Imagen=:imagen,
 				ResultadoUbicacion=:resultadoubicacion,
