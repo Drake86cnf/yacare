@@ -1,13 +1,23 @@
 <?php
 	include 'global.php.inc';
 	include 'db_local.php.inc';
+	
+	$orden = $_POST['orden'];
+    if(isset($orden) == 1) {	
+	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+    }else if(isset($orden) == 2) { 
+       $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+    }
+    
 ?>
 
 <body>
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
- <button onclick="parent.location='actualizar.php';">Sincronizar</a>
+ <button onclick="parent.location='listado.php?orden=1';">Ordenar por Sección...</a>
+ <button onclick="parent.location='listado.php?orden=2';">Ordenar por Calle</a>
+ <button onclick="parent.location='actualizar.php';">Sincronizar</a> 
 </div>
 </div>
 
@@ -26,7 +36,7 @@
     <tbody>
 <?php
     	$tipoLinea = 0;
-	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY PartidaCalleNombre, PartidaCalleNumero, PartidaSeccion, PartidaMacizo, PartidaParcela ASC";
+	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ordenar ASC";
     	foreach ($db_local->query($sql) as $row) {
     		$Id = $row['id'];
 		$PartidaCalleNombre = $row['PartidaCalleNombre'];
