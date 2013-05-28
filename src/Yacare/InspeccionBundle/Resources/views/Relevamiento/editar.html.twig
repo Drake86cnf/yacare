@@ -12,9 +12,6 @@
 
     {% if entity %}
     <div class="form-actions">
-        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar calle</a>
-        <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': entity.id }) }}"><i class="icon-map-marker"></i> Asignar macizo</a>
-        &nbsp;
         <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver asignaciones</a>
         <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_listarrelevamiento', { 'id': entity.id }) }}"><i class="icon-list"></i> Ver resultados</a>
     </div>

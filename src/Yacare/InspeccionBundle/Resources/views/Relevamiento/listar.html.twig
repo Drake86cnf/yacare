@@ -14,7 +14,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><a href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
         </tr>
     {% endfor %}
     </tbody>

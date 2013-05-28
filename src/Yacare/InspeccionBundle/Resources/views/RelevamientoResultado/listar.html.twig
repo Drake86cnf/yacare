@@ -8,15 +8,15 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Nombre</th>
             <th>Grupo</th>
+            <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon icon-bullet-on"></i> <a href="{{ path('yacare_inspeccion_relevamientoresultado_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
             <td>{{ entity.Grupo }}</td>
+            <td><a href="{{ path('yacare_inspeccion_relevamientoresultado_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
         </tr>
     {% endfor %}
     </tbody>

@@ -147,7 +147,7 @@ class RelevamientoAsignacion
     }
 
     public function setSeccion($Seccion) {
-        $this->Seccion = $Seccion;
+        $this->Seccion = strtoupper($Seccion);
     }
 
     public function getMacizo() {
@@ -155,7 +155,7 @@ class RelevamientoAsignacion
     }
 
     public function setMacizo($Macizo) {
-        $this->Macizo = $Macizo;
+        $this->Macizo = strtoupper($Macizo);
     }
     public function getDetalles() {
         return $this->Detalles;

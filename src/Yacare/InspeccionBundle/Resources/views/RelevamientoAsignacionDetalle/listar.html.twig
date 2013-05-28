@@ -5,6 +5,17 @@
 {% block content_header '' %}
 
 {% block content %}
+{% if entities is empty %}
+<div>
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong><p>Aun no se recibieron resultados para este relevamiento.</p></strong>
+    <p>Si ya se realizaron asignaciones, debe usar la opción de 'Sincronizar'
+    los datos desde los dispositivos (tabletas).
+    </p>
+</div>
+</div>
+{% else %}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -39,6 +50,6 @@
 <div class="navigation">
     {{ knp_pagination_render(entities) }}
 </div>
-
-<a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn"><i class="icon icon-reply"></i> Volver al relevamiento</a>
+{% endif %}
+<a href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': id }) }}" class="btn"><i class="icon-list"></i> Ver asignaciones</a>
 {% endblock %}
