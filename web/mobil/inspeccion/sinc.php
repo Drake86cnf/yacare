@@ -15,6 +15,13 @@
 <div class="contenido">
 <h1>Resultados de la sincronización</h1>
 <?php
+
+    $AgregarColumnas = @$db_remota->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN
+        Resultado4_id INTEGER DEFAULT NULL,
+        Resultado5_id INTEGER DEFAULT NULL,
+        Resultado6_id INTEGER DEFAULT NULL
+        ");
+        
 	$IdEncargadoDispositivo = $db_remota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
 	$IdRelevamientoActual = $db_remota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento")->fetchColumn();
 
