@@ -12,7 +12,7 @@
            $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
         }
 	}else {
-	    echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+	    $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
 	}
     
 ?>
