@@ -38,7 +38,7 @@
     <tbody>
 <?php
     $tipoLinea = 0;
-    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ordenar";
+    echo $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ordenar";
     foreach ($db_local->query($sql) as $row) {
         $Id = $row['id'];
         $PartidaCalleNombre = $row['PartidaCalleNombre'];
