@@ -37,15 +37,15 @@
     </thead>
     <tbody>
 <?php
-    	$tipoLinea = 0;
-	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY '$ordenar' ASC";
-    	foreach ($db_local->query($sql) as $row) {
-    		$Id = $row['id'];
-		$PartidaCalleNombre = $row['PartidaCalleNombre'];
-		$PartidaCalleNumero = $row['PartidaCalleNumero'];
-		$PartidaSeccion = $row['PartidaSeccion'];
-		$PartidaMacizo = $row['PartidaMacizo'];
-		$PartidaParcela = $row['PartidaParcela'];
+    $tipoLinea = 0;
+    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ordenar";
+    foreach ($db_local->query($sql) as $row) {
+        $Id = $row['id'];
+        $PartidaCalleNombre = $row['PartidaCalleNombre'];
+        $PartidaCalleNumero = $row['PartidaCalleNumero'];
+        $PartidaSeccion = $row['PartidaSeccion'];
+        $PartidaMacizo = $row['PartidaMacizo'];
+        $PartidaParcela = $row['PartidaParcela'];
 
 	if($tipoLinea==0) {
 		$tipoLinea = 1;    		
