@@ -84,7 +84,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                 $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Calle' => $entity->getCalle()));
             } else {
                 // Es por S-M-P
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Seccion' => $entity->getSeccion(), 'MacizoNum' => $entity->getMacizo()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Seccion' => $entity->getSeccion(), 'Macizo' => $entity->getMacizo()));
             }
 
             $total_partidas = 0;
