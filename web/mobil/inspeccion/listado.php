@@ -2,13 +2,15 @@
 	include 'global.php.inc';
 	include 'db_local.php.inc';
 	
-	if(isset($_POST['orden'])) {
-	    $orden = $_POST['orden'];
+	if(isset($_REQUEST['orden'])) {
+	    $orden = $_REQUEST['orden'];
 	}
     if(isset($orden) == 1) {	
 	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }else if(isset($orden) == 2) { 
        $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+    }else {
+        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }
     
 ?>
