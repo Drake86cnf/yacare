@@ -3,7 +3,8 @@
 	include 'db_local.php.inc';
 	
 	if(isset($_REQUEST['orden'])) {
-	    $orden = $_REQUEST['orden'];
+	    echo $orden = $_REQUEST['orden'];
+	    echo "\n\r";
 	}
     if(isset($orden) == '1') {	
 	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
