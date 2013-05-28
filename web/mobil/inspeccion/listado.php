@@ -5,14 +5,16 @@
 	if(isset($_REQUEST['orden'])) {
 	    echo $orden = $_REQUEST['orden'];
 	    echo "\n\r";
+        if($orden == 1) {	
+    	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        }else if($orden == 2) { 
+           echo $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+        }else {
+           echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        }
+	}else {
+	    echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
 	}
-    if(isset($orden) == 1) {	
-	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-    }else if(isset($orden) == 2) { 
-       echo $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
-    }else {
-       echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-    }
     
 ?>
 
