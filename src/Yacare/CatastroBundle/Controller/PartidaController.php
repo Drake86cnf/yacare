@@ -21,7 +21,6 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareBaseControll
     //UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ', ParcelaNum, ParcelaAlfa),
     //      Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
     
-    
     function __construct() {
         $this->BundleName = 'Catastro';
         $this->EntityName = 'Partida';
