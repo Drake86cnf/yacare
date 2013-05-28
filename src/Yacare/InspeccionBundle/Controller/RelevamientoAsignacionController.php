@@ -114,7 +114,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
             
             $em->flush();
 
-            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listarrelevamiento', array('id' => $entity->getRelevamiento()->getId()))));
+            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listarrelevamiento'), array('id' => $entity->getRelevamiento()->getId())));
         }
 
         //$this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
