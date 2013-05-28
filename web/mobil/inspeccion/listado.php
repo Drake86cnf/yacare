@@ -6,12 +6,12 @@
 	    echo $orden = $_REQUEST['orden'];
 	    echo "\n\r";
 	}
-    if(isset($orden) == '1') {	
+    if(isset($orden) == 1) {	
 	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-    }else if(isset($orden) == '2') { 
-       $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+    }else if(isset($orden) == 2) { 
+       echo $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
     }else {
-        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+       echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }
     
 ?>
