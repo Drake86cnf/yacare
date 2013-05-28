@@ -3,14 +3,13 @@
 	include 'db_local.php.inc';
 	
 	if(isset($_REQUEST['orden'])) {
-	    echo $orden = $_REQUEST['orden'];
-	    echo "\n\r";
+	    $orden = $_REQUEST['orden'];
         if($orden == 1) {	
     	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
         }else if($orden == 2) { 
-           echo $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+           $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
         }else {
-           echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+           $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
         }
 	}else {
 	    echo $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
