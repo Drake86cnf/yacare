@@ -104,6 +104,24 @@ class RelevamientoAsignacionDetalle
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Resultado3;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado4;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado5;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Resultado6;
     
     /**
      * @var string
@@ -222,6 +240,30 @@ class RelevamientoAsignacionDetalle
 
     public function setResultado3($Resultado3) {
         $this->Resultado3 = $Resultado3;
+    }
+
+    public function getResultado4() {
+        return $this->Resultado4;
+    }
+
+    public function setResultado4($Resultado4) {
+        $this->Resultado4 = $Resultado4;
+    }
+
+    public function getResultado5() {
+        return $this->Resultado5;
+    }
+
+    public function setResultado5($Resultado5) {
+        $this->Resultado5 = $Resultado5;
+    }
+
+    public function getResultado6() {
+        return $this->Resultado6;
+    }
+
+    public function setResultado6($Resultado6) {
+        $this->Resultado6 = $Resultado6;
     }
 
     public function getResultadoObs() {
