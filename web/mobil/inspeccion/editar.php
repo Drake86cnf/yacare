@@ -68,6 +68,39 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 	}
 ?>
 </select>
+<select name='Resultado4' style="width: 360px;">
+<option value=''></option>
+<?php
+	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
+	foreach ($db_local->query($sql) as $row) {		
+?>
+<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
+<?php
+	}
+?>
+</select>
+<select name='Resultado5' style="width: 360px;">
+<option value=''></option>
+<?php
+	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
+	foreach ($db_local->query($sql) as $row) {		
+?>
+<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
+<?php
+	}
+?>
+</select>
+<select name='Resultado6' style="width: 360px;">
+<option value=''></option>
+<?php
+	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
+	foreach ($db_local->query($sql) as $row) {		
+?>
+<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
+<?php
+	}
+?>
+</select>
 </fieldset>
 
 <fieldset name='Ubicacion'>
