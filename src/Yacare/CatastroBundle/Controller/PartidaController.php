@@ -43,7 +43,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareBaseControll
             $this->Where .= " AND r.Seccion='$filtro_seccion'";
         
         if($filtro_macizo)
-            $this->Where .= " AND CONCAT(r.MacizoAlfa, r.MacizoNum)='$filtro_macizo'";
+            $this->Where .= " AND r.Macizo='$filtro_macizo'";
 
         $res = parent::listarAction();
         
