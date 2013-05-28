@@ -43,6 +43,9 @@
 		ResultadoUbicacion,
 		Resultado2_id INTEGER DEFAULT NULL,
 		Resultado3_id INTEGER DEFAULT NULL,
+		Resultado4_id INTEGER DEFAULT NULL,
+		Resultado5_id INTEGER DEFAULT NULL,
+		Resultado6_id INTEGER DEFAULT NULL,
 		PartidaCalle_id INTEGER DEFAULT NULL)");
 
 	echo "ok</p>";
