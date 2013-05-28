@@ -12,7 +12,7 @@ if ($nombre=="inspector" && $clave =="123456") {
 	header("Location: listado.php");
 ?>
 <script type="text/javascript">
-window.location="listado.php";
+window.location="listado.php?orden=1";
 </script>
 <?php
 	exit;
