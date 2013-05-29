@@ -3,20 +3,20 @@
 	include 'db_local.php.inc';
 	
 	if(isset($_GET['orden'])) {
-        $orden = $_GET['orden'];
+        $ListadoOrdenar = $_GET['orden'];
 	}else {
-        if(isset($_COOKIE['ordenListado'])) {
-            $orden = $_COOKIE['ordenListado'];
+        if(isset($_COOKIE['YacareAsignacionesListadoOrdenar'])) {
+            $ListadoOrdenar = $_COOKIE['YacareAsignacionesListadoOrdenar'];
         }
     }
-    if($orden == 1) {	
-        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-        setcookie("ordenListado", $orden, time()+3600*24*60);
-    }else if($orden == 2) { 
-        $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
-        setcookie("ordenListado", $orden, time()+3600*24*60);
+    if($ListadoOrdenar == 1) {	
+        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
+    }else if($ListadoOrdenar == 2) { 
+        $ListadoOrdenarSql = "PartidaCalleNombre, PartidaCalleNumero";
+        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
     }else {
-        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }
     
 ?>
@@ -46,7 +46,7 @@
     <tbody>
 <?php
     $tipoLinea = 0;
-    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ordenar";
+    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id IS NULL ORDER BY $ListadoOrdenarSql";
     foreach ($db_local->query($sql) as $row) {
         $Id = $row['id'];
         $PartidaCalleNombre = $row['PartidaCalleNombre'];
