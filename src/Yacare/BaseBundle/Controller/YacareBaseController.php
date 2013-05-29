@@ -38,7 +38,7 @@ class YacareBaseController extends Controller
         if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
             $where = "r.Eliminado=0";
         } else {
-            $where = "1";
+            $where = "1=1";
         }
         
         $dql .= " WHERE $where";
