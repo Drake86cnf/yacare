@@ -2,18 +2,22 @@
 	include 'global.php.inc';
 	include 'db_local.php.inc';
 	
-	if(isset($_REQUEST['orden'])) {
-	    $orden = $_REQUEST['orden'];
-        if($orden == 1) {	
-    	   $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-        }else if($orden == 2) { 
-           $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
-        }else {
-           $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-        }
+	if(isset($_GET['orden'])) {
+        $orden = $_GET['orden'];
 	}else {
-	    $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-	}
+        if(isset($_COOKIE['ordenListado'])) {
+            $orden = $_COOKIE['ordenListado'];
+        }
+    }
+    if($orden == 1) {	
+        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        setcookie("ordenListado", $orden, time()+3600*24*60);
+    }else if($orden == 2) { 
+        $ordenar = "PartidaCalleNombre, PartidaCalleNumero";
+        setcookie("ordenListado", $orden, time()+3600*24*60);
+    }else {
+        $ordenar = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+    }
     
 ?>
 
