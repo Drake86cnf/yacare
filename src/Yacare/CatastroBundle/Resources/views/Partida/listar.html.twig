@@ -26,7 +26,9 @@
             <span class="controls">
                 <span class="input-append">
                     <input type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
+                    {% if filtro_macizo %}
                     <button class="btn btn-small" type="button" onClick="parent.location='{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo='">Todos</button>
+                    {% endif %}
                 </span>
             </span>
         </span>
