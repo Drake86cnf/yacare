@@ -16,6 +16,7 @@
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva asignación {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
         <a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': relevamiento }) }}"><i class="icon icon-reply"></i> Volver</a>
     </div>
 </form>

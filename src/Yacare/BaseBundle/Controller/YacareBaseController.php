@@ -178,7 +178,7 @@ class YacareBaseController extends Controller
                 throw $this->createNotFoundException('No se puede encontrar la entidad.');
             }
 
-            //$em->remove($entity);
+            $em->remove($entity);
             $em->flush();
         }
 

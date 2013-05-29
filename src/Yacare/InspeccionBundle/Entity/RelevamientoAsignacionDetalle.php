@@ -16,6 +16,7 @@ class RelevamientoAsignacionDetalle
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
+    use \Yacare\BaseBundle\Entity\Eliminable;
 
     /**
      * @var integer $id
@@ -34,7 +35,7 @@ class RelevamientoAsignacionDetalle
     protected $Relevamiento;
     
     /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion")
+     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion", cascade={"remove"})
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Asignacion;

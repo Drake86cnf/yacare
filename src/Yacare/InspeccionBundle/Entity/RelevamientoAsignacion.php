@@ -65,11 +65,10 @@ class RelevamientoAsignacion
     protected $Macizo;
     
     /**
-     * @ORM\OneToMany(targetEntity="RelevamientoAsignacionDetalle", mappedBy="Relevamiento", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="RelevamientoAsignacionDetalle", mappedBy="Asignacion", cascade={"remove"})
      */
     protected $Detalles;
-
-
+   
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
