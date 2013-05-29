@@ -93,6 +93,11 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 
+                // Marco los resultados en blanco actuales
+                //$numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Resultado1=-1 WHERE r.Asignacion = :asignacion_id AND r.Resultado1 IS NULL')
+                //    ->setParameter('asignacion_id', $entity->getId())
+                //    ->execute();
+                
                 foreach ($partidas as $partida) {
                     $total_partidas++;
                     $Deta = new \Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle();
@@ -109,6 +114,12 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
                     $em->persist($Deta);
                 }
+                
+                
+                //$numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado1=-1')
+                //   ->setParameter('asignacion_id', $entity->getId())
+                //   ->execute();
+
             }
             // ************************* /
             
@@ -172,7 +183,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
-
+        
         return array(
             'entity'      => $entity,
             'create'      => true,
