@@ -6,13 +6,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
- * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle
+ * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionResultado
  *
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
+ * @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
  * @ORM\Entity
  */
-class RelevamientoAsignacionDetalle
+class RelevamientoAsignacionResultado
 {
+    /*
+    
+    INSERT INTO Inspeccion_RelevamientoAsignacionResultado
+	(Detalle_id, Relevamiento_id, Asignacion_id, Encargado_id, Partida_id,
+		Resultado_id, PartidaSeccion, PartidaMacizo, PartidaParcela, PartidaCalleNombre,
+		PartidaCalleNumero, Obs, Ubicacion, Imagen, CreatedAt, UpdatedAt, Version)
+SELECT id, Relevamiento_id, Asignacion_id, Encargado_id, Partida_id,
+		Resultado1_id, PartidaSeccion, PartidaMacizo, PartidaParcela, PartidaCalleNombre,
+		PartidaCalleNumero, ResultadoObs, ResultadoUbicacion, Imagen, UpdatedAt, UpdatedAt, 1
+		FROM Inspeccion_RelevamientoAsignacionDetalle
+		WHERE Resultado1_id IS NOT NULL;
+     */
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
@@ -89,60 +101,28 @@ class RelevamientoAsignacionDetalle
     protected $PartidaCalleNumero;
     
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    protected $ResultadosCantidad;
+    protected $Resultado;
     
     /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
+     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacionDetalle")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    protected $Resultado1;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado2;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado3;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado4;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado5;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado6;
+    protected $Detalle;
     
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $ResultadoObs;
-    
+    protected $Obs;
     
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $ResultadoUbicacion;
-    
+    protected $Ubicacion;
     
     /**
      * Get id
@@ -152,7 +132,7 @@ class RelevamientoAsignacionDetalle
     {
         return $this->id;
     }
-
+    
     public function getRelevamiento() {
         return $this->Relevamiento;
     }
@@ -169,6 +149,14 @@ class RelevamientoAsignacionDetalle
         $this->Asignacion = $Asignacion;
     }
 
+    public function getEncargado() {
+        return $this->Encargado;
+    }
+
+    public function setEncargado($Encargado) {
+        $this->Encargado = $Encargado;
+    }
+
     public function getPartida() {
         return $this->Partida;
     }
@@ -176,7 +164,7 @@ class RelevamientoAsignacionDetalle
     public function setPartida($Partida) {
         $this->Partida = $Partida;
     }
-    
+
     public function getPartidaSeccion() {
         return $this->PartidaSeccion;
     }
@@ -209,93 +197,6 @@ class RelevamientoAsignacionDetalle
         $this->PartidaCalle = $PartidaCalle;
     }
 
-    public function getPartidaCalleNumero() {
-        return $this->PartidaCalleNumero;
-    }
-
-    public function setPartidaCalleNumero($PartidaCalleNumero) {
-        $this->PartidaCalleNumero = $PartidaCalleNumero;
-    }
-    
-    public function getEncargado() {
-        return $this->Encargado;
-    }
-
-    public function setEncargado($Encargado) {
-        $this->Encargado = $Encargado;
-    }
-
-    public function getResultado1() {
-        return $this->Resultado1;
-    }
-
-    public function setResultado1($Resultado1) {
-        $this->Resultado1 = $Resultado1;
-    }
-
-    public function getResultado2() {
-        return $this->Resultado2;
-    }
-
-    public function setResultado2($Resultado2) {
-        $this->Resultado2 = $Resultado2;
-    }
-
-    public function getResultado3() {
-        return $this->Resultado3;
-    }
-
-    public function setResultado3($Resultado3) {
-        $this->Resultado3 = $Resultado3;
-    }
-
-    public function getResultado4() {
-        return $this->Resultado4;
-    }
-
-    public function setResultado4($Resultado4) {
-        $this->Resultado4 = $Resultado4;
-    }
-
-    public function getResultado5() {
-        return $this->Resultado5;
-    }
-
-    public function setResultado5($Resultado5) {
-        $this->Resultado5 = $Resultado5;
-    }
-
-    public function getResultado6() {
-        return $this->Resultado6;
-    }
-
-    public function setResultado6($Resultado6) {
-        $this->Resultado6 = $Resultado6;
-    }
-
-    public function getResultadoObs() {
-        return $this->ResultadoObs;
-    }
-
-    public function setResultadoObs($ResultadoObs) {
-        $this->ResultadoObs = $ResultadoObs;
-    }
-
-    public function getResultadoImagen() {
-        return $this->ResultadoImagen;
-    }
-
-    public function setResultadoImagen($ResultadoImagen) {
-        $this->ResultadoImagen = $ResultadoImagen;
-    }
-
-    public function getResultadoUbicacion() {
-        return $this->ResultadoUbicacion;
-    }
-
-    public function setResultadoUbicacion($ResultadoUbicacion) {
-        $this->ResultadoUbicacion = $ResultadoUbicacion;
-    }
     public function getPartidaCalleNombre() {
         return $this->PartidaCalleNombre;
     }
@@ -303,12 +204,52 @@ class RelevamientoAsignacionDetalle
     public function setPartidaCalleNombre($PartidaCalleNombre) {
         $this->PartidaCalleNombre = $PartidaCalleNombre;
     }
-    
+
+    public function getPartidaCalleNumero() {
+        return $this->PartidaCalleNumero;
+    }
+
+    public function setPartidaCalleNumero($PartidaCalleNumero) {
+        $this->PartidaCalleNumero = $PartidaCalleNumero;
+    }
+
     public function getResultadosCantidad() {
         return $this->ResultadosCantidad;
     }
 
     public function setResultadosCantidad($ResultadosCantidad) {
         $this->ResultadosCantidad = $ResultadosCantidad;
+    }
+
+    public function getResultado() {
+        return $this->Resultado;
+    }
+
+    public function setResultado($Resultado) {
+        $this->Resultado = $Resultado;
+    }
+
+    public function getDetalle() {
+        return $this->Detalle;
+    }
+
+    public function setDetalle($Detalle) {
+        $this->Detalle = $Detalle;
+    }
+    
+    public function getObs() {
+        return $this->Obs;
+    }
+
+    public function setObs($Obs) {
+        $this->Obs = $Obs;
+    }
+
+    public function getUbicacion() {
+        return $this->Ubicacion;
+    }
+
+    public function setUbicacion($Ubicacion) {
+        $this->Ubicacion = $Ubicacion;
     }
 }

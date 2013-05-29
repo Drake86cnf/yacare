@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Relevamientos - Asignaciones - Detalles{% endblock %}
+{% block title %}Relevamientos - Asignaciones - Resultados{% endblock %}
 
 {% block content_header '' %}
 
@@ -30,13 +30,13 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td>{% if entity.Imagen %}<a target="_blank"
-                                         href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_imagen', { 'id': entity.Id }) }}"><i class="icon-picture"></i></a>{% endif %}{% if entity.Imagen %}<i class="icon-map-marker"></i> {% endif %}</td>
+            <td>{% if entity.Imagen %}<a target="_blank" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_imagen', { 'id': entity.Id }) }}"><i class="icon-picture"></i></a>{% endif %}
+            {% if entity.Ubicacion %}<i class="icon-map-marker"></i> {% endif %}</td>
             <td>{{ entity.Encargado }}</td>
             <td>{{ entity.PartidaCalleNombre }} {{ entity.PartidaCalleNumero }}</td>
             <td>{{ entity.PartidaSeccion }}, {{ entity.PartidaMacizo }}, {{ entity.PartidaParcela }}</td>
-            <td>{{ entity.Resultado1 }} {{ entity.Resultado2 }} {{ entity.Resultado3 }} {{ entity.Resultado4 }} {{ entity.Resultado5 }} {{ entity.Resultado6 }}</td>
-            <td>{{ entity.ResultadoObs }}</td>
+            <td>{{ entity.Resultado }}</td>
+            <td>{{ entity.Obs }}</td>
         </tr>
     {% endfor %}
     </tbody>
