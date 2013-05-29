@@ -18,6 +18,7 @@ class Persona
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
+    use \Yacare\BaseBundle\Entity\Eliminable;
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
@@ -95,7 +96,7 @@ class Persona
     /**
      * @var string $RazonSocial
      *
-     * @ORM\Column(name="RazonSocial", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $RazonSocial = null;
 
@@ -116,7 +117,7 @@ class Persona
     /**
      * @var string $DomicilioCalle
      *
-     * @ORM\Column(name="Calle", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $DomicilioCalle;
 
@@ -151,7 +152,7 @@ class Persona
     /**
      * @var string $Email
      *
-     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
 
@@ -172,14 +173,14 @@ class Persona
     /**
      * @var \DateTime $FechaNacimiento
      *
-     * @ORM\Column(name="FechaNacimiento", type="date", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $FechaNacimiento;
 
     /**
      * @var integer $Genero
      *
-     * @ORM\Column(name="Genero", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Genero;
 

@@ -34,13 +34,21 @@ class YacareBaseController extends Controller
        
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
-        if($this->Where) {
-            $this->Where = trim($this->Where);
-            if(substr($this->Where, 0, 4) == "AND ")
-                    $this->Where = substr($this->Where, 4, strlen($this->Where) - 4);
-            $dql .= " WHERE " . $this->Where;
+        $where = "";
+        if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
+            $where = "r.Eliminado=0";
+        } else {
+            $where = "1";
         }
         
+        $dql .= " WHERE $where";
+        if($this->Where) {
+            $this->Where = trim($this->Where);
+            if(substr($this->Where, 0, 4) != "AND ")
+                    $this->Where = "AND " . $this->Where;
+            $dql .= ' ' . $this->Where;
+        }
+
         if($this->OrderBy)
             $dql .= " ORDER BY " . $this->OrderBy;
 
@@ -164,6 +172,7 @@ class YacareBaseController extends Controller
     /**
      * @Route("eliminar2/{id}")
      * @Method("POST")
+     * @Template("YacareBaseBundle:Default:eliminar2.html.twig")
      */
     public function eliminar2Action(Request $request, $id)
     {
@@ -174,14 +183,22 @@ class YacareBaseController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('No se puede encontrar la entidad.');
+            if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses($entity))) {
+                // Es soft-deletable, lo marco como borrado
+                $entity->Eliminar();
+                $em->persist($entity);
+                $em->flush();
+            } else {
+                // Lo elimino de verdad
+                //$em->remove($entity);
             }
-
-            $em->remove($entity);
-            $em->flush();
         }
-
+        
+        /* return array(
+            'entity'      => $entity,
+            'bundlename'  => strtolower('yacare_' . $this->BundleName),
+            'entityname'  => strtolower($this->EntityName),
+        ); */
         return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
     }
     

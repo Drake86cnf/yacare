@@ -1,0 +1,13 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Eliminar{% endblock %}
+
+{% block content %}
+
+{% if entity %}
+<legend>Eliminar {{ entity }}</legend>
+
+<p>Se eliminó {{ entity.Eliminado }}</p>
+{% endif %}
+
+{% endblock %}

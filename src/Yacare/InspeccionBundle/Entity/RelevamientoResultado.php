@@ -14,6 +14,7 @@ class RelevamientoResultado
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\Eliminable;
     
     /**
      * @var integer

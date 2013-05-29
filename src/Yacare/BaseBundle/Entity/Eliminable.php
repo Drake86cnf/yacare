@@ -11,10 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 trait Eliminable
 {
     /**
-     * @var integer $Eliminado
-     *
-     * @ORM\Column(name="Eliminado", type="integer")
-     * @ORM\Version
+     * @var integer
+     * @ORM\Column(type="integer")
      */
     private $Eliminado;
     
@@ -24,5 +22,9 @@ trait Eliminable
 
     public function setEliminado($Eliminado) {
         $this->Eliminado = $Eliminado;
+    }
+    
+    public function Eliminar() {
+        $this->setEliminado(1);
     }
 }
