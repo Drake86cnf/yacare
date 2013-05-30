@@ -13,9 +13,6 @@
 </div>
 </div>
 
-<?php
-    if(isset($_REQUEST['entrar']) && $_REQUEST['entrar']) {
-?>
 <div class="contenido">
 
 <form action="entrada.php" method="post">
@@ -31,18 +28,6 @@ Contraseña <input type="password" name="password" /><br />
 
 </form>
 
-</div>
-<?php
-    } else {
-?>
-    <p>La aplicación se abre en una nueva ventana. Si no es así, por favor permita ventanas emergentes en su navegador.</p>
-<script>
-    var popup = window.open('index.php?entrar=1', 'ventanaingreso','status=1,toolbar=0,resizable=yes,scrollbars=yes,location=no,fullscreen=yes,maximized=yes,height=' + screen.height + 'width='+screen.width);
-    popup.moveTo(0, 0);
-</script>
-<?php
-    }
-?>
 </body>
 
 </html>
