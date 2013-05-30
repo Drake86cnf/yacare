@@ -45,7 +45,7 @@
             Resultado5_id INTEGER DEFAULT NULL,
             Resultado6_id INTEGER DEFAULT NULL,
             PartidaCalle_id INTEGER DEFAULT NULL,
-            ResultadosCantidad_id INTEGER NOT NULL,
+            ResultadosCantidad INTEGER NOT NULL,
             ResultadoObs,
             Imagen BLOB,
             ResultadoUbicacion)");

@@ -129,6 +129,7 @@
 		$PartidaCalleNumero = $row['PartidaCalleNumero'];
 		$Encargado_id = $row['Encargado_id'];
 		$PartidaCalle_id = $row['PartidaCalle_id'] ? $row['PartidaCalle_id'] : 'NULL';
+                $ResultadosCantidad = $row['ResultadosCantidad'];
 		
 		// Si existen resultados para el registro que estoy por importar, no lo importo
 		// para no pisar el trabajo hecho
@@ -151,7 +152,8 @@
 					PartidaCalleNombre,
 					PartidaCalleNumero,
 					Encargado_id,
-					PartidaCalle_id)
+					PartidaCalle_id,
+                                        ResultadosCantidad)
 				VALUES ($Id,
 					'$CreatedAt',
 					'$UpdatedAt',
@@ -165,7 +167,8 @@
 					'$PartidaCalleNombre',
 					'$PartidaCalleNumero',
 					$Encargado_id,
-					$PartidaCalle_id)";
+					$PartidaCalle_id,
+                                        $ResultadosCantidad)";
 			//echo $sql;
             $db_local->exec($sql);
 		}
