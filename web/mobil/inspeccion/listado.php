@@ -27,7 +27,7 @@
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
- <button onclick="parent.location='listado.php?orden=1';">Ordenar por sección...</a>
+ <button onclick="parent.location='listado.php?orden=1';">Ordenar por sección</a>
  <button onclick="parent.location='listado.php?orden=2';">Ordenar por calle</a>
  <button onclick="parent.location='actualizar.php';">Sincronizar</a> 
 </div>
