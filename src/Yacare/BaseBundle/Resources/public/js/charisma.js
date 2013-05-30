@@ -15,9 +15,8 @@ $(document).ready(function(){
 		$('#for-is-ajax').hide();
 		$('#toggle-fullscreen').hide();
 		$('.login-box').find('.input-large').removeClass('span10');
-		
 	}
-	
+
 	
 	//highlight current / active link
 	$('ul.main-menu li a').each(function(){

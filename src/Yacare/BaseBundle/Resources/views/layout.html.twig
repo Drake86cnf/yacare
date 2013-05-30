@@ -14,7 +14,7 @@
 	<meta charset="UTF-8" />
 	<title>Yacaré - {% block title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" sizes="16x16" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
+	<link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
 
 	<link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap-yacare.css') }}" rel="stylesheet" />
 	<style type="text/css">
@@ -46,9 +46,6 @@
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-    <!-- jQuery -->
-	<script src="{{ asset('bundles/yacarebase/js/jquery-1.8.2.min.js') }}"></script>
 </head>
 
 <body>
@@ -210,5 +207,7 @@
 	<script src="{{ asset('bundles/yacarebase/js/jquery.history.js') }}"></script>
 	<!-- application script for Charisma demo -->
 	<script src="{{ asset('bundles/yacarebase/js/charisma.js') }}"></script>
+    <!-- jQuery -->
+	<script src="{{ asset('bundles/yacarebase/js/jquery-1.10.0.min.js') }}"></script>
 </body>
 </html>
