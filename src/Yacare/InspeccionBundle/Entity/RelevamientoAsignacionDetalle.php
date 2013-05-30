@@ -90,9 +90,9 @@ class RelevamientoAsignacionDetalle
     
     /**
      * @var integer
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    protected $ResultadosCantidad;
+    protected $ResultadosCantidad = 0;
     
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
