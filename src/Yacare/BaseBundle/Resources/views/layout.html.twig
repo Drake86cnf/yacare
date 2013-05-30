@@ -14,7 +14,7 @@
 	<meta charset="UTF-8" />
 	<title>Yacaré - {% block title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" sizes="16x16" href="{{ asset('bundles/yacarebase/img/favicon.ico') }}" />
+	<link rel="icon" sizes="16x16" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
 
 	<link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap-yacare.css') }}" rel="stylesheet" />
 	<style type="text/css">
@@ -61,7 +61,11 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="{{ path('inicio') }}"><span>Municipio de Río Grande</span></a>
+                
+				<a class="brand" href="{{ path('inicio') }}">
+                    <img src="{{ asset('bundles/yacarebase/images/yacare_logo_gris24.png') }}" alt="Yacaré" />
+                    <span>Municipio Río Grande</span>
+                </a>
 
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
