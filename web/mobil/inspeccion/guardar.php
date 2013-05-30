@@ -41,8 +41,8 @@
     $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
         (CreatedAt, UpdatedAt, Version, Detalle_id, Resultado_id, Obs, Imagen, Ubicacion) 
         VALUES (
-            NOW(),
-            NOW(),
+            datetime(),
+            datetime(),
             1,
             :detalle_id,
             :resultado_id,
@@ -53,7 +53,10 @@
     $insert->bindValue('resultado_id', $Resultado, PDO::PARAM_INT);
     $insert->bindValue('obs', $Obs, PDO::PARAM_STR);
     $insert->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
-    $insert->execute();
+    
+    if($insert->execute()) {
+        $db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=$AsignacionDetalleId");
+    }
 	
 	echo "<p>Incidentes guardados.</p>\r\n";
 ?>
