@@ -91,14 +91,16 @@
 	foreach ($db_local->query($sql) as $row) {
 		$cantidad_resultado++;	
 		$update = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
-            (Resultado_id, ResultadoObs, Imagen, ResultadoUbicacion, UpdatedAt, UpdatedAt, Version)
+            (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, UpdatedAt, Version)
 			VALUES
-            (:resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
+            (:detalle_id, :resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
 		$update->bindValue('obs', $row['Obs'], PDO::PARAM_STR);
 		$update->bindValue('imagen', $row['Imagen'], PDO::PARAM_LOB);
 		$update->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
         $update->bindValue('resultado_id', $row['Resultado_id'], PDO::PARAM_INT);
+        $update->bindValue('detalle_id', $row['Detalle_id'], PDO::PARAM_INT);
 		if($update->execute()) {
+            $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
 		}
 	}
