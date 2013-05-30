@@ -18,12 +18,12 @@
         include_once 'db_remota.php.inc';
 
         echo "<p>Recreando la tabla de tipos de incidente: ";
-        $db_local->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
+        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoResultado;");
         $db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
         echo "ok.</p>";
 
-        echo "<p>Recreando la tabla de resultados: ";
-        $db_local->exec("DROP TABLE Inspeccion_RelevamientoAsignacionDetalle");
+        echo "<p>Recreando la tabla de asignaciones: ";
+        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionDetalle");
         $db_local->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionDetalle
             (id INTEGER PRIMARY KEY,
             CreatedAt,
@@ -44,12 +44,15 @@
             Resultado4_id INTEGER DEFAULT NULL,
             Resultado5_id INTEGER DEFAULT NULL,
             Resultado6_id INTEGER DEFAULT NULL,
+            PartidaCalle_id INTEGER DEFAULT NULL,
+            ResultadosCantidad_id INTEGER NOT NULL,
             ResultadoObs,
             Imagen BLOB,
-            ResultadoUbicacion,
-            PartidaCalle_id INTEGER DEFAULT NULL)");
+            ResultadoUbicacion)");
+        echo "ok</p>";
         
-        $db_local->exec("DROP TABLE Inspeccion_RelevamientoAsignacionResultado");
+        echo "<p>Recreando la tabla de resultados: ";
+        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionResultado");
         $db_local->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionResultado
             (id INTEGER PRIMARY KEY,
             CreatedAt,
@@ -57,6 +60,9 @@
             Version INTEGER DEFAULT NULL,
             Relevamiento_id INTEGER DEFAULT NULL,
             Asignacion_id INTEGER DEFAULT NULL,
+            Detalle_id INTEGER DEFAULT NULL,
+            Encargado_id INTEGER DEFAULT NULL,
+            Resultado_id INTEGER DEFAULT NULL,
             Partida_id INTEGER DEFAULT NULL,
             PartidaCalle_id INTEGER DEFAULT NULL,
             PartidaSeccion,
@@ -64,8 +70,6 @@
             PartidaParcela,
             PartidaCalleNombre,
             PartidaCalleNumero,
-            Encargado_id INTEGER DEFAULT NULL,
-            Resultado_id INTEGER DEFAULT NULL,
             Obs,
             Imagen BLOB,
             Ubicacion)");
