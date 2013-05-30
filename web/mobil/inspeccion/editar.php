@@ -2,9 +2,9 @@
 	include_once 'global.php.inc';
 	include_once 'db_local.php.inc';
 
-        $AsignacionDetalleId = (int)($_GET["id"]);
-	
-	$sql="SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
+    $AsignacionDetalleId = (int)($_GET["id"]);
+
+	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
 	$row = $db_local->query($sql)->fetch();
 ?>
 
@@ -42,70 +42,6 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 <option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
 <?php
 	}
-
-/*
-?>
-</select>
-
-<select name='Resultado2' style="width: 360px;">
-<option value=''></option>
-<?php
-	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
-	foreach ($db_local->query($sql) as $row) {		
-?>
-<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
-<?php
-	}
-?>
-</select>
-
-<select name='Resultado3' style="width: 360px;">
-<option value=''></option>
-<?php
-	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
-	foreach ($db_local->query($sql) as $row) {		
-?>
-<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
-<?php
-	}
-?>
-</select>
-<select name='Resultado4' style="width: 360px;">
-<option value=''></option>
-<?php
-	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
-	foreach ($db_local->query($sql) as $row) {		
-?>
-<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
-<?php
-	}
-?>
-</select>
-<select name='Resultado5' style="width: 360px;">
-<option value=''></option>
-<?php
-	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
-	foreach ($db_local->query($sql) as $row) {		
-?>
-<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
-<?php
-	}
-?>
-</select>
-<select name='Resultado6' style="width: 360px;">
-<option value=''></option>
-<?php
-	$sql="SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo ASC";
-	foreach ($db_local->query($sql) as $row) {		
-?>
-<option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
-<?php
-	}
-?>
-</select>
-</fieldset>
-<?php
-	*/
 ?>
 <fieldset name='Ubicacion'>
 <legend>Georeferencia</legend>
