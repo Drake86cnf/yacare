@@ -90,16 +90,17 @@
 	$cantidad_resultado = 0;
 	foreach ($db_local->query($sql) as $row) {
 		$cantidad_resultado++;	
-		$update = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
-            (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, UpdatedAt, Version)
+		$insert = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
+            (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, CreatedAt, Version)
 			VALUES
             (:detalle_id, :resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
-		$update->bindValue('obs', $row['Obs'], PDO::PARAM_STR);
-		$update->bindValue('imagen', $row['Imagen'], PDO::PARAM_LOB);
-		$update->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
-        $update->bindValue('resultado_id', $row['Resultado_id'], PDO::PARAM_INT);
-        $update->bindValue('detalle_id', $row['Detalle_id'], PDO::PARAM_INT);
-		if($update->execute()) {
+		$insert->bindValue('obs', $row['Obs'], PDO::PARAM_STR);
+		$insert->bindValue('imagen', $row['Imagen'], PDO::PARAM_LOB);
+		$insert->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
+        $insert->bindValue('resultado_id', $row['Resultado_id'], PDO::PARAM_INT);
+        $insert->bindValue('detalle_id', $row['Detalle_id'], PDO::PARAM_INT);
+        $insert->execute();
+		if($insert->rowCount()) {
             $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
 		}
@@ -135,7 +136,7 @@
 		
 		// Si existen resultados para el registro que estoy por importar, no lo importo
 		// para no pisar el trabajo hecho
-		$registro_actual = $db_local->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND Resultado1_id IS NOT NULL")->fetchColumn();
+		$registro_actual = $db_local->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND ResultadosCantidad<>0")->fetchColumn();
 		if($registro_actual == $Id) {
 			$cantidad_incidente_salteado++;
 		} else {
