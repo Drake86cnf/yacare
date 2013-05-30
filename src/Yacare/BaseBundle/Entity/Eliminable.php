@@ -12,9 +12,9 @@ trait Eliminable
 {
     /**
      * @var integer
-     * @ORM\Column(type="integer", default=0)
+     * @ORM\Column(type="integer")
      */
-    private $Eliminado;
+    private $Eliminado = 0;
     
     public function getEliminado() {
         return $this->Eliminado;
