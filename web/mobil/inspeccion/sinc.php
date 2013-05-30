@@ -25,7 +25,7 @@
 	$IdEncargadoDispositivo = $db_remota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
 	$IdRelevamientoActual = $db_remota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento")->fetchColumn();
 
-	//Traigo tipos de Incidentes
+	// ********************** Traigo tipos de Incidentes
 	echo "<p>Recibiendo tipos de incidente: ";
 	$db_local->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
 	$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
@@ -44,7 +44,7 @@
 	echo "se importaron $cantidad_tipo_incidente registros.</p>";
 	//$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultadoTipo (Id, Nombre, Grupo);");
 
-	// Envío Relevamientos realizados
+	// ********************** Envío Relevamientos realizados
 	echo "Enviando detalles: ";
 	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id > 0 OR Resultado1_id IS NOT NULL";
 	$cantidad_relevamiento = 0;
@@ -83,6 +83,30 @@
 	}
 	echo "se exportaron $cantidad_relevamiento registros.</p>";
 
+    
+    // ********************** Envío Relevamientos realizados 2
+	echo "Enviando resultados: ";
+	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionResultado";
+	$cantidad_resultado = 0;
+	foreach ($db_local->query($sql) as $row) {
+		$cantidad_resultado++;	
+		$update = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
+            (Resultado_id, ResultadoObs, Imagen, ResultadoUbicacion, UpdatedAt, UpdatedAt, Version)
+			VALUES
+            (:resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
+		$update->bindValue('obs', $row['Obs'], PDO::PARAM_STR);
+		$update->bindValue('imagen', $row['Imagen'], PDO::PARAM_LOB);
+		$update->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
+        $update->bindValue('resultado_id', $row['Resultado_id'], PDO::PARAM_INT);
+		if($update->execute()) {
+			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
+		}
+	}
+	echo "se exportaron $cantidad_resultado registros.</p>";
+    
+    
+    
+    // ********************** Recibir asignaciones nuevas
 	echo "<p>Recibiendo asignaciones: ";
 	$cantidad_incidente = 0;
 	$cantidad_incidente_salteado = 0;
