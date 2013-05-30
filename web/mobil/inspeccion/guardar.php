@@ -57,7 +57,7 @@
 	
 	echo "<p>Incidentes guardados.</p>\r\n";
 ?>
-<button onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId ?>">Continuar</button>
+<button type="button" onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId ?>">Continuar</button>
 
 <script type="text/javascript">
 window.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
