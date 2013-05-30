@@ -13,8 +13,8 @@
 </div>
 <div class="contenido">
 <?php		
-	echo $AsignacionDetalleId = (int)$_POST['id'];
-	echo $Resultado = $_POST['Resultado'] ? $_POST['Resultado'] : 'NULL';
+	$AsignacionDetalleId = (int)$_POST['id'];
+	$Resultado = $_POST['Resultado'] ? $_POST['Resultado'] : 'NULL';
 
 	$Obs = $_POST['Obs'];
 	$lat = $_POST['lat'];
@@ -22,20 +22,16 @@
 	
     if(!$_POST['lat'] || !$_POST['lon']) {
 		$Ubicacion = 'NULL';
-		echo 'Sin ubicacion';
 	} else {
 		$Ubicacion = 'POINT(' . $lat . ' ' . $lon . ')';
-		echo 'Con ubicación';
 	}
 	
 	if($_POST['Imagen']) {
 		$imagen = substr($_POST['Imagen'], strpos($_POST['Imagen'], ',') + 1);
 		$imagen_binario = base64_decode($imagen);
-		echo 'Con imagen';
 	} else {	
         $imagen_binario = null;
 		$dataURL = null;
-		echo 'Sin imagen';
 	}
 
     $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
@@ -58,15 +54,15 @@
         $db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=$AsignacionDetalleId");
     }
 	
-	echo "<p>Incidentes guardados.</p>\r\n";
+	echo "<p>Resultado guardado</p>\r\n";
 ?>
 <button type="button" onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId ?>">Continuar</button>
 
-<script type="text/javascript">
-window.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
-</script>
-
 </div>
+
+<script>
+    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
+</script>
 
 </body>
 
