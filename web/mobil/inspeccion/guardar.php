@@ -8,15 +8,14 @@
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
- <button type='submit' name='Aceptar'>Guardar</button>
- <button value='Back' onclick="parent.location='listado.php'">Cancelar</button>
+ <button value='Back' onclick="parent.location='listado.php'">Terminar</button>
 </div>
 </div>
 <div class="contenido">
 <?php		
-	$Id = $_POST["id"];
-/*	$Resultado1 = $_POST["Resultado1"] ? $_POST["Resultado1"] : 'NULL';
-	$Resultado2 = $_POST["Resultado2"] ? $_POST["Resultado2"] : 'NULL';
+	echo $AsignacionDetalleId = $_POST["id"];
+	echo $Resultado = $_POST["Resultado"] ? $_POST["Resultado"] : 'NULL';
+/*	$Resultado2 = $_POST["Resultado2"] ? $_POST["Resultado2"] : 'NULL';
 	$Resultado3 = $_POST["Resultado3"] ? $_POST["Resultado3"] : 'NULL';
 	$Resultado4 = $_POST["Resultado4"] ? $_POST["Resultado4"] : 'NULL';
 	$Resultado5 = $_POST["Resultado5"] ? $_POST["Resultado5"] : 'NULL';
@@ -26,7 +25,7 @@
             $Resultado6 = 'NULL';
 	}*/
 
-	if($_POST["Resultado1"]) {
+/*	if($_POST["Resultado1"]) {
 		$Resultados[] = $_POST["Resultado1"];
 	}
 	if($_POST["Resultado2"]) {
@@ -51,43 +50,47 @@
 	$Resultado4 = isset($Resultados[3]) ? $Resultados[3] : 'NULL';
 	$Resultado5 = isset($Resultados[4]) ? $Resultados[4] : 'NULL';
 	$Resultado6 = isset($Resultados[5]) ? $Resultados[5] : 'NULL';
-
+*/
 	$Obs = $_POST["Obs"];
 	$lat = $_POST["lat"];
 	$lon = $_POST["lon"];
 	if(!$_POST["lat"] || !$_POST["lon"]) {
 		$Ubicacion = 'NULL';
+		echo "Sin ubicacion";
 	} else {
 		$Ubicacion = "POINT(".$lat." ".$lon.")";
+		echo "Con ubicación";
 	}
 	
 	if($_POST["Imagen"]) {
 		$imagen = substr($_POST["Imagen"], strpos($_POST["Imagen"], ',')+1);
 		$imagen_binario = base64_decode($imagen);
+		echo "Con imagen";
 	}else {	
 		$dataURL = null;
+		echo "Sin imagen";
 	}
 
-	$update = $db_local->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle 
-		SET Resultado1_id = $Resultado1, 
-			Resultado2_id = $Resultado2, 
-			Resultado3_id = $Resultado3, 
-			Resultado4_id = $Resultado4, 
-			Resultado5_id = $Resultado5, 
-			Resultado6_id = $Resultado6, 
-			ResultadoObs = :resultadoobs, 
-			Imagen = :imagen, 
-			ResultadoUbicacion = '$Ubicacion'
-		WHERE id = :id;");
-		$update->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
-		$update->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
-		$update->bindValue('id', $Id, PDO::PARAM_INT);
-		$update->execute();
+    $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado(CreatedAt,UpdatedAt,Version,Detalle_id,Resultado_id,Obs,Imagen,Ubicacion) 
+        VALUES (
+            NOW(),
+            NOW(),
+            1,
+            :AsignacionDetalleId,
+            :resultadoobs,
+            :imagen,
+            '$Ubicacion'
+		)");
+		$insert->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
+		$insert->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
+		$insert->bindValue('AsignacionDetalleId', $AsignacionDetalleId, PDO::PARAM_INT);
+		$insert->execute();
 	
-	echo "<p>Incidentes guardados.</p>";
+	echo "<p>Incidentes guardados.</p>\r\n";
 ?>
+<button onclick="parent.location=editar.php?id=$AsignacionDetalleId">Continuar</button>
 <script type="text/javascript">
-window.location='listado.php';
+window.location='editar.php';
 </script>
 
 </div>

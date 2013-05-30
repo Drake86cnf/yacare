@@ -2,23 +2,23 @@
 	include_once 'global.php.inc';
 	include_once 'db_local.php.inc';
 
-        $Id = (int)($_GET["id"]);
+        $AsignacionDetalleId = (int)($_GET["id"]);
 	
-	$sql="SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$Id'";
+	$sql="SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
 	$row = $db_local->query($sql)->fetch();
 ?>
 
 <body>
 
 <form name="editar" action="guardar.php" method="post" onsubmit="getLocation()">
-<input type="hidden" id="id" name="id" value="<?php echo $Id; ?>" />
+<input type="hidden" id="id" name="id" value="<?php echo $AsignacionDetalleId; ?>" />
 <input type="hidden" id="Imagen" name='Imagen'/>
 
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
  <button type='submit' name='Aceptar'>Guardar</button>
- <button type='button' onclick="parent.location='listado.php';">Cancelar</button>
+ <button type='button' onclick="parent.location='listado.php';">Terminar</button>
 </div>
 </div>
 
@@ -33,7 +33,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 
 <fieldset>
 <legend>Incidentes</legend>
-<select name='Resultado1' style="width: 360px;" required='required'>
+<select name='Resultado' style="width: 360px;" required='required'>
 <option value=''>Seleccione uno o más incidentes</option>
 <?php
 	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo, Nombre ASC";
@@ -42,6 +42,8 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 <option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
 <?php
 	}
+
+/*
 ?>
 </select>
 
@@ -102,7 +104,9 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 ?>
 </select>
 </fieldset>
-
+<?php
+	*/
+?>
 <fieldset name='Ubicacion'>
 <legend>Georeferencia</legend>
 Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, longitud <input type='text' maxlength=16 size=5 name='lon' id='lon' readonly /><br />
