@@ -8,9 +8,9 @@
 	$row = $db_local->query($sql)->fetch();
 ?>
 
-<body>
+<body onload='getLocation();'>
 
-<form name="editar" action="guardar.php" method="post" onsubmit="getLocation()">
+<form name="editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
 <input type="hidden" id="id" name="id" value="<?php echo $AsignacionDetalleId; ?>" />
 <input type="hidden" id="Imagen" name='Imagen'/>
 
@@ -33,7 +33,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 
 <fieldset>
 <legend>Incidentes</legend>
-<select name='Resultado' style="width: 360px;" required='required'>
+<select name='Resultado' style="width: 360px;" required='required' onchange='ConfirmarSalida=1;'>
 <option value=''>Seleccione una incidencia</option>
 <?php
 	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo, Nombre ASC";
@@ -49,7 +49,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 </fieldset>
 
 <fieldset name='Observaciones'>
-<textarea name='Obs' cols='50' rows='10' style="width: 95%" placeholder="Escriba aquí las observaciones"></textarea>
+<textarea name='Obs' cols='50' rows='10' style="width: 95%" placeholder="Escriba aquí las observaciones" onchange='ConfirmarSalida=1;'></textarea>
 </fieldset>
 </div>
 
@@ -65,6 +65,16 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 </form>
 
 <script>
+
+var ConfirmarSalida = 0;
+
+window.onbeforeunload = confirmaSalida;
+    
+function confirmaSalida(){
+    if (ConfirmarSalida){
+        return "Está a punto de abandonar la página sin guardar su trabajo. Asegúrese de haber guardado antes de abandonar esta página.";
+    }
+}
 
 (function() {
   var streaming = false,
