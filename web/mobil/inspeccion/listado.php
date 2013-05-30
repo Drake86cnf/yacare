@@ -4,18 +4,20 @@
 	
 	if(isset($_GET['orden'])) {
         $ListadoOrdenar = $_GET['orden'];
-	}else {
+	} else {
         if(isset($_COOKIE['YacareAsignacionesListadoOrdenar'])) {
             $ListadoOrdenar = $_COOKIE['YacareAsignacionesListadoOrdenar'];
+        } else {
+            $ListadoOrdenar = 1;
         }
     }
     if($ListadoOrdenar == 1) {	
         $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
         setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
-    }else if($ListadoOrdenar == 2) { 
+    } else if($ListadoOrdenar == 2) { 
         $ListadoOrdenarSql = "PartidaCalleNombre, PartidaCalleNumero";
         setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
-    }else {
+    } else {
         $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }
     
