@@ -43,6 +43,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 <?php
 	}
 ?>
+</select>
 <fieldset name='Ubicacion'>
 <legend>Georeferencia</legend>
 Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, longitud <input type='text' maxlength=16 size=5 name='lon' id='lon' readonly /><br />
@@ -110,6 +111,7 @@ function confirmaSalida(){
   }
 
   function takepicture() {
+    ConfirmarSalida = 1;
     canvas.width = video.width;
     canvas.height = video.height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, finalheight);
