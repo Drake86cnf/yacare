@@ -113,7 +113,7 @@
 	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle
 		WHERE Encargado_id=$IdEncargadoDispositivo
 			AND Relevamiento_id=$IdRelevamientoActual
-			AND Resultado1_id IS NULL";
+			AND ResultadosCantidad=0";
 	foreach ($db_remota->query($sql) as $row) {
 		$Id = $row['id'];
 		$CreatedAt = $row['CreatedAt'];
@@ -129,7 +129,7 @@
 		$PartidaCalleNumero = $row['PartidaCalleNumero'];
 		$Encargado_id = $row['Encargado_id'];
 		$PartidaCalle_id = $row['PartidaCalle_id'] ? $row['PartidaCalle_id'] : 'NULL';
-                $ResultadosCantidad = $row['ResultadosCantidad'];
+        $ResultadosCantidad = (int)$row['ResultadosCantidad'];
 		
 		// Si existen resultados para el registro que estoy por importar, no lo importo
 		// para no pisar el trabajo hecho
@@ -153,7 +153,7 @@
 					PartidaCalleNumero,
 					Encargado_id,
 					PartidaCalle_id,
-                                        ResultadosCantidad)
+                    ResultadosCantidad)
 				VALUES ($Id,
 					'$CreatedAt',
 					'$UpdatedAt',
@@ -168,7 +168,7 @@
 					'$PartidaCalleNumero',
 					$Encargado_id,
 					$PartidaCalle_id,
-                                        $ResultadosCantidad)";
+                    $ResultadosCantidad)";
 			//echo $sql;
             $db_local->exec($sql);
 		}
