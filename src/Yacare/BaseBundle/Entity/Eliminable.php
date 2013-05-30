@@ -12,7 +12,7 @@ trait Eliminable
 {
     /**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", default=0)
      */
     private $Eliminado;
     
