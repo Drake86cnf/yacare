@@ -32,8 +32,8 @@
                 history.pushState(null, '', '#stay');
             else
                 location.hash = '#stay';
+            initCamara();
         }
-        initCamara();
     }
     
     function confirmarYTerminar() {
@@ -132,13 +132,12 @@ function initCamara() {
         video.mozSrcObject = stream;
       } else {
         var vendorURL = window.URL || window.webkitURL;
-        alert(vendorURL);
         video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
       }
       video.play();
     },
     function(err) {
-      console.log("An error occured! " + err);
+      alert("An error occured! " + err);
     }
   );
 }
