@@ -101,7 +101,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 <fieldset>
 <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>
 <video id="video" width="800" height="600" autoplay></video><br />
-<canvas id="canvas" width="800" height="600" style="display: none; background-color: silver; border: 1px solid gray"></canvas>
+<canvas id="canvas" width="800" height="600" style="display: none; background-color: silver; border: 4px solid #0b4d10"></canvas>
 <fieldset>
 
 </div>
