@@ -11,6 +11,7 @@
 <script>
     // *********************** Evitar el uso del botón atrás
     var ConfirmarSalida = 0;
+
     location.hash = '#no-back';
     // It works without the History API, but will clutter up the history
     var history_api = typeof history.pushState !== 'undefined';
@@ -33,9 +34,22 @@
             location.hash = '#stay';
       }
     }
+    
+    function confirmarYTerminar() {
+        if(ConfirmarSalida) {
+            var conf = confirm("Está a punto de abandonar la página sin guardar su trabajo. ¿Está seguro de que desea salir sin guardar?");
+            if(conf)
+                parent.location='listado.php';
+            //else
+                // Me quedo
+        } else {
+            parent.location='listado.php';
+        }
+            
+    }
 </script>
 
-<body onload='getLocation();'>
+<body>
 
 <form name="editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
 <input type="hidden" id="id" name="id" value="<?php echo $AsignacionDetalleId; ?>" />
@@ -45,7 +59,7 @@
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
  <button type='submit' name='Aceptar'>Guardar</button>
- <button type='button' onclick="parent.location='listado.php';">Terminar</button>
+ <button type='button' onclick="confirmarYTerminar()">Terminar</button>
 </div>
 </div>
 
