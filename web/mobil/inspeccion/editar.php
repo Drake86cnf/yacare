@@ -59,8 +59,9 @@
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
- <button type='submit' name='Aceptar'>Guardar</button>
- <button type='button' onclick="confirmarYTerminar()">Terminar</button>
+    <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type='submit' name='Aceptar'>Guardar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type='button' onclick="confirmarYTerminar()">Terminar</button>
 </div>
 </div>
 
@@ -99,9 +100,8 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 <div class="contenido">
 
 <fieldset>
-<button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>
-<video id="video" width="800" height="600" autoplay></video><br />
-<canvas id="canvas" width="800" height="600" style="display: none; background-color: silver; border: 12px solid #33d23e"></canvas>
+<video id="video" width="800" height="600" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
+<canvas id="canvas" width="800" height="600" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
 <fieldset>
 
 </div>
