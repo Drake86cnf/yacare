@@ -108,6 +108,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 </form>
 
 <script>
+
 // ************************** Uso de WebRTC (cámara)
 
 var streaming = false,
