@@ -2,6 +2,11 @@
 	include 'global.php.inc';
 	include 'db_local.php.inc';
 	
+    if(isset($_GET['orden']))
+        $ListadoVer = (int)$_GET['ver'];
+    else
+        $ListadoVer = 0;
+    
 	if(isset($_GET['orden'])) {
         $ListadoOrdenar = $_GET['orden'];
 	} else {
@@ -11,24 +16,34 @@
             $ListadoOrdenar = 1;
         }
     }
-    if($ListadoOrdenar == 1) {	
-        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
-    } else if($ListadoOrdenar == 2) { 
-        $ListadoOrdenarSql = "PartidaCalleNombre, PartidaCalleNumero";
-        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
-    } else {
-        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
-    }
-    
 ?>
 
 <body>
 <div class="encab">
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
- <button onclick="parent.location='listado.php?orden=1';">Ordenar por sección</a>
- <button onclick="parent.location='listado.php?orden=2';">Ordenar por calle</a>
+<?php
+    if($ListadoOrdenar != 1) {
+?>
+ <button onclick="parent.location='listado.php?orden=1&ver=<?php echo $ListadoVer ?>';">Ordenar por sección</a>
+<?php
+    }
+    if($ListadoOrdenar != 2) {
+?>
+ <button onclick="parent.location='listado.php?orden=2&ver=<?php echo $ListadoVer ?>';">Ordenar por calle</a>
+<?php
+    }
+    if($ListadoVer != 0) {
+?>
+ <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=0';">Ver pendientes</a>
+<?php
+    }
+    if($ListadoVer != 1) {
+?>
+ <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=1';">Ver todos</a>
+<?php
+    }
+?> 
  <button onclick="parent.location='actualizar.php';">Sincronizar</a> 
 </div>
 </div>
@@ -48,7 +63,25 @@
     <tbody>
 <?php
     $tipoLinea = 0;
-    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE ResultadosCantidad=0 ORDER BY $ListadoOrdenarSql";
+    
+    if($ListadoOrdenar == 1) {	
+        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
+    } else if($ListadoOrdenar == 2) { 
+        $ListadoOrdenarSql = "PartidaCalleNombre, PartidaCalleNumero";
+        setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
+    } else {
+        $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
+    }
+    
+    if($ListadoVer == 1) {
+        $ListadoVerSql = "1=1";
+    } else {
+        $ListadoVerSql = "ResultadosCantidad=0";
+    }
+
+    
+    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE $ListadoVerSql ORDER BY $ListadoOrdenarSql";
     foreach ($db_local->query($sql) as $row) {
         $Id = $row['id'];
         $PartidaCalleNombre = $row['PartidaCalleNombre'];
@@ -64,6 +97,8 @@
     		$tipoLinea = 0;
     		echo '<tr';
     	}
+        if($row['ResultadosCantidad'] > 0)
+            echo ' style="text-decoration:line-through"';
     	echo " onclick=\"parent.location='editar.php?id=${Id}'\" style=\"cursor: hand; cursor: pointer;\">";
 ?>
             <td><a href="editar.php?id=<?php echo $Id; ?>"><?php echo $PartidaCalleNombre; ?></a></td>
