@@ -33,7 +33,7 @@
             else
                 location.hash = '#stay';
         }
-        init();
+        initCamara();
     }
     
     function confirmarYTerminar() {
@@ -46,7 +46,6 @@
         } else {
             parent.location='listado.php';
         }
-            
     }
 </script>
 
@@ -117,7 +116,7 @@ var streaming = false,
     restartbutton = document.querySelector('#restartbutton'),
     width = 800,
     finalheight = 600;
-function init() {
+function initCamara() {
   navigator.getMedia = ( navigator.getUserMedia ||
                          navigator.webkitGetUserMedia ||
                          navigator.mozGetUserMedia ||
@@ -163,7 +162,7 @@ function restart() {
   canvas.style.display = 'none';
 }
 
-init();
+//initCamara();
 
 /* Event Handlers */
 
