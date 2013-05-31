@@ -132,6 +132,7 @@ function initCamara() {
         video.mozSrcObject = stream;
       } else {
         var vendorURL = window.URL || window.webkitURL;
+        alert(vendorURL);
         video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
       }
       video.play();
@@ -162,7 +163,7 @@ function restart() {
   canvas.style.display = 'none';
 }
 
-//initCamara();
+initCamara();
 
 /* Event Handlers */
 
