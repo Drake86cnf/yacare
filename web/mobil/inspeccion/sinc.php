@@ -77,7 +77,8 @@
 		$update->bindValue('imagen', $Img, PDO::PARAM_LOB);
 		$update->bindValue('resultadoubicacion', $Ubicacion, PDO::PARAM_STR);
 		$update->bindValue('id', $Id, PDO::PARAM_INT);
-		if($update->execute()) {
+		$update->execute();
+        if($update->rowCount()) {
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id");
 		}
 	}
