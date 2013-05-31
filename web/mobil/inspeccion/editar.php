@@ -32,7 +32,8 @@
                 history.pushState(null, '', '#stay');
             else
                 location.hash = '#stay';
-            initCamara();
+            //initCamara();
+            document.querySelector('#video').play();
         }
     }
     
@@ -159,8 +160,8 @@ function takepicture() {
 function restart() {
   restartbutton.style.display = 'none';
   video.style.display = '';
-  video.play();
   canvas.style.display = 'none';
+  video.play();
 }
 
 initCamara();
