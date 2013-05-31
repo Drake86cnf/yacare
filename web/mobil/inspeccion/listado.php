@@ -98,7 +98,7 @@
     		echo '<tr';
     	}
         if($row['ResultadosCantidad'] > 0)
-            echo ' style="text-decoration:line-through"';
+            echo ' style="text-decoration:line-through; font-style:italic"';
     	echo " onclick=\"parent.location='editar.php?id=${Id}'\" style=\"cursor: hand; cursor: pointer;\">";
 ?>
             <td><a href="editar.php?id=<?php echo $Id; ?>"><?php echo $PartidaCalleNombre; ?></a></td>
