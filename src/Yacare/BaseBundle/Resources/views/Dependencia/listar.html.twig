@@ -14,7 +14,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-file"></i> <a href="{{ path('yacare_base_dependencia_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><a href="{{ path('yacare_base_dependencia_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
         </tr>
     {% endfor %}
     </tbody>
