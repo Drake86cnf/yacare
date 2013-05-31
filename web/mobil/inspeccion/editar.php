@@ -8,6 +8,33 @@
 	$row = $db_local->query($sql)->fetch();
 ?>
 
+<script>
+    // *********************** Evitar el uso del botón atrás
+    var ConfirmarSalida = 0;
+    location.hash = '#no-back';
+    // It works without the History API, but will clutter up the history
+    var history_api = typeof history.pushState !== 'undefined';
+
+    // Push "#no-back" onto the history, making it the most recent "page"
+    if (history_api)
+        history.pushState(null, '', '#stay');
+    else
+        location.hash = '#stay';
+
+    // When the back button is pressed, it will harmlessly change the url
+    // hash from "#stay" to "#no-back", which triggers this function
+    window.onhashchange = function() {
+      // User tried to go back; warn user, rinse and repeat
+      if (location.hash == '#no-back') {
+        //alert("You shall not pass!");
+        if (history_api)
+            history.pushState(null, '', '#stay');
+        else
+            location.hash = '#stay';
+      }
+    }
+</script>
+
 <body onload='getLocation();'>
 
 <form name="editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
@@ -66,16 +93,7 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 </form>
 
 <script>
-
-var ConfirmarSalida = 0;
-
-window.onbeforeunload = confirmaSalida;
-    
-function confirmaSalida(){
-    if (ConfirmarSalida){
-        return "Está a punto de abandonar la página sin guardar su trabajo. Asegúrese de haber guardado antes de abandonar esta página.";
-    }
-}
+// ************************** Uso de WebRTC (cámara)
 
 (function() {
   var streaming = false,
@@ -170,7 +188,6 @@ function showPosition(position) {
 	document.getElementById("lat").value = position.coords.latitude;
 	document.getElementById("lon").value = position.coords.longitude;  
 }
-
 </script>
 
 <?php
