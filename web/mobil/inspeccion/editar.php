@@ -25,14 +25,15 @@
     // When the back button is pressed, it will harmlessly change the url
     // hash from "#stay" to "#no-back", which triggers this function
     window.onhashchange = function() {
-      // User tried to go back; warn user, rinse and repeat
-      if (location.hash == '#no-back') {
-        //alert("You shall not pass!");
-        if (history_api)
-            history.pushState(null, '', '#stay');
-        else
-            location.hash = '#stay';
-      }
+        // User tried to go back; warn user, rinse and repeat
+        if (location.hash == '#no-back') {
+            //alert("You shall not pass!");
+            if (history_api)
+                history.pushState(null, '', '#stay');
+            else
+                location.hash = '#stay';
+        }
+        init();
     }
     
     function confirmarYTerminar() {
@@ -109,83 +110,79 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 <script>
 // ************************** Uso de WebRTC (cámara)
 
-(function() {
-  var streaming = false,
-      video         = document.querySelector('#video'),
-      canvas        = document.querySelector('#canvas'),
-      restartbutton = document.querySelector('#restartbutton'),
-      width = 800,
-      finalheight = 600;
-  function init() {
-    navigator.getMedia = ( navigator.getUserMedia ||
-                           navigator.webkitGetUserMedia ||
-                           navigator.mozGetUserMedia ||
-                           navigator.msGetUserMedia);
+var streaming = false,
+    video         = document.querySelector('#video'),
+    canvas        = document.querySelector('#canvas'),
+    restartbutton = document.querySelector('#restartbutton'),
+    width = 800,
+    finalheight = 600;
+function init() {
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
 
-    navigator.getMedia(
-      {
-        video: true,
-        audio: false
-      },
-      function(stream) {
-        if (navigator.mozGetUserMedia) {
-          video.mozSrcObject = stream;
-        } else {
-          var vendorURL = window.URL || window.webkitURL;
-          video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
-        }
-        video.play();
-      },
-      function(err) {
-        console.log("An error occured! " + err);
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+    function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
       }
-    );
-  }
-
-  function takepicture() {
-    ConfirmarSalida = 1;
-    canvas.width = video.width;
-    canvas.height = video.height;
-    canvas.getContext('2d').drawImage(video, 0, 0, width, finalheight);
-    video.style.display = 'none';
-    restartbutton.style.display = '';
-    canvas.style.display = '';
-    document.getElementById("Imagen").value = canvas.toDataURL('image/jpeg');
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
     }
-  };
-  
-  function restart() {
-    restartbutton.style.display = 'none';
-    video.style.display = '';
-    canvas.style.display = 'none';
+  );
+}
+
+function takepicture() {
+  ConfirmarSalida = 1;
+  canvas.width = video.width;
+  canvas.height = video.height;
+  canvas.getContext('2d').drawImage(video, 0, 0, width, finalheight);
+  video.style.display = 'none';
+  restartbutton.style.display = '';
+  canvas.style.display = '';
+  document.getElementById("Imagen").value = canvas.toDataURL('image/jpeg');
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
   }
+};
+
+function restart() {
+  restartbutton.style.display = 'none';
+  video.style.display = '';
+  canvas.style.display = 'none';
+}
 
 /* Event Handlers */
 
-  video.addEventListener('loadedmetadata', function(ev){
-    if (!streaming) {
-      if(video.videoHeight > 0)
-        finalheight = video.videoHeight / (video.videoWidth/width);
-      video.setAttribute('width', width);
-      video.setAttribute('height', finalheight);
-      canvas.setAttribute('width', width);
-      canvas.setAttribute('height', finalheight);
-      streaming = true;
-    }
-  }, false);
+video.addEventListener('loadedmetadata', function(ev){
+  if (!streaming) {
+    if(video.videoHeight > 0)
+      finalheight = video.videoHeight / (video.videoWidth/width);
+    video.setAttribute('width', width);
+    video.setAttribute('height', finalheight);
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', finalheight);
+    streaming = true;
+  }
+}, false);
 
-  video.addEventListener('click', function(ev){
-    takepicture();
-  }, false);
-  
-  restartbutton.addEventListener('click', function(ev){
-    restart();
-  }, false);
-  
-  init();
-})();
+video.addEventListener('click', function(ev){
+  takepicture();
+}, false);
+
+restartbutton.addEventListener('click', function(ev){
+  restart();
+}, false);
 
 function getLocation() {
 	x = document.getElementById("geo");
@@ -202,11 +199,9 @@ function showPosition(position) {
 	document.getElementById("lat").value = position.coords.latitude;
 	document.getElementById("lon").value = position.coords.longitude;  
 }
+
+init();
+
 </script>
-
-<?php
-	$_SESSION['habilitado'] = 1;
-?>
-
 </body>
 </html>
