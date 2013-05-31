@@ -137,7 +137,7 @@ function initCamara() {
       video.play();
     },
     function(err) {
-      alert("An error occured! " + err);
+      console.log("An error occured! " + err);
     }
   );
 }
@@ -159,6 +159,7 @@ function takepicture() {
 function restart() {
   restartbutton.style.display = 'none';
   video.style.display = '';
+  video.play();
   canvas.style.display = 'none';
 }
 
