@@ -162,6 +162,8 @@ function restart() {
   canvas.style.display = 'none';
 }
 
+init();
+
 /* Event Handlers */
 
 video.addEventListener('loadedmetadata', function(ev){
@@ -199,8 +201,6 @@ function showPosition(position) {
 	document.getElementById("lat").value = position.coords.latitude;
 	document.getElementById("lon").value = position.coords.longitude;  
 }
-
-init();
 
 </script>
 </body>
