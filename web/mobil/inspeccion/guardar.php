@@ -3,6 +3,10 @@
 	include_once 'db_local.php.inc';
 ?>
 
+<script>
+    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
+</script>
+
 <body>
 
 <div class="encab">
@@ -59,10 +63,6 @@
 <button type="button" onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId ?>">Continuar</button>
 
 </div>
-
-<script>
-    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
-</script>
 
 </body>
 
