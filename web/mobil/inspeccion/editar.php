@@ -60,7 +60,7 @@
 <div class="encab-izquierda">Yacaré - Inspección</div>
 <div class="encab-derecha">
     <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type='submit' name='Aceptar'>Guardar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type='submit' name='Aceptar'>Guardar y continuar</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type='button' onclick="confirmarYTerminar()">Terminar</button>
 </div>
 </div>
