@@ -335,7 +335,7 @@ margin-right:-2px;
 margin-left:-2px;
 }
 .brand{
-font-family: 'Segoe UI', Trebuchet, cursive, Arial, serif; 
+font-family: 'Segoe UI', 'Open Sans', Trebuchet, Arial, sans serif; 
 font-weight:bold;
 text-shadow:1px 1px 5px rgba(0, 0, 0, 0.5);
 width:240px;
