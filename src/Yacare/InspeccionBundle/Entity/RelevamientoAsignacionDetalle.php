@@ -15,7 +15,6 @@ class RelevamientoAsignacionDetalle
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\ConImagen;
     use \Yacare\BaseBundle\Entity\Eliminable;
 
     /**
@@ -93,56 +92,6 @@ class RelevamientoAsignacionDetalle
      * @ORM\Column(type="integer")
      */
     protected $ResultadosCantidad = 0;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado1;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado2;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado3;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado4;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado5;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Resultado6;
-    
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $ResultadoObs;
-    
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $ResultadoUbicacion;
-    
     
     /**
      * Get id
@@ -225,77 +174,6 @@ class RelevamientoAsignacionDetalle
         $this->Encargado = $Encargado;
     }
 
-    public function getResultado1() {
-        return $this->Resultado1;
-    }
-
-    public function setResultado1($Resultado1) {
-        $this->Resultado1 = $Resultado1;
-    }
-
-    public function getResultado2() {
-        return $this->Resultado2;
-    }
-
-    public function setResultado2($Resultado2) {
-        $this->Resultado2 = $Resultado2;
-    }
-
-    public function getResultado3() {
-        return $this->Resultado3;
-    }
-
-    public function setResultado3($Resultado3) {
-        $this->Resultado3 = $Resultado3;
-    }
-
-    public function getResultado4() {
-        return $this->Resultado4;
-    }
-
-    public function setResultado4($Resultado4) {
-        $this->Resultado4 = $Resultado4;
-    }
-
-    public function getResultado5() {
-        return $this->Resultado5;
-    }
-
-    public function setResultado5($Resultado5) {
-        $this->Resultado5 = $Resultado5;
-    }
-
-    public function getResultado6() {
-        return $this->Resultado6;
-    }
-
-    public function setResultado6($Resultado6) {
-        $this->Resultado6 = $Resultado6;
-    }
-
-    public function getResultadoObs() {
-        return $this->ResultadoObs;
-    }
-
-    public function setResultadoObs($ResultadoObs) {
-        $this->ResultadoObs = $ResultadoObs;
-    }
-
-    public function getResultadoImagen() {
-        return $this->ResultadoImagen;
-    }
-
-    public function setResultadoImagen($ResultadoImagen) {
-        $this->ResultadoImagen = $ResultadoImagen;
-    }
-
-    public function getResultadoUbicacion() {
-        return $this->ResultadoUbicacion;
-    }
-
-    public function setResultadoUbicacion($ResultadoUbicacion) {
-        $this->ResultadoUbicacion = $ResultadoUbicacion;
-    }
     public function getPartidaCalleNombre() {
         return $this->PartidaCalleNombre;
     }
