@@ -11,4 +11,5 @@ mac.php
 presinc.php
 sinc.php
 instalar.php
+yacare_logo_48bw.png
 global.css
