@@ -57,7 +57,7 @@
 <input type="hidden" id="Imagen" name='Imagen'/>
 
 <div class="encab">
-<div class="encab-izquierda">Yacaré - Inspección</div>
+<div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
 <div class="encab-derecha">
     <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type='submit' name='Aceptar'>Guardar y continuar</button>&nbsp;&nbsp;&nbsp;&nbsp;

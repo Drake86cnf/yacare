@@ -8,7 +8,7 @@
 <body>
 
 <div class="encab">
-<div class="encab-izquierda">Yacaré - Inspección</div>
+<div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
 <div class="encab-derecha">
 </div>
 </div>
