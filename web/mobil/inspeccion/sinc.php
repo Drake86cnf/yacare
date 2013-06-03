@@ -15,6 +15,9 @@
 <div class="contenido">
 <h1>Resultados de la sincronización</h1>
 <?php
+    $SqliteOrigen = "inspeccion.sqlite";
+    $SqliteDestino = "inspeccion.sqlite" . date('Ymdhis');
+    copy($SqliteOrigen, $SqliteDestino);
 
     $AgregarColumnas = @$db_remota->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN
         Resultado4_id INTEGER DEFAULT NULL,
