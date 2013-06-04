@@ -1,13 +1,13 @@
 <?php
 
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\OrganizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BaseBundle\Entity\Oficina
+ * Yacare\OrganizacionBundle\Entity\Oficina
  *
- * @ORM\Table(name="Base_Oficina")
+ * @ORM\Table(name="Organizacion_Oficina")
  * @ORM\Entity
  */
 class Oficina
@@ -54,7 +54,12 @@ class Oficina
     {
         return $this->id;
     }
-
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+    
     public function getNombre() {
         return $this->Nombre;
     }
@@ -85,10 +90,5 @@ class Oficina
 
     public function setPrincipal($Principal) {
         $this->Principal = $Principal;
-    }
-    
-    public function __toString()
-    {
-        return $this->getNombre();
     }
 }

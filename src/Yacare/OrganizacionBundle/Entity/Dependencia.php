@@ -1,13 +1,13 @@
 <?php
 
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\OrganizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BaseBundle\Entity\Dependencia
+ * Yacare\OrganizacionBundle\Entity\Dependencia
  *
- * @ORM\Table(name="Base_Dependencia")
+ * @ORM\Table(name="Organizacion_Dependencia")
  * @ORM\Entity
  */
 class Dependencia
@@ -41,7 +41,7 @@ class Dependencia
     private $Nombre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Dependencia")
+     * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Dependencia")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
@@ -51,23 +51,27 @@ class Dependencia
         return $this->id;
     }
 
-    public function setNombre($nombre)
-    {
-        $this->Nombre = $nombre;
+    public function getOficinas() {
+        return $this->Oficinas;
     }
 
-    public function getNombre()
-    {
+    public function setOficinas($Oficinas) {
+        $this->Oficinas = $Oficinas;
+    }
+
+    public function getNombre() {
         return $this->Nombre;
     }
 
-    public function setParent($parent)
-    {
-        $this->Parent = $parent;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
 
-    public function getParent()
-    {
+    public function getParent() {
         return $this->Parent;
+    }
+
+    public function setParent($Parent) {
+        $this->Parent = $Parent;
     }
 }

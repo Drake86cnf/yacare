@@ -1,13 +1,13 @@
 <?php
 
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\OrganizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BaseBundle\Entity\Edificio
+ * Yacare\OrganizacionBundle\Entity\Edificio
  *
- * @ORM\Table(name="Base_Edificio")
+ * @ORM\Table(name="Organizacion_Edificio")
  * @ORM\Entity
  */
 class Edificio
@@ -67,76 +67,40 @@ class Edificio
      */
     private $Telefono;
 
-
-    /**
-     * Set Nombre
-     *
-     * @param string $nombre
-     * @return Edificio
-     */
-    public function setNombre($nombre)
-    {
-        $this->Nombre = $nombre;
-    
-        return $this;
-    }
-
-    /**
-     * Get Nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->Nombre;
-    }
-
-    /**
-     * Set Domicilio
-     *
-     * @param string $domicilio
-     * @return Edificio
-     */
-    public function setDomicilio($domicilio)
-    {
-        $this->Domicilio = $domicilio;
-    
-        return $this;
-    }
-
-    /**
-     * Get Domicilio
-     * @return string 
-     */
-    public function getDomicilio()
-    {
-        return $this->Domicilio;
-    }
-
-    /**
-     * Set Telefono
-     *
-     * @param integer $telefono
-     * @return Edificio
-     */
-    public function setTelefono($telefono)
-    {
-        $this->Telefono = $telefono;
-    
-        return $this;
-    }
-
-    /**
-     * Get Telefono
-     * @return integer 
-     */
-    public function getTelefono()
-    {
-        return $this->Telefono;
-    }
-    
     public function __toString()
     {
         return $this->getNombre();
+    }
+    
+    public function getOficinas() {
+        return $this->Oficinas;
+    }
+
+    public function setOficinas($Oficinas) {
+        $this->Oficinas = $Oficinas;
+    }
+
+    public function getNombre() {
+        return $this->Nombre;
+    }
+
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
+    }
+
+    public function getDomicilio() {
+        return $this->Domicilio;
+    }
+
+    public function setDomicilio($Domicilio) {
+        $this->Domicilio = $Domicilio;
+    }
+
+    public function getTelefono() {
+        return $this->Telefono;
+    }
+
+    public function setTelefono($Telefono) {
+        $this->Telefono = $Telefono;
     }
 }

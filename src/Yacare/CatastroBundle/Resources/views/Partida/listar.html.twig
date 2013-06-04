@@ -8,7 +8,7 @@
 
 {% if secciones %}
 {% set filtro_seccion = app.request.query.get('filtro_seccion') %}
-<div><fieldset>
+<div><span>
     <p class="btn-group">
         <a class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '' }) }}">Todas</a>
         {% for seccion in secciones %}
@@ -20,8 +20,7 @@
     </span>
     {% if filtro_seccion %}
         {% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-        &nbsp;&nbsp;&nbsp;
-        <span class="control-group">
+        <span class="control-group" style="white-space: nowrap; margin-left: 12px; margin-top: 8px;">
             <span class="control-label" for="filtro_macizo">Macizo</span>
             <span class="controls">
                 <span class="input-append">

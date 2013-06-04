@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\OrganizacionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

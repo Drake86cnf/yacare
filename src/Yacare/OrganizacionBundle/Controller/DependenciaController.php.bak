@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\CatastroBundle\Controller;
+namespace Yacare\OrganizacionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,13 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("calle/")
+ * @Route("dependencia/")
  */
-class CalleController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class DependenciaController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
-    public function __construct() {
-        $this->BundleName = 'Catastro';
-        $this->EntityName = 'Calle';
+    function __construct() {
+        $this->BundleName = 'Organizacion';
+        $this->EntityName = 'Dependencia';
         parent::__construct();
     }
 }

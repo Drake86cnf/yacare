@@ -10,27 +10,35 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Rrhh_Agente")
  * @ORM\Entity
  */
-class Agente extends \Yacare\BaseBundle\Entity\Persona
+class Agente
 {
     /**
-     * @var integer $Legajo
-     * @ORM\Column(name="Legajo", type="integer")
+     * @var integer $id
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $Legajo;
-
+    private $id;
+    
     /**
-     * @var \DateTime $FechaIngreso
-     * @ORM\Column(name="FechaIngreso", type="date")
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date")
      */
     private $FechaIngreso;
 
-    public function getLegajo() {
-        return $this->Legajo;
-    }
-
-    public function setLegajo($Legajo) {
-        $this->Legajo = $Legajo;
-    }
+    
 
     public function getFechaIngreso() {
         return $this->FechaIngreso;
