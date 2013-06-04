@@ -1,3 +1,8 @@
+yacare_organizacion:
+    resource: "@YacareOrganizacionBundle/Controller/"
+    type:     annotation
+    prefix:   /organizacion/
+
 yacare_inicio:
     resource: "@YacareInicioBundle/Controller/"
     type:     annotation
