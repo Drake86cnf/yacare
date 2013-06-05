@@ -9,12 +9,14 @@
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Domicilio</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('yacare_organizacion_dependencia_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Domicilio }}</td>
         </tr>
     {% endfor %}
     </tbody>

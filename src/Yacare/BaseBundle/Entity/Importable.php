@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 trait Importable
 {
     /**
+     * @var string $ImportSrc
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ImportSrc;
+    
+    /**
      * @var string $ImportId
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -21,6 +27,15 @@ trait Importable
     */
     private $ImportedAt;
 
+    public function getImportSrc()
+    {
+        return $this->ImportSrc;
+    }
+    
+    public function setImportSrc(\DateTime $importSrc)
+    {
+        $this->ImportSrc = $importSrc;
+    }
     
     public function getImportId()
     {

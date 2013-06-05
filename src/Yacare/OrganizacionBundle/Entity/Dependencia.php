@@ -12,19 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dependencia
 {
-    use \Yacare\BaseBundle\Entity\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Oficina", mappedBy="Dependencia")
-     */
-    private $Oficinas;
+    //use \Yacare\BaseBundle\Entity\Timestampable;
+    //use \Yacare\BaseBundle\Entity\Versionable;
     
-    public function __construct()
-    {
-        $this->Oficinas = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    /*
+    
+    UPDATE rr_hh.dependencias SET codigo=999999 WHERE codigo=0;
+    ALTER TABLE rr_hh.dependencias CHANGE codigo codigo INT NOT NULL AUTO_INCREMENT FIRST, 
+        CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '',
+        CHANGE domicilio domicilio VARCHAR(255) NULL DEFAULT '';
+    UPDATE rr_hh.dependencias SET codigo=0 WHERE codigo=999999;
+    
+    CREATE OR REPLACE VIEW yacare.Organizacion_Dependencia AS 
+	SELECT codigo AS id, nombre as Nombre, domicilio as Domicilio
+	FROM rr_hh.dependencias;
+     */
     /**
      * @var integer $id
      *
@@ -33,32 +35,30 @@ class Dependencia
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string $Nombre
-     * @ORM\Column(name="Nombre", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Dependencia")
-     * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Parent;
+    private $Domicilio;
+    
 
     public function getId()
     {
         return $this->id;
     }
-
-    public function getOficinas() {
-        return $this->Oficinas;
+    
+    public function __toString()
+    {
+        return $this->getNombre();
     }
-
-    public function setOficinas($Oficinas) {
-        $this->Oficinas = $Oficinas;
-    }
-
+    
     public function getNombre() {
         return $this->Nombre;
     }
@@ -67,11 +67,11 @@ class Dependencia
         $this->Nombre = $Nombre;
     }
 
-    public function getParent() {
-        return $this->Parent;
+    public function getDomicilio() {
+        return $this->Domicilio;
     }
 
-    public function setParent($Parent) {
-        $this->Parent = $Parent;
-    }
+    public function setDomicilio($Domicilio) {
+        $this->Domicilio = $Domicilio;
+    }    
 }

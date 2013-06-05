@@ -1,0 +1,22 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Departamento{% endblock %}
+
+{% block content %}
+
+{% form_theme edit_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
+
+<form class="form-horizontal" action="{{ path('yacare_organizacion_departamento_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo departamento {% endif %}</legend>
+	{{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+		<a class="btn" href="{{ path('yacare_organizacion_departamento_listar') }}">Cancelar</a>
+    </div>
+</form>
+
+{% if entity.id %}
+<a class="btn btn-danger" href="{{ path('yacare_organizacion_departamento_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar departamento</a>
+{% endif %}
+
+{% endblock %}

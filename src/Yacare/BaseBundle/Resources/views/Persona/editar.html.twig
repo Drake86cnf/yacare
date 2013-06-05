@@ -15,7 +15,7 @@
     </div>
 </form>
 
-{% if entity %}
+{% if entity.id %}
 <a class="btn btn-danger" href="{{ path('yacare_base_persona_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar persona</a>
 {% endif %}
 

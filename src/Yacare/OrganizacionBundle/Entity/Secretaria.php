@@ -12,10 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Secretaria
 {
-    //UPDATE secretarias SET codigo=999999 WHERE codigo=0;
-    //ALTER TABLE secretarias CHANGE codigo codigo INT NOT NULL AUTO_INCREMENT FIRST;
-    //UPDATE secretarias SET codigo=0 WHERE codigo=999999;
     /*
+    
+    UPDATE rr_hh.secretarias SET codigo=999999 WHERE codigo=0;
+    ALTER TABLE rr_hh.secretarias CHANGE codigo codigo INT NOT NULL AUTO_INCREMENT FIRST, CHANGE detalle detalle VARCHAR(255) NOT NULL DEFAULT '';
+    UPDATE rr_hh.secretarias SET codigo=0 WHERE codigo=999999;
+    
     CREATE OR REPLACE VIEW yacare.Organizacion_Secretaria AS 
 	SELECT codigo AS id, detalle as Nombre
 	FROM rr_hh.secretarias;
