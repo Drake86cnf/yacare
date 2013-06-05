@@ -61,10 +61,12 @@
 	
 	echo "<p>Resultado guardado</p>\r\n";
 ?>
-
 <script>
-    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
+    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId; ?>;
 </script>
+
+<button type="button" onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId; ?>">Continuar</button>
+
 </div>
 
 </body>
