@@ -25,7 +25,7 @@
 	$lon = $_POST['lon'];
 	
     if(!$_POST['lat'] || !$_POST['lon']) {
-		$Ubicacion = 'NULL';
+		$Ubicacion = null;
 	} else {
 		$Ubicacion = 'POINT(' . $lat . ' ' . $lon . ')';
 	}
@@ -48,10 +48,11 @@
             :resultado_id,
             :obs,
             :imagen,
-            '$Ubicacion')");
+            :ubicacion)");
     $insert->bindValue('detalle_id', $AsignacionDetalleId, PDO::PARAM_INT);
     $insert->bindValue('resultado_id', $Resultado, PDO::PARAM_INT);
     $insert->bindValue('obs', $Obs, PDO::PARAM_STR);
+    $insert->bindValue('ubicacion', $Ubicacion, PDO::PARAM_STR);
     $insert->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
     
     if($insert->execute()) {
@@ -60,8 +61,10 @@
 	
 	echo "<p>Resultado guardado</p>\r\n";
 ?>
-<button type="button" onclick="parent.location=editar.php?id=<?php echo $AsignacionDetalleId ?>">Continuar</button>
 
+<script>
+    parent.location = 'editar.php?id=' + <?php echo $AsignacionDetalleId ?>;
+</script>
 </div>
 
 </body>
