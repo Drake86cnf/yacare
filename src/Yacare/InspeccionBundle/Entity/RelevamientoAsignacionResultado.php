@@ -63,6 +63,32 @@ SELECT id, Relevamiento_id, Asignacion_id, Encargado_id, Partida_id,
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Ubicacion;
+
+
+
+    public function getUbicacionLatitud() {
+        if($this->Ubicacion){
+            $x = sscanf($this->Ubicacion, "POINT(%f %f)");
+            $Latitud = $x[0];
+        } else {
+            $Latitud = null;
+        }
+        return $Latitud;
+    }
+
+    
+    public function getUbicacionLongitud() {
+        if($this->Ubicacion){
+            $x = sscanf($this->Ubicacion, "POINT(%f %f)");
+            $Longitud = $x[1];
+        } else {
+            $Longitud = null;
+        }
+        return $Longitud;
+    }
+    
+    
+    
     
     /**
      * Get id
