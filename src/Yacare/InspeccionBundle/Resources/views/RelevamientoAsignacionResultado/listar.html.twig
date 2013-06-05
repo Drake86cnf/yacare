@@ -31,7 +31,7 @@
     {% for entity in entities %}
         <tr>
             <td>{% if entity.Imagen %}<a target="_blank" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_imagen', { 'id': entity.Id }) }}"><i class="icon-picture"></i></a>{% endif %}
-            {% if entity.Ubicacion %}<a target="_blank" href="http://www.openstreetmap.org/?mlat={{ entity.UbicacionLatitud }}&mlon={{ entity.UbicacionLongitud }}&zoom=30"><i class="icon-map-marker"></i></a> {% endif %}</td>
+            {% if entity.Ubicacion %}<a target="_blank" href="http://www.openstreetmap.org/?mlat={{ entity.UbicacionLatitud }}&mlon={{ entity.UbicacionLongitud }}&zoom=30" data-rel="popover" data-content="Latitud: {{ entity.UbicacionLatitud }}, longiud: {{ entity.UbicacionLongitud }}. Haga click en el ícono para ver la ubicación en un plano." title="Ubicación"><i class="icon-map-marker"></i></a> {% endif %}</td>
             <td>{{ entity.Detalle.Asignacion.Encargado }}</td>
             <td>{{ entity.Detalle.PartidaCalleNombre }} {{ entity.Detalle.PartidaCalleNumero }}</td>
             <td>{{ entity.Detalle.PartidaSeccion }}, {{ entity.Detalle.PartidaMacizo }}, {{ entity.Detalle.PartidaParcela }}</td>
