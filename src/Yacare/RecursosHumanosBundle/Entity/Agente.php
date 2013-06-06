@@ -15,28 +15,29 @@ class Agente implements UserInterface, \Serializable
 {
     /*
     CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS 
-	SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible,
-        agentes.username, agentes.salt, agentes.password, agentes.is_active, 
-        agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email
-	FROM rr_hh.agentes;
-    ALTER TABLE rr_hh.agentes CHANGE email email VARCHAR(255) NULL default '';
-    ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL, 
-        ADD salt VARCHAR(32) NOT NULL,
-        ADD password VARCHAR(40) NOT NULL,
-        ADD is_active TINYINT(1) NOT NULL,
-        ADD NombreSolo VARCHAR(255) NOT NULL,
-        ADD Apellido VARCHAR(255) NOT NULL,
+        SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible,
+            agentes.username, agentes.salt, agentes.password, agentes.is_active, 
+            agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email
+        FROM rr_hh.agentes;
+    
+    ALTER TABLE rr_hh.agentes
+        ADD username VARCHAR(25) NOT NULL DEFAULT '',
+        ADD salt VARCHAR(32) NOT NULL DEFAULT '',
+        ADD password VARCHAR(40) NOT NULL DEFAULT '',
+        ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '',
+        ADD Apellido VARCHAR(255) NOT NULL DEFAULT '',
         CHANGE fechaingre fechaingre DATE NOT NULL,
-        CHANGE nombre nombre VARCHAR(255) NOT NULL,
-        CHANGE email email VARCHAR(255) NOT NULL;
-    UPDATE yacare.Rrhh_Agente SET is_active=1, salt=MD5(RAND()) WHERE salt='';
-     
+        CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '',
+        CHANGE email email VARCHAR(255) NOT NULL DEFAULT '';
+    
+    UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt='';
+    UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo='';
+    UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
        
      */
     
     public function __construct()
     {
-        $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
     }
     
@@ -65,18 +66,13 @@ class Agente implements UserInterface, \Serializable
     private $password = '';
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email = '';
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive = 1;
-    
-    /**
      * @var \DateTime
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $FechaIngreso;
     
@@ -210,14 +206,6 @@ class Agente implements UserInterface, \Serializable
         $this->email = $email;
     }
 
-    public function getIsActive() {
-        return $this->isActive;
-    }
-
-    public function setIsActive($isActive) {
-        $this->isActive = $isActive;
-    }
-    
     public function getNombre() {
         return $this->Nombre;
     }
