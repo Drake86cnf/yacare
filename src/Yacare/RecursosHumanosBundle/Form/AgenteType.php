@@ -11,9 +11,12 @@ class AgenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Legajo', null, array('label' => 'Legajo'))
+            ->add('id', null, array('label' => 'Legajo', 'read_only' => true))
+            ->add('Nombre', null, array('label' => 'Nombres', 'required' => true))
+            ->add('Apellido', null, array('label' => 'Apellidos', 'required' => true))
+            ->add('username', null, array('label' => 'Nombre de usuario'))
             ->add('FechaIngreso', 'date', array(
-                'years' => range(1900,2099),
+                'years' => range(1900, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',

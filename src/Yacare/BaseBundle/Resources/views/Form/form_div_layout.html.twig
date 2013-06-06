@@ -8,12 +8,12 @@
 {% endspaceless %}
 {% endblock form_widget %}
 
-{% block field_row %}
+{% block form_row %}
 <div class="control-group">
 	<label class="control-label">{{ label|trans({}, translation_domain) }}</label>
 	<div class="controls">{{ form_widget(form) }}</div>
 </div>
-{% endblock field_row %}
+{% endblock form_row %}
 
 {% block form_label %}
 {% spaceless %}

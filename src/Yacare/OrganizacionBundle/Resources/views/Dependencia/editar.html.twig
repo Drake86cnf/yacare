@@ -4,8 +4,6 @@
 
 {% block content %}
 
-{% form_theme edit_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
-
 <form class="form-horizontal" action="{{ path('yacare_organizacion_dependencia_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva dependencia {% endif %}</legend>
 	{{ form_widget(edit_form) }}
