@@ -89,12 +89,12 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
             $total_partidas = 0;
             if($partidas) {
-                /* $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado1 IS NULL')
+                /* $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad=0')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute(); */
                 
                 //Marco los resultados en blanco actuales como cancelados
-                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Eliminado=1 WHERE r.Asignacion = :asignacion_id AND r.Resultado1 IS NULL')
+                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Eliminado=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 
@@ -116,7 +116,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                 }
                 
                 
-                //$numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.Resultado1=-1')
+                //$numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad>0')
                 //   ->setParameter('asignacion_id', $entity->getId())
                 //   ->execute();
 
