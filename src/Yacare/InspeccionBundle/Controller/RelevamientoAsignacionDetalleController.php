@@ -16,7 +16,7 @@ class RelevamientoAsignacionDetalleController extends \Yacare\BaseBundle\Control
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoAsignacionDetalle';
-        $this->Where = 'r.Resultado1 IS NOT NULL';
+        $this->Where = 'r.Resultado IS NOT NULL';
         $this->UsePaginator = true;
         parent::__construct();
     }
