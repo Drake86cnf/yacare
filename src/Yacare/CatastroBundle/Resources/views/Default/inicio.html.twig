@@ -1,20 +1,20 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Inspección{% endblock %}
+{% block title %}Catastro{% endblock %}
 
 {% block content %}
 <ul class="breadcrumb">
-    <li><a href="{{ path('yacare_inspeccion_default_inicio') }}">Inspección</a></li>
+    <li><a href="{{ path('yacare_catastro_default_inicio') }}">Catastro</a></li>
 </ul>
 
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">
+<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_catastro_calle_listar') }}">
     <span class="icon32 icon-blue icon-book"></span>
-    <div>Relevamientos</div>
+    <div>Calles</div>
 </a>
 
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}">
+<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_catastro_partida_listar') }}">
     <span class="icon32 icon-blue icon-book"></span>
-    <div>Tipos de resultado</div>
+    <div>Partidas</div>
 </a>
 
 <div style="position: absolute; bottom: 0; right: 0;">
@@ -23,3 +23,4 @@
     </div>
 </div>
 {% endblock %}
+

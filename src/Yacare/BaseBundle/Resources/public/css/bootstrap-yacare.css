@@ -362,9 +362,9 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: inherit;
+  font-family: 'Karla', sans-serif;
+  color: rgb(49, 126, 172);
   font-weight: bold;
-  color: inherit;
   text-rendering: optimizelegibility;
 }
 h1 small,
