@@ -16,10 +16,12 @@ class PersonaType extends AbstractType
             ->add('RazonSocial', null, array('label' => 'Razón social'))
             ->add('DocumentoTipo', 'choice', array(
                 'choices'  => array(
-                    '0'  => 'DNI',
-                    '1'   => 'CI',
-                    '2' => 'CUIL',
-                    '3' => 'CUIT',
+                    '1'  => 'DNI',
+                    '2'   => 'LE',
+                    '3'   => 'LC',
+                    '4'   => 'CI',
+                    '98' => 'CUIL',
+                    '99' => 'CUIT',
                     ),
                 'label' => 'Tipo de documento'))
             ->add('DocumentoNumero', null, array('label' => 'Número de documento'))

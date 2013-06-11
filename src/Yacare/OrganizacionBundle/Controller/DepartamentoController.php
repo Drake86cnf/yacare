@@ -17,5 +17,5 @@ class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareBaseCon
         $this->BundleName = 'Organizacion';
         $this->EntityName = 'Departamento';
         parent::__construct();
-    }
+    }    
 }

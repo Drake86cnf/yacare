@@ -40,7 +40,6 @@ class Persona
     
     /**
      * Get id
-     *
      * @return integer 
      */
     public function getId()
@@ -51,135 +50,109 @@ class Persona
     
     /**
      * @var string $Apellido
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $Apellido;
 
     /**
      * @var string $Nombre
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
     
     /**
      * @var string $NombreVisible
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $NombreVisible;
-    
-    /**
-     * @var string $UsuarioNombre
-     *
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $UsuarioNombre;
-    
 
     /**
      * @var string $PersonaJuridica
-     *
      * @ORM\Column(type="boolean")
      */
     private $PersonaJuridica;
     
-    
     /**
      * @var string $RazonSocial
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $RazonSocial = null;
 
     /**
      * @var integer $DocumentoTipo
-     *
      * @ORM\Column(type="integer")
      */
     private $DocumentoTipo;
 
     /**
      * @var integer $DocumentoNumero
-     *
      * @ORM\Column(type="integer")
      */
     private $DocumentoNumero;
 
     /**
      * @var string $DomicilioCalle
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $DomicilioCalle;
 
     /**
      * @var integer $DomicilioNumero
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $DomicilioNumero;
 
     /**
      * @var integer $DomicilioPiso
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $DomicilioPiso;
 
     /**
      * @var integer $DomicilioPuerta
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $DomicilioPuerta;
 
     /**
      * @var integer $TelefonoNumero
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $TelefonoNumero;
 
     /**
      * @var string $Email
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
 
     /**
      * @var boolean $SituacionTributaria
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $SituacionTributaria;
 
     /**
      * @var integer $DomicilioCodigoPostal
-     *
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $DomicilioCodigoPostal;
 
     /**
      * @var \DateTime $FechaNacimiento
-     *
      * @ORM\Column(type="date", nullable=true)
      */
     private $FechaNacimiento;
 
     /**
      * @var integer $Genero
-     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Genero;
 
     /**
      * @ORM\ManyToOne(targetEntity="Pais")
-     * @ORM\JoinColumn(name="Pais", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Pais;
     
@@ -224,14 +197,6 @@ class Persona
     public function setNombre($Nombre) {
         $this->Nombre = $Nombre;
         $this->getNombreVisible();
-    }
-
-    public function getUsuarioNombre() {
-        return $this->UsuarioNombre;
-    }
-
-    public function setUsuarioNombre($UsuarioNombre) {
-        $this->UsuarioNombre = $UsuarioNombre;
     }
 
     public function getRazonSocial() {

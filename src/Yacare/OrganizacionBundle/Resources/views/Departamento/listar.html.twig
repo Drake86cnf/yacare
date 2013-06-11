@@ -5,16 +5,21 @@
 {% block content_header '' %}
 
 {% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Rango</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('yacare_organizacion_departamento_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.RangoNombre }}</td>
         </tr>
     {% endfor %}
     </tbody>

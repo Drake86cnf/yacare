@@ -5,12 +5,14 @@
 {% block content_header '' %}
 
 {% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre y apellido</th>
             <th>Documento</th>
-            <th>Usuario</th>
             <th>Grupos</th>
         </tr>
     </thead>
@@ -19,7 +21,6 @@
         <tr>
             <td><i class="icon-user"></i> <a href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</a></td>
             <td>{{ entity.DocumentoNumero }}</td>
-            <td>{{ entity.UsuarioNombre }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>{% endfor %}</td>
         </tr>
     {% endfor %}

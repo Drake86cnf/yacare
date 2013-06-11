@@ -12,6 +12,22 @@ class DepartamentoType extends AbstractType
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre', 'required' => true))
+            ->add('Rango', 'choice', array(
+                'choices'  => array(
+                    '1'  => 'Ejecutivo',
+                    '20' => 'Ministerio',
+                    '30' => 'Secretaría',
+                    '40' => 'Subsecretaría',
+                    '50' => 'Dirección',
+                    '60' => 'Subdirección'
+                    ),
+                'label' => 'Rango'))
+            ->add('DependeDe', 'entity', array(
+                'label' => 'Depende de',
+                'class' => 'YacareOrganizacionBundle:Departamento',
+                'required' => false,
+                'empty_value' => 'Ninguna',
+                'property' => 'Nombre'))
         ;
     }
 

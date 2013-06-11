@@ -13,18 +13,6 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  */
 class RelevamientoAsignacionResultado
 {
-    /*
-    
-    INSERT INTO Inspeccion_RelevamientoAsignacionResultado
-	(Detalle_id, Relevamiento_id, Asignacion_id, Encargado_id, Partida_id,
-		Resultado_id, PartidaSeccion, PartidaMacizo, PartidaParcela, PartidaCalleNombre,
-		PartidaCalleNumero, Obs, Ubicacion, Imagen, CreatedAt, UpdatedAt, Version)
-SELECT id, Relevamiento_id, Asignacion_id, Encargado_id, Partida_id,
-		Resultado1_id, PartidaSeccion, PartidaMacizo, PartidaParcela, PartidaCalleNombre,
-		PartidaCalleNumero, ResultadoObs, ResultadoUbicacion, Imagen, UpdatedAt, UpdatedAt, 1
-		FROM Inspeccion_RelevamientoAsignacionDetalle
-		WHERE Resultado1_id IS NOT NULL;
-     */
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;

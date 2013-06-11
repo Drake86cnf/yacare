@@ -22,6 +22,9 @@ class YacareBaseController extends Controller
         
         if(!isset($this->Where))
             $this->Where = null;
+        
+        if(!isset($this->BuscarPor))
+            $this->BuscarPor = 'r.Nombre';
     }
    
     /**
@@ -35,12 +38,18 @@ class YacareBaseController extends Controller
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
         $where = "";
+        
         if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
             $where = "r.Eliminado=0";
         } else {
             $where = "1=1";
         }
-        
+
+        $request = $this->getRequest();
+        $filtro_buscar = $request->query->get('filtro_buscar');
+        if($filtro_buscar)
+            $this->Where .= ' AND ' . $this->BuscarPor . " LIKE '%$filtro_buscar%'";
+
         $dql .= " WHERE $where";
         if($this->Where) {
             $this->Where = trim($this->Where);
@@ -110,7 +119,6 @@ class YacareBaseController extends Controller
      */
     public function guardarAction(Request $request, $id=null)
     {
-       
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
@@ -134,14 +142,12 @@ class YacareBaseController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
+        } else {
+            return array(
+                'entity'      => $entity,
+                'create'      => $id ? false : true
+            );
         }
-
-        // @Template("YacareBaseBundle:Dependencia:edit.html.twig")
-        //$this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
-        return array(
-            'entity'      => $entity,
-            'create'      => $id ? false : true
-        );
     }
 
     /**
