@@ -31,7 +31,6 @@ class PersonaType extends AbstractType
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('UsuarioNombre', null, array('label' => 'Nombre de usuario'))
             ->add('DomicilioCalle', null, array('label' => 'Calle'))
             ->add('DomicilioNumero', null, array('label' => 'Número'))
             ->add('DomicilioPiso', null, array('label' => 'Piso'))
