@@ -87,7 +87,6 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                 $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Seccion' => $entity->getSeccion(), 'Macizo' => $entity->getMacizo()));
             }
 
-            $total_partidas = 0;
             if($partidas) {
                 /* $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad=0')
                     ->setParameter('asignacion_id', $entity->getId())
@@ -98,8 +97,9 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 
+                $DetallesCantidad = 0;
                 foreach ($partidas as $partida) {
-                    $total_partidas++;
+                    $DetallesCantidad++;
                     $Deta = new \Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle();
                     $Deta->setAsignacion($entity);
                     $Deta->setEncargado($entity->getEncargado());
@@ -115,6 +115,8 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     $em->persist($Deta);
                 }
                 
+                $entity->setDetallesCantidad($DetallesCantidad);
+                $em->persist($entity);
                 
                 //$numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad>0')
                 //   ->setParameter('asignacion_id', $entity->getId())

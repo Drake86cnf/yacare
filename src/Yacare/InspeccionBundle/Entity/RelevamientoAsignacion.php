@@ -31,7 +31,7 @@ class RelevamientoAsignacion
      * @var string $Nombre
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Nombre;    
+    private $Nombre;
     
     
     /**
@@ -69,6 +69,18 @@ class RelevamientoAsignacion
      * @ORM\OneToMany(targetEntity="RelevamientoAsignacionDetalle", mappedBy="Asignacion", cascade={"remove"})
      */
     protected $Detalles;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $DetallesCantidad;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $DetallesResultadosCantidad;
    
     /**
      * @ORM\PostPersist()
@@ -98,6 +110,12 @@ class RelevamientoAsignacion
     {
         return $this->id;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+    
     
     public function getNombre() {
         $this->Nombre = $this->getEncargado()->getNombreVisible();
@@ -165,8 +183,19 @@ class RelevamientoAsignacion
         $this->Detalles = $Detalles;
     }
     
-    public function __toString()
-    {
-        return $this->getNombre();
+    public function getDetallesCantidad() {
+        return $this->DetallesCantidad;
+    }
+
+    public function setDetallesCantidad($DetallesCantidad) {
+        $this->DetallesCantidad = $DetallesCantidad;
+    }
+
+    public function getDetallesResultadosCantidad() {
+        return $this->DetallesResultadosCantidad;
+    }
+
+    public function setDetallesResultadosCantidad($DetallesResultadosCantidad) {
+        $this->DetallesResultadosCantidad = $DetallesResultadosCantidad;
     }
 }

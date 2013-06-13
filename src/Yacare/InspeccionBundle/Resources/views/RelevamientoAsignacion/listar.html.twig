@@ -20,6 +20,7 @@
         <tr>
             <th>Encargado</th>
             <th>Asignación</th>
+            <th>Resultados</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
         <tr>
             <td><a href="{{ path('yacare_inspeccion_relevamientoasignacion_editar', { 'id': entity.Id }) }}">{{ entity.Encargado }}</a></td>
             <td>{% if entity.Calle %}Calle {{ entity.Calle }}{% else %}Sección {{ entity.Seccion }}, macizo {{ entity.Macizo }}{% endif %}</td>
+            <td>{% if entity.DetallesCantidad %}{{ entity.DetallesResultadosCantidad }} de {{ entity.DetallesCantidad }}{% else %}-{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>
