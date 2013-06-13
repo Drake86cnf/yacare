@@ -48,6 +48,7 @@
 	//$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultadoTipo (Id, Nombre, Grupo);");
 
 	// ********************** Envío Relevamientos realizados
+    /* 
 	echo "Enviando detalles: ";
 	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id > 0 OR Resultado1_id IS NOT NULL";
 	$cantidad_relevamiento = 0;
@@ -86,6 +87,7 @@
 		}
 	}
 	echo "se exportaron $cantidad_relevamiento registros.</p>";
+     */
 
     
     // ********************** Envío Relevamientos realizados 2
@@ -106,6 +108,7 @@
         $insert->execute();
 		if($insert->rowCount()) {
             $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
+            $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=DetallesResultadosCantidad+1 WHERE id=" . $row['Asignacion_id']);
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
 		}
 	}
