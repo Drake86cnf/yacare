@@ -35,11 +35,17 @@ class RelevamientoAsignacionResultado
     protected $Resultado;
     
     /**
+     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Asignacion;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacionDetalle")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Detalle;
-    
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)

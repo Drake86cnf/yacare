@@ -25,9 +25,20 @@ class RelevamientoAsignacionResultadoController extends \Yacare\BaseBundle\Contr
      */
     public function listarrelevamientoAction($id)
     {
-        $res = parent::listarAction();
-        $res['id'] = $id;
+        $request = $this->getRequest();
         
+        $filtro_asignacion = $request->query->get('filtro_asignacion');
+        
+        if($filtro_asignacion)
+            $this->Where .= " AND r.Asignacion=$filtro_asignacion";
+
+        $res = parent::listarAction();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query_secciones = $em->createQuery("SELECT DISTINCT r.Seccion FROM YacareCatastroBundle:Partida r ORDER BY r.Seccion");
+        $res['secciones'] = $query_secciones->getResult();
+        
+        $res['id'] = $id;
         return $res;
     }
 }

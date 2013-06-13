@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RelevamientoAsignacion
 {
     /*
+    UPDATE Inspeccion_RelevamientoAsignacionResultado SET Asignacion_id=(SELECT Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id=Inspeccion_RelevamientoAsignacionDetalle.id);
     UPDATE Inspeccion_RelevamientoAsignacion SET DetallesCantidad=(SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Asignacion_id=Inspeccion_RelevamientoAsignacion.id);
     UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=(SELECT COUNT(DISTINCT Detalle_id) FROM Inspeccion_RelevamientoAsignacionResultado WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id IN (SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id=Inspeccion_RelevamientoAsignacion.id));
     */
