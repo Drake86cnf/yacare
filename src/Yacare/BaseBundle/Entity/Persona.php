@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\BaseBundle\Entity\Persona
  *
- * @ORM\Table(name="Base_Persona")
+ * @ORM\Table(name="Base_Persona", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity()
  */
 class Persona
@@ -16,6 +16,7 @@ class Persona
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
     use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Importable;
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
