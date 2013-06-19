@@ -10,9 +10,18 @@ REPLACE INTO Organizacion_Departamento
 
 /* Triggers */
 
+/* Llevar direcciones y secretarías actualizaciones */
+
 DROP TRIGGER IF EXISTS yacare.Organizacion_Departamento_AU;
+DROP TRIGGER IF EXISTS yacare.Organizacion_Departamento_AI;
+DROP TRIGGER IF EXISTS yacare.Organizacion_Departamento_BI;
+DROP TRIGGER IF EXISTS rr_hh.secretarias_AU;
+DROP TRIGGER IF EXISTS rr_hh.secretarias_AI;
+DROP TRIGGER IF EXISTS rr_hh.direcciones_AU;
+DROP TRIGGER IF EXISTS rr_hh.direcciones_AI;
+
 delimiter //
-CREATE TRIGGER yacare.Organizacion_Departamento_AU AFTER UPDATE ON yacare.Organizacion_Departamento
+CREATE DEFINER=yacare TRIGGER yacare.Organizacion_Departamento_AU AFTER UPDATE ON yacare.Organizacion_Departamento
 FOR EACH ROW
 BEGIN
 	IF NEW.Rango = 30 THEN
@@ -25,11 +34,10 @@ BEGIN
 END;//
 delimiter ;
 
+/* Llevar direcciones y secretarías nuevas */
 
-DROP TRIGGER IF EXISTS yacare.Organizacion_Departamento_AI;
-DROP TRIGGER IF EXISTS yacare.Organizacion_Departamento_BI;
 delimiter //
-CREATE TRIGGER yacare.Organizacion_Departamento_BI BEFORE INSERT ON yacare.Organizacion_Departamento
+CREATE DEFINER=yacare TRIGGER yacare.Organizacion_Departamento_BI BEFORE INSERT ON yacare.Organizacion_Departamento
 FOR EACH ROW
 BEGIN
 	IF NEW.Rango = 30 THEN
@@ -51,3 +59,41 @@ BEGIN
 	END IF;
 END;//
 delimiter ;
+
+/* Traer secretarías */
+
+delimiter //
+CREATE DEFINER=yacare TRIGGER rr_hh.secretarias_AU AFTER UPDATE ON rr_hh.secretarias
+FOR EACH ROW
+BEGIN
+    UPDATE yacare.Organizacion_Departamento SET Nombre=yacare.tcase(NEW.detalle) WHERE ImportSrc='rr_hh.secretarias' AND ImportId=NEW.codigo;
+END;//
+delimiter ;
+
+delimiter //
+CREATE DEFINER=yacare TRIGGER rr_hh.secretarias_AI AFTER INSERT ON rr_hh.secretarias
+FOR EACH ROW
+BEGIN
+    INSERT INTO yacare.Organizacion_Departamento SET Rango=30, Nombre=yacare.tcase(NEW.detalle), ImportSrc='rr_hh.secretarias', ImportId=NEW.codigo;
+END;//
+delimiter ;
+
+
+/* Traer direcciones */
+
+delimiter //
+CREATE DEFINER=yacare TRIGGER rr_hh.direcciones_AU AFTER UPDATE ON rr_hh.direcciones
+FOR EACH ROW
+BEGIN
+    UPDATE yacare.Organizacion_Departamento SET Nombre=yacare.tcase(NEW.detalle) WHERE ImportSrc='rr_hh.direcciones' AND ImportId=CONCAT(NEW.secretaria, '.', NEW.direccion);
+END;//
+delimiter ;
+
+delimiter //
+CREATE DEFINER=yacare TRIGGER rr_hh.direcciones_AI AFTER INSERT ON rr_hh.direcciones
+FOR EACH ROW
+BEGIN
+    INSERT INTO yacare.Organizacion_Departamento SET Rango=50, Nombre=yacare.tcase(NEW.detalle), ImportSrc='rr_hh.direcciones', ImportId=CONCAT(NEW.secretaria, '.', NEW.direccion);
+END;//
+delimiter ;
+
