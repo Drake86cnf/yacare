@@ -81,7 +81,7 @@ class RelevamientoAsignacion
      * @var string
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $DetallesCantidad;
+    protected $DetallesCantidad = 0;
     
     /**
      * @var string
