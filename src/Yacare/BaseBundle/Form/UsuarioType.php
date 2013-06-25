@@ -13,7 +13,7 @@ class UsuarioType extends AbstractType
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
             ->add('Email', null, array('label' => 'Correo electrónico'))
-            ->add('Roles', 'entity', array(
+            ->add('UsuarioRoles', 'entity', array(
                 'label' => 'Roles',
                 'class' => 'YacareBaseBundle:PersonaRol',
                 'property' => 'Nombre',

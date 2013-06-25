@@ -84,17 +84,17 @@ class Persona implements UserInterface, \Serializable
     private $Username;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=255)
      */
     private $Salt = '23d0f70792accd85ccf1b09f892a89d2';                 // Sal predeterminada
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
     private $Password = 'VYHNTJyqYCoQQ0UI7V/HKYyJ5Ak06MCxQQFuhwxK';     // Contraseña predeterminada 123456
     
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
     private $PasswordEnc = 'MTIzNDU2';                                  // Contraseña predeterminada 123456, con base64
     
