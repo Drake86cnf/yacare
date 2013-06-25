@@ -78,6 +78,14 @@ class YacareBaseController extends Controller
             'entities' => $entities,
         );
     }
+    
+    
+    private function getFormType() {
+        if(isset($this->FormTypeName))
+            return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
+        else
+            return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+    }
 
 
     /**
@@ -100,7 +108,7 @@ class YacareBaseController extends Controller
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+        $typeName = $this->getFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -132,12 +140,14 @@ class YacareBaseController extends Controller
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
-        $deleteForm = $this->createDeleteForm($id);
+        $this->guardarActionPreBind($entity);
+        
+        $typeName = $this->getFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $this->guardarActionPrePersist($entity);
             $em->persist($entity);
             $em->flush();
 
@@ -149,6 +159,17 @@ class YacareBaseController extends Controller
             );
         }
     }
+    
+    public function guardarActionPreBind($entity)
+    {
+        // Función para que las clases derivadas puedan intervenir la entidad antes de bindear el formulario
+    }
+    
+    public function guardarActionPrePersist($entity)
+    {
+        // Función para que las clases derivadas puedan intervenir la entidad antes de persistir
+    }
+    
 
     /**
      * @Route("eliminar/{id}")

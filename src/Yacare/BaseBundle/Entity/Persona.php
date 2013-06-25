@@ -3,6 +3,7 @@
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Yacare\BaseBundle\Entity\Persona
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Base_Persona", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity()
  */
-class Persona
+class Persona implements UserInterface, \Serializable
 {
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
@@ -24,10 +25,19 @@ class Persona
      */
     private $Grupos;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="PersonaRol", inversedBy="Personas")
+     * @ORM\JoinTable(name="Base_Persona_PersonaRol")
+     */
+    private $UsuarioRoles;
+    
     
     public function __construct()
     {
         $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->UsuarioRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));
     }  
     
     /**
@@ -66,6 +76,28 @@ class Persona
      * @ORM\Column(type="string", length=255)
      */
     private $NombreVisible;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     */
+    private $Username;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $Salt = '23d0f70792accd85ccf1b09f892a89d2';                 // Sal predeterminada
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $Password = 'VYHNTJyqYCoQQ0UI7V/HKYyJ5Ak06MCxQQFuhwxK';     // Contraseña predeterminada 123456
+    
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $PasswordEnc = 'MTIzNDU2';                                  // Contraseña predeterminada 123456, con base64
+    
 
     /**
      * @var string $PersonaJuridica
@@ -157,6 +189,7 @@ class Persona
      */
     protected $Pais;
     
+    
     public function getNombreVisible() {
         if($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
@@ -171,16 +204,53 @@ class Persona
         else
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
     }
-
     
+    public function getRoles() {
+        return $this->UsuarioRoles->toArray();
+    }
     
-    public function getAgente() {
-        return $this->Agente;
+    public function getPasswordEnc() {
+        return base64_decode($this->PasswordEnc);
     }
 
-    public function setAgente($Agente) {
-        $this->Agente = $Agente;
+    public function setPasswordEnc($PasswordEnc) {
+        $this->PasswordEnc = base64_encode($PasswordEnc);
     }
+    
+    public function __toString() {
+        return $this->getNombreVisible();
+    }
+    
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+        ) = unserialize($serialized);
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return $this->id === $user->getId();
+    }
+    
+
 
     public function getApellido() {
         return $this->Apellido;
@@ -329,7 +399,35 @@ class Persona
         $this->Grupos = $Grupos;
     }
 
-    public function __toString() {
-        return $this->getNombreVisible();
+    public function getUsername() {
+        return $this->Username;
+    }
+
+    public function setUsername($Username) {
+        $this->Username = $Username;
+    }
+
+    public function getSalt() {
+        return $this->Salt;
+    }
+
+    public function setSalt($Salt) {
+        $this->Salt = $Salt;
+    }
+
+    public function getPassword() {
+        return $this->Password;
+    }
+
+    public function setPassword($Password) {
+        $this->Password = $Password;
+    }
+    
+    public function getUsuarioRoles() {
+        return $this->UsuarioRoles;
+    }
+
+    public function setUsuarioRoles($UsuarioRoles) {
+        $this->UsuarioRoles = $UsuarioRoles;
     }
 }

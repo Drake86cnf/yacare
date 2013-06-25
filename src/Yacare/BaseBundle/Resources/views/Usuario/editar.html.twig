@@ -1,0 +1,20 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Usuario{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('yacare_base_usuario_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo usuario {% endif %}</legend>
+	{{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+		<a class="btn" href="{{ path('yacare_base_usuario_listar') }}">Cancelar</a>
+    </div>
+</form>
+
+{% if entity.id %}
+<a class="btn btn-danger" href="{{ path('yacare_base_usuario_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar usuario</a>
+{% endif %}
+
+{% endblock %}

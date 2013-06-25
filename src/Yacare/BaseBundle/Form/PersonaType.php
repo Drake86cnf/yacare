@@ -37,7 +37,7 @@ class PersonaType extends AbstractType
             ->add('DomicilioPuerta', null, array('label' => 'Puerta'))
             ->add('DomicilioCodigoPostal', null, array('label' => 'Código postal'))
             ->add('TelefonoNumero', null, array('label' => 'Número de teléfono'))
-            ->add('Email', null, array('label' => 'Correo electrónico   '))
+            ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('PersonaJuridica', 'checkbox', array(
                 'label' => 'Persona jurídica',
                 'required' => false,))

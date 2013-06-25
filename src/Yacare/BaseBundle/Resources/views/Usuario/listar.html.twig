@@ -1,0 +1,34 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre completo</th>
+            <th>Usuario</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><i class="icon-user"></i> <a href="{{ path('yacare_base_usuario_editar', { 'id': entity.Id }) }}">{{ entity.NombreVisible }}</a></td>
+            <td>{{ entity.Username }}</td>
+            <td>{% for Nombre in entity.Roles %}<span class="label label-info">{{ Nombre }}</span>{% endfor %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+{% endblock %}
