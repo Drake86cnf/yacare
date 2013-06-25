@@ -1,3 +1,16 @@
+yacare_base:
+    resource: "@YacareBaseBundle/Controller/"
+    type:     annotation
+    prefix:   /base/
+
+inicio:
+    path:      /
+    defaults:  { _controller: YacareBaseBundle:Default:inicio }
+login_check:
+    pattern:   /base/login_check
+logout:
+    pattern:   /base/logout
+    
 yacare_tierras:
     resource: "@YacareTierrasBundle/Controller/"
     type:     annotation
@@ -7,16 +20,6 @@ yacare_organizacion:
     resource: "@YacareOrganizacionBundle/Controller/"
     type:     annotation
     prefix:   /organizacion/
-
-yacare_inicio:
-    resource: "@YacareInicioBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-yacare_base:
-    resource: "@YacareBaseBundle/Controller/"
-    type:     annotation
-    prefix:   /base/
 
 yacare_catastro:
     resource: "@YacareCatastroBundle/Controller/"
