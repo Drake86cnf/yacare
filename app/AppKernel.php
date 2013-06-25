@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Yacare\BaseBundle\YacareBaseBundle(),
-            new Yacare\InicioBundle\YacareInicioBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
             new Yacare\CatastroBundle\YacareCatastroBundle(),
