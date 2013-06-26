@@ -23,6 +23,11 @@
 	$Obs = $_POST['Obs'];
 	$lat = $_POST['lat'];
 	$lon = $_POST['lon'];
+    
+    $Ubicacion_para_udp = $lat . ", " . $lon;
+    $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+    socket_sendto($socket, $Ubicacion_para_udp, strlen($Ubicacion_para_udp), 0, '200.63.163.220', '2044');
+
 	
     if(!$_POST['lat'] || !$_POST['lon']) {
 		$Ubicacion = null;
@@ -30,14 +35,14 @@
 		$Ubicacion = 'POINT(' . $lat . ' ' . $lon . ')';
 	}
 	
-	if($_POST['Imagen']) {
+  	if($_POST['Imagen']) {
 		$imagen = substr($_POST['Imagen'], strpos($_POST['Imagen'], ',') + 1);
 		$imagen_binario = base64_decode($imagen);
 	} else {	
         $imagen_binario = null;
 		$dataURL = null;
 	}
-
+    
     $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
         (CreatedAt, UpdatedAt, Version, Detalle_id, Resultado_id, Obs, Imagen, Ubicacion) 
         VALUES (
