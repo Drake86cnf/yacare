@@ -38,17 +38,8 @@
             PartidaCalleNombre,
             PartidaCalleNumero,
             Encargado_id INTEGER DEFAULT NULL,
-            Resultado1_id INTEGER DEFAULT NULL,
-            Resultado2_id INTEGER DEFAULT NULL,
-            Resultado3_id INTEGER DEFAULT NULL,
-            Resultado4_id INTEGER DEFAULT NULL,
-            Resultado5_id INTEGER DEFAULT NULL,
-            Resultado6_id INTEGER DEFAULT NULL,
             PartidaCalle_id INTEGER DEFAULT NULL,
-            ResultadosCantidad INTEGER NOT NULL,
-            ResultadoObs,
-            Imagen BLOB,
-            ResultadoUbicacion)");
+            ResultadosCantidad INTEGER NOT NULL DEFAULT 0)");
         echo "ok</p>";
         
         echo "<p>Recreando la tabla de resultados: ";
