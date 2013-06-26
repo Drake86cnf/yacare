@@ -32,8 +32,8 @@ class DispositivoType extends AbstractType
             ->add('Encargado', 'entity', array(
                 'label' => 'Encargado',
                 'class' => 'YacareBaseBundle:Persona',
-                'required' => true,
-                'empty_value' => false,
+                'required' => false,
+                'empty_value' => 'Ninguno',
                 'property' => 'NombreVisible'))
         ;
     }
