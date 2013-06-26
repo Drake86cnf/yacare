@@ -19,12 +19,6 @@
     $SqliteDestino = "inspeccion-backup-" . date('Ymdhis') . ".sqlite";
     copy($SqliteOrigen, $SqliteDestino);
 
-    $AgregarColumnas = @$db_remota->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN
-        Resultado4_id INTEGER DEFAULT NULL,
-        Resultado5_id INTEGER DEFAULT NULL,
-        Resultado6_id INTEGER DEFAULT NULL
-        ");
-        
 	$IdEncargadoDispositivo = $db_remota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
 	$IdRelevamientoActual = $db_remota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento")->fetchColumn();
 
@@ -95,7 +89,6 @@
 	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionResultado";
 	$cantidad_resultado = 0;
 	foreach ($db_local->query($sql) as $row) {
-		$cantidad_resultado++;	
 		$insert = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
             (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, CreatedAt, Version)
 			VALUES
@@ -110,6 +103,7 @@
             $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
             $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=DetallesResultadosCantidad+1 WHERE id=" . $row['Asignacion_id']);
 			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
+    		$cantidad_resultado++;
 		}
 	}
 	echo "se exportaron $cantidad_resultado registros.</p>";

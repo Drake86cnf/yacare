@@ -35,8 +35,8 @@
         $data = $row['Imagen'];
         $Imagen = 'data:image/png' . ';base64,' . base64_encode($data);
 
-	if($tipoLinea==0) {
-		$tipoLinea = 1;    		
+        if($tipoLinea==0) {
+            $tipoLinea = 1;    		
     		echo '<tr class="alt"';
     	} else {
     		$tipoLinea = 0;

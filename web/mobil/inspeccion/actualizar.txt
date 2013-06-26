@@ -7,6 +7,7 @@ entrada.php
 guardar.php
 index.php
 listado.php
+mostrar_historial.php
 mac.php
 presinc.php
 sinc.php

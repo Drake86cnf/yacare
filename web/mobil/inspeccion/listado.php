@@ -90,16 +90,16 @@
         $PartidaMacizo = $row['PartidaMacizo'];
         $PartidaParcela = $row['PartidaParcela'];
 
-	if($tipoLinea==0) {
-		$tipoLinea = 1;    		
-    		echo '<tr class="alt"';
-    	} else {
-    		$tipoLinea = 0;
-    		echo '<tr';
-    	}
+        if($tipoLinea==0) {
+            $tipoLinea = 1;    		
+            echo '<tr class="alt"';
+        } else {
+            $tipoLinea = 0;
+            echo '<tr';
+        }
         if($row['ResultadosCantidad'] > 0)
             echo ' style="text-decoration:line-through; font-style:italic"';
-    	echo " onclick=\"parent.location='editar.php?id=${Id}'\" style=\"cursor: hand; cursor: pointer;\">";
+            echo " onclick=\"parent.location='editar.php?id=${Id}'\" style=\"cursor: hand; cursor: pointer;\">";
 ?>
             <td><a href="editar.php?id=<?php echo $Id; ?>"><?php echo $PartidaCalleNombre; ?></a></td>
             <td><a href="editar.php?id=<?php echo $Id; ?>"><?php echo $PartidaCalleNumero; ?></a></td>
