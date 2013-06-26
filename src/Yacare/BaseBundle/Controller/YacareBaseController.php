@@ -26,6 +26,8 @@ class YacareBaseController extends Controller
         if(!isset($this->BuscarPor))
             $this->BuscarPor = 'r.Nombre';
     }
+    
+    
    
     /**
      * @Route("listar/")
@@ -150,7 +152,8 @@ class YacareBaseController extends Controller
             $this->guardarActionPrePersist($entity);
             $em->persist($entity);
             $em->flush();
-
+            
+            $this->get('session')->getFlashBag()->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
             return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
         } else {
             return array(
@@ -215,9 +218,11 @@ class YacareBaseController extends Controller
                 $entity->Eliminar();
                 $em->persist($entity);
                 $em->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Se eliminó el elemento "' . $entity . '".');
             } else {
                 // Lo elimino de verdad
                 //$em->remove($entity);
+                $this->get('session')->getFlashBag()->add('notice', 'No se eliminó el elemento "' . $entity . '".');
             }
         }
         

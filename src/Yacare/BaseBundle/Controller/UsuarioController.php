@@ -39,7 +39,6 @@ class UsuarioController extends YacareBaseController
             $encoder = $factory->getEncoder($entity);
             $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
             $entity->setPassword($encoded_password);
-            echo "cambio pass";
         } else {
             // Si la contraseña está en blanco, dejo la original
             $entity->setPasswordEnc($this->PassOriginal);
