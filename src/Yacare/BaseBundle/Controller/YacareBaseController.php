@@ -26,9 +26,8 @@ class YacareBaseController extends Controller
         if(!isset($this->BuscarPor))
             $this->BuscarPor = 'r.Nombre';
     }
-    
-    
-   
+
+
     /**
      * @Route("listar/")
      * @Template()
