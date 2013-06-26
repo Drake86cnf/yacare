@@ -13,6 +13,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoAsignacionResultadoController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
+    /*
+UPDATE Inspeccion_RelevamientoAsignacionResultado 
+	SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(
+		SELECT Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle
+			WHERE Inspeccion_RelevamientoAsignacionDetalle.id=Inspeccion_RelevamientoAsignacionResultado.Detalle_id
+	);
+UPDATE Inspeccion_RelevamientoAsignacion
+	SET DetallesResultadosCantidad=(
+		SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado
+			WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id
+	);
+     */
+    
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoAsignacionResultado';
@@ -42,3 +55,5 @@ class RelevamientoAsignacionResultadoController extends \Yacare\BaseBundle\Contr
         return $res;
     }
 }
+
+

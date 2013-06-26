@@ -26,7 +26,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': entity.Id, 'filtro_asignacion': entity.id }) }}">{% if entity.Calle %}Calle {{ entity.Calle }}{% else %}Sección {{ entity.Seccion }}, macizo {{ entity.Macizo }}{% endif %}</a></td>
+            <td><a href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': entity.Relevamiento.Id, 'filtro_asignacion': entity.id }) }}">{% if entity.Calle %}Calle {{ entity.Calle }}{% else %}Sección {{ entity.Seccion }}, macizo {{ entity.Macizo }}{% endif %}</a></td>
             <td>{{ entity.Encargado }}</td>
             <td>{% if entity.DetallesCantidad %}{{ entity.DetallesResultadosCantidad }} de {{ entity.DetallesCantidad }}{% else %}-{% endif %}</td>
         </tr>
