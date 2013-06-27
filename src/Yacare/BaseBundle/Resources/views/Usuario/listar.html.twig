@@ -21,7 +21,7 @@
         <tr>
             <td><i class="icon-user"></i> <a href="{{ path('yacare_base_usuario_editar', { 'id': entity.Id }) }}">{{ entity.NombreVisible }}</a></td>
             <td>{{ entity.Username }}</td>
-            <td>{% for Nombre in entity.Roles %}<span class="label label-info">{{ Nombre }}</span>{% endfor %}</td>
+            <td>{% for Nombre in entity.Roles %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
         </tr>
     {% endfor %}
     </tbody>
