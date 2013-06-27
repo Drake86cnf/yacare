@@ -61,7 +61,7 @@
 <div class="encab-derecha">
     <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type='submit' name='Aceptar'>Guardar y continuar</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type='button' onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')">Mostrar historial</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type='button' onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')">Historial</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type='button' onclick="confirmarYTerminar()">Terminar</button>
 </div>
 </div>
