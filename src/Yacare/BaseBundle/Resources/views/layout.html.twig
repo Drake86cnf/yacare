@@ -90,22 +90,7 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 				
-<!-- left menu starts -->
-<div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav">
-                <ul class="nav nav-tabs nav-stacked main-menu">
-                        <li class="nav-header hidden-tablet">Administración</li>
-                        <li><a class="ajax-link" href="{{ path('yacare_base_persona_listar') }}"><i class="icon-user"></i><span class="hidden-tablet"> Personas</span></a></li>
-                        <li><a class="ajax-link" href="{{ path('yacare_base_dispositivo_listar') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Dispositivos</span></a></li>
-                        <li class="nav-header hidden-tablet">Sectores</li>
-                        <li><a class="ajax-link" href="{{ path('yacare_inspeccion_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Inspección</span></a></li>
-                        <li><a class="ajax-link" href="{{ path('yacare_organizacion_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Organización</span></a></li>
-                        <li><a class="ajax-link" href="{{ path('yacare_recursoshumanos_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Recursos Humanos</span></a></li>
-                        <li><a class="ajax-link" href="{{ path('yacare_catastro_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Catastro</span></a></li>
-                </ul>
-        </div><!--/.well -->
-</div><!--/span-->
-<!-- left menu ends -->
+        {% include 'YacareBaseBundle::menu.html.twig' %}
 			
 			<noscript>
 				<div class="alert alert-block span10">

@@ -58,7 +58,28 @@ class PersonaRol implements RoleInterface
     public function setNombre($nombre)
     {
         $this->Nombre = $nombre;
-        $this->Codigo = "ROLE_" . strtoupper(str_replace(' ', '_', $nombre));
+        $codigo = "ROLE_" . strtr(mb_strtoupper($nombre, 'utf-8'), array(
+            'Á' => 'A',
+            'É' => 'E',
+            'Í' => 'I',
+            'Ó' => 'O',
+            'Ú' => 'U',
+            'À' => 'A',
+            'È' => 'E',
+            'Ì' => 'I',
+            'Ò' => 'O',
+            'Ù' => 'U',
+            'Ä' => 'A',
+            'Ë' => 'E',
+            'Ï' => 'I',
+            'Ö' => 'O',
+            'Ü' => 'U',
+            'Ñ' => 'n',
+            'Ç' => 'C',
+            ' ' => '_',
+            ':' => '_'
+        ));
+        $this->Codigo = str_replace('__', '_', $codigo);
     }
     
     public function getRole() {
