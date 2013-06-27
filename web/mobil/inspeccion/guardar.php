@@ -24,7 +24,7 @@
 	$lat = $_POST['lat'];
 	$lon = $_POST['lon'];
     
-    $Ubicacion_para_udp = $lat . ", " . $lon;
+    $Ubicacion_para_udp = $lat . ", " . $lon . ", " . $mac;
     $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
     socket_sendto($socket, $Ubicacion_para_udp, strlen($Ubicacion_para_udp), 0, '200.63.163.220', '2044');
 
