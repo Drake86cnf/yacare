@@ -41,49 +41,7 @@
 	echo "se importaron $cantidad_tipo_incidente registros.</p>";
 	//$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultadoTipo (Id, Nombre, Grupo);");
 
-	// ********************** Envío Relevamientos realizados
-    /* 
-	echo "Enviando detalles: ";
-	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Resultado1_id > 0 OR Resultado1_id IS NOT NULL";
-	$cantidad_relevamiento = 0;
-	foreach ($db_local->query($sql) as $row) {
-		$cantidad_relevamiento++;	
-		$Id = $row['id'];
-		$Obs = $row['ResultadoObs'];
-		$Img = $row['Imagen'];
-		$Ubicacion = $row['ResultadoUbicacion'];
-                $Resultado1 = $row['Resultado1_id'] ? $row['Resultado1_id'] : 'NULL';
-		$Resultado2 = $row['Resultado2_id'] ? $row['Resultado2_id'] : 'NULL';
-		$Resultado3 = $row['Resultado3_id'] ? $row['Resultado3_id'] : 'NULL';
-		$Resultado4 = $row['Resultado4_id'] ? $row['Resultado4_id'] : 'NULL';
-		$Resultado5 = $row['Resultado5_id'] ? $row['Resultado5_id'] : 'NULL';
-		$Resultado6 = $row['Resultado6_id'] ? $row['Resultado6_id'] : 'NULL';
-		$update = $db_remota->prepare("UPDATE Inspeccion_RelevamientoAsignacionDetalle
-			SET Resultado1_id=$Resultado1,
-				Resultado2_id=$Resultado2,
-				Resultado3_id=$Resultado3,
-				Resultado4_id=$Resultado4,
-				Resultado5_id=$Resultado5,
-				Resultado6_id=$Resultado6,
-				ResultadoObs=:resultadoobs,
-				Imagen=:imagen,
-				ResultadoUbicacion=:resultadoubicacion,
-				UpdatedAt=NOW(),
-				Version=Version+1
-			WHERE id=:id");
-		$update->bindValue('resultadoobs', $Obs, PDO::PARAM_STR);
-		$update->bindValue('imagen', $Img, PDO::PARAM_LOB);
-		$update->bindValue('resultadoubicacion', $Ubicacion, PDO::PARAM_STR);
-		$update->bindValue('id', $Id, PDO::PARAM_INT);
-		$update->execute();
-        if($update->rowCount()) {
-			$db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id");
-		}
-	}
-	echo "se exportaron $cantidad_relevamiento registros.</p>";
-     */
 
-    
     // ********************** Envío Relevamientos realizados 2
 	echo "Enviando resultados: ";
 	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionResultado";
@@ -107,9 +65,8 @@
 		}
 	}
 	echo "se exportaron $cantidad_resultado registros.</p>";
-    
-    
-    
+
+
     // ********************** Recibir asignaciones nuevas
 	echo "<p>Recibiendo asignaciones: ";
 	$cantidad_incidente = 0;
@@ -178,6 +135,18 @@
 		}
 	}
 	echo "se importaron $cantidad_incidente registros, se saltearon $cantidad_incidente_salteado.</p>";
+    
+    $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionResultado 
+        SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(
+            SELECT Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle
+                WHERE Inspeccion_RelevamientoAsignacionDetalle.id=Inspeccion_RelevamientoAsignacionResultado.Detalle_id
+        );");
+    $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacion
+        SET DetallesResultadosCantidad=(
+            SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado
+                WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id
+        );");
+    include_once 'actualizar_db.php'
 
 ?>
 

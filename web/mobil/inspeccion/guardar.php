@@ -18,17 +18,13 @@
 <div class="contenido">
 <?php		
 	$AsignacionDetalleId = (int)$_POST['id'];
+    $AsignacionId = (int)$_POST['asignacion_id'];
 	$Resultado = $_POST['Resultado'] ? $_POST['Resultado'] : 'NULL';
 
 	$Obs = $_POST['Obs'];
 	$lat = $_POST['lat'];
 	$lon = $_POST['lon'];
-    
-    $Ubicacion_para_udp = $lat . ", " . $lon . ", " . $mac;
-    $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-    socket_sendto($socket, $Ubicacion_para_udp, strlen($Ubicacion_para_udp), 0, '200.63.163.220', '2044');
 
-	
     if(!$_POST['lat'] || !$_POST['lon']) {
 		$Ubicacion = null;
 	} else {
@@ -50,11 +46,13 @@
             datetime(),
             1,
             :detalle_id,
+            :asignacion_id,
             :resultado_id,
             :obs,
             :imagen,
             :ubicacion)");
     $insert->bindValue('detalle_id', $AsignacionDetalleId, PDO::PARAM_INT);
+    $insert->bindValue('asignacion_id', $AsignacionId, PDO::PARAM_INT);
     $insert->bindValue('resultado_id', $Resultado, PDO::PARAM_INT);
     $insert->bindValue('obs', $Obs, PDO::PARAM_STR);
     $insert->bindValue('ubicacion', $Ubicacion, PDO::PARAM_STR);

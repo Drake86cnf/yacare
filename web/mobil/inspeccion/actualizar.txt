@@ -2,6 +2,7 @@ global.php.inc
 db_local.php.inc
 db_remota.php.inc
 actualizar.php
+actualizar_db.php
 editar.php
 entrada.php
 guardar.php
