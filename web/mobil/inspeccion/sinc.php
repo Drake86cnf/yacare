@@ -146,7 +146,7 @@
             SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado
                 WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id
         );");
-    include_once 'actualizar_db.php'
+    //include_once 'actualizar_db.php'
 
 ?>
 
