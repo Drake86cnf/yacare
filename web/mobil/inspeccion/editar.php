@@ -54,7 +54,7 @@
 
 <form name="editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
 <input type="hidden" id="id" name="id" value="<?php echo $AsignacionDetalleId; ?>" />
-<input type="hidden" id="asignacion_id" name="id" value="<?php echo $row['Asignacion_id']; ?>" />
+<input type="hidden" id="asignacion_id" name="asignacion_id" value="<?php echo $row['Asignacion_id']; ?>" />
 <input type="hidden" id="Imagen" name='Imagen'/>
 
 <div class="encab">

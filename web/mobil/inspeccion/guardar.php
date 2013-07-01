@@ -40,7 +40,7 @@
 	}
     
     $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
-        (CreatedAt, UpdatedAt, Version, Detalle_id, Resultado_id, Obs, Imagen, Ubicacion) 
+        (CreatedAt, UpdatedAt, Version, Detalle_id, Asignacion_id, Resultado_id, Obs, Imagen, Ubicacion) 
         VALUES (
             datetime(),
             datetime(),
