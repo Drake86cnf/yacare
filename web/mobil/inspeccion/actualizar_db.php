@@ -27,9 +27,11 @@
         $VersionActual = 1;
     }
 
-    /* if($VersionActual == 1) {
+     /* if($VersionActual == 1) {
         // Actualización de versión 1 a versión 2
         echo '<p>Actualizando base de datos a la versión 2</p>';
+        
+        // ....
         
         $db_local->exec("UPDATE version SET ver=2");
         $VersionActual = 2;
