@@ -46,6 +46,11 @@ class PersonaRol implements RoleInterface
 
     
     /**
+     * @ORM\ManyToMany(targetEntity="Persona", mappedBy="UsuarioRoles", cascade={"persist"})
+     */
+    protected $Personas;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -98,12 +103,6 @@ class PersonaRol implements RoleInterface
     public function setCodigo($Codigo) {
         $this->Codigo = $Codigo;
     }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
-     */
-    protected $Personas;
-
 
     public function __toString() {
         return $this->getNombre();

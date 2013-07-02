@@ -2,13 +2,6 @@
 <div class="span2 main-menu-span">
     <div class="well nav-collapse sidebar-nav">
             <ul class="nav nav-tabs nav-stacked main-menu">
-                    <li class="nav-header hidden-tablet">Administración</li>
-                    <li><a class="ajax-link" href="{{ path('yacare_base_persona_listar') }}"><i class="icon-user"></i><span class="hidden-tablet"> Personas</span></a></li>
-                    {% if is_granted('ROLE_ADMINISTRADOR') %}
-                                <li><a class="ajax-link" href="{{ path('yacare_base_usuario_listar') }}"><span class="hidden-tablet"> Usuarios</span></a></li>
-                                <li><a class="ajax-link" href="{{ path('yacare_base_personarol_listar') }}"><span class="hidden-tablet"> Roles</span></a></li>
-                    {% endif %}
-                    <li><a class="ajax-link" href="{{ path('yacare_base_dispositivo_listar') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Dispositivos</span></a></li>
                     <li class="nav-header hidden-tablet">Sectores</li>
                     {% if is_granted('ROLE_INSPECCION_ADMINISTRADOR') or is_granted('ROLE_INSPECCION_USUARIO') %}
                         <li><a class="ajax-link" href="{{ path('yacare_inspeccion_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Inspección</span></a></li>
@@ -16,6 +9,14 @@
                     <li><a class="ajax-link" href="{{ path('yacare_organizacion_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Organización</span></a></li>
                     <li><a class="ajax-link" href="{{ path('yacare_recursoshumanos_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Recursos Humanos</span></a></li>
                     <li><a class="ajax-link" href="{{ path('yacare_catastro_default_inicio') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Catastro</span></a></li>
+
+                    <li class="nav-header hidden-tablet">Administración</li>
+                    <li><a class="ajax-link" href="{{ path('yacare_base_persona_listar') }}"><i class="icon-user"></i><span class="hidden-tablet"> Personas</span></a></li>
+                    {% if is_granted('ROLE_ADMINISTRADOR') %}
+                                <li><a class="ajax-link" href="{{ path('yacare_base_usuario_listar') }}"><i class="icon-user"></i><span class="hidden-tablet"> Usuarios</span></a></li>
+                                <li><a class="ajax-link" href="{{ path('yacare_base_personarol_listar') }}"><i class="icon-user"></i><span class="hidden-tablet"> Roles</span></a></li>
+                    {% endif %}
+                    <li><a class="ajax-link" href="{{ path('yacare_base_dispositivo_listar') }}"><i class="icon icon-bullet-on"></i><span class="hidden-tablet"> Dispositivos</span></a></li>
             </ul>
     </div><!--/.well -->
 </div><!--/span-->

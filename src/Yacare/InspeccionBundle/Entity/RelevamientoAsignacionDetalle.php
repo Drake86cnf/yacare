@@ -34,7 +34,7 @@ class RelevamientoAsignacionDetalle
     protected $Relevamiento;
     
     /**
-     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion", cascade={"remove"}, inversedBy="Detalles")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Asignacion;

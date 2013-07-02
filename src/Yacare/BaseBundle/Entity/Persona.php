@@ -4,6 +4,7 @@ namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Yacare\BaseBundle\Entity\Persona
@@ -174,6 +175,7 @@ class Persona implements UserInterface, \Serializable
     /**
      * @var \DateTime $FechaNacimiento
      * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
      */
     private $FechaNacimiento;
 

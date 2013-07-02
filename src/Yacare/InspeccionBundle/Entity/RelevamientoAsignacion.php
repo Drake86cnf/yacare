@@ -42,7 +42,7 @@ class RelevamientoAsignacion
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="Relevamiento")
+     * @ORM\ManyToOne(targetEntity="Relevamiento", inversedBy="Asignaciones")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Relevamiento;
