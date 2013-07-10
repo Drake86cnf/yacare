@@ -125,7 +125,7 @@
 					'$PartidaSeccion',
 					'$PartidaMacizo',
 					'$PartidaParcela',
-					'$PartidaCalleNombre',
+					" . $db_local->quote($PartidaCalleNombre) . ",
 					'$PartidaCalleNumero',
 					$Encargado_id,
 					$PartidaCalle_id,
