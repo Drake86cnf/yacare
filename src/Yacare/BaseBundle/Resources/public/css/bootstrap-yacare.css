@@ -4206,3 +4206,13 @@ a.badge:hover {
 .invisible {
   visibility: hidden;
 }
+.currency {
+   text-align: right;
+   align: right;
+   vertical-align: right:
+}
+
+.currency:before {
+   content: "$ ";
+   float: left;
+}

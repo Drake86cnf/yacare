@@ -1,0 +1,44 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Licitaciones{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nº</th>
+            <th>Departamento</th>
+            <th>Nombre</th>
+            <th>Presupuestoooooooo</th>
+            <th>Compl.</th>
+            <th>Coef.</th>
+            <th>Valor del pliego</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Departamento }}</td>
+            <td>{{ entity.Nombre }}</td>
+            <td class="currency">{{ entity.Importe }}</td>
+            <td>{{ entity.ComplejidadComputada }}</td>
+            <td>{{ entity.PliegoCoeficiente }}%</td>
+            <td><span class="currency">{{ entity.PliegoValor }}</span></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_compras_licitacion_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva licitación</a>
+{% endblock %}

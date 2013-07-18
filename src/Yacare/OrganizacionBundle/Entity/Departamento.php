@@ -19,6 +19,7 @@ class Departamento
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
     use \Yacare\BaseBundle\Entity\Importable;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Knp\DoctrineBehaviors\Model\Tree\Node;
 
     /**
@@ -35,12 +36,6 @@ class Departamento
         return $this->id;
     }
 
-    /**
-     * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;
-    
     /**
      * @var string $Rango
      * @ORM\Column(type="integer", nullable=true)
@@ -64,17 +59,6 @@ class Departamento
             case 50: return 'Dirección';
             case 60: return 'Subdirección';
         }
-    }
-    
-
-    public function setNombre($nombre)
-    {
-        $this->Nombre = $nombre;
-    }
-
-    public function getNombre()
-    {
-        return $this->Nombre;
     }
     
     public function getDependeDe() {

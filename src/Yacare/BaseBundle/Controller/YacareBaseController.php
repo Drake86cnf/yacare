@@ -116,6 +116,7 @@ class YacareBaseController extends Controller
         return array(
             'entity'      => $entity,
             'create'      => $id ? false : true,
+            'errors'      => '',
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -146,6 +147,7 @@ class YacareBaseController extends Controller
         $typeName = $this->getFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->bind($request);
+        $deleteForm = $this->createDeleteForm($id);
 
         if ($editForm->isValid()) {
             $this->guardarActionPrePersist($entity);
@@ -155,9 +157,18 @@ class YacareBaseController extends Controller
             $this->get('session')->getFlashBag()->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
             return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
         } else {
-            return array(
+             $validator = $this->get('validator');
+             $errors = $validator->validate($entity);
+             
+             print_r($errors);
+
+             return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', array(
                 'entity'      => $entity,
-                'create'      => $id ? false : true
+                'errors'      => $errors,
+                'create'      => $id ? false : true,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView()
+                )
             );
         }
     }
