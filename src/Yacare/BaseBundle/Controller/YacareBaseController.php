@@ -87,6 +87,33 @@ class YacareBaseController extends Controller
         else
             return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
     }
+    
+    
+    
+    /**
+     * @Route("imprimir/{id}")
+     * @Template()
+     */
+    public function imprimirAction($id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($id) {
+            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        } else {
+            $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+            $entity = new $entityName();
+        }
+
+        if (!$entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+
+        return array(
+            'entity'      => $entity
+        );
+    }
+    
 
 
     /**

@@ -36,6 +36,7 @@ class LicitacionType extends AbstractType
                 'required'  => true,
                 'choices' => array('0' => 'Baja', '1' => 'Media', '2' => 'Alta')
                 ))
+            ->add('Obs', null, array('label' => 'Obs.'))
         ;
     }
 

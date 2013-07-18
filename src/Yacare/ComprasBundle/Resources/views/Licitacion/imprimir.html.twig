@@ -1,0 +1,43 @@
+{% extends 'YacareBaseBundle::imprimir.html.twig' %}
+
+{% block title %}Licitación Nº {% endblock %}
+
+{% block content %}
+
+<table class="listado">
+    <caption>Licitación Nº {{ entity.Numero }}</caption>
+    
+    <tr>
+        <td class="label">Importe</td>
+        <td><span class="currency">{{ entity.Importe|number_format }}</span></td>
+    </tr>
+    <tr>
+        <td class="label">Complejidad computada</td>
+        <td>
+{% if entity.ComplejidadComputada == 0 %}
+    Baja
+{% elseif entity.ComplejidadComputada == 1 %}
+    Media
+{% elseif entity.ComplejidadComputada == 2 %}
+    Alta
+{% else %}
+    ---
+{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Coeficiente</td>
+        <td>{{ entity.PliegoCoeficiente }}%</td>
+    </tr>
+    <tr>
+        <td class="label">Valor del pliego</td>
+        <td>{{ entity.PliegoValor|number_format }}</td>
+    </tr>
+    <tr>
+        <td class="label">Observaciones</td>
+        <td>{{ entity.Obs }}</td>
+    </tr>
+</table>
+
+<button onClick="window.print();">Imprimir</button>
+{% endblock %}

@@ -4207,9 +4207,7 @@ a.badge:hover {
   visibility: hidden;
 }
 .currency {
-   text-align: right;
-   align: right;
-   vertical-align: right:
+   float: right;
 }
 
 .currency:before {

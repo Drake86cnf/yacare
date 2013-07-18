@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+body {
+  margin-top: 20px 0 0 10px;
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+a {
+  color: #4183c4;
+  text-decoration: none;
+}
+a:visited {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.content {
+    margin-left: 12%;
+    margin-right: 3%;
+    width: 85%;
+}
+
+table.listado {
+    width: 100%;
+    border-spacing:0;
+    border-collapse:collapse;
+}
+
+table.listado caption {
+    padding: 8px;
+    font-size: 20px;
+    font-weight: 200;
+    background-color: #473d04;
+    color: white;
+}
+@media print {
+    table.listado caption {
+        border: 2px solid grey;
+        align: left;
+    }
+}
+
+table.listado th td {
+    font-size: 14px;
+    font-weight: 200;    
+    padding: 6px;
+}
+
+table.listado tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+table.listado tr:nth-child(odd) {
+  background-color: white;
+}
+
+table.listado tr td {
+    max-width: 50%;
+    padding: 6px;
+}
+
+@media print {
+    table.listado tr td {
+        border-bottom: 1px solid silver;
+    }
+}
+
+table.listado tr td.label {
+    white-space: nowrap;
+    vertical-align: top;
+    max-width: 30%;
+    padding-right: 16px;
+}
+
+.currency {
+   text-align: right;
+   align: right;
+   vertical-align: right;
+}
+
+.currency:before {
+   content: "$ ";
+   float: left;
+}
+
+@media print {
+    .noprint
+    {
+        display: none;
+    }
+}

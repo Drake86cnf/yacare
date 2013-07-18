@@ -23,7 +23,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><a target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
             <td>{{ entity.Departamento }}</td>
             <td>{{ entity.Nombre }}</td>
             <td><span class="currency">{{ entity.Importe|number_format }}</span></td>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 	<meta charset="UTF-8" />
+	<title>Yacaré - {% block title %}{% endblock %}</title>
+	<link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
+    <link id="print-css" href="{{ asset('bundles/yacarebase/css/yacare-print.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
