@@ -31,14 +31,10 @@ table.listado caption {
     padding: 8px;
     font-size: 20px;
     font-weight: 200;
-    background-color: #473d04;
-    color: white;
-}
-@media print {
-    table.listado caption {
-        border: 2px solid grey;
-        align: left;
-    }
+    border: 2px solid #473d04;
+    text-align: left;
+    border-radius: 4px;
+    margin-bottom: 12px;
 }
 
 table.listado th td {
@@ -74,14 +70,13 @@ table.listado tr td.label {
 }
 
 .currency {
-   text-align: right;
-   align: right;
-   vertical-align: right;
 }
 
 .currency:before {
    content: "$ ";
-   float: left;
+}
+.currency:after {
+   content: ".---";
 }
 
 @media print {

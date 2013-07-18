@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <td class="label">Valor del pliego</td>
-        <td>{{ entity.PliegoValor|number_format }}</td>
+        <td><span class="currency">{{ entity.PliegoValor|number_format }}</span></td>
     </tr>
     <tr>
         <td class="label">Observaciones</td>
@@ -39,5 +39,7 @@
     </tr>
 </table>
 
-<button onClick="window.print();">Imprimir</button>
+<div class="noprint">
+<button  onClick="window.print();">Imprimir</button>
+</div>
 {% endblock %}
