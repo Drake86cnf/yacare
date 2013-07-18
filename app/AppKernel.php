@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Yacare\ImportarBundle\YacareImportarBundle(),
             new Yacare\OrganizacionBundle\YacareOrganizacionBundle(),
             new Yacare\TierrasBundle\YacareTierrasBundle(),
+            new Yacare\ComprasBundle\YacareComprasBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
