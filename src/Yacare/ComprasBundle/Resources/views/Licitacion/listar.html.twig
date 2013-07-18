@@ -14,7 +14,7 @@
             <th>Nº</th>
             <th>Departamento</th>
             <th>Nombre</th>
-            <th>Presupuestoooooooo</th>
+            <th>Presupuesto</th>
             <th>Compl.</th>
             <th>Coef.</th>
             <th>Valor del pliego</th>
@@ -26,10 +26,20 @@
             <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
             <td>{{ entity.Departamento }}</td>
             <td>{{ entity.Nombre }}</td>
-            <td class="currency">{{ entity.Importe }}</td>
-            <td>{{ entity.ComplejidadComputada }}</td>
+            <td><span class="currency">{{ entity.Importe|number_format }}</span></td>
+            <td>
+{% if entity.ComplejidadComputada == 0 %}
+    Baja
+{% elseif entity.ComplejidadComputada == 1 %}
+    Media
+{% elseif entity.ComplejidadComputada == 2 %}
+    Alta
+{% else %}
+    ???
+{% endif %}
+            </td>
             <td>{{ entity.PliegoCoeficiente }}%</td>
-            <td><span class="currency">{{ entity.PliegoValor }}</span></td>
+            <td><span class="currency">{{ entity.PliegoValor|number_format }}</span></td>
         </tr>
     {% endfor %}
     </tbody>
