@@ -11,6 +11,11 @@ login_check:
 logout:
     pattern:   /base/logout
     
+yacare_compras:
+    resource: "@YacareComprasBundle/Controller/"
+    type:     annotation
+    prefix:   /compras/
+
 yacare_tierras:
     resource: "@YacareTierrasBundle/Controller/"
     type:     annotation
