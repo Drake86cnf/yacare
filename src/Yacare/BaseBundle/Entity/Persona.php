@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Persona implements UserInterface, \Serializable
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
@@ -39,27 +40,9 @@ class Persona implements UserInterface, \Serializable
         $this->UsuarioRoles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
-    }  
-    
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
-    /**
-     * Get id
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
-    
+
     /**
      * @var string $Apellido
      * @ORM\Column(type="string", length=255)

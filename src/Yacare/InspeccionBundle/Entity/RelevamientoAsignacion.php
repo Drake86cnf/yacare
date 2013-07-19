@@ -18,21 +18,12 @@ class RelevamientoAsignacion
     UPDATE Inspeccion_RelevamientoAsignacion SET DetallesCantidad=(SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Asignacion_id=Inspeccion_RelevamientoAsignacion.id);
     UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=(SELECT COUNT(DISTINCT Detalle_id) FROM Inspeccion_RelevamientoAsignacionResultado WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id IN (SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id=Inspeccion_RelevamientoAsignacion.id));
     */
-    
-    
+
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
 
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
 
     /**
      * @var string $Nombre
@@ -107,16 +98,7 @@ class RelevamientoAsignacion
     {
         
     }
-    
 
-    /**
-     * Get id
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     
     public function __toString()
     {

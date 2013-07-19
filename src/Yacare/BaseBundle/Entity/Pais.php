@@ -13,30 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Pais
 {
     use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-
-
         
-    /**
-     * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;    
-
     /**
      * @var string $Iso
      * @ORM\Column(type="string", length=2)
      */
     private $Iso;    
-
-    public function getNombre() {
-        return $this->Nombre;
-    }
-
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
-    }
 
     public function getIso() {
         return $this->Iso;
@@ -44,10 +29,5 @@ class Pais
 
     public function setIso($Iso) {
         $this->Iso = $Iso;
-    }
-
-    public function __toString()
-    {
-        return $this->getNombre();
     }
 }

@@ -13,20 +13,11 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  */
 class RelevamientoAsignacionResultado
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
     use \Yacare\BaseBundle\Entity\Eliminable;
-
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
@@ -80,18 +71,7 @@ class RelevamientoAsignacionResultado
         }
         return $Longitud;
     }
-    
-    
-    
-    
-    /**
-     * Get id
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
     
     public function getResultado() {
         return $this->Resultado;

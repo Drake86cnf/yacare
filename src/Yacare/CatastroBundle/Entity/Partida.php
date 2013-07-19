@@ -18,21 +18,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Partida
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
 
-    
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
-    
     /**
      * @var string $Nombre
      * @ORM\Column(type="string", length=255)
@@ -99,11 +89,6 @@ class Partida
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CalleNumeroExtension;
-
-    public function getId()
-    {
-        return $this->id;
-    }
     
     public function getNombre() {
         $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();

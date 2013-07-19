@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Relevamiento
 {
+    use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     
@@ -20,20 +22,6 @@ class Relevamiento
         $this->Asignaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;
     
     /**
      * @ORM\OneToMany(targetEntity="RelevamientoAsignacion", mappedBy="Relevamiento")
@@ -45,24 +33,6 @@ class Relevamiento
      * @ORM\Column(type="datetime")
      */
     private $FechaInicio;
-
-
-    /**
-     * Get id
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getNombre() {
-        return $this->Nombre;
-    }
-
-    public function setNombre($nombre) {
-        $this->Nombre = $nombre;
-    }
 
     public function getFechaInicio() {
         return $this->FechaInicio;
@@ -78,10 +48,5 @@ class Relevamiento
 
     public function setAsignaciones($Asignaciones) {
         $this->Asignaciones = $Asignaciones;
-    }
-    
-    public function __toString()
-    {
-        return $this->getNombre();
     }
 }

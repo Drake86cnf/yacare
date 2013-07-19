@@ -13,6 +13,7 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  */
 class PersonaRol implements RoleInterface
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
@@ -22,16 +23,6 @@ class PersonaRol implements RoleInterface
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
     }      
     
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
-        
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
@@ -49,16 +40,7 @@ class PersonaRol implements RoleInterface
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="UsuarioRoles", cascade={"persist"})
      */
     protected $Personas;
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
 
     public function setNombre($nombre)
     {

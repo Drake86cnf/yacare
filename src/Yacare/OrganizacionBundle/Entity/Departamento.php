@@ -15,26 +15,13 @@ class Departamento
     // Un departamento representa a cualquiera de las partes en las que se divide la administración pública
     // como ministerios, secretarías, subsecretarías, etc.
     
+    use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
     use \Yacare\BaseBundle\Entity\Importable;
-    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Knp\DoctrineBehaviors\Model\Tree\Node;
-
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @var string $Rango
