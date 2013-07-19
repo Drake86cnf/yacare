@@ -22,7 +22,8 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "knplabs/knp-paginator-bundle": "dev-master",
         "knplabs/doctrine-behaviors": "dev-master",
-	"jms/security-extra-bundle": "dev-master"
+        "jms/security-extra-bundle": "dev-master",
+        "aferrandini/phpqrcode": "1.0.1"
     },
     "scripts": {
         "post-install-cmd": [
