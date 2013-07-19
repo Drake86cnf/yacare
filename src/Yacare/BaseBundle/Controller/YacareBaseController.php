@@ -11,6 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class YacareBaseController extends Controller
 {
     function __construct() {
+        // get_class() devuelve Yacare\TalBundle\Controller\TalControlador
+        // Tomo el segundo y cuarto valor (índices 1 y 3)
+        $PartesNombreClase = explode('\\', get_class());
+        $BundleName = $PartesNombreClase[1];
+        $ClassName = $PartesNombreClase[3];
+        
         if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle')
                 // Quitar la palabra 'Bundle' del nombre del bundle
                 $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
@@ -296,6 +302,34 @@ class YacareBaseController extends Controller
 
         $imagen_contenido = stream_get_contents($entity->getImagen());
 
+        $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, array(
+            'Content-Type' => 'image/png',
+            'Content-Length' => strlen($imagen_contenido),
+            'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName . '_' . $entity->getId() . '.png"',
+        ));
+
+        return $response;
+    }
+
+    
+    /**
+     * @Route("qr/{id}")
+     */
+    public function qrAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Document entity.');
+        }
+        
+        $ContenidoQr = $entity->getYri(true);
+
+        ob_start();
+        \PHPQRCode\QRcode::png($ContenidoQr);
+        $imagen_contenido = ob_get_contents();
+        ob_end_clean();
+        
         $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, array(
             'Content-Type' => 'image/png',
             'Content-Length' => strlen($imagen_contenido),

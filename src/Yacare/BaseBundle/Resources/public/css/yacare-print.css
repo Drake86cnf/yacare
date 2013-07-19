@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('thtps://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('http://fonts.googleapis.com/css?family=Droid+Sans+Mono:400');
 
 body {
   margin-top: 20px 0 0 10px;
-  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -67,6 +68,25 @@ table.listado tr td.label {
     vertical-align: top;
     max-width: 30%;
     padding-right: 16px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 5mm;
+    right: 5mm;
+    padding: 2mm;
+    border: 1px solid silver;
+    border-radius: 3px;
+    z-index: 600000;
+    margin: 0;
+}
+
+.fixedsmall {
+  font-family: 'Droid Sans Mono', 'Courier New';
+  font-size: 7pt;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
 }
 
 .currency {

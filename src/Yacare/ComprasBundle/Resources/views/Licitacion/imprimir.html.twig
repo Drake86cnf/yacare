@@ -5,7 +5,7 @@
 {% block content %}
 
 <table class="listado">
-    <caption>Licitación Nº {{ entity.Numero }}</caption>
+    <caption>Licitación Nº {{ entity.Numero }}: {{ entity }}</caption>
     
     <tr>
         <td class="label">Importe</td>
@@ -42,4 +42,13 @@
 <div class="noprint">
 <button  onClick="window.print();">Imprimir</button>
 </div>
+
+<div id="footer" class="footer">
+    <img src="{{ path('yacare_compras_licitacion_qr', { 'id': entity.Id }) }}" alt="{{ entity.Yri }}" />
+    <div class="fixedsmall">
+{{ entity.Yri }}<br />
+{{ "now"|date("d/m/Y H:i:s") }}<br />
+    </div>
+</div>
+
 {% endblock %}

@@ -12,23 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Licitacion
 {
+    use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
-    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConObs;
-    
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
-        
-
     
     /**
      * @var int $Numero
@@ -109,11 +98,6 @@ class Licitacion
         $this->PliegoValor = $this->Importe * ($this->PliegoCoeficiente / 100);
     }
     
-    
-    public function getId()
-    {
-        return $this->id;
-    }
     
     public function getNumero() {
         return $this->Numero;
