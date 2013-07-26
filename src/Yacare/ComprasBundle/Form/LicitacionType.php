@@ -22,21 +22,26 @@ class LicitacionType extends AbstractType
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Importe', null, array('label' => 'Importe'))
             ->add('Complejidad1', 'choice', array(
-                'label' => 'Complejidad 1',
+                'label' => 'Cantidad de renglones',
                 'required'  => true,
-                'choices' => array('0' => 'Baja', '1' => 'Media', '2' => 'Alta')
+                'choices' => array('0' => 'Baja: de 1 a 20', '1' => 'Media: de 21 a 40', '2' => 'Alta: más de 40')
                 ))
             ->add('Complejidad2', 'choice', array(
-                'label' => 'Complejidad 2',
+                'label' => 'Cantidad de ítem de E.T.',
                 'required'  => true,
-                'choices' => array('0' => 'Baja', '1' => 'Media', '2' => 'Alta')
+                'choices' => array('0' => 'Baja: de 1 a 5', '1' => 'Media: de 6 a 10', '2' => 'Alta: más de 10')
                 ))
             ->add('Complejidad3', 'choice', array(
-                'label' => 'Complejidad 3',
+                'label' => 'Presupuesto oficial',
                 'required'  => true,
-                'choices' => array('0' => 'Baja', '1' => 'Media', '2' => 'Alta')
+                'choices' => array('0' => 'Baja: de 500.000 a 750.000', '1' => 'Media: de 750.001 a 1.000.000', '2' => 'Alta: más de 1.000.00')
                 ))
-            ->add('Obs', null, array('label' => 'Obs.'))
+            ->add('Obs', null, array(
+                'label' => 'Obs.',
+                'attr' => array(
+                    'class' => 'tinymce',
+                    'data-theme' => 'simple') // simple, advanced, bbcode
+                ))
         ;
     }
 

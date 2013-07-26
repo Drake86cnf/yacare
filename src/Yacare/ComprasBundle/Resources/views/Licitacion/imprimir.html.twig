@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle::imprimir.html.twig' %}
 
-{% block title %}Licitación Nº {% endblock %}
+{% block title %}Licitación Nº {{ entity.Numero }}: {{ entity }}{% endblock %}
 
 {% block content %}
 
@@ -35,20 +35,23 @@
     </tr>
     <tr>
         <td class="label">Observaciones</td>
-        <td>{{ entity.Obs }}</td>
+        <td>{{ entity.Obs|raw('html') }}</td>
     </tr>
 </table>
 
-<div class="noprint">
-<button  onClick="window.print();">Imprimir</button>
-</div>
-
+{% if impresion %}
 <div id="footer" class="footer">
-    <img src="{{ path('yacare_compras_licitacion_qr', { 'id': entity.Id }) }}" alt="{{ entity.Yri }}" />
+    <img src="data:image/png;base64,{{ impresion.YriQrBase64 }}" alt="{{ impresion.Yri }}" />
     <div class="fixedsmall">
-{{ entity.Yri }}<br />
-{{ "now"|date("d/m/Y H:i:s") }}<br />
+CID: {{ impresion.Damm }}<br />
+TKN: {{ impresion.Token|upper }}<br />
+DGD: {{ entity.CreatedAt|date("d/m/Y H:i:s") }}<br />
     </div>
 </div>
+{% else %}
+<div class="noprint">
+<button onClick="window.print();">Imprimir</button> <button onClick="parent.location='{{ path('yacare_compras_licitacion_exportar', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}';">Ver o descargar en PDF</button>
+</div>
+{% endif %}
 
 {% endblock %}

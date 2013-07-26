@@ -14,7 +14,7 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
 class PersonaRol implements RoleInterface
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
     

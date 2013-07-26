@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dispositivo
 {
-    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
 
     /**

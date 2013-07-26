@@ -14,7 +14,7 @@ class Licitacion
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
     use \Yacare\BaseBundle\Entity\ConObs;
@@ -93,8 +93,44 @@ class Licitacion
     private $PliegoValor;
     
     public function ComputarComplejidad() {
-        $this->setComplejidadComputada($this->Complejidad1);
-        $this->PliegoCoeficiente = 0.2;
+        // Hay 27 combinaciones de complejidad (3^3):
+        // Hay 3 combinaciones de 3 iguales (111, 222 y 333)
+        //   éstas dan como resultado el único valor posible
+        // Hay 6 combinaciones de 3 desiguales (123, 321, 213, 231, etc.)
+        //   éstas dan como resultado 2, que es el valor promedio
+        // El resto son combinaciones 2+1 (122, 313, 332, etc.)
+        //   éstas dan como resultado el valor mayoritario (el que se repite 2 veces)
+        // A continuación el algoritmo:
+        
+        if(($this->Complejidad1 == $this->Complejidad2) && ($this->Complejidad2 == $this->Complejidad3)) {
+            // Son 3 iguales
+            $this->setComplejidadComputada($this->Complejidad1);
+        } else if ($this->Complejidad1 == $this->Complejidad2) {
+            // 1 y 2 son iguales
+            $this->setComplejidadComputada($this->Complejidad1);
+        } else if ($this->Complejidad2 == $this->Complejidad3) {
+            // 2 y 3 son iguales
+            $this->setComplejidadComputada($this->Complejidad2);
+        } else if ($this->Complejidad1 == $this->Complejidad3) {
+            // 1 y 3 son iguales
+            $this->setComplejidadComputada($this->Complejidad1);
+        } else {
+            // La única que queda es que sean las 3 desiguales
+            $this->setComplejidadComputada(1);
+        }
+        
+        switch($this->getComplejidadComputada()) {
+            case 0:
+                $this->PliegoCoeficiente = 0.2;
+                break;
+            case 1:
+                $this->PliegoCoeficiente = 0.25;
+                break;
+            case 2:
+                $this->PliegoCoeficiente = 0.3;
+                break;
+        }
+        
         $this->PliegoValor = $this->Importe * ($this->PliegoCoeficiente / 100);
     }
     

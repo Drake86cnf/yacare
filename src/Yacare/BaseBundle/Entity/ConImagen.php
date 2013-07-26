@@ -12,7 +12,7 @@ trait ConImagen
 {
     /**
      * @var $Imagen
-     * @ORM\Column(name="Imagen", type="blob", nullable=true)
+     * @ORM\Column(type="blob", nullable=true)
      */
     private $Imagen;
 
@@ -22,5 +22,9 @@ trait ConImagen
 
     public function setImagen($Imagen) {
         $this->Imagen = $Imagen;
+    }
+    
+    public function getImagenBase64() {
+        return base64_encode($this->Imagen);
     }
 }

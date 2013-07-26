@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Yacare\BaseBundle\Entity\Persona
+ * YacarSae\BaseBundle\Entity\Persona
  *
  * @ORM\Table(name="Base_Persona", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity()
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Persona implements UserInterface, \Serializable
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\Timestampable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
     use \Yacare\BaseBundle\Entity\Eliminable;
