@@ -99,15 +99,13 @@ knp_snappy:
         options:    
 
 stfalcon_tinymce:
-#    include_jquery: true
+    include_jquery: false
     tinymce_jquery: true
     language: %locale%
     selector: ".tinymce"
     theme:
         simple:
             content_css: %web_root%/bundles/yacarebase/css/bootstrap-yacare.css
-            #mode: "textareas"
-            #theme: "advanced"
             plugins: "link paste spellchecker textcolor"
             toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker stfalcon"
             toolbar2: ""
@@ -118,8 +116,6 @@ stfalcon_tinymce:
             paste_auto_cleanup_on_paste: true
             spellchecker_languages: "+Spanish=sp"
         medium:
-            #mode: "textareas"
-            #theme: "advanced"
             plugins: "table hr link paste spellchecker"
             toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | hr removeformat | sub sup | spellchecker"
             toolbar1: "cut copy paste pastetext pasteword | bullist numlist | undo redo | link unlink | tablecontrols"
