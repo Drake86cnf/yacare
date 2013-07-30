@@ -74,7 +74,7 @@ function docReady(){
 	//$('.cleditor').cleditor();
 	
 	//datepicker
-	$('.datepicker').datepicker();
+	//$('.datepicker').datepicker();
 	
 	//notifications
 	$('.noty').click(function(e){
