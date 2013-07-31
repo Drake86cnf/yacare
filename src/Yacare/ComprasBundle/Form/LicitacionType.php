@@ -20,7 +20,7 @@ class LicitacionType extends AbstractType
                 'property' => 'Nombre'))
             ->add('Numero', null, array('label' => 'Número'))
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Importe', null, array('label' => 'Importe'))
+            ->add('PresupuestoOficial', null, array('label' => 'Presupuesto oficial'))
             ->add('Complejidad1', 'choice', array(
                 'label' => 'Cantidad de renglones',
                 'required'  => true,

@@ -21,7 +21,7 @@ class Licitacion
     
     /**
      * @var int $Numero
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $Numero;
     
@@ -67,19 +67,19 @@ class Licitacion
     
 
     /**
-     * @var $Importe
+     * @var $PresupuestoOficial
      * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      * 
      * El importe de la licitación
      */
-    private $Importe;
+    private $PresupuestoOficial;
     
     
     /**
      * @var $PliegoCoeficiente
      * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      * 
-     * El coeficiente utilizado para calcular el valor del pliego, según ComplejidadComputada
+     * El coeficiente es el porcentaje utilizado para calcular el valor del pliego, según ComplejidadComputada
      */
     private $PliegoCoeficiente;
     
@@ -131,7 +131,7 @@ class Licitacion
                 break;
         }
         
-        $this->PliegoValor = $this->Importe * ($this->PliegoCoeficiente / 100);
+        $this->PliegoValor = $this->PresupuestoOficial * ($this->PliegoCoeficiente / 100);
     }
     
     
@@ -186,12 +186,12 @@ class Licitacion
         $this->Departamento = $Departamento;
     }
 
-    public function getImporte() {
-        return $this->Importe;
+    public function getPresupuestoOficial() {
+        return $this->PresupuestoOficial;
     }
 
-    public function setImporte($Importe) {
-        $this->Importe = $Importe;
+    public function setPresupuestoOficial($PresupuestoOficial) {
+        $this->PresupuestoOficial = $PresupuestoOficial;
         $this->ComputarComplejidad();
     }
 

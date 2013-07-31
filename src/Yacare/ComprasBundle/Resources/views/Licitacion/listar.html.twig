@@ -11,10 +11,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th></th>
             <th>Nº</th>
-            <th>Departamento</th>
             <th>Nombre</th>
-            <th>Presupuesto</th>
+            <th>Departamento</th>
+            <th>Presupuesto oficial</th>
             <th>Compl.</th>
             <th>Coef.</th>
             <th>Valor del pliego</th>
@@ -23,10 +24,11 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> <a target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="icon-print"></i> {{ entity.Nombre }}</a></td>
-            <td>{{ entity.Departamento }}</td>
+            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> <a target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="icon-print"></i></a></td>
+            <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
-            <td><span class="currency">{{ entity.Importe|number_format }}</span></td>
+            <td>{{ entity.Departamento }}</td>
+            <td><span class="currency">{{ entity.PresupuestoOficial|number_format }}</span></td>
             <td>
 {% if entity.ComplejidadComputada == 0 %}
     Baja
