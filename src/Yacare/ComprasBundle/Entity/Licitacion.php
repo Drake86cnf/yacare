@@ -121,13 +121,13 @@ class Licitacion
         
         switch($this->getComplejidadComputada()) {
             case 0:
-                $this->PliegoCoeficiente = 0.2;
+                $this->PliegoCoeficiente = 0.3;
                 break;
             case 1:
                 $this->PliegoCoeficiente = 0.25;
                 break;
             case 2:
-                $this->PliegoCoeficiente = 0.3;
+                $this->PliegoCoeficiente = 0.2;
                 break;
         }
         
