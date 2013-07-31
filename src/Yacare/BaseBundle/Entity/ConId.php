@@ -34,7 +34,7 @@ trait ConId
     
     public function getDamm()
     {
-        return Damm::CalcCheckDigit($this->id);
+        return str_pad(Damm::CalcCheckDigit($this->id), 5, '0', STR_PAD_LEFT);
     }
  
 

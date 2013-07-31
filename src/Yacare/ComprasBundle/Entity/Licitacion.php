@@ -91,7 +91,8 @@ class Licitacion
      * El valor del pliego
      */
     private $PliegoValor;
-    
+
+
     public function ComputarComplejidad() {
         // Hay 27 combinaciones de complejidad (3^3):
         // Hay 3 combinaciones de 3 iguales (111, 222 y 333)

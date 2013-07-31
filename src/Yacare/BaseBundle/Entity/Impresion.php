@@ -61,6 +61,34 @@ class Impresion
      * @ORM\Column(type="blob")
      */
     private $Contenido;
+    
+    
+        public function getYri($incluye_version = true)
+    {
+        $Res = "http://yacare.riogrande.gob.ar/cp/?en=" . str_replace('/', '+', $this->getEntidadTipo()) . "&id=" . $this->getEntidadId();
+        
+        if($incluye_version && $this->getEntidadVersion())
+            $Res .= "&ver=" . $this->getEntidadVersion();
+        
+        $Res .= "&tk=" . $this->getToken();
+        
+        return $Res;
+    }
+    
+    
+    public function getYriQrBase64() {
+        $ContenidoQr = $this->getYri(true);
+
+        ob_start();
+        \PHPQRCode\QRcode::png($ContenidoQr);
+        $imagen_contenido = ob_get_contents();
+        ob_end_clean();
+        
+        // PHPQRCode cambia el content-type a image/png... lo volvemos a html
+        header("Content-type: text/html");
+        return base64_encode($imagen_contenido);
+    }
+    
 
     public function getEntidadTipo() {
         return $this->EntidadTipo;
@@ -108,31 +136,5 @@ class Impresion
 
     public function setToken($Token) {
         $this->Token = $Token;
-    }
-    
-    public function getYri($incluye_version = true)
-    {
-        $Res = "http://yacare.riogrande.gob.ar/cp/?en=" . str_replace('/', '+', $this->getEntidadTipo()) . "&id=" . $this->getEntidadId();
-        
-        if($incluye_version && $this->getEntidadVersion())
-            $Res .= "&ver=" . $this->getEntidadVersion();
-        
-        $Res .= "&tk=" . $this->getToken();
-        
-        return $Res;
-    }
-    
-    
-    public function getYriQrBase64() {
-        $ContenidoQr = $this->getYri(true);
-
-        ob_start();
-        \PHPQRCode\QRcode::png($ContenidoQr);
-        $imagen_contenido = ob_get_contents();
-        ob_end_clean();
-        
-        // PHPQRCode cambia el content-type a image/png... lo volvemos a html
-        header("Content-type: text/html");
-        return base64_encode($imagen_contenido);
-    }
+    }    
 }
