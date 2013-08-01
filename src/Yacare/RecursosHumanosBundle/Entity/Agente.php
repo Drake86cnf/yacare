@@ -27,7 +27,7 @@ class Agente
             agentes.username, agentes.salt, agentes.password, agentes.is_active, 
             agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email
         FROM rr_hh.agentes;
-    
+
     ALTER TABLE rr_hh.agentes
         ADD username VARCHAR(25) NOT NULL DEFAULT '',
         ADD salt VARCHAR(32) NOT NULL DEFAULT '',
@@ -37,12 +37,12 @@ class Agente
         CHANGE fechaingre fechaingre DATE NOT NULL,
         CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '',
         CHANGE email email VARCHAR(255) NOT NULL DEFAULT '';
-    
+
     UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt='';
     UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo='';
     UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
-       
-     */
+
+    */
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
