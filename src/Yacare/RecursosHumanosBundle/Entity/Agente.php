@@ -3,7 +3,7 @@
 namespace Yacare\RecursosHumanosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Yacare\RecursosHumanosBundle\Entity\Agente
@@ -50,11 +50,88 @@ class Agente
      */
     protected $Persona;
     
+    /**
+     * @var $Categoria
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $Categoria;
+    
+    /**
+     * @var $Situacion
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $Situacion;
+    
+    /**
+     * @var $Funcion
+     * @ORM\Column(type="string")
+     */
+    private $Funcion;
+    
+    /**
+     * @var \DateTime $FechaIngreso
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaIngreso;
+    
+    /**
+     * @var $Departamento
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    protected $Departamento;
+
+    
+    public function __toString() {
+        return $this->getPersona()->getNombreVisible();
+    }
+    
     public function getPersona() {
         return $this->Persona;
     }
 
     public function setPersona($Persona) {
         $this->Persona = $Persona;
+    }
+    
+    public function getCategoria() {
+        return $this->Categoria;
+    }
+
+    public function setCategoria($Categoria) {
+        $this->Categoria = $Categoria;
+    }
+
+    public function getSituacion() {
+        return $this->Situacion;
+    }
+
+    public function setSituacion($Situacion) {
+        $this->Situacion = $Situacion;
+    }
+
+    public function getFuncion() {
+        return $this->Funcion;
+    }
+
+    public function setFuncion($Funcion) {
+        $this->Funcion = $Funcion;
+    }
+
+    public function getFechaIngreso() {
+        return $this->FechaIngreso;
+    }
+
+    public function setFechaIngreso(\DateTime $FechaIngreso) {
+        $this->FechaIngreso = $FechaIngreso;
+    }
+
+    public function getDepartamento() {
+        return $this->Departamento;
+    }
+
+    public function setDepartamento($Departamento) {
+        $this->Departamento = $Departamento;
     }
 }
