@@ -2,16 +2,18 @@
 
 INSERT INTO yacare.Base_Persona
     (Apellido, Nombre, NombreVisible, 
-		DomicilioCalle, FechaNacimiento, DocumentoTipo, DocumentoNumero, Genero, TelefonoNumero, Email,
+		DomicilioCalle, FechaNacimiento, DocumentoTipo, DocumentoNumero, Genero, TelefonoNumero, Email, Salt,
 		ImportSrc, ImportId, ImportedAt, CreatedAt, UpdatedAt, Version)
     SELECT yacare.tcase(TRIM(SUBSTRING_INDEX(nombre, ' ', 1))), yacare.tcase(TRIM(TRIM(LEADING TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) FROM nombre))), yacare.tcase(nombre),
-		yacare.tcase(domicilio), fechanacim, tipodoc, nrodoc, sexo, telefono, email,
+		yacare.tcase(domicilio), fechanacim, tipodoc, nrodoc, sexo, telefono, email, MD5(RAND()),
 		'rr_hh.agentes', legajo, NOW(), NOW(), NOW(), 1 FROM rr_hh.agentes
 	ON DUPLICATE KEY UPDATE 
 		Apellido=VALUES(Apellido), Nombre=VALUES(Nombre), NombreVisible=VALUES(NombreVisible),
 		DomicilioCalle=VALUES(DomicilioCalle), FechaNacimiento=VALUES(FechaNacimiento), DocumentoNumero=VALUES(DocumentoNumero),
 		TelefonoNumero=VALUES(TelefonoNumero), Email=VALUES(Email)
 ;
+
+UPDATE Base_Persona SET salt=MD5(RAND()) WHERE salt='';
 
 UPDATE yacare.Base_Persona SET
     Apellido=REPLACE(Apellido, ',', ''), NombreVisible=REPLACE(NombreVisible, ',,', ',');
@@ -96,5 +98,4 @@ BEGIN
     END IF;
 END;//
 delimiter ;
-
 
