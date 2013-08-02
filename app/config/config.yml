@@ -87,6 +87,8 @@ jms_security_extra:
     # Enabling this setting will add an additional special attribute "ROLE_IDDQD".
     # Anybody with this attribute will effectively bypass all security checks.
     enable_iddqd_attribute: true
+    # Enables expression language
+    expressions: true
 
 knp_snappy:
     pdf:
