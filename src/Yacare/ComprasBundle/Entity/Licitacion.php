@@ -14,10 +14,11 @@ class Licitacion
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
     use \Yacare\BaseBundle\Entity\ConObs;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    //use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     
     /**
      * @var int $Numero
