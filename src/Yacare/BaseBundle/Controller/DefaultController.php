@@ -9,9 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-    // Hola
-    
-    
     /**
      * @Route("/", name="inicio")
      * @Template

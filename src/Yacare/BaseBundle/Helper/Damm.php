@@ -30,5 +30,3 @@ class Damm {
         return Damm::taq($digits) == 0;
     }
 }
-
-?>
