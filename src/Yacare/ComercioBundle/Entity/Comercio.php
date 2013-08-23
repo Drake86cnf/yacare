@@ -34,13 +34,6 @@ class Comercio
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Titular;
-    
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Titular;
      
     
     public function getRubros() {

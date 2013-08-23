@@ -20,6 +20,14 @@ class Local {
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Propietario;
+    
+    public function getPropietario() {
+        return $this->Propietario;
+    }
+
+    public function setPropietario($Propietario) {
+        $this->Propietario = $Propietario;
+    }
 }
 
 ?>
