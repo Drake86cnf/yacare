@@ -14,6 +14,12 @@ class Local {
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Propietario;
 }
 
 ?>

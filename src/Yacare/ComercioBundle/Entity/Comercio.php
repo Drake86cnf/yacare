@@ -29,6 +29,12 @@ class Comercio
      */
     private $Rubros;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Titular;
+    
     
     /**
      * @var string
