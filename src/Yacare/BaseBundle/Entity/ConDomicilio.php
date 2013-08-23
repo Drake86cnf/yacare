@@ -40,6 +40,23 @@ trait ConDomicilio
      */
     private $DomicilioCodigoPostal;
     
+    public function getDomicilio() {
+        $res = $this->DomicilioCalle;
+        
+        if($this->DomicilioNumero)
+            $res .= ' Nº ' . $this->DomicilioNumero;
+        else
+            $res .= ' S/N';
+        
+        if($this->DomicilioPiso)
+            $res .= ', piso ' . $this->DomicilioPiso;
+        
+        if($this->DomicilioPuerta)
+            $res .= ', pta. ' . $this->DomicilioPuerta;
+
+        return $res;
+    }
+    
 
     public function getDomicilioCalle() {
         return $this->DomicilioCalle;
