@@ -1,0 +1,56 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Licitaciones{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nº</th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+            <th>Presupuesto oficial</th>
+            <th>Compl.</th>
+            <th>Coef.</th>
+            <th>Valor del pliego</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> <a target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="icon-print"></i></a></td>
+            <td>{{ entity.Numero }}</td>
+            <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.Departamento }}</td>
+            <td><span class="currency">{{ entity.PresupuestoOficial|number_format }}</span></td>
+            <td>
+{% if entity.ComplejidadComputada == 0 %}
+    Baja
+{% elseif entity.ComplejidadComputada == 1 %}
+    Media
+{% elseif entity.ComplejidadComputada == 2 %}
+    Alta
+{% else %}
+    ???
+{% endif %}
+            </td>
+            <td>{{ entity.PliegoCoeficiente }}%</td>
+            <td><span class="currency">{{ entity.PliegoValor|number_format }}</span></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_compras_licitacion_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva licitación</a>
+{% endblock %}
