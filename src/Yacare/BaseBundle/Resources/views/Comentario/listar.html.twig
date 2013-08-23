@@ -1,0 +1,35 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Comentarios{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% set et = app.request.query.get('et') %}
+{% set eid = app.request.query.get('eid') %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Comentario</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.CreatedAt }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_base_comentario_editar_1', { 'et': et, 'eid': eid } ) }}" class="btn"><i class="icon-plus"></i> Comentar</a>
+{% endblock %}

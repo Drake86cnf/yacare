@@ -16,6 +16,7 @@ class Licitacion
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
+    //use \Yacare\BaseBundle\Entity\Comentable;
     use \Yacare\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     //use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;

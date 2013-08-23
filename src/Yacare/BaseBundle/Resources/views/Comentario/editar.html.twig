@@ -1,0 +1,19 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Comentario{% endblock %}
+
+{% block content %}
+
+{% set et = app.request.query.get('et') %}
+{% set eid = app.request.query.get('eid') %}
+
+<form class="form-horizontal" action="{{ path('yacare_base_comentario_guardar', { 'id': entity.id, 'et': et, 'eid': eid }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo comentario {% endif %}</legend>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+        <a class="btn" href="{{ path('yacare_base_comentario_listar') }}">Cancelar</a>
+    </div>
+</form>
+
+{% endblock %}
