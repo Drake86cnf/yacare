@@ -14,6 +14,7 @@ class Comercio
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
@@ -28,20 +29,13 @@ class Comercio
      */
     private $Rubros;
     
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Domicilio;
     
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $Titular;
- 
-
-    
+     
     
     public function getRubros() {
         return $this->Rubros;
@@ -51,13 +45,6 @@ class Comercio
         $this->Rubros = $Rubros;
     }
 
-    public function getDomicilio() {
-        return $this->Domicilio;
-    }
-
-    public function setDomicilio($Domicilio) {
-        $this->Domicilio = $Domicilio;
-    }
 
     public function getTitular() {
         return $this->Titular;

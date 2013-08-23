@@ -23,6 +23,18 @@ class Rubro
      */
     private $Codigo;
     
+     /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $Categoria;
+    
+     /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $Exento;
+    
     
     
     
@@ -33,4 +45,22 @@ class Rubro
     public function setCodigo($Codigo) {
         $this->Codigo = $Codigo;
     }
+    
+    public function getCategoria() {
+        return $this->Categoria;
+    }
+
+    public function setCategoria($Categoria) {
+        $this->Categoria = $Categoria;
+    }
+
+    public function getExento() {
+        return $this->Exento;
+    }
+
+    public function setExento($Exento) {
+        $this->Exento = $Exento;
+    }
+
+
 }
