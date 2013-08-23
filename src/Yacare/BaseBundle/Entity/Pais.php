@@ -21,7 +21,7 @@ class Pais
      * @var string $Iso
      * @ORM\Column(type="string", length=2)
      */
-    private $Iso;    
+    private $Iso;
 
     public function getIso() {
         return $this->Iso;

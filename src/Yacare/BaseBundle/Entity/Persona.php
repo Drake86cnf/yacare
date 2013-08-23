@@ -15,11 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Persona implements UserInterface, \Serializable
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\ConImagen;
+    use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Eliminable;
     use \Yacare\BaseBundle\Entity\Importable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
@@ -108,30 +109,6 @@ class Persona implements UserInterface, \Serializable
     private $DocumentoNumero;
 
     /**
-     * @var string $DomicilioCalle
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $DomicilioCalle;
-
-    /**
-     * @var integer $DomicilioNumero
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $DomicilioNumero;
-
-    /**
-     * @var integer $DomicilioPiso
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $DomicilioPiso;
-
-    /**
-     * @var integer $DomicilioPuerta
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $DomicilioPuerta;
-
-    /**
      * @var integer $TelefonoNumero
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -148,12 +125,6 @@ class Persona implements UserInterface, \Serializable
      * @ORM\Column(type="integer", nullable=true)
      */
     private $SituacionTributaria;
-
-    /**
-     * @var integer $DomicilioCodigoPostal
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $DomicilioCodigoPostal;
 
     /**
      * @var \DateTime $FechaNacimiento
@@ -280,38 +251,6 @@ class Persona implements UserInterface, \Serializable
         $this->DocumentoNumero = $DocumentoNumero;
     }
 
-    public function getDomicilioCalle() {
-        return $this->DomicilioCalle;
-    }
-
-    public function setDomicilioCalle($DomicilioCalle) {
-        $this->DomicilioCalle = $DomicilioCalle;
-    }
-
-    public function getDomicilioNumero() {
-        return $this->DomicilioNumero;
-    }
-
-    public function setDomicilioNumero($DomicilioNumero) {
-        $this->DomicilioNumero = $DomicilioNumero;
-    }
-
-    public function getDomicilioPiso() {
-        return $this->DomicilioPiso;
-    }
-
-    public function setDomicilioPiso($DomicilioPiso) {
-        $this->DomicilioPiso = $DomicilioPiso;
-    }
-
-    public function getDomicilioPuerta() {
-        return $this->DomicilioPuerta;
-    }
-
-    public function setDomicilioPuerta($DomicilioPuerta) {
-        $this->DomicilioPuerta = $DomicilioPuerta;
-    }
-
     public function getTelefonoNumero() {
         return $this->TelefonoNumero;
     }
@@ -334,14 +273,6 @@ class Persona implements UserInterface, \Serializable
 
     public function setSituacionTributaria($SituacionTributaria) {
         $this->SituacionTributaria = $SituacionTributaria;
-    }
-
-    public function getDomicilioCodigoPostal() {
-        return $this->DomicilioCodigoPostal;
-    }
-
-    public function setDomicilioCodigoPostal($DomicilioCodigoPostal) {
-        $this->DomicilioCodigoPostal = $DomicilioCodigoPostal;
     }
 
     public function getFechaNacimiento() {
