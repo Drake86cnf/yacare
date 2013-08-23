@@ -1,3 +1,13 @@
+yacare_bromatologia:
+    resource: "@YacareBromatologiaBundle/Controller/"
+    type:     annotation
+    prefix:   /bromatologia/
+
+yacare_comercio:
+    resource: "@YacareComercioBundle/Controller/"
+    type:     annotation
+    prefix:   /comercio/
+
 yacare_base:
     resource: "@YacareBaseBundle/Controller/"
     type:     annotation
