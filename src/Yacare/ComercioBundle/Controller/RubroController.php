@@ -1,17 +1,17 @@
 <?php
 
-namespace Yacare\ComprasBundle\Controller;
+namespace Yacare\ComercioBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("licitacion/")
+ * @Route("rubro/")
  */
-class LicitacionController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class RubroController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     public function __construct() {
-        $this->BundleName = 'Compras';
-        $this->EntityName = 'Licitacion';
+        $this->BundleName = 'Comercio';
+        $this->EntityName = 'Rubro';
         parent::__construct();
     }
 }
