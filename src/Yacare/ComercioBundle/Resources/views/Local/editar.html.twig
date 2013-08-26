@@ -1,0 +1,17 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Local{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('yacare_comercio_local_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo Local {% endif %}</legend>
+	{{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+		<a class="btn" href="{{ path('yacare_comercio_local_listar') }}">Cancelar</a>
+    </div>
+</form>
+
+
+{% endblock %}
