@@ -1,0 +1,44 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Vehiculo{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Dominio</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Peso</th>            
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_bromatologia_vehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> </td>
+            <td>{{ entity.Dominio }}</td>
+            <td>{{ entity.Marca }}</td>
+            <td>{{ entity.Modelo }}</td>
+            <td>{{ entity.Ano }}</td>
+            <td>{{ entity.Peso }}</td>
+            <td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_bromatologia_vehiculo_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Vehiculo</a>
+{% endblock %}
