@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("local/")
  */
-class RubroController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class LocalController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     public function __construct() {
         $this->BundleName = 'Comercio';
