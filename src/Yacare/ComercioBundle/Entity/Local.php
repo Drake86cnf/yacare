@@ -21,6 +21,10 @@ class Local {
      */
     protected $Propietario;
     
+    public function __toString() {
+        return $this->getDomicilio();
+    }
+    
     public function getPropietario() {
         return $this->Propietario;
     }

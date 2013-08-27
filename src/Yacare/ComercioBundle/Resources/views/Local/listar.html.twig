@@ -11,16 +11,15 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Domicilio</th>
-            <th>Propietario</th>                   
+            <th>Propietario</th> 
+            <th>Domicilio</th>            
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_comercio_local_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Codigo }}</td>
-            <td>{{ entity.Domicilio }}</td>
-            <td>{{ entity.Propietario }}</td>
+            <td><a href="{{ path('yacare_comercio_local_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Propietario }}</td>
+            <td>{{ entity.Domicilio }}</td>            
         </tr>
     {% endfor %}
     </tbody>
