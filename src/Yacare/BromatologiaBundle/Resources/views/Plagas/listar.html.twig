@@ -10,8 +10,7 @@
 
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th></th>
+        <tr>            
             <th>Domicilio</th>
             <th>Titular</th>
             <th>Tipo de Lugar</th>         
@@ -20,8 +19,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_plagas_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> </td>
-            <td>{{ entity.Domicilio }}</td>
+            <td><a href="{{ path('yacare_bromatologia_plagas_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Domicilio }}</td>
             <td>{{ entity.Titular }}</td>
             <td>{{ entity.Tipolugar }}</td>
             <td>
