@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="Bromatologia_Transporte")
  */
-class Comercio
+class Transporte
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
@@ -18,7 +18,7 @@ class Comercio
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-    use \Yacare\BromatologiaBundle\Entity\Vehiculo; 
+  // use \Yacare\BromatologiaBundle\Entity\Vehiculo; 
    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
