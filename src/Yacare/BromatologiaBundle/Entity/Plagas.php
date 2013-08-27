@@ -24,6 +24,10 @@ class Plagas
      */
     protected $Titular;
     
+     public function __toString() {
+        return $this->getDomicilio();
+    }
+    
     
     /**
      * @var string

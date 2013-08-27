@@ -18,8 +18,7 @@ class Transporte
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-  // use \Yacare\BromatologiaBundle\Entity\Vehiculo; 
-   
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -48,5 +47,5 @@ class Transporte
         $this->Estado = $Estado;
     }
 
-    
+
 }

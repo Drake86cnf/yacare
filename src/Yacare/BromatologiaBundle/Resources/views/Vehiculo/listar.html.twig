@@ -11,25 +11,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th></th>
             <th>Dominio</th>
             <th>Marca</th>
             <th>Modelo</th>
             <th>Ano</th>
-            <th>Peso</th>            
+            <th>Peso</th> 
+            <th>Transporte</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_vehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> </td>
-            <td>{{ entity.Dominio }}</td>
+            <td><a href="{{ path('yacare_bromatologia_vehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Dominio }}</td>
             <td>{{ entity.Marca }}</td>
             <td>{{ entity.Modelo }}</td>
             <td>{{ entity.Ano }}</td>
             <td>{{ entity.Peso }}</td>
-            <td>
-
+            <td>{{ entity.Transporte }}</td>
         </tr>
     {% endfor %}
     </tbody>

@@ -16,6 +16,11 @@ class Vehiculo
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
+     /**
+     * @ORM\ManyToOne(targetEntity="Yacare\BromatologiaBundle\Entity\Transporte")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Transporte;
     
     /**
      * @var string
@@ -48,6 +53,10 @@ class Vehiculo
      * @ORM\Column(type="integer")
      */
     private $Peso;
+    
+     public function __toString() {
+        return $this->getDominio();
+    }
     
     public function getDominio() {
         return $this->Dominio;
@@ -87,6 +96,14 @@ class Vehiculo
 
     public function setPeso($Peso) {
         $this->Peso = $Peso;
+    }
+
+    public function getTransporte() {
+        return $this->Transporte;
+    }
+
+    public function setTransporte($Transporte) {
+        $this->Transporte = $Transporte;
     }
 
 
