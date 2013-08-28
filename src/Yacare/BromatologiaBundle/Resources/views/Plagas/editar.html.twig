@@ -5,7 +5,7 @@
 {% block content %}
 
 <form class="form-horizontal" action="{{ path('yacare_bromatologia_plagas_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-	<legend>{% if entity.id %} {% else %} Nueva Desinfeccion {% endif %}</legend>
+	<legend>{% if entity.id %} {{ entity.DomicilioCalle }} {% else %} Nueva Desinfeccion {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>

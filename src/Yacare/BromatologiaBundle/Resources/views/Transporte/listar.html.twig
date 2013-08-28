@@ -13,8 +13,7 @@
         <tr>            
             <th>Nombre</th>
             <th>Titular</th>
-            <th>Domicilio</th>            
-            <th>Estado</th>    
+            <th>Domicilio</th> 
         </tr>
     </thead>
     <tbody>
@@ -22,8 +21,7 @@
         <tr>
             <td><a href="{{ path('yacare_bromatologia_transporte_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Nombre }}</td>
             <td>{{ entity.Titular }}</td>
-            <td>{{ entity.Domicilio }}</td>            
-            <td>{{ entity.Estado }}</td>
+            <td>{{ entity.Domicilio }}</td> 
         </tr>
     {% endfor %}
     </tbody>

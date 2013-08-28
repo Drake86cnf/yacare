@@ -24,12 +24,7 @@ class Transporte
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Titular;
-    
-    /**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    private $Estado;
+   
     
     public function getTitular() {
         return $this->Titular;
@@ -39,13 +34,5 @@ class Transporte
         $this->Titular = $Titular;
     }
 
-    public function getEstado() {
-        return $this->Estado;
-    }
-
-    public function setEstado($Estado) {
-        $this->Estado = $Estado;
-    }
-
-
+    
 }
