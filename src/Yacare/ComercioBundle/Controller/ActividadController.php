@@ -5,13 +5,13 @@ namespace Yacare\ComercioBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("rubro/")
+ * @Route("actividad/")
  */
-class RubroController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class ActividadController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     public function __construct() {
         $this->BundleName = 'Comercio';
-        $this->EntityName = 'Rubro';
+        $this->EntityName = 'Actividad';
         parent::__construct();
     }
 }

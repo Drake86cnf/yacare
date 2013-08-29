@@ -12,6 +12,8 @@ class RubroType extends AbstractType
     {
         $builder
             ->add('Codigo', null, array('label' => 'Código'))
+            ->add('Clanae2010', null, array('label' => 'Codigo ClaNAE 2010'))
+            ->add('Clamae2013', null, array('label' => 'Codigo ClaMAE 2013'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Categoria', 'choice', array(
                 'label' => 'Categoría',

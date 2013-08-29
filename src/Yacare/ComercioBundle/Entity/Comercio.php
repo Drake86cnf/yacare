@@ -20,29 +20,26 @@ class Comercio
     
     public function __construct()
     {
-        $this->Rubros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ActividadesSecundarias = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
-     * @ORM\ManyToMany(targetEntity="Rubro")
-     * @ORM\JoinTable(name="Comercio_Comercio_Rubros")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $Rubros;
+    protected $ActividadPrincipal;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
+     * @ORM\JoinTable(name="Comercio_Comercio_Actividad")
+     */
+    private $ActividadesSecundarias;
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Titular;
-     
-    
-    public function getRubros() {
-        return $this->Rubros;
-    }
-
-    public function setRubros($Rubros) {
-        $this->Rubros = $Rubros;
-    }
 
 
     public function getTitular() {
@@ -51,5 +48,21 @@ class Comercio
 
     public function setTitular($Titular) {
         $this->Titular = $Titular;
+    }
+    
+    public function getActividadPrincipal() {
+        return $this->ActividadPrincipal;
+    }
+
+    public function setActividadPrincipal($ActividadPrincipal) {
+        $this->ActividadPrincipal = $ActividadPrincipal;
+    }
+
+    public function getActividadesSecundarias() {
+        return $this->ActividadesSecundarias;
+    }
+
+    public function setActividadesSecundarias($ActividadesSecundarias) {
+        $this->ActividadesSecundarias = $ActividadesSecundarias;
     }
 }

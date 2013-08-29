@@ -5,12 +5,12 @@ namespace Yacare\ComercioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ComercioBundle\Entity\Rubro
+ * Yacare\ComercioBundle\Entity\Actividad
  *
  * @ORM\Entity
- * @ORM\Table(name="Comercio_Rubro")
+ * @ORM\Table(name="Comercio_Actividad")
  */
-class Rubro
+class Actividad
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
@@ -23,6 +23,18 @@ class Rubro
      */
     private $Codigo;
     
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50)
+     */
+    private $Clanae2010;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50)
+     */
+    private $Clamae2013;
+    
      /**
      * @var integer
      * @ORM\Column(type="integer")
@@ -34,8 +46,6 @@ class Rubro
      * @ORM\Column(type="integer")
      */
     private $Exento;
-    
-    
     
     
     public function getCodigo() {
@@ -62,5 +72,19 @@ class Rubro
         $this->Exento = $Exento;
     }
 
+    public function getClanae2010() {
+        return $this->Clanae2010;
+    }
 
+    public function setClanae2010($Clanae2010) {
+        $this->Clanae2010 = $Clanae2010;
+    }
+
+    public function getClamae2013() {
+        return $this->Clamae2013;
+    }
+
+    public function setClamae2013($Clamae2013) {
+        $this->Clamae2013 = $Clamae2013;
+    }
 }

@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block title %}Rubro{% endblock %}
+{% block title %}Actividades{% endblock %}
 
 {% block content_header '' %}
 
@@ -20,7 +20,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_comercio_rubro_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a>&nbsp;{{ entity.Codigo }}</td>
+            <td><a href="{{ path('yacare_comercio_actividad_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a>&nbsp;{{ entity.Codigo }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Categoria }}</td>
             <td>{{ entity.Exento }}</td>   
@@ -34,5 +34,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_comercio_rubro_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Rubro</a>
+<a href="{{ path('yacare_comercio_actividad_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Rubro</a>
 {% endblock %}
