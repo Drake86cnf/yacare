@@ -54,8 +54,16 @@ class YacareBaseController extends Controller
 
         $request = $this->getRequest();
         $filtro_buscar = $request->query->get('filtro_buscar');
-        if($filtro_buscar)
-            $this->Where .= ' AND ' . $this->BuscarPor . " LIKE '%$filtro_buscar%'";
+        if($filtro_buscar) {
+            $this->Where .= ' AND (';
+            $BuscarPorCampos = split(',', $this->BuscarPor);
+            $BuscarPorNexo = '';
+            foreach($BuscarPorCampos as $BuscarPorCampo) {
+                $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$filtro_buscar%'";
+                $BuscarPorNexo = ' OR ';
+            }
+            $this->Where .= ')';
+        }
 
         $dql .= " WHERE $where";
         if($this->Where) {
