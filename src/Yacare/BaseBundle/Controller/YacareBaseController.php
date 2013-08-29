@@ -30,7 +30,7 @@ class YacareBaseController extends Controller
             $this->Where = null;
         
         if(!isset($this->BuscarPor))
-            $this->BuscarPor = 'r.Nombre';
+            $this->BuscarPor = 'Nombre';
     }
 
 
@@ -59,7 +59,7 @@ class YacareBaseController extends Controller
             $BuscarPorCampos = split(',', $this->BuscarPor);
             $BuscarPorNexo = '';
             foreach($BuscarPorCampos as $BuscarPorCampo) {
-                $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$filtro_buscar%'";
+                $this->Where .= $BuscarPorNexo . 'r.' . $BuscarPorCampo . " LIKE '%$filtro_buscar%'";
                 $BuscarPorNexo = ' OR ';
             }
             $this->Where .= ')';

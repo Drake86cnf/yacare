@@ -16,7 +16,7 @@ class PersonaController extends YacareBaseController
     function __construct() {
         $this->BundleName = 'Base';
         $this->EntityName = 'Persona';
-        $this->BuscarPor = 'r.NombreVisible';
+        $this->BuscarPor = 'NombreVisible';
         parent::__construct();
     }
     

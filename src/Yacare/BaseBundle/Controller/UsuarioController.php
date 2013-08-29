@@ -18,7 +18,7 @@ class UsuarioController extends YacareBaseController
     function __construct() {
         $this->BundleName = 'Base';
         $this->EntityName = 'Persona';
-        $this->BuscarPor = 'r.NombreVisible';
+        $this->BuscarPor = 'NombreVisible';
         $this->FormTypeName = 'Usuario';
         parent::__construct();
     }
