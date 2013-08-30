@@ -27,10 +27,10 @@
     </style>
     <link href="{{ asset('bundles/yacarebase/css/bootstrap-responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/yacare-app.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/jquery-ui-1.8.21.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/fullcalendar.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
-    <link href="{{ asset('bundles/yacarebase/css/chosen.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/yacarebase/css/jquery-ui-1.10.3.custom.min.css') }}" rel="stylesheet" />
+    <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.css') }}" rel="stylesheet" />
+    <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
+    <link href="{{ asset('bundles/yacarebase/css/chosen.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/uniform.default.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/colorbox.css') }}" rel="stylesheet" />
     <disabledlink href="{{ asset('bundles/yacarebase/css/jquery.cleditor.css') }}" rel="stylesheet" />
@@ -42,7 +42,7 @@
     <link href="{{ asset('bundles/yacarebase/css/opa-icons.css') }}" rel="stylesheet" />
     <disabledlink href="{{ asset('bundles/yacarebase/css/uploadify.css') }}" rel="stylesheet" />
 
-    <script src="{{ asset('bundles/yacarebase/js/jquery-1.8.2.min.js') }}"></script>
+    <script src="{{ asset('bundles/yacarebase/js/jquery-2.0.3.min.js') }}"></script>
 </head>
 
 <body>
@@ -129,7 +129,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <!-- jQuery UI -->
-    <script src="{{ asset('bundles/yacarebase/js/jquery-ui-1.9.0.custom.min.js') }}"></script>
+    <script src="{{ asset('bundles/yacarebase/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
     <!-- transition / effect library -->
     <script src="{{ asset('bundles/yacarebase/js/bootstrap-transition.js') }}"></script>
     <!-- alert enhancer library -->
@@ -157,7 +157,7 @@
     <!-- tour library -->
     <disablescript src="{{ asset('bundles/yacarebase/js/bootstrap-tour.js') }}"></disablescript>
     <!-- library for cookie management -->
-    <script src="{{ asset('bundles/yacarebase/js/jquery.cookie.js') }}"></script>
+    <disabledscript src="{{ asset('bundles/yacarebase/js/jquery.cookie.js') }}"></disabledscript>
     <!-- calander plugin -->
     <disablescript src="{{ asset('bundles/yacarebase/js/fullcalendar.min.js') }}"></disablescript>
     <!-- data table plugin -->
@@ -172,7 +172,7 @@
     <!-- chart libraries end -->
 
     <!-- select or dropdown enhancer -->
-    <script src="{{ asset('bundles/yacarebase/js/jquery.chosen.min.js') }}"></script>
+    <script src="{{ asset('bundles/yacarebase/js/chosen.jquery.min.js') }}"></script>
     <!-- checkbox, radio, and file input styler -->
     <script src="{{ asset('bundles/yacarebase/js/jquery.uniform.min.js') }}"></script>
     <!-- plugin for gallery image view -->

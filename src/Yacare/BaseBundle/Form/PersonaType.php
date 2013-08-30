@@ -45,6 +45,7 @@ class PersonaType extends AbstractType
                 'years' => range(1900,2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
+                'attr' => array('class' => 'datepicker'),
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de nacimiento'))
             ->add('Genero', 'choice', array(
