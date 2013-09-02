@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block title %}Plagas{% endblock %}
+{% block title %}DesinfeccionLocal{% endblock %}
 
 {% block content_header '' %}
 
@@ -11,17 +11,15 @@
 <table class="table table-striped">
     <thead>
         <tr>            
-            <th>Domicilio</th>
-            <th>Titular</th>
-            <th>Tipo de Lugar</th>         
+            <th>Local</th>
+            <th>Titular</th>        
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_plagas_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Domicilio }}</td>
+            <td><a href="{{ path('yacare_bromatologia_desinfeccionlocal_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Local }}</td>
             <td>{{ entity.Titular }}</td>
-            <td>{{ entity.Tipolugar }}</td>
             <td>
 
         </tr>
@@ -34,5 +32,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_bromatologia_plagas_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva Desinfeccion</a>
+<a href="{{ path('yacare_bromatologia_desinfeccionlocal_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva Desinfeccion</a>
 {% endblock %}
