@@ -238,7 +238,7 @@ function docReady(){
 			}
 		} ); */
 
-	$('.btn-close').click(function(e){
+	/* $('.btn-close').click(function(e){
 		e.preventDefault();
 		$(this).parent().parent().parent().fadeOut();
 	});
@@ -252,7 +252,7 @@ function docReady(){
 	$('.btn-setting').click(function(e){
 		e.preventDefault();
 		$('#myModal').modal('show');
-	});
+	}); */
 
 
 

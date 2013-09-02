@@ -33,7 +33,7 @@
 
 {% block choice_widget_collapsed %}
 {% spaceless %}
-    <select data-rel="chosen" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    <select data-rel="chosen" data-placeholder="Seleccione..." {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
             <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
         {% endif %}
