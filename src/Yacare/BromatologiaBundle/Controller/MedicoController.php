@@ -5,13 +5,13 @@ namespace Yacare\BromatologiaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("plagas/")
+ * @Route("medico/")
  */
-class PlagasController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class MedicoController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     public function __construct() {
         $this->BundleName = 'Bromatologia';
-        $this->EntityName = 'Plagas';
+        $this->EntityName = 'Medico';
         parent::__construct();
     }
 }

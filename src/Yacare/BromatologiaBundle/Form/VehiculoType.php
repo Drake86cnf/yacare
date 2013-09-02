@@ -10,13 +10,13 @@ class VehiculoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Transporte', null, array('label' => 'Transporte'))
+        $builder            
             ->add('Dominio', null, array('label' => 'Dominio'))
             ->add('Marca', null, array('label' => 'Marca'))
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('Ano', null, array('label' => 'Año'))
-            ->add('Peso', null, array('label' => 'Peso'))            
+            ->add('Peso', null, array('label' => 'Peso'))
+            ->add('Transporte', null, array('label' => 'Transporte'))
         ;
     }
 

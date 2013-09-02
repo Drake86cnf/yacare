@@ -5,15 +5,14 @@ namespace Yacare\BromatologiaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BromatologiaBundle\Entity\Plagas
+ * Yacare\BromatologiaBundle\Entity\DesinfeccionLocal
  *
  * @ORM\Entity
- * @ORM\Table(name="Bromatologia_Plagas")
+ * @ORM\Table(name="Bromatologia_DesinfeccionLocal")
  */
-class Plagas
+class DesinfeccionLocal
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
@@ -22,19 +21,14 @@ class Plagas
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    protected $Titular;
-    
-     public function __toString() {
-        return $this->getDomicilio();
-    }
-    
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+    protected $Titular;    
+ 
+ /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $Tipolugar;
-    
+    protected $Local;  
+     
     public function getTitular() {
         return $this->Titular;
     }
@@ -43,14 +37,13 @@ class Plagas
         $this->Titular = $Titular;
     }
 
-    public function getTipolugar() {
-        return $this->Tipolugar;
+    public function getLocal() {
+        return $this->Local;
     }
 
-    public function setTipolugar($Tipolugar) {
-        $this->Tipolugar = $Tipolugar;
+    public function setLocal($Local) {
+        $this->Local = $Local;
     }
 
 
-    
     }
