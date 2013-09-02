@@ -16,7 +16,8 @@ class LocalType extends AbstractType
             ->add('DomicilioNumero', null, array('label' => 'Número'))
             ->add('DomicilioPiso', null, array('label' => 'Piso'))
             ->add('DomicilioPuerta', null, array('label' => 'Depto'))
-            ->add('DomicilioCodigoPostal', null, array('label' => 'Código Postal'))              
+            ->add('DomicilioCodigoPostal', null, array('label' => 'Código Postal')) 
+            ->add('TipoLugar', null, array('label' => 'Tipo de Lugar'))
         ;
     }
 

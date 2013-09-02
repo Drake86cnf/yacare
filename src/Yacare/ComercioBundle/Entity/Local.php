@@ -21,6 +21,12 @@ class Local {
      */
     protected $Propietario;
     
+      /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $TipoLugar;
+        
     public function __toString() {
         return $this->getDomicilio();
     }
@@ -32,6 +38,15 @@ class Local {
     public function setPropietario($Propietario) {
         $this->Propietario = $Propietario;
     }
+    
+    public function getTipoLugar() {
+        return $this->TipoLugar;
+    }
+
+    public function setTipoLugar($TipoLugar) {
+        $this->TipoLugar = $TipoLugar;
+    }
+
 }
 
 ?>

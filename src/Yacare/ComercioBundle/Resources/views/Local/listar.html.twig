@@ -12,14 +12,16 @@
     <thead>
         <tr>
             <th>Propietario</th> 
-            <th>Domicilio</th>            
+            <th>Domicilio</th>
+            <th>Tipo de Lugar</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('yacare_comercio_local_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Propietario }}</td>
-            <td>{{ entity.Domicilio }}</td>            
+            <td>{{ entity.Domicilio }}</td>
+            <td>{{ entity.TipoLugar }}</td>
         </tr>
     {% endfor %}
     </tbody>
