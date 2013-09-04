@@ -29,12 +29,6 @@ class Adjunto
      * @ORM\Column(type="integer")
      */
     private $EntidadId;
-
-    /**
-     * @var $Nombre
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;
     
     /**
      * @var $Contenido
@@ -83,13 +77,5 @@ class Adjunto
 
     public function setEntidadId($EntidadId) {
         $this->EntidadId = $EntidadId;
-    }
-
-    public function getNombre() {
-        return $this->Nombre;
-    }
-
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
     }
 }
