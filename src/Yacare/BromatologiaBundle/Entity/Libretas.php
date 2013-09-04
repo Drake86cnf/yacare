@@ -41,6 +41,10 @@ class Libretas
      */
     protected $Curso;
     
+      public function __toString() {
+        return $this->getPersona();
+      }
+    
     public function getPersona() {
         return $this->Persona;
     }

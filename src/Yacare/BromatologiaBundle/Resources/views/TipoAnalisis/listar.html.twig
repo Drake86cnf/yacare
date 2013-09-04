@@ -1,0 +1,36 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}TipoAnalisis{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>            
+            <th>Nombre</th>
+            <th>Costo</th>
+            <th>Tipo</th> 
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_bromatologia_tipoanalisis_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Nombre }}</td>
+            <td>{{ entity.Costo }}</td>
+            <td>{{ entity.Tipo }}</td> 
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_bromatologia_tipoanalisis_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Tipo</a>
+{% endblock %}

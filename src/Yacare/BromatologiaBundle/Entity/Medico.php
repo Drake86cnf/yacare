@@ -21,20 +21,24 @@ class Medico
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    protected $Titular;
+    protected $Medico;
    
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $Matricula;
+    
+      public function __toString() {
+        return $this->getMatricula();
+    }
         
-    public function getTitular() {
-        return $this->Titular;
+    public function getMedico() {
+        return $this->Medico;
     }
 
-    public function setTitular($Titular) {
-        $this->Titular = $Titular;
+    public function setMedico($Medico) {
+        $this->Medico = $Medico;
     }
 
     public function getMatricula() {
