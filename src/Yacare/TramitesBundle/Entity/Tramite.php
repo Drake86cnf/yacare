@@ -1,0 +1,25 @@
+<?php
+
+namespace Yacare\TramitesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Yacare\TramitesBundle\Entity\Tramite
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="Tramites_Tramite")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * ORM\DiscriminatorMap({"person" = "Person", "employee" = "Employee"})
+ */
+class Tramite
+{
+    use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Yacare\BaseBundle\Entity\ConObs;
+    use \Yacare\BaseBundle\Entity\ConUrl;
+    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
+}

@@ -1,0 +1,54 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Trámites - Requisitos{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+{% if entities is empty %}
+<div>
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong><p>No hay requisitos.</p></strong>
+    <p>Este trámite aun no tiene requisitos asignados. Para asignar requisitos utilice el botón Nuevo requisito.
+    </p>
+</div>
+</div>
+{% else %}
+<table class="table">
+    <thead>
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th>Requisito</th>
+            <th>De</th>
+            <th>Condición</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a class="btn btn-mini" href="{{ path('yacare_tramites_tramiterequisito_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td>{% if entity.Requisito.Instancia %}
+{% if entity.Requisito.Instancia == 'org' %}
+ Original
+{% elseif entity.Requisito.Instancia == 'cop' %}
+ Copia
+{% endif %}
+{% endif %}</td>
+            <td>{% if entity.Opcional %}(Opcional) {% endif %}{{ entity }}</td>
+            <td>{{ entity.Propiedad }}</td>
+            <td>{{ entity.Condicion }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% endif %}
+
+<a href="{{ path('yacare_tramites_tramiterequisito_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
+{% endblock %}

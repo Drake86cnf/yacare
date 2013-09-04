@@ -17,7 +17,7 @@ class RelevamientoAsignacionResultado
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConImagen;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")

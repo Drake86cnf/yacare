@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
+    use \Yacare\BaseBundle\Controller\ConEliminar;
+    
     public function __construct() {
         $this->BundleName = 'Organizacion';
         $this->EntityName = 'Departamento';

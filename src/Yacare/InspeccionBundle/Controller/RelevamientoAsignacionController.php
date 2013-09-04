@@ -3,7 +3,6 @@
 namespace Yacare\InspeccionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -16,7 +15,6 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoAsignacion';
-        $this->UsePaginator = true;
         parent::__construct();
     }
 
@@ -93,7 +91,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     ->execute(); */
                 
                 //Marco los resultados en blanco actuales como cancelados
-                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Eliminado=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
+                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Suprimido=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 

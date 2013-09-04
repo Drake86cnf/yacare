@@ -12,7 +12,6 @@ class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareBaseCon
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'Relevamiento';
-        $this->UsePaginator = true;
         parent::__construct();
     }
 }

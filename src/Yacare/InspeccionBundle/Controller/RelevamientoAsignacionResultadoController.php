@@ -26,6 +26,8 @@ UPDATE Inspeccion_RelevamientoAsignacion
 	);
      */
     
+    use \Yacare\BaseBundle\Controller\ConImagen;
+    
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoAsignacionResultado';

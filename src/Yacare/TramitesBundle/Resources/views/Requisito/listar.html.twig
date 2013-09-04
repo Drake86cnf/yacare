@@ -1,0 +1,42 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Requisitos{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Instancia</th>
+            <th>Tipo</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_tramites_requisito_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i></a>&nbsp;{{ entity.Nombre }}</td>
+            <td>{{ entity.InstanciaNombre }}</td>
+            <td>{{ entity.TipoNombre }}</td>
+            <td>{% if entity.Tramite %}
+{{ entity.Tramite }}
+{% else %}
+    {% for requiere in entity.Requiere %}
+        <span class="label label-info">{{ requiere.Nombre|length > 50 ? requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span>
+    {% endfor %}
+{% endif %}
+</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+
+<a href="{{ path('yacare_tramites_requisito_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
+{% endblock %}

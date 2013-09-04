@@ -1,0 +1,43 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Requisito{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('yacare_tramites_requisito_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
+    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo requisito {% endif %}</legend>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+        <a class="btn" href="{{ path('yacare_tramites_requisito_listar', arrastre) }}">Cancelar</a>
+    </div>
+</form>
+
+<script type="text/javascript">
+    function CambioTipo() {
+        var ValorTipo = $('#yacare_tramitesbundle_requisitoype_Tipo').val();
+        switch(ValorTipo) {
+            case 'compy':
+            case 'compo':
+                $('#yacare_tramitesbundle_requisitoype_Requisitos').removeAttr('disabled');
+                $('#yacare_tramitesbundle_requisitoype_Instancia').attr('disabled', true);
+                break;
+            case 'ext':
+                $('#yacare_tramitesbundle_requisitoype_Requisitos').attr('disabled', true);
+                $('#yacare_tramitesbundle_requisitoype_Instancia').removeAttr('disabled');
+                break;
+            default:
+                $('#yacare_tramitesbundle_requisitoype_Requisitos').attr('disabled', true);
+                $('#yacare_tramitesbundle_requisitoype_Instancia').attr('disabled', true);
+                break;
+        }
+    }
+    
+    /* $(document).ready(function($) {
+        $('#yacare_tramitesbundle_requisitoype_Tipo').change(function() { CambioTipo(); });
+        CambioTipo();
+    }); */
+    
+</script>  
+
+{% endblock %}

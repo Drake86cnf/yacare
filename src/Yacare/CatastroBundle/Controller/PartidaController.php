@@ -19,7 +19,6 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareBaseControll
     function __construct() {
         $this->BundleName = 'Catastro';
         $this->EntityName = 'Partida';
-        $this->UsePaginator = true;
         parent::__construct();
     }
     

@@ -1,5 +1,28 @@
-select{
-background-color:#fff;
+select {
+    background-color:#fff;
+}
+
+fieldset textarea {
+    width: 90%;
+    height: 96px;
+}
+
+fieldset input {
+    width: 90%;
+}
+
+.well {
+    background-color: white;
+    border: none;
+    box-shadow: none;
+}
+
+.nav-tabs.nav-stacked > li > a {
+    border: none;
+}
+
+.table tr:hover { 
+    background: #fcf8e3;
 }
 
 .top-block{
@@ -191,7 +214,6 @@ margin-left:-4.5px;
 padding:10px;
 }
 
-
 .btn-round{
 border-radius: 40px;
 -webkit-border-radius: 40px;
@@ -347,7 +369,12 @@ width:35px;
 margin-right:5px;
 }
 .brand span{
-float:left;
+    float:left;
+    font-size: 20px;
+    /* font-weight: 200; */
+    font-weight: bold;
+    color: white;
+    text-shadow: none;
 }
 @media (max-width: 979px){
 .sidebar-nav{
@@ -381,6 +408,7 @@ margin-left:10px;
 /* border-radius:0 0 10px 10px;
 -webkit-border-radius:0 0 10px 10px;
 -moz-border-radius:0 0 10px 10px; */
+background-image: linear-gradient(to bottom, rgb(244, 86, 0), rgb(186, 66, 0));
 padding-top:5px; 
 padding-bottom:5px; 
 }

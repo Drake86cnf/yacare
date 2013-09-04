@@ -18,7 +18,7 @@ class Persona implements UserInterface, \Serializable
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\ConImagen;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
@@ -141,7 +141,7 @@ class Persona implements UserInterface, \Serializable
 
     /**
      * @ORM\ManyToOne(targetEntity="Pais")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $Pais;
     

@@ -16,7 +16,7 @@ class RelevamientoResultado
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
 
     /**
      * @var string

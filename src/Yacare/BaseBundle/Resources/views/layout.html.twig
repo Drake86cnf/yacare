@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
 
-    <link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap-yacare.css') }}" rel="stylesheet" />
+    <link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap.min.css') }}" rel="stylesheet" />
     <style type="text/css">
       body {
             padding-bottom: 40px;
@@ -25,12 +25,13 @@
             padding: 9px 0;
       }
     </style>
-    <link href="{{ asset('bundles/yacarebase/css/bootstrap-responsive.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/yacarebase/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/yacare-app.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/jquery-ui-1.10.3.custom.min.css') }}" rel="stylesheet" />
     <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.css') }}" rel="stylesheet" />
     <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
     <link href="{{ asset('bundles/yacarebase/css/chosen.min.css') }}" rel="stylesheet" />
+    <disabledlink href="{{ asset('bundles/yacarebase/css/select2.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/uniform.default.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/yacarebase/css/colorbox.css') }}" rel="stylesheet" />
     <disabledlink href="{{ asset('bundles/yacarebase/css/jquery.cleditor.css') }}" rel="stylesheet" />
@@ -130,32 +131,7 @@
 
     <!-- jQuery UI -->
     <script src="{{ asset('bundles/yacarebase/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
-    <!-- transition / effect library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-transition.js') }}"></script>
-    <!-- alert enhancer library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-alert.js') }}"></script>
-    <!-- modal / dialog library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-modal.js') }}"></script>
-    <!-- custom dropdown library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-dropdown.js') }}"></script>
-    <!-- scrolspy library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-scrollspy.js') }}"></script>
-    <!-- library for creating tabs -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-tab.js') }}"></script>
-    <!-- library for advanced tooltip -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-tooltip.js') }}"></script>
-    <!-- popover effect library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-popover.js') }}"></script>
-    <!-- button enhancer library -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-button.js') }}"></script>
-    <!-- accordion library (optional, not used in demo) -->
-    <script src="{{ asset('bundles/yacarebase/js/bootstrap-collapse.js') }}"></script>
-    <!-- carousel slideshow library (optional, not used in demo) -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/bootstrap-carousel.js') }}"></disablescript>
-    <!-- autocomplete library -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/bootstrap-typeahead.js') }}"></disablescript>
-    <!-- tour library -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/bootstrap-tour.js') }}"></disablescript>
+    <script src="{{ asset('bundles/yacarebase/js/bootstrap.min.js') }}"></script>
     <!-- library for cookie management -->
     <disabledscript src="{{ asset('bundles/yacarebase/js/jquery.cookie.js') }}"></disabledscript>
     <!-- calander plugin -->
@@ -173,6 +149,8 @@
 
     <!-- select or dropdown enhancer -->
     <script src="{{ asset('bundles/yacarebase/js/chosen.jquery.min.js') }}"></script>
+    <!-- select or dropdown enhancer -->
+    <disabledscript src="{{ asset('bundles/yacarebase/js/select2.min.js') }}"></disabledscript>
     <!-- checkbox, radio, and file input styler -->
     <script src="{{ asset('bundles/yacarebase/js/jquery.uniform.min.js') }}"></script>
     <!-- plugin for gallery image view -->

@@ -7,7 +7,7 @@
 {% form_theme delete_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
 
 {% if entity %}
-<form class="form-horizontal" action="{{ path(bundlename ~ '_' ~ entityname ~ '_eliminar2', { 'id': entity.id }) }}" method="post">
+<form class="form-horizontal" action="{{ path(baseroute ~ '_eliminar2', arrastre|merge({ 'id': entity.id })) }}" method="post">
 	{{ form_widget(delete_form) }}
         <legend>Eliminar {{ entity }}</legend>
         
@@ -15,7 +15,7 @@
         
         <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Eliminar</button>
         &nbsp;&nbsp;&nbsp;
-        <a href="{{ path(bundlename ~ '_' ~ entityname ~ '_editar', { 'id': entity.id }) }}" class="btn"><i class="icon icon-reply"></i> Cancelar</a>
+        <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn"><i class="icon icon-reply"></i> Cancelar</a>
 </form>
 {% endif %}
 

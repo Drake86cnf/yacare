@@ -16,7 +16,7 @@ class PersonaRol implements RoleInterface
     use \Yacare\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     
     public function __construct()
     {

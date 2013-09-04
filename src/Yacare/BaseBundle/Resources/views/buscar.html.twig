@@ -1,22 +1,17 @@
-{% set filtro_buscar = app.request.query.get('filtro_buscar') %}
-<span class="control-group" style="white-space: nowrap; margin-left: 12px; margin-top: 8px;">
-    <span class="control-label" for="filtro_macizo">Buscar</span>
-    <span class="controls">
-        <span class="input-append">
-            <input type="text" size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="todos" value="{{ filtro_buscar }}" style="max-width: 128px" />
-            {% if filtro_buscar %}
-            <button class="btn btn-small" type="button" onClick="parent.location='?filtro_buscar='">Todos</button>
-            {% endif %}
-        </span>
-    </span>
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+<span class="input-prepend input-append">
+    <span class="add-on">Buscar</span><input type="text" size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="todos" value="{{ filtro_buscar }}" style="max-width: 128px" />
+    {% if filtro_buscar %}
+    <button class="btn" type="button" onClick="parent.location='?filtro_buscar=';">Todos</button>
+    {% endif %}
 </span>
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
-$("#filtro_buscar").keyup(function (e) {
-    if (e.which === 13) {
-        e.preventDefault();
-        parent.location='?filtro_buscar=' + $("#filtro_buscar").attr("value");
-    }
-});
+    $('#filtro_buscar').keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            parent.location='?filtro_buscar=' + $('#filtro_buscar').val();
+        }
+    });
 });
 </script>

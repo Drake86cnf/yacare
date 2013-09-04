@@ -20,11 +20,11 @@ class BaseRepository extends EntityRepository
 
     public function find($id)
     {
-        $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r WHERE r.Eliminado=0";
+        $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
         $where = "";
-        if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
-            $where = "r.Eliminado=0";
+        if(in_array('Yacare\BaseBundle\Entity\Suprimible', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
+            $where = "r.Suprimible=0";
         } else {
             $where = "1=1";
         }

@@ -10,7 +10,7 @@
 
 {% block form_row %}
 <div class="control-group">
-	<label class="control-label">{{ label|trans({}, translation_domain) }}</label>
+	<label class="control-label">{{ label }}</label>
 	<div class="controls">{{ form_widget(form) }}</div>
 </div>
 {% endblock form_row %}
@@ -27,7 +27,7 @@
     {% if label is empty %}
         {% set label = name|humanize %}
     {% endif %}
-    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label }}</label>
 {% endspaceless %}
 {% endblock form_label %}
 
@@ -35,7 +35,7 @@
 {% spaceless %}
     <select data-rel="chosen" data-placeholder="Seleccione..." {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
-            <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
+            <option value="">{{ empty_value }}</option>
         {% endif %}
         {% if preferred_choices|length > 0 %}
             {% set options = preferred_choices %}

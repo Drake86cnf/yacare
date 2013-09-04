@@ -16,7 +16,6 @@ class RelevamientoResultadoController extends \Yacare\BaseBundle\Controller\Yaca
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoResultado';
-        $this->UsePaginator = true;
         $this->OrderBy = 'r.Grupo, r.Nombre';
         parent::__construct();
     }

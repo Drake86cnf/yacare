@@ -1,0 +1,20 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Trámite / Requisito{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
+	<legend>{% if entity.id %} {{ entity }} {% else %} Nuevo requisito {% endif %}</legend>
+	{{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+		<a class="btn" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
+    </div>
+</form>
+
+{% if entity.Id %}
+<a class="btn btn-danger" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}"><i class="icon-trash icon-white"></i> Eliminar requisito</a>
+{% endif %}
+
+{% endblock %}

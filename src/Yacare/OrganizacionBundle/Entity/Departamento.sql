@@ -1,13 +1,13 @@
 /* Importar secretarías y departamentos que no existen y actualizar los que ya existen */
 
 INSERT INTO yacare.Organizacion_Departamento
-    (Nombre, Rango, DependeDe_id, Eliminado, ImportSrc, ImportId, ImportedAt)
+    (Nombre, Rango, DependeDe_id, Suprimido, ImportSrc, ImportId, ImportedAt)
     SELECT yacare.tcase(detalle), 30, 1, 0, 'rr_hh.secretarias', codigo, NOW() FROM rr_hh.secretarias
 	ON DUPLICATE KEY UPDATE Nombre=VALUES(Nombre)
 ;
 
 INSERT INTO yacare.Organizacion_Departamento
-    (Nombre, Rango, DependeDe_id, Eliminado, ImportSrc, ImportId, ImportedAt)
+    (Nombre, Rango, DependeDe_id, Suprimido, ImportSrc, ImportId, ImportedAt)
     SELECT yacare.tcase(detalle), 50, (SELECT id FROM yacare.Organizacion_Departamento WHERE ImportSrc='rr_hh.secretarias' AND ImportId=rr_hh.direcciones.secretaria), 0, 'rr_hh.direcciones', CONCAT(secretaria, '.', direccion), NOW() FROM rr_hh.direcciones
 	ON DUPLICATE KEY UPDATE Nombre=VALUES(Nombre)
 ;

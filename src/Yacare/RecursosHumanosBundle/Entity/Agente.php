@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Agente
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Importable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /*
     CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
