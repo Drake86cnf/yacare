@@ -24,7 +24,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a> <a target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="icon-print"></i> Imprimir</a></td>
+            <td><a class="btn btn-small" href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a> <a class="btn btn-small" target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="icon-print"></i> Imprimir</a></td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Departamento }}</td>
