@@ -1,4 +1,6 @@
 parameters:
+    web_root: /yacare
+
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     ~
@@ -13,10 +15,3 @@ parameters:
 
     locale:            es
     secret:            ThisTokenIsNotSoSecretChangeIt
-
-services:
-    yacare.basebundle.timestampable_listener:
-      class: Yacare\BaseBundle\ORM\TimestampableListener
-      public: false
-      tags:
-          - { name: doctrine.event_subscriber }
