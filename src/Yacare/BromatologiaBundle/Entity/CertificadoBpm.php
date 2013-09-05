@@ -31,7 +31,7 @@ class CertificadoBpm
     private $FechaExamen;
     
     public function __toString() {
-      return $this->getFechaExamen();
+        return 'Certificado N* ' . $this->getId() . ' de ' . $this->getPersona()->getNombreVisible();
     }
       
     /**

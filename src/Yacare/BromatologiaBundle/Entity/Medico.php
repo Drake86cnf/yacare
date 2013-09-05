@@ -31,7 +31,7 @@ class Medico
     private $Matricula;
     
       public function __toString() {
-        return $this->getMatricula();
+        return $this->getMedico();
     }
         
     public function getMedico() {

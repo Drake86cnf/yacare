@@ -29,6 +29,20 @@ class TipoAnalisis
      * @ORM\Column(type="integer")
      */
     private $Tipo;   
+    
+    public function getTipoNombre() {
+        switch ($this->Tipo){
+            case 1:
+                return 'Físico Químico';
+            case 2:
+                return 'Microbiológico';
+            default:
+                return '???';
+        }
+    }
+    
+    
+    
  
     public function getCosto() {
         return $this->Costo;
