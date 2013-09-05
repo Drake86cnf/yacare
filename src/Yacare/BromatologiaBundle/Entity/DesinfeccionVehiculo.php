@@ -34,11 +34,12 @@ class DesinfeccionVehiculo
      * @ORM\Column(type="integer")
      */
     private $ComprobanteNumero;
+    
    
     public function getVehiculo() {
         return $this->Vehiculo;
     }
-
+       
     public function setVehiculo($Vehiculo) {
         $this->Vehiculo = $Vehiculo;
     }

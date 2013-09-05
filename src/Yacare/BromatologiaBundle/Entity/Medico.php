@@ -30,10 +30,13 @@ class Medico
      */
     private $Matricula;
     
+    
       public function __toString() {
-        return $this->getMedico();
+        return $this->getMedico()->getNombreVisible();
     }
         
+    
+    
     public function getMedico() {
         return $this->Medico;
     }

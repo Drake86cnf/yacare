@@ -21,7 +21,7 @@
         <tr>
             <td><a href="{{ path('yacare_bromatologia_tipoanalisis_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Nombre }}</td>
             <td>{{ entity.Costo }}</td>
-            <td>{{ entity.Tipo }}</td> 
+            <td>{{ entity.TipoNombre }}</td> 
         </tr>
     {% endfor %}
     </tbody>

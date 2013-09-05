@@ -31,7 +31,7 @@ class Libretas
     private $FechaCertificado;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Yacare\BromatologiaBundle\Entity\Medico")
+     * @ORM\ManyToOne(targetEntity="Yacare\BromatologiaBundle\Entity\Medico")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Profesional;
@@ -43,7 +43,7 @@ class Libretas
     protected $Curso;
     
       public function __toString() {
-        return $this->getPersona();
+        return $this->getPersona()->getNombreVisible();
       }
     
     public function getPersona() {

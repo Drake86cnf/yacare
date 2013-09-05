@@ -1,0 +1,38 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}DesinfeccionVehiculo{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>            
+            <th>Vehiculo</th>
+            <th>Fecha</th>
+            <th>Comprobante</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Vehiculo }}</td>
+            <td>{{ entity.FechaDesinfeccion }}</td>
+            <td>{{ entity.ComprobanteNumero }}</td>
+            <td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva Desinfeccion</a>
+{% endblock %}
