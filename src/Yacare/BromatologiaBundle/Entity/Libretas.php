@@ -14,6 +14,7 @@ class Libretas
 {
     use \Yacare\BaseBundle\Entity\ConId;   
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     

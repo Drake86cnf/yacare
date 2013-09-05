@@ -15,6 +15,7 @@ class TipoAnalisis
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
  /**
@@ -24,8 +25,8 @@ class TipoAnalisis
     private $Costo;
     
  /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var integer
+     * @ORM\Column(type="integer")
      */
     private $Tipo;   
  

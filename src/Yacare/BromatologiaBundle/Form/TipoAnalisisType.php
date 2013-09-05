@@ -12,11 +12,11 @@ class TipoAnalisisType extends AbstractType
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre')) 
-            ->add('Costo', null, array('label' => 'Costo')) 
+            ->add('Costo', null, array('label' => 'Costo'))           
             ->add('Tipo', 'choice', array(
                 'choices'   => array(
-                    'Físico Químico' => 'Físico Químico',
-                    'Microbiológico' => 'Microbiológico',
+                    '1' => 'Físico Químico',
+                    '2' => 'Microbiológico',
                     ),
                 'required'  => true,
                 'label' => 'Tipo'))
