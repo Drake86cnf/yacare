@@ -9,11 +9,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class CertificadoBpmController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
-    
-    public function __construct() {
-        $this->BundleName = 'Bromatologia';
-        $this->EntityName = 'CertificadoBpm';
-        parent::__construct();
-    }
+    use \Yacare\BaseBundle\Controller\ConEliminar;   
 }
