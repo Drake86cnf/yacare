@@ -13,9 +13,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaController extends YacareBaseController
 {
+    Use \Yacare\BaseBundle\Controller\ConEliminar;
+    
     function __construct() {
-        $this->BundleName = 'Base';
-        $this->EntityName = 'Persona';
         $this->BuscarPor = 'NombreVisible';
         parent::__construct();
     }

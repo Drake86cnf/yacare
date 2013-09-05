@@ -13,13 +13,25 @@ class YacareBaseController extends Controller
     function __construct() {
         // get_class() devuelve Yacare\TalBundle\Controller\TalControlador
         // Tomo el segundo y cuarto valor (índices 1 y 3)
-        $PartesNombreClase = explode('\\', get_class());
-        //$BundleName = $PartesNombreClase[1];
-        //$ClassName = $PartesNombreClase[3];
-        
-        if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle')
+        $PartesNombreClase = explode('\\', get_class($this));
+
+        if(!isset($this->BundleName)) {
+            $this->BundleName = $PartesNombreClase[1];
+            if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
                 // Quitar la palabra 'Bundle' del nombre del bundle
                 $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
+            }
+        }
+
+        if(!isset($this->EntityName)) {
+            $this->EntityName = $PartesNombreClase[3];
+            if(strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
+                // Quitar la palabra 'Bundle' del nombre del bundle
+                $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
+            }
+        }
+        
+        
         
         if(!isset($this->Paginar))
             $this->Paginar = true;

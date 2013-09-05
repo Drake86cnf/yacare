@@ -9,8 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+    function __construct() {
+        $this->BundleName = 'Inspeccion';
+        $this->EntityName = 'RelevamientoAsignacion';
+    }
+    
     /**
-     * @Route("/", name="inicio")
+     * @Route("/")
      * @Template
      */
     public function inicioAction()
