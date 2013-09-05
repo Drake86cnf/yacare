@@ -209,25 +209,29 @@ class YacareBaseController extends Controller
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $this->guardarActionPreBind($entity);
+        $errors = $this->guardarActionPreBind($entity);
         
-        $typeName = $this->getFormType();
-        $editForm = $this->createForm(new $typeName(), $entity);
-        $editForm->bind($request);
-        $deleteForm = $this->createDeleteForm($id);
+        if(!$errors) {
+            $typeName = $this->getFormType();
+            $editForm = $this->createForm(new $typeName(), $entity);
+            $editForm->bind($request);
+            $deleteForm = $this->createDeleteForm($id);
 
-        if ($editForm->isValid()) {
-            $this->guardarActionPrePersist($entity);
-            $em->persist($entity);
-            $em->flush();
-            
-            $this->get('session')->getFlashBag()->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
-            //return null;
-            return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
-        } else {
-            $validator = $this->get('validator');
-            $errors = $validator->validate($entity);
+            if ($editForm->isValid()) {
+                $errors = $this->guardarActionPrePersist($entity);
+                if(!$errors) {
+                    $em->persist($entity);
+                    $em->flush();
 
+                    $this->get('session')->getFlashBag()->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
+                }
+            } else {
+                $validator = $this->get('validator');
+                $errors = $validator->validate($entity);
+            }
+        }
+        
+        if($errors) {
             $res = $this->ArrastrarVariables(array(
                 'entity'      => $entity,
                 'errors'      => $errors,
@@ -237,17 +241,23 @@ class YacareBaseController extends Controller
                 ));
 
             return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
+        } else {
+            return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
         }
     }
     
     public function guardarActionPreBind($entity)
     {
         // Función para que las clases derivadas puedan intervenir la entidad antes de bindear el formulario
+        // Devuelve un array con errores o null si está todo bien
+        return null;
     }
     
     public function guardarActionPrePersist($entity)
     {
         // Función para que las clases derivadas puedan intervenir la entidad antes de persistir
+        // Devuelve un array con errores o null si está todo bien
+        return null;
     }
     
 

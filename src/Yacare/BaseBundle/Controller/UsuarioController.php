@@ -26,7 +26,7 @@ class UsuarioController extends YacareBaseController
     
     public function guardarActionPreBind($entity) {
         $this->PassOriginal = $entity->getPasswordEnc();
-        parent::guardarActionPreBind($entity);
+        return parent::guardarActionPreBind($entity);
     }
     
 
@@ -43,6 +43,6 @@ class UsuarioController extends YacareBaseController
             // Si la contraseña está en blanco, dejo la original
             $entity->setPasswordEnc($this->PassOriginal);
         }
-        parent::guardarActionPrePersist($entity);
+        return parent::guardarActionPrePersist($entity);
     }
 }

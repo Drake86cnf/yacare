@@ -13,9 +13,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaRolController extends YacareBaseController
 {
-    function __construct() {
-        $this->BundleName = 'Base';
-        $this->EntityName = 'PersonaRol';
-        parent::__construct();
-    }
+    use \Yacare\BaseBundle\Controller\ConEliminar;
 }
