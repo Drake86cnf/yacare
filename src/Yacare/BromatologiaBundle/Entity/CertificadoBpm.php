@@ -30,7 +30,7 @@ class CertificadoBpm
      */
     private $FechaExamen;
     
-        public function __toString() {
+    public function __toString() {
       return $this->getFechaExamen();
     }
       
