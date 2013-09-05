@@ -38,12 +38,6 @@ class RequisitoType extends AbstractType
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('Tramite', 'entity', array(
-                'label' => 'Tramite',
-                'class' => 'YacareTramitesBundle:Tramite',
-                'required' => false,
-                'empty_value' => 'n/a',
-                'property' => 'Nombre'))
             ->add('Instancia', 'choice', array(
                 'label' => 'Instancia',
                 'required'  => true,

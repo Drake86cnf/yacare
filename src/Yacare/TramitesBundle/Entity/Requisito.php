@@ -38,12 +38,6 @@ class Requisito
      **/
     private $Requiere;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="Tramite")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $Tramite;
-    
     
     /**
      * @var string
@@ -146,13 +140,5 @@ class Requisito
 
     public function setMeRequieren($MeRequieren) {
         $this->MeRequieren = $MeRequieren;
-    }
-    
-    public function getTramite() {
-        return $this->Tramite;
-    }
-
-    public function setTramite($Tramite) {
-        $this->Tramite = $Tramite;
     }
 }

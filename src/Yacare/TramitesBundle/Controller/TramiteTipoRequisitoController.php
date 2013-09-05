@@ -6,18 +6,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("tramiterequisito/")
+ * @Route("tramitetiporequisito/")
  */
-class TramiteRequisitoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
     public function __construct() {
-        $this->BundleName = 'Tramites';
-        $this->EntityName = 'TramiteRequisito';
-        $this->ConservarVariables = array ('tramite_id');
-        $this->Paginar = false;
         parent::__construct();
+        $this->ConservarVariables = array ('tramitetipo_id');
+        $this->Paginar = false;
     }
     
     /**

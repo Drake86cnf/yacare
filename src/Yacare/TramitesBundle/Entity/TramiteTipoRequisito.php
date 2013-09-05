@@ -5,22 +5,22 @@ namespace Yacare\TramitesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\TramiteRequisito
+ * Yacare\TramitesBundle\Entity\TramiteTipoRequisito
  *
  * @ORM\Entity
- * @ORM\Table(name="Tramites_TramiteRequisito")
+ * @ORM\Table(name="Tramites_TramiteTipoRequisito")
  */
-class TramiteRequisito
+class TramiteTipoRequisito
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\Eliminable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $Tramite;
+    protected $TramiteTipo;
 
     /**
      * @var string
@@ -110,12 +110,12 @@ class TramiteRequisito
     
     
     
-    public function getTramite() {
-        return $this->Tramite;
+    public function getTramiteTipo() {
+        return $this->TramiteTipo;
     }
 
-    public function setTramite($Tramite) {
-        $this->Tramite = $Tramite;
+    public function setTramiteTipo($TramiteTipo) {
+        $this->Tramite = $TramiteTipo;
     }
 
     public function getRequisito() {

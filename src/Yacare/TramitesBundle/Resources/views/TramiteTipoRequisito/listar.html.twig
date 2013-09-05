@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block title %}Trámites - Requisitos{% endblock %}
+{% block title %}Tipos de trámites - Requisitos{% endblock %}
 
 {% block content_header '' %}
 
@@ -31,7 +31,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-mini" href="{{ path('yacare_tramites_tramiterequisito_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i> Editar</a></td>
             <td>{% if entity.Requisito.Instancia %}
 {% if entity.Requisito.Instancia == 'org' %}
  Original
@@ -50,5 +50,5 @@
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 {% endif %}
 
-<a href="{{ path('yacare_tramites_tramiterequisito_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
 {% endblock %}

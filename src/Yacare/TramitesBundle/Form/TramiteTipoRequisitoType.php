@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteRequisitoType extends AbstractType
+class TramiteTipoRequisitoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,16 +21,23 @@ class TramiteRequisitoType extends AbstractType
                     'compo' => 'Compuesto O'
                     )
                 )) */
-            ->add('Tramite', 'entity', array(
-                'label' => 'Tramite',
-                'class' => 'YacareTramitesBundle:Tramite',
+            ->add('TramiteTipo', 'entity', array(
+                'label' => 'Tipo de trámite',
+                'class' => 'YacareTramitesBundle:TramiteTipo',
                 'required' => true,
                 'property' => 'Nombre',
                 'multiple' => false,
                 'read_only' => true,
                 ))
+            ->add('Requisito', 'entity', array(
+                'label' => 'Requisito',
+                'class' => 'YacareTramitesBundle:Requisito',
+                'required'  => true,
+                'property' => 'Nombre',
+                'multiple' => false,
+                ))
             ->add('Propiedad', 'choice', array(
-                'label' => 'Propiedad',
+                'label' => 'De',
                 'required'  => false,
                 'empty_value' => 'n/a',
                 'choices' => array(
@@ -44,13 +51,6 @@ class TramiteRequisitoType extends AbstractType
             ->add('Opcional', 'checkbox', array(
                 'label' => 'Opcional',
                 'required'  => false,
-                ))
-            ->add('Requisito', 'entity', array(
-                'label' => 'Requisito',
-                'class' => 'YacareTramitesBundle:Requisito',
-                'required'  => true,
-                'property' => 'Nombre',
-                'multiple' => false,
                 ))
             ->add('CondicionQue', 'text', array(
                 'label' => 'Sólo si',
@@ -79,7 +79,6 @@ class TramiteRequisitoType extends AbstractType
                 ))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
-                
                 )
         );
     }
@@ -87,12 +86,12 @@ class TramiteRequisitoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\TramitesBundle\Entity\TramiteRequisito'
+            'data_class' => 'Yacare\TramitesBundle\Entity\TramiteTipoRequisito'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_tramiterequisitoype';
+        return 'yacare_tramitesbundle_tramitetiporequisitoype';
     }
 }

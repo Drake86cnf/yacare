@@ -6,12 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteType extends AbstractType
+class TramiteTipoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Clase', null, array('label' => 'Clase'))
             ->add('Url', null, array(
                 'label' => 'Web',
                 'attr'  => array('placeholder' => 'Sitio web con información')
@@ -28,12 +29,12 @@ class TramiteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\TramitesBundle\Entity\Tramite'
+            'data_class' => 'Yacare\TramitesBundle\Entity\TramiteTipo'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_tramiteype';
+        return 'yacare_tramitesbundle_tramitetipotype';
     }
 }

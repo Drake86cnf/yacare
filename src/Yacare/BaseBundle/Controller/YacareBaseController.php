@@ -121,7 +121,6 @@ class YacareBaseController extends Controller
             $valorInicial['entityname'] = strtolower($this->EntityName);
             $valorInicial['baseroute'] = $this->getBaseRoute();
             $valorInicial['paginar'] = $this->Paginar;
-            $valorInicial['arrastre']['0'] = '1';
         }
         
         if($this->ConservarVariables) {
@@ -132,6 +131,9 @@ class YacareBaseController extends Controller
                 }
             }
         }
+        
+        if(!isset($valorInicial['arrastre']))
+            $valorInicial['arrastre'] = '';
         
         return $valorInicial;
     }

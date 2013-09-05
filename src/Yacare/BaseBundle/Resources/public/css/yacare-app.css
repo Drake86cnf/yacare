@@ -21,7 +21,7 @@ fieldset input {
     border: none;
 }
 
-.table tr:hover { 
+.table tbody tr:hover { 
     background: #fcf8e3;
 }
 
