@@ -25,6 +25,66 @@ fieldset input {
     background: #fcf8e3;
 }
 
+.btn {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.pagination {
+    border-radius: 3px 3px 3px 3px;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+    border-image: none;
+    height: 34px;
+}
+
+.pagination span:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.pagination span {
+    float: left;
+    padding: 0px 14px;
+    height: 34px;
+}
+
+.pagination a, .current {
+    text-decoration: none;
+    line-height: 34px;
+}
+
+.brand {
+    font-family: 'Open Sans', Trebuchet, Arial, sans serif; 
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    width: 320px;
+}
+.brand img {
+    float: left;
+    height: 24px;
+    width: 35px;
+    margin-right: 5px;
+}
+.brand span {
+    float: left;
+    font-size: 20px;
+    /* font-weight: bold; */
+    color: white;
+    text-shadow: none;
+}
+
+.navbar-search {
+    margin-left:10px;
+}
+.navbar-inner {
+    background-image: none;
+    background-color: #ff5f00;
+    padding-top: 5px; 
+    padding-bottom: 5px; 
+    border-radius: 0px;
+}
+
+/*
 .top-block{
 font-size:14px;
 text-align: center;
@@ -286,9 +346,6 @@ img.grayscale{
 -moz-filter: grayscale(100%);
 -ms-filter: grayscale(100%);
 -o-filter: grayscale(100%);
-/*filter: url(desaturate.svg#grayscale);
-filter: gray;
-filter: grayscale(100%); */
 }
 
 .thumbnail .gallery-controls{
@@ -356,26 +413,6 @@ padding-bottom:0;
 margin-right:-2px;
 margin-left:-2px;
 }
-.brand{
-font-family: 'Segoe UI', 'Open Sans', Trebuchet, Arial, sans serif; 
-font-weight:bold;
-text-shadow:1px 1px 5px rgba(0, 0, 0, 0.5);
-width:320px;
-}
-.brand img{
-float:left;
-height:24px;
-width:35px;
-margin-right:5px;
-}
-.brand span{
-    float:left;
-    font-size: 20px;
-    /* font-weight: 200; */
-    font-weight: bold;
-    color: white;
-    text-shadow: none;
-}
 @media (max-width: 979px){
 .sidebar-nav{
 padding:0;
@@ -401,17 +438,6 @@ margin-bottom:0;
 }
 }
 
-.navbar-search{
-margin-left:10px;
-}
-.navbar-inner{
-/* border-radius:0 0 10px 10px;
--webkit-border-radius:0 0 10px 10px;
--moz-border-radius:0 0 10px 10px; */
-background-image: linear-gradient(to bottom, rgb(244, 86, 0), rgb(186, 66, 0));
-padding-top:5px; 
-padding-bottom:5px; 
-}
 div.dataTables_length select {
 width: 50px;
 }
@@ -519,3 +545,4 @@ box-shadow: 0 0 10px #BDBDBD;
 .box-content.buttons{
 min-height:297px;
 }
+*/
