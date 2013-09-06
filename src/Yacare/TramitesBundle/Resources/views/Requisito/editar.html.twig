@@ -4,12 +4,12 @@
 
 {% block content %}
 
-<form class="form-horizontal" action="{{ path('yacare_tramites_requisito_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
+<form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
     <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo requisito {% endif %}</legend>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
-        <a class="btn" href="{{ path('yacare_tramites_requisito_listar', arrastre) }}">Cancelar</a>
+        <a class="btn" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
     </div>
 </form>
 

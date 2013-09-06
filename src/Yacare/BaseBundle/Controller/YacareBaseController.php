@@ -98,7 +98,7 @@ class YacareBaseController extends Controller
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
                 $query,
-                $this->get('request')->query->get('page', 1) /* page number */,
+                $this->getRequest()->query->get('page', 1) /* page number */,
                 10 /* limit per page */
             );
         } else {
@@ -126,14 +126,22 @@ class YacareBaseController extends Controller
         if($this->ConservarVariables) {
             foreach($this->ConservarVariables as $vr) {
                 if(!isset($valorInicial[$vr])) {
-                    $valorInicial[$vr] = $request->query->get($vr);
-                    $valorInicial['arrastre'][$vr] = $request->query->get($vr);
+                    $val = $request->query->get($vr);
+                    if($val) {
+                        $valorInicial[$vr] = $val;
+                        $valorInicial['arrastre'][$vr] = $request->query->get($vr);
+                    }
                 }
             }
         }
+
+        $val = $request->query->get('page');
+        if($val) {
+            $valorInicial['arrastre']['page'] = $val;
+        }
         
         if(!isset($valorInicial['arrastre']))
-            $valorInicial['arrastre'] = '';
+            $valorInicial['arrastre'][''] = '';
         
         return $valorInicial;
     }

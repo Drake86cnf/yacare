@@ -21,7 +21,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i> Editar</a></td>
             <td>&nbsp;{{ entity.Nombre }}</td>
             <td>{{ entity.InstanciaNombre }}</td>
             <td>{{ entity.TipoNombre }}</td>
@@ -35,5 +35,5 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path('yacare_tramites_requisito_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo requisito</a>
 {% endblock %}
