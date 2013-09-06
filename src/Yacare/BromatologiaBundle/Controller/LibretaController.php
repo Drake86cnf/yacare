@@ -5,9 +5,9 @@ namespace Yacare\BromatologiaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("libretas/")
+ * @Route("libreta/")
  */
-class LibretasController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class LibretaController extends \Yacare\BaseBundle\Controller\YacareBaseController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     

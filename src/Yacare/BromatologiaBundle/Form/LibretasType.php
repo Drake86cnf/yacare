@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LibretasType extends AbstractType
+class LibretaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,12 +27,12 @@ class LibretasType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BromatologiaBundle\Entity\Libretas'
+            'data_class' => 'Yacare\BromatologiaBundle\Entity\Libreta'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_bromatologiabundle_libretas';
+        return 'yacare_bromatologiabundle_libreta';
     }
 }

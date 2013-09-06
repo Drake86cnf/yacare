@@ -5,12 +5,12 @@ namespace Yacare\BromatologiaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BromatologiaBundle\Entity\Libretas
+ * Yacare\BromatologiaBundle\Entity\Libreta
  *
  * @ORM\Entity
- * @ORM\Table(name="Bromatologia_Libretas")
+ * @ORM\Table(name="Bromatologia_Libreta")
  */
-class Libretas
+class Libreta
 {
     use \Yacare\BaseBundle\Entity\ConId;   
     use \Yacare\BaseBundle\Entity\Versionable;
