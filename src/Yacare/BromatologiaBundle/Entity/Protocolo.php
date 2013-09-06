@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="Bromatologia_Protocolo")
  */
-class Analisis
+class Protocolo
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\Versionable;
@@ -23,6 +23,12 @@ class Analisis
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Persona;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Yacare\BromatologiaBundle\Entity\TipoAnalisis")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Analisis;
    
     /**
      * @var string
@@ -79,8 +85,99 @@ class Analisis
     private $Resultado;
     
       public function __toString() {
-        return $this->getMatricula();
+        return $this->getPersona()->getNombreVisible();
     }
         
+    
+    
+    public function getPersona() {
+        return $this->Persona;
+    }
+
+    public function setPersona($Persona) {
+        $this->Persona = $Persona;
+    }
+
+    public function getAnalisis() {
+        return $this->Analisis;
+    }
+
+    public function setAnalisis($Analisis) {
+        $this->Analisis = $Analisis;
+    }
+
+    public function getProducto() {
+        return $this->Producto;
+    }
+
+    public function setProducto($Producto) {
+        $this->Producto = $Producto;
+    }
+
+    public function getEnvase() {
+        return $this->Envase;
+    }
+
+    public function setEnvase($Envase) {
+        $this->Envase = $Envase;
+    }
+
+    public function getFechaElaboracion() {
+        return $this->FechaElaboracion;
+    }
+
+    public function setFechaElaboracion(\DateTime $FechaElaboracion) {
+        $this->FechaElaboracion = $FechaElaboracion;
+    }
+
+    public function getFechaVencimiento() {
+        return $this->FechaVencimiento;
+    }
+
+    public function setFechaVencimiento(\DateTime $FechaVencimiento) {
+        $this->FechaVencimiento = $FechaVencimiento;
+    }
+
+    public function getFechaRecepcion() {
+        return $this->FechaRecepcion;
+    }
+
+    public function setFechaRecepcion(\DateTime $FechaRecepcion) {
+        $this->FechaRecepcion = $FechaRecepcion;
+    }
+
+    public function getObservaciones() {
+        return $this->Observaciones;
+    }
+
+    public function setObservaciones($Observaciones) {
+        $this->Observaciones = $Observaciones;
+    }
+
+    public function getActaNumero() {
+        return $this->ActaNumero;
+    }
+
+    public function setActaNumero($ActaNumero) {
+        $this->ActaNumero = $ActaNumero;
+    }
+
+    public function getProtocoloNumero() {
+        return $this->ProtocoloNumero;
+    }
+
+    public function setProtocoloNumero($ProtocoloNumero) {
+        $this->ProtocoloNumero = $ProtocoloNumero;
+    }
+
+    public function getResultado() {
+        return $this->Resultado;
+    }
+
+    public function setResultado($Resultado) {
+        $this->Resultado = $Resultado;
+    }
+
+
   
 }

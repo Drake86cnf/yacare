@@ -1,0 +1,52 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Protocolo{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Protocolo Nro</th>
+            <th>Persona</th>
+            <th>Producto</th>
+            <th>Envase</th>
+            <th>Fecha de Elaboración</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Acta Nro</th>
+            <th>Fecha de Recepción</th>
+            <th>Analisis</th>
+            <th>Resultado</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_bromatologia_protocolo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.ProtocoloNumero }}</td>
+            <td>{{ entity.Persona }}</td>
+            <td>{{ entity.Producto }}</td>
+            <td>{{ entity.Envase }}</td>
+            <td>{{ entity.FechaElaboracion }}</td>
+            <td>{{ entity.FechaVencimiento }}</td>
+            <td>{{ entity.ActaNumero }}</td> 
+            <td>{{ entity.FechaRecepcion }}</td>
+            <td>{{ entity.Analisis }}</td>
+            <td>{{ entity.Resultado }}</td>
+            <td>{{ entity.Observaciones }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_bromatologia_protocolo_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Protocolo</a>
+{% endblock %}
