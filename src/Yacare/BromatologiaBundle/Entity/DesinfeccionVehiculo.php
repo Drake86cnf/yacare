@@ -35,6 +35,11 @@ class DesinfeccionVehiculo
      */
     private $ComprobanteNumero;
     
+    
+       public function __toString() {
+        return $this->getVehiculo()->getDominio();
+    }
+    
    
     public function getVehiculo() {
         return $this->Vehiculo;
