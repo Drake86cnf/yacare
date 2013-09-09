@@ -77,7 +77,7 @@ function docReady(){
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $('.datepicker').datepicker({
             showButtonPanel: true,
-            dateFormat: 'mm/dd/yy',
+            dateFormat: 'dd/mm/yy',
             showAnim: '',
             changeMonth: true,
             changeYear: true
