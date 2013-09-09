@@ -84,6 +84,19 @@ class Protocolo
      */
     private $Resultado;
     
+    
+     public function getResultadoProtocolo() {
+        switch ($this->Resultado){
+            case 1:
+                return 'Apto';
+            case 2:
+                return 'No Apto';
+            default:
+                return '???';
+        }
+    }
+    
+    
       public function __toString() {
         return $this->getPersona()->getNombreVisible();
     }

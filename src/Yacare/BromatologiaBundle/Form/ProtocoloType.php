@@ -37,8 +37,14 @@ class ProtocoloType extends AbstractType
                 'attr' => array('class' => 'datepicker'),
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de recepciomn'))
-            ->add('Analisis', null, array('label' => 'Analisis'))
-            ->add('Resultado', null, array('label' => 'Resultado'))
+            ->add('Analisis', null, array('label' => 'Analisis'))           
+            ->add('Resultado', 'choice', array(
+                'choices'   => array(
+                    '1' => 'Apto',
+                    '2' => 'No Apto',
+                    ),
+                'required'  => true,
+                'label' => 'Resultado'))
             ->add('Observaciones', null, array('label' => 'Observaciones'))
         ;
     }
