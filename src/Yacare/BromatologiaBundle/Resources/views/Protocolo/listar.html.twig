@@ -31,10 +31,10 @@
             <td>{{ entity.Persona }}</td>
             <td>{{ entity.Producto }}</td>
             <td>{{ entity.Envase }}</td>
-            <td>{{ entity.FechaElaboracion }}</td>
-            <td>{{ entity.FechaVencimiento }}</td>
+            <td>{{ entity.FechaElaboracion|date("d/m/Y") }}</td>
+            <td>{{ entity.FechaVencimiento|date("d/m/Y") }}</td>
             <td>{{ entity.ActaNumero }}</td> 
-            <td>{{ entity.FechaRecepcion }}</td>
+            <td>{{ entity.FechaRecepcion|date("d/m/Y") }}</td>
             <td>{{ entity.Analisis }}</td>
             <td>{{ entity.Resultado }}</td>
             <td>{{ entity.Observaciones }}</td>

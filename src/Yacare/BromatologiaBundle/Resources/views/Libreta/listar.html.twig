@@ -21,7 +21,7 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('yacare_bromatologia_libreta_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Persona }}</td>
-            <td>{{ entity.FechaCertificado }}</td>
+            <td>{{ entity.FechaCertificado|date("d/m/Y") }}</td>
             <td>{{ entity.Profesional }}</td> 
             <td>{{ entity.Curso }}</td>
         </tr>
