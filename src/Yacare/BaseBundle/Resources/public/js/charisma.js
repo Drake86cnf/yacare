@@ -74,15 +74,17 @@ function docReady(){
 	//$('.cleditor').cleditor();
 	
 	//datepicker
-        $.datepicker.setDefaults($.datepicker.regional['es']);
-        $('.datepicker').datepicker({
-            showButtonPanel: true,
-            dateFormat: 'dd/mm/yy',
-            showAnim: '',
-            changeMonth: true,
-            changeYear: true
-            });
-        
+        if (!Modernizr.inputtypes.date) {
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $('.datepicker').datepicker({
+                showButtonPanel: true,
+                dateFormat: 'dd/mm/yy',
+                showAnim: '',
+                changeMonth: true,
+                changeYear: true
+                });
+        }
+
 	//notifications
 	$('.noty').click(function(e){
 		e.preventDefault();
