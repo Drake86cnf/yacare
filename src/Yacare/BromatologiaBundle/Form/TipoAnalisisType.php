@@ -15,7 +15,7 @@ class TipoAnalisisType extends AbstractType
             ->add('Costo', null, array('label' => 'Costo'))           
             ->add('Tipo', 'choice', array(
                 'choices'   => array(
-                    '1' => 'Físico Químico',
+                    '1' => 'Físico químico',
                     '2' => 'Microbiológico',
                     ),
                 'required'  => true,

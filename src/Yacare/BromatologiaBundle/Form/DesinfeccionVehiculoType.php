@@ -11,12 +11,12 @@ class DesinfeccionVehiculoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder                 
-            ->add('Vehiculo', null, array('label' => 'Vehiculo')) 
+            ->add('Vehiculo', null, array('label' => 'Vehículo')) 
             ->add('FechaDesinfeccion', 'date', array(
                 'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'label' => 'Fecha del desinfeccion'))
-            ->add('ComprobanteNumero', null, array('label' => 'Comprobante Numero'))    
+                'label' => 'Fecha de desinfección'))
+            ->add('ComprobanteNumero', null, array('label' => 'Comprobante Nº'))    
         ;
     }
 

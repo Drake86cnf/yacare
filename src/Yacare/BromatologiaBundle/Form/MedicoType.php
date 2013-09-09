@@ -11,8 +11,8 @@ class MedicoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder                 
-            ->add('Medico', null, array('label' => 'Medico')) 
-            ->add('Matricula', null, array('label' => 'Matricula')) 
+            ->add('Medico', null, array('label' => 'Médico')) 
+            ->add('Matricula', null, array('label' => 'Matrícula')) 
         ;
     }
 
