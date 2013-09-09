@@ -13,11 +13,8 @@ class DesinfeccionVehiculoType extends AbstractType
         $builder                 
             ->add('Vehiculo', null, array('label' => 'Vehiculo')) 
             ->add('FechaDesinfeccion', 'date', array(
-                'years' => range(1900,2099),
-                'input' => 'datetime',
+                'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'attr' => array('class' => 'datepicker'),
-                'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha del desinfeccion'))
             ->add('ComprobanteNumero', null, array('label' => 'Comprobante Numero'))    
         ;

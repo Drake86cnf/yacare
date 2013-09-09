@@ -1,3 +1,11 @@
+body {
+    cursor: default;
+}
+
+a, button {
+    cursor: hand;
+}
+
 select {
     background-color:#fff;
 }
@@ -11,6 +19,10 @@ fieldset input {
     width: 90%;
 }
 
+fieldset .datepicker {
+    width: 200px;
+}
+
 .well {
     background-color: white;
     border: none;
@@ -21,8 +33,16 @@ fieldset input {
     border: none;
 }
 
+.table th {
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.table td {
+    border: none;
+}
+
 .table tbody tr:hover { 
-    background: #fcf8e3;
+    background: rgb(231, 231, 231);
 }
 
 .btn {
@@ -52,6 +72,7 @@ fieldset input {
 .pagination a, .current {
     text-decoration: none;
     line-height: 34px;
+    height: 34px;
 }
 
 .brand {

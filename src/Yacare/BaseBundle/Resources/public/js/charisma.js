@@ -74,8 +74,15 @@ function docReady(){
 	//$('.cleditor').cleditor();
 	
 	//datepicker
-	$('.datepicker').datepicker();
-	
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        $('.datepicker').datepicker({
+            showButtonPanel: true,
+            dateFormat: 'mm/dd/yy',
+            showAnim: '',
+            changeMonth: true,
+            changeYear: true
+            });
+        
 	//notifications
 	$('.noty').click(function(e){
 		e.preventDefault();
