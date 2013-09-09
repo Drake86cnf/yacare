@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("relevamiento/")
  */
-class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     function __construct() {
         $this->BundleName = 'Inspeccion';

@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("agente/")
  */
-class AgenteController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class AgenteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
 
     function __construct() {

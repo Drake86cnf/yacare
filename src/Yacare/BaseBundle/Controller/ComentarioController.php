@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("comentario/")
  */
-class ComentarioController extends YacareBaseController
+class ComentarioController extends YacareAbmController
 {
     function __construct() {
         $this->BundleName = 'Base';

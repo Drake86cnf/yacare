@@ -11,11 +11,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("dispositivo/")
  */
-class DispositivoController extends YacareBaseController
+class DispositivoController extends YacareAbmController
 {
     function __construct() {
-        $this->BundleName = 'Base';
-        $this->EntityName = 'Dispositivo';
         parent::__construct();
     }
 }

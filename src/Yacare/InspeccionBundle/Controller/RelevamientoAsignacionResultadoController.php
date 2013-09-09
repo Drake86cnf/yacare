@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("relevamientoasignacionresultado/")
  */
-class RelevamientoAsignacionResultadoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class RelevamientoAsignacionResultadoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     /*
 UPDATE Inspeccion_RelevamientoAsignacionResultado 

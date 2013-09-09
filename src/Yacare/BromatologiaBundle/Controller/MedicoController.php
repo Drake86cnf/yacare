@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("medico/")
  */
-class MedicoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class MedicoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

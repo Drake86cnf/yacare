@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("departamento/")
  */
-class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     

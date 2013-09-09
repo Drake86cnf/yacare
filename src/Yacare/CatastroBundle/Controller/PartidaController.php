@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("partida/")
  */
-class PartidaController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     // ************** Al importar:
     //UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';

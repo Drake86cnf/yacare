@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("usuario/")
  */
-class UsuarioController extends YacareBaseController
+class UsuarioController extends YacareAbmController
 {
     private $PassOriginal = '';
     

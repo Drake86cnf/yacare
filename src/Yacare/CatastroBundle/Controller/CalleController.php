@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("calle/")
  */
-class CalleController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class CalleController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     public function __construct() {
         $this->BundleName = 'Catastro';

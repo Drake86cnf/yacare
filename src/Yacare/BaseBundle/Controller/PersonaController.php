@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("persona/")
  */
-class PersonaController extends YacareBaseController
+class PersonaController extends YacareAbmController
 {
     Use \Yacare\BaseBundle\Controller\ConEliminar;
     

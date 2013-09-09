@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("tramitetiporequisito/")
  */
-class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     

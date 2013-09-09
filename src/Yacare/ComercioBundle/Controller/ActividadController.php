@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("actividad/")
  */
-class ActividadController extends \Yacare\BaseBundle\Controller\YacareBaseController
+class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     public function __construct() {
         $this->BundleName = 'Comercio';
