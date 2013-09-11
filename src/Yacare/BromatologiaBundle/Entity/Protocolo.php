@@ -98,8 +98,9 @@ class Protocolo
     
     
       public function __toString() {
-        return $this->getPersona()->getNombreVisible();
+        return 'Protocolo N* ' . $this->getProtocoloNumero() . ' de ' . $this->getPersona()->getNombreVisible();
     }
+    
         
     
     

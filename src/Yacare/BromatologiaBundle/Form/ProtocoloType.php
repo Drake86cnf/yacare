@@ -16,28 +16,18 @@ class ProtocoloType extends AbstractType
             ->add('Producto', null, array('label' => 'Producto'))
             ->add('Envase', null, array('label' => 'Envase'))
             ->add('FechaElaboracion', 'date', array(
-                'years' => range(1900,2099),
-                'input' => 'datetime',
+                'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'attr' => array('class' => 'datepicker'),
-                'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de elaboración'))
+                'label' => 'Fecha de elaboracion'))    
             ->add('FechaVencimiento', 'date', array(
-                'years' => range(1900,2099),
-                'input' => 'datetime',
+                'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'attr' => array('class' => 'datepicker'),
-                'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de vencimiento'))
+                'label' => 'Fecha de vencimiento')) 
             ->add('ActaNumero', null, array('label' => 'Acta Nº'))
             ->add('FechaRecepcion', 'date', array(
-                'years' => range(1900,2099),
-                'input' => 'datetime',
+                'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'attr' => array('class' => 'datepicker'),
-                'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de recepciomn'))
-            ->add('Analisis', null, array('label' => 'Análisis'))           
+                'label' => 'Fecha de recepción'))          
             ->add('Resultado', 'choice', array(
                 'choices'   => array(
                     '1' => 'Apto',

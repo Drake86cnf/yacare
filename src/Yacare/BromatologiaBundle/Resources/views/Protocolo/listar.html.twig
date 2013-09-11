@@ -18,8 +18,7 @@
             <th>Fecha de elaboración</th>
             <th>Fecha de vencimiento</th>
             <th>Acta Nº</th>
-            <th>Fecha de recepción</th>
-            <th>Análisis</th>
+            <th>Fecha de recepción</th>            
             <th>Resultado</th>
             <th>Obs.</th>
         </tr>
@@ -34,8 +33,7 @@
             <td>{{ entity.FechaElaboracion|date("d/m/Y") }}</td>
             <td>{{ entity.FechaVencimiento|date("d/m/Y") }}</td>
             <td>{{ entity.ActaNumero }}</td> 
-            <td>{{ entity.FechaRecepcion|date("d/m/Y") }}</td>
-            <td>{{ entity.Analisis }}</td>
+            <td>{{ entity.FechaRecepcion|date("d/m/Y") }}</td> 
             <td>{{ entity.ResultadoProtocolo }}</td>
             <td>{{ entity.Observaciones }}</td>
         </tr>
