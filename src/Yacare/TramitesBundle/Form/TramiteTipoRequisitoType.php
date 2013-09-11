@@ -48,6 +48,14 @@ class TramiteTipoRequisitoType extends AbstractType
                     'ReponsableTecnico' => 'Reponsable técnico', 
                     )
                 ))
+            ->add('Instancia', 'choice', array(
+                'label' => 'Instancia',
+                'required'  => true,
+                'choices' => array('na' => 'n/a', 
+                    'ori' => 'Original',
+                    'cop' => 'Copia simple'
+                    )
+                ))
             ->add('Opcional', 'checkbox', array(
                 'label' => 'Opcional',
                 'required'  => false,

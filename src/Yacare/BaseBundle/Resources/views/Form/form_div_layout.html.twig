@@ -8,13 +8,15 @@
 {% endspaceless %}
 {% endblock form_widget %}
 
+        
 {% block form_row %}
 <div class="control-group">
-	<label class="control-label">{{ label }}</label>
+	<label class="control-label">{{ label }}{% if required %} <span class="required" title="Este campo es obligatorio">*</span>{% endif %}</label>
 	<div class="controls">{{ form_widget(form) }}</div>
 </div>
 {% endblock form_row %}
 
+        
 {% block form_label %}
 {% spaceless %}
 	{% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
@@ -31,6 +33,7 @@
 {% endspaceless %}
 {% endblock form_label %}
 
+        
 {% block choice_widget_collapsed %}
 {% spaceless %}
     <select data-rel="chosen" data-placeholder="Seleccione..." {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
@@ -50,6 +53,7 @@
 {% endspaceless %}
 {% endblock choice_widget_collapsed %}
 
+        
 {% block date_widget %}
 {% spaceless %}
     {% if widget == 'single_text' %}
@@ -66,3 +70,9 @@
     {% endif %}
 {% endspaceless %}
 {% endblock date_widget %}
+    
+{% block domicilio_widget %}
+    <div {{ block('widget_container_attributes') }}>
+        
+    </div>
+{% endblock %}

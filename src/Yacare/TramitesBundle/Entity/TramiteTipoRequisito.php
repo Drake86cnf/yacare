@@ -35,6 +35,12 @@ class TramiteTipoRequisito
     protected $Requisito;
     
     /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Instancia;
+    
+    /**
      * @var boolean
      * @ORM\Column(type="boolean")
      */
@@ -58,6 +64,18 @@ class TramiteTipoRequisito
      */
     private $CondicionCuanto;
 
+    public function getInstanciaNombre() {
+        switch($this->getInstancia()) {
+            case 'na':
+                return 'n/a';
+            case 'org':
+                return 'Original';
+            case 'cop':
+                return 'Copia';
+       }
+    }
+
+    
     public function getCondicion() {
         $res = '';
         if($this->CondicionQue) {
@@ -164,5 +182,12 @@ class TramiteTipoRequisito
 
     public function setPropiedad($Propiedad) {
         $this->Propiedad = $Propiedad;
+    }
+    public function getInstancia() {
+        return $this->Instancia;
+    }
+
+    public function setInstancia($Instancia) {
+        $this->Instancia = $Instancia;
     }
 }

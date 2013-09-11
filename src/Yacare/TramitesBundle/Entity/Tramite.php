@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Tramites_Tramite")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
- * @ORM\DiscriminatorMap({"1" = "TramiteHabilitacionComercial"})
+ * @ORM\DiscriminatorMap({"\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial"})
  */
 class Tramite
 {
@@ -21,15 +21,6 @@ class Tramite
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\TramitesBundle\Entity\TramiteTipo")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $TramiteTipo;
+    use \Yacare\TramitesBundle\Entity\ConTitular;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Titular;
 }

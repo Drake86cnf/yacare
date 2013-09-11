@@ -18,7 +18,17 @@ class Formulario
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
-    public function __construct()
-    {
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50)
+     */
+    private $Codigo;
+    
+    public function getCodigo() {
+        return $this->Codigo;
+    }
+
+    public function setCodigo($Codigo) {
+        $this->Codigo = $Codigo;
     }
 }

@@ -13,13 +13,13 @@
         <tr>
             <th>Propietario</th> 
             <th>Domicilio</th>
-            <th>Tipo de Lugar</th>
+            <th>Tipo</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_comercio_local_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Propietario }}</td>
+            <td><a href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Propietario }}</td>
             <td>{{ entity.Domicilio }}</td>
             <td>{{ entity.TipoLugar }}</td>
         </tr>
@@ -27,10 +27,7 @@
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
+{% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path('yacare_comercio_local_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo Local</a>
+<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo local comercial</a>
 {% endblock %}

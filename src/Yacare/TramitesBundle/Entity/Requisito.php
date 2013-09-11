@@ -47,12 +47,6 @@ class Requisito
     
     /**
      * @var string
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $Instancia;
-    
-    /**
-     * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Lugar;
@@ -62,18 +56,6 @@ class Requisito
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
-    
-    
-    public function getInstanciaNombre() {
-        switch($this->getInstancia()) {
-            case 'na':
-                return 'n/a';
-            case 'org':
-                return 'Original';
-            case 'cop':
-                return 'Copia';
-       }
-    }
     
     
     public function getTipoNombre() {
@@ -116,14 +98,6 @@ class Requisito
 
     public function setUrl($Url) {
         $this->Url = $Url;
-    }
-    
-    public function getInstancia() {
-        return $this->Instancia;
-    }
-
-    public function setInstancia($Instancia) {
-        $this->Instancia = $Instancia;
     }
     
     public function getRequiere() {

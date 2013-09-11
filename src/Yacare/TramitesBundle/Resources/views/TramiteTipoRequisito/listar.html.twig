@@ -30,13 +30,7 @@
     {% for entity in entities %}
         <tr>
             <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="icon-edit"></i> Editar</a></td>
-            <td>{% if entity.Requisito.Instancia %}
-{% if entity.Requisito.Instancia == 'org' %}
- Original
-{% elseif entity.Requisito.Instancia == 'cop' %}
- Copia
-{% endif %}
-{% endif %}</td>
+            <td>{{ entity.InstanciaNombre }}</td>
             <td>{% if entity.Opcional %}(Opcional) {% endif %}{{ entity }}</td>
             <td>{{ entity.Propiedad }}</td>
             <td>{{ entity.Condicion }}</td>

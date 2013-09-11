@@ -18,51 +18,12 @@ class Comercio
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
+    use \Yacare\TramitesBundle\Entity\ConTitular;
+    use \Yacare\TramitesBundle\Entity\ConApoderado;
+    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
+
     public function __construct()
     {
         $this->ActividadesSecundarias = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $ActividadPrincipal;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
-     * @ORM\JoinTable(name="Comercio_Comercio_Actividad")
-     */
-    private $ActividadesSecundarias;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    protected $Titular;
-
-
-    public function getTitular() {
-        return $this->Titular;
-    }
-
-    public function setTitular($Titular) {
-        $this->Titular = $Titular;
-    }
-    
-    public function getActividadPrincipal() {
-        return $this->ActividadPrincipal;
-    }
-
-    public function setActividadPrincipal($ActividadPrincipal) {
-        $this->ActividadPrincipal = $ActividadPrincipal;
-    }
-
-    public function getActividadesSecundarias() {
-        return $this->ActividadesSecundarias;
-    }
-
-    public function setActividadesSecundarias($ActividadesSecundarias) {
-        $this->ActividadesSecundarias = $ActividadesSecundarias;
     }
 }

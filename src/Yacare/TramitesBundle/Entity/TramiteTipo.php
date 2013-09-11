@@ -25,6 +25,8 @@ class TramiteTipo
      */
     private $Clase;
     
+    
+    
     public function getClase() {
         return $this->Clase;
     }

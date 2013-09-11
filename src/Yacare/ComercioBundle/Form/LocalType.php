@@ -12,12 +12,12 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('Propietario', null, array('label' => 'Propietario'))             
-            ->add('DomicilioCalle', null, array('label' => 'Calle'))
-            ->add('DomicilioNumero', null, array('label' => 'Número'))
-            ->add('DomicilioPiso', null, array('label' => 'Piso'))
-            ->add('DomicilioPuerta', null, array('label' => 'Depto'))
-            ->add('DomicilioCodigoPostal', null, array('label' => 'Código Postal')) 
-            ->add('TipoLugar', null, array('label' => 'Tipo de Lugar'))
+            ->add('TipoLugar', null, array('label' => 'Tipo'))
+            ->add('DomicilioCalle', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
+                    array(
+                        'data_class' => 'Yacare\ComercioBundle\Entity\Local',
+                        'label' => 'Domicilio')
+                    )
         ;
     }
 

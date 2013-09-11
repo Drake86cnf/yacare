@@ -26,7 +26,7 @@ class Local {
      * @ORM\Column(type="string", length=255)
      */
     private $TipoLugar;
-        
+
     public function __toString() {
         return $this->getDomicilio();
     }

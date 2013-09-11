@@ -38,14 +38,6 @@ class RequisitoType extends AbstractType
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('Instancia', 'choice', array(
-                'label' => 'Instancia',
-                'required'  => true,
-                'choices' => array('na' => 'n/a', 
-                    'ori' => 'Original',
-                    'cop' => 'Copia'
-                    )
-                ))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 ))
