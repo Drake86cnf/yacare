@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Local {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConDomicilio;
+    use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
@@ -25,7 +26,7 @@ class Local {
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $TipoLugar;
+    private $Tipo;
 
     public function __toString() {
         return $this->getDomicilio();
@@ -38,15 +39,11 @@ class Local {
     public function setPropietario($Propietario) {
         $this->Propietario = $Propietario;
     }
-    
-    public function getTipoLugar() {
-        return $this->TipoLugar;
+    public function getTipo() {
+        return $this->Tipo;
     }
 
-    public function setTipoLugar($TipoLugar) {
-        $this->TipoLugar = $TipoLugar;
+    public function setTipo($Tipo) {
+        $this->Tipo = $Tipo;
     }
-
 }
-
-?>

@@ -11,23 +11,35 @@ class DomicilioLocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', null, array('label' => 'Calle'))
-            ->add('DomicilioNumero', null, array('label' => 'Número'))
-            ->add('DomicilioPiso', null, array('label' => 'Piso'))
-            ->add('DomicilioPuerta', null, array('label' => 'Puerta'))
-            ->setAttribute('widget', 'domicilio')
+            ->add('DomicilioCalle', 'entity', array(
+                'label' => '',
+                'class' => 'YacareCatastroBundle:Calle',
+                'required'  => true,
+                'property' => 'Nombre'
+                ))
+            ->add('DomicilioNumero', null, array(
+                'label' => 'Nº'
+                ))
+            ->add('DomicilioPiso', null, array(
+                'label' => 'Piso'
+                ))
+            ->add('DomicilioPuerta', null, array(
+                'label' => 'Puerta'
+                ))
+            ->setAttribute('widget', 'form_horizontal')
         ;
     }
     
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'inherit_data' => true
+            'inherit_data' => true,
+            'class' => 'form_horizontal'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_basebundle_domiciliolocaltype';
+        return 'form_horizontal';
     }
 }

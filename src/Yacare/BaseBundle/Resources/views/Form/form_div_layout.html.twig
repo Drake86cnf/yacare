@@ -1,11 +1,9 @@
 {% block form_widget %}
-{% spaceless %}
     {% if compound %}
         <fieldset>{{ block('form_widget_compound') }}</fieldset>
     {% else %}
         <fieldset>{{ block('form_widget_simple') }}</fieldset>
     {% endif %}
-{% endspaceless %}
 {% endblock form_widget %}
 
         
@@ -71,8 +69,11 @@
 {% endspaceless %}
 {% endblock date_widget %}
     
-{% block domicilio_widget %}
+{% block form_horizontal_widget %}
     <div {{ block('widget_container_attributes') }}>
-        
+        {% for child in form %}
+            <span class="form_horizontal_part">{{ child.vars.label }} {{ form_widget(child) }}</span>
+        {% endfor %}
     </div>
 {% endblock %}
+    

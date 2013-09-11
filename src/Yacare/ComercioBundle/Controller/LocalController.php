@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class LocalController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConEliminar;
+
     public function __construct() {
         $this->BundleName = 'Comercio';
         $this->EntityName = 'Local';

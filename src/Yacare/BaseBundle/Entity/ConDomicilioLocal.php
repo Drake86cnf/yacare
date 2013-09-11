@@ -5,14 +5,14 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConDomicilio
+ * ConDomicilioLocal
  *
  */
-trait ConDomicilio
+trait ConDomicilioLocal
 {
     /**
-     * @var string $DomicilioCalle
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
 
@@ -34,13 +34,7 @@ trait ConDomicilio
      */
     protected $DomicilioPuerta;
     
-    /**
-     * @var integer $DomicilioCodigoPostal
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    protected $DomicilioCodigoPostal;
 
-    
     public function getDomicilio() {
         $res = $this->DomicilioCalle;
         
@@ -89,13 +83,5 @@ trait ConDomicilio
 
     public function setDomicilioPuerta($DomicilioPuerta) {
         $this->DomicilioPuerta = $DomicilioPuerta;
-    }
-
-    public function getDomicilioCodigoPostal() {
-        return $this->DomicilioCodigoPostal;
-    }
-
-    public function setDomicilioCodigoPostal($DomicilioCodigoPostal) {
-        $this->DomicilioCodigoPostal = $DomicilioCodigoPostal;
     }
 }

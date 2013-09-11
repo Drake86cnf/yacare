@@ -1,4 +1,4 @@
-body {
+body, p, label, span, div {
     cursor: default;
 }
 
@@ -109,6 +109,17 @@ fieldset .datepicker {
     font-size: 12px;
     color: red;
     cursor: default;
+}
+
+.form_horizontal_part {
+    float: left;
+    white-space: nowrap;
+    margin-right: 6px;
+    color: #333333;
+}
+
+.form_horizontal_part input {
+    width: 96px;
 }
 
 /*

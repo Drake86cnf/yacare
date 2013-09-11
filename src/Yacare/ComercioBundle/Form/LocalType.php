@@ -11,9 +11,22 @@ class LocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Propietario', null, array('label' => 'Propietario'))             
-            ->add('TipoLugar', null, array('label' => 'Tipo'))
-            ->add('DomicilioCalle', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
+            ->add('Propietario', null, array(
+                'label' => 'Propietario',
+                'required'  => true
+                ))
+            ->add('Tipo', 'choice', array(
+                'label' => 'Tipo',
+                'required'  => true,
+                'choices' => array(
+                    'Local comercial' => 'Local comercial',
+                    'Oficina comercial' => 'Oficina comercial',
+                    'Galpón' => 'Galpón',
+                    'Depósito' => 'Depósito',
+                    'Otro' => 'Otro'
+                    )
+                ))
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
                     array(
                         'data_class' => 'Yacare\ComercioBundle\Entity\Local',
                         'label' => 'Domicilio')
