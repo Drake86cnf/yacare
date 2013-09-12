@@ -1,29 +1,24 @@
 <?php
 
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\CatastroBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DomicilioType extends AbstractType
+class PartidaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', null, array(
-                'label' => 'Calle',
-                'required'  => true,
-                'attr' => array('style' => 'width: 180px;')
+            ->add('Seccion', null, array(
+                'label' => 'Sección'
                 ))
-            ->add('DomicilioNumero', null, array(
-                'label' => 'Nº'
+            ->add('Macizo', null, array(
+                'label' => 'Macizo'
                 ))
-            ->add('DomicilioPiso', null, array(
-                'label' => 'Piso'
-                ))
-            ->add('DomicilioPuerta', null, array(
-                'label' => 'Puerta'
+            ->add('Parcela', null, array(
+                'label' => 'Parcela'
                 ))
             ->setAttribute('widget', 'form_horizontal')
         ;

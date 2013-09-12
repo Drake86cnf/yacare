@@ -14,6 +14,7 @@ class Local {
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**

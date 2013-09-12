@@ -12,7 +12,7 @@ class DomicilioLocalType extends AbstractType
     {
         $builder
             ->add('DomicilioCalle', 'entity', array(
-                'label' => '',
+                'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
                 'required'  => true,
                 'property' => 'Nombre'

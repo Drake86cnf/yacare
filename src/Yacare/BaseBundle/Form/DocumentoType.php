@@ -6,25 +6,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DomicilioType extends AbstractType
+class DocumentoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', null, array(
-                'label' => 'Calle',
-                'required'  => true,
-                'attr' => array('style' => 'width: 180px;')
-                ))
-            ->add('DomicilioNumero', null, array(
-                'label' => 'Nº'
-                ))
-            ->add('DomicilioPiso', null, array(
-                'label' => 'Piso'
-                ))
-            ->add('DomicilioPuerta', null, array(
-                'label' => 'Puerta'
-                ))
+            ->add('DocumentoTipo', 'choice', array(
+                'choices'  => array(
+                    '1'  => 'DNI',
+                    '2'   => 'LE',
+                    '3'   => 'LC',
+                    '4'   => 'CI',
+                    '98' => 'CUIL',
+                    '99' => 'CUIT',
+                    ),
+                'label' => 'Tipo'))
+            ->add('DocumentoNumero', null, array('label' => 'Número'))
             ->setAttribute('widget', 'form_horizontal')
         ;
     }

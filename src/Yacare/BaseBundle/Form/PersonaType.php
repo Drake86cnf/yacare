@@ -14,28 +14,14 @@ class PersonaType extends AbstractType
             ->add('Apellido', null, array('label' => 'Apellido'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
-            ->add('DocumentoTipo', 'choice', array(
-                'choices'  => array(
-                    '1'  => 'DNI',
-                    '2'   => 'LE',
-                    '3'   => 'LC',
-                    '4'   => 'CI',
-                    '98' => 'CUIL',
-                    '99' => 'CUIT',
-                    ),
-                'label' => 'Tipo de documento'))
-            ->add('DocumentoNumero', null, array('label' => 'Número de documento'))
+            ->add('Documento', new \Yacare\BaseBundle\Form\DocumentoType(), array('label' => 'Documento'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('DomicilioCalle', null, array('label' => 'Calle'))
-            ->add('DomicilioNumero', null, array('label' => 'Número'))
-            ->add('DomicilioPiso', null, array('label' => 'Piso'))
-            ->add('DomicilioPuerta', null, array('label' => 'Puerta'))
-            ->add('DomicilioCodigoPostal', null, array('label' => 'Código postal'))
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioType(), array('label' => 'Domicilio'))
             ->add('TelefonoNumero', null, array('label' => 'Número de teléfono'))
             ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('PersonaJuridica', 'checkbox', array(

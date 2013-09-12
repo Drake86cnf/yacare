@@ -96,7 +96,12 @@ function docReady(){
 	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 
 	//chosen - improves select
-	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+	$('[data-rel="chosen"],[rel="chosen"]').chosen({
+            no_results_text: "No se encontraron resultados.",
+            placeholder_text_single: "Seleccione...",
+            placeholder_text_multiple: "Seleccione...",
+            search_contains: true
+            });
         
         //Select2 - improves select
 	//$('[data-rel="chosen"],[rel="chosen"]').select2();

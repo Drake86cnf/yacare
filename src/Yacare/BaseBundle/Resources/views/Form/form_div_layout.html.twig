@@ -72,7 +72,7 @@
 {% block form_horizontal_widget %}
     <div {{ block('widget_container_attributes') }}>
         {% for child in form %}
-            <span class="form_horizontal_part">{{ child.vars.label }} {{ form_widget(child) }}</span>
+            <span class="form_horizontal_part">{{ child.vars.label }}<br />{{ form_widget(child) }}</span>
         {% endfor %}
     </div>
 {% endblock %}

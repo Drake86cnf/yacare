@@ -28,7 +28,6 @@ class LocalType extends AbstractType
                 ))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
                     array(
-                        'data_class' => 'Yacare\ComercioBundle\Entity\Local',
                         'label' => 'Domicilio')
                     )
         ;
