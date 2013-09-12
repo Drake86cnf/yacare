@@ -13,11 +13,11 @@ class TransporteType extends AbstractType
         $builder
             ->add('Nombre', null, array('label' => 'Nombre')) 
             ->add('Titular', null, array('label' => 'Titular'))    
-            ->add('DomicilioCalle', null, array('label' => 'Calle'))
-            ->add('DomicilioNumero', null, array('label' => 'Número'))
-            ->add('DomicilioPiso', null, array('label' => 'Piso'))
-            ->add('DomicilioPuerta', null, array('label' => 'Depto'))
-            ->add('DomicilioCodigoPostal', null, array('label' => 'Código postal'))     
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioType(), 
+                    array(
+                        'data_class' => 'Yacare\ComercioBundle\Entity\Local',
+                        'label' => 'Domicilio')
+                    )     
         ;
     }
 
