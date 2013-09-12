@@ -17,13 +17,16 @@ class DomicilioType extends AbstractType
                 'attr' => array('style' => 'width: 180px;')
                 ))
             ->add('DomicilioNumero', null, array(
-                'label' => 'Nº'
+                'label' => 'Nº',
+                'required' => false
                 ))
             ->add('DomicilioPiso', null, array(
-                'label' => 'Piso'
+                'label' => 'Piso',
+                'required' => false
                 ))
             ->add('DomicilioPuerta', null, array(
-                'label' => 'Puerta'
+                'label' => 'Puerta',
+                'required' => false
                 ))
             ->setAttribute('widget', 'form_horizontal')
         ;
