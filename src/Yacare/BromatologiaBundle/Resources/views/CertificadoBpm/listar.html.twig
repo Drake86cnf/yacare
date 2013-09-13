@@ -24,7 +24,7 @@
             <td>{{ entity.FechaExamen|date("d/m/Y") }}</td>
             <td>{{ entity.Nota }}</td> 
             <td>
-            {% if entity.Nota == 6 %}
+            {% if entity.Nota > 5 %}
                     Aprobado
             {% else %}
                     Desaprobado
