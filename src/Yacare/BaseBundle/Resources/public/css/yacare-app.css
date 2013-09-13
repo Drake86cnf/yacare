@@ -134,3 +134,38 @@ fieldset .datepicker {
 .form_horizontal_part input {
     width: 80px;
 }
+
+.chosen-single, .chosen-multi, .chosen-choices {
+    background-color: rgb(255, 255, 255) !important;
+    border: 1px solid rgb(204, 204, 204) !important;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset !important;
+    background: none !important;
+    padding: 2px 4px 3px 4px !important;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.chosen-container-single .chosen-single div b {
+    margin-top: 2px !important;
+}
+
+.chosen-container {
+    
+}
+
+.chosen-container-active {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(82, 168, 236, 0.6) !important;
+}
+
+.chosen-drop {
+    border-left: 1px solid rgb(204, 204, 204) !important;
+    border-right: 1px solid rgb(204, 204, 204) !important;
+    border-bottom: 1px solid rgb(204, 204, 204) !important;
+}
+
+.chosen-choices .search-choice {
+    border-radius: 3px 3px 3px 3px !important;
+    background: none !important;
+    border: none !important;
+    background-color: #ececc4 !important;
+    padding: 5px 22px 5px 7px !important;
+}

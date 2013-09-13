@@ -11,7 +11,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Nombre y apellido</th>
+            <th></th>
+            <th>Nombre</th>
             <th>Documento</th>
             <th>Grupos</th>
         </tr>
@@ -19,7 +20,8 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-user"></i> <a href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</a></td>
+            <td><a class="btn btn-small" href="{{ path('yacare_base_persona_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
             <td>{{ entity.DocumentoNumero }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
         </tr>
