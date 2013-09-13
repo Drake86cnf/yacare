@@ -8,23 +8,23 @@
 
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
+            <th> </th>
             <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_catastro_calle_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td><a class="btn btn-small" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td>{{ entity.Nombre }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+
 {% endblock %}
