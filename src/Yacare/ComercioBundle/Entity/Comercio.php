@@ -22,8 +22,23 @@ class Comercio
     use \Yacare\TramitesBundle\Entity\ConApoderado;
     use \Yacare\ComercioBundle\Entity\ConDatosComercio;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
+     * @ORM\JoinTable(name="Comercio_Comercio_Actividad")
+     */
+    protected $ActividadesSecundarias;
+
+    
     public function __construct()
     {
         $this->ActividadesSecundarias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getActividadesSecundarias() {
+        return $this->ActividadesSecundarias;
+    }
+
+    public function setActividadesSecundarias($ActividadesSecundarias) {
+        $this->ActividadesSecundarias = $ActividadesSecundarias;
     }
 }

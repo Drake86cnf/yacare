@@ -30,6 +30,10 @@ class LocalType extends AbstractType
                     array(
                         'label' => 'Domicilio')
                     )
+            ->add('Partida', 'integer', array(
+                'label' => 'Partida Nº',
+                'required'  => false
+                ))
         ;
     }
 

@@ -17,13 +17,6 @@ trait ConDatosComercio {
      */
     protected $ActividadPrincipal;
     
-    /**
-     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
-     * @ORM\JoinTable(name="Comercio_Comercio_Actividad")
-     */
-    protected $ActividadesSecundarias;
-    
-    
     public function getLocal() {
         return $this->Local;
     }
@@ -38,13 +31,5 @@ trait ConDatosComercio {
 
     public function setActividadPrincipal($ActividadPrincipal) {
         $this->ActividadPrincipal = $ActividadPrincipal;
-    }
-
-    public function getActividadesSecundarias() {
-        return $this->ActividadesSecundarias;
-    }
-
-    public function setActividadesSecundarias($ActividadesSecundarias) {
-        $this->ActividadesSecundarias = $ActividadesSecundarias;
     }
 }

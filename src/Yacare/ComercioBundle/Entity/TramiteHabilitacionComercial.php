@@ -25,4 +25,12 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
     {
         $this->ActividadesSecundarias = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    public function getActividadesSecundarias() {
+        return $this->ActividadesSecundarias;
+    }
+
+    public function setActividadesSecundarias($ActividadesSecundarias) {
+        $this->ActividadesSecundarias = $ActividadesSecundarias;
+    }
 }
