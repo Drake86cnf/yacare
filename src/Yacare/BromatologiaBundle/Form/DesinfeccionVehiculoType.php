@@ -15,8 +15,7 @@ class DesinfeccionVehiculoType extends AbstractType
             ->add('FechaDesinfeccionVehiculo', 'date', array(
                 'years' => range(1900, 2099),
                 'widget' => 'single_text',
-                'label' => 'Fecha de desinfección'))
-            ->add('ComprobanteNumero', null, array('label' => 'Comprobante Nº'))    
+                'label' => 'Fecha de desinfección'))    
         ;
     }
 

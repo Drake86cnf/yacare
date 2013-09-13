@@ -20,8 +20,8 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Vehiculo }}</td>
-            <td>{{ entity.FechaDesinfeccionVehiculo|date("d/m/Y") }}</td>
-            <td>{{ entity.ComprobanteNumero }}</td>
+            <td>{{ entity.FechaDesinfeccionVehiculo|date("d/m/Y") }}</td>  
+            <td>{{ entity.id }}</td>
             <td>
 
         </tr>

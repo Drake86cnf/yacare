@@ -28,17 +28,12 @@ class DesinfeccionVehiculo
      * @ORM\Column(type="datetime")
      */
     private $FechaDesinfeccionVehiculo;
+   
     
-    /**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    private $ComprobanteNumero;
-    
-    
-       public function __toString() {
-        return $this->getVehiculo()->getDominio();
+     public function __toString() {
+        return 'Certificado N* ' . $this->getId() . ' de ' . $this->getVehiculo()->getDominio();
     }
+    
     
    
     public function getVehiculo() {
@@ -56,14 +51,5 @@ class DesinfeccionVehiculo
     public function setFechaDesinfeccionVehiculo(\DateTime $FechaDesinfeccionVehiculo) {
         $this->FechaDesinfeccionVehiculo = $FechaDesinfeccionVehiculo;
     }
-
-    public function getComprobanteNumero() {
-        return $this->ComprobanteNumero;
-    }
-
-    public function setComprobanteNumero($ComprobanteNumero) {
-        $this->ComprobanteNumero = $ComprobanteNumero;
-    }
-
 
     }
