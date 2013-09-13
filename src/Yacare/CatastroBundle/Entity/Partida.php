@@ -19,15 +19,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Partida
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
-
-    /**
-     * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * @var string $Seccion
@@ -161,11 +156,6 @@ class Partida
 
     public function setCalleNumeroExtension($CalleNumeroExtension) {
         $this->CalleNumeroExtension = $CalleNumeroExtension;
-    }
-    
-    public function __toString()
-    {
-        return $this->getNombre();
     }
     
     public function getMacizo() {

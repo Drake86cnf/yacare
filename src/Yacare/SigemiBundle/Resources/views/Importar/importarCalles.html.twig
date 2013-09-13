@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Yacaré - {% block title %}{% endblock %}</title>
+    <link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
+</head>
+
+<body>
+
+<h1>Se procesaron {{ importar_procesados }} registros, se importaron {{ importar_importados }} nuevos.</h1>
+
+<pre>{% for entry in log %}
+{{ entry }}
+{% endfor %}</pre>
+
+</body>
+</html>

@@ -32,7 +32,7 @@ trait Importable
         return $this->ImportSrc;
     }
     
-    public function setImportSrc(\DateTime $importSrc)
+    public function setImportSrc($importSrc)
     {
         $this->ImportSrc = $importSrc;
     }
@@ -42,7 +42,7 @@ trait Importable
         return $this->ImportId;
     }
     
-    public function setImportId(\DateTime $importId)
+    public function setImportId($importId)
     {
         $this->ImportId = $importId;
     }

@@ -14,7 +14,21 @@ class Calle
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $NombreOriginal;
+    
+    public function getNombreOriginal() {
+        return $this->NombreOriginal;
+    }
+
+    public function setNombreOriginal($NombreOriginal) {
+        $this->NombreOriginal = $NombreOriginal;
+    }
 }
