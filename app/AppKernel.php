@@ -26,7 +26,6 @@ class AppKernel extends Kernel
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
             new Yacare\CatastroBundle\YacareCatastroBundle(),
-            new Yacare\ImportarBundle\YacareImportarBundle(),
             new Yacare\OrganizacionBundle\YacareOrganizacionBundle(),
             new Yacare\TierrasBundle\YacareTierrasBundle(),
             new Yacare\ComprasBundle\YacareComprasBundle(),
