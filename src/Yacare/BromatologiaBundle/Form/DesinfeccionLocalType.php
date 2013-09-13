@@ -12,7 +12,19 @@ class DesinfeccionLocalType extends AbstractType
     {
         $builder                 
             ->add('Local', null, array('label' => 'Local')) 
-            ->add('Titular', null, array('label' => 'Propietario')) 
+            ->add('Titular', null, array('label' => 'Propietario'))
+            ->add('FechaDesinfeccionLocal', 'date', array(
+                'years' => range(1900, 2099),
+                'widget' => 'single_text',
+                'label' => 'Fecha de desinfección'))
+            ->add('TipoDesinfeccionLocal', 'choice', array(
+                'choices'   => array(
+                    '1' => 'Desinfección',
+                    '2' => 'Desinsectación',
+                    '3' => 'Desratización',
+                    ),
+                'required'  => true,
+                'label' => 'Tipo de desinfeccion'))
         ;
     }
 

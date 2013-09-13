@@ -29,6 +29,38 @@ class DesinfeccionLocal
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Local;  
+    
+     /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $FechaDesinfeccionLocal;
+    
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $TipoDesinfeccionLocal;   
+    
+    
+    public function getTipoDesinfeccionLocalNombre() {
+        switch ($this->TipoDesinfeccionLocal){
+            case 1:
+                return 'Desinfección';
+            case 2:
+                return 'Desinsectación';
+            case 3:
+                return 'Desratización';
+            default:
+                return '???';
+        }
+    }
+    
+          public function __toString() {
+        return $this->getLocal();
+    }
+    
+    
      
     public function getTitular() {
         return $this->Titular;
@@ -44,6 +76,22 @@ class DesinfeccionLocal
 
     public function setLocal($Local) {
         $this->Local = $Local;
+    }
+
+    public function getFechaDesinfeccionLocal() {
+        return $this->FechaDesinfeccionLocal;
+    }
+
+    public function setFechaDesinfeccionLocal(\DateTime $FechaDesinfeccionLocal) {
+        $this->FechaDesinfeccionLocal = $FechaDesinfeccionLocal;
+    }
+
+    public function getTipoDesinfeccionLocal() {
+        return $this->TipoDesinfeccionLocal;
+    }
+
+    public function setTipoDesinfeccionLocal($TipoDesinfeccionLocal) {
+        $this->TipoDesinfeccionLocal = $TipoDesinfeccionLocal;
     }
 
 

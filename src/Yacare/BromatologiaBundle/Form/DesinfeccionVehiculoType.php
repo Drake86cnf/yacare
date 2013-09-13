@@ -12,7 +12,7 @@ class DesinfeccionVehiculoType extends AbstractType
     {
         $builder                 
             ->add('Vehiculo', null, array('label' => 'Vehículo')) 
-            ->add('FechaDesinfeccion', 'date', array(
+            ->add('FechaDesinfeccionVehiculo', 'date', array(
                 'years' => range(1900, 2099),
                 'widget' => 'single_text',
                 'label' => 'Fecha de desinfección'))

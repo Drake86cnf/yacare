@@ -27,7 +27,7 @@ class DesinfeccionVehiculo
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
-    private $FechaDesinfeccion;
+    private $FechaDesinfeccionVehiculo;
     
     /**
      * @var integer
@@ -49,12 +49,12 @@ class DesinfeccionVehiculo
         $this->Vehiculo = $Vehiculo;
     }
 
-    public function getFechaDesinfeccion() {
-        return $this->FechaDesinfeccion;
+    public function getFechaDesinfeccionVehiculo() {
+        return $this->FechaDesinfeccionVehiculo;
     }
 
-    public function setFechaDesinfeccion(\DateTime $FechaDesinfeccion) {
-        $this->FechaDesinfeccion = $FechaDesinfeccion;
+    public function setFechaDesinfeccionVehiculo(\DateTime $FechaDesinfeccionVehiculo) {
+        $this->FechaDesinfeccionVehiculo = $FechaDesinfeccionVehiculo;
     }
 
     public function getComprobanteNumero() {

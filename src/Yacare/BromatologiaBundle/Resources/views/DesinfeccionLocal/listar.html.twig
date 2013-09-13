@@ -12,7 +12,9 @@
     <thead>
         <tr>            
             <th>Local</th>
-            <th>Titular</th>        
+            <th>Titular</th>
+            <th>Fecha</th>
+            <th>Tipo Desinfeccion</th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +22,9 @@
         <tr>
             <td><a href="{{ path('yacare_bromatologia_desinfeccionlocal_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Local }}</td>
             <td>{{ entity.Titular }}</td>
+            <td>{{ entity.FechaDesinfeccionLocal|date("d/m/Y") }}</td>
+            <td>{{ entity.TipoDesinfeccionLocalNombre }}</td>
             <td>
-
         </tr>
     {% endfor %}
     </tbody>
