@@ -14,11 +14,6 @@ class VeterinarioType extends AbstractType
             ->add('Veterinario', null, array('label' => 'Veterinario')) 
             ->add('Matricula', null, array('label' => 'Matrícula')) 
             ->add('Clinica', null, array('label' => 'Clinica')) 
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
-                    array(
-                        'data_class' => 'Yacare\ZoonosisBundle\Entity\Veterinario',
-                        'label' => 'Domicilio')
-                    ) 
         ;
     }
 

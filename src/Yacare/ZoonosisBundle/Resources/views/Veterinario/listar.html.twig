@@ -14,7 +14,6 @@
             <th>Veterinario</th>
             <th>Matrícula</th>        
             <th>Clinica</th> 
-            <th>Domicilio</th> 
         </tr>
     </thead>
     <tbody>
@@ -23,7 +22,6 @@
             <td><a href="{{ path('yacare_zoonosis_veterinario_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Veterinario }}</td>
             <td>{{ entity.Matricula }}</td>
             <td>{{ entity.Clinica }}</td>
-            <td>{{ entity.Domicilio }}</td>
             <td>
         </tr>
     {% endfor %}

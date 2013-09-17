@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Veterinario
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -31,11 +30,11 @@ class Veterinario
      */
     private $Matricula;
     
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
+     /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $Clinica;
+    protected $Clinica;
     
     
       public function __toString() {
