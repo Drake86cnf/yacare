@@ -1,0 +1,64 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Microchip{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Microchip</th>
+            <th>Fecha Aplicacion</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Raza</th>
+            <th>Sexo</th>
+            <th>Estado</th>
+            <th>Pelaje</th>
+            <th>Color</th>
+            <th>Peso</th>
+            <th>Fecha Nacimiento</th>
+            <th>Origen</th>
+            <th>Dueño</th>
+            <th>Domicilio</th>
+            <th>Cerco</th>
+            <th>Contacto ALternativo</th>
+            <th>Veterinario</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_zoonosis_microchip_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Microchip }}</td>
+            <td>{{ entity.FechaAplicacion|date("d/m/Y") }}</td>
+            <td>{{ entity.Nombre }}</td> 
+            <td>{{ entity.TipoAnimalNombre }}</td>
+            <td>{{ entity.Raza }}</td>
+            <td>{{ entity.SexoNombre }}</td>
+            <td>{{ entity.EstadoNombre }}</td>
+            <td>{{ entity.PelajeNombre }}</td>
+            <td>{{ entity.Color }}</td>
+            <td>{{ entity.Peso }}</td>
+            <td>{{ entity.FechaNacimiento|date("d/m/Y") }}</td>
+            <td>{{ entity.OrigenNombre }}</td>
+            <td>{{ entity.Dueno }}</td>
+            <td>{{ entity.Domicilio }}</td>
+            <td>{{ entity.CercoNombre }}</td>
+            <td>{{ entity.ContactoAlternativo }}</td>
+            <td>{{ entity.Veterinario }}</td>           
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_zoonosis_microchip_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo microchip</a>
+{% endblock %}
