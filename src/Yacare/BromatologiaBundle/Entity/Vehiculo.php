@@ -59,6 +59,8 @@ class Vehiculo
         return $this->getDominio();
     }
     
+    
+    
     public function getDominio() {
         return $this->Dominio;
     }
