@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      },
  *      indexes={
  *          @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
- *          @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt" }),
+ *          @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
  *          @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
  *      }
  * )
