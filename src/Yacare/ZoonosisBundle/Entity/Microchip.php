@@ -194,6 +194,12 @@ class Microchip
     }
         
    
+     public function __toString() {
+        return 'Microchip N° ' . $this->getMicrochip() . ' de ' . $this->getNombre();
+    }
+    
+    
+    
     public function getMicrochip() {
         return $this->Microchip;
     }
