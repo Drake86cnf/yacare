@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Roles{% endblock %}
+{% block title %}Grupos{% endblock %}
 
 {% block content_header '' %}
 
@@ -11,15 +11,15 @@
 <table class="table">
     <thead>
         <tr>
+            <th> </th>
             <th>Nombre</th>
-            <th>Código</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="icon-user"></i> <a href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
-            <td>{{ entity.Codigo }}</td>
+            <td><a class="btn btn-small" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td>{{ entity.Nombre }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -27,5 +27,5 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn"><i class="icon-plus"></i> Alta de nuevo rol</a>
+<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo grupo</a>
 {% endblock %}

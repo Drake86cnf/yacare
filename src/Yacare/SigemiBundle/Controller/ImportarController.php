@@ -19,6 +19,7 @@ class ImportarController extends Controller
         mb_internal_encoding('UTF-8');
         set_time_limit(6000);
         ini_set('display_errors', 1);
+        ini_set('memory_limit', '2048M');
         
         $response = new StreamedResponse();
         $response->setCallback(function () {
@@ -192,6 +193,8 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
             
                 $em->persist($entity);
                 $importar_importados++;
+            } else {
+                echo '*';
             }
             
 
@@ -201,6 +204,7 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
             if($importar_procesados >= 100000)
                 break;
             
+            $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
             $em->flush();
 
             if(($importar_procesados % 100) == 0) {
