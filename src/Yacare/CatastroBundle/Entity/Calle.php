@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\CatastroBundle\Entity\Calle
  *
- * @ORM\Table(name="Catastro_Calle")
+ * @ORM\Table(name="Catastro_Calle",
+ *      indexes={
+ *          @ORM\Index(name="Catastro_Calle_Nombre", columns={"Nombre"})
+ *      }
+ * )
  * @ORM\Entity
  */
 class Calle

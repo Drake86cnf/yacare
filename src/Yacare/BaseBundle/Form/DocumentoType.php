@@ -17,6 +17,7 @@ class DocumentoType extends AbstractType
                     '2'   => 'LE',
                     '3'   => 'LC',
                     '4'   => 'CI',
+                    '5'   => 'Pasaporte',
                     '98' => 'CUIL',
                     '99' => 'CUIT',
                     ),

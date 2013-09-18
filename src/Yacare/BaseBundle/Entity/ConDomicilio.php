@@ -11,34 +11,49 @@ use Doctrine\ORM\Mapping as ORM;
 trait ConDomicilio
 {
     /**
-     * @var string $DomicilioCalle
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
+    
+    /*
+     * 
+UPDATE Base_Persona SET DomicilioCalleNombre=DomicilioCalle;
+UPDATE Base_Persona SET DomicilioCalle=NULL;
+ALTER TABLE Base_Persona CHANGE DomicilioCalle DomicilioCalle INT NULL;
+UPDATE Base_Persona SET DomicilioCalle=(SELECT id FROM Catastro_Calle WHERE Catastro_Calle.Nombre=Base_Persona.DomicilioCalleNombre);
+
+     */
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $DomicilioCalleNombre;
 
     /**
-     * @var integer $DomicilioNumero
+     * @var integer
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioNumero;
 
     /**
-     * @var integer $DomicilioPiso
+     * @var integer
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPiso;
 
     /**
-     * @var integer $DomicilioPuerta
+     * @var integer
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPuerta;
     
     /**
-     * @var integer $DomicilioCodigoPostal
+     * @var integer
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    protected $DomicilioCodigoPostal;
+    protected $DomicilioCodigoPostal = '9420';
 
     
     public function getDomicilio() {
@@ -59,12 +74,21 @@ trait ConDomicilio
     }
     
 
+
     public function getDomicilioCalle() {
         return $this->DomicilioCalle;
     }
 
     public function setDomicilioCalle($DomicilioCalle) {
         $this->DomicilioCalle = $DomicilioCalle;
+    }
+    
+    public function getDomicilioCalleNombre() {
+        return $this->DomicilioCalleNombre;
+    }
+
+    public function setDomicilioCalleNombre($DomicilioCalleNombre) {
+        $this->DomicilioCalleNombre = $DomicilioCalleNombre;
     }
 
     public function getDomicilioNumero() {

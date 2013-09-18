@@ -11,8 +11,13 @@ class DomicilioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', null, array(
+            ->add('DomicilioCalle', 'entity', array(
                 'label' => 'Calle',
+                'class' => 'YacareCatastroBundle:Calle',
+                'required'  => true
+                ))
+            ->add('DomicilioCalleNombre', null, array(
+                'label' => 'Otra',
                 'required'  => true,
                 'attr' => array('style' => 'width: 180px;')
                 ))
@@ -32,7 +37,7 @@ class DomicilioType extends AbstractType
         ;
     }
     
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'inherit_data' => true,

@@ -5,6 +5,34 @@ namespace Yacare\BaseBundle\Helper;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class StringHelper {
+    
+    static public function ObtenerDocumento($text) {
+        $Partes = split('[\: ]+', $text);
+        $Tipo = '';
+        $Numero = '';
+
+        foreach($Partes as $Parte) {
+            $v = trim($Parte);
+            if($v == '') {
+                // Ignorar
+            } else if($v == 'DU') {
+                $Tipo = 'DNI';
+            } else if($v == 'DU'  || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
+                $Tipo = $v;
+            } else {
+                $Numero = $v;
+            }
+            
+            if(strpos($Numero, '-'))
+                $Tipo = 'CUIL';
+            else if(!$Tipo || $Tipo = 'SC')
+                $Tipo = 'DNI';
+        }
+
+        return array($Tipo, ltrim($Numero, '0'));
+    }
+
+    
     static public function Desoraclizar($text) {
         return StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text)));
     }
@@ -12,7 +40,7 @@ class StringHelper {
     static public function ProperCase($string, 
             $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"),
             $exceptions = array(
-                'de', '1ro.', '1ra.', '2do.', '2da.', 'del',
+                'de', 'y', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
                 'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
                 )) {
@@ -51,7 +79,7 @@ class StringHelper {
     
     
     static public function ArreglarProblemasConocidos($text) {
-        $text = ' ' . $text . ' ';
+        $text = ' ' . str_ireplace('  ', ' ', str_ireplace('.', '. ', $text)) . ' ';
         
         $remplazos = array(
             // Nombres de calles
@@ -75,12 +103,24 @@ class StringHelper {
             'Willian Alfredo Bishop' => 'William Alfredo Bishop',
             'María Agdalena Macacha Guemez' => 'María Magdalena "Macacha" Güemes',
             'Womska' => 'Wonska',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
+            'TELEFONICA DE ARGENT. S.A' => 'Telefónica de Argentina S.A.',
+            '.' => '. ',
+            'Nro.' => 'Nº',
+            'S. A. G. C.' => 'S.A.G.C.',
+            'S. A.' => 'S.A.',
+            'S. R. L.' => 'S.R.L.',
+            'A. F. I. P.' => 'A.F.I.P.',
+            'U. O. C. R. A.' => 'U.O.C.R.A.',
+            'I. N. T. A.' => 'I.N.T.A.',
+            'Q. R. U.' => 'Q.R.U.',
+            'I. P. V.' => 'I.P.V.',
+            'R. Gde.' => 'Río Grande',
+            'O. S. N.' => 'O.S.N.',
+            'I. S. S. T.' => 'I.S.S.T.',
+            'A. S. I. M. R. A.' => 'A.S.I.M.R.A.',
+            'Srl' => 'S.R.L.',
+            'Esc. N 8' => 'Esc. Nº 8',
+            'y Cia. Sa' => 'y Cía. S.A.',
             '' => '',
             '' => '',
             '' => '',
@@ -110,6 +150,10 @@ class StringHelper {
             'panama' => 'panamá',
             'peru' => 'perú',
             'lujan' => 'luján',
+            'cordoba' => 'córdoba',
+            '.' => '',
+            'angeles' => 'ángeles',
+            '' => '',
             '' => '',
             '' => '',
             // Nombres
@@ -136,6 +180,15 @@ class StringHelper {
             'jeronimo' => 'jerónimo',
             'maximo' => 'máximo',
             'joaquin' => 'joaquín',
+            'jesus' => 'jesús',
+            'cesar' => 'césar',
+            'adrian' => 'adrián',
+            'jesica' => 'jésica',
+            'andres' => 'andrés',
+            'veronica' => 'verónica',
+            'nelida' => 'nélida',
+            'noemi' => 'noemí',
+            'matias' => 'matías',
             '' => '',
             '' => '',
             // Apellidos
@@ -158,6 +211,7 @@ class StringHelper {
             'lopez' => 'lópez',
             'bolivar' => 'bolívar',
             'chavez' => 'chávez',
+            'chaves' => 'cháves',
             'sanchez' => 'sánchez',
             'benitez' => 'benítez',
             'echeverria' => 'echeverría',
@@ -168,6 +222,31 @@ class StringHelper {
             'cortazar' => 'cortázar',
             'galvez' => 'gálvez',
             'azcuenaga' => 'azcuénaga',
+            'barria' => 'barría',
+            'chacon' => 'chacón',
+            'alvarez' => 'álvarez',
+            'carcamo' => 'cárcamo',
+            'loffler' => 'löffler',
+            'monaco' => 'mónaco',
+            'mu;oz' => 'muñoz',
+            'avila' => 'ávila',
+            'oyarzun' => 'oyarzún',
+            'marquez' => 'márquez',
+            'velez' => 'vélez',
+            'almiron' => 'almirón',
+            'gimenez' => 'giménez',
+            'jimenez' => 'jiménez',
+            'suarez' => 'suárez',
+            'roldan' => 'roldán',
+            'monzon' => 'monzón',
+            'cardenas' => 'cárdenas',
+            'mejias' => 'mejías',
+            'diaz' => 'díaz',
+            'dias' => 'días',
+            'rios' => 'ríos',
+            'paez' => 'páez',
+            'mendez' => 'méndez',
+            'nuñez' => 'núñez',
             '' => '',
             '' => '',
             // Otras palabras
@@ -195,6 +274,10 @@ class StringHelper {
             'heroes' => 'héroes',
             'comun' => 'común',
             'cauquen' => 'cauquén',
+            'asociacion' => 'asociación',
+            'telefonica' => 'telefónica',
+            '' => '',
+            '' => '',
             '' => '',
             '' => '',
             );

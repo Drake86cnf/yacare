@@ -9,7 +9,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * YacarSae\BaseBundle\Entity\Persona
  *
- * @ORM\Table(name="Base_Persona", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
+ * @ORM\Table(name="Base_Persona", 
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ *      },
+ *      indexes={
+ *          @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
+ *          @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt" }),
+ *          @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
+ *      }
+ * )
  * @ORM\Entity()
  */
 class Persona implements UserInterface, \Serializable
@@ -85,10 +94,10 @@ class Persona implements UserInterface, \Serializable
     
 
     /**
-     * @var string $PersonaJuridica
+     * @var string
      * @ORM\Column(type="boolean")
      */
-    private $PersonaJuridica;
+    private $PersonaJuridica = 0;
     
     /**
      * @var string $RazonSocial
@@ -97,16 +106,22 @@ class Persona implements UserInterface, \Serializable
     private $RazonSocial = null;
 
     /**
-     * @var integer $DocumentoTipo
+     * @var integer
      * @ORM\Column(type="integer")
      */
     private $DocumentoTipo;
 
     /**
-     * @var integer $DocumentoNumero
+     * @var string
      * @ORM\Column(type="integer")
      */
     private $DocumentoNumero;
+    
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Cuilt;
 
     /**
      * @var integer $TelefonoNumero
@@ -249,6 +264,14 @@ class Persona implements UserInterface, \Serializable
 
     public function setDocumentoNumero($DocumentoNumero) {
         $this->DocumentoNumero = $DocumentoNumero;
+    }
+    
+    public function getCuilt() {
+        return $this->Cuilt;
+    }
+
+    public function setCuilt($Cuilt) {
+        $this->Cuilt = $Cuilt;
     }
 
     public function getTelefonoNumero() {
