@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class StringHelper {
     
     static public function ObtenerDocumento($text) {
-        $Partes = split('[\: ]+', $text);
+        $Partes = explode('[\: ]+', $text);
         $Tipo = '';
         $Numero = '';
 

@@ -16,15 +16,6 @@ trait ConDomicilio
      */
     protected $DomicilioCalle;
     
-    /*
-     * 
-UPDATE Base_Persona SET DomicilioCalleNombre=DomicilioCalle;
-UPDATE Base_Persona SET DomicilioCalle=NULL;
-ALTER TABLE Base_Persona CHANGE DomicilioCalle DomicilioCalle INT NULL;
-UPDATE Base_Persona SET DomicilioCalle=(SELECT id FROM Catastro_Calle WHERE Catastro_Calle.Nombre=Base_Persona.DomicilioCalleNombre);
-
-     */
-    
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)

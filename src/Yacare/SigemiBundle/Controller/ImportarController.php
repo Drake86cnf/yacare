@@ -126,7 +126,7 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
             }
             
             if($Documento[0] == 'CUIL') {
-                $Partes = split('-', $Documento[1]);
+                $Partes = explode('-', $Documento[1]);
                 if(count($Partes) == 3) {
                     $Documento[0] = 'DNI';
                     $Documento[1] = (int)($Partes[1]);
