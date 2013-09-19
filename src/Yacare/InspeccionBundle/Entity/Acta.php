@@ -101,4 +101,21 @@ class Acta
     public function setObs($Obs) {
         $this->Obs = $Obs;
     }
+    
+    public function getSubTipo() {
+        return $this->SubTipo;
+    }
+
+    public function getResponsableNombre() {
+        return $this->ResponsableNombre;
+    }
+
+    public function setSubTipo($SubTipo) {
+        $this->SubTipo = $SubTipo;
+    }
+
+    public function setResponsableNombre($ResponsableNombre) {
+        $this->ResponsableNombre = $ResponsableNombre;
+    }
+
 }
