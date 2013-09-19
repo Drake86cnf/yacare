@@ -24,9 +24,9 @@ class ImportarController extends Controller
         $cant = 1000;
         
         mb_internal_encoding('UTF-8');
-        set_time_limit(6000);
+        set_time_limit(600);
         ini_set('display_errors', 1);
-        ini_set('memory_limit', '2048M');
+        ini_set('memory_limit', '1024M');
         
         $response = new StreamedResponse();
         $response->setCallback(function () use ($desde, $cant) {
@@ -168,9 +168,9 @@ WHERE rnum >=" . $desde . "
             
             // Arreglar errores conocidos
             if($Row['CODIGO_CALLE'] == 380)
-                $Row['CODIGO_CALLE'] = null;
-            else if($Row['CODIGO_CALLE'] == 384)
-                $Row['CODIGO_CALLE'] = 389;
+                $Row['CODIGO_CALLE'] = null;     // No existe
+            else if($Row['CODIGO_CALLE'] == 384) // Santa María Dominga Mazzarello
+                $Row['CODIGO_CALLE'] = 389;      // Este es el código correcto
             
             
             $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
