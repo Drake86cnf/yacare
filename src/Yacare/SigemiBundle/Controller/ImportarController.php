@@ -8,22 +8,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yacare\BaseBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ * @Route("importar/")
+ */
 class ImportarController extends Controller
 {
     /**
-     * @Route("/importar/personas/")
+     * @Route("personas/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
      */
-    public function importarPersonasAction()
+    public function importarPersonasAction($desde = 0)
     {
+        $request = $this->getRequest();
+        $desde = (int)($request->query->get('desde'));
+        $cant = 300;
+        
         mb_internal_encoding('UTF-8');
         set_time_limit(6000);
         ini_set('display_errors', 1);
         ini_set('memory_limit', '2048M');
         
         $response = new StreamedResponse();
-        $response->setCallback(function () {
+        $response->setCallback(function () use ($desde, $cant) {
         
+        echo "Iniciando desde $desde<br />";
+            
         echo '<pre>';
             
         $TipoDocs = array(
@@ -44,7 +53,12 @@ class ImportarController extends Controller
         $importar_importados = 0;
         $importar_procesados = 0;
         $log = array();
-        foreach($Dbmunirg->query("SELECT
+        
+        $sql = "
+SELECT * FROM (
+    SELECT a.*, ROWNUM rnum FROM (
+
+SELECT
     a.IND_LEYENDA,
     a.IND_IDENTIFICACION,
     a.NOMBRE,
@@ -98,7 +112,13 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
     AND d.LOCALIDAD='RIO GRANDE'
     AND a.NOMBRE NOT LIKE '?%'
     AND LENGTH(doc.DOCUMENTO_NRO) > 5
-") as $Row) {
+
+) a 
+    WHERE ROWNUM <" . ($desde + $cant) . ")
+WHERE rnum >=" . $desde . "
+";
+        
+        foreach($Dbmunirg->query($sql) as $Row) {
             
             $Documento = StringHelper::ObtenerDocumento($Row['IND_IDENTIFICACION']);
             $Apellido = StringHelper::Desoraclizar($Row['Q_APELLIDOS']);
@@ -207,7 +227,7 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
             $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
             $em->flush();
 
-            if(($importar_procesados % 1000) == 0) {
+            if(($importar_procesados % 100) == 0) {
                 ob_flush();
                 flush();
                 
@@ -220,6 +240,9 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
         flush();
         
         $em->getConnection()->commit();
+        
+        if($importar_procesados > 0)
+            echo "<script>parent.location='?desde=" . ($desde + $cant) . "'</script>";
         
         });
 
@@ -234,7 +257,7 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
     
     
     /**
-     * @Route("/importar/calles/")
+     * @Route("calles/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
      */
     public function importarCallesAction()
