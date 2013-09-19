@@ -207,7 +207,7 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
             $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
             $em->flush();
 
-            if(($importar_procesados % 100) == 0) {
+            if(($importar_procesados % 1000) == 0) {
                 ob_flush();
                 flush();
                 

@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Inspeccion_Acta")
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="SubTipo", type="string")
+ * @ORM\DiscriminatorColumn(name="Tipo", type="integer")
  * @ORM\DiscriminatorMap({
- *      "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
- *      "\Yacare\BromatologiaBundle\Entity\ActaRutina" = "\Yacare\BromatologiaBundle\Entity\ActaRutina"
+ *      1 = "\Yacare\InspeccionBundle\Entity\Acta",
+ *      2 = "\Yacare\BromatologiaBundle\Entity\ActaRutina"
  * })
  */
 class Acta
@@ -26,6 +26,12 @@ class Acta
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")
      */
     protected $Talonario;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $SubTipo;
     
     /**
      * @var int
