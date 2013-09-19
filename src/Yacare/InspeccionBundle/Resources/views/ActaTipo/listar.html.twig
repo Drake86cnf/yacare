@@ -1,0 +1,33 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Tipos de acta{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.Departamento }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo tipo de acta</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Talonario de actas{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo talonario de actas{% endif %}</legend>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
+	<a class="btn" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+    </div>
+</form>
+
+{% endblock %}
