@@ -85,6 +85,21 @@ class Partida
      */
     private $CalleNumeroExtension;
     
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Zonificacion;
+    
+    
+    /**
+     * @var
+     * @ORM\Column(type="integer")
+     */
+    private $Legajo;
+    
+    
     public function getNombre() {
         $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
         return $this->Nombre;
@@ -172,5 +187,13 @@ class Partida
 
     public function setParcela($Parcela) {
         $this->Parcela = $Parcela;
+    }
+    
+    public function getZonificacion() {
+        return $this->Zonificacion;
+    }
+
+    public function setZonificacion($Zonificacion) {
+        $this->Zonificacion = $Zonificacion;
     }
 }

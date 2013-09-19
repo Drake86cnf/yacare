@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="SubTipo", type="string")
  * @ORM\DiscriminatorMap({
- *      "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta"
+ *      "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
+ *      "\Yacare\BromatologiaBundle\Entity\ActaRutina" = "\Yacare\BromatologiaBundle\Entity\ActaRutina"
  * })
  */
 class Acta
@@ -42,6 +43,12 @@ class Acta
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $FuncionarioPrincipal;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $ResponsableNombre;
 
     /**
      * @var string
