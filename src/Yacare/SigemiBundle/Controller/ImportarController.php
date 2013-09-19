@@ -199,7 +199,6 @@ WHERE rnum >=" . $desde . "
                 $entity->setNombre($Nombre);
                 $entity->setApellido($Apellido);
                 $entity->setPersonaJuridica($PersJur);
-                $entity->setDocumentoTipo($TipoDocs[$Documento[0]]);
                 $entity->setDocumentoNumero($Documento[1]);
                 $entity->setDomicilioCodigoPostal('9420');
                 if($Row['CODIGO_CALLE'])
@@ -219,6 +218,10 @@ WHERE rnum >=" . $desde . "
                 echo '*';
             }
             
+            // Campos que se actualizan siempre
+            $entity->setDocumentoTipo($TipoDocs[$Documento[0]]);
+            $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
+            
 
             echo $Cuilt . ' / ' . $Documento[0] . ' ' . $Documento[1] . ': ' . $NombreVisible . "\r\n";
             $importar_procesados++;
@@ -226,7 +229,6 @@ WHERE rnum >=" . $desde . "
             if($importar_procesados >= 100000)
                 break;
             
-            $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
             $em->flush();
 
             if(($importar_procesados % 100) == 0) {
