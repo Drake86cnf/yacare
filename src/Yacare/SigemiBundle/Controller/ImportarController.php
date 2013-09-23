@@ -37,6 +37,7 @@ class ImportarController extends Controller
             
         $TipoDocs = array(
             'DNI' => 1,
+            'CF' => 1,
             'LE' => 2,
             'LC' => 3,
             'CI' => 4,
@@ -119,7 +120,6 @@ WHERE rnum >=" . $desde . "
 ";
         
         foreach($Dbmunirg->query($sql) as $Row) {
-            
             $Documento = StringHelper::ObtenerDocumento($Row['IND_IDENTIFICACION']);
             $Apellido = StringHelper::Desoraclizar($Row['Q_APELLIDOS']);
             $Nombre = StringHelper::Desoraclizar($Row['Q_NOMBRES']);
@@ -154,23 +154,58 @@ WHERE rnum >=" . $desde . "
                 }
             }
             
-            if(!$Nombre && !$Apellido)
+            if(!$Nombre && !$Apellido) {
                 $Apellido = StringHelper::Desoraclizar($Row['NOMBRE']);
+            }
             
-            if($RazonSocial)
+            if($RazonSocial) {
                 $NombreVisible = $RazonSocial;
-            else if($Nombre)
+            } else if($Nombre) {
                 $NombreVisible = $Apellido . ', ' . $Nombre;
-            else
+            } else {
                 $NombreVisible = $Apellido;
+            }
             
             $Row['TG06100_ID'] = (int)($Row['TG06100_ID']);
             
             // Arreglar errores conocidos
-            if($Row['CODIGO_CALLE'] == 380)
-                $Row['CODIGO_CALLE'] = null;     // No existe
-            else if($Row['CODIGO_CALLE'] == 384) // Santa María Dominga Mazzarello
-                $Row['CODIGO_CALLE'] = 389;      // Este es el código correcto
+            if($Row['CODIGO_CALLE'] == 380) {
+                $Row['CODIGO_CALLE'] = null;            // No existe
+            } else if($Row['CODIGO_CALLE'] == 384) {    // Santa María Dominga Mazzarello
+                $Row['CODIGO_CALLE'] = 389;             // Este es el código correcto
+            } else if($Row['CODIGO_CALLE'] == 454) {    // Juana Manuela Gorriti
+                $Row['CODIGO_CALLE'] = 249;
+            } else if($Row['CODIGO_CALLE'] == 1482) {   // General Villegas
+                $Row['CODIGO_CALLE'] = 211;
+            } else if($Row['CODIGO_CALLE'] == 724) {    // Remolcador Guaraní
+                $Row['CODIGO_CALLE'] = 69;
+            } else if($Row['CODIGO_CALLE'] == 567) {    // Neuquén
+                $Row['CODIGO_CALLE'] = 144;
+            } else if((int)($Row['CODIGO_CALLE']) == 0 || $Row['CODIGO_CALLE'] == 1748) {  // ???
+                $Row['CODIGO_CALLE'] = null;
+            } else if($Row['CODIGO_CALLE'] == 1157) {   // 25 de Mayo
+                $Row['CODIGO_CALLE'] = 224;
+            } else if($Row['CODIGO_CALLE'] == 474) {    // Rosales
+                $Row['CODIGO_CALLE'] = 174;
+            } else if($Row['CODIGO_CALLE'] == 3247) {   // Luis Garibaldi Honte
+                $Row['CODIGO_CALLE'] = 285;
+            } else if($Row['CODIGO_CALLE'] == 1768) {   // Obispo Trejo
+                $Row['CODIGO_CALLE'] = 294;
+            } else if($Row['CODIGO_CALLE'] == 1153) {   // José Hernández
+                $Row['CODIGO_CALLE'] = 90;
+            } else if($Row['CODIGO_CALLE'] == 1398 || $Row['CODIGO_CALLE'] == 1381) {   // Belisario Roldán
+                $Row['CODIGO_CALLE'] = 173;
+            } else if($Row['CODIGO_CALLE'] == 1506) {   // Tomas Roldán
+                $Row['CODIGO_CALLE'] = 53;
+            } else if($Row['CODIGO_CALLE'] == 718) {    // Libertad
+                $Row['CODIGO_CALLE'] = 116;
+            } else if($Row['CODIGO_CALLE'] == 1949) {   // Juan Bautista Thorne
+                $Row['CODIGO_CALLE'] = 197;
+            } else if($Row['CODIGO_CALLE'] == 857) {    // Gobernador Paz
+                $Row['CODIGO_CALLE'] = 67;
+            } else if($Row['CODIGO_CALLE'] == 655) {    // Estrada
+                $Row['CODIGO_CALLE'] = 55;
+            }
             
             
             $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
@@ -201,16 +236,19 @@ WHERE rnum >=" . $desde . "
                 $entity->setPersonaJuridica($PersJur);
                 $entity->setDocumentoNumero($Documento[1]);
                 $entity->setDomicilioCodigoPostal('9420');
-                if($Row['CODIGO_CALLE'])
+                if($Row['CODIGO_CALLE']) {
                     $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $Row['CODIGO_CALLE']));
+                }
                 $entity->setDomicilioCalleNombre(StringHelper::Desoraclizar($Row['CALLE']));
                 $entity->setDomicilioNumero($Row['NUMERO']);
                 $entity->setDomicilioPiso($Row['PISO']);
                 $entity->setDomicilioPuerta($Row['DEPARTAMENTO']);
-                if($Row['Q_SEXO'] == 'F')
+                if($Row['Q_SEXO'] == 'F') {
                     $entity->setGenero(1);
-                if($Cuilt)
+                }
+                if($Cuilt) {
                     $entity->setCuilt ($Cuilt);
+                }
             
                 $em->persist($entity);
                 $importar_importados++;
@@ -245,10 +283,11 @@ WHERE rnum >=" . $desde . "
         
         $em->getConnection()->commit();
         
-        if($importar_procesados > 0)
+        if($importar_procesados > 0) {
             echo "<script>parent.location='?desde=" . ($desde + $cant) . "'</script>";
+        }
         
-        });
+        }); // anonymous function
 
         return $response;
         
