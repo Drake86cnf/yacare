@@ -14,7 +14,8 @@ class DomicilioType extends AbstractType
             ->add('DomicilioCalle', 'entity', array(
                 'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
-                'required'  => true
+                'required'  => false,
+                'empty_value' => 'Otra (escribir a continuación)'
                 ))
             ->add('DomicilioCalleNombre', null, array(
                 'label' => 'Otra',

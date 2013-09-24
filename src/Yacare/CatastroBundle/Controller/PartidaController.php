@@ -16,12 +16,6 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     //UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ', ParcelaNum, ParcelaAlfa),
     //      Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
     
-    function __construct() {
-        $this->BundleName = 'Catastro';
-        $this->EntityName = 'Partida';
-        parent::__construct();
-    }
-    
     /**
      * @Route("listar/")
      * @Template()
@@ -31,13 +25,15 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $filtro_seccion = $request->query->get('filtro_seccion');
         $filtro_macizo = $request->query->get('filtro_macizo');
         
-        if($filtro_seccion == '-')
+        if($filtro_seccion == '-') {
             $this->Where .= " AND r.Seccion=''";
-        else if($filtro_seccion)
+        } else if($filtro_seccion) {
             $this->Where .= " AND r.Seccion='$filtro_seccion'";
+        }
         
-        if($filtro_macizo)
+        if($filtro_macizo) {
             $this->Where .= " AND r.Macizo='$filtro_macizo'";
+        }
 
         $res = parent::listarAction();
         

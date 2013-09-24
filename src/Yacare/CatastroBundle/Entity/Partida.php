@@ -13,13 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  * UPDATE Catastro_Partida 
 	SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);
  * UPDATE Catastro_Partida 
-	SET CalleNumero=NULL WHERE CalleNumero=0;
+	SET DomicilioNumero=NULL WHERE DomicilioNumero=0;
  * 
  */
 class Partida
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -66,24 +67,11 @@ class Partida
      */
     private $Parcela;
 
-    
-     /**
-     * @ORM\ManyToOne(targetEntity="Calle")
-     * @ORM\JoinColumn(name="Calle", referencedColumnName="id")
-     */
-    protected $Calle;
-
     /**
-     * @var string $CalleNumero
-     * @ORM\Column(type="integer", nullable=true)
+     * @var int
+     * @ORM\Column(type="integer")
      */
-    private $CalleNumero;
-    
-    /**
-     * @var string $CalleNumeroExtension
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $CalleNumeroExtension;
+    private $UnidadFuncional;
     
     
     /**
@@ -91,6 +79,12 @@ class Partida
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Zonificacion;
+    
+    /**
+     * @var
+     * @ORM\Column(type="integer")
+     */
+    private $Numero;
     
     
     /**
@@ -149,30 +143,6 @@ class Partida
         $this->ParcelaNum = $ParcelaNum;
     }
 
-    public function getCalle() {
-        return $this->Calle;
-    }
-
-    public function setCalle($Calle) {
-        $this->Calle = $Calle;
-    }
-
-    public function getCalleNumero() {
-        return $this->CalleNumero;
-    }
-
-    public function setCalleNumero($CalleNumero) {
-        $this->CalleNumero = $CalleNumero;
-    }
-
-    public function getCalleNumeroExtension() {
-        return $this->CalleNumeroExtension;
-    }
-
-    public function setCalleNumeroExtension($CalleNumeroExtension) {
-        $this->CalleNumeroExtension = $CalleNumeroExtension;
-    }
-    
     public function getMacizo() {
         return $this->Macizo;
     }
@@ -195,5 +165,29 @@ class Partida
 
     public function setZonificacion($Zonificacion) {
         $this->Zonificacion = $Zonificacion;
+    }
+    
+    public function getUnidadFuncional() {
+        return $this->UnidadFuncional;
+    }
+
+    public function getLegajo() {
+        return $this->Legajo;
+    }
+
+    public function setUnidadFuncional($UnidadFuncional) {
+        $this->UnidadFuncional = $UnidadFuncional;
+    }
+
+    public function setLegajo($Legajo) {
+        $this->Legajo = $Legajo;
+    }
+    
+    public function getNumero() {
+        return $this->Numero;
+    }
+
+    public function setNumero($Numero) {
+        $this->Numero = $Numero;
     }
 }

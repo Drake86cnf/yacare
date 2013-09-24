@@ -79,7 +79,7 @@ class StringHelper {
     
     
     static public function ArreglarProblemasConocidos($text) {
-        $text = ' ' . str_ireplace('  ', ' ', str_ireplace('.', '. ', $text)) . ' ';
+        $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
         
         $remplazos = array(
             // Nombres de calles
@@ -130,7 +130,7 @@ class StringHelper {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
         }
         
-        return trim(str_ireplace('  ', ' ', $text));
+        return trim(str_replace('  ', ' ', $text));
     }
     
 

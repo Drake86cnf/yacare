@@ -8,11 +8,143 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yacare\BaseBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+
 /**
  * @Route("importar/")
  */
 class ImportarController extends Controller
 {
+    /**
+     * @Route("partidas/")
+     * @Template("YacareSigemiBundle:Importar:importar.html.twig")
+     */
+    public function importarPartidasAction()
+    {
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        set_time_limit(6000);
+        ini_set('memory_limit', '2048M');
+
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $Dbmunirg = $this->ConectarOracle();
+        
+        $importar_importados = 0;
+        $importar_procesados = 0;
+        $log = array();
+        $sql = "
+SELECT tr3a100.tr3a100_id,
+          tr3a100.catastro_id,
+          tr3a100.nomenclatura_cat,
+          tr3a100.estado,
+          tr3a100.categoria,
+          tr3a100.zona_codigo,
+          tr3a100\$rgr.chacra,
+          tr3a100\$rgr.seccion,
+          tr3a100\$rgr.macizo_num,
+          tr3a100\$rgr.macizo_alfa,
+          tr3a100\$rgr.parcela_num,
+          tr3a100\$rgr.parcela_alfa,
+          tr3a100\$rgr.subparc_num,
+          tr3a100\$rgr.subparc_alfa,
+          tr3a100\$rgr.unid_func,
+          tr3a100\$rgr.legajo,
+          TG06300.CODIGO_CALLE,
+          TG06300.CALLE,
+          TG06300.NUMERO,
+          TG06300.PISO,
+          TG06300.DEPARTAMENTO,
+          TR3A100.ZONA_CURB,
+          tr02100.TIT_TG06100_ID
+     FROM tr3a100
+          JOIN tr3a100\$rgr
+             ON (tr3a100.tr3a100_id = tr3a100\$rgr.tr3a100_tr3a100_id)
+          JOIN TG06300
+             ON (TG06300.TG06300_ID = tr3a100.TG06300_TG06300_ID)
+          JOIN tr02100
+             ON (tr02100.tr02100_id = tr3a100\$rgr.tr02100_tr02100_id)
+     WHERE tr3a100.estado='AL'
+        AND tr3a100.lugar='RGR'
+        AND tr02100.DEFINITIVO='D'
+        AND tr02100.IMPONIBLE_TIPO='OSA'
+";
+        foreach($Dbmunirg->query($sql) as $Row) {
+            $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                'ImportSrc' => 'dbmunirg.TR3A100',
+                'ImportId' => $Row['TR3A100_ID']
+            ));
+            
+            $Seccion = strtoupper(trim($Row['SECCION'], ' .'));
+            $MacizoNum = trim($Row['MACIZO_NUM'], ' .');
+            $MacizoAlfa = trim($Row['MACIZO_ALFA'], ' .');
+            $ParcelaNum = trim($Row['PARCELA_NUM'], ' .');
+            $ParcelaAlfa = trim($Row['PARCELA_ALFA'], ' .');
+            $Macizo = trim($MacizoAlfa . $MacizoNum);
+            $Parcela = trim($ParcelaAlfa . $ParcelaNum);
+            $UnidadFuncional = (int)($Row['UNID_FUNC']);
+            
+            if(!$entity) {
+                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                    'Seccion' => $Seccion,
+                    'Macizo' => $Macizo,
+                    'Parcela' => $Parcela,
+                    'UnidadFuncional' => $UnidadFuncional,
+                ));
+            }
+            
+            /* if(!$entity) {
+                $entity = new \Yacare\CatastroBundle\Entity\Partida();
+                $entity->setSeccion($Seccion);
+                $entity->setMacizoAlfa($MacizoAlfa);
+                $entity->setMacizoNum($MacizoNum);
+                $entity->setMacizo($Macizo);
+                $entity->setParcelaAlfa($ParcelaAlfa);
+                $entity->setParcelaNum($ParcelaNum);
+                $entity->setParcela($Parcela);
+                
+                $entity->setUnidadFuncional($UnidadFuncional);
+                $importar_importados++;
+            } */
+            
+            if($entity) {
+                if($Row['CODIGO_CALLE']) {
+                    $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $Row['CODIGO_CALLE']));
+                }
+
+                $entity->setDomicilioNumero((int)($Row['NUMERO']));
+                $entity->setDomicilioPiso(trim($Row['PISO']));
+                $entity->setDomicilioPuerta(trim($Row['DEPARTAMENTO']));
+                $entity->setZonificacion(trim($Row['ZONA_CURB']));
+                $entity->setLegajo((int)($Row['LEGAJO']));
+                $entity->setNumero((int)($Row['CATASTRO_ID']));
+
+                $entity->setImportSrc('dbmunirg.TR3A100');
+                $entity->setImportId($Row['TR3A100_ID']);
+
+                $em->persist($entity);
+                $em->flush();
+                $log[] = $Row['TR3A100_ID'] . "SMP($Seccion $Macizo $Parcela) ${Row['CALLE']} #${Row['NUMERO']} ";
+            }
+            
+            $importar_procesados++;
+        }
+        
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_procesados' => $importar_procesados,
+            'log' => $log
+            );
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @Route("personas/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
@@ -243,6 +375,7 @@ WHERE rnum >=" . $desde . "
                 $entity->setDomicilioNumero($Row['NUMERO']);
                 $entity->setDomicilioPiso($Row['PISO']);
                 $entity->setDomicilioPuerta($Row['DEPARTAMENTO']);
+                $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
                 if($Row['Q_SEXO'] == 'F') {
                     $entity->setGenero(1);
                 }
@@ -258,8 +391,7 @@ WHERE rnum >=" . $desde . "
             
             // Campos que se actualizan siempre
             $entity->setDocumentoTipo($TipoDocs[$Documento[0]]);
-            $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
-            
+
 
             echo $Cuilt . ' / ' . $Documento[0] . ' ' . $Documento[1] . ': ' . $NombreVisible . "\r\n";
             $importar_procesados++;

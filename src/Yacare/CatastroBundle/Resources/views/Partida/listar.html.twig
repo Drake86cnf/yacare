@@ -57,15 +57,13 @@ $("#filtro_macizo").keyup(function (e) {
     {% for entity in entities %}
         <tr>
             <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.Calle }}</td>
-            <td>{{ entity.CalleNumero }}</td>
+            <td>{{ entity.DomicilioCalle }}</td>
+            <td>{{ entity.DomicilioNumero }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+
 {% endblock %}

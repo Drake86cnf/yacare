@@ -11,16 +11,15 @@ class PartidaPorCalleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Calle', 'entity', array(
+            ->add('DomicilioCalle', 'entity', array(
                 'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
                 'required' => true,
-                'mapped' => false,
-                'property' => 'Nombre'
+                'mapped' => false
                 ))
-            ->add('CalleNumero', null, array(
+            ->add('DomicilioNumero', null, array(
                 'label' => 'Nº',
-                'mapped' => false,
+                'mapped' => false
                 ))
             ->setAttribute('widget', 'form_horizontal')
         ;
