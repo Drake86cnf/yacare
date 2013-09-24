@@ -12,11 +12,6 @@ yacare_tramites:
     resource: "@YacareTramitesBundle/Controller/"
     type:     annotation
     prefix:   /tramites/
-    
-yacare_bromatologia:
-    resource: "@YacareBromatologiaBundle/Controller/"
-    type:     annotation
-    prefix:   /bromatologia/
 
 yacare_comercio:
     resource: "@YacareComercioBundle/Controller/"
