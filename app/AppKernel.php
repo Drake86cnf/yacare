@@ -30,7 +30,6 @@ class AppKernel extends Kernel
             new Yacare\TierrasBundle\YacareTierrasBundle(),
             new Yacare\ComprasBundle\YacareComprasBundle(),
             new Yacare\ComercioBundle\YacareComercioBundle(),
-            new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
             new Yacare\TramitesBundle\YacareTramitesBundle(),
             new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
             new Yacare\SigemiBundle\YacareSigemiBundle(),
