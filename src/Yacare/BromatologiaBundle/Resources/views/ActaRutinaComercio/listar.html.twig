@@ -1,0 +1,53 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}ActaRutinaComercio{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>            
+            <th>Talonario</th>
+            <th>Numero</th>
+            <th>Tipo de acta</th>
+            <th>Fecha</th>
+            <th>Comercio</th>
+            <th>Persona</th>
+            <th>Detalle</th>
+            <th>Obserrvaciones</th>
+            <th>Funcionario Principal</th>
+            <th>Funcionario Secundario</th>
+            <th>Responsable</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('yacare_bromatologia_actarutinacomercio_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Talonario }}</td>
+            <td>{{ entity.Numero }}</td>
+            <td>{{ entity.SubTipo }}</td>
+            <td>{{ entity.Fecha|date("d/m/Y") }}</td>
+            <td>{{ entity.Comercio }}</td>
+            <td>{{ entity.Persona }}</td>
+            <td>{{ entity.Detalle }}</td>
+            <td>{{ entity.Obs }}</td>
+            <td>{{ entity.FuncionarioPrincipal }}</td>
+            <td>{{ entity.FuncionarioSecundario }}</td>
+            <td>{{ entity.Responsable }}</td>
+            <td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+
+<a href="{{ path('yacare_bromatologia_actarutinacomercio_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva acta</a>
+{% endblock %}

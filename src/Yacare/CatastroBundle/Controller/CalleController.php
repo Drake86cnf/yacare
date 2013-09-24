@@ -13,9 +13,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class CalleController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-    public function __construct() {
-        $this->BundleName = 'Catastro';
-        $this->EntityName = 'Calle';
-        parent::__construct();
-    }
+ use \Yacare\BaseBundle\Controller\ConEliminar;
 }

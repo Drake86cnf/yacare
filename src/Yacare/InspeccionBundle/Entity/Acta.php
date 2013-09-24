@@ -13,7 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="Tipo", type="integer")
  * @ORM\DiscriminatorMap({
  *      1 = "\Yacare\InspeccionBundle\Entity\Acta",
- *      2 = "\Yacare\BromatologiaBundle\Entity\ActaRutina"
+ *      2 = "\Yacare\BromatologiaBundle\Entity\ActaRutina",
+ *      1000 = "\Yacare\BromatologiaBundle\Entity\ActaRutinaComercio",
+ *      1001 = "\Yacare\BromatologiaBundle\Entity\ActaRutinaControlPlagas",
+ *      1002 = "\Yacare\BromatologiaBundle\Entity\ActaRutinaDecomiso",
+ *      1003 = "\Yacare\BromatologiaBundle\Entity\ActaRutinaTransporte",
+ *      3 = "\Yacare\BromatologiaBundle\Entity\ActaBromatologicaVeterinaria"
  * })
  */
 class Acta
@@ -50,11 +55,22 @@ class Acta
      */
     protected $FuncionarioPrincipal;
     
+     /**
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     */
+    protected $FuncionarioSecundario;
+    
     /**
      * @var string
      * @ORM\Column(type="string")
      */
     private $ResponsableNombre;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $Detalle;
 
     /**
      * @var string
@@ -101,21 +117,25 @@ class Acta
     public function setObs($Obs) {
         $this->Obs = $Obs;
     }
-    
-    public function getSubTipo() {
-        return $this->SubTipo;
-    }
 
+    
     public function getResponsableNombre() {
         return $this->ResponsableNombre;
-    }
-
-    public function setSubTipo($SubTipo) {
-        $this->SubTipo = $SubTipo;
     }
 
     public function setResponsableNombre($ResponsableNombre) {
         $this->ResponsableNombre = $ResponsableNombre;
     }
 
+    public function getDetalle() {
+        return $this->Detalle;
+    }
+    
+    public function getSubTipo() {
+        return $this->SubTipo;
+    }
+
+    public function setSubTipo($SubTipo) {
+        $this->SubTipo = $SubTipo;
+    }
 }
