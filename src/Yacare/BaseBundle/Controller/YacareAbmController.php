@@ -61,13 +61,16 @@ class YacareAbmController extends YacareBaseController
         $dql .= " WHERE $where";
         if($this->Where) {
             $this->Where = trim($this->Where);
-            if(substr($this->Where, 0, 4) != "AND ")
-                    $this->Where = "AND " . $this->Where;
+            if(substr($this->Where, 0, 4) != "AND ") {
+                $this->Where = "AND " . $this->Where;
+            }
             $dql .= ' ' . $this->Where;
         }
 
-        if($this->OrderBy)
-            $dql .= " ORDER BY " . $this->OrderBy;
+        if($this->OrderBy) {
+            $OrderByCampos = split(',', $this->OrderBy);
+            $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
+        }
 
         $query = $em->createQuery($dql);
         

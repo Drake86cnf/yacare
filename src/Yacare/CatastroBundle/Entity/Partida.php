@@ -24,6 +24,18 @@ use Doctrine\ORM\Mapping as ORM;
  * UPDATE Catastro_Partida 
 	SET DomicilioNumero=NULL WHERE DomicilioNumero=0;
  * 
+UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Partida_id=22345 WHERE Partida_id IN (22346, 22347);
+
+DELETE FROM Catastro_Partida 
+	WHERE id NOT IN (SELECT DISTINCT Partida_id FROM Inspeccion_RelevamientoAsignacionDetalle);
+
+SELECT * FROM Catastro_Partida  WHERE Seccion='D' AND Macizo='177' AND Parcela='9' AND UnidadFuncional=0;
+
+SELECT COUNT(id), Seccion, Macizo, Parcela, UnidadFuncional FROM Catastro_Partida 
+	
+	GROUP BY Seccion, Macizo, Parcela, UnidadFuncional
+	HAVING COUNT(id)>1
+ * 
  */
 class Partida
 {

@@ -10,6 +10,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    function __construct() {
+        parent::__construct();
+        
+        $this->ConservarVariables[] = 'filtro_seccion';
+        $this->ConservarVariables[] = 'filtro_macizo';
+        $this->ConservarVariables[] = 'filtro_partida';
+        $this->BuscarPor = 'Numero';
+        $this->OrderBy = 'Seccion, Macizo, Parcela';
+    }
+    
     // ************** Al importar:
     //UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
     //UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
@@ -24,6 +34,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $request = $this->getRequest();
         $filtro_seccion = $request->query->get('filtro_seccion');
         $filtro_macizo = $request->query->get('filtro_macizo');
+        $filtro_partida = $request->query->get('filtro_partida');
         
         if($filtro_seccion == '-') {
             $this->Where .= " AND r.Seccion=''";
@@ -33,6 +44,10 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         
         if($filtro_macizo) {
             $this->Where .= " AND r.Macizo='$filtro_macizo'";
+        }
+        
+        if($filtro_partida) {
+            $this->Where .= " AND r.Numero='$filtro_partida'";
         }
 
         $res = parent::listarAction();
