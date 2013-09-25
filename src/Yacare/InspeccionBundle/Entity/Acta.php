@@ -77,48 +77,56 @@ class Acta
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Obs;
+    
 
     public function getTalonario() {
         return $this->Talonario;
-    }
-
-    public function getNumero() {
-        return $this->Numero;
-    }
-
-    public function getFecha() {
-        return $this->Fecha;
-    }
-
-    public function getFuncionarioPrincipal() {
-        return $this->FuncionarioPrincipal;
-    }
-
-    public function getObs() {
-        return $this->Obs;
     }
 
     public function setTalonario($Talonario) {
         $this->Talonario = $Talonario;
     }
 
+    public function getSubTipo() {
+        return $this->SubTipo;
+    }
+
+    public function setSubTipo($SubTipo) {
+        $this->SubTipo = $SubTipo;
+    }
+
+    public function getNumero() {
+        return $this->Numero;
+    }
+
     public function setNumero($Numero) {
         $this->Numero = $Numero;
+    }
+
+    public function getFecha() {
+        return $this->Fecha;
     }
 
     public function setFecha(\DateTime $Fecha) {
         $this->Fecha = $Fecha;
     }
 
+    public function getFuncionarioPrincipal() {
+        return $this->FuncionarioPrincipal;
+    }
+
     public function setFuncionarioPrincipal($FuncionarioPrincipal) {
         $this->FuncionarioPrincipal = $FuncionarioPrincipal;
     }
 
-    public function setObs($Obs) {
-        $this->Obs = $Obs;
+    public function getFuncionarioSecundario() {
+        return $this->FuncionarioSecundario;
     }
 
-    
+    public function setFuncionarioSecundario($FuncionarioSecundario) {
+        $this->FuncionarioSecundario = $FuncionarioSecundario;
+    }
+
     public function getResponsableNombre() {
         return $this->ResponsableNombre;
     }
@@ -130,12 +138,16 @@ class Acta
     public function getDetalle() {
         return $this->Detalle;
     }
-    
-    public function getSubTipo() {
-        return $this->SubTipo;
+
+    public function setDetalle($Detalle) {
+        $this->Detalle = $Detalle;
     }
 
-    public function setSubTipo($SubTipo) {
-        $this->SubTipo = $SubTipo;
+    public function getObs() {
+        return $this->Obs;
+    }
+
+    public function setObs($Obs) {
+        $this->Obs = $Obs;
     }
 }
