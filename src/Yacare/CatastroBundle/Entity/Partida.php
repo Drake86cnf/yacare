@@ -96,10 +96,10 @@ class Partida
     
     
     /**
-     * @var string
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Zona")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $Zonificacion;
+    private $Zona;
     
     /**
      * @var
@@ -198,15 +198,6 @@ class Partida
         $this->CalcularNombre();
     }
     
-    public function getZonificacion() {
-        return $this->Zonificacion;
-    }
-
-    public function setZonificacion($Zonificacion) {
-        $this->Zonificacion = $Zonificacion;
-        $this->CalcularNombre();
-    }
-    
     public function getUnidadFuncional() {
         return $this->UnidadFuncional;
     }
@@ -222,7 +213,6 @@ class Partida
 
     public function setLegajo($Legajo) {
         $this->Legajo = $Legajo;
-        $this->CalcularNombre();
     }
     
     public function getNumero() {
@@ -232,5 +222,13 @@ class Partida
     public function setNumero($Numero) {
         $this->Numero = $Numero;
         $this->CalcularNombre();
+    }
+    
+    public function getZona() {
+        return $this->Zona;
+    }
+
+    public function setZona($Zona) {
+        $this->Zona = $Zona;
     }
 }

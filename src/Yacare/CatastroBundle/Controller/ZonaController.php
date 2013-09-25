@@ -13,4 +13,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ZonaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    function __construct() {
+        parent::__construct();
+
+        $this->BuscarPor = 'Codigo, Nombre';
+        $this->OrderBy = 'Nombre';
+    }
 }

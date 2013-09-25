@@ -8,52 +8,60 @@
 
 {% if secciones %}
 {% set filtro_seccion = app.request.query.get('filtro_seccion') %}
+{% set filtro_macizo = app.request.query.get('filtro_macizo') %}
+{% set filtro_partida = app.request.query.get('filtro_partida') %}
 <div>
-    <span class="btn-group">
-        <a class="btn  btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '' }) }}">Todas</a>
-        {% for seccion in secciones %}
-            {% if seccion.Seccion %}
-        <a style="min-width: 8px;" class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
+    <span class="form_horizontal_part">
+        Nº de partida<br />
+        <span class="input-append">
+            <input class="input-small" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
+            {% if filtro_partida %}
+            <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar') }}';">Todas</button>
             {% endif %}
-        {% endfor %}
-        <a class="btn  btn-small" type="button" href="{{ path(baseroute ~ '_listar', { 'filtro_seccion': '-' }) }}">Sin sección</a>
+        </span>
     </span>
-    {% if filtro_seccion %}
-        {% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-        <span class="control-group">
-            <span class="control-label" for="filtro_macizo">Macizo</span>
-            <span class="controls">
+
+    
+    {% if not filtro_partida %}
+        <span class="form_horizontal_part">
+            Sección<br />
+            <span class="btn-group">
+                <a class="btn  btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
+                {% for seccion in secciones %}
+                    {% if seccion.Seccion %}
+                <a style="min-width: 8px;" class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
+                    {% endif %}
+                {% endfor %}
+                <a class="btn  btn-small" type="button" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '-' })) }}">Sin sección</a>
+            </span>
+        </span>
+        {% if filtro_seccion %}
+            <span class="form_horizontal_part">
+                Macizo<br />
                 <span class="input-append">
                     <input class="input-small" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
                     {% if filtro_macizo %}
-                    <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo='">Todos</button>
+                    <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion })) }}&filtro_macizo='">Todos</button>
                     {% endif %}
                 </span>
             </span>
-        </span>
+        {% endif %}
     {% endif %}
-
-    {% set filtro_partida = app.request.query.get('filtropartidamacizo') %}
-    <span class="control-group">
-        <span class="control-label" for="filtro_partida">Partida</span>
-        <span class="controls">
-            <span class="input-append">
-                <input class="input-small" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
-                {% if filtro_partida %}
-                <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo={{ filtro_macizo }}&filtro_partida='">Todos</button>
-                {% endif %}
-            </span>
-        </span>
-    </span>
 </div>
 <script>
 $(document).ready(function() {
-$("#filtro_macizo").keyup(function (e) {
-    if (e.which === 13) {
-        e.preventDefault();
-        parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
-    }
-});
+    $("#filtro_macizo").keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
+        }
+    });
+    $("#filtro_partida").keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_partida=' + $("#filtro_partida").val();
+        }
+    });
 });
 </script>
 {% endif %}
@@ -62,9 +70,9 @@ $("#filtro_macizo").keyup(function (e) {
     <thead>
         <tr>
             <th>Partida</th>
-            <th>Nombre</th>
-            <th>Calle</th>
-            <th>Número</th>
+            <th>Detalle</th>
+            <th>Domicilio</th>
+            <th>Zona</th>
         </tr>
     </thead>
     <tbody>
@@ -72,8 +80,8 @@ $("#filtro_macizo").keyup(function (e) {
         <tr>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.DomicilioCalle }}</td>
-            <td>{{ entity.DomicilioNumero }}</td>
+            <td>{{ entity.Domicilio }}</td>
+            <td>{{ entity.Zona }}</td>
         </tr>
     {% endfor %}
     </tbody>

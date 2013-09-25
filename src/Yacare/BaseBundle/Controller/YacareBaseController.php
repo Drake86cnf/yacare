@@ -32,7 +32,7 @@ class YacareBaseController extends Controller
         }
         
         if(!isset($this->ConservarVariables))
-            $this->ConservarVariables = array('filtro_buscar');
+            $this->ConservarVariables = array('filtro_buscar', 'page');
     }
 
 

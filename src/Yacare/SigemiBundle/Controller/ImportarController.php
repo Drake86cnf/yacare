@@ -31,6 +31,37 @@ class ImportarController extends Controller
         ini_set('display_errors', 1);
         set_time_limit(6000);
         ini_set('memory_limit', '2048M');
+        
+        $Zonas = array(
+            'ZC' => 2,
+            'ZCB' => 7,
+            'ZCM' => 4,
+            'ZCP' => 5,
+            'CRT1' => 3,
+            'ZCRT1' => 3,
+            'ZCS' => 6,
+            'ZMC' => 1,
+            'ZC-MC' => 1,
+            'ZPE' => 15,
+            'ZR1' => 8,
+            'ZR2' => 9,
+            'ZR3' => 10,
+            'ZR4' => 11,
+            'ZR5' => 12,
+            'ZR6' => 13,
+            'ZREU' => 16,
+            'ZRM' => 14,
+            'ZSEU' => 18,
+            
+            // Estos no existen en el SIGEMI
+            'Z extra urb. zona costera' => 19,
+            'Z residencial extraurbano 2' => 17,
+            
+            // Estos no existen en el anexo 6 de planificación territorial
+            'ZEIA' => null,
+            'ZEIS' => null,
+            'ZEIU' => null,
+        );
 
         $Dbmunirg = $this->ConectarOracle();
         
@@ -127,12 +158,22 @@ WHERE rnum >" . $desde . "
                 if($Row['CODIGO_CALLE']) {
                     $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $Row['CODIGO_CALLE']));
                 }
+                
+                if($Row['ZONA_CURB']) {
+                    $ZonaId = $Zonas[$Row['ZONA_CURB']];
+                    if($ZonaId) {
+                        $entity->setZona($em->getReference('YacareCatastroBundle:Zona', $ZonaId));
+                    } else {
+                        $entity->setZona(null);
+                    }
+                } else {
+                    $entity->setZona(null);
+                }
 
                 $entity->setUnidadFuncional($UnidadFuncional);
                 $entity->setDomicilioNumero((int)($Row['NUMERO']));
                 $entity->setDomicilioPiso(trim($Row['PISO']));
                 $entity->setDomicilioPuerta(trim($Row['DEPARTAMENTO']));
-                $entity->setZonificacion(trim($Row['ZONA_CURB']));
                 $entity->setLegajo((int)($Row['LEGAJO']));
                 $entity->setNumero((int)($Row['CATASTRO_ID']));
 
