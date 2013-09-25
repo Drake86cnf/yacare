@@ -96,6 +96,13 @@ class Partida
     
     
     /**
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Titular;
+    
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Zona")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -230,5 +237,13 @@ class Partida
 
     public function setZona($Zona) {
         $this->Zona = $Zona;
+    }
+    
+    public function getTitular() {
+        return $this->Titular;
+    }
+
+    public function setTitular($Titular) {
+        $this->Titular = $Titular;
     }
 }

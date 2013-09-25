@@ -74,6 +74,7 @@ $(document).ready(function() {
             <th>Partida</th>
             <th>Detalle</th>
             <th>Domicilio</th>
+            <th>Titular</th>
             <th>Zona</th>
         </tr>
     </thead>
@@ -83,6 +84,7 @@ $(document).ready(function() {
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Domicilio }}</td>
+            <td>{{ entity.Titular }}</td>
             <td>{{ entity.Zona }}</td>
         </tr>
     {% endfor %}
