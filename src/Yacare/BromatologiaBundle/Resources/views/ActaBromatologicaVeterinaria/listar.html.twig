@@ -29,7 +29,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_actarutinacomercio_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Talonario }}</td>
+            <td><a href="{{ path('yacare_bromatologia_actabromatologicaveterinaria_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Talonario }}</td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.SubTipo }}</td>
             <td>{{ entity.Fecha|date("d/m/Y") }}</td>

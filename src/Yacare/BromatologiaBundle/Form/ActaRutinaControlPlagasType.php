@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ActaRutinaPlagasType extends AbstractType
+class ActaRutinaControlPlagasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,12 +41,12 @@ class ActaRutinaPlagasType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BromatologiaBundle\Entity\ActaRutinaPlagas'
+            'data_class' => 'Yacare\BromatologiaBundle\Entity\ActaRutinaControlPlagas'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_bromatologiabundle_actarutinaplagastype';
+        return 'yacare_bromatologiabundle_actarutinacontrolplagastype';
     }    
 }

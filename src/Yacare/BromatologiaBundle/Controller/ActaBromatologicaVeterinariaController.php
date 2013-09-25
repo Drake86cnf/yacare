@@ -5,9 +5,9 @@ namespace Yacare\BromatologiaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("actarutinabromatologicaveterinaria/")
+ * @Route("actabromatologicaveterinaria/")
  */
-class ActaRutinaBromatologicaVeterinariaController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ActaBromatologicaVeterinariaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }
