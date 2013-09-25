@@ -29,10 +29,9 @@
                 <a class="btn" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
                 {% for seccion in secciones %}
                     {% if seccion.Seccion %}
-                <a style="min-width: 8px;" class="btn" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
+                        <a style="min-width: 8px;" class="btn" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
                     {% endif %}
                 {% endfor %}
-                <a class="btn" type="button" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '-' })) }}">Sin sección</a>
             </span>
         </span>
         {% if filtro_seccion %}

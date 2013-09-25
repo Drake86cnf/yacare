@@ -37,7 +37,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $filtro_partida = $request->query->get('filtro_partida');
         
         if($filtro_seccion == '-') {
-            $this->Where .= " AND r.Seccion=''";
+            $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
         } else if($filtro_seccion) {
             $this->Where .= " AND r.Seccion='$filtro_seccion'";
         }
