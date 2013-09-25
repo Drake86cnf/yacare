@@ -80,8 +80,8 @@ SELECT tr3a100.tr3a100_id,
         AND tr02100.IMPONIBLE_TIPO='OSA'
 
 ) a 
-    WHERE ROWNUM <" . ($desde + $cant) . ")
-WHERE rnum >=" . $desde . "
+    WHERE ROWNUM <=" . ($desde + $cant) . ")
+WHERE rnum >" . $desde . "
 ";
         foreach($Dbmunirg->query($sql) as $Row) {
             $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
@@ -257,8 +257,8 @@ WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
     AND LENGTH(doc.DOCUMENTO_NRO) > 5
 
 ) a 
-    WHERE ROWNUM <" . ($desde + $cant) . ")
-WHERE rnum >=" . $desde . "
+    WHERE ROWNUM <=" . ($desde + $cant) . ")
+WHERE rnum >" . $desde . "
 ";
         
         foreach($Dbmunirg->query($sql) as $Row) {
