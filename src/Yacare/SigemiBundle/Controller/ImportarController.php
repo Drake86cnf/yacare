@@ -154,7 +154,7 @@ WHERE rnum >" . $desde . "
                 $importar_actualizados++;
             }
                 
-            if($entity) {
+            if($entity && $Seccion) {
                 if($Row['CODIGO_CALLE']) {
                     $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $Row['CODIGO_CALLE']));
                 }
