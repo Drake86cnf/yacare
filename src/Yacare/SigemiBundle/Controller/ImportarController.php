@@ -38,6 +38,7 @@ class ImportarController extends Controller
         $em->getConnection()->beginTransaction();
         
         $importar_importados = 0;
+        $importar_actualizados = 0;
         $importar_procesados = 0;
         $log = array();
         $sql = "
@@ -72,7 +73,7 @@ SELECT tr3a100.tr3a100_id,
              ON (tr3a100.tr3a100_id = tr3a100\$rgr.tr3a100_tr3a100_id)
           JOIN TG06300
              ON (TG06300.TG06300_ID = tr3a100.TG06300_TG06300_ID)
-          JOIN tr02100
+          LEFT JOIN tr02100
              ON (tr02100.tr02100_id = tr3a100\$rgr.tr02100_tr02100_id)
      WHERE tr3a100.estado='AL'
         AND tr3a100.lugar='RGR'
@@ -118,6 +119,8 @@ WHERE rnum >" . $desde . "
                 $entity->setParcela($Parcela);
                 
                 $importar_importados++;
+            } else {
+                $importar_actualizados++;
             }
                 
             if($entity) {
@@ -148,6 +151,7 @@ WHERE rnum >" . $desde . "
         
         return array(
             'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
             'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log
@@ -194,6 +198,7 @@ WHERE rnum >" . $desde . "
         $em->getConnection()->beginTransaction();
         
         $importar_importados = 0;
+        $importar_actualizados = 0;
         $importar_procesados = 0;
         $log = array();
         
@@ -396,6 +401,8 @@ WHERE rnum >" . $desde . "
             
                 $em->persist($entity);
                 $importar_importados++;
+            } else {
+                $importar_actualizados++;
             }
             
             // Campos que se actualizan siempre
@@ -423,6 +430,7 @@ WHERE rnum >" . $desde . "
         
         return array(
             'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
             'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log
@@ -444,6 +452,7 @@ WHERE rnum >" . $desde . "
         $Dbmunirg = $this->ConectarOracle();
         
         $importar_importados = 0;
+        $importar_actualizados = 0;
         $importar_procesados = 0;
         $log = array();
         foreach($Dbmunirg->query('SELECT CODIGO_CALLE AS id, CALLE AS Nombre FROM TG06405 WHERE TG06403_TG06403_ID=410') as $Row) {
@@ -463,6 +472,8 @@ WHERE rnum >" . $desde . "
             if(!$entity) {
                 $entity = new \Yacare\CatastroBundle\Entity\Calle();
                 $importar_importados++;
+            } else {
+                $importar_actualizados++;
             }
             
             $entity->setNombre($nombreBueno);
@@ -480,6 +491,7 @@ WHERE rnum >" . $desde . "
         
         return array(
             'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
             'log' => $log
             );

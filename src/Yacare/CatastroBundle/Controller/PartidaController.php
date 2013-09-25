@@ -17,7 +17,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $this->ConservarVariables[] = 'filtro_macizo';
         $this->ConservarVariables[] = 'filtro_partida';
         $this->BuscarPor = 'Numero';
-        $this->OrderBy = 'Seccion, Macizo, Parcela';
+        $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
     
     // ************** Al importar:
