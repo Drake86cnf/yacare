@@ -20,20 +20,30 @@ class ImportarController extends Controller
      */
     public function importarPartidasAction()
     {
+        //DELETE FROM Catastro_Partida WHERE id NOT IN (SELECT DISTINCT Partida_id FROM Inspeccion_RelevamientoAsignacionDetalle);
+        
+        
+        $request = $this->getRequest();
+        $desde = (int)($request->query->get('desde'));
+        $cant = 100;
+        
         mb_internal_encoding('UTF-8');
         ini_set('display_errors', 1);
         set_time_limit(6000);
         ini_set('memory_limit', '2048M');
 
+        $Dbmunirg = $this->ConectarOracle();
         
         $em = $this->getDoctrine()->getManager();
-
-        $Dbmunirg = $this->ConectarOracle();
+        $em->getConnection()->beginTransaction();
         
         $importar_importados = 0;
         $importar_procesados = 0;
         $log = array();
         $sql = "
+SELECT * FROM (
+    SELECT a.*, ROWNUM rnum FROM (
+
 SELECT tr3a100.tr3a100_id,
           tr3a100.catastro_id,
           tr3a100.nomenclatura_cat,
@@ -68,6 +78,10 @@ SELECT tr3a100.tr3a100_id,
         AND tr3a100.lugar='RGR'
         AND tr02100.DEFINITIVO='D'
         AND tr02100.IMPONIBLE_TIPO='OSA'
+
+) a 
+    WHERE ROWNUM <" . ($desde + $cant) . ")
+WHERE rnum >=" . $desde . "
 ";
         foreach($Dbmunirg->query($sql) as $Row) {
             $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
@@ -80,8 +94,8 @@ SELECT tr3a100.tr3a100_id,
             $MacizoAlfa = trim($Row['MACIZO_ALFA'], ' .');
             $ParcelaNum = trim($Row['PARCELA_NUM'], ' .');
             $ParcelaAlfa = trim($Row['PARCELA_ALFA'], ' .');
-            $Macizo = trim($MacizoAlfa . $MacizoNum);
-            $Parcela = trim($ParcelaAlfa . $ParcelaNum);
+            $Macizo = trim($MacizoNum . $MacizoAlfa);
+            $Parcela = trim($ParcelaNum . $ParcelaAlfa);
             $UnidadFuncional = (int)($Row['UNID_FUNC']);
             
             if(!$entity) {
@@ -93,7 +107,7 @@ SELECT tr3a100.tr3a100_id,
                 ));
             }
             
-            /* if(!$entity) {
+            if(!$entity) {
                 $entity = new \Yacare\CatastroBundle\Entity\Partida();
                 $entity->setSeccion($Seccion);
                 $entity->setMacizoAlfa($MacizoAlfa);
@@ -103,15 +117,15 @@ SELECT tr3a100.tr3a100_id,
                 $entity->setParcelaNum($ParcelaNum);
                 $entity->setParcela($Parcela);
                 
-                $entity->setUnidadFuncional($UnidadFuncional);
                 $importar_importados++;
-            } */
-            
+            }
+                
             if($entity) {
                 if($Row['CODIGO_CALLE']) {
                     $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $Row['CODIGO_CALLE']));
                 }
 
+                $entity->setUnidadFuncional($UnidadFuncional);
                 $entity->setDomicilioNumero((int)($Row['NUMERO']));
                 $entity->setDomicilioPiso(trim($Row['PISO']));
                 $entity->setDomicilioPuerta(trim($Row['DEPARTAMENTO']));
@@ -124,15 +138,18 @@ SELECT tr3a100.tr3a100_id,
 
                 $em->persist($entity);
                 $em->flush();
-                $log[] = $Row['TR3A100_ID'] . "SMP($Seccion $Macizo $Parcela) ${Row['CALLE']} #${Row['NUMERO']} ";
+                $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion $Macizo $Parcela / $UnidadFuncional) ${Row['CALLE']} #${Row['NUMERO']} ";
             }
             
             $importar_procesados++;
         }
         
+        $em->getConnection()->commit();
+        
         return array(
             'importar_importados' => $importar_importados,
             'importar_procesados' => $importar_procesados,
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log
             );
     }
@@ -153,20 +170,13 @@ SELECT tr3a100.tr3a100_id,
     {
         $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
-        $cant = 1000;
+        $cant = 100;
         
         mb_internal_encoding('UTF-8');
         set_time_limit(600);
         ini_set('display_errors', 1);
         ini_set('memory_limit', '1024M');
         
-        $response = new StreamedResponse();
-        $response->setCallback(function () use ($desde, $cant) {
-        
-        echo "Iniciando desde $desde<br />";
-            
-        echo '<pre>';
-            
         $TipoDocs = array(
             'DNI' => 1,
             'CF' => 1,
@@ -266,8 +276,9 @@ WHERE rnum >=" . $desde . "
                 $PersJur = true;
             }
             
-            if($Row['DOCUMENTO_TIPO'] == 'DU')
+            if($Row['DOCUMENTO_TIPO'] == 'DU') {
                 $Row['DOCUMENTO_TIPO'] = 'DNI';
+            }
             
             $Cuilt = '';
             if($Documento[0] == 'CUIL' || $Documento[0] == 'CUIT') {
@@ -385,19 +396,14 @@ WHERE rnum >=" . $desde . "
             
                 $em->persist($entity);
                 $importar_importados++;
-            } else {
-                echo '*';
             }
             
             // Campos que se actualizan siempre
             $entity->setDocumentoTipo($TipoDocs[$Documento[0]]);
 
 
-            echo $Cuilt . ' / ' . $Documento[0] . ' ' . $Documento[1] . ': ' . $NombreVisible . "\r\n";
+            $log[] = $Cuilt . ' / ' . $Documento[0] . ' ' . $Documento[1] . ': ' . $NombreVisible . "\r\n";
             $importar_procesados++;
-            
-            if($importar_procesados >= 100000)
-                break;
             
             $em->flush();
 
@@ -415,17 +421,10 @@ WHERE rnum >=" . $desde . "
         
         $em->getConnection()->commit();
         
-        if($importar_procesados > 0) {
-            echo "<script>parent.location='?desde=" . ($desde + $cant) . "'</script>";
-        }
-        
-        }); // anonymous function
-
-        return $response;
-        
         return array(
             'importar_importados' => $importar_importados,
             'importar_procesados' => $importar_procesados,
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log
             );
     }

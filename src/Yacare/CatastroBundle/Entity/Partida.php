@@ -94,13 +94,24 @@ class Partida
     private $Legajo;
     
     
-    public function getNombre() {
+    
+    public function CalcularNombre()
+    {
         $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+        if($this->UnidadFuncional > 0) {
+            $this->Nombre .= ', UF ' . $this->UnidadFuncional;
+        }
+    }
+    
+    
+    
+    public function getNombre() {
+        $this->CalcularNombre();
         return $this->Nombre;
     }
 
     public function setNombre($Nombre) {
-        $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+        $this->CalcularNombre();
     }
 
     public function getSeccion() {
@@ -109,6 +120,7 @@ class Partida
 
     public function setSeccion($Seccion) {
         $this->Seccion = $Seccion;
+        $this->CalcularNombre();
     }
 
     public function getMacizoAlfa() {
@@ -117,6 +129,7 @@ class Partida
 
     public function setMacizoAlfa($MacizoAlfa) {
         $this->MacizoAlfa = $MacizoAlfa;
+        $this->CalcularNombre();
     }
 
     public function getMacizoNum() {
@@ -125,6 +138,7 @@ class Partida
 
     public function setMacizoNum($MacizoNum) {
         $this->MacizoNum = $MacizoNum;
+        $this->CalcularNombre();
     }
 
     public function getParcelaAlfa() {
@@ -133,6 +147,7 @@ class Partida
 
     public function setParcelaAlfa($ParcelaAlfa) {
         $this->ParcelaAlfa = $ParcelaAlfa;
+        $this->CalcularNombre();
     }
 
     public function getParcelaNum() {
@@ -141,6 +156,7 @@ class Partida
 
     public function setParcelaNum($ParcelaNum) {
         $this->ParcelaNum = $ParcelaNum;
+        $this->CalcularNombre();
     }
 
     public function getMacizo() {
@@ -149,6 +165,7 @@ class Partida
 
     public function setMacizo($Macizo) {
         $this->Macizo = $Macizo;
+        $this->CalcularNombre();
     }
 
     public function getParcela() {
@@ -157,6 +174,7 @@ class Partida
 
     public function setParcela($Parcela) {
         $this->Parcela = $Parcela;
+        $this->CalcularNombre();
     }
     
     public function getZonificacion() {
@@ -165,6 +183,7 @@ class Partida
 
     public function setZonificacion($Zonificacion) {
         $this->Zonificacion = $Zonificacion;
+        $this->CalcularNombre();
     }
     
     public function getUnidadFuncional() {
@@ -177,10 +196,12 @@ class Partida
 
     public function setUnidadFuncional($UnidadFuncional) {
         $this->UnidadFuncional = $UnidadFuncional;
+        $this->CalcularNombre();
     }
 
     public function setLegajo($Legajo) {
         $this->Legajo = $Legajo;
+        $this->CalcularNombre();
     }
     
     public function getNumero() {
@@ -189,5 +210,6 @@ class Partida
 
     public function setNumero($Numero) {
         $this->Numero = $Numero;
+        $this->CalcularNombre();
     }
 }

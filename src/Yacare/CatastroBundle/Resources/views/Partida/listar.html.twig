@@ -8,37 +8,50 @@
 
 {% if secciones %}
 {% set filtro_seccion = app.request.query.get('filtro_seccion') %}
-<div><span>
-    <p class="btn-group">
-        <a class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '' }) }}">Todas</a>
+<div>
+    <span class="btn-group">
+        <a class="btn  btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '' }) }}">Todas</a>
         {% for seccion in secciones %}
             {% if seccion.Seccion %}
         <a style="min-width: 8px;" class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
             {% endif %}
         {% endfor %}
-        <a class="btn btn-small" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': '-' }) }}">Sin sección</a>
+        <a class="btn  btn-small" type="button" href="{{ path(baseroute ~ '_listar', { 'filtro_seccion': '-' }) }}">Sin sección</a>
     </span>
     {% if filtro_seccion %}
         {% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-        <span class="control-group" style="white-space: nowrap; margin-left: 12px; margin-top: 8px;">
+        <span class="control-group">
             <span class="control-label" for="filtro_macizo">Macizo</span>
             <span class="controls">
                 <span class="input-append">
-                    <input type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
+                    <input class="input-small" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
                     {% if filtro_macizo %}
-                    <button class="btn btn-small" type="button" onClick="parent.location='{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo='">Todos</button>
+                    <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo='">Todos</button>
                     {% endif %}
                 </span>
             </span>
         </span>
     {% endif %}
-</fieldset></div>
+
+    {% set filtro_partida = app.request.query.get('filtropartidamacizo') %}
+    <span class="control-group">
+        <span class="control-label" for="filtro_partida">Partida</span>
+        <span class="controls">
+            <span class="input-append">
+                <input class="input-small" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
+                {% if filtro_partida %}
+                <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo={{ filtro_macizo }}&filtro_partida='">Todos</button>
+                {% endif %}
+            </span>
+        </span>
+    </span>
+</div>
 <script>
 $(document).ready(function() {
 $("#filtro_macizo").keyup(function (e) {
     if (e.which === 13) {
         e.preventDefault();
-        parent.location='{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").attr("value");
+        parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
     }
 });
 });
@@ -48,6 +61,7 @@ $("#filtro_macizo").keyup(function (e) {
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Partida</th>
             <th>Nombre</th>
             <th>Calle</th>
             <th>Número</th>
@@ -56,6 +70,7 @@ $("#filtro_macizo").keyup(function (e) {
     <tbody>
     {% for entity in entities %}
         <tr>
+            <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.DomicilioCalle }}</td>
             <td>{{ entity.DomicilioNumero }}</td>

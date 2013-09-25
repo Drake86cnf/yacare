@@ -14,5 +14,11 @@
 {{ entry }}
 {% endfor %}</pre>
 
+{% if redir_desde is defined and redir_desde > 0%}
+<script>
+        parent.location='?desde={{ redir_desde }}';
+</script>
+{% endif %}
+
 </body>
 </html>
