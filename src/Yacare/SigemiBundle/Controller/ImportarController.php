@@ -169,6 +169,16 @@ WHERE rnum >" . $desde . "
                 } else {
                     $entity->setZona(null);
                 }
+                
+                if($Row['TIT_TG06100_ID']) {
+                    $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                        'ImportSrc' => 'dbmunirg.TG06100',
+                        'ImportId' => $Row['TIT_TG06100_ID']
+                    ));
+                    $entity->setTitular($titular);
+                } else {
+                    $entity->setTitular(null);
+                }
 
                 $entity->setUnidadFuncional($UnidadFuncional);
                 $entity->setDomicilioNumero((int)($Row['NUMERO']));
