@@ -3,6 +3,11 @@ yacare_sigemi:
     type:     annotation
     prefix:   /sigemi/
 
+yacare_bromatologia:
+    resource: "@YacareBromatologiaBundle/Controller/"
+    type:     annotation
+    prefix:   /bromatologia/
+
 yacare_zoonosis:
     resource: "@YacareZoonosisBundle/Controller/"
     type:     annotation
