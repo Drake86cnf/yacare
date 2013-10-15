@@ -140,6 +140,12 @@ WHERE rnum >" . $desde . "
             }
             
             if(!$entity) {
+                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                    'Numero' => (int)($Row['CATASTRO_ID'])
+                ));
+            }
+            
+            if(!$entity) {
                 $entity = new \Yacare\CatastroBundle\Entity\Partida();
                 $entity->setSeccion($Seccion);
                 $entity->setMacizoAlfa($MacizoAlfa);
@@ -294,20 +300,15 @@ SELECT
     d.DOMICILIO_EXTENSION,
     doc.DOCUMENTO_TIPO,
     doc.DOCUMENTO_NRO
-FROM TG06100X a,
-    TG06110 p,
-    TG06120 j,
-    TG06300 d,
-    TG06111 doc,
-    TR02100 imp
-WHERE a.TG06100_ID = p.TG06100_TG06100_ID (+)
-    AND a.TG06100_ID = j.TG06100_TG06100_ID (+)
-    AND a.TG06300_TG06300_ID = d.TG06300_ID (+)
-    AND a.TG06100_ID = doc.TG06110_TG06100_TG06100_ID
-    AND a.TG06100_ID = imp.TIT_TG06100_ID
-    AND a.BAJA_MOTIVO IS NULL
+FROM TG06100X a
+    LEFT JOIN TG06110 p ON a.TG06100_ID = p.TG06100_TG06100_ID
+    LEFT JOIN TG06120 j ON a.TG06100_ID = j.TG06100_TG06100_ID
+    LEFT JOIN TG06300 d ON a.TG06300_TG06300_ID = d.TG06300_ID
+    JOIN TG06111 doc ON a.TG06100_ID = doc.TG06110_TG06100_TG06100_ID
+    JOIN TR02100 imp ON a.TG06100_ID = imp.TIT_TG06100_ID
+WHERE a.BAJA_MOTIVO IS NULL
     AND a.NOMBRE<>'NN'
-    AND imp.IMPONIBLE_TIPO='IND' AND imp.DEFINITIVO<>'B'
+    AND imp.IMPONIBLE_TIPO='IND' AND imp.DEFINITIVO='D'
     AND d.LOCALIDAD='RIO GRANDE'
     AND a.NOMBRE NOT LIKE '?%'
     AND LENGTH(doc.DOCUMENTO_NRO) > 5
