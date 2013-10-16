@@ -5,7 +5,7 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\InpeccionBundle\Entity\ActaTipo
+ * Yacare\InspeccionBundle\Entity\ActaTipo
  *
  * @ORM\Table(name="Inspeccion_ActaTipo")
  * @ORM\Entity

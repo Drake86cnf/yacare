@@ -25,7 +25,7 @@ class Analisis
    
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Observaciones;
     
@@ -79,8 +79,5 @@ class Analisis
 
     public function setResultadoAnalisis($ResultadoAnalisis) {
         $this->ResultadoAnalisis = $ResultadoAnalisis;
-    }
-
-
-  
+    }  
 }

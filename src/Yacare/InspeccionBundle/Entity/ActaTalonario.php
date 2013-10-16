@@ -15,6 +15,7 @@ class ActaTalonario
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
         
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")
@@ -44,22 +45,16 @@ class ActaTalonario
         $this->Nombre = $this->Tipo . ' Nº del ' . $this->NumeroDesde . ' al ' . $this->NumeroHasta;
     }
     
-    
     public function getTipo() {
         return $this->Tipo;
     }
 
-    public function getNumeroDesde() {
-        return $this->NumeroDesde;
-    }
-
-    public function getNumeroHasta() {
-        return $this->NumeroHasta;
-    }
-
     public function setTipo($Tipo) {
         $this->Tipo = $Tipo;
-        $this->ConstruirNombre();
+    }
+
+    public function getNumeroDesde() {
+        return $this->NumeroDesde;
     }
 
     public function setNumeroDesde($NumeroDesde) {
@@ -67,16 +62,21 @@ class ActaTalonario
         $this->ConstruirNombre();
     }
 
+    public function getNumeroHasta() {
+        return $this->NumeroHasta;
+    }
+
     public function setNumeroHasta($NumeroHasta) {
         $this->NumeroHasta = $NumeroHasta;
         $this->ConstruirNombre();
     }
-    
+
     public function getEnPoderDe() {
         return $this->EnPoderDe;
     }
 
     public function setEnPoderDe($EnPoderDe) {
         $this->EnPoderDe = $EnPoderDe;
-    }
-}
+    }    
+    
+   }

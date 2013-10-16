@@ -31,7 +31,7 @@ class ActaBromatologicaVeterinariaType extends AbstractType
             ->add('Obs', null, array('label' => 'Observaciones'))
             ->add('FuncionarioPrincipal', null, array('label' => 'Funcionario Principal'))
             ->add('FuncionarioSecundario', null, array('label' => 'Funcionario Secundario'))
-            ->add('Responsable', null, array('label' => 'Responsable'))            
+            ->add('ResponsableNombre', null, array('label' => 'Responsable'))            
         ;
     }
 
