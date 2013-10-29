@@ -32,8 +32,15 @@ h1, legend {
     padding-top: 7px;
 }
 
-input, select, option {
+input, select, option, textarea {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+textarea {
+    width: 100%;
+    min-width: 240px;
+    min-height: 72px;
+    resize: vertical;
 }
 
 .form-group select,
