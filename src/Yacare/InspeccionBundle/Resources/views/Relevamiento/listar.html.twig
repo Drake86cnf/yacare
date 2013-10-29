@@ -8,13 +8,19 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th></th>
             <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
+            <td>
+                <a class="btn btn-default btn-xs" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.Id }) }}"><i class="fa fa-list"></i> Asignaciones</a>
+                <a class="btn btn-default btn-xs" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': entity.Id }) }}"><i class="fa fa-list"></i> Resultados</a>
+                <a class="btn btn-default btn-xs" href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
+            </td>
+            <td>{{ entity.Nombre }}</td>
         </tr>
     {% endfor %}
     </tbody>
