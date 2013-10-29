@@ -19,7 +19,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Vehiculo }}</td>
+            <td><a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Vehiculo }}</td>
             <td>{{ entity.FechaDesinfeccionVehiculo|date("d/m/Y") }}</td>  
             <td>{{ entity.id }}</td>
             <td>
@@ -34,5 +34,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva desinfección</a>
+<a href="{{ path('yacare_bromatologia_desinfeccionvehiculo_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva desinfección</a>
 {% endblock %}

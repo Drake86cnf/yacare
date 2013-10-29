@@ -8,7 +8,7 @@
 
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th></th>
@@ -20,7 +20,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-small" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Propietario }}</td>
             <td>{{ entity.Domicilio }}</td>
             <td>{{ entity.Tipo }}</td>
@@ -31,6 +31,6 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn"><i class="icon-plus"></i> Nuevo local comercial</a>
+<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo local comercial</a>
 
 {% endblock %}

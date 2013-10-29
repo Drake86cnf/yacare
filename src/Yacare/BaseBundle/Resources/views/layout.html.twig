@@ -1,181 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <!--
-            Charisma v1.0.0
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-            Copyright 2012 Muhammad Usman
-            Licensed under the Apache License v2.0
-            http://www.apache.org/licenses/LICENSE-2.0
-
-            http://usman.it
-            http://twitter.com/halalit_usman
-    -->
-    <meta charset="UTF-8" />
     <title>Yacaré - {% block title %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}" />
 
-    <link id="bs-css" href="{{ asset('bundles/yacarebase/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <style type="text/css">
-      body {
-            padding-bottom: 40px;
-      }
-      .sidebar-nav {
-            padding: 9px 0;
-      }
-    </style>
-    <link href="{{ asset('bundles/yacarebase/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/yacare-app.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/jquery-ui-1.10.3.custom.min.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" />
-    <link href="{{ asset('bundles/yacarebase/css/chosen.min.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/select2.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/uniform.default.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/colorbox.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/jquery.cleditor.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/jquery.noty.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/noty_theme_default.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/elfinder.min.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/elfinder.theme.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/jquery.iphone.toggle.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/opa-icons.css') }}" rel="stylesheet" />
-    <disabledlink href="{{ asset('bundles/yacarebase/css/uploadify.css') }}" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('bundles/yacarebase/images/yacare_logo64.png') }}">
+    
+    <link href="{{ asset('bundles/yacarebase/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/yacarebase/css/font-awesome.min.css') }}" rel="stylesheet" />
 
+    <link href="{{ asset('bundles/yacarebase/css/sb-admin.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/yacarebase/css/yacare.css') }}" rel="stylesheet" />
+    
     <script src="{{ asset('bundles/yacarebase/js/modernizr.custom.58479.js') }}"></script>
     <script src="{{ asset('bundles/yacarebase/js/jquery-2.0.3.min.js') }}"></script>
-</head>
+  </head>
 
-<body>
-    <!-- topbar starts -->
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                </a>
+  <body>
 
-                <a class="brand" href="{{ path('inicio') }}">
-                    <img src="{{ asset('bundles/yacarebase/images/yacare_logo_gris_35x24.png') }}" alt="Yacaré" />
-                    <span>Municipio de Río Grande</span>
-                </a>
+    <div id="wrapper">
 
-                <!-- user dropdown starts -->
-                <div class="btn-group pull-right" >
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="icon-user"></i><span class="hidden-phone"> {{ app.user.Username }}</span>
-                                <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                                <li><a href="{{ path('yacare_base_persona_editarperfil') }}">{{ app.user.NombreVisible }}</a></li>
-                                <li class="divider"></li>
-                                <li><a href="{{ path('logout') }}">Desconectarse</a></li>
-                        </ul>
-                </div>
-                <!-- user dropdown ends -->
-
-                <!--/.nav-collapse -->
-            </div>
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Mostrar u ocultar el menú de navegación</span>
+            <span class="fa fa-ellipsis-vertical"></span>
+          </button>
+          <a class="navbar-brand" href="{{ path('inicio') }}"><img src="{{ asset('bundles/yacarebase/images/yacare_logo_gris20.png') }}" alt="Yacaré" /> Yacaré</a>
+          <span class="navbar-slogan">Municipio de Río Grande</span>
         </div>
-    </div>
-    <!-- topbar ends -->
 
-    <div class="container-fluid">
-        <div class="row-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          {% include 'YacareBaseBundle::menu.html.twig' %}
+        </div><!-- /.navbar-collapse -->
+      </nav>
 
-            {% include 'YacareBaseBundle::menu.html.twig' %}
+      <div id="page-wrapper">
 
-            <noscript>
-                    <div class="alert alert-block span10">
-                            <h4 class="alert-heading">Warning!</h4>
-                            <p>Debe habilitar <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> para poder utilizar esta aplicación.</p>
-                    </div>
-            </noscript>
+        <div class="row">
+          <div class="col-lg-12">
+            {% block content %}{% endblock %}
+          </div>
+        </div><!-- /.row -->
 
-            <div id="content" class="span10"><!-- content starts -->
-                {% for type, flashMessages in app.session.flashbag.all() %}
-                    {% for flashMessage in flashMessages %}
-                        <div class="alert alert-{{ type }}">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            {{ flashMessage }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
+      </div><!-- /#page-wrapper -->
 
-                {% for flashMessage in app.session.flashbag.get('notice') %}
-                        <div class="flash-message">
-                                <em>Aviso</em>: {{ flashMessage }}
-                        </div>
-                {% endfor %}
+    </div><!-- /#wrapper -->
 
-                <div class="row-fluid">
-                        {% block content %}
-                        {% endblock %}
-                </div>
-            </div>
-            <!-- content ends -->
-        </div><!--/fluid-row-->
-    <hr>
-
-    <footer>
-
-    </footer>
-	
-    </div><!--/.fluid-container-->
-
-    <!-- external javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    <!-- jQuery UI -->
+    <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('bundles/yacarebase/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
     <script src="{{ asset('bundles/yacarebase/js/jquery.ui.datepicker-es.js') }}"></script>
     <script src="{{ asset('bundles/yacarebase/js/bootstrap.min.js') }}"></script>
-    <!-- library for cookie management -->
-    <disabledscript src="{{ asset('bundles/yacarebase/js/jquery.cookie.js') }}"></disabledscript>
-    <!-- calander plugin -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/fullcalendar.min.js') }}"></disablescript>
-    <!-- data table plugin -->
-    <disabledscript src="{{ asset('bundles/yacarebase/js/jquery.dataTables.min.js') }}"></disabledscript>
-
-    <!-- chart libraries start -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/excanvas.js') }}"></disablescript>
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.flot.min.js') }}"></disablescript>
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.flot.pie.min.js') }}"></disablescript>
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.flot.stack.js') }}"></disablescript>
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.flot.resize.min.js') }}"></disablescript>
-    <!-- chart libraries end -->
-
-    <!-- select or dropdown enhancer -->
-    <script src="{{ asset('bundles/yacarebase/js/chosen.jquery.min.js') }}"></script>
-    <!-- select or dropdown enhancer -->
-    <disabledscript src="{{ asset('bundles/yacarebase/js/select2.min.js') }}"></disabledscript>
-    <!-- checkbox, radio, and file input styler -->
-    <script src="{{ asset('bundles/yacarebase/js/jquery.uniform.min.js') }}"></script>
-    <!-- plugin for gallery image view -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.colorbox.min.js') }}"></disablescript>
-    <!-- rich text editor library -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.cleditor.min.js') }}"></disablescript>
-    <!-- notification plugin -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.noty.js') }}"></disablescript>
-    <!-- file manager library -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.elfinder.min.js') }}"></disablescript>
-    <!-- star rating plugin -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.raty.min.js') }}"></disablescript>
-    <!-- for iOS style toggle switch -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.iphone.toggle.js') }}"></disablescript>
-    <!-- autogrowing textarea plugin -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.autogrow-textarea.js') }}"></disablescript>
-    <!-- multiple file upload plugin -->
-    <disablescript src="{{ asset('bundles/yacarebase/js/jquery.uploadify-3.1.min.js') }}"></disablescript>
-    <!-- history.js for cross-browser state change on ajax -->
     <script src="{{ asset('bundles/yacarebase/js/jquery.history.js') }}"></script>
-    <!-- application script for Charisma demo -->
-    <script src="{{ asset('bundles/yacarebase/js/charisma.js') }}"></script>
-
-    {{ tinymce_init() }}
-</body>
+    <script src="{{ asset('bundles/yacarebase/js/yacare.js') }}"></script>
+  </body>
 </html>

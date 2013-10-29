@@ -4,23 +4,10 @@
 
 {% block content %}
 
-<ul class="breadcrumb">
-    <li><a href="{{ path('inicio') }}">Inicio</a></li>
-</ul>
-
-{% if is_expr_granted("hasAnyRole('ROLE_INSPECCION_ADMINISTRADOR', 'ROLE_INSPECCION_USUARIO')") %}
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_inspeccion_default_inicio') }}">
-    <span class="icon32 icon-blue icon-book"></span>
-    <div>Inspección</div>
-</a>
-{% endif %}
-
-{% if is_expr_granted("hasAnyRole('ROLE_CATASTRO_ADMINISTRADOR', 'ROLE_CATASTRO_USUARIO')") %}
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_catastro_default_inicio') }}">
-    <span class="icon32 icon-blue icon-book"></span>
-    <div>Catastro</div>
-</a>
-{% endif %}
+<div class="jumbotron">
+    <h1>Yacaré</h1>
+    <p>Bienvenido al sistema Yacaré.</p>
+</div>
 
 <div style="position: absolute; bottom: 0; right: 0;">
     <div>

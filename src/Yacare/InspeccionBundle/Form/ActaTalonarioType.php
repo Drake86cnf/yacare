@@ -17,11 +17,11 @@ class ActaTalonarioType extends AbstractType
                 'required' => true))
             ->add('NumeroDesde', null, array('label' => 'Numeración desde'))
             ->add('NumeroHasta', null, array('label' => 'hasta'))
-            ->add('EnPoderDe', 'entity', array(
+            ->add('EnPoderDe', 'entity_id', array(
                 'label' => 'En poder de',
-                'class' => 'YacareBaseBundle:Persona',
-                'required' => false,
-                'empty_value' => 'Sin especificar'))
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => false))
         ;
     }
 

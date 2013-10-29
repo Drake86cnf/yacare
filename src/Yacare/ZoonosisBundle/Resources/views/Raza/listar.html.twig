@@ -18,7 +18,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_zoonosis_raza_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i></a> {{ entity.Nombre }}</td>
+            <td><a href="{{ path('yacare_zoonosis_raza_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Nombre }}</td>
             <td>{{ entity.TipoNombreAnimal }}</td> 
         </tr>
     {% endfor %}
@@ -30,5 +30,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_zoonosis_raza_editar_1') }}" class="btn"><i class="icon-plus"></i> Nueva raza</a>
+<a href="{{ path('yacare_zoonosis_raza_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva raza</a>
 {% endblock %}

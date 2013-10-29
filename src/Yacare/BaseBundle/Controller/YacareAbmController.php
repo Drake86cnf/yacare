@@ -25,6 +25,28 @@ class YacareAbmController extends YacareBaseController
         if(!isset($this->BuscarPor))
             $this->BuscarPor = 'Nombre';
     }
+    
+    
+    /**
+     * @Route("buscar/")
+     * @Template()
+     */
+    public function buscarAction()
+    {
+        return $this->ArrastrarVariables(array(
+        ));
+    }
+    
+    
+    /**
+     * @Route("buscarresultados/")
+     * @Template()
+     */
+    public function buscarresultadosAction()
+    {
+        $this->Paginar = false;
+        return $this->listarAction();
+    }
 
 
     /**

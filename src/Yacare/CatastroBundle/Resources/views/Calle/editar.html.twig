@@ -8,8 +8,8 @@
     <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva calle {% endif %}</legend>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
-        <a class="btn" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
     </div>
 </form>
 

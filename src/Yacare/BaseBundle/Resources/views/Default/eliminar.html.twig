@@ -13,9 +13,9 @@
         
         <p>¿Está seguro de que desea eliminar de forma permanente el elemento seleccionado?</p>
         
-        <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Eliminar</button>
+        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o icon-white"></i> Eliminar</button>
         &nbsp;&nbsp;&nbsp;
-        <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn"><i class="icon icon-reply"></i> Cancelar</a>
+        <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="icon icon-reply"></i> Cancelar</a>
 </form>
 {% endif %}
 

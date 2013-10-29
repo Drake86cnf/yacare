@@ -63,7 +63,7 @@ class MicrochipType extends AbstractType
                 'required'  => true,
                 'label' => 'Origen'))
             ->add('Dueno', null, array('label' => 'Dueño'))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioLocalType(), 
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioLocalType(), 
                     array(
                         'data_class' => 'Yacare\ZoonosisBundle\Entity\Microchip',
                         'label' => 'Domicilio')

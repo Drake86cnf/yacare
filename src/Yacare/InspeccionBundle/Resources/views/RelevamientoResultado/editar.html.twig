@@ -8,14 +8,14 @@
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo tipo de resultado {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
-		<a class="btn" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}">Cancelar</a>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
+		<a class="btn btn-default" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}">Cancelar</a>
     </div>
     
 </form>
 
 {% if entity %}
-<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoresultado_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar tipo de resultado</a>
+<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoresultado_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o icon-white"></i> Eliminar tipo de resultado</a>
 {% endif %}
 
 {% endblock %}

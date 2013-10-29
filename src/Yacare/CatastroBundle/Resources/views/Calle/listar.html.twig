@@ -6,9 +6,10 @@
 
 {% block content %}
 
+<legend>Calles</legend>
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th> </th>
@@ -18,7 +19,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-small" href="#{{ entity.id }}" onClick="javascript:alert('Sólo puede editarse desde Sigemi.');"><i class="icon-edit"></i> Editar</a></td>
+            <td><a class="btn btn-default btn-xs" href="#{{ entity.id }}" onClick="javascript:alert('Sólo puede editarse desde Sigemi.');"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Nombre }}</td>
         </tr>
     {% endfor %}

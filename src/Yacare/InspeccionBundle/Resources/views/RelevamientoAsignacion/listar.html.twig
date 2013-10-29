@@ -41,11 +41,11 @@
 
 {% endif %}
 
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': id }) }}"><i class="icon-map-marker"></i> Asignar macizo</a>
-<a class="btn" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': id }) }}"><i class="icon-map-marker"></i> Asignar calle</a>
+<a class="btn btn-default" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': id }) }}"><i class="fa fa-map-marker"></i> Asignar macizo</a>
+<a class="btn btn-default" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': id }) }}"><i class="fa fa-map-marker"></i> Asignar calle</a>
 &nbsp;
 &nbsp;
-<a href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': id }) }}" class="btn"><i class="icon-list"></i> Ver resultados</a>
+<a href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': id }) }}" class="btn btn-default"><i class="fa fa-list"></i> Ver resultados</a>
 &nbsp;
-<a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn"><i class="icon-edit"></i> Editar relevamiento</a>
+<a href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar relevamiento</a>
 {% endblock %}

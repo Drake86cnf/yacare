@@ -1,0 +1,8 @@
+
+services:
+    # entity_id type
+    entity_id.type:
+        class: Yacare\BaseBundle\Form\Type\EntityIdType
+        arguments: [@doctrine]
+        tags:
+            - { name: form.type, alias: entity_id }

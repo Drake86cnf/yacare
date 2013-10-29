@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +18,8 @@ class DomicilioType extends AbstractType
                 'empty_value' => 'Otra (escribir a continuación)'
                 ))
             ->add('DomicilioCalleNombre', null, array(
-                'label' => 'Otra',
-                'required'  => true,
-                'attr' => array('style' => 'width: 180px;')
+                'label' => 'Calle (otra)',
+                'required'  => false
                 ))
             ->add('DomicilioNumero', null, array(
                 'label' => 'Nº',

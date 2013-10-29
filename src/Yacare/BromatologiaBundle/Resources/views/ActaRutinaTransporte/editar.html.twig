@@ -8,13 +8,13 @@
 	<legend>{% if entity.id %} {{ entity.Numero }} {% else %} Nueva acta {% endif %}</legend>
 	{{ form_widget(edit_form) }}
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok"></i> Guardar</button>
-		<a class="btn" href="{{ path('yacare_bromatologia_actarutinatransporte_listar') }}">Cancelar</a>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
+		<a class="btn btn-default" href="{{ path('yacare_bromatologia_actarutinatransporte_listar') }}">Cancelar</a>
     </div>
 </form>
 
 {% if entity.id %}
-<a class="btn btn-danger" href="{{ path('yacare_bromatologia_actarutinatransporte_eliminar', { 'id': entity.id }) }}"><i class="icon-trash icon-white"></i> Eliminar acta</a>
+<a class="btn btn-danger" href="{{ path('yacare_bromatologia_actarutinatransporte_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o icon-white"></i> Eliminar acta</a>
 {% endif %}
 
 {% endblock %}

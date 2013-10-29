@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ class DocumentoType extends AbstractType
         ;
     }
     
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'inherit_data' => true,

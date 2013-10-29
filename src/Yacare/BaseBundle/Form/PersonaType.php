@@ -14,14 +14,14 @@ class PersonaType extends AbstractType
             ->add('Apellido', null, array('label' => 'Apellido'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
-            ->add('Documento', new \Yacare\BaseBundle\Form\DocumentoType(), array('label' => 'Documento'))
+            ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array('label' => 'Documento'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\DomicilioType(), array('label' => 'Domicilio'))
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array('label' => 'Domicilio'))
             ->add('TelefonoNumero', null, array('label' => 'Teléfono(s)'))
             ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('PersonaJuridica', 'checkbox', array(

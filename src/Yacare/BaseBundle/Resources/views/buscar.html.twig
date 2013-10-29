@@ -1,17 +1,24 @@
-{% set filtro_buscar = app.request.get('filtro_buscar') %}
-<span class="input-prepend input-append">
-    <span class="add-on">Buscar</span><input type="text" size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="todos" value="{{ filtro_buscar }}" style="max-width: 128px" />
-    {% if filtro_buscar %}
-    <button class="btn" type="button" onClick="parent.location='?filtro_buscar=';">Todos</button>
-    {% endif %}
-</span>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#filtro_buscar').keyup(function (e) {
-        if (e.which === 13) {
-            e.preventDefault();
-            parent.location='?filtro_buscar=' + $('#filtro_buscar').val();
-        }
+<div id="nav-search" class="nav-search">
+    {% set filtro_buscar = app.request.get('filtro_buscar') %}
+    <div class="form-inline">
+        <i class="fa fa-search nav-search-icon"></i> <label>Buscar</label>
+        &nbsp;
+        <input class="form-control input-sm" type="text" autocomplete="off" size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..." value="{{ filtro_buscar }}" style="max-width: 128px" />
+
+        {% if filtro_buscar %}
+        <button class="btn btn-default btn-sm" type="button" onClick="parent.location='?filtro_buscar=';">Ver todos</button>
+        {% endif %}
+
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#filtro_buscar').keyup(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                parent.location='?filtro_buscar=' + $('#filtro_buscar').val();
+            }
+        });
     });
-});
-</script>
+    </script>
+</div>

@@ -53,17 +53,9 @@ class ActaTalonario
         $this->Tipo = $Tipo;
     }
 
-    public function getNumeroDesde() {
-        return $this->NumeroDesde;
-    }
-
     public function setNumeroDesde($NumeroDesde) {
         $this->NumeroDesde = $NumeroDesde;
         $this->ConstruirNombre();
-    }
-
-    public function getNumeroHasta() {
-        return $this->NumeroHasta;
     }
 
     public function setNumeroHasta($NumeroHasta) {
@@ -77,6 +69,14 @@ class ActaTalonario
 
     public function setEnPoderDe($EnPoderDe) {
         $this->EnPoderDe = $EnPoderDe;
-    }    
-    
-   }
+    }
+
+    public function getNumeroDesde() {
+        return $this->NumeroDesde;
+    }
+
+    public function getNumeroHasta() {
+        return $this->NumeroHasta;
+    }
+
+}

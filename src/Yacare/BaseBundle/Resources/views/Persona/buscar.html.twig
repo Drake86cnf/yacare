@@ -1,0 +1,29 @@
+{% block content %}
+
+<div style="min-height: 240px; max-height: 90%; min-width: 640px; max-width: 90%; padding: 8px; overflow: auto; ">
+    
+    <input type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="buscar por nombre o dni" />
+    <button id="botonbuscar">Buscar</button>
+
+    <div id="resultadosbuscar">
+        Aquí van los resultados.
+    </div>
+</div>
+
+<script>
+    $('#botonbuscar').click(function(e) {
+        var filtro_buscar = $('#filtro_buscar').val();
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + filtro_buscar;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(url + ': ' + data);
+        });
+    });
+    $('#filtro_buscar').keyup(function(e) {
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            $('#botonbuscar').trigger('click');
+        }
+    });
+</script>
+
+{% endblock %}

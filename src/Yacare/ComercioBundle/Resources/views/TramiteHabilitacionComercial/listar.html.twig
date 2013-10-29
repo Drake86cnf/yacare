@@ -8,7 +8,7 @@
 
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th> </th>
@@ -19,7 +19,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-mini" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="icon-edit"></i> Editar</a></td>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Titular }}</td>
             <td>{{ entity.Local }}</td>
         </tr>
@@ -29,5 +29,5 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn"><i class="icon-plus"></i> Nuevo trámite de habilitación comercial</a>
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo trámite de habilitación comercial</a>
 {% endblock %}

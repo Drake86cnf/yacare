@@ -14,7 +14,7 @@
         <span class="input-append">
             <input class="input-small" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
             {% if filtro_partida %}
-            <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar') }}';">Todas</button>
+            <button class="btn btn-default" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar') }}';">Todas</button>
             {% endif %}
         </span>
     </span>
@@ -26,11 +26,11 @@
             <span class="btn-group">
                 {% for seccion in secciones %}
                     {% if seccion.Seccion %}
-                        <a style="min-width: 8px;" class="btn" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
+                        <a style="min-width: 8px;" class="btn btn-default" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
                     {% endif %}
                 {% endfor %}
                 {% if filtro_seccion %}
-                    <a class="btn" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
+                    <a class="btn btn-default" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
                 {% endif %}
 
             </span>
@@ -41,7 +41,7 @@
                 <span class="input-append">
                     <input class="input-small" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
                     {% if filtro_macizo %}
-                    <button class="btn" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion })) }}&filtro_macizo='">Todos</button>
+                    <button class="btn btn-default" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion })) }}&filtro_macizo='">Todos</button>
                     {% endif %}
                 </span>
             </span>
@@ -66,7 +66,7 @@ $(document).ready(function() {
 </script>
 {% endif %}
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Partida</th>
