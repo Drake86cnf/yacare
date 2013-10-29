@@ -16,7 +16,7 @@ class PersonaController extends YacareAbmController
     Use \Yacare\BaseBundle\Controller\ConEliminar;
     
     function __construct() {
-        $this->BuscarPor = 'NombreVisible';
+        $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
         parent::__construct();
     }
     
@@ -48,11 +48,11 @@ class PersonaController extends YacareAbmController
             $em->refresh($user); // Add this line
         }
 
-        return array(
+        return $this->ArrastrarVariables(array(
             'entity'      => $entity,
             'edit_form'   => $form->createView(),
-        );
+        ));
     
-        parent::__editarAction($id);
+        //parent::__editarAction($id);
     }
 }
