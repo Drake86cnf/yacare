@@ -56,14 +56,14 @@ doctrine:
           charset:  UTF8
           mapping_types:
             point: point
-        v_catastro:
-          driver:   "oci8"
-          host:     "192.168.100.20"
-          port:     "1521"
-          dbname:   "rgr"
-          user:     "yacare"
-          password: "c4b4llo"
-          charset:  UTF8
+        #dbmunirg:
+        #  driver:   "oci8"
+        #  host:     "192.168.100.20"
+        #  port:     "1521"
+        #  dbname:   "rgr"
+        #  user:     "sys"
+        #  password: "riogrande"
+        #  charset:  UTF8
 
     orm:
       default_entity_manager: default
@@ -72,8 +72,8 @@ doctrine:
         default:
           auto_mapping: true
           connection: default
-#        v_catastro:
-#          connection: v_catastro
+        #dbmunirg:
+        #  connection: dbmunirg
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -100,6 +100,11 @@ knp_snappy:
         binary:     /usr/bin/wkhtmltoimage
         options:    
 
+knp_paginator:
+    page_range: 10                     # default page range used in pagination control
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+
 stfalcon_tinymce:
     include_jquery: false
     tinymce_jquery: true
@@ -107,7 +112,7 @@ stfalcon_tinymce:
     selector: ".tinymce"
     theme:
         simple:
-            content_css: %web_root%/bundles/yacarebase/css/bootstrap-yacare.css
+            content_css: %web_root%/bundles/yacarebase/css/yacare.css
             plugins: "link paste spellchecker textcolor"
             toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker stfalcon"
             toolbar2: ""
@@ -118,6 +123,7 @@ stfalcon_tinymce:
             paste_auto_cleanup_on_paste: true
             spellchecker_languages: "+Spanish=sp"
         medium:
+            content_css: %web_root%/bundles/yacarebase/css/yacare.css
             plugins: "table hr link paste spellchecker"
             toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | hr removeformat | sub sup | spellchecker"
             toolbar1: "cut copy paste pastetext pasteword | bullist numlist | undo redo | link unlink | tablecontrols"
