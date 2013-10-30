@@ -1,0 +1,9 @@
+<div class="modal-dialog modal-large">
+    <div class="modal-content">
+        {% block modal_header %}{% endblock modal_header %}
+        <div class="modal-body" id="modal-body">
+            {% block content %}{% endblock content %}
+        </div>
+        {% block form_actions %}{% endblock form_actions %}
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

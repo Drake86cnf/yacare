@@ -11,10 +11,11 @@ class LocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Propietario', null, array(
-                'label' => 'Propietario',
-                'required'  => true
-                ))
+            ->add('Propietario', 'entity_id', array(
+                'label' => 'En poder de',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
             ->add('Tipo', 'choice', array(
                 'label' => 'Tipo',
                 'required'  => true,
@@ -30,10 +31,10 @@ class LocalType extends AbstractType
                     array(
                         'label' => 'Domicilio')
                     )
-            ->add('Partida', 'integer', array(
+            ->add('Partida', 'entity_id', array(
                 'label' => 'Partida Nº',
-                'required'  => false
-                ))
+                'class' => 'Yacare\CatastroBundle\Entity\Partida',
+                'required' => false))
         ;
     }
 

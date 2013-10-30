@@ -17,7 +17,7 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6 {
 }
 
 a, button {
-    cursor: hand;
+    cursor: pointer;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -310,4 +310,14 @@ body {
     .navbar-slogan {
         padding: 0px 0px 0px 12px;
     }
+}
+
+.modal-large {
+    width: 80%; /* respsonsive width */
+    margin-left: 10%; /* width/2 */
+}
+
+.modal-body {
+    max-height: 420px;
+    overflow: auto;
 }

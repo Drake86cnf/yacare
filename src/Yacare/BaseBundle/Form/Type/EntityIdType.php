@@ -34,25 +34,6 @@ class EntityIdType extends AbstractType
             $em = $this->registry->getManager($options['em']);
         }
         
-        // Tomo el segundo y cuarto valor (índices 1 y 3)
-        $PartesNombreClase = explode('\\', $options['class']);
-        
-        if(!isset($this->BundleName)) {
-            $this->BundleName = $PartesNombreClase[1];
-            if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
-                // Quitar la palabra 'Bundle' del nombre del bundle
-                $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
-            }
-        }
-
-        if(!isset($this->EntityName)) {
-            $this->EntityName = $PartesNombreClase[3];
-            if(strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
-                // Quitar la palabra 'Bundle' del nombre del bundle
-                $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
-            }
-        }
-
         $builder->addModelTransformer(new EntityToIdTransformer(
             $em,
             $options['class'],
@@ -83,7 +64,25 @@ class EntityIdType extends AbstractType
             $view->vars['type'] = 'hidden';
         }
         
-        $view->vars['baseroute'] = $this->getBaseRoute();
+        // Obtengo la ruta base desde el nombre de la entidad (class)
+        // Por ejemplo, Yacare\CatastroBundle\Entity\Partida -> yacare_catastro_partida_*
+        
+        // Tomo el segundo y cuarto valor (índices 1 y 3)
+        $PartesNombreClase = explode('\\', $options['class']);
+        
+        $this->BundleName = $PartesNombreClase[1];
+        if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
+            // Quitar la palabra 'Bundle' del nombre del bundle
+            $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
+        }
+
+        $this->EntityName = $PartesNombreClase[3];
+        if(strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
+            // Quitar la palabra 'Bundle' del nombre del bundle
+            $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
+        }
+
+        $view->vars['baseroute'] = strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName);
     }
 
     public function getParent()

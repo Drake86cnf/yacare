@@ -1,21 +1,35 @@
+{% extends 'YacareBaseBundle::modal.html.twig' %}
+
+{% block title %}Personas{% endblock %}
+
 {% block content %}
+{% set destcontrol = app.request.get('destcontrol') %}
 
-<div style="min-height: 240px; max-height: 90%; min-width: 640px; max-width: 90%; padding: 8px; overflow: auto; ">
-    
-    <input type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="buscar por nombre o dni" />
-    <button id="botonbuscar">Buscar</button>
+<div style="padding-bottom: 10px;">
+    <input class="input input-sm" autocomplete="off" onkeydown="if (event.keyCode == 13) return false;" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
+    <button type="button" class="btn btn-primary btn-sm" id="botonbuscar">Buscar</button>
+</div>
 
-    <div id="resultadosbuscar">
-        Aquí van los resultados.
-    </div>
+<div id="resultadosbuscar">
+    <legend>Buscar personas</legend>
+    <p>Puede buscar por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
 </div>
 
 <script>
+    function seleccionarItem(a, b) {
+        $('#{{ destcontrol }}').val(a + ': ' + b);
+        $('#modal').modal('hide');
+        $('#modal').html('(re)Cargando...');
+    }
+    
     $('#botonbuscar').click(function(e) {
+        $('#resultadosbuscar').html('<p>Buscando...</p>');
+        
         var filtro_buscar = $('#filtro_buscar').val();
         var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + filtro_buscar;
         $.get(url, function(data) {
-            $('#resultadosbuscar').html(url + ': ' + data);
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
         });
     });
     $('#filtro_buscar').keyup(function(e) {
@@ -24,6 +38,9 @@
             $('#botonbuscar').trigger('click');
         }
     });
+    $('#filtro_buscar').focus();
 </script>
+{% endblock %}
 
+{% block form_actions %}
 {% endblock %}

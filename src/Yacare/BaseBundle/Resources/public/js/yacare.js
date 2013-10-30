@@ -51,24 +51,26 @@ $(document).ready(function(){
             search_contains: true
             }); */
         
-        $('[data-rel="ajax-modal"]').click(function(e) {
+        $('[data-toggle="modal"]').off('click');
+        $('[data-toggle="modal"]').click(function(e) {
             e.preventDefault();
 
             var url = $(this).attr('href');
             var modal_id = $(this).attr('data-target');
-            //var modal = $(modal_id);
+            var modal = $(modal_id);
 
             $.get(url, function(data) {
-                if(modal_id)
-                    $(modal_id).html(data).modal();
-                else
-                    $('<div class="modal hide fade">' + data + '</div>').modal({
-                        keyboard: true
-                    });
+                modal.html(data).modal();
             }).success(function() {
-                /* boom. loaded. */ 
+                //boom. loaded.
             }).fail(function(a) {
-                alert(a.status);
+                // Muestro un error
+                modal.html('<div class="modal-dialog"><div class="modal-content">\n\
+<div class="modal-header">\n\
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
+<h4 class="modal-title">Error</h4>\n\
+</div>\n\
+<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</div></div></div>').modal();
             });
         });
 });

@@ -91,20 +91,14 @@
 {% endblock %}
     
 {% block entity_id_widget %}
-    <div>
-        <input {{ block('widget_attributes') }} type="hidden" value="{{ value }}" />
-        <a data-rel="ajax-modal" class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}"><i class="fa fa-search"></i> Seleccionar</a>
-        &nbsp;
-        <span class="input" id="{{ id }}_text">(valor inicial)</span>
-        
+    <div class="form-group input-group">
+        <input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text" value="{{ value }}"
+               data-toggle="modal" data-target="#modal" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}"
+               style="cursor: pointer;" />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
     </div>
-
-    <script>
-        $(function(ready) {
-            $('#{{ id }}').change(function() {
-                var a = $('#{{ id }}').val();
-                $('#{{ id }}_text').text(a);
-            }).trigger('change');
-         });
-    </script>
 {% endblock %}
