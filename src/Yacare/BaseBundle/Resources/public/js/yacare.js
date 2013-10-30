@@ -58,6 +58,10 @@ $(document).ready(function(){
             var url = $(this).attr('href');
             var modal_id = $(this).attr('data-target');
             var modal = $(modal_id);
+            
+            modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body">\n\
+<p><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
+</div></div></div>');
 
             $.get(url, function(data) {
                 modal.html(data).modal();

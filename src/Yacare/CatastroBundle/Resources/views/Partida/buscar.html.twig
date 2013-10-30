@@ -1,94 +1,91 @@
+{% extends 'YacareBaseBundle::modal.html.twig' %}
+
 {% block title %}Partidas{% endblock %}
 
-{% block content_header '' %}
-
 {% block content %}
+{% set destcontrol = app.request.get('destcontrol') %}
 
-{% if secciones %}
-{% set filtro_seccion = app.request.query.get('filtro_seccion') %}
-{% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-{% set filtro_partida = app.request.query.get('filtro_partida') %}
-<div>
-    <span class="form_horizontal_part">
-        Nº de partida<br />
-        <span class="input-append">
-            <input class="input-small" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
-            {% if filtro_partida %}
-            <button class="btn btn-default" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar') }}';">Todas</button>
-            {% endif %}
-        </span>
-    </span>
+<div style="padding-bottom: 10px;">
+    <legend><i class="fa fa-search"></i> Buscar partida</legend>
 
-    
-    {% if not filtro_partida %}
-        <span class="form_horizontal_part">
-            Sección<br />
-            <span class="btn-group">
-                {% for seccion in secciones %}
-                    {% if seccion.Seccion %}
-                        <a style="min-width: 8px;" class="btn btn-default" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
-                    {% endif %}
-                {% endfor %}
-                {% if filtro_seccion %}
-                    <a class="btn btn-default" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
-                {% endif %}
-
-            </span>
-        </span>
-        {% if filtro_seccion %}
-            <span class="form_horizontal_part">
-                Macizo<br />
-                <span class="input-append">
-                    <input class="input-small" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
-                    {% if filtro_macizo %}
-                    <button class="btn btn-default" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion })) }}&filtro_macizo='">Todos</button>
-                    {% endif %}
-                </span>
-            </span>
-        {% endif %}
-    {% endif %}
+<div id="resultadosbuscar" class="form-inline">
+    {% include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
 </div>
+
 <script>
-$(document).ready(function() {
-    $("#filtro_macizo").keyup(function (e) {
-        if (e.which === 13) {
+    function seleccionarItem(a, b) {
+        $('#{{ destcontrol }}').val(a + ': ' + b);
+        $('#modal').modal('hide');
+        $('#modal').html('(re)Cargando...');
+    }
+    
+    function buscarNada() {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=-1';
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    function buscarPartida(a) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=' + a;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    function buscarCalleAltura(a, b) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        seccion = a;
+
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_calle=' + a+ '&filtro_calle_altura=' + b;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    function buscarSeccionMacizo(a, b) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_seccion=' + a + '&filtro_macizo=' + b;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    $('#botonbuscar').click(function(e) {
+        
+    });
+    
+    $('#filtro_buscar').keyup(function(e) {
+        if(e.keyCode == 13) {
             e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
+            $('#botonbuscar').trigger('click');
         }
     });
-    $("#filtro_partida").keyup(function (e) {
-        if (e.which === 13) {
-            e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_partida=' + $("#filtro_partida").val();
-        }
-    });
-});
+    $('#filtro_partida').focus();
 </script>
-{% endif %}
+{% endblock %}
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Partida</th>
-            <th>Detalle</th>
-            <th>Domicilio</th>
-            <th>Titular</th>
-            <th>Zona</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td>{{ entity.Numero }}</td>
-            <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.Domicilio }}</td>
-            <td>{{ entity.Titular }}</td>
-            <td>{{ entity.Zona }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
-{% include 'YacareBaseBundle::paginar.html.twig' %}
-
+{% block form_actions %}
 {% endblock %}

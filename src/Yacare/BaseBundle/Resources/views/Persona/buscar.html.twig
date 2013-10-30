@@ -6,7 +6,7 @@
 {% set destcontrol = app.request.get('destcontrol') %}
 
 <div style="padding-bottom: 10px;">
-    <input class="input input-sm" autocomplete="off" onkeydown="if (event.keyCode == 13) return false;" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
+    <input class="input input-sm" autocomplete="off" onkeydown="if (event.keyCode === 13) return false;" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
     <button type="button" class="btn btn-primary btn-sm" id="botonbuscar">Buscar</button>
 </div>
 
@@ -23,13 +23,16 @@
     }
     
     $('#botonbuscar').click(function(e) {
-        $('#resultadosbuscar').html('<p>Buscando...</p>');
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
         
         var filtro_buscar = $('#filtro_buscar').val();
         var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + filtro_buscar;
         $.get(url, function(data) {
             $('#resultadosbuscar').html(data);
             $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
         });
     });
     $('#filtro_buscar').keyup(function(e) {

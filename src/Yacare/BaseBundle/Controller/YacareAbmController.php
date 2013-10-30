@@ -22,6 +22,9 @@ class YacareAbmController extends YacareBaseController
         if(!isset($this->Where))
             $this->Where = null;
         
+        if(!isset($this->Limit))
+            $this->Limit = null;
+        
         if(!isset($this->BuscarPor))
             $this->BuscarPor = 'Nombre';
     }
@@ -45,6 +48,7 @@ class YacareAbmController extends YacareBaseController
     public function buscarresultadosAction()
     {
         $this->Paginar = false;
+        $this->Limit = 500;
         return $this->listarAction();
     }
 
@@ -93,8 +97,12 @@ class YacareAbmController extends YacareBaseController
             $OrderByCampos = split(',', $this->OrderBy);
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
-
+        
         $query = $em->createQuery($dql);
+        
+        if($this->Limit) {
+            $query->setMaxResults($this->Limit);
+        }
         
         if($this->Paginar) {
             $paginator  = $this->get('knp_paginator');
