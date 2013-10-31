@@ -1,15 +1,14 @@
 {% extends 'YacareBaseBundle::modal.html.twig' %}
 
-{% block title %}Partidas{% endblock %}
+{% block title %}Buscar partidas{% endblock %}
 
 {% block content %}
 {% set destcontrol = app.request.get('destcontrol') %}
 
-<div style="padding-bottom: 10px;">
-    <legend><i class="fa fa-search"></i> Buscar partida</legend>
+{% include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
 
 <div id="resultadosbuscar" class="form-inline">
-    {% include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
+    
 </div>
 
 <script>
@@ -22,7 +21,7 @@
     function buscarNada() {
         $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
         
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=-1';
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=-1&reiniciar=1';
         $.get(url, function(data) {
             $('#resultadosbuscar').html(data);
             $('#filtro_buscar').focus();

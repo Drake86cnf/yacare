@@ -6,7 +6,6 @@
         <tr>
             <td>{{ entity.Numero }}</td>
             <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Nombre  }}</a></td>
-            <td>{{ entity.Domicilio }}</td>
             <td>{{ entity.Titular }}</td>
             <td>{{ entity.Zona }}</td>
         </tr>
@@ -18,10 +17,6 @@
     <div class="alert alert-warning">
         <p><i class="fa fa-warning fa-2x"></i> No se encontraron resultados.</p>
     </div>
-
-    {% include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
 {% endif %}
-
-<a href="#" onclick="buscarNada(); return false;">Iniciar nuevamente la búsqueda</a>
 
 {% endblock %}
