@@ -50,7 +50,8 @@ $(document).ready(function(){
             placeholder_text_multiple: "Seleccione...",
             search_contains: true
             }); */
-        
+    
+           
         $('[data-toggle="modal"]').off('click');
         $('[data-toggle="modal"]').click(function(e) {
             e.preventDefault();
@@ -77,4 +78,32 @@ $(document).ready(function(){
 <div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</div></div></div>').modal();
             });
         });
+
+        /* $('[data-toggle="ajax-link"]').click(function(e) {
+            e.preventDefault();
+            
+            var url = $(this).attr('href');
+            var destino = $(this).attr('data-target');
+            
+            return yacareCargarUrlEn(url, destino);
+        }); */
+        
+        function yacareCargarUrlEn(url, destino) {
+            $(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
+            $.get(url, function(data) {
+                $(destino).html(data);
+                if(url != window.location) {
+			window.history.pushState({path:url}, '', url);
+		}
+            }).success(function() {
+                //boom. loaded.
+            }).fail(function(a) {
+                // Muestro un error
+                $(destino).html('<div class="alert alert-dismissable alert-danger">\n\
+<p>Sucedió un error al cargar la página solicitada. Haga <a class="alert-link" href="#" onclick="yacareCargarUrlEn(\'' + url + '\', \'' + destino + '\'); return false;">clic aquí</a> para intentarlo nuevamente.</p>\n\
+<p>El código de error es: ' + a.status + '</p></div>');
+            });
+            
+            return false;
+        }
 });
