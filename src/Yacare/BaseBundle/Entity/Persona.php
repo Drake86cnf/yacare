@@ -166,16 +166,24 @@ class Persona implements UserInterface, \Serializable
     public function getNombreVisible() {
         if($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
-        else
+        else if($this->Apellido && $this->Nombre)
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+        else if($this->Nombre)
+            $this->NombreVisible = $this->Nombre;
+        else
+            $this->NombreVisible = $this->Apellido;
         return $this->NombreVisible;
     }
 
     public function setNombreVisible($NombreVisible) {
         if($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
-        else
+        else if($this->Apellido && $this->Nombre)
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+        else if($this->Nombre)
+            $this->NombreVisible = $this->Nombre;
+        else
+            $this->NombreVisible = $this->Apellido;
     }
     
     public function getRoles() {
