@@ -11,11 +11,10 @@ class LocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Propietario', 'entity_id', array(
-                'label' => 'En poder de',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required' => true))
+            ->add('Partida', 'entity_id', array(
+                'label' => 'Partida Nº',
+                'class' => 'Yacare\CatastroBundle\Entity\Partida',
+                'required' => false))
             ->add('Tipo', 'choice', array(
                 'label' => 'Tipo',
                 'required'  => true,
@@ -27,14 +26,15 @@ class LocalType extends AbstractType
                     'Otro' => 'Otro'
                     )
                 ))
+            ->add('Propietario', 'entity_id', array(
+                'label' => 'Propietario',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioLocalType(), 
                     array(
                         'label' => 'Domicilio')
                     )
-            ->add('Partida', 'entity_id', array(
-                'label' => 'Partida Nº',
-                'class' => 'Yacare\CatastroBundle\Entity\Partida',
-                'required' => false))
         ;
     }
 

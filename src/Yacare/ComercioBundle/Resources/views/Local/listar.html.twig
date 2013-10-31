@@ -14,8 +14,9 @@
         <tr>
             <th></th>
             <th>Propietario</th>
-            <th>Domicilio</th>
             <th>Tipo</th>
+            <th>Domicilio</th>
+            <th>Titular</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +24,9 @@
         <tr>
             <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Propietario }}</td>
-            <td>{{ entity.Domicilio }}</td>
             <td>{{ entity.Tipo }}</td>
+            <td>{{ entity.Partida.Domicilio }}</td>
+            <td>{{ entity.Partida.Titular }}</td>
         </tr>
     {% endfor %}
     </tbody>

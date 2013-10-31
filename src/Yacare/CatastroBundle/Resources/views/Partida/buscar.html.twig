@@ -31,6 +31,19 @@
         });
     }
     
+    function buscarTitular(a) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_titular=' + a;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
     function buscarPartida(a) {
         $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
         

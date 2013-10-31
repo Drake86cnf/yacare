@@ -22,6 +22,9 @@ class YacareAbmController extends YacareBaseController
         if(!isset($this->Where))
             $this->Where = null;
         
+        if(!isset($this->Joins))
+            $this->Joins = array();
+        
         if(!isset($this->Limit))
             $this->Limit = null;
         
@@ -62,6 +65,12 @@ class YacareAbmController extends YacareBaseController
         $em = $this->getDoctrine()->getManager();
        
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
+        
+        if(count($this->Joins) > 0) {
+            foreach($this->Joins as $join) {
+                $dql .= " " . $join;
+            }
+        }
         
         $where = "";
         

@@ -19,9 +19,9 @@
 <p>Escriba algún dato del titular (apellido, razón social, DNI, CUIL/CUIT)</p>
 <p>
     <input class="input" type="text" size="50" maxlength="50" id="filtro_titular" name="filtro_titular" placeholder="Datos del titular" 
-           onkeydown="if (event.keyCode === 13) { buscarPartida($('#filtro_partida').val()); return false; }"
+           onkeydown="if (event.keyCode === 13) { $('#filtro_titular_buscar').click(); return false; }"
            value="" />
-    <button type="button" class="btn btn-primary btn" id="filtro_titular_buscar">Buscar</button>
+    <button onclick="buscarTitular($('#filtro_titular').val()); return false;" type="button" class="btn btn-primary btn" id="filtro_titular_buscar">Buscar</button>
 </p>
 
 </div>

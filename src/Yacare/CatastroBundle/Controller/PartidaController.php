@@ -66,6 +66,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $filtro_partida = $request->query->get('filtro_partida');
         $filtro_calle = $request->query->get('filtro_calle');
         $filtro_calle_altura = $request->query->get('filtro_calle_altura');
+        $filtro_titular = $request->query->get('filtro_titular');
         
         if($filtro_seccion == '-') {
             $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
@@ -84,10 +85,19 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         if($filtro_calle) {
             $this->Where .= " AND r.DomicilioCalle=$filtro_calle";
             if($filtro_calle_altura) {
-                $altura1 = $filtro_calle_altura - 10;
-                $altura2 = $filtro_calle_altura + 10;
+                $altura1 = $filtro_calle_altura - 30;
+                $altura2 = $filtro_calle_altura + 30;
                 $this->Where .= " AND r.DomicilioNumero BETWEEN $altura1 AND $altura2";
             }
+        }
+        
+        if($filtro_titular) {
+            $this->Joins[] = " JOIN r.Titular p";
+            $this->Where .= " AND (p.NombreVisible LIKE '%$filtro_titular%'
+                OR p.RazonSocial LIKE '%$filtro_titular%'
+                OR p.DocumentoNumero LIKE '%$filtro_titular%'
+                OR p.Cuilt LIKE '%$filtro_titular%'
+                )";
         }
         
         $res = parent::listarAction();
