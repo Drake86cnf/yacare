@@ -6,8 +6,9 @@
 {% set destcontrol = app.request.get('destcontrol') %}
 
 <div style="padding-bottom: 10px;">
-    <input class="input input-sm" autocomplete="off" onkeydown="if (event.keyCode === 13) return false;" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
-    <button type="button" class="btn btn-primary btn-sm" id="botonbuscar">Buscar</button>
+    <input class="input input-sm" size="50" maxlength="50" autocomplete="off" 
+           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
+    <button onclick="buscarPorNombre($('#filtro_buscar').val()); return false;" type="button" class="btn btn-primary btn-sm" id="filtro_buscar_buscar">Buscar</button>
 </div>
 
 <div id="resultadosbuscar">
@@ -21,11 +22,12 @@
         $('#modal').html('(re)Cargando...');
     }
     
-    $('#botonbuscar').click(function(e) {
+    $('#filtro_buscar').focus();
+    
+    function buscarPorNombre(nombre) {
         $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
         
-        var filtro_buscar = $('#filtro_buscar').val();
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + filtro_buscar;
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + nombre;
         $.get(url, function(data) {
             $('#resultadosbuscar').html(data);
             $('#filtro_buscar').focus();
@@ -33,14 +35,8 @@
             // Muestro un error
             $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
         });
-    });
-    $('#filtro_buscar').keyup(function(e) {
-        if(e.keyCode == 13) {
-            e.preventDefault();
-            $('#botonbuscar').trigger('click');
-        }
-    });
-    $('#filtro_buscar').focus();
+    }
+
 </script>
 {% endblock %}
 

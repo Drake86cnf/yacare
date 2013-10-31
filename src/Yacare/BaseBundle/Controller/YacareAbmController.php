@@ -83,14 +83,20 @@ class YacareAbmController extends YacareBaseController
         $request = $this->getRequest();
         $filtro_buscar = $request->query->get('filtro_buscar');
         if($filtro_buscar) {
-            $this->Where .= ' AND (';
-            $BuscarPorCampos = split(',', $this->BuscarPor);
-            $BuscarPorNexo = '';
-            foreach($BuscarPorCampos as $BuscarPorCampo) {
-                $this->Where .= $BuscarPorNexo . 'r.' . $BuscarPorCampo . " LIKE '%$filtro_buscar%'";
-                $BuscarPorNexo = ' OR ';
+            // Busco por varias palabras
+            // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
+            $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
+            foreach ($palabras as $palabra) {
+                $BuscarPorCampos = split(',', $this->BuscarPor);
+                $BuscarPorNexo = '';
+                $this->Where .= ' AND (';
+                // Busco en varios campos
+                foreach($BuscarPorCampos as $BuscarPorCampo) {
+                    $this->Where .= $BuscarPorNexo . 'r.' . $BuscarPorCampo . " LIKE '%$palabra%'";
+                    $BuscarPorNexo = ' OR ';
+                }
+                $this->Where .= ')';
             }
-            $this->Where .= ')';
         }
 
         $dql .= " WHERE $where";

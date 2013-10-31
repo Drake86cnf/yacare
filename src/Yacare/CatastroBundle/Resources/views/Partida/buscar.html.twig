@@ -85,17 +85,14 @@
         });
     }
     
-    $('#botonbuscar').click(function(e) {
-        
-    });
-    
     $('#filtro_buscar').keyup(function(e) {
         if(e.keyCode == 13) {
             e.preventDefault();
             $('#botonbuscar').trigger('click');
         }
     });
-    $('#filtro_partida').focus();
+    
+    $('#filtro_titular').focus();
 </script>
 {% endblock %}
 

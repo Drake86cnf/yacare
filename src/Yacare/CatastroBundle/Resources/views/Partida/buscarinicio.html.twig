@@ -1,51 +1,50 @@
 <div class="row">
 <div class="col-md-8">
 
-<h2>Por calle y altura</h2>
-<p>
-    <select class="input" id="filtro_calle" name="filtro_calle" placeholder="Nombre de la calle" >
-    <option value="0">Seleccione una calle</option>
-    {% for entity in calles %}
-        <option value="{{ entity.id }}">{{ entity }}</option>
-    {% endfor %}
-    </select>
-    <input class="input" type="text" size="5" maxlength="5" id="filtro_calle_altura" name="filtro_calle_altura" placeholder="Altura" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_calle_buscar').click(); return false; }"
-           value="" style="max-width: 100px" />
-    <button type="button" onclick="buscarCalleAltura($('#filtro_calle').val(), $('#filtro_calle_altura').val()); return false;" class="btn btn-primary btn" id="filtro_calle_buscar">Buscar</button>
-</p>
+    <h2>Por titular</h2>
+    <p>
+        <input class="input" type="text" size="50" maxlength="50" id="filtro_titular" name="filtro_titular" placeholder="Escriba algún dato del titular (apellido, razón social, DNI, CUIL o CUIT)" 
+               onkeydown="if (event.keyCode === 13) { $('#filtro_titular_buscar').click(); return false; }"
+               value="" />
+        <button onclick="buscarTitular($('#filtro_titular').val()); return false;" type="button" class="btn btn-primary btn" id="filtro_titular_buscar">Buscar</button>
+    </p>
 
-<h2>Por titular</h2>
-<p>Escriba algún dato del titular (apellido, razón social, DNI, CUIL/CUIT)</p>
-<p>
-    <input class="input" type="text" size="50" maxlength="50" id="filtro_titular" name="filtro_titular" placeholder="Datos del titular" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_titular_buscar').click(); return false; }"
-           value="" />
-    <button onclick="buscarTitular($('#filtro_titular').val()); return false;" type="button" class="btn btn-primary btn" id="filtro_titular_buscar">Buscar</button>
-</p>
+    <h2>Por calle y altura</h2>
+    <p>
+        <select class="input" id="filtro_calle" name="filtro_calle" placeholder="Nombre de la calle" >
+        <option value="0">Seleccione una calle</option>
+        {% for entity in calles %}
+            <option value="{{ entity.id }}">{{ entity }}</option>
+        {% endfor %}
+        </select>
+        <input class="input" type="text" size="5" maxlength="5" id="filtro_calle_altura" name="filtro_calle_altura" placeholder="Altura" 
+               onkeydown="if (event.keyCode === 13) { $('#filtro_calle_buscar').click(); return false; }"
+               value="" style="max-width: 100px" />
+        <button type="button" onclick="buscarCalleAltura($('#filtro_calle').val(), $('#filtro_calle_altura').val()); return false;" class="btn btn-primary btn" id="filtro_calle_buscar">Buscar</button>
+    </p>
 
 </div>
 
 <div class="col-md-4">
 
-<h2>Por sección y macizo</h2>
-<p>
-    <input class="input" type="text" size="5" maxlength="5" id="filtro_seccion" name="filtro_seccion" placeholder="Sección" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_seccion_buscar').click() }"
-           value="" style="max-width: 100px" />
-    <input class="input" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="Macizo" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_seccion_buscar').click() }"
-           value="" style="max-width: 100px" />
-    <button type="button" onclick="buscarSeccionMacizo($('#filtro_seccion').val(), $('#filtro_macizo').val()); return false;" class="btn btn-primary btn" id="filtro_seccion_buscar">Buscar</button>
-</p>
+    <h2>Por número de partida</h2>
+    <p>
+        <input class="input" type="text" size="8" maxlength="8" id="filtro_partida" name="filtro_partida" placeholder="Nº de partida" 
+               onkeydown="if (event.keyCode === 13) { $('#filtro_partida_buscar').click() }"
+               value="" style="max-width: 100px" />
+        <button type="button" onclick="buscarPartida($('#filtro_partida').val()); return false;" class="btn btn-primary btn" id="filtro_partida_buscar">Buscar</button>
+    </p>
 
-<h2>Por número de partida de catastro</h2>
-<p>
-    <input class="input" type="text" size="8" maxlength="8" id="filtro_partida" name="filtro_partida" placeholder="Nº de partida" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_partida_buscar').click() }"
-           value="" style="max-width: 100px" />
-    <button type="button" onclick="buscarPartida($('#filtro_partida').val()); return false;" class="btn btn-primary btn" id="filtro_partida_buscar">Buscar</button>
-</p>
+    <h2>Por sección y macizo</h2>
+    <p>
+        <input class="input" type="text" size="5" maxlength="5" id="filtro_seccion" name="filtro_seccion" placeholder="Sección" 
+               onkeydown="if (event.keyCode === 13) { $('#filtro_seccion_buscar').click() }"
+               value="" style="max-width: 100px" />
+        <input class="input" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="Macizo" 
+               onkeydown="if (event.keyCode === 13) { $('#filtro_seccion_buscar').click() }"
+               value="" style="max-width: 100px" />
+        <button type="button" onclick="buscarSeccionMacizo($('#filtro_seccion').val(), $('#filtro_macizo').val()); return false;" class="btn btn-primary btn" id="filtro_seccion_buscar">Buscar</button>
+    </p>
 
 </div>
 </div>

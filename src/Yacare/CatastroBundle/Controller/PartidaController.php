@@ -93,11 +93,16 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         
         if($filtro_titular) {
             $this->Joins[] = " JOIN r.Titular p";
-            $this->Where .= " AND (p.NombreVisible LIKE '%$filtro_titular%'
-                OR p.RazonSocial LIKE '%$filtro_titular%'
-                OR p.DocumentoNumero LIKE '%$filtro_titular%'
-                OR p.Cuilt LIKE '%$filtro_titular%'
-                )";
+            
+            // Busco por varias palabras
+            // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
+            $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_titular)), 5);
+            foreach ($palabras as $palabra) {
+                $this->Where .= " AND (p.NombreVisible LIKE '%$palabra%'
+                    OR p.RazonSocial LIKE '%$palabra%'
+                    OR p.DocumentoNumero LIKE '%$palabra%'
+                    OR p.Cuilt LIKE '%$palabra%')";
+            }
         }
         
         $res = parent::listarAction();

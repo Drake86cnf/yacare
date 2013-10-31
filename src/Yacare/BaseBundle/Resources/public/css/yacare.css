@@ -33,11 +33,13 @@ h1, legend {
 }
 
 h2 {
+    margin-top: 10px;
     font-size: 20px;
     amargin: 4px 0px;
 }
 
 h3 {
+    margin-top: 8px;
     font-size: 16px;
     amargin: 3px 0px;
 }
