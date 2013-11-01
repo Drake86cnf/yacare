@@ -53,6 +53,6 @@ class RequisitoType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_requisitoype';
+        return 'yacare_tramitesbundle_requisitotype';
     }
 }

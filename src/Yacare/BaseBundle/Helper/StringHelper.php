@@ -105,6 +105,7 @@ class StringHelper {
             'María Agdalena Macacha Guemez' => 'María Magdalena "Macacha" Güemes',
             'Womska' => 'Wonska',
             'TELEFONICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.',
+            'TELEFÓNICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.',
             '.' => '. ',
             'Nro.' => 'Nº',
             'S. A. G. C.' => 'S.A.G.C.',

@@ -316,7 +316,6 @@ WHERE a.BAJA_MOTIVO IS NULL
     AND d.LOCALIDAD='RIO GRANDE' 
     AND a.NOMBRE NOT LIKE '?%'
     AND LENGTH(doc.DOCUMENTO_NRO) >= 5
-
 ) a 
     WHERE ROWNUM <=" . ($desde + $cant) . ")
 WHERE rnum >" . $desde . "
@@ -360,6 +359,13 @@ WHERE rnum >" . $desde . "
             
             if(!$Nombre && !$Apellido) {
                 $Apellido = StringHelper::Desoraclizar($Row['NOMBRE']);
+            }
+            
+            if(!$Nombre && $Apellido && strpos($Apellido, '.') === false) {
+                $a = explode(' ', $Apellido, 2)[0];
+                $b = trim(substr($Apellido, strlen($a)));
+                $Nombre = $b;
+                $Apellido = $a;
             }
             
             if($RazonSocial) {

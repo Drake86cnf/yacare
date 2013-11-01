@@ -35,6 +35,7 @@
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
             <li><a href="{{ path('yacare_tramites_tramitetipo_listar') }}"> Tipos de trámite</a></li>
+            <li><a href="{{ path('yacare_tramites_instrumento_listar') }}"> Instrumentos</a></li>
             <li><a href="{{ path('yacare_tramites_requisito_listar') }}"> Requisitos</a></li>
         {% endif %}
         </ul>

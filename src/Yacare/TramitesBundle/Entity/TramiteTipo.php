@@ -25,6 +25,17 @@ class TramiteTipo
      */
     private $Clase;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Instrumento")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Comprobante;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Instrumento")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Formulario;
     
     
     public function getClase() {
@@ -33,5 +44,21 @@ class TramiteTipo
 
     public function setClase($Clase) {
         $this->Clase = $Clase;
+    }
+    
+    public function getComprobante() {
+        return $this->Comprobante;
+    }
+
+    public function getFormulario() {
+        return $this->Formulario;
+    }
+
+    public function setComprobante($Comprobante) {
+        $this->Comprobante = $Comprobante;
+    }
+
+    public function setFormulario($Formulario) {
+        $this->Formulario = $Formulario;
     }
 }

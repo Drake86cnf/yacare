@@ -17,6 +17,18 @@ class TramiteTipoType extends AbstractType
                 'label' => 'Web',
                 'attr'  => array('placeholder' => 'Sitio web con información')
                 ))
+            ->add('Comprobante', 'entity', array(
+                'label' => 'Comprobante final',
+                'class' => 'YacareTramitesBundle:Instrumento',
+                'required'  => false,
+                'multiple' => false,
+                ))
+            ->add('Formulario', 'entity', array(
+                'label' => 'Formulario inicial',
+                'class' => 'YacareTramitesBundle:Instrumento',
+                'required'  => false,
+                'multiple' => false,
+                ))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 'attr' => array(
