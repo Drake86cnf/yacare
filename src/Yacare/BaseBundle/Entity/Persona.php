@@ -187,7 +187,8 @@ class Persona implements UserInterface, \Serializable
             $this->NombreVisible = $this->Nombre;
         else
             $this->NombreVisible = $this->Apellido;
-        return $this->NombreVisible;
+        
+        return trim($this->NombreVisible, ',');
     }
 
     public function setNombreVisible($NombreVisible) {
@@ -199,6 +200,8 @@ class Persona implements UserInterface, \Serializable
             $this->NombreVisible = $this->Nombre;
         else
             $this->NombreVisible = $this->Apellido;
+        
+        $this->NombreVisible = trim($this->NombreVisible, ',');
     }
     
     public function getRoles() {
