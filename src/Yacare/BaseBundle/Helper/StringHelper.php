@@ -87,6 +87,7 @@ class StringHelper {
             'sra.de' => 'sra. de',
             "ernesto l'offler" => 'ernesto löffler',
             'Bernardo O¿higgins' => 'bernardo o\'higgins',
+            'A. R. A. R. Rompehielos Almirante Irizar' => 'Rompehielos ARA Almirante Irízar',
             'A.R.A.R. Rompehielos Almirante Irizar' => 'Rompehielos ARA Almirante Irízar',
             'B. Frigorif.Cap Casa' => 'Barrio Frigorífico CAP Casa',
             'Cabo 1ro. J.E. Gómez' => 'Cabo 1º J. E. Gómez',
