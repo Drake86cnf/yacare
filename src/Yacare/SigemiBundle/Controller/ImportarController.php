@@ -116,11 +116,6 @@ SELECT tr3a100.tr3a100_id,
 WHERE rnum >" . $desde . "
 ";
         foreach($Dbmunirg->query($sql) as $Row) {
-            $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
-                'ImportSrc' => 'dbmunirg.TR3A100',
-                'ImportId' => $Row['TR3A100_ID']
-            ));
-            
             $Seccion = strtoupper(trim($Row['SECCION'], ' .'));
             $MacizoNum = trim($Row['MACIZO_NUM'], ' .');
             $MacizoAlfa = trim($Row['MACIZO_ALFA'], ' .');
@@ -130,6 +125,12 @@ WHERE rnum >" . $desde . "
             $Parcela = trim($ParcelaNum . $ParcelaAlfa);
             $UnidadFuncional = (int)($Row['UNID_FUNC']);
             
+            $entity = null;
+            /* $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                'ImportSrc' => 'dbmunirg.TR3A100',
+                'ImportId' => $Row['TR3A100_ID']
+            )); */
+
             if(!$entity) {
                 $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
                     'Seccion' => $Seccion,
@@ -197,8 +198,8 @@ WHERE rnum >" . $desde . "
                 $entity->setLegajo((int)($Row['LEGAJO']));
                 $entity->setNumero((int)($Row['CATASTRO_ID']));
 
-                $entity->setImportSrc('dbmunirg.TR3A100');
-                $entity->setImportId($Row['TR3A100_ID']);
+                //$entity->setImportSrc('dbmunirg.TR3A100');
+                //$entity->setImportId($Row['TR3A100_ID']);
 
                 $em->persist($entity);
                 $em->flush();
