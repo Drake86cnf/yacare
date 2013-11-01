@@ -313,7 +313,7 @@ FROM TG06100X a
 WHERE a.BAJA_MOTIVO IS NULL
     AND a.NOMBRE<>'NN'
     AND imp.IMPONIBLE_TIPO='IND' AND imp.DEFINITIVO='D'
-    AND d.LOCALIDAD='RIO GRANDE'
+    AND d.LOCALIDAD='RIO GRANDE' 
     AND a.NOMBRE NOT LIKE '?%'
     AND LENGTH(doc.DOCUMENTO_NRO) >= 5
 
@@ -459,6 +459,7 @@ WHERE rnum >" . $desde . "
             } else {
                 $entity->setNombre($Nombre);
                 $entity->setApellido($Apellido);
+                $entity->setTg06100Id($Row['TG06100_ID']);
                 //$entity->setRazonSocial($RazonSocial);
                 $importar_actualizados++;
             }
