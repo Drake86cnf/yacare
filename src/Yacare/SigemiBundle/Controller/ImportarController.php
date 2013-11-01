@@ -435,6 +435,7 @@ WHERE rnum >" . $desde . "
                 
                 $entity->setNombre($Nombre);
                 $entity->setApellido($Apellido);
+                //$entity->setRazonSocial($RazonSocial);
                 $entity->setPersonaJuridica($PersJur);
                 $entity->setDocumentoNumero($Documento[1]);
                 $entity->setDomicilioCodigoPostal('9420');
@@ -456,6 +457,9 @@ WHERE rnum >" . $desde . "
                 $em->persist($entity);
                 $importar_importados++;
             } else {
+                $entity->setNombre($Nombre);
+                $entity->setApellido($Apellido);
+                //$entity->setRazonSocial($RazonSocial);
                 $importar_actualizados++;
             }
             
