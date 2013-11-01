@@ -166,7 +166,7 @@ WHERE rnum >" . $desde . "
                 }
                 
                 if($Row['ZONA_CURB']) {
-                    $ZonaId = $Zonas[$Row['ZONA_CURB']];
+                    $ZonaId = @$Zonas[$Row['ZONA_CURB']];
                     if($ZonaId) {
                         $entity->setZona($em->getReference('YacareCatastroBundle:Zona', $ZonaId));
                     } else {
@@ -178,11 +178,15 @@ WHERE rnum >" . $desde . "
                 
                 if($Row['TIT_TG06100_ID']) {
                     $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
-                        'ImportSrc' => 'dbmunirg.TG06100',
-                        'ImportId' => $Row['TIT_TG06100_ID']
+                        'Tg06100Id' => $Row['TIT_TG06100_ID']
                     ));
                     $entity->setTitular($titular);
+                    if($titular)
+                        $log[] = "titular encontrado " . $Row['TIT_TG06100_ID'] . ': ' . $titular;
+                    else
+                        $log[] = "titular NO encontrado " . $Row['TIT_TG06100_ID'];
                 } else {
+                    $log[] = "*** Sin titular " . $Row['TIT_TG06100_ID'];
                     $entity->setTitular(null);
                 }
 
@@ -198,7 +202,7 @@ WHERE rnum >" . $desde . "
 
                 $em->persist($entity);
                 $em->flush();
-                $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion $Macizo $Parcela / $UnidadFuncional) ${Row['CALLE']} #${Row['NUMERO']} ";
+                //$log[] = $Row['CATASTRO_ID'] . " SMP($Seccion-$Macizo-$Parcela-$UnidadFuncional) ${Row['CALLE']} #${Row['NUMERO']} --- " . $entity->getTitular();
             }
             
             $importar_procesados++;
@@ -311,7 +315,7 @@ WHERE a.BAJA_MOTIVO IS NULL
     AND imp.IMPONIBLE_TIPO='IND' AND imp.DEFINITIVO='D'
     AND d.LOCALIDAD='RIO GRANDE'
     AND a.NOMBRE NOT LIKE '?%'
-    AND LENGTH(doc.DOCUMENTO_NRO) > 5
+    AND LENGTH(doc.DOCUMENTO_NRO) >= 5
 
 ) a 
     WHERE ROWNUM <=" . ($desde + $cant) . ")
@@ -409,8 +413,7 @@ WHERE rnum >" . $desde . "
             
             
             $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
-                'ImportSrc' => 'dbmunirg.TG06100',
-                'ImportId' => $Row['TG06100_ID']
+                'Tg06100Id' => $Row['TG06100_ID']
             ));
             
             /* if($entity == null && $Cuilt) {
@@ -428,8 +431,7 @@ WHERE rnum >" . $desde . "
             
             if($entity == null) {
                 $entity = new \Yacare\BaseBundle\Entity\Persona();
-                $entity->setImportSrc('dbmunirg.TG06100');
-                $entity->setImportId($Row['TG06100_ID']);
+                $entity->setTg06100Id($Row['TG06100_ID']);
                 
                 $entity->setNombre($Nombre);
                 $entity->setApellido($Apellido);

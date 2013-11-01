@@ -163,6 +163,21 @@ class Persona implements UserInterface, \Serializable
     protected $Pais;
     
     
+    // Columnas de importación del municipio de Río Grande
+    
+    /**
+     * @var string $ImportId
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Tg06100Id;
+    
+    /**
+     * @var string $ImportId
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $AgenteId;
+    
+    
     public function getNombreVisible() {
         if($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
@@ -379,4 +394,21 @@ class Persona implements UserInterface, \Serializable
     public function setUsuarioRoles($UsuarioRoles) {
         $this->UsuarioRoles = $UsuarioRoles;
     }
+    
+    public function getTg06100Id() {
+        return $this->Tg06100Id;
+    }
+
+    public function getAgenteId() {
+        return $this->AgenteId;
+    }
+
+    public function setTg06100Id($Tg06100Id) {
+        $this->Tg06100Id = $Tg06100Id;
+    }
+
+    public function setAgenteId($AgenteId) {
+        $this->AgenteId = $AgenteId;
+    }
+
 }
