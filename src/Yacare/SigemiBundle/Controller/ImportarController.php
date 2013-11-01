@@ -111,6 +111,7 @@ SELECT tr3a100.tr3a100_id,
         AND tr02100.DEFINITIVO='D'
         AND tr02100.IMPONIBLE_TIPO='OSA'
 
+     ORDER BY tr3a100.catastro_id
 ) a 
     WHERE ROWNUM <=" . ($desde + $cant) . ")
 WHERE rnum >" . $desde . "
@@ -317,6 +318,8 @@ WHERE a.BAJA_MOTIVO IS NULL
     AND d.LOCALIDAD='RIO GRANDE' 
     AND a.NOMBRE NOT LIKE '?%'
     AND LENGTH(doc.DOCUMENTO_NRO) >= 5
+ORDER BY a.TG06100_ID
+
 ) a 
     WHERE ROWNUM <=" . ($desde + $cant) . ")
 WHERE rnum >" . $desde . "
