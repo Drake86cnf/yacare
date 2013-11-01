@@ -467,8 +467,6 @@ WHERE rnum >" . $desde . "
                 $em->persist($entity);
                 $importar_importados++;
             } else {
-                $entity->setNombre($Nombre);
-                $entity->setApellido($Apellido);
                 $entity->setTg06100Id($Row['TG06100_ID']);
                 //$entity->setRazonSocial($RazonSocial);
                 $importar_actualizados++;
