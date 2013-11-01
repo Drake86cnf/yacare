@@ -540,12 +540,11 @@ WHERE rnum >" . $desde . "
             $entity->setNombreOriginal($Row['NOMBRE']);
 
             $em->persist($entity);
+            $em->flush();
             
             $importar_procesados++;
             $log[] = $Row['ID'] . ' ' . $nombreBueno;
         }
-        
-        $em->flush();
         
         return array(
             'importar_importados' => $importar_importados,
