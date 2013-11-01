@@ -9,12 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Catastro_Partida",
  *      uniqueConstraints={
- *          @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"}),
  *          @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
  *      },
  *      indexes={
- *          @ORM\Index(name="Catastro_Partida_ImportSrcId", columns={"ImportSrc", "ImportId"}),
- *          @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
+  *          @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
  *      }
  * )
  * @ORM\Entity
@@ -43,7 +41,7 @@ class Partida
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Importable;
+    //use \Yacare\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
