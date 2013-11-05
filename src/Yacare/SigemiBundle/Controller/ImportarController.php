@@ -622,6 +622,9 @@ WHERE rnum >" . $desde . "
             }
 
             $entity->setParentNode($Ejecutivo);
+            if($Row['fecha_baja']) {
+                $entity->setSuprimido(true);
+            }
             
             $em->persist($entity);
             $em->flush();
@@ -654,6 +657,10 @@ WHERE rnum >" . $desde . "
                 'ImportId' => $Row['secretaria']
             ));
             $entity->setParentNode($Secre);
+            
+            if($Row['fecha_baja']) {
+                $entity->setSuprimido(true);
+            }
 
             $em->persist($entity);
             $em->flush();
