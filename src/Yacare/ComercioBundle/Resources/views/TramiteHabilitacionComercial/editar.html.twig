@@ -1,11 +1,11 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Tipo de trámite{% endblock %}
+{% block title %}Habilitación comercial{% endblock %}
 
 {% block content %}
 
 <form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo tipo de trámite {% endif %}</legend>
+    <legend>{% if entity.id %}{{ entity.Nombre }}{% else %}Nuevo trámite de habilitación comercial{% endif %}</legend>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>

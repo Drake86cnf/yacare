@@ -20,7 +20,7 @@ class TramiteTipoRequisito
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $TramiteTipo;
+    protected $TramitePadre;
 
     /**
      * @var string
@@ -111,6 +111,12 @@ class TramiteTipoRequisito
                 case 'false';
                     $res .= ' es falso';
                     break;
+                case 'in';
+                    $res .= ' incluido en';
+                    break;
+                case 'notint';
+                    $res .= ' no incluido en';
+                    break;
                 default:
                     $res .= ' ' . $this->CondicionEs . ' ';
                     break;
@@ -127,15 +133,6 @@ class TramiteTipoRequisito
     }
     
     
-    
-    public function getTramiteTipo() {
-        return $this->TramiteTipo;
-    }
-
-    public function setTramiteTipo($TramiteTipo) {
-        $this->Tramite = $TramiteTipo;
-    }
-
     public function getRequisito() {
         return $this->Requisito;
     }
@@ -189,5 +186,13 @@ class TramiteTipoRequisito
 
     public function setInstancia($Instancia) {
         $this->Instancia = $Instancia;
+    }
+    
+    public function getTramitePadre() {
+        return $this->TramitePadre;
+    }
+
+    public function setTramitePadre($TramitePadre) {
+        $this->TramitePadre = $TramitePadre;
     }
 }

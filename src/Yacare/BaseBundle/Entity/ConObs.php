@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConObs
 {
-     /**
+    /**
      * @var string $Obs
      * @ORM\Column(type="text", nullable=true)
      */

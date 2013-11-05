@@ -24,6 +24,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart fa-fw"></i> Comercio <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+            <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}"> Habilitaciones</a></li>
             <li><a href="{{ path('yacare_comercio_local_listar') }}"> Locales</a></li>
             <li><a href="{{ path('yacare_comercio_actividad_listar') }}"> Actividades</a></li>
         {% endif %}

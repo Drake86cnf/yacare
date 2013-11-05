@@ -17,7 +17,11 @@ class LicitacionType extends AbstractType
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,
                 'empty_value' => false,
-                'property' => 'Nombre'))
+                'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                    return $er->createQueryBuilder('i')
+                        ->orderBy('i.MaterializedPath', 'ASC');
+                },
+                'property' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('Numero', null, array('label' => 'Número'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('PresupuestoOficial', null, array('label' => 'Presupuesto oficial'))

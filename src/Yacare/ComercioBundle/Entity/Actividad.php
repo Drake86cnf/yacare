@@ -21,7 +21,7 @@ class Actividad
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $Codigo;
+    private $CodigoAnterior;
     
     /**
      * @var string
@@ -33,7 +33,7 @@ class Actividad
      * @var string
      * @ORM\Column(type="string", length=50)
      */
-    private $Clamae2013;
+    private $Clamae2014;
     
      /**
      * @var integer
@@ -41,19 +41,49 @@ class Actividad
      */
     private $Categoria;
     
-     /**
+    /**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Cpu;
+    
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $RequiereDbeh;
+    
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $RequiereDeyma;
+    
+     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
      */
     private $Exento;
     
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $Incluye;
     
-    public function getCodigo() {
-        return $this->Codigo;
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $NoIncluye;
+    
+    
+    public function getCodigoAnterior() {
+        return $this->CodigoAnterior;
     }
 
-    public function setCodigo($Codigo) {
-        $this->Codigo = $Codigo;
+    public function setCodigoAnterior($CodigoAnterior) {
+        $this->Codigo = $CodigoAnterior;
     }
     
     public function getCategoria() {
@@ -80,11 +110,51 @@ class Actividad
         $this->Clanae2010 = $Clanae2010;
     }
 
-    public function getClamae2013() {
-        return $this->Clamae2013;
+    public function getClamae2014() {
+        return $this->Clamae2014;
     }
 
-    public function setClamae2013($Clamae2013) {
-        $this->Clamae2013 = $Clamae2013;
+    public function getCpu() {
+        return $this->Cpu;
+    }
+
+    public function getRequiereDbeh() {
+        return $this->RequiereDbeh;
+    }
+
+    public function getRequiereDeyma() {
+        return $this->RequiereDeyma;
+    }
+
+    public function getIncluye() {
+        return $this->Incluye;
+    }
+
+    public function getNoIncluye() {
+        return $this->NoIncluye;
+    }
+
+    public function setClamae2014($Clamae2014) {
+        $this->Clamae2014 = $Clamae2014;
+    }
+
+    public function setCpu($Cpu) {
+        $this->Cpu = $Cpu;
+    }
+
+    public function setRequiereDbeh($RequiereDbeh) {
+        $this->RequiereDbeh = $RequiereDbeh;
+    }
+
+    public function setRequiereDeyma($RequiereDeyma) {
+        $this->RequiereDeyma = $RequiereDeyma;
+    }
+
+    public function setIncluye($Incluye) {
+        $this->Incluye = $Incluye;
+    }
+
+    public function setNoIncluye($NoIncluye) {
+        $this->NoIncluye = $NoIncluye;
     }
 }

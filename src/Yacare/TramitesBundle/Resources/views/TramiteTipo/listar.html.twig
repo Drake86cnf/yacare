@@ -21,7 +21,7 @@
     {% for entity in entities %}
         <tr>
             <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
-                <a class="btn btn-default btn-xs" href="{{ path('yacare_tramites_tramitetiporequisito_listar', { 'tramitetipo_id': entity.Id }) }}"><i class="fa fa-check"></i> Ver requisitos</a></td>
+                <a class="btn btn-default btn-xs" href="{{ path('yacare_tramites_tramitetiporequisito_listar', { 'parent_id': entity.Id }) }}"><i class="fa fa-check"></i> Ver requisitos</a></td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Url }}</td>
         </tr>

@@ -14,7 +14,7 @@ class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\Yacar
     
     public function __construct() {
         parent::__construct();
-        $this->ConservarVariables = array ('tramitetipo_id');
+        $this->ConservarVariables = array ('parent_id');
         $this->Paginar = false;
     }
     
@@ -24,12 +24,41 @@ class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\Yacar
      */
     function listarAction() {
         $request = $this->getRequest();
-        $tramite_id = $request->query->get('tramite_id');
-        
-        if($tramite_id)
-            $this->Where .= " AND r.Tramite='$tramite_id'";
+        $parent_id = $request->query->get('parent_id');
+
+        if($parent_id) {
+            $em = $this->getDoctrine()->getManager();
+            $parent_id = $this->getRequest()->query->get('parent_id');
+            $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
+
+            $this->Where .= " AND r.TramitePadre='$parent_id'";
+        }
         
         $res = parent::listarAction();
+        
+        if($parent_id) {
+            $res['parent'] = $TramiteTipo;
+        }
+        
+        return $res;
+    }
+    
+    /**
+     * @Route("editar/{id}")
+     * @Route("crear/")
+     * @Template()
+     */
+    public function editarAction($id = null)
+    {
+        $res = parent::editarAction();
+        
+        if($id === null) {
+            // En caso de crear uno nuevo, le asigno el parent predeterminado
+            $em = $this->getDoctrine()->getManager();
+            $parent_id = $this->getRequest()->query->get('parent_id');
+            $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
+            $res['entity']->setTramitePadre($TramiteTipo);
+        }
         
         return $res;
     }

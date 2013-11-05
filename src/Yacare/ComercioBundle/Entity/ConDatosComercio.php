@@ -17,6 +17,19 @@ trait ConDatosComercio {
      */
     protected $ActividadPrincipal;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $ActividadSecundaria;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $ActividadTerciaria;
+    
+    
     public function getLocal() {
         return $this->Local;
     }
@@ -31,5 +44,21 @@ trait ConDatosComercio {
 
     public function setActividadPrincipal($ActividadPrincipal) {
         $this->ActividadPrincipal = $ActividadPrincipal;
+    }
+    
+    public function getActividadSecundaria() {
+        return $this->ActividadSecundaria;
+    }
+
+    public function getActividadTerciaria() {
+        return $this->ActividadTerciaria;
+    }
+
+    public function setActividadSecundaria($ActividadSecundaria) {
+        $this->ActividadSecundaria = $ActividadSecundaria;
+    }
+
+    public function setActividadTerciaria($ActividadTerciaria) {
+        $this->ActividadTerciaria = $ActividadTerciaria;
     }
 }

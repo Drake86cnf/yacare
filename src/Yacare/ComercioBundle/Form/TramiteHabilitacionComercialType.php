@@ -13,20 +13,38 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Apoderado', 'entity', array(
+            ->add('Titular', 'entity_id', array(
+                'label' => 'Titular',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
+            ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
-                'class' => 'YacareBaseBundle:Persona',
-                'required'  => false,
-                'property' => 'Nombre',
-                'multiple' => false,
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required'  => false
                 ))
-            ->add('Local', 'entity', array(
+            ->add('Local', 'entity_id', array(
                 'label' => 'Local',
-                'class' => 'YacareComercioBundle:Local',
-                'required'  => true,
-                'property' => 'Domicilio'
+                'class' => 'Yacare\ComercioBundle\Entity\Local',
+                'required'  => true
                 ))
-        ;
+            ->add('ActividadPrincipal', 'entity_id', array(
+                'label' => 'Actividad principal',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required'  => true
+                ))
+            ->add('ActividadSecundaria', 'entity_id', array(
+                'label' => 'Actividad secundaria',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required'  => false
+                ))
+            ->add('ActividadTerciaria', 'entity_id', array(
+                'label' => 'Actividad terciaria',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required'  => false
+                ))
+                ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

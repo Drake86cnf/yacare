@@ -25,11 +25,11 @@ class ImportarController extends Controller
         
         $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
-        $cant = 100;
+        $cant = 500;
         
         mb_internal_encoding('UTF-8');
         ini_set('display_errors', 1);
-        set_time_limit(6000);
+        set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
         $Zonas = array(
@@ -237,7 +237,7 @@ WHERE rnum >" . $desde . "
     {
         $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
-        $cant = 100;
+        $cant = 500;
         
         mb_internal_encoding('UTF-8');
         set_time_limit(600);
@@ -505,6 +505,15 @@ WHERE rnum >" . $desde . "
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @Route("calles/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
@@ -563,6 +572,104 @@ WHERE rnum >" . $desde . "
             );
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * @Route("departamentos/")
+     * @Template("YacareSigemiBundle:Importar:importar.html.twig")
+     */
+    public function importarDepartamentosAction()
+    {
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $DbRecursos = $this->ConectarRrhh();
+        
+        $importar_importados = 0;
+        $importar_actualizados = 0;
+        $importar_procesados = 0;
+        $log = array();
+        
+        $Ejecutivo = $em->getRepository('YacareOrganizacionBundle:Departamento')->find(1);
+
+        foreach($DbRecursos->query('SELECT * FROM secretarias WHERE codigo<>999') as $Row) {
+            $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
+            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.secretarias',
+                'ImportId' => $Row['codigo']
+            ));
+            
+            if(!$entity) {
+                $entity = new \Yacare\OrganizacionBundle\Entity\Departamento();
+                $entity->setNombre($nombreBueno);
+                $entity->setRango(30);
+                $entity->setImportSrc('rr_hh.secretarias');
+                $entity->setImportId($Row['codigo']);
+
+                $importar_importados++;
+            } else {
+                $importar_actualizados++;
+            }
+
+            $entity->setParentNode($Ejecutivo);
+            
+            $em->persist($entity);
+            $em->flush();
+            
+            $importar_procesados++;
+            $log[] = 'Secretaría ' . $Row['codigo'] . ' ' . $nombreBueno;
+        }
+        
+        foreach($DbRecursos->query('SELECT * FROM direcciones WHERE secretaria<>999') as $Row) {
+            $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
+            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.direcciones',
+                'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']
+            ));
+            
+            if(!$entity) {
+                $entity = new \Yacare\OrganizacionBundle\Entity\Departamento();
+                $entity->setNombre($nombreBueno);
+                $entity->setRango(50);
+                $entity->setImportSrc('rr_hh.direcciones');
+                $entity->setImportId($Row['secretaria'] . '.' . $Row['direccion']);
+
+                $importar_importados++;
+            } else {
+                $importar_actualizados++;
+            }
+
+            $Secre = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.secretarias',
+                'ImportId' => $Row['secretaria']
+            ));
+            $entity->setParentNode($Secre);
+
+            $em->persist($entity);
+            $em->flush();
+            
+            $importar_procesados++;
+            $log[] = 'Dirección ' . $Row['secretaria'] . '.' . $Row['direccion'] . ' ' . $nombreBueno;
+        }
+        
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,
+            'log' => $log
+            );
+    }
+    
     protected function ConectarOracle() {
                 $tns = '(DESCRIPTION = 
 			    (ADDRESS_LIST = 
@@ -578,5 +685,10 @@ WHERE rnum >" . $desde . "
 			  )';
   
         return new \PDO('oci:charset=UTF8;dbname=' . $tns, 'rgr', '123');
+    }
+    
+    
+    protected function ConectarRrhh() {
+        return new \PDO('mysql:host=192.168.100.5;dbname=rr_hh;charset=utf8', 'yacare', '123456');
     }
 }

@@ -34,7 +34,7 @@ class StringHelper {
 
     
     static public function Desoraclizar($text) {
-        return StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text)));
+        return trim(StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
     
     static public function ProperCase($string, 

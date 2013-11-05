@@ -12,7 +12,7 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
     public function __construct() {
         $this->BundleName = 'Comercio';
         $this->EntityName = 'Actividad';
-        $this->BuscarPor = 'Nombre,Codigo,Clamae2013';
+        $this->BuscarPor = 'Nombre,Clamae2014,Incluye,NoIncluye';
         parent::__construct();
     }
 }

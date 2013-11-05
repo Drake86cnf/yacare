@@ -11,29 +11,17 @@ class TramiteTipoRequisitoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /* ->add('Tipo', 'choice', array(
-                'label' => 'Tipo',
-                'required'  => true,
-                'choices' => array('cond' => 'Condición', 
-                    'ext' => 'Externo',
-                    'tra' => 'Trámite',
-                    'compy' => 'Compuesto Y',
-                    'compo' => 'Compuesto O'
-                    )
-                )) */
-            ->add('TramiteTipo', 'entity', array(
+            ->add('TramitePadre', 'entity', array(
                 'label' => 'Tipo de trámite',
                 'class' => 'YacareTramitesBundle:TramiteTipo',
                 'required' => true,
-                'property' => 'Nombre',
-                'multiple' => false,
-                'read_only' => true,
+                /* 'read_only' => true, */
+                'multiple' => false
                 ))
             ->add('Requisito', 'entity', array(
                 'label' => 'Requisito',
                 'class' => 'YacareTramitesBundle:Requisito',
                 'required'  => true,
-                'property' => 'Nombre',
                 'multiple' => false,
                 ))
             ->add('Propiedad', 'choice', array(
@@ -78,7 +66,9 @@ class TramiteTipoRequisitoType extends AbstractType
                     'notnull' => 'existe',
                     'null' => 'no existe',
                     'true' => 'verdadero',
-                    'false' => 'falso'
+                    'false' => 'falso',
+                    'in' => 'incluido en',
+                    'notin' => 'no incluido en'
                     )
                 ))
             ->add('CondicionCuanto', 'text', array(

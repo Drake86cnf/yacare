@@ -26,7 +26,9 @@ class LocalType extends AbstractType
                     'Otro' => 'Otro'
                     )
                 ))
-            ->add('Propietario', 'entity_id', array(
+            ->add('Superficie', null, array(
+                'label' => 'Superficie (m²)'))
+            /* ->add('Propietario', 'entity_id', array(
                 'label' => 'Propietario',
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
@@ -34,7 +36,7 @@ class LocalType extends AbstractType
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioLocalType(), 
                     array(
                         'label' => 'Domicilio')
-                    )
+                    ) */
         ;
     }
 

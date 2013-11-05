@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Local {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
+    //use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\CatastroBundle\Entity\ConPartida;
@@ -19,18 +19,24 @@ class Local {
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Propietario;
     
-      /**
+    /**
      * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $Tipo;
+    
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $Superficie;
 
     public function __toString() {
-        return $this->getDomicilio();
+        return $this->getPartida()->getDomicilio();
     }
     
     public function getPropietario() {
@@ -46,5 +52,13 @@ class Local {
 
     public function setTipo($Tipo) {
         $this->Tipo = $Tipo;
+    }
+    
+    public function getSuperficie() {
+        return $this->Superficie;
+    }
+
+    public function setSuperficie($Superficie) {
+        $this->Superficie = $Superficie;
     }
 }

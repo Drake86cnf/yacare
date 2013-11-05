@@ -1,10 +1,12 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block title %}Tipos de trámites - Requisitos{% endblock %}
+{% block title %}Trámites - Requisitos{% endblock %}
 
 {% block content_header '' %}
 
 {% block content %}
+
+<legend>Requisitos de &quot;{{ parent }}&quot;</legend>
 
 {% if entities is empty %}
 <div>
@@ -43,4 +45,5 @@
 {% endif %}
 
 <a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
+<a href="{{ path('yacare_tramites_tramitetipo_listar', arrastre) }}" class="btn btn-primary"> Volver a listado de trámites</a>
 {% endblock %}

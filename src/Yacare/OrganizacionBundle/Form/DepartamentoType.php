@@ -22,7 +22,7 @@ class DepartamentoType extends AbstractType
                     '60' => 'Subdirección'
                     ),
                 'label' => 'Rango'))
-            ->add('DependeDe', 'entity', array(
+            ->add('ParentNode', 'entity', array(
                 'label' => 'Depende de',
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,

@@ -3,6 +3,7 @@
 namespace Yacare\OrganizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Yacare\BaseBundle\Model\Tree;
 
 /**
  * Yacare\OrganizacionBundle\Entity\Departamento
@@ -10,8 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Organizacion_Departamento", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity
  */
-class Departamento
+class Departamento implements Tree\NodeInterface
 {
+    
     // Un departamento representa a cualquiera de las partes en las que se divide la administración pública
     // como ministerios, secretarías, subsecretarías, etc.
     
@@ -20,22 +22,18 @@ class Departamento
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Importable;
-    use \Knp\DoctrineBehaviors\Model\Tree\Node;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    use \Yacare\BaseBundle\Model\Tree\Node;
+    
     /**
-     * @var string $Rango
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Rango;
-
+    
     /**
-     * @var string $DependeDe
      * @ORM\ManyToOne(targetEntity="Departamento")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $DependeDe;
-
+    private $ParentNode;
     
     public function getRangoNombre() {
         switch($this->getRango()) {
@@ -48,13 +46,17 @@ class Departamento
         }
     }
     
-    public function getDependeDe() {
-        return $this->DependeDe;
+    
+    public function getSangria($sangria = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') {
+        return str_repeat($sangria, substr_count($this->getMaterializedPath(), '/') - 1);
     }
-
-    public function setDependeDe($DependeDe) {
-        $this->DependeDe = $DependeDe;
+    
+    
+    public function getNombreConSangriaDeEspaciosDuros() {
+        // Atención, son 'espacios duro'
+        return $this->getSangria('   ') . $this->getNombre();
     }
+    
     
     public function getRango() {
         return $this->Rango;
@@ -63,4 +65,14 @@ class Departamento
     public function setRango($Rango) {
         $this->Rango = $Rango;
     }
+
+    public function getOrden() {
+        return $this->Orden;
+    }
+
+    public function setOrden($Orden) {
+        $this->Orden = $Orden;
+    }
 }
+
+

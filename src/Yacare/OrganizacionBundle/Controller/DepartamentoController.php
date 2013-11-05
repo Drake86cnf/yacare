@@ -18,6 +18,27 @@ class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareAbmCont
     public function __construct() {
         $this->BundleName = 'Organizacion';
         $this->EntityName = 'Departamento';
+        $this->Paginar = false;
+        $this->OrderBy = "MaterializedPath";
         parent::__construct();
-    }    
+    }
+    
+    /**
+     * @Route("recalcular/")
+     * @Template("YacareOrganizacionBundle:Departamento:listar.html.twig")
+     */
+    public function recalcularAction() {
+        $em = $this->getDoctrine()->getManager();
+        $em->getConnection()->beginTransaction();
+        $items = $em->getRepository('YacareOrganizacionBundle:Departamento')->findAll();
+        foreach($items as $item) {
+            $item->setParentNode($item->getParentNode());
+            $em->persist($item);
+            $em->flush();
+        }
+        
+        $em->getConnection()->commit();
+        
+        return parent::listarAction();
+    }
 }
