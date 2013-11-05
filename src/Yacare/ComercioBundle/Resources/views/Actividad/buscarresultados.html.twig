@@ -1,0 +1,32 @@
+{% block content %}
+
+<table class="table table-condensed table-hover">
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Clamae2014|slice(0,1) }} {{ entity.Clamae2014|slice(1,2) }}-{{ entity.Clamae2014|slice(3,3) }}-{{ entity.Clamae2014|slice(6,2) }}</a></td>
+            <td>{{ entity.Nombre }}
+                <span class="label label-default">Cat. {{ entity.Categoria }}</span>
+                {% if entity.Exento %}<span class="label label-info">Excento</span>{% endif %}
+                {% if entity.RequiereDeyma %}<span class="label label-info">Req. <abbr title="Dirección de Ecología y Medio Ambiente" class="initialism">DEyMA</abbr></span>{% endif %}
+                {% if entity.RequiereDbeh %}<span class="label label-info">Req. <abbr title="Dirección de Bromatología e Higiene" class="initialism">DBeH</abbr></span>{% endif %}
+{% if entity.Incluye %}
+                <p class="text-success"><small>Incluye {{ entity.Incluye|nl2br }}</small></p>
+{% endif %}
+{% if entity.NoIncluye %}
+            <p class="text-danger"><small>No incluye {{ entity.NoIncluye|nl2br }}</small></p>
+{% endif %}
+            </td>
+            <td>{{ entity.Cpu }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if not entities %}
+    <div class="alert alert-warning">
+        <p><i class="fa fa-warning fa-2x"></i> No se encontraron resultados.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'YacareBaseBundle::modal.html.twig' %}
+
+{% block title %}Buscar actividad{% endblock %}
+
+{% block content %}
+{% set destcontrol = app.request.get('destcontrol') %}
+
+{% include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
+
+<div id="resultadosbuscar" class="form-inline">
+    
+</div>
+
+<script>
+    function seleccionarItem(a, b) {
+        $('#{{ destcontrol }}').val(a + ': ' + b);
+        $('#modal').modal('hide');
+        $('#modal').html('(re)Cargando...');
+    }
+    
+    function buscarNada() {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=&reiniciar=1';
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    function buscarTexto(a) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    function buscarCodigo(a) {
+        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
+        
+        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
+        $.get(url, function(data) {
+            $('#resultadosbuscar').html(data);
+            $('#filtro_buscar').focus();
+        }).fail(function(a) {
+            // Muestro un error
+            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
+        });
+    }
+    
+    $('#filtro_buscar').focus();
+</script>
+{% endblock %}
+
+{% block form_actions %}
+{% endblock %}

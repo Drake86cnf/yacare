@@ -30,10 +30,19 @@ class Actividad
     private $Clanae2010;
     
     /**
-     * @var string
      * @ORM\Column(type="string", length=50)
+     * Los códigos Clamae2014 tienen el siguiente formato: CDDGCSMM
+     *      C   Categoría, alfabética
+     *      DD  División, numérica
+     *      G   Grupo, numérico
+     *      C   Clase, numérica
+     *      S   Sub-clase, numérica
+     *      MM  Subdivisión del Municipio de Río Grande
+     * 
+     *      Por ejemplo: R9521000
      */
     private $Clamae2014;
+
     
      /**
      * @var integer
@@ -102,14 +111,6 @@ class Actividad
         $this->Exento = $Exento;
     }
 
-    public function getClanae2010() {
-        return $this->Clanae2010;
-    }
-
-    public function setClanae2010($Clanae2010) {
-        $this->Clanae2010 = $Clanae2010;
-    }
-
     public function getClamae2014() {
         return $this->Clamae2014;
     }
@@ -136,6 +137,7 @@ class Actividad
 
     public function setClamae2014($Clamae2014) {
         $this->Clamae2014 = $Clamae2014;
+        $this->Clanae2010 = substr($this->Clamae2014, 0, 6);
     }
 
     public function setCpu($Cpu) {
