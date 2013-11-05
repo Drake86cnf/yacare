@@ -23,6 +23,7 @@ class Departamento implements Tree\NodeInterface
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Importable;
     use \Yacare\BaseBundle\Model\Tree\Node;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * @ORM\Column(type="integer", nullable=true)
