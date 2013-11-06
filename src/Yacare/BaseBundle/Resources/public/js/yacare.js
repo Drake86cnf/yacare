@@ -1,3 +1,52 @@
+function yacareEntityIdSeleccionarItem(destino, id, detalle) {
+    $(destino).val(id);
+    $(destino + '_Detalle').val(detalle);
+}
+
+function yacareMostrarModalEn(url, destino) {
+    var modal = $(destino);
+
+    modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body">\n\
+<p><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
+</div></div></div>').modal();
+
+    $.get(url, function(data) {
+        modal.html(data).modal();
+    }).success(function() {
+        //boom. loaded.
+    }).fail(function(a) {
+        // Muestro un error
+        modal.html('<div class="modal-dialog"><div class="modal-content">\n\
+<div class="modal-header">\n\
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
+<h4 class="modal-title">Error</h4>\n\
+</div>\n\
+<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</div></div></div>').modal();
+    });
+
+    return false;
+}
+
+function yacareCargarUrlEn(url, destino) {
+    $(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
+    $.get(url, function(data) {
+        $(destino).html(data);
+        /* if(url !== window.location) {
+                window.history.pushState({path:url}, '', url);
+        } */
+    }).success(function() {
+        //boom. loaded.
+    }).fail(function(a) {
+        // Muestro un error
+        $(destino).html('<div class="alert alert-dismissable alert-danger">\n\
+<p>Sucedió un error al cargar la página solicitada. Haga <a class="alert-link" href="#" onclick="yacareCargarUrlEn(\'' + url + '\', \'' + destino + '\'); return false;">clic aquí</a> para intentarlo nuevamente.</p>\n\
+<p>El código de error es: ' + a.status + '</p></div>');
+    });
+
+    return false;
+}
+
+
 $(document).ready(function(){
     /*
     //establish history variables
@@ -60,32 +109,8 @@ $(document).ready(function(){
         var url = $(this).attr('href');
         var modal_id = $(this).attr('data-target');
 
-        return yacareMostrarModalEn(url, modal_id)
+        return yacareMostrarModalEn(url, modal_id);
     });
-
-    function yacareMostrarModalEn(url, destino) {
-        var modal = $(destino);
-
-        modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body">\n\
-<p><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
-</div></div></div>').modal();
-
-        $.get(url, function(data) {
-            modal.html(data).modal();
-        }).success(function() {
-            //boom. loaded.
-        }).fail(function(a) {
-            // Muestro un error
-            modal.html('<div class="modal-dialog"><div class="modal-content">\n\
-<div class="modal-header">\n\
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
-<h4 class="modal-title">Error</h4>\n\
-</div>\n\
-<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</div></div></div>').modal();
-        });
-
-        return false;
-    }
 
     /* $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
@@ -95,23 +120,5 @@ $(document).ready(function(){
 
         return yacareCargarUrlEn(url, destino);
     }); */
-    
-    function yacareCargarUrlEn(url, destino) {
-        $(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
-        $.get(url, function(data) {
-            $(destino).html(data);
-            if(url !== window.location) {
-                    window.history.pushState({path:url}, '', url);
-            }
-        }).success(function() {
-            //boom. loaded.
-        }).fail(function(a) {
-            // Muestro un error
-            $(destino).html('<div class="alert alert-dismissable alert-danger">\n\
-<p>Sucedió un error al cargar la página solicitada. Haga <a class="alert-link" href="#" onclick="yacareCargarUrlEn(\'' + url + '\', \'' + destino + '\'); return false;">clic aquí</a> para intentarlo nuevamente.</p>\n\
-<p>El código de error es: ' + a.status + '</p></div>');
-        });
 
-        return false;
-    }
 });

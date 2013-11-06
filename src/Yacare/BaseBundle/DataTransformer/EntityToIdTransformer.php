@@ -120,6 +120,8 @@ class EntityToIdTransformer implements DataTransformerInterface
         if(strpos($data, ': ') !== false) {
             $data = substr($data, 0, strpos($data, ': '));
         }
+        
+        echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab' . $data;
 
         if ($qb = $this->queryBuilder) {
             if ($qb instanceof \Closure) {

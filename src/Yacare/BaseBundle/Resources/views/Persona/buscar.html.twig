@@ -16,27 +16,18 @@
 </div>
 
 <script>
-    function seleccionarItem(a, b) {
-        $('#{{ destcontrol }}').val(a + ': ' + b);
+    function seleccionarItem(id, detalle) {
+        yacareEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
     
-    $('#filtro_buscar').focus();
-    
     function buscarPorNombre(nombre) {
-        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
-        
         var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + nombre;
-        $.get(url, function(data) {
-            $('#resultadosbuscar').html(data);
-            $('#filtro_buscar').focus();
-        }).fail(function(a) {
-            // Muestro un error
-            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
-        });
+        yacareCargarUrlEn(url, '#resultadosbuscar');
     }
 
+    $('#filtro_buscar').focus();
 </script>
 {% endblock %}
 

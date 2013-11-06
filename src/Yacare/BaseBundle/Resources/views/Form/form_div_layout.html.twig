@@ -92,9 +92,17 @@
     
 {% block entity_id_widget %}
     <div class="form-group input-group">
-        <input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text" value="{{ value }}"
-               data-toggle="modal" data-target="#modal" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}"
+        {% set values = value|split(':', 2) %}
+        <input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
+        {% set old_id = id %}
+        {% set old_full_name = full_name %}
+        {% set id = id ~ '_Detalle' %}
+        {% set full_name = 'Detalle_' ~ full_name %}
+        <input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text" value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
+               data-toggle="modal" data-target="#modal" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': old_id }) }}"
                style="cursor: pointer;" />
+        {% set id = old_id %}
+        {% set full_name = old_full_name %}
         <span class="input-group-btn">
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal" href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}">
                 <i class="fa fa-search"></i>
