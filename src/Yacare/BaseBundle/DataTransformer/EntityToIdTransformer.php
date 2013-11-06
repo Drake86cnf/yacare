@@ -88,8 +88,8 @@ class EntityToIdTransformer implements DataTransformerInterface
             return current($this->unitOfWork->getEntityIdentifier($data)) . ': ' . $propertyAccessor->getValue($data, $this->property);
         }
 
-        // Devuelve id
-        return current($this->unitOfWork->getEntityIdentifier($data));
+        // Devuelve "id: " . __toString()
+        return current($this->unitOfWork->getEntityIdentifier($data) . ': ' . (string)$data);
     }
 
     public function reverseTransform($data)
@@ -120,8 +120,6 @@ class EntityToIdTransformer implements DataTransformerInterface
         if(strpos($data, ': ') !== false) {
             $data = substr($data, 0, strpos($data, ': '));
         }
-        
-        echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab' . $data;
 
         if ($qb = $this->queryBuilder) {
             if ($qb instanceof \Closure) {

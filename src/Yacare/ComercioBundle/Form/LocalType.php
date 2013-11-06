@@ -12,9 +12,9 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('Partida', 'entity_id', array(
-                'label' => 'Partida Nº',
+                'label' => 'Partida',
                 'class' => 'Yacare\CatastroBundle\Entity\Partida',
-                'required' => false))
+                'required' => true))
             ->add('Tipo', 'choice', array(
                 'label' => 'Tipo',
                 'required'  => true,

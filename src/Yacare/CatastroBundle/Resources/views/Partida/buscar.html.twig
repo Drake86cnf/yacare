@@ -12,8 +12,8 @@
 </div>
 
 <script>
-    function seleccionarItem(a, b) {
-        $('#{{ destcontrol }}').val(a + ': ' + b);
+    function seleccionarItem(id, detalle) {
+        yacareEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
