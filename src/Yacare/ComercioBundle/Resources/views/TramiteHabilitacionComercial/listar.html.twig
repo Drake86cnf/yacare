@@ -1,11 +1,8 @@
-{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %}
 
 {% block title %}Trámites de habilitación comercial{% endblock %}
 
-{% block content_header '' %}
-
 {% block content %}
-
 <legend>Trámites de habilitación comercial</legend>
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
@@ -17,6 +14,7 @@
             <th>Titular</th>
             <th>Actividad</th>
             <th>Local</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +25,16 @@
             <td>{{ entity.Titular }}</td>
             <td>{{ entity.ActividadPrincipal }}</td>
             <td>{{ entity.Local }}</td>
+            <td>
+                {% if entity.Estado < 10 %}
+                    <span class="label label-danger">
+                {% elseif entity.Estado >= 10 and entity.Estado < 90 %}
+                    <span class="label label-success">
+                {% else %}
+                    <span class="label label-default">
+                {% endif %}
+                {{ entity.EstadoNombre }}</span>            
+            </td>
         </tr>
     {% endfor %}
     </tbody>

@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EstadoRequisito
 {
+    use \Yacare\BaseBundle\Entity\ConObs;
+    
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tramite")

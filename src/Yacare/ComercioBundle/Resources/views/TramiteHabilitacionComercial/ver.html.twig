@@ -1,12 +1,12 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'YacareTramitesBundle:Tramite:ver.html.twig' %}
 
 {% block title %}{{ entity }}{% endblock %}
 
 {% block content %}
 
-<legend>{{ entity }}<small> (Trámite Nº {{ entity.id }})</small></legend>
+<legend>Trámite Nº {{ entity.id }}<small> {{ entity }}<small></legend>
 
-<p>Estado del trámite: {{ entity.EstadoNombre }}</p>
+<p>El trámite fue iniciado <abbr title="{{ entity.createdAt|localizeddate }}">{{ entity.createdAt|time_ago }}</abbr> y está actualmente en estado {{ entity.EstadoNombre }}.</p>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -32,7 +32,18 @@
             </td>
             <td>
                 {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
-                <span class="label label-{% if EstadoRequisito.Estado == 0 %}{% if EstadoRequisito.AsociacionRequisito.Opcional %}default{% else %}warning{%endif%}{% elseif EstadoRequisito.Estado == 100 %}success{% else %}default{% endif %}">{{ EstadoRequisito.EstadoNombre }}</span>
+                {% if EstadoRequisito.Estado == 0 %}
+                    {% if EstadoRequisito.AsociacionRequisito.Opcional %}
+                        <span class="label label-default">
+                    {% else %}
+                        <span class="label label-warning">
+                    {%endif%}
+                {% elseif EstadoRequisito.Estado == 100 %}
+                        <span class="label label-success">
+                {% else %}
+                        <span class="label label-default">
+                {% endif %}
+                {{ EstadoRequisito.EstadoNombre }}</span>
             </td>
         </tr>
         {% endif %}
@@ -55,7 +66,18 @@
             </td>
             <td>
                 {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
-                <span class="label label-{% if EstadoRequisito.Estado == 0 %}{% if EstadoRequisito.AsociacionRequisito.Opcional %}default{% else %}warning{%endif%}{% elseif EstadoRequisito.Estado == 100 %}success{% else %}default{% endif %}">{{ EstadoRequisito.EstadoNombre }}</span>
+                {% if EstadoRequisito.Estado == 0 %}
+                    {% if EstadoRequisito.AsociacionRequisito.Opcional %}
+                        <span class="label label-default">
+                    {% else %}
+                        <span class="label label-warning">
+                    {%endif%}
+                {% elseif EstadoRequisito.Estado == 100 %}
+                        <span class="label label-success">
+                {% else %}
+                        <span class="label label-default">
+                {% endif %}
+                {{ EstadoRequisito.EstadoNombre }}</span>
             </td>
         </tr>
         {% endif %}

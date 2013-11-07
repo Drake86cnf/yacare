@@ -44,6 +44,12 @@ h3 {
     amargin: 3px 0px;
 }
 
+legend small {
+    font-weight: normal;
+    line-height: 1;
+    color: rgb(153, 153, 153);
+}
+
 input, select, textarea {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     vertical-align: middle;
