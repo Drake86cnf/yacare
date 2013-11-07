@@ -1,0 +1,22 @@
+{% block content %}
+&nbsp;
+<table class="table table-condensed table-hover">
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Nombre }}</a></td>
+            <td>{{ entity.Tipo }}</td>
+            <td>{{ entity.Superficie }} m²</td>
+            <td>{{ entity.Partida.Titular }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if not entities %}
+    <div class="alert alert-warning">
+        <p><i class="fa fa-warning fa-2x"></i> No se encontraron resultados.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

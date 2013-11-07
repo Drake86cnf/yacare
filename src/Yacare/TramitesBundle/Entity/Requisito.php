@@ -25,15 +25,15 @@ class Requisito
     }
         
     /**
-     * @ORM\ManyToMany(targetEntity="Requisito", mappedBy="MeRequieren")
+     * @ORM\ManyToMany(targetEntity="Requisito", mappedBy="Requiere")
      */
     private $MeRequieren;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Requisito", inversedBy="Requiere")
+     * @ORM\ManyToMany(targetEntity="Requisito", inversedBy="MeRequieren")
      * @ORM\JoinTable(name="Tramites_Requisito_Requisito",
-     *      joinColumns={@ORM\JoinColumn(name="merequiere_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="requiere_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="MeRequiere_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="Requiere_id", referencedColumnName="id")}
      *      )
      **/
     private $Requiere;
@@ -56,6 +56,13 @@ class Requisito
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
+    
+    /**
+     * Al crear o editar un tipo de trámite, se crea o edita un requisito que lo refleja.
+     * @ORM\ManyToOne(targetEntity="TramiteTipo")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $TramiteTipoEspejo;
     
     
     public function getTipoNombre() {
@@ -114,5 +121,13 @@ class Requisito
 
     public function setMeRequieren($MeRequieren) {
         $this->MeRequieren = $MeRequieren;
+    }
+    
+    public function getTramiteTipoEspejo() {
+        return $this->TramiteTipoEspejo;
+    }
+
+    public function setTramiteTipoEspejo($TramiteTipoEspejo) {
+        $this->TramiteTipoEspejo = $TramiteTipoEspejo;
     }
 }

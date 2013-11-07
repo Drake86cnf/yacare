@@ -9,4 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class TramiteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    public function guardarActionPrePersist($entity) {
+        // Crear o actualizar un requisito asociado
+
+        $RequisitoEspejo = $entity->getRequisitoEspejo();
+        if(!$RequisitoEspejo) {
+            $RequisitoEspejo = new \Yacare\TramitesBundle\Entity\Requisito();
+        }
+        
+        $RequisitoEspejo->setTramiteTipoEspejo($entity);
+        $RequisitoEspejo->setTipo('tra');
+        $RequisitoEspejo->setNombre((string)$entity);
+        
+        $entity->setRequisitoEspejo($RequisitoEspejo);
+    }
 }

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Local {
     use \Yacare\BaseBundle\Entity\ConId;
+    use \Yacare\BaseBundle\Entity\ConNombre;
     //use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Versionable;
@@ -34,9 +35,18 @@ class Local {
      * @ORM\Column(type="integer")
      */
     private $Superficie;
-
-    public function __toString() {
-        return $this->getPartida()->getDomicilio();
+    
+    public function setPartida($Partida) {
+        $this->Partida = $Partida;
+        $this->setPropietario($Partida->getTitular());
+    }
+    
+    private function ConstruirNombre() {
+        if($this->getPartida()) {
+            $this->setNombre($this->getTipo() . ' en ' .  $this->getPartida()->getDomicilio());
+        } else {
+            $this->setNombre($this->getTipo());
+        }
     }
     
     public function getPropietario() {
@@ -45,13 +55,16 @@ class Local {
 
     public function setPropietario($Propietario) {
         $this->Propietario = $Propietario;
+        $this->ConstruirNombre();
     }
+    
     public function getTipo() {
         return $this->Tipo;
     }
 
     public function setTipo($Tipo) {
         $this->Tipo = $Tipo;
+        $this->ConstruirNombre();
     }
     
     public function getSuperficie() {

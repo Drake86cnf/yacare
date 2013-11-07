@@ -1,16 +1,18 @@
 <?php
-
+/*
+ * Representa la asociación de un requisito con un TramiteTipo
+ */
 namespace Yacare\TramitesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\TramiteTipoRequisito
+ * Yacare\TramitesBundle\Entity\AsociacionRequisito
  *
  * @ORM\Entity
- * @ORM\Table(name="Tramites_TramiteTipoRequisito")
+ * @ORM\Table(name="Tramites_TramiteTipo_Requisito")
  */
-class TramiteTipoRequisito
+class AsociacionRequisito
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConObs;
@@ -20,7 +22,7 @@ class TramiteTipoRequisito
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $TramitePadre;
+    protected $TramiteTipo;
 
     /**
      * @var string
@@ -63,15 +65,18 @@ class TramiteTipoRequisito
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionCuanto;
+    
 
     public function getInstanciaNombre() {
         switch($this->getInstancia()) {
             case 'na':
                 return 'n/a';
-            case 'org':
+            case 'ori':
                 return 'Original';
             case 'cop':
                 return 'Copia';
+            case 'cle':
+                return 'Copia legalizada';
        }
     }
 
@@ -129,7 +134,11 @@ class TramiteTipoRequisito
     }
 
     public function __toString() {
-        return (string)($this->Requisito);
+        if($this->getInstancia() && $this->getInstancia() !== 'na') {
+            return $this->getInstanciaNombre() . ' de ' . (string)($this->Requisito) . ' de ' . $this->getPropiedad();
+        } else {
+            return (string)($this->Requisito) . ' de ' . $this->getPropiedad();
+        }
     }
     
     
@@ -188,11 +197,11 @@ class TramiteTipoRequisito
         $this->Instancia = $Instancia;
     }
     
-    public function getTramitePadre() {
-        return $this->TramitePadre;
+    public function getTramiteTipo() {
+        return $this->TramiteTipo;
     }
 
-    public function setTramitePadre($TramitePadre) {
-        $this->TramitePadre = $TramitePadre;
+    public function setTramiteTipo($TramiteTipo) {
+        $this->TramiteTipo = $TramiteTipo;
     }
 }

@@ -25,4 +25,73 @@ class Tramite
 
     use \Yacare\TramitesBundle\Entity\ConTitular;
     
+    public function __construct()
+    {
+        $this->EstadoRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Estado;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TramiteTipo")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $TramiteTipo;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="EstadoRequisito", mappedBy="Tramite", cascade={"persist"})
+     * @ORM\JoinTable(name="Tramites_Tramite_EstadoRequisito",
+     *      joinColumns={@ORM\JoinColumn(name="Tramite_id", referencedColumnName="Tramite_id")}
+     * )
+     */
+    private $EstadosRequisitos;
+
+    
+    public function getEstadoNombre() {
+        switch($this->Estado) {
+            case 0: return 'Nuevo';
+            case 10: return 'Iniciado';
+            case 90: return 'Cancelado';
+            case 100: return 'Terminado';
+            default: return '???';
+        }
+    }
+    
+    public function AgregarEstadoRequisito($NuevoEstadoRequisito) {
+        foreach($this->EstadosRequisitos as $EstReq) {
+            if($EstReq->getAsociacionRequisito() == $NuevoEstadoRequisito->getAsociacionRequisito()) {
+                // Ya existe, por lo tanto no lo agrego
+                return;
+            }
+        }
+        $this->EstadosRequisitos[] = $NuevoEstadoRequisito;
+    }
+    
+    
+    public function getEstado() {
+        return $this->Estado;
+    }
+
+    public function setEstado($Estado) {
+        $this->Estado = $Estado;
+    }
+    
+    public function getEstadosRequisitos() {
+        return $this->EstadosRequisitos;
+    }
+
+    public function setEstadosRequisitos($EstadosRequisitos) {
+        $this->EstadosRequisitos = $EstadosRequisitos;
+    }
+    
+    public function getTramiteTipo() {
+        return $this->TramiteTipo;
+    }
+
+    public function setTramiteTipo($TramiteTipo) {
+        $this->TramiteTipo = $TramiteTipo;
+    }
 }

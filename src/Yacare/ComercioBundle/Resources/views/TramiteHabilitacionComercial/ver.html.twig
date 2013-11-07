@@ -1,0 +1,67 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}{{ entity }}{% endblock %}
+
+{% block content %}
+
+<legend>{{ entity }}<small> (Trámite Nº {{ entity.id }})</small></legend>
+
+<p>Estado del trámite: {{ entity.EstadoNombre }}</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Requisito</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for EstadoRequisito in entity.EstadosRequisitos %}
+        {% if not EstadoRequisito.TramiteTipoOrigen %}
+        <tr>
+            <td>
+                {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
+                    <i class="fa fa-copy fa-fw"></i>
+                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
+                    <i class="fa fa-file fa-fw"></i>
+                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
+                    <i class="fa fa-clipboard fa-fw"></i>
+                {% else %}
+                    <i class="fa fa-circle-o fa-fw"></i>
+                {% endif %}
+                {{ EstadoRequisito.AsociacionRequisito }}
+            </td>
+            <td>
+                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+                <span class="label label-{% if EstadoRequisito.Estado == 0 %}{% if EstadoRequisito.AsociacionRequisito.Opcional %}default{% else %}warning{%endif%}{% elseif EstadoRequisito.Estado == 100 %}success{% else %}default{% endif %}">{{ EstadoRequisito.EstadoNombre }}</span>
+            </td>
+        </tr>
+        {% endif %}
+{% endfor %}
+{% for EstadoRequisito in entity.EstadosRequisitos %}
+        {% if EstadoRequisito.TramiteTipoOrigen %}
+        <tr>
+            <td>
+                {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
+                    <i class="fa fa-copy fa-fw"></i>
+                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
+                    <i class="fa fa-file fa-fw"></i>
+                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
+                    <i class="fa fa-clipboard fa-fw"></i>
+                {% else %}
+                    <i class="fa fa-circle-o fa-fw"></i>
+                {% endif %}
+                {{ EstadoRequisito.AsociacionRequisito }}
+                {% if EstadoRequisito.TramiteTipoOrigen %}<br /><small class="text text-muted">Requerido por {{ EstadoRequisito.TramiteTipoOrigen}}.</small>{% endif %}
+            </td>
+            <td>
+                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+                <span class="label label-{% if EstadoRequisito.Estado == 0 %}{% if EstadoRequisito.AsociacionRequisito.Opcional %}default{% else %}warning{%endif%}{% elseif EstadoRequisito.Estado == 100 %}success{% else %}default{% endif %}">{{ EstadoRequisito.EstadoNombre }}</span>
+            </td>
+        </tr>
+        {% endif %}
+{% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Volver al listado de trámites</a>
+{% endblock %}

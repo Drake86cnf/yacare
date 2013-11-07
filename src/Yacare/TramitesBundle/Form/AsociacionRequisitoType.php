@@ -6,16 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteTipoRequisitoType extends AbstractType
+class AsociacionRequisitoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TramitePadre', 'entity', array(
+            ->add('TramiteTipo', 'entity', array(
                 'label' => 'Tipo de trámite',
                 'class' => 'YacareTramitesBundle:TramiteTipo',
                 'required' => true,
-                /* 'read_only' => true, */
+                'read_only' => true,
                 'multiple' => false
                 ))
             ->add('Requisito', 'entity', array(
@@ -41,7 +41,8 @@ class TramiteTipoRequisitoType extends AbstractType
                 'required'  => true,
                 'choices' => array('na' => 'n/a', 
                     'ori' => 'Original',
-                    'cop' => 'Copia simple'
+                    'cop' => 'Copia simple',
+                    'cle' => 'Copia legalizada'
                     )
                 ))
             ->add('Opcional', 'checkbox', array(
@@ -84,12 +85,12 @@ class TramiteTipoRequisitoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\TramitesBundle\Entity\TramiteTipoRequisito'
+            'data_class' => 'Yacare\TramitesBundle\Entity\AsociacionRequisito'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_tramitetiporequisitoype';
+        return 'yacare_tramitesbundle_asociacionrequisitoype';
     }
 }

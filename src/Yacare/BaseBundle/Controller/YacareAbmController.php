@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class YacareAbmController extends YacareBaseController
 {
+    use \Yacare\BaseBundle\Controller\ConBuscar;
+    
     function __construct() {
         parent::__construct();
 
@@ -30,29 +32,6 @@ class YacareAbmController extends YacareBaseController
         
         if(!isset($this->BuscarPor))
             $this->BuscarPor = 'Nombre';
-    }
-    
-    
-    /**
-     * @Route("buscar/")
-     * @Template()
-     */
-    public function buscarAction()
-    {
-        return $this->ArrastrarVariables(array(
-        ));
-    }
-    
-    
-    /**
-     * @Route("buscarresultados/")
-     * @Template()
-     */
-    public function buscarresultadosAction()
-    {
-        $this->Paginar = false;
-        $this->Limit = 500;
-        return $this->listarAction();
     }
 
 
@@ -82,7 +61,7 @@ class YacareAbmController extends YacareBaseController
 
         $request = $this->getRequest();
         $filtro_buscar = $request->query->get('filtro_buscar');
-        if($filtro_buscar) {
+        if($filtro_buscar && $this->BuscarPor) {
             // Busco por varias palabras
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);

@@ -6,15 +6,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("tramitetiporequisito/")
+ * @Route("asociacionrequisito/")
  */
-class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
     public function __construct() {
         parent::__construct();
-        $this->ConservarVariables = array ('parent_id');
+        $this->ConservarVariables = array('parent_id');
         $this->Paginar = false;
     }
     
@@ -31,7 +31,7 @@ class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\Yacar
             $parent_id = $this->getRequest()->query->get('parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
 
-            $this->Where .= " AND r.TramitePadre='$parent_id'";
+            $this->Where .= " AND r.TramiteTipo=$parent_id";
         }
         
         $res = parent::listarAction();
@@ -50,14 +50,14 @@ class TramiteTipoRequisitoController extends \Yacare\BaseBundle\Controller\Yacar
      */
     public function editarAction($id = null)
     {
-        $res = parent::editarAction();
+        $res = parent::editarAction($id);
         
         if($id === null) {
             // En caso de crear uno nuevo, le asigno el parent predeterminado
             $em = $this->getDoctrine()->getManager();
             $parent_id = $this->getRequest()->query->get('parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
-            $res['entity']->setTramitePadre($TramiteTipo);
+            $res['entity']->setTramiteTipo($TramiteTipo);
         }
         
         return $res;

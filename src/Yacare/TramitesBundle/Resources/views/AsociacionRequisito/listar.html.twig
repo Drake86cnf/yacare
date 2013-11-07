@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block title %}Trámites - Requisitos{% endblock %}
+{% block title %}Trámites - Asociación de requisitos{% endblock %}
 
 {% block content_header '' %}
 
@@ -22,9 +22,7 @@
     <thead>
         <tr>
             <th> </th>
-            <th> </th>
             <th>Requisito</th>
-            <th>De</th>
             <th>Condición</th>
         </tr>
     </thead>
@@ -32,9 +30,7 @@
     {% for entity in entities %}
         <tr>
             <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
-            <td>{{ entity.InstanciaNombre }}</td>
-            <td>{% if entity.Opcional %}(Opcional) {% endif %}{{ entity }}</td>
-            <td>{{ entity.Propiedad }}</td>
+            <td>{% if entity.Opcional %}<span class="label label-info">Opcional</span> {% endif %}{{ entity }}</td>
             <td>{{ entity.Condicion }}</td>
         </tr>
     {% endfor %}

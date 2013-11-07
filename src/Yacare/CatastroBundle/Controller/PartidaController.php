@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConBuscar;
+    
     function __construct() {
         parent::__construct();
         
@@ -28,7 +30,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     {
         $res = parent::buscarAction();
         
-        $res['secciones'] = $this->ObtenerSecciones();
+        //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
         
         return $res;
@@ -43,7 +45,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     {
         $res = parent::buscarresultadosAction();
         
-        $res['secciones'] = $this->ObtenerSecciones();
+        //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
         
         return $res;
@@ -107,16 +109,16 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         
         $res = parent::listarAction();
         
-        $res['secciones'] = $this->ObtenerSecciones();
+        //$res['secciones'] = $this->ObtenerSecciones();
         
         return $res;
     }
     
-    private function ObtenerSecciones() {
+    /* private function ObtenerSecciones() {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT DISTINCT r.Seccion FROM YacareCatastroBundle:Partida r ORDER BY r.Seccion");
         return $query->getResult();
-    }
+    } */
     
     private function ObtenerCalles() {
         $em = $this->getDoctrine()->getManager();

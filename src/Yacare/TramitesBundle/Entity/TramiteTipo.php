@@ -37,6 +37,21 @@ class TramiteTipo
      */
     protected $Formulario;
     
+    /**
+     * Al crear o editar un tipo de trámite, se crea o edita un requisito que lo refleja.
+     * @ORM\ManyToOne(targetEntity="Requisito", cascade={ "persist" })
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $RequisitoEspejo;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AsociacionRequisito", mappedBy="TramiteTipo")
+     * @ORM\JoinTable(name="Tramites_TramiteTipo_Requisito",
+     *      joinColumns={@ORM\JoinColumn(name="TramiteTipo_id", referencedColumnName="id")}
+     * )
+     */
+    private $AsociacionRequisitos;
+    
     
     public function getClase() {
         return $this->Clase;
@@ -60,5 +75,21 @@ class TramiteTipo
 
     public function setFormulario($Formulario) {
         $this->Formulario = $Formulario;
+    }
+    
+    public function getAsociacionRequisitos() {
+        return $this->AsociacionRequisitos;
+    }
+
+    public function setAsociacionRequisitos($AsociacionRequisitos) {
+        $this->AsociacionRequisitos = $AsociacionRequisitos;
+    }
+    
+    public function getRequisitoEspejo() {
+        return $this->RequisitoEspejo;
+    }
+
+    public function setRequisitoEspejo($RequisitoEspejo) {
+        $this->RequisitoEspejo = $RequisitoEspejo;
     }
 }
