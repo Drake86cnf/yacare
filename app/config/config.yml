@@ -134,3 +134,14 @@ stfalcon_tinymce:
             paste_auto_cleanup_on_paste: true
             image_advtab: true
             spellchecker_languages: "+Spanish=sp"
+
+services:
+    yacarebasebundle.twig.timeago_extension:
+        class: Yacare\BaseBundle\Twig\DateExtension
+        tags:
+        -  { name: twig.extension }
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+        - { name: twig.extension }
