@@ -7,13 +7,13 @@
 {% block content %}
 {% if entities is empty %}
 <div>
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong><p>Aun no se recibieron resultados para este relevamiento o asignación.</p></strong>
-    <p>Si ya se realizaron asignaciones, debe usar la opción de 'Sincronizar'
-    los datos desde los dispositivos (tabletas).
-    </p>
-</div>
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong><p>Aun no se recibieron resultados para este relevamiento o asignación.</p></strong>
+        <p>Si ya se realizaron asignaciones, debe usar la opción de 'Sincronizar'
+            los datos desde los dispositivos (tabletas).
+        </p>
+    </div>
 </div>
 {% else %}
 <table class="table table-striped">
@@ -30,7 +30,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td>{% if entity.Imagen %}<a target="_blank" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_imagen', { 'id': entity.Id }) }}"><i class="fa fa-picture"></i></a>{% endif %}
+            <td>{% if entity.Imagen %}<a target="_blank" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_imagen', { 'id': entity.Id }) }}"><i class="fa fa-camera"></i></a>{% endif %}
             {% if entity.Ubicacion %}<a target="_blank" href="http://www.openstreetmap.org/?mlat={{ entity.UbicacionLatitud }}&mlon={{ entity.UbicacionLongitud }}&zoom=30" data-rel="popover" data-content="Latitud: {{ entity.UbicacionLatitud }}, longiud: {{ entity.UbicacionLongitud }}. Haga click en el ícono para ver la ubicación en un plano." title="Ubicación"><i class="fa fa-map-marker"></i></a> {% endif %}</td>
             <td>{{ entity.Detalle.Asignacion.Encargado }}</td>
             <td>{{ entity.Detalle.PartidaCalleNombre }} {{ entity.Detalle.PartidaCalleNumero }}</td>
