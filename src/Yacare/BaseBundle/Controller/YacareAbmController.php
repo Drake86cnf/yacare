@@ -208,9 +208,15 @@ class YacareAbmController extends YacareBaseController
 
             return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
-            return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
+            return $this->guardarActionAfterSuccess($entity);
         }
     }
+    
+    
+    protected function guardarActionAfterSuccess($entity) {
+        return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
+    }
+    
     
     public function guardarActionPreBind($entity)
     {

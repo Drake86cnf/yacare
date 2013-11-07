@@ -48,7 +48,6 @@ class Tramite
      * )
      */
     private $EstadosRequisitos;
-
     
     public function getEstadoNombre() {
         switch($this->Estado) {
@@ -59,17 +58,6 @@ class Tramite
             default: return '???';
         }
     }
-    
-    public function AgregarEstadoRequisito($NuevoEstadoRequisito) {
-        foreach($this->EstadosRequisitos as $EstReq) {
-            if($EstReq->getAsociacionRequisito() == $NuevoEstadoRequisito->getAsociacionRequisito()) {
-                // Ya existe, por lo tanto no lo agrego
-                return;
-            }
-        }
-        $this->EstadosRequisitos[] = $NuevoEstadoRequisito;
-    }
-    
     
     public function getEstado() {
         return $this->Estado;

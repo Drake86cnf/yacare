@@ -10,14 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\TramitesBundle\Entity\TramiteRequisito
  *
  * @ORM\Entity
- * @ORM\Table(name="Tramites_EstadoRequisito")
+ * @ORM\Table(name="Tramites_EstadoRequisito",
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="TramiteAsociacionRequisito", columns={"Tramite_id", "AsociacionRequisito_id"})
+ *      },
+ *      indexes={
+ *          @ORM\Index(name="Tramites_EstadoRequisito_Tramite", columns={"Tramite_id"})
+ *      }
+ * )
  */
 class EstadoRequisito
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConObs;
     
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tramite")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -25,7 +32,6 @@ class EstadoRequisito
 
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="AsociacionRequisito")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -43,6 +49,10 @@ class EstadoRequisito
      */
     private $Estado;
 
+    
+    public function __toString() {
+        return (string)$this->getAsociacionRequisito();
+    }
     
     public function getEstadoNombre() {
         switch($this->Estado) {
