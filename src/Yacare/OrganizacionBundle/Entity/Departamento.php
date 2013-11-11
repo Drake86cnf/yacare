@@ -31,6 +31,11 @@ class Departamento implements Tree\NodeInterface
     private $Rango;
     
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $Codigo;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Departamento")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
@@ -73,6 +78,22 @@ class Departamento implements Tree\NodeInterface
 
     public function setOrden($Orden) {
         $this->Orden = $Orden;
+    }
+    
+    public function getCodigo() {
+        return $this->Codigo;
+    }
+
+    public function getParentNode() {
+        return $this->ParentNode;
+    }
+
+    public function setCodigo($Codigo) {
+        $this->Codigo = $Codigo;
+    }
+
+    public function setParentNode($ParentNode) {
+        $this->ParentNode = $ParentNode;
     }
 }
 

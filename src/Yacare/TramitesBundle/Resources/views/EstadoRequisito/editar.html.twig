@@ -9,7 +9,7 @@
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
+        <a class="btn btn-default" href="{{ path('yacare_tramites_tramite_editar', arrastre|merge({ 'id': entity.id })) }}">Cancelar</a>
     </div>
 </form>
 

@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    function __construct() {
+        parent::__construct();
+        $this->ConservarVariables[] = 'parent_id';
+    }
+    
     public function guardarActionPrePersist($entity) {
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
     }

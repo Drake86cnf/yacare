@@ -13,7 +13,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DispositivoController extends YacareAbmController
 {
-    function __construct() {
-        parent::__construct();
-    }
 }

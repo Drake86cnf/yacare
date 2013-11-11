@@ -59,6 +59,13 @@ class Tramite
         }
     }
     
+    public function AgregarEstadoRequisito($EstadoNuevo) {
+        $this->EstadoRequisitos[] = $EstadoNuevo;
+    }
+
+
+
+
     public function getEstado() {
         return $this->Estado;
     }

@@ -87,33 +87,34 @@ class DateExtension extends \Twig_Extension
         if ($distance_in_minutes <= 1) {
             if ($include_seconds) {
                 if ($distance_in_seconds < 5) {
-                    return sprintf('hace menos de %seconds segundos', array('%seconds' => 5));
+                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 5));
                 } elseif($distance_in_seconds < 10) {
-                    return sprintf('hace menos de %seconds segundos', array('%seconds' => 10));
+                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 10));
                 } elseif($distance_in_seconds < 20){
-                    return sprintf('hace menos de %seconds segundos', array('%seconds' => 20));
+                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 20));
                 } elseif($distance_in_seconds < 60){
-                    return sprintf('hace menos de un minuto');
+                    return vsprintf('hace menos de un minuto');
                 } else {
-                    return sprintf('hace un minuto');
+                    return vsprintf('hace un minuto');
                 }
             }
             return ($distance_in_minutes===0) ? 'hace menos de un minuto' : 'hace un minuto';
         }
         elseif ($distance_in_minutes <= 45){
-            return sprintf('hace %minutes minutos', array('%minutes' => $distance_in_minutes));
+            return vsprintf('hace %minutes minutos', array('%minutes' => $distance_in_minutes));
         }
         elseif ($distance_in_minutes <= 90){
             return 'hace una hora';
         }
         elseif ($distance_in_minutes <= 1440){
-            return sprintf('hace unas %hours horas', array('%hours' => round($distance_in_minutes/60)));
+            return vsprintf('hace unas %hours horas', array('%hours' => round($distance_in_minutes/60)));
         }
         elseif ($distance_in_minutes <= 2880){
             return 'ayer';
         }
         else{
-            return sprintf('hace %days días', array('%days' => round($distance_in_minutes/1440)));
+            $distance_in_days = round($distance_in_minutes / 1440);
+            return vsprintf('hace %d días', array('%d' => $distance_in_days));
         }
     }
  

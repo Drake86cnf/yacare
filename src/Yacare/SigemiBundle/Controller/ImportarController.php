@@ -677,6 +677,8 @@ WHERE rnum >" . $desde . "
             );
     }
     
+    
+    
     protected function ConectarOracle() {
                 $tns = '(DESCRIPTION = 
 			    (ADDRESS_LIST = 

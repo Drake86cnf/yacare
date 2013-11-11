@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th> </th>
+            <th>Código</th>
             <th>Nombre</th>
             <th>Rango</th>
         </tr>
@@ -21,6 +22,7 @@
     {% for entity in entities %}
         <tr>
             <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.Codigo }}</td>
             <td>{{ entity.Sangria|raw }}{{ entity.Nombre }}</td>
             <td><span class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}">{{ entity.RangoNombre }}</span>
 </td>
