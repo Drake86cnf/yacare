@@ -677,6 +677,125 @@ WHERE rnum >" . $desde . "
             );
     }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @Route("agentes/")
+     * @Template("YacareSigemiBundle:Importar:importar.html.twig")
+     */
+    public function importarAgentesAction()
+    {
+        $request = $this->getRequest();
+        $desde = (int)($request->query->get('desde'));
+        $cant = 100;
+        
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        set_time_limit(600);
+        ini_set('memory_limit', '2048M');
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $DbRecursos = $this->ConectarRrhh();
+        
+        $importar_importados = 0;
+        $importar_actualizados = 0;
+        $importar_procesados = 0;
+        $log = array();
+
+        foreach($DbRecursos->query("SELECT * FROM agentes WHERE nrodoc>0 LIMIT $desde, $cant") as $Row) {
+            $entity = $em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.agentes',
+                'ImportId' => $Row['legajo']
+            ));
+            
+            if(!$entity) {
+                $entity = new \Yacare\RecursosHumanosBundle\Entity\Agente();
+                $entity->setId((int)($Row['legajo']));
+                
+                $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                    'DocumentoNumero' => trim($Row['nrodoc']),
+                ));
+                
+                if(!$Persona) {
+                    $Persona = new \Yacare\BaseBundle\Entity\Persona();
+                    $Persona->setDocumentoNumero($Row['nrodoc']);
+                    $Persona->setDocumentoTipo((int)$Row['tipodoc']);
+                }
+                $Persona->setNombre(StringHelper::Desoraclizar($Row['name']));
+                $Persona->setApellido(StringHelper::Desoraclizar($Row['lastname']));
+                if($Row['fechanacim']) {
+                    $Persona->setFechaNacimiento(new \DateTime($Row['fechanacim']));
+                }
+                $Persona->setTelefonoNumero(trim(str_ireplace('NO DECLARA', '', $Row['telefono']) . ' ' . str_ireplace('NO DECLARA', '', $Row['celular'])));
+                $Persona->setGenero($Row['sexo'] == 1 ? 1 : 0);
+                $Persona->setEmail(str_ireplace('NO DECLARA', '', strtolower($Row['email'])));
+                $Persona->setCuilt(trim($Row['cuil']));
+
+                $em->persist($Persona);
+                $em->flush();
+           
+               $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                    'ImportSrc' => 'rr_hh.direcciones',
+                    'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']
+                ));
+                
+                $entity->setPersona($Persona);
+                $entity->setDepartamento($Departamento);
+                $entity->setCategoria($Row['categoria']);
+                $entity->setSituacion($Row['situacion']);
+                $entity->setFuncion(StringHelper::Desoraclizar($Row['funcion']));
+                
+                $entity->setImportSrc('rr_hh.agentes');
+                $entity->setImportId($Row['legajo']);
+
+                $importar_importados++;
+            } else {
+                $importar_actualizados++;
+            }
+
+            if($Row['fechaingre']) {
+                $entity->setFechaIngreso(new \DateTime($Row['fechaingre']));
+            } else {
+                $entity->setFechaIngreso(null);
+            }                
+
+            if($Row['fechabaja']) {
+                $entity->setFechaBaja(new \DateTime($Row['fechabaja']));
+                $entity->setSuprimido(true);
+            } else {
+                $entity->setFechaBaja(null);
+                $entity->setSuprimido(false);
+            }
+            
+            $em->persist($entity);
+            $em->flush();
+            
+            $importar_procesados++;
+            $log[] = $Row['legajo'] . ': ' . (string)$entity . ': ' . (string)$entity->getDepartamento();
+        }
+        
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log
+            );
+    }
     
     
     protected function ConectarOracle() {

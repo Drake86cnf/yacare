@@ -5,6 +5,10 @@
 {% block content_header '' %}
 
 {% block content %}
+
+<h1>Agentes</h1>
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -12,6 +16,7 @@
             <th>Nombre</th>
             <th>Departamento</th>
             <th>Fecha de ingreso</th>
+            <th>Fecha de baja</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +25,8 @@
             <td>{{ entity.Id }}</td>
             <td>{{ entity }}</td>
             <td>{{ entity.Departamento }}</td>
-            <td>{{ entity.FechaIngreso|date('d-m-Y') }}</td>
+            <td>{{ entity.FechaIngreso|localizeddate('medium', 'none') }}</td>
+            <td>{{ entity.FechaBaja|localizeddate('medium', 'none') }}</td>
         </tr>
     {% endfor %}
     </tbody>

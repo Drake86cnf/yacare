@@ -71,7 +71,9 @@ class YacareAbmController extends YacareBaseController
                 $this->Where .= ' AND (';
                 // Busco en varios campos
                 foreach($BuscarPorCampos as $BuscarPorCampo) {
-                    $this->Where .= $BuscarPorNexo . 'r.' . $BuscarPorCampo . " LIKE '%$palabra%'";
+                    if(strpos($BuscarPorCampo, '.') === false)
+                            $BuscarPorCampo = 'r.' . $BuscarPorCampo;
+                    $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$palabra%'";
                     $BuscarPorNexo = ' OR ';
                 }
                 $this->Where .= ')';

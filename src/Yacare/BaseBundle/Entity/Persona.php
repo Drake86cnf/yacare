@@ -163,7 +163,7 @@ class Persona implements UserInterface, \Serializable
     protected $Pais;
     
     
-    // Columnas de importación del municipio de Río Grande
+    /* Columnas de importación del municipio de Río Grande */
     
     /**
      * @var string $ImportId
@@ -330,7 +330,7 @@ class Persona implements UserInterface, \Serializable
         return $this->FechaNacimiento;
     }
 
-    public function setFechaNacimiento(\DateTime $FechaNacimiento) {
+    public function setFechaNacimiento(\DateTime $FechaNacimiento = null) {
         $this->FechaNacimiento = $FechaNacimiento;
     }
 

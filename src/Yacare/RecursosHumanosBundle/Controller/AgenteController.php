@@ -15,8 +15,9 @@ class AgenteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
 
     function __construct() {
-        $this->BundleName = 'RecursosHumanos';
-        $this->EntityName = 'Agente';
         parent::__construct();
+
+        $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
+        $this->Joins[] = " JOIN r.Persona p";
     }
 }

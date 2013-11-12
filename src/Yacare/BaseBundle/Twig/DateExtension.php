@@ -20,6 +20,10 @@ class DateExtension extends \Twig_Extension
     }
     
     public function localizeddate($date, $dateFormat = 'full', $timeFormat = 'medium') {
+        if($date == null) {
+            return '';
+        }
+
         $formatValues = array(
             'none' => \IntlDateFormatter::NONE,
             'short' => \IntlDateFormatter::SHORT,
@@ -27,6 +31,7 @@ class DateExtension extends \Twig_Extension
             'long' => \IntlDateFormatter::LONG,
             'full' => \IntlDateFormatter::FULL,
         );
+
         $formatter = \IntlDateFormatter::create(
             'es_AR',
             $formatValues[$dateFormat],

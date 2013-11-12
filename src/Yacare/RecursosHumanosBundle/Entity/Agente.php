@@ -69,11 +69,16 @@ class Agente
     private $Funcion;
     
     /**
-     * @var \DateTime $FechaIngreso
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaIngreso;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaBaja;
     
     /**
      * @var $Departamento
@@ -123,8 +128,16 @@ class Agente
         return $this->FechaIngreso;
     }
 
-    public function setFechaIngreso(\DateTime $FechaIngreso) {
+    public function setFechaIngreso(\DateTime $FechaIngreso = null) {
         $this->FechaIngreso = $FechaIngreso;
+    }
+    
+    public function getFechaBaja() {
+        return $this->FechaBaja;
+    }
+
+    public function setFechaBaja(\DateTime $FechaBaja = null) {
+        $this->FechaBaja = $FechaBaja;
     }
 
     public function getDepartamento() {
