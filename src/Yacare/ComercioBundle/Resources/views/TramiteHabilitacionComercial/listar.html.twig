@@ -33,7 +33,14 @@
                 {% else %}
                     <span class="label label-default">
                 {% endif %}
-                {{ entity.EstadoNombre }}</span>            
+                {{ entity.EstadoNombre }}</span>
+                {% if entity.EstaEnCurso %}
+                    {% if entity.RequisitosFaltantesCantidad == 0 %}
+                        <span class="label label-success">¡Requisitos cumplidos!</span>
+                    {% else %}
+                        <span class="label label-default">Faltan {{ entity.RequisitosFaltantesCantidad }} requisitos</span>
+                    {% endif %}
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

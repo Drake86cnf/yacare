@@ -49,6 +49,63 @@ class Tramite
      */
     private $EstadosRequisitos;
     
+    public function EstaEnCurso() {
+        return $this->getEstado() < 90;
+    }
+    
+    
+    public function PorcentajeCompleto() {
+        if($this->RequisitosObligatoriosCantidad() == 0) {
+            return 0;
+        } else {
+            return round((1 - $this->RequisitosFaltantesCantidad() / $this->RequisitosObligatoriosCantidad()) * 100);
+        }
+    }
+    
+    
+    /*
+     * Devuelve la cantidad de requisitos obligatorios totales.
+     */
+    public function RequisitosObligatoriosCantidad() {
+        $res = 0;
+        foreach ($this->EstadosRequisitos as $EstadoRequisito) {
+            if($EstadoRequisito->EsNecesario()) {
+                $res++;
+            }
+        }
+        return $res;
+    }
+    
+    
+    /*
+     * Devuelve la cantidad de requisitos obligatorios faltantes.
+     */
+    public function RequisitosFaltantesCantidad() {
+        $res = 0;
+        foreach ($this->EstadosRequisitos as $EstadoRequisito) {
+            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EstaCumplido() == false) {
+                $res++;
+            }
+        }
+        return $res;
+    }
+    
+    
+    public function ExplicarEstadosRequisitos() {
+        $res = array();
+        foreach ($this->EstadosRequisitos as $EstadoRequisito) {
+            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EstaCumplido() == false) {
+                $res[] = 'Falta ' . (string)$EstadoRequisito;
+            }
+        }
+        
+        if(count($res) == 0) {
+            return 'Se cumplen todos los requisitos.';
+        } else {
+            return join(', ', $res);
+        }
+    }
+    
     public function getEstadoNombre() {
         switch($this->Estado) {
             case 0: return 'Nuevo';

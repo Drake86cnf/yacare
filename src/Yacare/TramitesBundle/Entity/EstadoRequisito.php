@@ -38,10 +38,10 @@ class EstadoRequisito
     protected $AsociacionRequisito;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TramiteTipo")
+     * @ORM\ManyToOne(targetEntity="EstadoRequisito")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $TramiteTipoOrigen;
+    protected $EstadoRequisitoPadre;
 
 
     /**
@@ -53,13 +53,19 @@ class EstadoRequisito
      * Devuelve si este requisito es necesario para este trámite.
      */
     public function EsNecesario() {
-        $Asoc = $this->getAsociacionRequisito();
-        
-        if($Asoc->getCondicionQue()) {
-            return $this->CondicionSeCumple();
+        if($this->getEstadoRequisitoPadre()) {
+            // Es un sub-requisito. Evaluo también si el parent es necesario.
+            return $this->CondicionSeCumple() && $this->getEstadoRequisitoPadre()->EsNecesario();
         } else {
-            return true;
+            return $this->CondicionSeCumple();
         }
+    }
+    
+    
+    public function EstaCumplido() {
+        return $this->EsNecesario() == false 
+                || $this->getAsociacionRequisito()->getOpcional()
+                || $this->getEstado() >= 99;
     }
     
     
@@ -69,8 +75,10 @@ class EstadoRequisito
     public function CondicionSeCumple() {
         $Asoc = $this->getAsociacionRequisito();
 
-        if(!$Asoc->getCondicionQue())
+        if(!$Asoc->getCondicionQue()) {
+            // No hay condición... lo doy siempre por cumplido
             return true;
+        }
         
         $FuncQue = 'get' . str_replace('.', '()->get', $Asoc->getCondicionQue());
         //$ValorQue = $this->getTramite()->$FuncQue();
@@ -134,11 +142,11 @@ class EstadoRequisito
         $this->AsociacionRequisito = $AsociacionRequisito;
     }
     
-    public function getTramiteTipoOrigen() {
-        return $this->TramiteTipoOrigen;
+    public function getEstadoRequisitoPadre() {
+        return $this->EstadoRequisitoPadre;
     }
 
-    public function setTramiteTipoOrigen($TramiteTipoOrigen) {
-        $this->TramiteTipoOrigen = $TramiteTipoOrigen;
+    public function setEstadoRequisitoPadre($EstadoRequisitoPadre) {
+        $this->EstadoRequisitoPadre = $EstadoRequisitoPadre;
     }
 }
