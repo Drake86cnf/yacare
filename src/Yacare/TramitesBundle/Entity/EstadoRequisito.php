@@ -111,7 +111,7 @@ class EstadoRequisito
             case 10: return 'Observado';
             case 15: return 'Rechazado';
             case 90: return 'Desestimado';
-            case 95: return 'Presentado pendiente de aprobación';
+            case 95: return 'Presentado, aprobación pendiente';
             case 99: return 'No es necesario';
             case 100: return 'Aprobado';
             default: return '???';
