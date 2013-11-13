@@ -69,7 +69,7 @@ class Tramite
     public function RequisitosObligatoriosCantidad() {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if($EstadoRequisito->EsNecesario()) {
+            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false) {
                 $res++;
             }
         }
@@ -83,7 +83,7 @@ class Tramite
     public function RequisitosFaltantesCantidad() {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EstaCumplido() == false) {
+            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false && $EstadoRequisito->EstaCumplido() == false) {
                 $res++;
             }
         }

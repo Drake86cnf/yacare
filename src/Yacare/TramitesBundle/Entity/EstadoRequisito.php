@@ -48,7 +48,7 @@ class EstadoRequisito
      * @ORM\Column(type="integer")
      */
     private $Estado;
-    
+
     /*
      * Devuelve si este requisito es necesario para este trámite.
      */
@@ -61,10 +61,19 @@ class EstadoRequisito
         }
     }
     
+    public function EsOpcional() {
+        if($this->getEstadoRequisitoPadre()) {
+            // Es un sub-requisito. Evaluo también si el parent es opcional.
+            return $this->getAsociacionRequisito()->getOpcional() || $this->getEstadoRequisitoPadre()->EsOpcional();
+        } else {
+            return $this->getAsociacionRequisito()->getOpcional();
+        }
+    }
+    
     
     public function EstaCumplido() {
         return $this->EsNecesario() == false 
-                || $this->getAsociacionRequisito()->getOpcional()
+                || $this->EsOpcional()
                 || $this->getEstado() >= 99;
     }
     

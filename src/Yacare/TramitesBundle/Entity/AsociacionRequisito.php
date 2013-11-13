@@ -105,10 +105,10 @@ class AsociacionRequisito
                     $res .= ' es menor o igual que ';
                     break;
                 case 'null';
-                    $res .= ' no existe';
+                    $res .= ' es nulo';
                     break;
                 case 'notnull';
-                    $res .= ' existe';
+                    $res .= '';
                     break;
                 case 'true';
                     $res .= ' es verdadero';

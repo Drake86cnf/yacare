@@ -8,14 +8,15 @@
 </div>
 <legend>Trámite Nº {{ entity.id }}<small> {{ entity }}<small></legend>
 
-<p>El trámite fue iniciado el {{ entity.createdAt|localizeddate }} ({{ entity.createdAt|time_ago }}) y está actualmente en estado {{ entity.EstadoNombre }} con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
-    Faltan presentar {{ entity.RequisitosFaltantesCantidad }} requisitos, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.
-</p>
+<p>El trámite fue presentado el <strong>{{ entity.createdAt|localizeddate|lower }}</strong> ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong> con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.</p>
+{% if entity.RequisitosFaltantesCantidad > 0 %}
+    <p class="text-danger"><strong>Faltan presentar {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.</p>
 <div class="progress">
     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
         <span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
     </div>
 </div>
+{% endif %}
 
 <table class="table table-hover">
     <thead>
@@ -42,8 +43,12 @@
 
             {% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
             {{ EstadoRequisito.AsociacionRequisito }}
-            {% if EstadoRequisito.EstadoRequisitoPadre %}<br /><small class="text text-muted">Requerido para {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}</small>{% endif %}
-            {% if EstadoRequisito.EsNecesario == 0 %}</span><br /><small class="text text-muted">No es necesario; no se cumple la condición &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;</small>{% endif %}
+            {% if EstadoRequisito.EsNecesario == 0 %}
+                </span><br /><small class="text text-muted">No corresponde, sólo se requiere si &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;</small>
+            {% endif %}
+            {% if EstadoRequisito.EstadoRequisitoPadre %}
+                <br /><small class="text text-muted">Requerido para {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}</small>
+            {% endif %}
         </td>
         <td>
             {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}

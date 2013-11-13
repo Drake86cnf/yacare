@@ -40,6 +40,16 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
         
         return $res;
     }
+    
+    public function guardarActionPrePersist($entity) {
+        if($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
+            // Doy el trámite por iniciado
+            $em = $this->getDoctrine()->getManager();
+
+            $entity->getTramite()->setEstado(10);
+            $em->persist($entity->getTramite());
+        }
+    }
 
     protected function guardarActionAfterSuccess($entity) {
         // Redirecciono al trámite original en el bundle al cual corresponde el trámite
