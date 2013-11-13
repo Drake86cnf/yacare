@@ -11,83 +11,48 @@
         <tr>
             <th>Requisito</th>
             <th>Estado</th>
+            <th>Cumplido</th>
         </tr>
     </thead>
     <tbody>
 {% for EstadoRequisito in entity.EstadosRequisitos %}
-        {% if not EstadoRequisito.TramiteTipoOrigen %}
-        <tr>
-            <td>
-                <a class="btn btn-default btn-xs" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
+    <tr>
+        <td>
+            <a class="btn btn-default btn-xs" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
 
-                {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
-                    <i class="fa fa-copy fa-fw"></i>
-                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
-                    <i class="fa fa-file fa-fw"></i>
-                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
-                    <i class="fa fa-clipboard fa-fw"></i>
-                {% else %}
-                    <i class="fa fa-circle-o fa-fw"></i>
-                {% endif %}
-                {{ EstadoRequisito.AsociacionRequisito }}
-            </td>
-            <td>
-                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
-                {% if EstadoRequisito.Estado == 0 %}
-                    {% if EstadoRequisito.AsociacionRequisito.Opcional %}
-                        <span class="label label-default">
-                    {% else %}
-                        <span class="label label-warning">
-                    {%endif%}
-                {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}
-                        <span class="label label-danger">
-                {% elseif EstadoRequisito.Estado == 100 %}
-                        <span class="label label-success">
-                {% else %}
-                        <span class="label label-default">
-                {% endif %}
-                {{ EstadoRequisito.EstadoNombre }}</span>
-            </td>
-        </tr>
-        {% endif %}
-{% endfor %}
-{% for EstadoRequisito in entity.EstadosRequisitos %}
-        {% if EstadoRequisito.TramiteTipoOrigen %}
-        <tr>
-            <td>
-                <a class="btn btn-default btn-xs" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
+            {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
+                <i class="fa fa-copy fa-fw"></i>
+            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
+                <i class="fa fa-file fa-fw"></i>
+            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
+                <i class="fa fa-clipboard fa-fw"></i>
+            {% else %}
+                <i class="fa fa-circle-o fa-fw"></i>
+            {% endif %}
                 
-                {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
-                    <i class="fa fa-copy fa-fw"></i>
-                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
-                    <i class="fa fa-file fa-fw"></i>
-                {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
-                    <i class="fa fa-clipboard fa-fw"></i>
+            {% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
+            {{ EstadoRequisito.AsociacionRequisito }}
+            {% if EstadoRequisito.EsNecesario == 0 %}</span><br /><small class="text text-muted">(No es necesario; no se cumple &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;)</span>{% endif %}
+        </td>
+        <td>
+            {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+            {% if EstadoRequisito.Estado == 0 %}
+                {% if EstadoRequisito.AsociacionRequisito.Opcional %}
+                    <span class="label label-default">
                 {% else %}
-                    <i class="fa fa-circle-o fa-fw"></i>
-                {% endif %}
-                {{ EstadoRequisito.AsociacionRequisito }}
-                {% if EstadoRequisito.TramiteTipoOrigen %}<br /><small class="text text-muted">Requerido por {{ EstadoRequisito.TramiteTipoOrigen}}.</small>{% endif %}
-            </td>
-            <td>
-                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
-                {% if EstadoRequisito.Estado == 0 %}
-                    {% if EstadoRequisito.AsociacionRequisito.Opcional %}
-                        <span class="label label-default">
-                    {% else %}
-                        <span class="label label-warning">
-                    {%endif%}
-                {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}
-                        <span class="label label-danger">
-                {% elseif EstadoRequisito.Estado == 100 %}
-                        <span class="label label-success">
-                {% else %}
-                        <span class="label label-default">
-                {% endif %}
-                {{ EstadoRequisito.EstadoNombre }}</span>
-            </td>
-        </tr>
-        {% endif %}
+                    <span class="label label-warning">
+                {%endif%}
+            {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}
+                    <span class="label label-danger">
+            {% elseif EstadoRequisito.Estado == 100 %}
+                    <span class="label label-success">
+            {% else %}
+                    <span class="label label-default">
+            {% endif %}
+            {{ EstadoRequisito.EstadoNombre }}</span>
+        </td>
+        <td>{{ EstadoRequisito.CondicionSeCumple }}</td>
+    </tr>
 {% endfor %}
     </tbody>
 </table>

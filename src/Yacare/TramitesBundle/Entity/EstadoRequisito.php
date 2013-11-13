@@ -48,6 +48,49 @@ class EstadoRequisito
      * @ORM\Column(type="integer")
      */
     private $Estado;
+    
+    /*
+     * Devuelve si este requisito es necesario para este trámite.
+     */
+    public function EsNecesario() {
+        $Asoc = $this->getAsociacionRequisito();
+        
+        if($Asoc->getCondicionQue()) {
+            return $this->CondicionSeCumple();
+        } else {
+            return true;
+        }
+    }
+    
+    
+    /*
+     * Devuelve si esta condición se cumple.
+     */
+    public function CondicionSeCumple() {
+        $Asoc = $this->getAsociacionRequisito();
+
+        if(!$Asoc->getCondicionQue())
+            return true;
+        
+        $FuncQue = 'get' . str_replace('.', '()->get', $Asoc->getCondicionQue());
+        //$ValorQue = $this->getTramite()->$FuncQue();
+        $ValorQue = eval('$this->getTramite()->' . $FuncQue . '();');
+        $ValorCuanto = $Asoc->getCondicionCuanto();
+        
+        switch($Asoc->getCondicionEs()) {
+            case '==': return $ValorQue == $ValorCuanto;
+            case '!=': return $ValorQue != $ValorCuanto;
+            case '>': return $ValorQue > $ValorCuanto;
+            case '>=': return $ValorQue >= $ValorCuanto;
+            case '<': return $ValorQue < $ValorCuanto;
+            case '<=': return $ValorQue <= $ValorCuanto;
+            case 'null': return $ValorQue == null;
+            case 'not null': return $ValorQue != null;
+            case 'true': return (bool)$ValorQue;
+            case 'false': return !((bool)$ValorQue);
+        }
+        return false;
+    }
 
     
     public function __toString() {
@@ -61,6 +104,7 @@ class EstadoRequisito
             case 15: return 'Rechazado';
             case 90: return 'Desestimado';
             case 95: return 'Presentado pendiente de aprobación';
+            case 99: return 'No es necesario';
             case 100: return 'Aprobado';
             default: return '???';
         }

@@ -30,6 +30,33 @@ trait ConDatosComercio {
     protected $ActividadTerciaria;
     
     
+    public function getInmueble() {
+        return $this->Local;
+    }
+    
+    public function getRequiereDeyma() {
+        $Activ1 = $this->getActividadPrincipal();
+        $Activ2 = $this->getActividadSecundaria();
+        $Activ3 = $this->getActividadTerciaria();
+        
+        return ($Activ1 != null && $Activ1->getRequiereDeyma())
+                || ($Activ2 != null && $Activ2->getRequiereDeyma())
+                || ($Activ3 != null && $Activ3->getRequiereDeyma());
+    }
+    
+    public function getRequiereDbeh() {
+        $Activ1 = $this->getActividadPrincipal();
+        $Activ2 = $this->getActividadSecundaria();
+        $Activ3 = $this->getActividadTerciaria();
+        
+        return ($Activ1 != null && $Activ1->getRequiereDbeh())
+                || ($Activ2 != null && $Activ2->getRequiereDbeh())
+                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+    }
+    
+    
+    
+    
     public function getLocal() {
         return $this->Local;
     }
