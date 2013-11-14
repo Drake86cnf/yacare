@@ -53,6 +53,7 @@ class EntityIdType extends AbstractType
             'em'            => null,
             'property'      => 'Nombre',
             'query_builder' => null,
+            'filters'       => null,
             'hidden'        => true,
             'multiple'      => false
         ));

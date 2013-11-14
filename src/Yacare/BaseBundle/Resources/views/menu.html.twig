@@ -65,6 +65,7 @@
         {% endif %}
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
             <li><a href="{{ path('yacare_base_persona_listar') }}"><i class="fa fa-user fa-fw"></i> Personas</a></li>
+            <li><a href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
             <li><a href="{{ path('yacare_base_usuario_listar') }}">Usuarios</a></li>
             <li><a href="{{ path('yacare_base_personarol_listar') }}">Roles</a></li>
             <li><a href="{{ path('yacare_base_dispositivo_listar') }}"><i class="fa fa-tablet fa-fw"></i> Dispositivos</a></li>

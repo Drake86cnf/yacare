@@ -37,6 +37,7 @@ class ActaTalonario
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
+     * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $EnPoderDe;
     

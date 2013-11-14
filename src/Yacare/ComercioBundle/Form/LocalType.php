@@ -19,8 +19,8 @@ class LocalType extends AbstractType
                 'label' => 'Tipo',
                 'required'  => true,
                 'choices' => array(
-                    'Local comercial' => 'Local comercial',
-                    'Oficina comercial' => 'Oficina comercial',
+                    'Local de ventas' => 'Local de ventas',
+                    'Oficina' => 'Oficina',
                     'Galpón' => 'Galpón',
                     'Depósito' => 'Depósito',
                     'Otro' => 'Otro'
