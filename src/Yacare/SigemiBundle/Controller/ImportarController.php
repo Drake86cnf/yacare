@@ -260,6 +260,7 @@ WHERE rnum >" . $desde . "
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
         
+        $GrupoContribuyentes = $em->getReference('YacareBaseBundle:PersonaGrupo', 3);
         $importar_importados = 0;
         $importar_actualizados = 0;
         $importar_procesados = 0;
@@ -456,7 +457,11 @@ WHERE rnum >" . $desde . "
                 $entity->setDomicilioNumero($Row['NUMERO']);
                 $entity->setDomicilioPiso($Row['PISO']);
                 $entity->setDomicilioPuerta($Row['DEPARTAMENTO']);
-                $entity->setGrupos(new \Doctrine\Common\Collections\ArrayCollection(array($em->getReference('YacareBaseBundle:PersonaGrupo', 3))));
+                
+                // Si no está en el grupo Contribuyentes, lo agrego
+                if($entity->getGrupos()->contains($GrupoContribuyentes) == false) {
+                    $entity->getGrupos()->add($GrupoContribuyentes);
+                }
                 if($Row['Q_SEXO'] == 'F') {
                     $entity->setGenero(1);
                 }
@@ -716,6 +721,8 @@ WHERE rnum >" . $desde . "
         $importar_procesados = 0;
         $log = array();
 
+        $GrupoAgentes = $em->getRepository('YacareBaseBundle:PersonaGrupo')->find(1);
+        
         foreach($DbRecursos->query("SELECT * FROM agentes WHERE nrodoc>0 LIMIT $desde, $cant") as $Row) {
             $entity = $em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(array(
                 'ImportSrc' => 'rr_hh.agentes',
@@ -748,7 +755,7 @@ WHERE rnum >" . $desde . "
                 $em->persist($Persona);
                 $em->flush();
            
-               $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
                     'ImportSrc' => 'rr_hh.direcciones',
                     'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']
                 ));
@@ -764,7 +771,14 @@ WHERE rnum >" . $desde . "
 
                 $importar_importados++;
             } else {
+                $Persona = $entity->getPersona();
                 $importar_actualizados++;
+            }
+
+            // Si no está en el grupo agentes, lo agrego
+            if($Persona->getGrupos()->contains($GrupoAgentes) == false) {
+                $Persona->getGrupos()->add($GrupoAgentes);
+                $em->persist($Persona);
             }
 
             if($Row['fechaingre']) {
