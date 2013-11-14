@@ -89,11 +89,10 @@ class EstadoRequisito
             return true;
         }
         
-        $FuncQue = 'get' . str_replace('.', '()->get', $Asoc->getCondicionQue());
-        //$ValorQue = $this->getTramite()->$FuncQue();
-        try {
-            $ValorQue = @eval('$this->getTramite()->' . $FuncQue . '();');
-        } catch(Exception $e) {
+        $FuncQue = '$this->getTramite()->get' . str_replace('.', '()->get', $Asoc->getCondicionQue()) . '()';
+        if(isset($$FuncQue)) {
+            $ValorQue = $$FuncQue;
+        } else {
             $ValorQue = null;
         }
         $ValorCuanto = $Asoc->getCondicionCuanto();
