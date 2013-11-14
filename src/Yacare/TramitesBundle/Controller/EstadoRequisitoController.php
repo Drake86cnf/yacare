@@ -48,6 +48,12 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
 
             $entity->getTramite()->setEstado(10);
             $em->persist($entity->getTramite());
+        } else if($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) {
+            // Doy el trámite por terminado
+            $em = $this->getDoctrine()->getManager();
+
+            $entity->getTramite()->setEstado(100);
+            $em->persist($entity->getTramite());
         }
     }
 

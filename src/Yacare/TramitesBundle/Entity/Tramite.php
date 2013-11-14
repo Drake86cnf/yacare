@@ -27,13 +27,13 @@ class Tramite
     
     public function __construct()
     {
-        $this->EstadoRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->EstadosRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
      * @ORM\Column(type="integer")
      */
-    private $Estado;
+    private $Estado = 0;
     
     /**
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
@@ -117,7 +117,7 @@ class Tramite
     }
     
     public function AgregarEstadoRequisito($EstadoNuevo) {
-        $this->EstadoRequisitos[] = $EstadoNuevo;
+        $this->EstadosRequisitos[] = $EstadoNuevo;
     }
 
 

@@ -47,7 +47,7 @@ class EstadoRequisito
     /**
      * @ORM\Column(type="integer")
      */
-    private $Estado;
+    private $Estado = 0;
 
     /*
      * Devuelve si este requisito es necesario para este trámite.
@@ -91,7 +91,11 @@ class EstadoRequisito
         
         $FuncQue = 'get' . str_replace('.', '()->get', $Asoc->getCondicionQue());
         //$ValorQue = $this->getTramite()->$FuncQue();
-        $ValorQue = eval('$this->getTramite()->' . $FuncQue . '();');
+        try {
+            $ValorQue = @eval('$this->getTramite()->' . $FuncQue . '();');
+        } catch(Exception $e) {
+            $ValorQue = null;
+        }
         $ValorCuanto = $Asoc->getCondicionCuanto();
         
         switch($Asoc->getCondicionEs()) {
@@ -111,7 +115,7 @@ class EstadoRequisito
 
     
     public function __toString() {
-        return (string)$this->getAsociacionRequisito();
+        return ((string)$this->getAsociacionRequisito()) . ' en estado ' . $this->getEstadoNombre();
     }
     
     public function getEstadoNombre() {

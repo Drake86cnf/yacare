@@ -8,14 +8,14 @@
 </div>
 <legend>Trámite Nº {{ entity.id }}<small> {{ entity }}<small></legend>
 
-<p>El trámite fue presentado el <strong>{{ entity.createdAt|localizeddate|lower }}</strong> ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong> con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.</p>
+<p>El trámite fue presentado el <strong>{{ entity.createdAt|localizeddate('full', 'short')|lower }}</strong> ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong> con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.</p>
 {% if entity.RequisitosFaltantesCantidad > 0 %}
     <p class="text-danger"><strong>Faltan presentar {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.</p>
-<div class="progress">
-    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
-        <span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
+            <span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
+        </div>
     </div>
-</div>
 {% endif %}
 
 <table class="table table-hover">

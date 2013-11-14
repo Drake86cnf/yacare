@@ -29,6 +29,8 @@
                 {% if entity.Estado < 10 %}
                     <span class="label label-danger">
                 {% elseif entity.Estado >= 10 and entity.Estado < 90 %}
+                    <span class="label label-primary">
+                {% elseif entity.Estado == 100 %}
                     <span class="label label-success">
                 {% else %}
                     <span class="label label-default">
