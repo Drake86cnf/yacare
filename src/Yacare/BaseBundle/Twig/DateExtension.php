@@ -92,11 +92,11 @@ class DateExtension extends \Twig_Extension
         if ($distance_in_minutes <= 1) {
             if ($include_seconds) {
                 if ($distance_in_seconds < 5) {
-                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 5));
+                    return vsprintf('hace menos de %d segundos', array('%d' => 5));
                 } elseif($distance_in_seconds < 10) {
-                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 10));
+                    return vsprintf('hace menos de %d segundos', array('%d' => 10));
                 } elseif($distance_in_seconds < 20){
-                    return vsprintf('hace menos de %seconds segundos', array('%seconds' => 20));
+                    return vsprintf('hace menos de %d segundos', array('%d' => 20));
                 } elseif($distance_in_seconds < 60){
                     return vsprintf('hace menos de un minuto');
                 } else {
@@ -106,13 +106,13 @@ class DateExtension extends \Twig_Extension
             return ($distance_in_minutes===0) ? 'hace menos de un minuto' : 'hace un minuto';
         }
         elseif ($distance_in_minutes <= 45){
-            return vsprintf('hace %minutes minutos', array('%minutes' => $distance_in_minutes));
+            return vsprintf('hace %d minutos', array('%d' => $distance_in_minutes));
         }
         elseif ($distance_in_minutes <= 90){
             return 'hace una hora';
         }
         elseif ($distance_in_minutes <= 1440){
-            return vsprintf('hace unas %hours horas', array('%hours' => round($distance_in_minutes/60)));
+            return vsprintf('hace unas %d horas', array('%d' => round($distance_in_minutes/60)));
         }
         elseif ($distance_in_minutes <= 2880){
             return 'ayer';
