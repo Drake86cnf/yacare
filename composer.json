@@ -24,8 +24,8 @@
         "knplabs/doctrine-behaviors": "dev-master",
         "jms/security-extra-bundle": "dev-master",
         "aferrandini/phpqrcode": "1.0.1",
-        "knplabs/knp-snappy-bundle": "dev-master",
-        "stfalcon/tinymce-bundle": "dev-master"
+        "stfalcon/tinymce-bundle": "dev-master",
+        "craue/formflow-bundle": "~2.0"
     },
     "scripts": {
         "post-install-cmd": [
