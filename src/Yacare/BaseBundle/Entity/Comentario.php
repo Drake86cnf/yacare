@@ -28,12 +28,6 @@ class Comentario
      */
     private $EntidadId;
 
-    /**
-     * @var $Nombre
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;
-
 
     public function getEntidadTipo() {
         return $this->EntidadTipo;
@@ -49,13 +43,5 @@ class Comentario
 
     public function setEntidadId($EntidadId) {
         $this->EntidadId = $EntidadId;
-    }
-
-    public function getNombre() {
-        return $this->Nombre;
-    }
-
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
     }
 }
