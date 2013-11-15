@@ -16,9 +16,9 @@ trait Node
     private $ChildNodes;
     
     /**
-     * @var NodeInterface $ParentNode the parent in the tree
+     * Las clases que implementan esta característica deben implementar la variable $ParentNode;
+     * private $ParentNode;
      */
-    private $ParentNode;
 
     /**
      * @var string $MaterializedPath

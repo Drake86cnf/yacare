@@ -13,17 +13,18 @@ use Yacare\BaseBundle\Model\Tree;
  */
 class Departamento implements Tree\NodeInterface
 {
-    
-    // Un departamento representa a cualquiera de las partes en las que se divide la administración pública
-    // como ministerios, secretarías, subsecretarías, etc.
+    /*
+     * Un departamento representa a cualquiera de las partes en las que se divide la administración pública
+     * como ministerios, secretarías, subsecretarías, etc.
+     */
     
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\Suprimible;
     use \Yacare\BaseBundle\Entity\Importable;
-    use \Yacare\BaseBundle\Model\Tree\Node;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Model\Tree\Node;
     
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -84,16 +85,8 @@ class Departamento implements Tree\NodeInterface
         return $this->Codigo;
     }
 
-    public function getParentNode() {
-        return $this->ParentNode;
-    }
-
     public function setCodigo($Codigo) {
         $this->Codigo = $Codigo;
-    }
-
-    public function setParentNode($ParentNode) {
-        $this->ParentNode = $ParentNode;
     }
 }
 
