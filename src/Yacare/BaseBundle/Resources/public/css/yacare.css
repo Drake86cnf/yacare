@@ -353,3 +353,9 @@ body {
     max-height: 460px;
     overflow: auto;
 }
+
+@media print {
+    #wrapper {
+        padding-left: 50px !important;
+    }
+}
