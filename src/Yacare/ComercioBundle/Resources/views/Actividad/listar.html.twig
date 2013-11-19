@@ -16,7 +16,7 @@
             <th>ClaMAE 2014</th>
             <th>Nombre</th>
             <th>Categoría</th>
-            <th><abbr title="Código de planeamiento urbano" class="initialism">CPU</abbr></th>
+            <th>Código <abbr title="Código de planeamiento urbano" class="initialism">CPU</abbr></th>
             <th>Obs.</th>
         </tr>
     </thead>
@@ -27,7 +27,7 @@
             <td>{{ entity.Clamae2014|slice(0,1) }} {{ entity.Clamae2014|slice(1,2) }}-{{ entity.Clamae2014|slice(3,3) }}-{{ entity.Clamae2014|slice(6,2) }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Categoria }}</td>
-            <td>{{ entity.Cpu }}</td>
+            <td>{{ entity.CodigoCpu }}</td>
             <td>
                 {% if entity.Exento %}<span class="label label-info">Excento</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. DEyMA</span>{% endif %}

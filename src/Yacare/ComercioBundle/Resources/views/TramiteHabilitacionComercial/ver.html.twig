@@ -3,5 +3,19 @@
 {% block title %}{{ entity }}{% endblock %}
 
 {% block content %}
+
+{% block tramite_encab %}
 {{ parent() }}
+
+<p>El uso del suelo para la actividad <strong>{{ entity.ActividadPrincipal|lower }}</strong> en la zona es <strong>{{ entity.UsoSueloNombre|lower }}</strong>.</p>
+{% endblock %}
+
+{% block tramite_requisitos %}
+{{ parent() }}
+{% endblock %}
+
+{% block tramite_pie %}
+{{ parent() }}
+{% endblock %}
+
 {% endblock %}

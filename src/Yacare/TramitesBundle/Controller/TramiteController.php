@@ -15,6 +15,8 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     }
     
     public function guardarActionPrePersist($entity) {
+        $res = parent::guardarActionPrePersist($entity);
+        
         if(!$entity->getTramiteTipo()) {
             // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el TramiteTipo que corresponde a la clase y lo guardo
@@ -29,6 +31,8 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         }
         
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
+        
+        return $res;
     }
     
     protected function AsociarEstadosRequisitos($entity, $EstadoRequisitoPadre, $Asociaciones) {

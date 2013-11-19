@@ -1,0 +1,37 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}CPU / Uso del suelo{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+<legend>CPU / Uso del suelo</legend>
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Código</th>
+            <th>Categoría</th>
+            <th>Seccion</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.Codigo }}</td>
+            <td>{{ entity.Categoria }}</td>
+            <td>{{ entity.Seccion }}</td>
+            <td>{{ entity.Nombre }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+
+{% endblock %}

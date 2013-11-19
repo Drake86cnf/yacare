@@ -62,6 +62,10 @@ class Tramite
         }
     }
     
+    public function EstaListoParaTerminar() {
+        return $this->PorcentajeCompleto() == 100;
+    }
+    
     
     /*
      * Devuelve la cantidad de requisitos obligatorios totales.

@@ -132,6 +132,11 @@ select:focus {
     border: 0px none;
 }
 
+.btn-link {
+    color: rgb(66, 139, 202) !important;
+    text-shadow: none !important;
+}
+
 .btn-default {
     background-color: rgb(171, 186, 195) !important;
 }

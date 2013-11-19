@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class YacareAbmController extends YacareBaseController
 {
     use \Yacare\BaseBundle\Controller\ConBuscar;
-    
+
     function __construct() {
         parent::__construct();
 
@@ -177,14 +177,14 @@ class YacareAbmController extends YacareBaseController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $errors = $this->guardarActionPreBind($entity);
-        
-        if(!$errors) {
-            $typeName = $this->getFormType();
-            $editForm = $this->createForm(new $typeName(), $entity);
-            $editForm->bind($request);
-            $deleteForm = $this->createDeleteForm($id);
+        $typeName = $this->getFormType();
+        $editForm = $this->createForm(new $typeName(), $entity);
+        $editForm->bind($request);
+        $deleteForm = $this->createDeleteForm($id);
 
+        $errors = $this->guardarActionPreBind($entity);
+
+        if(!$errors) {
             if ($editForm->isValid()) {
                 $errors = $this->guardarActionPrePersist($entity);
                 if(!$errors) {
@@ -200,6 +200,10 @@ class YacareAbmController extends YacareBaseController
         }
         
         if($errors) {
+            foreach ($errors as $error) {
+                $this->get('session')->getFlashBag()->add('danger', $error);
+            }
+            
             $res = $this->ArrastrarVariables(array(
                 'entity'      => $entity,
                 'errors'      => $errors,
@@ -231,7 +235,7 @@ class YacareAbmController extends YacareBaseController
     {
         // Función para que las clases derivadas puedan intervenir la entidad antes de persistir
         // Devuelve un array con errores o null si está todo bien
-        return null;
+        return array();
     }
     
 

@@ -51,10 +51,9 @@ class Actividad
     private $Categoria;
     
     /**
-     * @var integer
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $Cpu;
+    private $CodigoCpu;
     
     /**
      * @var bool
@@ -115,10 +114,6 @@ class Actividad
         return $this->Clamae2014;
     }
 
-    public function getCpu() {
-        return $this->Cpu;
-    }
-
     public function getRequiereDbeh() {
         return $this->RequiereDbeh;
     }
@@ -140,10 +135,6 @@ class Actividad
         $this->Clanae2010 = substr($this->Clamae2014, 0, 6);
     }
 
-    public function setCpu($Cpu) {
-        $this->Cpu = $Cpu;
-    }
-
     public function setRequiereDbeh($RequiereDbeh) {
         $this->RequiereDbeh = $RequiereDbeh;
     }
@@ -158,5 +149,21 @@ class Actividad
 
     public function setNoIncluye($NoIncluye) {
         $this->NoIncluye = $NoIncluye;
+    }
+    
+    public function getClanae2010() {
+        return $this->Clanae2010;
+    }
+
+    public function getCodigoCpu() {
+        return $this->CodigoCpu;
+    }
+
+    public function setClanae2010($Clanae2010) {
+        $this->Clanae2010 = $Clanae2010;
+    }
+
+    public function setCodigoCpu($CodigoCpu) {
+        $this->CodigoCpu = $CodigoCpu;
     }
 }

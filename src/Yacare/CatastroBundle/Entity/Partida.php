@@ -120,6 +120,13 @@ class Partida
     private $Legajo;
     
     
+    public function getSmpu() {
+        $res = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+        if($this->UnidadFuncional > 0) {
+            $res .= ', UF ' . $this->UnidadFuncional;
+        }
+        return $res;
+    }
     
     public function CalcularNombre()
     {
