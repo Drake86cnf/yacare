@@ -6,10 +6,11 @@
 
 {% set porpartida = app.request.query.get('porpartida') %}
 
+<legend>Consulta de factibilidad de habilitación comercial</legend>
+
 {% if create %}
 
 <form class="form-horizontal" action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <legend>Consulta de factibilidad de habilitación comercial</legend>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
@@ -25,8 +26,6 @@
 
 {% else %}
 
-<legend>Consulta de factibilidad de habilitación comercial</legend>
-
 <h2>Sobre el inmueble</h2>
 <p>{{ tipo }} ubicado en <strong>{{ partida.Domicilio }}</strong> de la ciudad de Río Grande,
 con una superficie cubierta de {{ superficie }} m².
@@ -41,7 +40,7 @@ Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.S
     <strong>{% if usosuelo == 1 %}es predominante <i class="fa fa-check"></i></strong> (
     {% elseif usosuelo == 2 %}está permitido</strong> <i class="fa fa-check"></i> (uso compatible, 
     {% elseif usosuelo == 3 %}está permitido en ciertas condiciones</strong><small>*</small> (uso condicional, 
-    {% elseif usosuelo == 4 %}está prohibido en todos los casos</strong><small>*</small> (
+    {% elseif usosuelo == 9 %}está prohibido en todos los casos</strong><small>*</small> (
     {% else %}es desconocido (no zonificado, </strong>{% endif %} según el Plan de Desarrollo Territorial, Anexo 4: Localización de usos por zona).</p>
 
 {% if usosuelo == 3 %}
@@ -60,7 +59,7 @@ Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.S
         &nbsp;&nbsp;c) La condición de uso autorizable es aplicable a los supuestos de nuevos emprendimientos y localizaciones, cambios de uso existente o ampliación de superficies.&quot;
     </div>
 </div>
-{% elseif usosuelo == 4 %}
+{% elseif usosuelo == 9 %}
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3><small>*</small> Importante</h3>
