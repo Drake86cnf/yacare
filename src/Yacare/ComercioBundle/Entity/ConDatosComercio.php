@@ -5,6 +5,14 @@ namespace Yacare\ComercioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 trait ConDatosComercio {
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $NombreFantasia;
+    
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -85,5 +93,13 @@ trait ConDatosComercio {
 
     public function setActividadTerciaria($ActividadTerciaria) {
         $this->ActividadTerciaria = $ActividadTerciaria;
+    }
+    
+    public function getNombreFantasia() {
+        return $this->NombreFantasia;
+    }
+
+    public function setNombreFantasia($NombreFantasia) {
+        $this->NombreFantasia = $NombreFantasia;
     }
 }

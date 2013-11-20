@@ -1,0 +1,78 @@
+{% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %}
+
+{% block title %}{{ entity }}{% endblock %}
+
+{% block content %}
+
+{% block comprobante_encab %}
+<h1>Habilitación comercial</h1>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Denominación</div>
+            <div class="panel-body">{{ entity.NombreFantasia }}</div>
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Fecha de emisión</div>
+            <div class="panel-body">{{ entity.createdAt|localizeddate('medium', 'none') }}</div>
+        </div>
+    </div>
+    
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Vencimiento</div>
+            <div class="panel-body">{{ entity.Vencimiento|localizeddate('full', 'none') }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block comprobante_contenido %}
+{{ parent() }}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Domicilio</div>
+            <div class="panel-body">{{ entity.Local.Partida.Domicilio }}</div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Tipo</div>
+            <div class="panel-body">{{ entity.Local.Tipo }}</div>
+        </div>
+    </div>
+    
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Superficie</div>
+            <div class="panel-body">{{ entity.Local.Superficie }} m²</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Actividades</div>
+            <div class="panel-body">
+                {{ entity.ActividadPrincipal }}{% if entity.ActividadSecundaria %}; {{ entity.ActividadSecundaria }}{% endif %}{% if entity.ActividadTerciaria %}; {{ entity.ActividadTerciaria }}{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block comprobante_pie %}
+{{ parent() }}
+{% endblock %}
+
+{% endblock %}

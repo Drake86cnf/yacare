@@ -1,0 +1,31 @@
+{% extends 'YacareBaseBundle:Default:listar.html.twig' %}
+
+{% block title %}Comprobantes{% endblock %}
+
+{% block content %}
+<legend>Comprobantes</legend>
+{% include 'YacareBaseBundle::buscar.html.twig' %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>#</th>
+            <th>Titular</th>
+            <th>Fecha de emisión</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Ver</a></td>
+            <td>{{ entity.Numero }}</td>
+            <td>{{ entity.Titular }}</td>
+            <td>{{ entity.createdAt|localizeddate('full', 'none') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% endblock %}

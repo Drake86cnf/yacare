@@ -1,0 +1,36 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}{{ entity }}{% endblock %}
+
+{% block content %}
+
+{% block comprobante_encab %}
+<h1>{{ entity }}</h1>
+<p>Fecha: {{ entity.createdAt|localizeddate('full', 'none') }}</p>
+{% endblock %}
+
+{% block comprobante_contenido %}
+
+<div class="row">
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Titular</div>
+            <div class="panel-body">{{ entity.Titular }}</div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">CUIT/UIL</div>
+            <div class="panel-body">{{ entity.Titular.Cuilt }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block comprobante_pie %}
+
+{% endblock %}
+
+{% endblock %}

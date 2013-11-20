@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteType extends AbstractType
+class ComprobanteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,12 +22,12 @@ class TramiteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\TramitesBundle\Entity\Tramite'
+            'data_class' => 'Yacare\TramitesBundle\Entity\Comprobante'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_tramitetype';
+        return 'yacare_tramitesbundle_comprobantetype';
     }
 }

@@ -3,6 +3,7 @@
 namespace Yacare\TramitesBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("tramite/")
@@ -13,6 +14,47 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         parent::__construct();
         $this->ConservarVariables[] = 'parent_id';
     }
+    
+    /**
+     * @Route("terminar/{id}")
+     * @Template()
+     */
+    public function terminarAction($id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        $entity->setEstado(100);
+        
+        $Comprob = $this->EmitirComprobante($entity);
+        if($Comprob) {
+            $Comprob->setTramiteOrigen($entity);
+            $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
+            $em->persist($Comprob);
+        }
+        
+        $em->persist($entity);
+        $em->flush();
+        
+        return $this->ArrastrarVariables(array(
+            'entity' => $entity,
+            'comprob' => $Comprob
+        ));
+    }
+    
+    public function EmitirComprobante($tramite) {
+        return null;
+    }
+    
+    public function ObtenerProximoNumeroComprobante($comprob) {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT MAX(c.Numero) FROM \Yacare\TramitesBundle\Entity\Comprobante c WHERE c.ComprobanteTipo=?1 AND c.NumeroPrefijo=?2');
+        $query->setParameter(1, $comprob->getComprobanteTipo());
+        $query->setParameter(2, $comprob->getNumeroPrefijo());
+        $res = (int)$query->getResult(\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR);
+        return ++$res;
+    }
+    
     
     public function guardarActionPrePersist($entity) {
         $res = parent::guardarActionPrePersist($entity);

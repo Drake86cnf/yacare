@@ -22,5 +22,7 @@ class TramiteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmContr
         $RequisitoEspejo->setNombre((string)$entity);
         
         $entity->setRequisitoEspejo($RequisitoEspejo);
+        
+        parent::guardarActionPrePersist($entity);
     }
 }

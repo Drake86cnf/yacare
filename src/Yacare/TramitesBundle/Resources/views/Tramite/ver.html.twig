@@ -28,7 +28,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                 <strong>¡Listo!</strong>
-                El trámite está listo para finalizar. <a class="btn btn-sm btn-primary" href="#">Terminar</a>
+                El trámite está listo para finalizar. <a class="btn btn-sm btn-primary" href="{{ path(baseroute ~ '_terminar', arrastre|merge({ 'id': entity.id })) }}">Terminar</a>
                 </div>
             </div>
         {% endif %}

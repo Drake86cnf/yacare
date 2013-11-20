@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\TramiteType
+class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\ComprobanteType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -14,12 +14,6 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
 
         $builder
             ->add('NombreFantasia', null, array('label' => 'Nombre de fantasía'))
-            ->add('Apoderado', 'entity_id', array(
-                'label' => 'Apoderado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required'  => false
-                ))
             ->add('Local', 'entity_id', array(
                 'label' => 'Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',
@@ -46,12 +40,12 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial'
+            'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_tramitesbundle_tramitehabilitacioncomercialtype';
+        return 'yacare_tramitesbundle_certificadohabilitacioncomercialtype';
     }
 }

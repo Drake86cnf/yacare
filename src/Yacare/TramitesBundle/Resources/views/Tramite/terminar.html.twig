@@ -1,0 +1,13 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Terminar trámite {{ entity }}{% endblock %}
+
+{% block content %}
+El trámite fue finalizado.
+
+{% if comprob %}
+Se generó un comprobante.
+{% endif %}
+
+<a class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_listar') }}">Volver al listado de trámites</a>
+{% endblock %}
