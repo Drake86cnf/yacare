@@ -17,8 +17,8 @@
         
 {% block form_row %}
 <div class="form-group">
-    <label class="col-lg-2 control-label">{{ label }}{% if required %} <span class="required" title="Este campo es obligatorio">*</span>{% endif %}</label>
-    <div class="col-lg-10">{{ form_widget(form) }}</div>
+    <label class="col-md-2 control-label">{{ label }}{% if required %} <span class="required" title="Este campo es obligatorio">*</span>{% endif %}</label>
+    <div class="col-md-10">{{ form_widget(form) }}</div>
 </div>
 {% endblock form_row %}
 
@@ -91,7 +91,7 @@
 {% endblock %}
     
 {% block entity_id_widget %}
-    <div class="form-group input-group">
+    <div class="input-group">
         {% set values = value|split(':', 2) %}
         <input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
         {% set old_id = id %}
