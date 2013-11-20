@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBliC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Yacaré - Instalación</title>
+	<meta name="author" content="Ernesto Carrea">
+</head>
+
+<body lang="es-AR" dir="ltr">
+
+    <h1>Instalación de Yacaré para desarrollo</h1>
+
+    <h2>En Linux</h2>
+
+    <ol>
+	<li>Es necesario instalar los
+	siguientes paquetes: php, php-mysqlnd, php-mbstring, php-intl,
+	subversion, mysql-server. En Ubuntu los paquetes php-* pueden
+	llamarse php5-*. El paquete mysql puede remplazarse por el paquete
+	mariadb.
+
+	<li>Descargar desde la página de
+	Symfony la versión estándar más reciente
+	(Symfony_Standard_Vendors_2.3.7.tgz al momento de escribir este
+	documento).
+
+	<li>Abrir una consola de comandos para
+	los siguientes pasos.
+	<li>Crear una carpeta para la
+	aplicación e ingresar a la misma, con los siguientes comandos:
+    </ol>
+    <ul>
+	<li><code>mkdir yacare</code>
+	<li><code>cd yacare</code>
+    </ul>
+    <ol start=5>
+	<li>Obtener Yacaré desde el repositorio SVN, con el siguiente comando:
+    </ol>
+    <ul>
+	<li><code>svn co http://webmuni/svn/yacare/trunk ./</code>
+    </ul>
+    <ol start=6>
+	<li>Descomprimir la distribución de Symfony descargada, sin remplazar los archivos existentes:
+    </ol>
+    <ul>
+	<li><code>tar --strip-components=1 -zxkf /carpeta_de_descarga/Symfony_Standard_Vendors_2.3.7.tgz Symfony</code>
+    </ul>
+    <ol start=7>
+	<li>Descargar Composer:
+    </ol>
+    <ul>
+	<li><code>php -r &quot;eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));&quot;</code>
+    </ul>
+    <ol start=8>
+	<li>Instalar y actualizar los bundles:
+    </ol>
+    <ul>
+	<li><code>php composer.phar update</code>
+    </ul>
+    <ol start=9>
+	<li>Crear la base de datos y el usuario de acceso:
+    </ol>
+    <ul>
+	<li><code>mysql -uroot</code>
+	<li><code>CREATE DATABASE yacare;</code>
+	<li><code>GRANT ALL ON yacare.* TO 'yacare'@'localhost' IDENTIFIED BY '123456';</code>
+	<li><code>GRANT ALL ON yacare.* TO 'yacare'@'%' IDENTIFIED BY '123456';</code>
+	<li><code>EXIT</code>
+    </ul>
+    <ol start=10>
+	<li>Si se dispone de datos de prueba, se los puede incorporar:</li>
+    </ol>
+    <ul>
+	<li><code>mysql -uyacare -p123456 --database=yacare &lt; datos_de_prueba.sql</code></li>
+    </ul>
+    <ol start=11>
+    <li>Actualizar las estructuras de datos</li>
+    </ol>
+    <ul>
+	<li><code>php app/console doctrine:schema:update --force</code>
+    </ul>
+    <ol start=12>
+	<li>Ejecutar el servidor web de desarrollo:</li>
+    </ol>
+    <ul>
+	<li><code>php app/console server:run</code></li>
+    </ul>
+    
+    <h2>En Windows</h2>
+    <ol>
+        <li>Descargar e instalar su distribución favorita de Linux, por ejemplo Fedora.</li>
+        <li>Continuar desde el paso 1 de la sección anterior.</li>
+    </ol>
+
+</body>
+</html>
