@@ -120,8 +120,8 @@ class Persona implements UserInterface, \Serializable
     private $DocumentoNumero;
     
     /**
-     * @var integer
-     * @ORM\Column(type="integer", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Cuilt;
 

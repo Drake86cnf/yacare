@@ -15,6 +15,7 @@ class PersonaType extends AbstractType
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
             ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array('label' => 'Documento'))
+            ->add('Cuilt', null, array('label' => 'CUIL/CUIT'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',

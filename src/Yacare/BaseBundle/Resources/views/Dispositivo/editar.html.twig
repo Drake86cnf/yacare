@@ -5,11 +5,11 @@
 {% block content %}
 
 <form class="form-horizontal" action="{{ path('yacare_base_dispositivo_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-	<legend>{% if entity.id %} {{ entity.Tipo }} {{ entity.Marca }} {{ entity.Modelo }} {{ entity.NumeroSerie }} {% else %} Nuevo dispositivo {% endif %}</legend>
-	{{ form_widget(edit_form) }}
+    <legend>{% if entity.id %} {{ entity.Tipo }} {{ entity.Marca }} {{ entity.Modelo }} {{ entity.NumeroSerie }} {% else %} Nuevo dispositivo {% endif %}</legend>
+    {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
-		<a class="btn btn-default" href="{{ path('yacare_base_dispositivo_listar') }}">Cancelar</a>
+        <a class="btn btn-default" href="{{ path('yacare_base_dispositivo_listar') }}">Cancelar</a>
     </div>
 </form>
 

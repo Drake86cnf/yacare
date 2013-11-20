@@ -29,12 +29,10 @@ class DispositivoType extends AbstractType
             ->add('NumeroSerie', null, array('label' => 'Número de serie'))
             ->add('IdentificadorUnico', null, array('label' => 'Identificador único'))
             ->add('Comentario', null, array('label' => 'Comentario'))
-            ->add('Encargado', 'entity', array(
+            ->add('Encargado', 'entity_id', array(
                 'label' => 'Encargado',
-                'class' => 'YacareBaseBundle:Persona',
-                'required' => false,
-                'empty_value' => 'Ninguno',
-                'property' => 'NombreVisible'))
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => false))
         ;
     }
 

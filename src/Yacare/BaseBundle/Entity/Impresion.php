@@ -63,7 +63,7 @@ class Impresion
     private $Contenido;
     
     
-        public function getYri($incluye_version = true)
+    public function getYri($incluye_version = true)
     {
         $Res = "http://yacare.riogrande.gob.ar/cp/?en=" . str_replace('/', '+', $this->getEntidadTipo()) . "&id=" . $this->getEntidadId();
         
