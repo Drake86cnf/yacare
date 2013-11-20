@@ -15,7 +15,7 @@ class ActaBromatologicaVeterinaria extends \Yacare\InspeccionBundle\Entity\Acta
     use \Yacare\BaseBundle\Entity\ConDomicilio;
         
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Comercio;
@@ -27,7 +27,7 @@ class ActaBromatologicaVeterinaria extends \Yacare\InspeccionBundle\Entity\Acta
     protected $Persona;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Transporte;

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ActaRutina extends \Yacare\InspeccionBundle\Entity\Acta
 {
       /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Comercio;

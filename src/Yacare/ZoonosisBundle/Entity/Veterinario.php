@@ -31,7 +31,7 @@ class Veterinario
     private $Matricula;
     
      /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Clinica;
