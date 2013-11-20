@@ -17,7 +17,10 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
+        cssjs:
+            pattern:  ^%web_root%/bundles/yacarebase/(css|js)/
+            security: false
+            
         login_firewall:
             pattern:    ^/base/login$
             anonymous:  ~
@@ -39,5 +42,6 @@ security:
             #    domain:   ~
 
     access_control:
+        - { path: ^%web_root%/bundles/yacarebase/css/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
