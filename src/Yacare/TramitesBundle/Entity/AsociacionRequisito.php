@@ -19,7 +19,7 @@ class AsociacionRequisito
     use \Yacare\BaseBundle\Entity\Eliminable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TramiteTipo")
+     * @ORM\ManyToOne(targetEntity="TramiteTipo", inversedBy="AsociacionRequisitos")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteTipo;

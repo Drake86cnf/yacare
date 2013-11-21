@@ -25,7 +25,7 @@ class EstadoRequisito
     use \Yacare\BaseBundle\Entity\ConObs;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $Tramite;
