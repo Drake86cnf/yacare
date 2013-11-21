@@ -48,6 +48,14 @@ class EstadoRequisito
      * @ORM\Column(type="integer")
      */
     private $Estado = 0;
+    
+    
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $FechaAprobado;
+    
 
     /*
      * Devuelve si este requisito es necesario para este trámite.
@@ -160,5 +168,13 @@ class EstadoRequisito
 
     public function setEstadoRequisitoPadre($EstadoRequisitoPadre) {
         $this->EstadoRequisitoPadre = $EstadoRequisitoPadre;
+    }
+    
+    public function getFechaAprobado() {
+        return $this->FechaAprobado;
+    }
+
+    public function setFechaAprobado(\DateTime $FechaAprobado) {
+        $this->FechaAprobado = $FechaAprobado;
     }
 }

@@ -24,20 +24,30 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-        $entity->setEstado(100);
         
-        $Comprob = $this->EmitirComprobante($entity);
-        if($Comprob) {
-            $Comprob->setTramiteOrigen($entity);
-            $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
-            $em->persist($Comprob);
+        if($entity->getEstado() != 100) {
+            $entity->setEstado(100);
+            $entity->setFechaTerminado(new \DateTime());
+
+            $Comprob = $this->EmitirComprobante($entity);
+            if($Comprob) {
+                $Comprob->setTramiteOrigen($entity);
+                $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
+                $em->persist($Comprob);
+            }
+
+            $em->persist($entity);
+            $em->flush();
+            
+            $mensaje = null;
+        } else {
+            $mensaje = 'El trámite ya estaba terminado.';
+            $Comprob = null;
         }
-        
-        $em->persist($entity);
-        $em->flush();
         
         return $this->ArrastrarVariables(array(
             'entity' => $entity,
+            'mensaje' => $mensaje,
             'comprob' => $Comprob
         ));
     }

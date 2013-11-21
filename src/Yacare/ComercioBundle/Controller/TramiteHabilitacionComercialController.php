@@ -22,6 +22,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
 
         $Certi->setComprobanteTipo($ComprobanteTipo);
 
+        $Certi->setNombreFantasia($tramite->getNombreFantasia());
         $Certi->setTitular($tramite->getTitular());
         $Certi->setLocal($tramite->getLocal());
         $Certi->setActividadPrincipal($tramite->getActividadPrincipal());

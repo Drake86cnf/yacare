@@ -73,6 +73,8 @@
 
 {% block comprobante_pie %}
 {{ parent() }}
+
+<a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}
 
 {% endblock %}

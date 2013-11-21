@@ -49,6 +49,14 @@ class Tramite
      */
     private $EstadosRequisitos;
     
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $FechaTerminado;
+    
+    
+    
     public function EstaEnCurso() {
         return $this->getEstado() < 90;
     }
@@ -63,7 +71,7 @@ class Tramite
     }
     
     public function EstaListoParaTerminar() {
-        return $this->PorcentajeCompleto() == 100;
+        return $this->PorcentajeCompleto() == 100 && $this->getEstado() < 90;
     }
     
     
@@ -149,5 +157,13 @@ class Tramite
 
     public function setTramiteTipo($TramiteTipo) {
         $this->TramiteTipo = $TramiteTipo;
+    }
+    
+    public function getFechaTerminado() {
+        return $this->FechaTerminado;
+    }
+
+    public function setFechaTerminado(\DateTime $FechaTerminado) {
+        $this->FechaTerminado = $FechaTerminado;
     }
 }

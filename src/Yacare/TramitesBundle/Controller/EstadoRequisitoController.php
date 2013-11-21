@@ -42,19 +42,24 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
     }
     
     public function guardarActionPrePersist($entity) {
+        if($entity->getEstado() == 100 && !$entity->getFechaAprobado()) {
+            //Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
+            $entity->setFechaAprobado(new \DateTime());
+        }
+        
         if($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
             // Doy el trámite por iniciado
             $em = $this->getDoctrine()->getManager();
 
             $entity->getTramite()->setEstado(10);
             $em->persist($entity->getTramite());
-        } else if($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) {
+        } /* else if($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) {
             // Doy el trámite por terminado
             $em = $this->getDoctrine()->getManager();
 
             $entity->getTramite()->setEstado(100);
             $em->persist($entity->getTramite());
-        }
+        } */
     }
 
     protected function guardarActionAfterSuccess($entity) {

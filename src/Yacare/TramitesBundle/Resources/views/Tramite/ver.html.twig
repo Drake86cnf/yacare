@@ -3,20 +3,24 @@
 {% block title %}{{ entity }}{% endblock %}
 
 {% block tramite_encab %}
-<div id="nav-search" class="nav-search">
-    <button class="btn btn-sm btn-primary hidden-print" onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;">Requisitos ocultos</button>
-</div>
 <legend>Trámite Nº {{ entity.id }}<small> {{ entity }}</small></legend>
 
 <div class="row">
     <div class="col-lg-8">
-        <p>El trámite fue presentado el <strong>{{ entity.createdAt|localizeddate('full', 'short')|lower }}</strong> ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong> con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.</p>
+        <p>El trámite fue presentado el {{ entity.createdAt|localizeddate('full', 'short')|lower }}
+            ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong>
+            {% if entity.Estado == 100 and entity.FechaTerminado %}
+                . El trámite finalizó el día {{ entity.FechaTerminado|localizeddate('full', 'short')|lower }}.
+            {% else %}
+                con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
+            {% endif %}
+        </p>
     </div>
     <div class="col-lg-4">
         {% if entity.RequisitosFaltantesCantidad > 0 %}
             <p class="text-danger"><strong>Faltan presentar {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.</p>
             {% block tramite_encab_progreso %}
-            <div class="progress">
+            <div class="progress hidden-print">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
                     <span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
                 </div>
@@ -24,11 +28,12 @@
                     </div>
             </div>
             {% endblock %}
-        {% elseif entity.EstaListoParaTerminar or 1 %}
+        {% elseif entity.EstaListoParaTerminar %}
             <div class="panel panel-default">
                 <div class="panel-body">
-                <strong>¡Listo!</strong>
-                El trámite está listo para finalizar. <a class="btn btn-sm btn-primary" href="{{ path(baseroute ~ '_terminar', arrastre|merge({ 'id': entity.id })) }}">Terminar</a>
+                    <i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
+                    <p><strong>¡Listo!</strong> El trámite está listo para finalizar.</p>
+                    <a class="btn btn-success hidden-print" href="{{ path(baseroute ~ '_terminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-play"></i> Terminar ahora</a>
                 </div>
             </div>
         {% endif %}
@@ -42,6 +47,7 @@
         <tr>
             <th>Requisito</th>
             <th>Estado</th>
+            <th>Fecha aprobado</th>
         </tr>
     </thead>
     <tbody>
@@ -86,6 +92,7 @@
             {% endif %}
             {{ EstadoRequisito.EstadoNombre }}</span>
         </td>
+        <td>{{ EstadoRequisito.FechaAprobado|localizeddate('medium', 'none') }}</td>
     </tr>
 {% endfor %}
     </tbody>
@@ -99,5 +106,9 @@
     });
 </script>
 
-<a class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_listar') }}">Volver al listado de trámites</a>
+<a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado de trámites</a>
+
+<button class="btn btn-default hidden-print" onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</button>
+
+
 {% endblock %}
