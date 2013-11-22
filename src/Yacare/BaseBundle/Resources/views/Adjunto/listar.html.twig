@@ -1,0 +1,25 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block title %}Adjuntos{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+<div class="container">
+<div class="row">
+    {% for entity in entities %}
+    <div class="text-center col-xs-12 col-sm-4 col-md-3 col-lg-2" style="overflow: hidden; min-height: 256px; max-height: 256px;">
+        <div class="img-thumbnail text-center center" style="overflow: hidden; min-height: 200px; max-height: 200px;">
+            <a target="_blank" href="{{ path(baseroute ~ '_ver', { 'token': entity.Token }) }}">
+                <img src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" class="img-responsive" />
+            </a>
+        </div>
+        {{ entity.Nombre }}<br />
+        <span class="text-muted"><small>{{ entity.createdAt|localizeddate('medium', 'none') }}</small></span>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}

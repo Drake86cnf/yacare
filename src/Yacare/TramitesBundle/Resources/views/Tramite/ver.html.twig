@@ -55,6 +55,9 @@
     <tr{% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables"{%endif%}>
         <td>
             <a class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
+            <a class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Adjuntos {% if EstadoRequisito.Adjuntos|length > 0 %}
+                <span class="badge">{{ EstadoRequisito.Adjuntos|length }}</span>
+                {% endif %}</a>
 
             {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
                 <i class="fa fa-copy fa-fw"></i>

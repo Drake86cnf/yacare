@@ -1,0 +1,7 @@
+{% extends 'YacareBaseBundle::ajax.html.twig' %}
+
+{% block title %}Adjunto{% endblock %}
+
+{% block content %}
+        <img style="margin: auto;" lass="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />
+{% endblock %}
