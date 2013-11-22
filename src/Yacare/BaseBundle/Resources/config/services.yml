@@ -6,3 +6,10 @@ services:
         arguments: [@doctrine]
         tags:
             - { name: form.type, alias: entity_id }
+
+    # adjuntos type
+    adjuntos.type:
+        class: Yacare\BaseBundle\Form\Type\AdjuntosType
+        arguments: [@doctrine]
+        tags:
+            - { name: form.type, alias: adjuntos }

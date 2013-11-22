@@ -2,19 +2,21 @@
 
 namespace Yacare\BaseBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 trait ConImagen {
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("imagen/{id}")
+     * @Route("imagen/{id}")
      */
     public function imagenAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        /* @var $entity Document */
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Document entity.');
+            throw $this->createNotFoundException('No se puede cargar la entidad.');
         }
 
         $imagen_contenido = stream_get_contents($entity->getImagen());

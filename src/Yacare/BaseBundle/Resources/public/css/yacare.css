@@ -85,6 +85,7 @@ textarea {
 .form-group input[type="url"],
 .form-group input[type="search"],
 .form-group input[type="tel"],
+.form-group input[type="file"],
 .form-group input[type="color"] {
     border-color: rgb(181, 181, 181);
     border-radius: 0px 0px 0px 0px !important;
@@ -112,6 +113,7 @@ input[type="email"]:focus,
 input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
+input[type="file"]:focus,
 input[type="color"]:focus,
 select:focus {
     box-shadow: none;
@@ -120,6 +122,11 @@ select:focus {
     background-color: rgb(255, 255, 255);
     outline: 0px none;
 }
+
+input[type="file"] {
+    border: none !important;
+}
+
 
 .form-control:focus {
     border-color: rgb(245, 153, 66);

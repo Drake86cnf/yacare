@@ -28,7 +28,7 @@ class UsuarioController extends YacareAbmController
     }
     
 
-    public function guardarActionPrePersist($entity)
+    public function guardarActionPrePersist($entity, $editForm)
     {
         // Intervenir la entidad antes de persistir
         if($entity->getPasswordEnc()) {
@@ -41,6 +41,7 @@ class UsuarioController extends YacareAbmController
             // Si la contraseña está en blanco, dejo la original
             $entity->setPasswordEnc($this->PassOriginal);
         }
-        return parent::guardarActionPrePersist($entity);
+        
+        return parent::guardarActionPrePersist($entity, $editForm);
     }
 }

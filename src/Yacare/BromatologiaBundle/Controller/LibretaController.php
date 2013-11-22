@@ -11,13 +11,13 @@ class LibretaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
-    public function guardarActionPrePersist($entity)
+    public function guardarActionPrePersist($entity, $editForm)
     {
         // Verficiar si tiene el curso BPM al día
         // 
         // $entity
         // return array('', '');
         
-        return parent::guardarActionPrePersist($entity);
+        return parent::guardarActionPrePersist($entity, $editForm);
     }
 }

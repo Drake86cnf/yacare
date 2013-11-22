@@ -186,7 +186,7 @@ class YacareAbmController extends YacareBaseController
 
         if(!$errors) {
             if ($editForm->isValid()) {
-                $errors = $this->guardarActionPrePersist($entity);
+                $errors = $this->guardarActionPrePersist($entity, $editForm);
                 if(!$errors) {
                     $em->persist($entity);
                     $em->flush();
@@ -231,7 +231,7 @@ class YacareAbmController extends YacareBaseController
         return null;
     }
     
-    public function guardarActionPrePersist($entity)
+    public function guardarActionPrePersist($entity, $editForm)
     {
         // Función para que las clases derivadas puedan intervenir la entidad antes de persistir
         // Devuelve un array con errores o null si está todo bien

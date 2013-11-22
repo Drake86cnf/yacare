@@ -23,6 +23,7 @@ class EstadoRequisito
 {
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConObs;
+    use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**
      * @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
@@ -47,16 +48,16 @@ class EstadoRequisito
     /**
      * @ORM\Column(type="integer")
      */
-    private $Estado = 0;
+    protected $Estado = 0;
     
     
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $FechaAprobado;
+    protected $FechaAprobado;
     
-
+    
     /*
      * Devuelve si este requisito es necesario para este trámite.
      */

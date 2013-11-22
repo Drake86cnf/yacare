@@ -11,9 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 trait ConAdjuntos
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Adjunto")
+     * @ORM\ManyToMany(targetEntity="\Yacare\BaseBundle\Entity\Adjunto", cascade={ "persist" })
      */
-    private $Adjuntos;
+    protected $Adjuntos;
+
     
     public function __construct()
     {

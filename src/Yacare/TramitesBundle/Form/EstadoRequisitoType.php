@@ -25,8 +25,14 @@ class EstadoRequisitoType extends AbstractType
                 ))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
-                )
-        );
+                ))
+            ->add('Adjuntos', 'adjuntos', array(
+                    'label' => 'Adjuntar archivos',
+                    'required' => false,
+                    'class' => 'Yacare\BaseBundle\Entity\Adjunto',
+                    'data_class' => null
+		))
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

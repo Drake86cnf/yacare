@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class ComprobanteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-    public function guardarActionPrePersist($entity) {
+    public function guardarActionPrePersist($entity, $editForm) {
         // Crear o actualizar un instrumento asociado
 
         $InstrumentoEspejo = $entity->getInstrumentoEspejo();
@@ -23,6 +23,6 @@ class ComprobanteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmC
         
         $entity->setInstrumentoEspejo($InstrumentoEspejo);
         
-        parent::guardarActionPrePersist($entity);
+        parent::guardarActionPrePersist($entity, $editForm);
     }
 }

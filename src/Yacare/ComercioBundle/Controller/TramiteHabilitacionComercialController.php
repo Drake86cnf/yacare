@@ -141,8 +141,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         ));
     }    
     
-    public function guardarActionPrePersist($entity) {
-        $res = parent::guardarActionPrePersist($entity);
+    public function guardarActionPrePersist($entity, $editForm) {
+        $res = parent::guardarActionPrePersist($entity, $editForm);
         
         // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
         $Local = $entity->getLocal();

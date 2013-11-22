@@ -10,8 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ComprobanteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-    public function guardarActionPrePersist($entity) {
-        $res = parent::guardarActionPrePersist($entity);
+    public function guardarActionPrePersist($entity, $editForm) {
+        $res = parent::guardarActionPrePersist($entity, $editForm);
         
         if(!$entity->getComprobanteTipo()) {
             // La propiedad ComprobanteTipo está en blanco... es normal al crear un trámite nuevo
