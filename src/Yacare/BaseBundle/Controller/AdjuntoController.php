@@ -12,13 +12,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class AdjuntoController extends YacareBaseController
 {
     /**
-     * @Route("ver/{id}")
+     * @Route("ver/{token}")
      */
-    public function verAction($id)
+    public function verAction($token)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->find($id);
+        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
 
         if (!$entity) {
             throw $this->createNotFoundException('No se puede cargar la entidad.');
