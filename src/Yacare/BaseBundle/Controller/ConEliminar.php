@@ -3,12 +3,22 @@
 namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 trait ConEliminar {
 
+    protected function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+    
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar/{id}")
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template("YacareBaseBundle:Default:eliminar.html.twig")
+     * @Route("eliminar/{id}")
+     * @Template("YacareBaseBundle:Default:eliminar.html.twig")
      */
     public function eliminarAction($id)
     {

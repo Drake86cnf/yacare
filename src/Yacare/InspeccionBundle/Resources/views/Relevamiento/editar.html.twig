@@ -1,23 +1,15 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'YacareBaseBundle::editar.html.twig' %}
 
-{% block title %}Relevamiento{% endblock %}
+{% block pagina_titulo %}{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo relevamiento {% endif %}{% endblock %}
 
-{% block content %}
+{% block pagina_acciones %}
+    <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
+    <a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
+{% endblock %}
 
-<form class="form-horizontal" action="{{ path('yacare_inspeccion_relevamiento_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo relevamiento {% endif %}</legend>
-    {{ form_widget(edit_form) }}
-
-    <div class="form-actions">
-    {% if entity %}
+{% block pagina_acciones2 %}
+    {% if entity.id %}
         <a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.id }) }}"><i class="fa fa-list"></i> Ver asignaciones</a>
-        <a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignaciondetalle_listarrelevamiento', { 'id': entity.id }) }}"><i class="fa fa-list"></i> Ver resultados</a>
+        <a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': entity.id }) }}"><i class="fa fa-list"></i> Ver resultados</a>
     {% endif %}
-
-        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
-        <a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">Cancelar</a>
-    </div>
-
-</form>
-
 {% endblock %}

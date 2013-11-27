@@ -12,19 +12,21 @@ trait ConAdjuntos {
         
         $Archivos = $editForm->get('Adjuntos')->getData();
 
-        if($Archivos) {
+        if($Archivos && count($Archivos) > 0) {
             $NombresAdjuntados = null;
             foreach($Archivos as $Archivo) {
-                $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
-                $entity->getAdjuntos()->add($Adjunto);
-                if($NombresAdjuntados) {
-                    $NombresAdjuntados .= ', "' . (string)$Adjunto . '"';
-                } else {
-                    $NombresAdjuntados = '"' . (string)$Adjunto . '"';
+                if($Archivo) {
+                    $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
+                    $entity->getAdjuntos()->add($Adjunto);
+                    if($NombresAdjuntados) {
+                        $NombresAdjuntados .= ', "' . (string)$Adjunto . '"';
+                    } else {
+                        $NombresAdjuntados = '"' . (string)$Adjunto . '"';
+                    }
                 }
             }
 
-            if(count($Archivos) == 1) {
+            if(count($Archivos) == 1 && $NombresAdjuntados) {
                 $this->get('session')->getFlashBag()->add('success', 'Se adjuntó el archivo ' . $NombresAdjuntados . '.');
             } else if(count($Archivos) > 1) {
                 $this->get('session')->getFlashBag()->add('success', 'Se adjuntaron los archivos ' . $NombresAdjuntados . '.');

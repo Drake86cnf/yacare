@@ -1,8 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Ataque{% endblock %}
+{% block pagina_titulo %}Ataque{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 
 <form class="form-horizontal" action="{{ path('yacare_zoonosis_ataque_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Mascota }} {% else %} Nuevo ataque{% endif %}</legend>
@@ -14,7 +14,7 @@
 </form>
 
 {% if entity.id %}
-<a class="btn btn-danger" href="{{ path('yacare_zoonosis_ataque_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o icon-white"></i> Eliminar ataque</a>
+<a class="btn btn-danger" href="{{ path('yacare_zoonosis_ataque_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i> Eliminar ataque</a>
 {% endif %}
 
 {% endblock %}

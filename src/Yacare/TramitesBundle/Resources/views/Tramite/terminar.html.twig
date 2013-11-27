@@ -1,8 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Terminar trámite {{ entity }}{% endblock %}
+{% block pagina_titulo %}Terminar trámite {{ entity }}{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 <h1>Finalizar trámite <small>{{ entity }}</small></h1>
 
 {% if entity.Estado == 100 %}

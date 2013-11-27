@@ -152,7 +152,7 @@ class YacareAbmController extends YacareBaseController
             'create'      => $id ? false : true,
             'errors'      => '',
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm ? $deleteForm->createView() : null,
         ));
     }
 
@@ -241,9 +241,6 @@ class YacareAbmController extends YacareBaseController
 
     protected function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return null;
     }
 }

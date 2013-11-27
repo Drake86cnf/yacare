@@ -10,7 +10,16 @@ function yacareMostrarModalEn(url, destino) {
 <p><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
 </div></div></div>').modal();
 
-    $.get(url, function(data) {
+    // Agrego la variable yacare_mostrarmodal=1 para que incluya el marco
+    var urlFinal = url;
+    if(urlFinal.indexOf('?') < 0) {
+        urlFinal = urlFinal + '?';
+    } else {
+        urlFinal = urlFinal + '&';
+    }
+    urlFinal = urlFinal + 'yacare_mostrarmodal=1';
+    
+    $.get(urlFinal, function(data) {
         modal.html(data).modal();
     }).success(function() {
         //boom. loaded.

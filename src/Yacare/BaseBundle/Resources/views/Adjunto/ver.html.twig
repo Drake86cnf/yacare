@@ -1,7 +1,7 @@
-{% extends 'YacareBaseBundle::ajax.html.twig' %}
+{% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Adjunto{% endblock %}
+{% block pagina_titulo %}Adjunto{% endblock %}
 
-{% block content %}
-        <img style="margin: auto;" lass="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />
+{% block pagina_contenido %}
+<img style="margin: auto;" lass="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />
 {% endblock %}

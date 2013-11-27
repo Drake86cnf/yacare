@@ -50,6 +50,7 @@ class Adjunto
 
     
     public function SubirArchivo($Archivo) {
+        $this->Token .= '.' . $Archivo->getClientOriginalExtension();
         $this->setNombre($Archivo->getClientOriginalName());
         $this->setTipoMime($Archivo->getMimeType());
         

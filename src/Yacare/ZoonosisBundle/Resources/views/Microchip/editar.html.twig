@@ -1,8 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Microchip{% endblock %}
+{% block pagina_titulo %}Microchip{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 
 <form class="form-horizontal" action="{{ path('yacare_zoonosis_microchip_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Microchip }} {% else %} Nuevo microchip {% endif %}</legend>
@@ -14,7 +14,7 @@
 </form>
 
 {% if entity.id %}
-<a class="btn btn-danger" href="{{ path('yacare_zoonosis_microchip_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o icon-white"></i> Eliminar microchip</a>
+<a class="btn btn-danger" href="{{ path('yacare_zoonosis_microchip_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i> Eliminar microchip</a>
 {% endif %}
 
 {% endblock %}

@@ -1,12 +1,10 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Eliminar{% endblock %}
+{% block pagina_titulo %}Eliminar {{ entity }}{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 
 {% if entity %}
-<legend>Eliminar {{ entity }}</legend>
-
 <p>Se eliminó {{ entity }}</p>
 {% endif %}
 

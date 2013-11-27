@@ -1,8 +1,8 @@
-{% extends 'YacareBaseBundle::modal.html.twig' %}
+{% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Personas{% endblock %}
+{% block pagina_titulo %}Personas{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 {% set destcontrol = app.request.get('destcontrol') %}
 
 <div style="padding-bottom: 10px;">
@@ -31,5 +31,5 @@
 </script>
 {% endblock %}
 
-{% block form_actions %}
+{% block pagina_acciones %}
 {% endblock %}

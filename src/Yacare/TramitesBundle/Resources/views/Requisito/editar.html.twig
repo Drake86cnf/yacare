@@ -1,17 +1,9 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'YacareBaseBundle::editar.html.twig' %}
 
-{% block title %}Requisito{% endblock %}
+{% block pagina_titulo %}{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo requisito {% endif %}{% endblock %}
 
-{% block content %}
-
-<form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
-    <legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo requisito {% endif %}</legend>
-    {{ form_widget(edit_form) }}
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
-    </div>
-</form>
+{% block pagina_contenido %}
+{{ parent() }}
 
 <script type="text/javascript">
     function CambioTipo() {

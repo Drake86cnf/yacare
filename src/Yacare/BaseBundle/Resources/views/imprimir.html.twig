@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Yacaré - {% block title %}{% endblock %}</title>
+    <title>Yacaré - {% block pagina_titulo %}{% endblock %}</title>
     <link rel="icon" href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
     <!link id="print-css" href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/css/yacare-print.css') }}" rel="stylesheet" />
 
@@ -153,7 +153,7 @@ table.listado tr td.label {
 
 <body>
 <div class="content" id="content">
-    {% block content %}
+    {% block pagina_contenido %}
     {% endblock %}
 </div>
 </body>

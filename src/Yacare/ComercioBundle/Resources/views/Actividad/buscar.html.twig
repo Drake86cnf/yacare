@@ -1,8 +1,8 @@
-{% extends 'YacareBaseBundle::modal.html.twig' %}
+{% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Buscar actividad{% endblock %}
+{% block pagina_titulo %}Buscar actividad{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 {% set destcontrol = app.request.get('destcontrol') %}
 
 {% include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
@@ -27,5 +27,5 @@
 </script>
 {% endblock %}
 
-{% block form_actions %}
+{% block pagina_acciones %}
 {% endblock %}

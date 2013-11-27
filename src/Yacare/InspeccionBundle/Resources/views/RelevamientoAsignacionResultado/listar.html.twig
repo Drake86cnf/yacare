@@ -1,10 +1,10 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Relevamientos - Asignaciones - Resultados{% endblock %}
+{% block pagina_titulo %}Relevamientos - Asignaciones - Resultados{% endblock %}
 
-{% block content_header '' %}
 
-{% block content %}
+
+{% block pagina_contenido %}
 {% if entities is empty %}
 <div>
     <div class="alert alert-success">
@@ -51,5 +51,8 @@
     {{ knp_pagination_render(entities) }}
 </div>
 {% endif %}
+{% endblock %}
+
+{% block pagina_acciones2 %}
 <a href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver asignaciones</a>
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}Raza{% endblock %}
+{% block pagina_titulo %}Raza{% endblock %}
 
-{% block content %}
+{% block pagina_contenido %}
 
 <form class="form-horizontal" action="{{ path('yacare_zoonosis_raza_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 	<legend>{% if entity.id %} {{ entity.Nombre }} {% else %} Nueva raza{% endif %}</legend>
@@ -14,7 +14,7 @@
 </form>
 
 {% if entity.id %}
-<a class="btn btn-danger" href="{{ path('yacare_zoonosis_raza_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o icon-white"></i> Eliminar raza</a>
+<a class="btn btn-danger" href="{{ path('yacare_zoonosis_raza_eliminar', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i> Eliminar raza</a>
 {% endif %}
 
 {% endblock %}

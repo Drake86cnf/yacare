@@ -1,9 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block title %}{{ entity }}{% endblock %}
+{% block pagina_titulo %}Trámite Nº {{ entity.id }}<small> {{ entity }}</small>{% endblock %}
 
 {% block tramite_encab %}
-<legend>Trámite Nº {{ entity.id }}<small> {{ entity }}</small></legend>
 
 <div class="row">
     <div class="col-lg-8">
@@ -54,10 +53,8 @@
 {% for EstadoRequisito in entity.EstadosRequisitos %}
     <tr{% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables"{%endif%}>
         <td>
-            <a class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
-            <a class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Adjuntos {% if EstadoRequisito.Adjuntos|length > 0 %}
-                <span class="badge">{{ EstadoRequisito.Adjuntos|length }}</span>
-                {% endif %}</a>
+            <a class="btn btn-default btn-xs hidden-print" data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
+            <a class="btn btn-default btn-xs hidden-print" data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Adjuntos</a>
 
             {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
                 <i class="fa fa-copy fa-fw"></i>
@@ -112,6 +109,5 @@
 <a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado de trámites</a>
 
 <button class="btn btn-default hidden-print" onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</button>
-
 
 {% endblock %}
