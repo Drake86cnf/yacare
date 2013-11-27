@@ -4,6 +4,7 @@
 
 {% block pagina_contenido %}
 
+{% if entities %}
 <div class="container">
 <div class="row">
     {% for entity in entities %}
@@ -19,5 +20,11 @@
     {% endfor %}
 </div>
 </div>
+
+{% else %}
+
+<p>No hay archivos adjuntos.</p>
+
+{% endif %}
 
 {% endblock %}
