@@ -1,21 +1,15 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Factibilidad de habilitación comercial{% endblock %}
+{% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
 
 {% block pagina_contenido %}
 
 {% set porpartida = app.request.query.get('porpartida') %}
 
-<legend>Consulta de factibilidad de habilitación comercial</legend>
-
 {% if create %}
 
 <form class="form-horizontal" action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
-	<a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
-    </div>
 </form>
 
 {% if porpartida %}
@@ -129,4 +123,11 @@ del Instituto Nacional de Estadística y Censos).</p>
     
 {% endif %}
 
+{% endblock %}
+
+{% block pagina_acciones %}
+    {% if create %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+    {% endif %}
 {% endblock %}
