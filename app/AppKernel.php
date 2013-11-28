@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
