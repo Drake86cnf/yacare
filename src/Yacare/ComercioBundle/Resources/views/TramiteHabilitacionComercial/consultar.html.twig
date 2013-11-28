@@ -12,12 +12,6 @@
     {{ form_widget(edit_form) }}
 </form>
 
-{% if porpartida %}
-    Si el local está empadronado, utilice la <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">búsqueda por local comercial</a>.
-{% else %}
-    Si el local no está empadronado, puede cambiar a la <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">búsqueda por domicilio</a>.
-{% endif %}
-
 {% else %}
 
 <h2>Sobre el inmueble</h2>
@@ -125,9 +119,20 @@ del Instituto Nacional de Estadística y Censos).</p>
 
 {% endblock %}
 
+{% block pagina_acciones2 %}
+    {% if create %}
+        {% if porpartida %}
+            Si el local está empadronado, utilice la búsqueda <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por local comercial</a>.
+        {% else %}
+            Si el local no está empadronado, puede cambiar a la búsqueda <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por domicilio</a>.
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
 {% block pagina_acciones %}
     {% if create %}
-        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+       <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+       <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
     {% endif %}
 {% endblock %}

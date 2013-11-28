@@ -209,7 +209,7 @@ class YacareAbmController extends YacareBaseController
                 'errors'      => $errors,
                 'create'      => $id ? false : true,
                 'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView()
+                'delete_form' => $deleteForm ? $deleteForm->createView() : null
                 ));
 
             return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);

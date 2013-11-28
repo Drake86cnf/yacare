@@ -47,6 +47,10 @@ class Adjunto
     public function getRutaCompleta() {
         return $this->getRaizDeAdjuntos() . $this->getCarpeta() . '/';
     }
+    
+    public function getRutaRelativa() {
+        return 'adjuntos/' . $this->getCarpeta() . '/';
+    }
 
     
     public function SubirArchivo($Archivo) {

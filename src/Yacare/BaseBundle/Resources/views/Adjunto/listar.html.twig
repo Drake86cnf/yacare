@@ -8,14 +8,18 @@
 <div class="container">
 <div class="row">
     {% for entity in entities %}
-    <div class="text-center col-xs-12 col-sm-4 col-md-3 col-lg-2" style="overflow: hidden; min-height: 256px; max-height: 256px;">
-        <div class="img-thumbnail text-center center" style="overflow: hidden; min-height: 200px; max-height: 200px;">
-            <a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}">
-                <img src="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}" alt="{{ entity.Nombre }}" class="img-responsive" />
-            </a>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" style="min-height: 256px; max-height: 256px;">
+        <div class="img-thumbnail text-center center" target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}" style="overflow: hidden; min-height: 200px; max-height: 200px;">
+            <img src="{{ path('yacare_base_adjunto_miniatura', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" class="img-responsive" />
         </div>
-        {{ entity.Nombre }}<br />
-        <span class="text-muted"><small>{{ entity.createdAt|localizeddate('medium', 'none') }}</small></span>
+        <div class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ entity.Nombre }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}"><i class="fa fa-folder-open-o fa-fw"></i> Abrir</a></li>
+                <li><a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
+            </ul>
+        </div>
+        <div class="text-muted"><small>{{ entity.createdAt|localizeddate('medium', 'none') }}</small></div>
     </div>
     {% endfor %}
 </div>

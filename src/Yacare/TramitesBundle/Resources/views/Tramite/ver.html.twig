@@ -24,7 +24,7 @@
                     <span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
                 </div>
                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ 100 - entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ 100 - entity.PorcentajeCompleto }}%;">
-                    </div>
+                </div>
             </div>
             {% endblock %}
         {% elseif entity.EstaListoParaTerminar %}
@@ -53,8 +53,21 @@
 {% for EstadoRequisito in entity.EstadosRequisitos %}
     <tr{% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables"{%endif%}>
         <td>
-            <a class="btn btn-default btn-xs hidden-print" data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a>
-            <a class="btn btn-default btn-xs hidden-print" data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Adjuntos</a>
+            <div class="btn-group hidden-print">
+                <a class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Editar</a>
+                <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
+                    {% if EstadoRequisito.Adjuntos|length %}
+                    <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos 
+                        <span class="badge">{{ EstadoRequisito.Adjuntos|length }}</span>
+                    </a></li>
+                    {% endif %}
+                    <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
+                    <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
+                    <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
+                </ul>
+            </div>
 
             {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
                 <i class="fa fa-copy fa-fw"></i>
