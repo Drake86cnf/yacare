@@ -31,10 +31,6 @@ yacare_base:
 inicio:
     path:      /
     defaults:  { _controller: YacareBaseBundle:Default:inicio }
-login_check:
-    pattern:   /base/login_check
-logout:
-    pattern:   /base/logout
     
 yacare_compras:
     resource: "@YacareComprasBundle/Controller/"
@@ -66,4 +62,6 @@ yacare_recursos_humanos:
     type:     annotation
     prefix:   /rrhh/
 
-
+_imagine:
+    resource: .
+    type:     imagine

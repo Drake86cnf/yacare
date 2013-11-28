@@ -125,6 +125,13 @@ stfalcon_tinymce:
             image_advtab: true
             spellchecker_languages: "+Spanish=sp"
 
+liip_imagine:
+    filter_sets:
+        thumb256:
+            quality: 60
+            filters:
+                thumbnail: { size: [256, 256], mode: outbound }
+
 services:
     yacarebasebundle.twig.timeago_extension:
         class: Yacare\BaseBundle\Twig\DateExtension
