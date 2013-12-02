@@ -65,6 +65,7 @@ class Adjunto
         $Archivo->move($RutaFinal, $this->getToken());
     }
     
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -74,6 +75,12 @@ class Adjunto
      * @ORM\Column(type="integer")
      */
     private $EntidadId;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Persona;
     
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
@@ -129,5 +136,13 @@ class Adjunto
 
     public function setCarpeta($Carpeta) {
         $this->Carpeta = $Carpeta;
+    }
+    
+    public function getPersona() {
+        return $this->Persona;
+    }
+
+    public function setPersona($Persona) {
+        $this->Persona = $Persona;
     }
 }

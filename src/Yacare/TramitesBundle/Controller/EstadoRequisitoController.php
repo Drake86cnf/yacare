@@ -10,9 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-    use \Yacare\BaseBundle\Controller\ConAdjuntos {
-        \Yacare\BaseBundle\Controller\ConAdjuntos::guardarActionPrePersist as ConAdjuntos_guardarActionPrePersist;
-    }
+    use \Yacare\BaseBundle\Controller\ConAdjuntos;
     
     public function __construct() {
         parent::__construct();
@@ -46,8 +44,6 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
     }
     
     public function guardarActionPrePersist($entity, $editForm) {
-        $this->ConAdjuntos_guardarActionPrePersist($entity, $editForm);
-        
         if($entity->getEstado() == 100 && !$entity->getFechaAprobado()) {
             //Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
             $entity->setFechaAprobado(new \DateTime());

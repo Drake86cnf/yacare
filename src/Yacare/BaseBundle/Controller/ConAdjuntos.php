@@ -7,8 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 trait ConAdjuntos {
-    public function guardarActionPrePersist($entity, $editForm) {
-        parent::guardarActionPrePersist($entity, $editForm);
+    public function guardarActionSubirArchivos($entity, $editForm) {
+        parent::guardarActionSubirArchivos($entity, $editForm);
         
         $Archivos = $editForm->get('Adjuntos')->getData();
 
@@ -17,6 +17,9 @@ trait ConAdjuntos {
             foreach($Archivos as $Archivo) {
                 if($Archivo) {
                     $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
+                    
+                    $Adjunto->setPersona($this->get('security.context')->getToken()->getUser());
+
                     $entity->getAdjuntos()->add($Adjunto);
                     if($NombresAdjuntados) {
                         $NombresAdjuntados .= ', "' . (string)$Adjunto . '"';

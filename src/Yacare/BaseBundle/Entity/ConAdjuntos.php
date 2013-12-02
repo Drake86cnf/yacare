@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ConAdjuntos
- *
  */
 trait ConAdjuntos
 {

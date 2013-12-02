@@ -10,20 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
 trait Comentable
 {
     /**
-     * @ORM\OneToMany(targetEntity="\Yacare\BaseBundle\Entity\Comentario")
+     * @ORM\ManyToMany(targetEntity="\Yacare\BaseBundle\Entity\Comentario", cascade={ "persist" })
      */
-    private $ListaComentarios;
+    protected $Comentarios;
+    
     
     public function __construct()
     {
-        $this->ListaComentarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Comentarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getListaComentarios() {
-        return $this->ListaComentarios;
+    public function getComentarios() {
+        return $this->Comentarios;
     }
 
-    public function setListaComentarios($ListaComentarios) {
-        $this->ListaComentarios = $ListaComentarios;
+    public function setComentarios($Comentarios) {
+        $this->Comentarios = $Comentarios;
     }
 }

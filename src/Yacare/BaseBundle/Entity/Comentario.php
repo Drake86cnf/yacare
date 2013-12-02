@@ -27,6 +27,12 @@ class Comentario
      * @ORM\Column(type="integer")
      */
     private $EntidadId;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Persona;
 
 
     public function getEntidadTipo() {
@@ -43,5 +49,13 @@ class Comentario
 
     public function setEntidadId($EntidadId) {
         $this->EntidadId = $EntidadId;
+    }
+    
+    public function getPersona() {
+        return $this->Persona;
+    }
+
+    public function setPersona($Persona) {
+        $this->Persona = $Persona;
     }
 }
