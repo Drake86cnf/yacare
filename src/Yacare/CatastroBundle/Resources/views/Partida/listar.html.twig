@@ -2,11 +2,7 @@
 
 {% block pagina_titulo %}Partidas{% endblock %}
 
-
-
 {% block pagina_contenido %}
-
-<legend>Partidas</legend>
 
 {% if secciones %}
 {% set filtro_seccion = app.request.query.get('filtro_seccion') %}

@@ -374,7 +374,11 @@ body {
 }
 
 @media print {
+    @page {
+        margin: 5mm;
+    }
+        
     #wrapper {
-        padding-left: 50px !important;
+        padding-left: 20mm !important;
     }
 }

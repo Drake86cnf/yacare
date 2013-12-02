@@ -13,13 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ComentarioController extends YacareAbmController
 {
-    function __construct() {
-        $this->BundleName = 'Base';
-        $this->EntityName = 'Comentario';
-        parent::__construct();
-    }
-    
-    
     /**
      * @Route("listar/")
      * @Template()

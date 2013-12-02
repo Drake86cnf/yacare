@@ -5,7 +5,6 @@
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}
-<h1>Habilitación comercial</h1>
 
 <div class="row">
     <div class="col-sm-6">
@@ -71,10 +70,9 @@
 
 {% endblock %}
 
-{% block comprobante_pie %}
-{{ parent() }}
-
-<a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}
 
+{% block pagina_acciones %}
+    <a class="btn btn-primary print-preview" href="#" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
+    <a class="btn btn-primary" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}

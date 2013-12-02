@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Comentario
 {
     use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Yacare\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
