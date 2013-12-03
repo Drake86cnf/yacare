@@ -11,7 +11,14 @@ class MedicoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder                 
-            ->add('Medico', null, array('label' => 'Médico')) 
+            ->add('Medico', 'entity_id', array(
+                'label' => 'Medico',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false))     
             ->add('Matricula', null, array('label' => 'Matrícula')) 
         ;
     }

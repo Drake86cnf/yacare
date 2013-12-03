@@ -11,8 +11,19 @@ class DesinfeccionLocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder                 
-            ->add('Local', null, array('label' => 'Local')) 
-            ->add('Titular', null, array('label' => 'Propietario'))
+            ->add('Local', 'entity_id', array(
+                'label' => 'Local',
+                'class' => 'Yacare\ComercioBundle\Entity\Local',
+                'required'  => true
+                ))
+            ->add('Titular', 'entity_id', array(
+                'label' => 'Titular',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false)) 
             ->add('FechaDesinfeccionLocal', 'date', array(
                 'years' => range(1900, 2099),
                 'widget' => 'single_text',

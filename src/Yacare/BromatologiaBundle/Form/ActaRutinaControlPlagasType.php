@@ -28,12 +28,33 @@ class ActaRutinaControlPlagasType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Fecha'))
             ->add('Comercio', null, array('label' => 'Comercio'))
-            ->add('Persona', null, array('label' => 'Persona'))
+            ->add('Persona', 'entity_id', array(
+                'label' => 'Persona',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false))                 
             ->add('Local', null, array('label' => 'Local'))
             ->add('Detalle', null, array('label' => 'Detalle'))
             ->add('Obs', null, array('label' => 'Observaciones'))
-            ->add('FuncionarioPrincipal', null, array('label' => 'Funcionario Principal'))
-            ->add('FuncionarioSecundario', null, array('label' => 'Funcionario Secundario'))
+            ->add('FuncionarioPrincipal', 'entity_id', array(
+                'label' => 'Funcionario Principal',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false))
+            ->add('FuncionarioSecundario', 'entity_id', array(
+                'label' => 'Funcionario Secundario',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false))
             ->add('ResponsableNombre', null, array('label' => 'Responsable'))            
         ;
     }

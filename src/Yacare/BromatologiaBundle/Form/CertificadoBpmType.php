@@ -11,7 +11,14 @@ class CertificadoBpmType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder            
-            ->add('Persona', null, array('label' => 'Persona'))
+            ->add('Persona', 'entity_id', array(
+                'label' => 'Persona',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false))    
             ->add('Nota', null, array('label' => 'Nota'))
             ->add('FechaExamen', 'date', array(
                 'years' => range(1900,2099),

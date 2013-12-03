@@ -20,7 +20,8 @@ class CertificadoBpm
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $Persona;
    

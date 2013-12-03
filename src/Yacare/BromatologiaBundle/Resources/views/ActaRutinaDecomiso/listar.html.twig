@@ -28,7 +28,8 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_actarutinadecomiso_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Talonario }}</td>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.Talonario }}</td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.SubTipo }}</td>
             <td>{{ entity.Fecha|date("d/m/Y") }}</td>
@@ -39,17 +40,15 @@
             <td>{{ entity.Obs }}</td>
             <td>{{ entity.FuncionarioPrincipal }}</td>
             <td>{{ entity.FuncionarioSecundario }}</td>
-            <td>{{ entity.Responsable }}</td>
+            <td>{{ entity.ResponsableNombre }}</td>
             <td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
+{% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path('yacare_bromatologia_actarutinadecomiso_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+
 {% endblock %}

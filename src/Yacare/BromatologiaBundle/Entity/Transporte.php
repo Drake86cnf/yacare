@@ -22,10 +22,16 @@ class Transporte
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $Titular;
    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $Comercio;
     
     public function getTitular() {
         return $this->Titular;
@@ -35,5 +41,13 @@ class Transporte
         $this->Titular = $Titular;
     }
 
-    
+    public function getComercio() {
+        return $this->Comercio;
+    }
+
+    public function setComercio($Comercio) {
+        $this->Comercio = $Comercio;
+    }
+
+
 }

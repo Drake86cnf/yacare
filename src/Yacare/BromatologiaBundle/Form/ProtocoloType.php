@@ -12,7 +12,14 @@ class ProtocoloType extends AbstractType
     {
         $builder            
             ->add('ProtocoloNumero', null, array('label' => 'Protocolo Nº'))
-            ->add('Persona', null, array('label' => 'Persona'))
+            ->add('Persona', 'entity_id', array(
+                'label' => 'Persona',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false)) 
             ->add('Producto', null, array('label' => 'Producto'))
             ->add('Envase', null, array('label' => 'Envase'))
             ->add('FechaElaboracion', 'date', array(

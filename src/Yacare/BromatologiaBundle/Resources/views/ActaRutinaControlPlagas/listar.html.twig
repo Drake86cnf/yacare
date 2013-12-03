@@ -5,6 +5,7 @@
 
 {% block pagina_contenido %}
 
+<legend>Acta Control de Plagas</legend>
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
 <table class="table table-striped">
@@ -27,7 +28,8 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_bromatologia_actarutinacontrolplagas_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Talonario }}</td>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.Talonario }}</td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.SubTipo }}</td>
             <td>{{ entity.Fecha|date("d/m/Y") }}</td>
@@ -45,10 +47,8 @@
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
+{% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path('yacare_bromatologia_actarutinacontrolplagas_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+
 {% endblock %}
