@@ -81,7 +81,7 @@ class AsociacionRequisitoType extends AbstractType
                 'required'  => false,
                 ))
             ->add('Obs', null, array(
-                'label' => 'Obs.',
+                'label' => 'Explicación de la condición',
                 )
         );
     }

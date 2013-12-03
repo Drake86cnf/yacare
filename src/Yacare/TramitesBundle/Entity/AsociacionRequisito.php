@@ -135,10 +135,16 @@ class AsociacionRequisito
 
     public function __toString() {
         if($this->getInstancia() && $this->getInstancia() !== 'na') {
-            return $this->getInstanciaNombre() . ' de ' . (string)($this->Requisito) . ' de ' . $this->getPropiedad();
+            $res = $this->getInstanciaNombre() . ' de ' . (string)($this->Requisito);
         } else {
-            return (string)($this->Requisito) . ' de ' . $this->getPropiedad();
+            $res = (string)($this->Requisito);
         }
+        
+        if($this->getPropiedad()) {
+             $res .= ' de ' . $this->getPropiedad();
+        }
+        
+        return $res;
     }
     
     

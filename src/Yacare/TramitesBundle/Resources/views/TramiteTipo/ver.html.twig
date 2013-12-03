@@ -1,0 +1,67 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% macro listar(tramitetipo, nivel) %}
+
+{% if tramitetipo.Obs %}
+{{ tramitetipo.Obs|raw }}
+{% endif %}
+
+{% if tramitetipo.AsociacionRequisitos|length > 0 %}
+<p>Para iniciar el trámite de &quot;{{ tramitetipo }}&quot; deberá presentar la siguiente documentación:</p>
+<ol>
+    {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+        {% if AsocRequisito.Requisito.Tipo == 'tra' %}
+            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite previo)</small></h{{ nivel }}></li>
+            {% if AsocRequisito.Obs %}
+                <p class="text-muted">{{ AsocRequisito.Obs }}</p>
+            {% endif %}
+            {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
+            {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
+        {% endif %}
+    {% endfor %}
+        
+    {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+        {% if AsocRequisito.Requisito.Tipo != 'tra' %}
+            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}</h{{ nivel }}></li>
+            {% if AsocRequisito.Obs %}
+                <p class="text-muted">{{ AsocRequisito.Obs }}</p>
+            {% endif %}
+            {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
+        {% endif %}
+    {% endfor %}
+</ol>
+{% endif %}
+{% endmacro %}
+
+{% macro mostrarrequisito(requisito) %}
+{% if requisito.Obs %}
+    <p>{{ requisito.Obs }}</p>
+{% endif %}
+{% if requisito.Lugar or requisito.Url %}<p class="text-info">{% endif %}
+{% if requisito.Lugar %}Se obtiene en <strong>{{ requisito.Lugar }}</strong> {% endif %}
+{% if requisito.Url %}[ {{ requisito.Url }} ]{% endif %}
+{% if requisito.Lugar or requisito.Url %}</p>{% endif %}
+{% endmacro %}
+
+{% block pagina_contenido %}
+
+{{ _self.listar(entity, 2) }}
+
+<p>Al finalizar el trámite, se emitirá un comprobante tipo <strong>{{ entity.Comprobante }}</strong>.</p>
+
+{% if entity.Url %}
+<p>Puede obtener más información en {{ entity.Url }}</p>
+{% endif %}
+        
+{% endblock %}
+
+{% block pagina_acciones %}
+    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+        <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar trámite</a>
+        <a class="btn btn-default" href="{{ path('yacare_tramites_asociacionrequisito_listar', { 'parent_id': entity.Id }) }}"><i class="fa fa-check"></i> Editar requisitos</a>
+    {% endif %}
+    <a href="#" onclick="window.print(); return false;" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir</a>
+    <a href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-primary"><i class="fa fa-reply"></i> Volver</a>
+{% endblock %}

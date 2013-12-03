@@ -3,6 +3,7 @@
 namespace Yacare\TramitesBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("tramitetipo/")
@@ -24,5 +25,14 @@ class TramiteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmContr
         $entity->setRequisitoEspejo($RequisitoEspejo);
         
         parent::guardarActionPrePersist($entity, $editForm);
+    }
+    
+    /**
+     * @Route("ver/{id}")
+     * @Template()
+     */
+    function verAction($id = null) {
+        $res = $this->editarAction($id);
+        return $res;
     }
 }
