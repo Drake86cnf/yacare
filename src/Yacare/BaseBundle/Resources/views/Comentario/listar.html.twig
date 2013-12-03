@@ -19,7 +19,7 @@
     {{ form_start(form_comentario, {'attr':{'class': 'form-horizontal', 'id': 'form_comentario'}}) }}
         <div class="row">
             <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ app.user }}</small></div>
-            <div class="col-sm-10" id="nuevocomentario">{{ form_widget(form_comentario.Obs, { 'attr': {'placeholder': 'Publicar un comentario...'} }) }}</div></span>
+            <div class="col-sm-10" id="nuevocomentario">{{ form_widget(form_comentario.Obs, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}</div></span>
         </div>
         <script>
             $('#yacare_basebundle_comentariotype_Obs').keypress(function (e) {
@@ -44,6 +44,8 @@
                 });
                 return false; 
             });
+            
+            $('#yacare_basebundle_comentariotype_Obs').focus();
         </script>
     {{ form_end(form_comentario) }}
 </div>

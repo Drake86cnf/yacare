@@ -35,14 +35,18 @@ h1, legend {
 h2 {
     margin-top: 10px;
     font-size: 20px;
-    amargin: 4px 0px;
 }
 
 h3 {
     margin-top: 8px;
     font-size: 16px;
-    amargin: 3px 0px;
 }
+
+h4 {
+    margin-top: 6px;
+    font-size: 14px;
+}
+
 
 legend small {
     font-weight: normal;
@@ -387,10 +391,20 @@ body {
 
 @media print {
     @page {
-        margin: 5mm;
+        margin-top: 10mm !important;
+        margin-right: 10mm !important;
+        margin-bottom: 10mm !important;
+        margin-left: 25mm !important;
+        padding: 0px;
     }
         
     #wrapper {
-        padding-left: 20mm !important;
+        margin: 0px;
+        padding: 0px !important;
+    }
+    
+    #page-wrapper {
+        margin: 0px;
+        padding: 0px !important;
     }
 }
