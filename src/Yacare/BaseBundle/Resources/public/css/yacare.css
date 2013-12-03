@@ -293,6 +293,18 @@ label {
     background-color: #f8f8f8;
 }
 
+.form-actions3 {
+    position: fixed;
+    left: 12px;
+    max-width: 200px;
+    bottom: 18px;
+    z-index: 99999;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    overflow: auto;
+    overflow-y: hidden;
+}
+
 .navigation {
     margin-left: auto;
     margin-right: auto;

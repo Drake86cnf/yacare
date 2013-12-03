@@ -65,10 +65,35 @@ class AdjuntoController extends YacareBaseController
                 $imagen_tipo = 'image/jpeg';
                 break;
             case 'application/pdf':
-                $ArchivoImagen = '/bundles/yacarebase/img/mime/pdf.png';
+                $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-pdf.png';
+                break;
+            case 'text/plain':
+                $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-plain.png';
                 break;
             default:
-                $ArchivoImagen = '/bundles/yacarebase/img/mime/pdf.png';
+                $Extension = strtolower(pathinfo($entity->getNombre(), PATHINFO_EXTENSION));
+                switch($Extension) {
+                    case 'pdf' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-pdf.png'; break;
+                    case 'txt' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-plain.png'; break;
+                    case 'doc' :
+                    case 'docx': $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-msword.png'; break;
+                    case 'rtf' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-rtf.png'; break;
+                    case 'zip' : 
+                    case 'rar' : 
+                    case '7z'  : 
+                    case 'tgz' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-x-archive.png'; break;
+                    case 'xml' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-xml.png'; break;
+                    case 'wav' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/audio-x-wav.png'; break;
+                    case 'csv' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-csv.png'; break;
+                    case 'htm' :
+                    case 'html': $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-html.png'; break;
+                    case 'rtf' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-rtf.png'; break;
+                    case 'xls' :
+                    case 'xlsx': $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-vnd.ms-excel.png'; break;
+                    case 'ods' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/x-office-spreadsheet.png'; break;
+                    case 'odt' : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png'; break;
+                    default    : $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/unknown.png'; break;
+                }
                 break;
         }
 

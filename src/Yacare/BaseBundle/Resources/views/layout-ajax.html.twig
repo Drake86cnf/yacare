@@ -3,18 +3,23 @@
 {% if yacare_mostrarmodal %}
 <div class="modal-dialog modal-large">
     <div class="modal-content">
+        {% set block_pagina_titulo = block('pagina_titulo') %}  
+        {% if block_pagina_titulo is not empty %}
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">{% block pagina_titulo %}{% endblock pagina_titulo %}</h3>
+            <h3 class="modal-title">{{ block_pagina_titulo|raw }}</h3>
         </div>
+        {% endif %}
         {% block modal_header %}{% endblock modal_header %}
         <div class="modal-body" id="modal-body">
             {% endif %}{% block pagina_contenido %}{% endblock %}{% if yacare_mostrarmodal %}
         </div>
+        {% if block('pagina_acciones') is not empty or block('pagina_acciones2') is not empty %}
         <div class="modal-footer">{% endif %}
             {% block pagina_acciones2 %}{% endblock %}
             {% block pagina_acciones %}{% endblock %}{% if yacare_mostrarmodal %}
         </div>
+        {% endif %}
     </div>
 </div>{% endif %}
 {% block pagina_pie %}{% endblock %}

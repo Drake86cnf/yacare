@@ -1,7 +1,9 @@
+{% extends 'form_div_layout.html.twig' %}
+
 {% block form_start %}
 {% spaceless %}
     {% set attr = attr|merge({ 'class': 'form-horizontal', 'role': 'form' }) %}
-    {{ block('form_start') }}
+    {{ parent() }}
 {% endspaceless %}
 {% endblock form_start %}
 

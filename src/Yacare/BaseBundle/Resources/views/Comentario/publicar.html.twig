@@ -1,0 +1,14 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Publicar comentario{% endblock %}
+
+{% block pagina_contenido %}
+    {% if entity %}
+        {{ entity.Obs }}<br />
+        <small class="text-muted">{{ entity.createdAt|time_ago }}</small>
+    {% else %}
+        <div class="alert alert-danger">
+            No se pudo publicar el comentario.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -56,7 +56,7 @@ class Tramite
      */
     private $FechaTerminado;
     
-    
+        
     
     public function EstaEnCurso() {
         return $this->getEstado() < 90;

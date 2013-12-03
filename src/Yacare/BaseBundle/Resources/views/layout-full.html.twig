@@ -54,19 +54,38 @@
         {% endfor %}
 
         {% block pagina_inicio %}{% endblock %}
-        <h1>{{ block('pagina_titulo') }}</h1>
+
+        {% set block_pagina_titulo = block('pagina_titulo') %}  
+        {% if block_pagina_titulo is not empty %}
+            <h1>{{ block_pagina_titulo|raw }}</h1>
+        {% endif %}
+
         {% block pagina_contenido %}{% endblock %}
         {% block pagina_pie %}{% endblock %}
         
-        <div class="form-actions hidden-print">
-            {% block pagina_acciones %}{% endblock %}
-        </div>
+        {% set block_pagina_acciones = block('pagina_acciones') %}
+        {% if block_pagina_acciones is not empty %}
+            <div class="form-actions hidden-print">
+                {{ block_pagina_acciones|raw }}
+            </div>
+        {% endif %}
         
-        <div class="form-actions2 hidden-print">
-            {% block pagina_acciones2 %}{% endblock %}
-        </div>
+        {% set block_pagina_acciones2 = block('pagina_acciones2') %}
+        {% if block_pagina_acciones2 is not empty %}
+            <div class="form-actions2 hidden-print">
+                {{ block_pagina_acciones2|raw }}
+            </div>
+        {% endif %}
+            
+        {% set block_pagina_acciones3 = block('pagina_acciones3') %}
+        {% if block_pagina_acciones3 is not empty %}
+            <div class="form-actions3 hidden-print">
+                {{ block_pagina_acciones3|raw }}
+            </div>
+        {% endif %}
 
         {% block pagina_fin %}{% endblock %}
+
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->

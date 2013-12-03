@@ -1,33 +1,51 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Comentarios{% endblock %}
+{% set tipo = app.request.get('tipo') %}
+{% set id = app.request.get('id') %}
+
+{% block pagina_titulo %}Comentarios de {{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
 
-{% set et = app.request.query.get('et') %}
-{% set eid = app.request.query.get('eid') %}
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Comentario</th>
-            <th>Fecha</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
     {% for entity in entities %}
-        <tr>
-            <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.CreatedAt }}</td>
-        </tr>
+        <div class="row">
+            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ entity.Persona }}</small></div>
+            <div class="col-sm-10">{{ entity.Obs }}<br />
+                <small><abbr title="{{ entity.createdAt|localizeddate() }}" class="text-muted">{{ entity.createdAt|time_ago }}</abbr></small></div>
+        </div>
+        <hr />
     {% endfor %}
-    </tbody>
-</table>
-
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
+    {{ form_start(form_comentario, {'attr':{'class': 'form-horizontal', 'id': 'form_comentario'}}) }}
+        <div class="row">
+            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ app.user }}</small></div>
+            <div class="col-sm-10" id="nuevocomentario">{{ form_widget(form_comentario.Obs, { 'attr': {'placeholder': 'Publicar un comentario...'} }) }}</div></span>
+        </div>
+        <script>
+            $('#yacare_basebundle_comentariotype_Obs').keypress(function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    $('form#form_comentario').submit();
+                    return false;
+                }
+            });
+            
+            $('#form_comentario').submit(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('yacare_base_comentario_publicar') }}",
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        $('#nuevocomentario').html(data);
+                    },
+                    error: function(data, status) {
+                        $('#nuevocomentario').html(data.responseText);
+                    }
+                });
+                return false; 
+            });
+        </script>
+    {{ form_end(form_comentario) }}
 </div>
-
-<a href="{{ path('yacare_base_comentario_editar_1', { 'et': et, 'eid': eid } ) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Comentar</a>
+&nbsp;
 {% endblock %}

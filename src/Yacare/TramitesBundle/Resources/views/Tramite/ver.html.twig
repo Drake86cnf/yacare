@@ -111,16 +111,22 @@
     </tbody>
 </table>
 {% endblock %}
+
+{% block pagina_acciones %}
+    <a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver</a>
+{% endblock %}
     
-{% block tramite_pie %}
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="requisitos_ocultables"]').hide();
-    });
-</script>
+{% block pagina_acciones2 %}
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="requisitos_ocultables"]').hide();
+        });
+    </script>
 
-<a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado de trámites</a>
-
-<button class="btn btn-default hidden-print" onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</button>
-
+    <a class="btn btn-default hidden-print" onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</a>
+{% endblock %}
+    
+{% block pagina_acciones3 %}
+    {{ parent() }}
+    <a data-toggle="modal" data-target="#modal" class="btn btn-sm btn-default" href="{{ path('yacare_base_comentario_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.id }) }}"><i class="fa fa-comments-o fa-2x"></i></a>
 {% endblock %}
