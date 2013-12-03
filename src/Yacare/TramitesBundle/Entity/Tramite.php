@@ -21,7 +21,6 @@ class Tramite
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Comentable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     use \Yacare\TramitesBundle\Entity\ConTitular;
