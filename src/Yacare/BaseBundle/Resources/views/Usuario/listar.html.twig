@@ -6,20 +6,26 @@
 
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table table-striped">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Nombre completo</th>
+            <th> </th>
+            <th>Nombre</th>
+            <th>Documento</th>
             <th>Usuario</th>
             <th>Roles</th>
+            <th>Grupos</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><i class="fa fa-user"></i> <a href="{{ path('yacare_base_usuario_editar', { 'id': entity.Id }) }}">{{ entity.NombreVisible }}</a></td>
+            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.NombreVisible }}</td>
+            <td>{{ entity.DocumentoNumero }}</td>
             <td>{{ entity.Username }}</td>
-            <td>{% for Nombre in entity.Roles %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
+            <td>{% for Nombre in entity.Roles %}<span class="label label-info">{{ Nombre }}</span> {% endfor %}</td>
+            <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span> {% endfor %}</td>
         </tr>
     {% endfor %}
     </tbody>

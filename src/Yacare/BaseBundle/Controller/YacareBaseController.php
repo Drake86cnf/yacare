@@ -31,6 +31,10 @@ class YacareBaseController extends Controller
             }
         }
         
+        if(!isset($this->BaseRouteEntityName)) {
+            $this->BaseRouteEntityName = $this->EntityName;
+        }
+        
         if(!isset($this->ConservarVariables))
             $this->ConservarVariables = array('filtro_buscar', 'page');
     }
@@ -77,8 +81,8 @@ class YacareBaseController extends Controller
     // Devuelve el nombre de la ruta para una acción determinada o la base para conformar las rutas
     protected function getBaseRoute($action = null) {
         if($action)
-            return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_' . $action);
+            return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
         else
-            return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName);
+            return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
     }
 }

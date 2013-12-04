@@ -2,16 +2,16 @@
 
 {% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
 
+{% block pagina_inicio %}
+    <form class="form-horizontal" action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}" method="post" {{ form_enctype(edit_form) }}>
+{% endblock %}
+
 {% block pagina_contenido %}
 
 {% set porpartida = app.request.query.get('porpartida') %}
 
 {% if create %}
-
-<form class="form-horizontal" action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-</form>
-
 {% else %}
 
 <h2>Sobre el inmueble</h2>
@@ -135,4 +135,8 @@ del Instituto Nacional de Estadística y Censos).</p>
        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
     {% endif %}
+{% endblock %}
+       
+{% block pagina_fin %}
+    </form>
 {% endblock %}

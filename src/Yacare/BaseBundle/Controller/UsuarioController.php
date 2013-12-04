@@ -16,7 +16,9 @@ class UsuarioController extends YacareAbmController
     private $PassOriginal = '';
     
     function __construct() {
-        $this->BuscarPor = 'NombreVisible';
+        $this->EntityName = 'Persona';
+        $this->BaseRouteEntityName = 'Usuario';
+        $this->BuscarPor = 'NombreVisible, Username';
         $this->FormTypeName = 'Usuario';
         parent::__construct();
     }

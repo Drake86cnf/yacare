@@ -289,7 +289,7 @@ label {
     top: 18px;
     right: 22px;
     padding: 6px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .form-actions2 {
@@ -393,7 +393,7 @@ body {
     @page {
         margin-top: 10mm !important;
         margin-right: 10mm !important;
-        margin-bottom: 10mm !important;
+        margin-bottom: 20mm !important;
         margin-left: 25mm !important;
         padding: 0px;
     }
