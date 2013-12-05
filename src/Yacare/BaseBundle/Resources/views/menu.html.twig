@@ -63,14 +63,14 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i> Administración <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ORGANIZACION')") %}
-            <li><a href="{{ path('yacare_organizacion_departamento_listar') }}"><i class="fa fa-building-o fa-fw"></i> Departamentos</a></li>
+            <li><a href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
         {% endif %}
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-            <li><a href="{{ path('yacare_base_persona_listar') }}"><i class="fa fa-user fa-fw"></i> Personas</a></li>
+            <li><a href="{{ path('yacare_base_persona_listar') }}">Personas</a></li>
             <li><a href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
             <li><a href="{{ path('yacare_base_usuario_listar') }}">Usuarios</a></li>
             <li><a href="{{ path('yacare_base_personarol_listar') }}">Roles</a></li>
-            <li><a href="{{ path('yacare_base_dispositivo_listar') }}"><i class="fa fa-tablet fa-fw"></i> Dispositivos</a></li>
+            <li><a href="{{ path('yacare_base_dispositivo_listar') }}">Dispositivos</a></li>
         {% endif %}
         </ul>
     </li>
