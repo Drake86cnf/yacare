@@ -126,8 +126,8 @@ class EstadoRequisito
         return ((string)$this->getAsociacionRequisito()) . ' en estado ' . $this->getEstadoNombre();
     }
     
-    public function getEstadoNombre() {
-        switch($this->Estado) {
+    public static function NombreEstado($estado) {
+        switch($estado) {
             case 0: return 'Faltante';
             case 10: return 'Observado';
             case 15: return 'Rechazado';
@@ -137,6 +137,10 @@ class EstadoRequisito
             case 100: return 'Aprobado';
             default: return '???';
         }
+    }
+    
+    public function getEstadoNombre() {
+        return EstadoRequisito::NombreEstado($this->Estado);
     }
     
     public function getEstado() {

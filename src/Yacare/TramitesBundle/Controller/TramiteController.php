@@ -2,6 +2,7 @@
 
 namespace Yacare\TramitesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -14,6 +15,28 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         parent::__construct();
         $this->ConservarVariables[] = 'parent_id';
     }
+    
+    
+    /**
+     * @Route("cambiarestado/{id}/{reqid}/{estado}")
+     * @Template()
+     */
+    public function cambiarestadoAction(Request $request, $id, $reqid, $estado)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\EstadoRequisito')->find($reqid);
+
+        $entity->setEstado($estado);
+        $em->persist($entity);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' . \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));
+
+        return $this->redirect($this->generateUrl($this->getBaseRoute('ver'), $this->ArrastrarVariables(array(
+                'id' => $id
+                ), false)));
+    }
+    
     
     /**
      * @Route("terminar/{id}")
