@@ -1,12 +1,8 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block pagina_titulo %}Local{% endblock %}
-
-
+{% block pagina_titulo %}Locales comerciales{% endblock %}
 
 {% block pagina_contenido %}
-
-<legend>Locales comerciales</legend>
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hover">
@@ -34,6 +30,8 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo local comercial</a>
+{% endblock %}
 
+{% block pagina_acciones2 %}
+<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo local comercial</a>
 {% endblock %}
