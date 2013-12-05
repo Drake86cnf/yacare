@@ -35,6 +35,13 @@
                     <a class="btn btn-success hidden-print" href="{{ path(baseroute ~ '_terminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-play"></i> Terminar ahora</a>
                 </div>
             </div>
+        {% else %}
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
+                    <p>El trámite está terminado.</p>
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>
@@ -96,21 +103,25 @@
             {% endif %}
         </td>
         <td>
-            {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
-            {% if EstadoRequisito.Estado == 0 %}
-                {% if EstadoRequisito.AsociacionRequisito.Opcional %}
-                    <span class="label label-default">
+            {% if EstadoRequisito.EsNecesario %}
+                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+                {% if EstadoRequisito.Estado == 0 %}
+                    {% if EstadoRequisito.AsociacionRequisito.Opcional %}
+                        <span class="label label-default">
+                    {% else %}
+                        <span class="label label-warning">
+                    {%endif%}
+                {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}
+                        <span class="label label-danger">
+                {% elseif EstadoRequisito.Estado == 100 %}
+                        <span class="label label-success"><i class="fa fa-check"></i>
                 {% else %}
-                    <span class="label label-warning">
-                {%endif%}
-            {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}
-                    <span class="label label-danger">
-            {% elseif EstadoRequisito.Estado == 100 %}
-                    <span class="label label-success"><i class="fa fa-check"></i>
+                        <span class="label label-default">
+                {% endif %}
+                {{ EstadoRequisito.EstadoNombre }}</span>
             {% else %}
-                    <span class="label label-default">
+                <span class="text text-muted">N/A</span>
             {% endif %}
-            {{ EstadoRequisito.EstadoNombre }}</span>
         </td>
         <td>{{ EstadoRequisito.FechaAprobado|localizeddate('medium', 'none') }}</td>
     </tr>
