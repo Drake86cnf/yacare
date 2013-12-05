@@ -2,10 +2,7 @@
 
 {% block pagina_titulo %}ActaRutinaTransporte{% endblock %}
 
-
-
 {% block pagina_contenido %}
-
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
 <table class="table table-striped">
@@ -49,6 +46,8 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+{% endblock %}
 
+{% block pagina_acciones2 %}
+<a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
 {% endblock %}

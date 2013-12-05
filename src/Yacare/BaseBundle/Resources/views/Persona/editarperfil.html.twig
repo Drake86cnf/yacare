@@ -1,16 +1,21 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Perfil de usuario{% endblock %}
+{% block pagina_titulo %}Perfil de {{ entity }}{% endblock %}
 
-{% block pagina_contenido %}
-
+{% block pagina_inicio %}
 <form class="form-horizontal" action="{{ path('yacare_base_persona_guardar', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <legend>Perfil de {{ entity }}</legend>
+{% endblock %}
+    
+{% block pagina_contenido %}
+    {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
-    </div>
-</form>
+{% endblock %}
+    
+{% block pagina_acciones %}
+    <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Guardar</button>
+    <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+{% endblock %}
 
+{% block pagina_fin %}
+</form>
 {% endblock %}

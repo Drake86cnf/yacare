@@ -2,11 +2,7 @@
 
 {% block pagina_titulo %}Trámites - Asociación de requisitos{% endblock %}
 
-
-
 {% block pagina_contenido %}
-
-<legend>Requisitos de &quot;{{ parent }}&quot;</legend>
 
 {% if entities is empty %}
 <div>
@@ -40,6 +36,9 @@
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 {% endif %}
 
+{% endblock %}
+
+{% block pagina_acciones2 %}
 <a href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
 <a href="{{ path('yacare_tramites_tramitetipo_listar', arrastre) }}" class="btn btn-primary"> Volver a listado de trámites</a>
 {% endblock %}
