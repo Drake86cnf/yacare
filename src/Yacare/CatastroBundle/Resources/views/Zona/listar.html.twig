@@ -18,7 +18,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-default btn-xs" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Codigo }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Fos|number_format }}</td>
@@ -30,6 +30,6 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
-<a href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva zona</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva zona</a>
 
 {% endblock %}

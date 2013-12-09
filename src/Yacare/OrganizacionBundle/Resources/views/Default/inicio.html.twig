@@ -4,7 +4,7 @@
 
 {% block pagina_contenido %}
 <ul class="breadcrumb">
-    <li><a href="{{ path('yacare_organizacion_default_inicio') }}">Organización</a></li>
+    <li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_default_inicio') }}">Organización</a></li>
 </ul>
 
 <a data-rel="tooltip" title="Secretarías, direcciones, etc." class="well span3 top-block" href="{{ path('yacare_organizacion_departamento_listar') }}">

@@ -54,5 +54,5 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-<a href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver asignaciones</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver asignaciones</a>
 {% endblock %}

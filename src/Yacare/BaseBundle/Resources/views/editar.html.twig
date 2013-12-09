@@ -10,13 +10,13 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-    <a data-dismiss="modal" class="btn btn-default" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
+    <a data-toggle="ajax-link" data-dismiss="modal" class="btn btn-default" href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
     <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Guardar</button>
 {% endblock %}
         
 {% block pagina_acciones2 %}
     {% if delete_form and entity.id %}
-        <a class="btn btn-danger" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-trash-o"></i> Eliminar</a>
+        <a data-toggle="ajax-link" class="btn btn-danger" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-trash-o"></i> Eliminar</a>
     {% endif %}
 {% endblock %}
         

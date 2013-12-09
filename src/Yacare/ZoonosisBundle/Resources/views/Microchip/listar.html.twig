@@ -33,7 +33,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('yacare_zoonosis_microchip_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Microchip }}</td>
+            <td><a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_microchip_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i></a> {{ entity.Microchip }}</td>
             <td>{{ entity.FechaAplicacion|date("d/m/Y") }}</td>
             <td>{{ entity.Nombre }}</td> 
             <td>{{ entity.TipoAnimalNombre }}</td>
@@ -60,5 +60,5 @@
     {{ knp_pagination_render(entities) }}
 </div>
 
-<a href="{{ path('yacare_zoonosis_microchip_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo microchip</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_microchip_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo microchip</a>
 {% endblock %}

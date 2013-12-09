@@ -21,35 +21,43 @@ function yacareMostrarModalEn(url, destino) {
     
     $.get(urlFinal, function(data) {
         modal.html(data).modal();
-    }).success(function() {
-        //boom. loaded.
-    }).fail(function(a) {
+    }).fail(function(jqXHR) {
         // Muestro un error
         modal.html('<div class="modal-dialog"><div class="modal-content">\n\
 <div class="modal-header">\n\
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
 <h4 class="modal-title">Error</h4>\n\
 </div>\n\
-<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</div></div></div>').modal();
+<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + jqXHR.responseText + '</div></div></div>').modal();
     });
 
     return false;
 }
 
+function yacareNavegarA(url) {
+    //parent.location = url;    // sin AJAX
+    yacareCargarUrlEn(url);     // con AJAX
+}
+
 function yacareCargarUrlEn(url, destino) {
-    $(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
+    //$(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
     $.get(url, function(data) {
+        if(destino === undefined) {
+            destino = '#page-wrapper';
+        }        
         $(destino).html(data);
-        /* if(url !== window.location) {
+        if(url !== window.location) {
                 window.history.pushState({path:url}, '', url);
-        } */
-    }).success(function() {
-        //boom. loaded.
-    }).fail(function(a) {
+        }
+        
+        //$(destino + ' [data-toggle="ajax-link"]').css('border', '1px solid red');
+        $(destino + ' [data-toggle="ajax-link"]').click(function(e) {
+            e.preventDefault();
+            return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
+        });
+    }).fail(function(jqXHR) {
         // Muestro un error
-        $(destino).html('<div class="alert alert-dismissable alert-danger">\n\
-<p>Sucedió un error al cargar la página solicitada. Haga <a class="alert-link" href="#" onclick="yacareCargarUrlEn(\'' + url + '\', \'' + destino + '\'); return false;">clic aquí</a> para intentarlo nuevamente.</p>\n\
-<p>El código de error es: ' + a.status + '</p></div>');
+        $(destino).html(jqXHR.responseText);
     });
 
     return false;
@@ -79,7 +87,7 @@ $(document).ready(function(){
     }); */
 
     //prevent # links from moving to top
-    $('a[href="#"][data-top!=true]').click(function(e){
+    $('a[href="#"][data-top!=true]').click(function(e) {
             e.preventDefault();
     });
 
@@ -127,14 +135,10 @@ $(document).ready(function(){
         });
     }, 15000);
 
-    /* $('[data-toggle="ajax-link"]').click(function(e) {
+    $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
-
-        var url = $(this).attr('href');
-        var destino = $(this).attr('data-target');
-
-        return yacareCargarUrlEn(url, destino);
-    }); */
+        return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
+    });
 
 });
 

@@ -1,4 +1,5 @@
 {% set yacare_mostrarmodal = 0 %}
+{% set block_pagina_titulo = block('pagina_titulo') %}  
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -7,7 +8,7 @@
     <meta name="description" content="Sistema de gestión municipal Yacaré">
     <meta name="author" content="Ernesto N. Carrea">
 
-    <title>Yacaré - {% block pagina_titulo %}{% endblock %}</title>
+    <title>Yacaré{% if block_pagina_titulo is not empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title>
 
     <link rel="icon" href="{{ asset('bundles/yacarebase/img/yacare_logo64.png') }}">
     
@@ -33,7 +34,7 @@
             <span class="sr-only">Mostrar u ocultar el menú de navegación</span>
             <span class="fa fa-ellipsis-vertical"></span>
           </button>
-          <a class="navbar-brand" href="{{ path('inicio') }}"><img src="{{ asset('bundles/yacarebase/img/yacare_logo_gris20.png') }}" alt="Yacaré" /> Yacaré</a>
+          <a class="navbar-brand" data-toggle="ajax-link" href="{{ path('inicio') }}"><img src="{{ asset('bundles/yacarebase/img/yacare_logo_gris20.png') }}" alt="Yacaré" /> Yacaré</a>
           <span class="navbar-slogan">Municipio de Río Grande</span>
         </div>
 
@@ -55,7 +56,6 @@
 
         {% block pagina_inicio %}{% endblock %}
 
-        {% set block_pagina_titulo = block('pagina_titulo') %}  
         {% if block_pagina_titulo is not empty %}
             <h1>{{ block_pagina_titulo|raw }}</h1>
         {% endif %}

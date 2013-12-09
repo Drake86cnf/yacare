@@ -4,9 +4,9 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-home fa-fw"></i> Catastro <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a data-toggle="ajax-link" data-target="#ajax-content" href="{{ path('yacare_catastro_partida_listar') }}">Partidas</a></li>
-            <li><a data-toggle="ajax-link" data-target="#ajax-content" href="{{ path('yacare_catastro_calle_listar') }}">Calles</a></li>
-            <li><a data-toggle="ajax-link" data-target="#ajax-content" href="{{ path('yacare_catastro_zona_listar') }}">Zonas</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_partida_listar') }}">Partidas</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_calle_listar') }}">Calles</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_zona_listar') }}">Zonas</a></li>
         </ul>
     </li>
     {% endif %}
@@ -15,7 +15,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money fa-fw"></i> Compras <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_COMPRAS_LICITACIONES_ADMINISTRADOR')") %}
-            <li><a href="{{ path('yacare_compras_licitacion_listar') }}"> Licitaciones</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_compras_licitacion_listar') }}"> Licitaciones</a></li>
         {% endif %}
         </ul>
     </li>
@@ -24,10 +24,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart fa-fw"></i> Comercio <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-            <li><a href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar') }}"> Certificados de habilitación</a></li>
-            <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}"> Trámites de habilitación</a></li>
-            <li><a href="{{ path('yacare_comercio_local_listar') }}"> Locales</a></li>
-            <li><a href="{{ path('yacare_comercio_actividad_listar') }}"> Actividades</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar') }}"> Certificados de habilitación</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}"> Trámites de habilitación</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_local_listar') }}"> Locales</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actividad_listar') }}"> Actividades</a></li>
         {% endif %}
         </ul>
     </li>
@@ -36,10 +36,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-suitcase fa-fw"></i> Trámites <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-            <li><a href="{{ path('yacare_tramites_tramitetipo_listar') }}"> Tipos de trámite</a></li>
-            <li><a href="{{ path('yacare_tramites_comprobantetipo_listar') }}"> Tipos de comprobante</a></li>
-            <li><a href="{{ path('yacare_tramites_instrumento_listar') }}"> Instrumentos</a></li>
-            <li><a href="{{ path('yacare_tramites_requisito_listar') }}"> Requisitos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_tramitetipo_listar') }}"> Tipos de trámite</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_comprobantetipo_listar') }}"> Tipos de comprobante</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_instrumento_listar') }}"> Instrumentos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_listar') }}"> Requisitos</a></li>
         {% endif %}
         </ul>
     </li>
@@ -48,11 +48,11 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fire-extinguisher fa-fw"></i> Inspección <b class="caret"></b></a>
         <ul class="dropdown-menu">
-        <li><a href="{{ path('yacare_inspeccion_actatipo_listar') }}">Tipos de acta</a></li>
-        <li><a href="{{ path('yacare_inspeccion_actatalonario_listar') }}">Talonarios de acta</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_actatipo_listar') }}">Tipos de acta</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_actatalonario_listar') }}">Talonarios de acta</a></li>
         
-        <li><a href="{{ path('yacare_inspeccion_relevamiento_listar') }}"> Relevamientos</a></li>
-        <li><a href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}"> Tipos de resultado</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamiento_listar') }}"> Relevamientos</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}"> Tipos de resultado</a></li>
         </ul>
     </li>
     {% endif %}
@@ -63,14 +63,14 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i> Administración <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if is_expr_granted("hasAnyRole('ROLE_ORGANIZACION')") %}
-            <li><a href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
         {% endif %}
         {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-            <li><a href="{{ path('yacare_base_persona_listar') }}">Personas</a></li>
-            <li><a href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
-            <li><a href="{{ path('yacare_base_usuario_listar') }}">Usuarios</a></li>
-            <li><a href="{{ path('yacare_base_personarol_listar') }}">Roles</a></li>
-            <li><a href="{{ path('yacare_base_dispositivo_listar') }}">Dispositivos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_listar') }}">Personas</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_usuario_listar') }}">Usuarios</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_personarol_listar') }}">Roles</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_dispositivo_listar') }}">Dispositivos</a></li>
         {% endif %}
         </ul>
     </li>

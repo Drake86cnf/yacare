@@ -6,7 +6,7 @@
         <input class="form-control input-sm" type="text" autocomplete="off" size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..." value="{{ filtro_buscar }}" style="max-width: 128px" />
 
         {% if filtro_buscar %}
-        <button class="btn btn-default btn-sm" type="button" onClick="parent.location='?filtro_buscar=';">Ver todos</button>
+        <a class="btn btn-default btn-sm" href="#" onclick="yacareNavegarA('?filtro_buscar=');">Ver todos</a>
         {% endif %}
 
     </div>
@@ -16,7 +16,7 @@
         $('#filtro_buscar').keyup(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                parent.location='?filtro_buscar=' + $('#filtro_buscar').val();
+                yacareNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
             }
         });
     });

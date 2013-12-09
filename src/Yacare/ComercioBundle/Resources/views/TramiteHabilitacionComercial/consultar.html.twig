@@ -122,9 +122,9 @@ del Instituto Nacional de Estadística y Censos).</p>
 {% block pagina_acciones2 %}
     {% if create %}
         {% if porpartida %}
-            Si el local está empadronado, utilice la búsqueda <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por local comercial</a>.
+            Si el local está empadronado, utilice la búsqueda <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por local comercial</a>.
         {% else %}
-            Si el local no está empadronado, puede cambiar a la búsqueda <a href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por domicilio</a>.
+            Si el local no está empadronado, puede cambiar a la búsqueda <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por domicilio</a>.
         {% endif %}
     {% endif %}
 {% endblock %}

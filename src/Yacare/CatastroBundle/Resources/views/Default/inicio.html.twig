@@ -4,7 +4,7 @@
 
 {% block pagina_contenido %}
 <ul class="breadcrumb">
-    <li><a href="{{ path('yacare_catastro_default_inicio') }}">Catastro</a></li>
+    <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_default_inicio') }}">Catastro</a></li>
 </ul>
 
 <a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_catastro_calle_listar') }}">

@@ -16,7 +16,7 @@
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ entity.Nombre }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}"><i class="fa fa-folder-open-o fa-fw"></i> Abrir</a></li>
-                <li><a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
+                <li><a data-toggle="ajax-link" href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
             </ul>
         </div>
         <div class="text-muted"><small>Subido el {{ entity.createdAt|localizeddate('medium', 'none') }}

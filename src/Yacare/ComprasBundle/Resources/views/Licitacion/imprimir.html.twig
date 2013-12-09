@@ -41,7 +41,7 @@
 
 {% if impresion %}
 <div id="footer" class="footer">
-    <a href="{{ impresion.Yri }}"><img src="data:image/png;base64,{{ impresion.YriQrBase64 }}" alt="{{ impresion.Yri }}" /></a>
+    <a data-toggle="ajax-link" href="{{ impresion.Yri }}"><img src="data:image/png;base64,{{ impresion.YriQrBase64 }}" alt="{{ impresion.Yri }}" /></a>
     <div class="fixedsmall">
 I.Id: {{ impresion.Damm }}<br />
 E.Ver: {{ impresion.EntidadVersion }}<br />

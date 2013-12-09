@@ -73,11 +73,11 @@
                     {% endif %}
                     <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
                     {% if EstadoRequisito.Estado != 100 %}
-                    <li><a href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
+                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
                     {% endif %}{% if EstadoRequisito.Estado != 15 %}
-                    <li><a href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
+                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
                     {% endif %}{% if EstadoRequisito.Estado != 0 %}
-                    <li><a href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i class="fa fa-question fa-fw"></i> Marcar como faltante</a></li>
+                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i class="fa fa-question fa-fw"></i> Marcar como faltante</a></li>
                     {% endif %}
                 </ul>
             </div>
