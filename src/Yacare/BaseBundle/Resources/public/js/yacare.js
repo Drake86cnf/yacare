@@ -6,8 +6,8 @@ function yacareEntityIdSeleccionarItem(destino, id, detalle) {
 function yacareMostrarModalEn(url, destino) {
     var modal = $(destino);
 
-    modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body">\n\
-<p><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
+    modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
+<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
 </div></div></div>').modal();
 
     // Agrego la variable yacare_mostrarmodal=1 para que incluya el marco
@@ -44,16 +44,20 @@ function yacareCargarUrlEn(url, destino) {
     $.get(url, function(data) {
         if(destino === undefined) {
             destino = '#page-wrapper';
-        }        
+        }
         $(destino).html(data);
         if(url !== window.location) {
                 window.history.pushState({path:url}, '', url);
         }
         
-        //$(destino + ' [data-toggle="ajax-link"]').css('border', '1px solid red');
         $(destino + ' [data-toggle="ajax-link"]').click(function(e) {
             e.preventDefault();
             return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
+        });
+        
+        $(destino + ' [data-toggle="modal"]').click(function(e) {
+            e.preventDefault();
+            return yacareMostrarModalEn($(this).attr('href'), $(this).attr('data-target'));
         });
     }).fail(function(jqXHR) {
         // Muestro un error
@@ -122,11 +126,7 @@ $(document).ready(function(){
     $('[data-toggle="modal"]').off('click');
     $('[data-toggle="modal"]').click(function(e) {
         e.preventDefault();
-
-        var url = $(this).attr('href');
-        var modal_id = $(this).attr('data-target');
-
-        return yacareMostrarModalEn(url, modal_id);
+        return yacareMostrarModalEn($(this).attr('href'), $(this).attr('data-target'));
     });
     
     window.setTimeout(function() { 
