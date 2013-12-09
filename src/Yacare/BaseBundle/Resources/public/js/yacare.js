@@ -120,6 +120,12 @@ $(document).ready(function(){
 
         return yacareMostrarModalEn(url, modal_id);
     });
+    
+    window.setTimeout(function() { 
+        $('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
+            $(this).remove(); 
+        });
+    }, 15000);
 
     /* $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
