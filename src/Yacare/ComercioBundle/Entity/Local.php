@@ -48,12 +48,23 @@ class Local {
         $this->setPropietario($Partida->getTitular());
     }
     
+    public function __toString() {
+        return $this->ConstruirNombre();
+    }
+    
     private function ConstruirNombre() {
-        if($this->getPartida()) {
-            $this->setNombre($this->getTipo() . ' en ' .  $this->getPartida()->getDomicilio());
-        } else {
-            $this->setNombre($this->getTipo());
+        $res = $this->getTipo();
+        if($this->getTipo() == 'Depósito' && $this->getDepositoClase()) {
+            $res .= ' clase ' . $this->getDepositoClase()->getTipo();
         }
+        
+        if($this->getPartida()) {
+            $res .= ' en ' .  $this->getPartida()->getDomicilio();
+        }
+        
+        $this->setNombre($res);
+        
+        return $res;
     }
     
     public function getPropietario() {

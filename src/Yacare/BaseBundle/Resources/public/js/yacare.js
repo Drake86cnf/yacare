@@ -10,9 +10,12 @@ function yacareEntityIdSeleccionarItem(destino, id, detalle) {
  * Mostrar una URL en una ventana modal
  */
 function yacareMostrarModalEn(url, destino) {
-    var modal = $(destino);
+    if(destino === undefined) {
+        destino = '#modal';
+    }
 
-    modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
+    var div_modal = $(destino);
+    div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
 <p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
 </div></div></div>').modal();
 
@@ -26,10 +29,10 @@ function yacareMostrarModalEn(url, destino) {
     urlFinal = urlFinal + 'yacare_mostrarmodal=1';
     
     $.get(urlFinal, function(data) {
-        modal.html(data).modal();
+        div_modal.html(data).modal();
     }).fail(function(jqXHR) {
         // Muestro un error
-        modal.html('<div class="modal-dialog"><div class="modal-content">\n\
+        div_modal.html('<div class="modal-dialog"><div class="modal-content">\n\
 <div class="modal-header">\n\
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
 <h4 class="modal-title">Error</h4>\n\
@@ -66,6 +69,14 @@ function yacareCargarUrlEn(url, destino) {
     $.get(url, function(data) {
         $(destino).html(data);
         
+        var newTitle = $('#page-title').text();
+        if(newTitle !== undefined) {
+            document.title = 'Yacaré - ' + newTitle;
+        } else {
+            newTitle = 'Yacaré';
+            document.title = newTitle;
+        }
+        
         // Activo la función de los enalces AJAX
         $(destino + ' [data-toggle="ajax-link"]').click(function(e) {
             e.preventDefault();
@@ -88,12 +99,12 @@ function yacareCargarUrlEn(url, destino) {
 
 $(document).ready(function(){
     // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
-    window.addEventListener("popstate", function(e) {
-        yacareCargarUrlEn(document.URL);
-    });
+    window.onpopstate =function() {
+        yacareCargarUrlEn(document.location);
+    };
 
     // Agrego la página actual al historial del navegador
-    window.history.pushState({ path: window.location }, '', window.location);
+    window.history.pushState({ path: (window.location + '') }, '', window.location);
 
     // Evito que los enlaces href="#" muevan la página hacia el tope
     $('a[href="#"][data-top!=true]').click(function(e) {
