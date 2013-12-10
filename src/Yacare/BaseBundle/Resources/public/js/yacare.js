@@ -1,8 +1,14 @@
+/*
+ * Función ayudante de los campos de formulario Symfony tipo "entity_id"
+ */
 function yacareEntityIdSeleccionarItem(destino, id, detalle) {
     $(destino).val(id);
     $(destino + '_Detalle').val(detalle);
 }
 
+/*
+ * Mostrar una URL en una ventana modal
+ */
 function yacareMostrarModalEn(url, destino) {
     var modal = $(destino);
 
@@ -34,27 +40,39 @@ function yacareMostrarModalEn(url, destino) {
     return false;
 }
 
+/*
+ * Seguir un enlace, pero via AJAX.
+ */
 function yacareNavegarA(url) {
     //parent.location = url;    // sin AJAX
     yacareCargarUrlEn(url);     // con AJAX
 }
 
+/*
+ * Cargar una URL en un elemento via AJAX.
+ * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
+ */
 function yacareCargarUrlEn(url, destino) {
+    if(destino === undefined) {
+        destino = '#page-wrapper';
+        
+        // Agrego la nueva URL al historial del navegador
+        if(url !== window.location) {
+                window.history.pushState({ path: url }, '', url);
+        }
+    }
+
     //$(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
     $.get(url, function(data) {
-        if(destino === undefined) {
-            destino = '#page-wrapper';
-        }
         $(destino).html(data);
-        if(url !== window.location) {
-                window.history.pushState({path:url}, '', url);
-        }
         
+        // Activo la función de los enalces AJAX
         $(destino + ' [data-toggle="ajax-link"]').click(function(e) {
             e.preventDefault();
             return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
         });
         
+        // Activo la función de los enlaces que abren modales
         $(destino + ' [data-toggle="modal"]').click(function(e) {
             e.preventDefault();
             return yacareMostrarModalEn($(this).attr('href'), $(this).attr('data-target'));
@@ -69,33 +87,20 @@ function yacareCargarUrlEn(url, destino) {
 
 
 $(document).ready(function(){
-    /*
-    //establish history variables
-    var
-            History = window.History, // Note: We are using a capital H instead of a lower h
-            State = History.getState(),
-            $log = $('#log');
+    // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
+    window.addEventListener("popstate", function(e) {
+        yacareCargarUrlEn(document.URL);
+    });
 
-    //bind to State Change
-    History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-            var State = History.getState(); // Note: We are using History.getState() instead of event.state
-            $.ajax({
-                    url:State.url,
-                    success:function(msg){
-                            $('#content').html($(msg).find('#content').html());
-                            $('#loading').remove();
-                            $('#content').fadeIn();
-                            docReady();
-                    }
-            });
-    }); */
+    // Agrego la página actual al historial del navegador
+    window.history.pushState({ path: window.location }, '', window.location);
 
-    //prevent # links from moving to top
+    // Evito que los enlaces href="#" muevan la página hacia el tope
     $('a[href="#"][data-top!=true]').click(function(e) {
             e.preventDefault();
     });
 
-    //datepicker
+    // datepicker
     if (!Modernizr.inputtypes.date) {
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $('.datepicker').datepicker({
@@ -107,7 +112,7 @@ $(document).ready(function(){
             });
     }
 
-    //notifications
+    // notifications
     $('.noty').click(function(e){
             e.preventDefault();
             var options = $.parseJSON($(this).attr('data-noty-options'));
@@ -123,22 +128,24 @@ $(document).ready(function(){
         }); */
 
 
+    // Activo la función de los enlaces que abren modales
     $('[data-toggle="modal"]').off('click');
     $('[data-toggle="modal"]').click(function(e) {
         e.preventDefault();
         return yacareMostrarModalEn($(this).attr('href'), $(this).attr('data-target'));
     });
     
+    // Pongo a las notificaciones un temporizador para que desaparezcan automáticamente
     window.setTimeout(function() { 
         $('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
             $(this).remove(); 
         });
     }, 15000);
 
+    // Activo la función de los enalces AJAX
     $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
         return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
     });
-
 });
 
