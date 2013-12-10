@@ -19,7 +19,6 @@ class UsoSuelo
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**

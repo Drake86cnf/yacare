@@ -36,6 +36,13 @@ class Local {
      */
     private $Superficie;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    protected $DepositoClase;
+    
+    
     public function setPartida($Partida) {
         $this->Partida = $Partida;
         $this->setPropietario($Partida->getTitular());
@@ -73,5 +80,13 @@ class Local {
 
     public function setSuperficie($Superficie) {
         $this->Superficie = $Superficie;
+    }
+    
+    public function getDepositoClase() {
+        return $this->DepositoClase;
+    }
+
+    public function setDepositoClase($DepositoClase) {
+        $this->DepositoClase = $DepositoClase;
     }
 }

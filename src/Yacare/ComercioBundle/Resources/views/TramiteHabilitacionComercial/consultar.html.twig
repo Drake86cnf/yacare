@@ -21,6 +21,17 @@ Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.S
 {% if local %}
 <p><i class="fa fa-info-circle"></i> El local se encuentra empadronado con el Nº {{ local.id }}.</p>
 {% endif %}
+{% if superficie > 0 and superficie < 16 %}
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3>Importante</h3>
+    </div>
+    <div class="panel-body"> 
+        <i class="fa fa-warning fa-4x pull-left"></i> Los establecimientos comerciales deben contar con una superficie
+        mínima de 16 m² sin contar sanitarios y cocina, con un lado mínimo de 3 m. y una altura mínima de 2,4 m.
+    </div>
+</div>
+{% endif %}
 
 <h2>Sobre el uso del suelo</h2>
 <p>El inmueble se encuentra en una zona catalogada como &quot;{{ zona|lower }}&quot;. El plan de desarrollo territorial dice
@@ -100,7 +111,7 @@ del Instituto Nacional de Estadística y Censos).</p>
     <p>No es necesario tramitar una habilitación comercial para esta actividad.</p>
 {% elseif usosuelo == 0 %}
     <p>La ubicación del inmueble no está zonificada por catastro.</p>
-{% elseif usosuelo == 1 or usosuelo == 2 %}
+{% elseif (superficie == 0 or superficie >= 16) and (usosuelo >= 1 and usosuelo <= 3) %}
     <p><i class="fa fa-check"></i> La habilitación comercial puede ser viable{% if usosuelo == 3 %} mediante la presentación de información adicional{% endif %}.</p>
     <a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_editar_1') }}">Iniciar el trámite</a>
 {% else %}
