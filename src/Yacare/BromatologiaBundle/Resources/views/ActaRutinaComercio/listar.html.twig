@@ -6,37 +6,28 @@
 
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table table-striped">
+<table class="table table-hover">
     <thead>
-        <tr>            
-            <th>Talonario</th>
-            <th>Numero</th>
-            <th>Tipo de acta</th>
+        <tr>
+            <th> </th>
+            <th>Nº</th>
+            <th>Tipo</th>
             <th>Fecha</th>
             <th>Comercio</th>
             <th>Persona</th>
-            <th>Detalle</th>
-            <th>Observaciones</th>
             <th>Funcionario principal</th>
-            <th>Funcionario secundario</th>
-            <th>Responsable</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
-            <td>{{ entity.Talonario }}</td>
-            <td>{{ entity.Numero }}</td>
+            <td class="text-right">{{ entity.Numero }}</td>
             <td>{{ entity.SubTipo }}</td>
             <td>{{ entity.Fecha|date("d/m/Y") }}</td>
             <td>{{ entity.Comercio }}</td>
             <td>{{ entity.Persona }}</td>
-            <td>{{ entity.Detalle }}</td>
-            <td>{{ entity.Obs }}</td>
             <td>{{ entity.FuncionarioPrincipal }}</td>
-            <td>{{ entity.FuncionarioSecundario }}</td>
-            <td>{{ entity.ResponsableNombre }}</td>
             <td>
         </tr>
     {% endfor %}
