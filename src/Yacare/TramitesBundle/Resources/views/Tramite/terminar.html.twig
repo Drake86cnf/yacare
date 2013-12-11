@@ -3,27 +3,29 @@
 {% block pagina_titulo %}Terminar trámite {{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
-<h1>Finalizar trámite <small>{{ entity }}</small></h1>
 
-{% if entity.Estado == 100 %}
-    <i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
+    {% if entity.Estado == 100 %}
+        <i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
 
-    <p>
-        El trámite Nº {{ entity.id }} iniciado el {{ entity.createdAt|localizeddate('full', 'medium')|lower }} finalizó
-        {% if entity.FechaTerminado %}
-            el {{ entity.FechaTerminado|localizeddate('full', 'short')|lower }} ({{ entity.FechaTerminado|time_ago }})
+        <p>
+            El trámite Nº {{ entity.id }} iniciado el {{ entity.createdAt|localizeddate('full', 'medium')|lower }} finalizó
+            {% if entity.FechaTerminado %}
+                el {{ entity.FechaTerminado|localizeddate('full', 'short')|lower }} ({{ entity.FechaTerminado|time_ago }})
+            {% endif %}
+        </p>
+
+        {% if comprob %}
+            <p><i class="fa fa-info-circle"></i> Como resulado del trámite, se generó el comprobante &quot;<strong>{{ comprob }}</strong>&quot;.</p>
         {% endif %}
-    </p>
 
-    {% if comprob %}
-        <p><i class="fa fa-info-circle"></i> Como resulado del trámite, se generó el comprobante &quot;<strong>{{ comprob }}</strong>&quot;.</p>
+    {% else %}
+        <p>El trámite Nº {{ entity.id }}, no se pudo finalizar. {{ mensaje }}</p>
     {% endif %}
 
-{% else %}
-    <p>El trámite Nº {{ entity.id }}, no se pudo finalizar. {{ mensaje }}</p>
+    <p class="clearfix"> </p>
+{% endblock %}
     
-{% endif %}
-
-<a class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i class="fa fa-reply"></i> Volver al trámite</a>
-<a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir al listado de trámites</a>
+{% block pagina_acciones2 %}
+<a class="btn btn-default hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i class="fa fa-reply"></i> Volver al trámite</a>
+<a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir al listado de trámites</a>
 {% endblock %}

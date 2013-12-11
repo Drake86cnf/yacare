@@ -12,6 +12,20 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CertificadoHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Comprobante
 {
-    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     use \Yacare\TramitesBundle\Entity\ConVencimiento;
+    //use \Yacare\ComercioBundle\Entity\ConDatosComercio;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     */
+    protected $Comercio;
+    
+    public function getComercio() {
+        return $this->Comercio;
+    }
+
+    public function setComercio($Comercio) {
+        $this->Comercio = $Comercio;
+    }
 }

@@ -13,7 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
-    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
+    //use \Yacare\ComercioBundle\Entity\ConDatosComercio;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio", cascade={ "persist" })
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     */
+    protected $Comercio;
     
     /**
      * @var string
@@ -30,10 +37,6 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
                 && parent::EstaListoParaTerminar();
     }
 
-    public function setTitular($Titular) {
-        $this->setNombre('Habilitación comercial de ' . (string)$Titular);
-        parent::setTitular($Titular);
-    }
     
     public function UsoSueloNombre() {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
@@ -47,5 +50,13 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 
     public function setUsoSuelo($UsoSuelo) {
         $this->UsoSuelo = $UsoSuelo;
+    }
+    
+    public function getComercio() {
+        return $this->Comercio;
+    }
+
+    public function setComercio($Comercio) {
+        $this->Comercio = $Comercio;
     }
 }

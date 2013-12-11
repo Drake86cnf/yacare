@@ -13,26 +13,8 @@ class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\C
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('NombreFantasia', null, array('label' => 'Nombre de fantasía'))
-            ->add('Local', 'entity_id', array(
-                'label' => 'Local',
-                'class' => 'Yacare\ComercioBundle\Entity\Local',
-                'required'  => true
-                ))
-            ->add('ActividadPrincipal', 'entity_id', array(
-                'label' => 'Actividad principal',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => true
-                ))
-            ->add('ActividadSecundaria', 'entity_id', array(
-                'label' => 'Actividad secundaria',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => false
-                ))
-            ->add('ActividadTerciaria', 'entity_id', array(
-                'label' => 'Actividad terciaria',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => false
+            ->add('Comercio', new ComercioType(), array(
+                'label' => 'Datos del comercio'
                 ))
                 ;
     }
@@ -40,7 +22,8 @@ class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\C
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial'
+            'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial',
+            'cascade_validation' => true,
         ));
     }
 

@@ -7,7 +7,7 @@
 {% block tramite_encab %}
 {{ parent() }}
 
-<p>El uso del suelo para la actividad <strong>{{ entity.ActividadPrincipal|lower }}</strong> en la zona es <strong>{{ entity.UsoSueloNombre|lower }}</strong>.</p>
+<p>El uso del suelo para la actividad <strong>{{ entity.Comercio.ActividadPrincipal|lower }}</strong> en la zona es <strong>{{ entity.UsoSueloNombre|lower }}</strong>.</p>
 {% endblock %}
 
 {% block tramite_requisitos %}
