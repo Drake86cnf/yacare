@@ -29,6 +29,7 @@ class Acta
         
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $Talonario;
     
@@ -45,7 +46,6 @@ class Acta
     private $Numero;
     
     /**
-     * @var \DateTime
      * @ORM\Column(type="datetime")
      */
     private $Fecha;
@@ -78,6 +78,12 @@ class Acta
      */
     protected $Obs;
     
+    public function ConstruirNombre() {
+        $res = 'Acta ' . $this->getSubTipo() . ' Nº ' . $this->getNumero();
+        return $res;
+    }
+
+
 
     public function getTalonario() {
         return $this->Talonario;
@@ -85,6 +91,7 @@ class Acta
 
     public function setTalonario($Talonario) {
         $this->Talonario = $Talonario;
+        $this->setNombre($this->ConstruirNombre());
     }
 
     public function getSubTipo() {
@@ -93,6 +100,7 @@ class Acta
 
     public function setSubTipo($SubTipo) {
         $this->SubTipo = $SubTipo;
+        $this->setNombre($this->ConstruirNombre());
     }
 
     public function getNumero() {
@@ -101,6 +109,7 @@ class Acta
 
     public function setNumero($Numero) {
         $this->Numero = $Numero;
+        $this->setNombre($this->ConstruirNombre());
     }
 
     public function getFecha() {
