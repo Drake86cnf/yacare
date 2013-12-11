@@ -77,6 +77,8 @@ function yacareCargarUrlEn(url, destino) {
             document.title = newTitle;
         }
         
+        MejorarElementos();
+        
         // Activo la función de los enalces AJAX
         $(destino + ' [data-toggle="ajax-link"]').click(function(e) {
             e.preventDefault();
@@ -96,21 +98,10 @@ function yacareCargarUrlEn(url, destino) {
     return false;
 }
 
-
-$(document).ready(function(){
-    // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
-    window.onpopstate =function() {
-        yacareCargarUrlEn(document.location);
-    };
-
-    // Agrego la página actual al historial del navegador
-    window.history.pushState({ path: (window.location + '') }, '', window.location);
-
-    // Evito que los enlaces href="#" muevan la página hacia el tope
-    $('a[href="#"][data-top!=true]').click(function(e) {
-            e.preventDefault();
-    });
-
+/*
+ * Incorporo funciones mejoradas como calendario, chosen, etc.
+ */
+function MejorarElementos() {
     // datepicker
     if (!Modernizr.inputtypes.date) {
         $.datepicker.setDefaults($.datepicker.regional['es']);
@@ -129,6 +120,24 @@ $(document).ready(function(){
             var options = $.parseJSON($(this).attr('data-noty-options'));
             noty(options);
     });
+}
+
+
+$(document).ready(function(){
+    // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
+    window.onpopstate =function() {
+        yacareCargarUrlEn(document.location);
+    };
+
+    // Agrego la página actual al historial del navegador
+    window.history.pushState({ path: (window.location + '') }, '', window.location);
+
+    // Evito que los enlaces href="#" muevan la página hacia el tope
+    $('a[href="#"][data-top!=true]').click(function(e) {
+            e.preventDefault();
+    });
+    
+    MejorarElementos();
 
     //chosen - improves select
     /* $('[data-rel="chosen"],[rel="chosen"]').chosen({
