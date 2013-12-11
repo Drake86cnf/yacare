@@ -34,7 +34,7 @@ class EntityIdType extends AbstractType
             $em = $this->registry->getManager($options['em']);
         }
         
-        $builder->addModelTransformer(new EntityToIdTransformer(
+        $builder->addViewTransformer(new EntityToIdTransformer(
             $em,
             $options['class'],
             $options['property'],

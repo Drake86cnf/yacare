@@ -78,6 +78,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 
     protected function transformSingleEntity($data)
     {
+
         if (!$this->unitOfWork->isInIdentityMap($data)) {
             throw new FormException('Entities passed to the choice field must be managed');
         }
