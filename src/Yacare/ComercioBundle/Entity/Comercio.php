@@ -27,10 +27,6 @@ class Comercio {
     protected $Estado = 0;
     
     
-    public function __toString() {
-        return $this->getNombreFantasia();
-    }
-    
     public static function NombreEstado($estado) {
         switch($estado) {
             case 0: return 'En trámite';
