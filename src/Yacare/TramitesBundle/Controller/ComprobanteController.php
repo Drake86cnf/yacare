@@ -28,12 +28,4 @@ class ComprobanteController extends \Yacare\BaseBundle\Controller\YacareAbmContr
         
         return $res;
     }
-    
-    /**
-     * @Route("ver/{id}")
-     * @Template()
-     */
-    function verAction($id = null) {
-        return $this->editarAction($id);
-    }
 }

@@ -29,14 +29,16 @@ class Comercio {
     
     public static function NombreEstado($estado) {
         switch($estado) {
-            case 0: return 'En trámite';
+            case 0: return 'No habilitado';
+            case 1: return 'En trámite';
+            case 91: return 'Hab. vencida';
             case 100: return 'Habilitado';
             default: return '???';
         }
     }
     
     public function getEstadoNombre() {
-        return EstadoRequisito::NombreEstado($this->Estado);
+        return Comercio::NombreEstado($this->Estado);
     }
     
     

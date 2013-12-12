@@ -6,39 +6,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ComercioType extends AbstractType
+class ComercioType extends ComercioSimpleType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Nombre', null, array('label' => 'Nombre de fantasía'))
-            ->add('Apoderado', 'entity_id', array(
-                'label' => 'Apoderado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required'  => false
-                ))
-            ->add('Local', 'entity_id', array(
-                'label' => 'Local',
-                'class' => 'Yacare\ComercioBundle\Entity\Local',
-                'required'  => true
-                ))
-            ->add('ActividadPrincipal', 'entity_id', array(
-                'label' => 'Actividad principal',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => true
-                ))
-            ->add('ActividadSecundaria', 'entity_id', array(
-                'label' => 'Actividad secundaria',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => false
-                ))
-            ->add('ActividadTerciaria', 'entity_id', array(
-                'label' => 'Actividad terciaria',
-                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-                'required'  => false
+            ->add('Estado', 'choice', array(
+                'label' => 'Estado',
+                'required'  => true,
+                'choices' => array(
+                    0 => 'No habilitado',
+                    1 => 'Habilitación en trámite',
+                    91 => 'Habilitación vencida',
+                    100 => 'Habilitado'
+                    )
                 ))
                 ;
     }

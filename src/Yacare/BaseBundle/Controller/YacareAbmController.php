@@ -124,6 +124,28 @@ class YacareAbmController extends YacareBaseController
     }
     
     /**
+     * @Route("ver/{id}")
+     * @Template()
+     */
+    public function verAction($id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($id) {
+            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        }
+
+        if (!$entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+
+        return $this->ArrastrarVariables(array(
+            'entity'      => $entity
+        ));
+    }
+    
+    
+    /**
      * @Route("editar/{id}")
      * @Route("crear/")
      * @Template()

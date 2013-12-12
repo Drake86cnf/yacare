@@ -13,7 +13,7 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Comercio', new ComercioType(), array(
+            ->add('Comercio', new ComercioSimpleType(), array(
                 'label' => 'Datos del comercio'
                 ))
                 ;

@@ -26,13 +26,4 @@ class TramiteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmContr
         
         parent::guardarActionPrePersist($entity, $editForm);
     }
-    
-    /**
-     * @Route("ver/{id}")
-     * @Template()
-     */
-    function verAction($id = null) {
-        $res = $this->editarAction($id);
-        return $res;
-    }
 }

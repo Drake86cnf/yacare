@@ -148,6 +148,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         $Comercio = $entity->getComercio();
         if($Comercio) {
+            if($Comercio->getEstado() == 0) {
+                $Comercio->setEstado(1);    // Habilitación en trámite
+            }
             // Le doy al comercio el mismo titular y apoderado que inician trámite
             $Comercio->setTitular($entity->getTitular());
             $Comercio->setApoderado($entity->getApoderado());
@@ -183,14 +186,5 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
 
         return $res;
-    }
-
-    
-    /**
-     * @Route("ver/{id}")
-     * @Template()
-     */
-    function verAction($id = null) {
-        return $this->editarAction($id);
     }
 }

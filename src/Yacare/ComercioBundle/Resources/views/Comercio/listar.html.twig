@@ -21,8 +21,12 @@
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.id }}</td>
             <td>{{ entity.Nombre }}
-            {% if entity.Estado == 0 %}
-                <span class="label label-warning">En trámite</span>
+            {% if entity.Estado == 1 %}
+                <span class="label label-warning">{{ entity.EstadoNombre }}</span>
+            {% elseif entity.Estado == 0 or entity.Estado == 91 %}
+                <span class="label label-danger">{{ entity.EstadoNombre }}</span>
+            {% elseif entity.Estado != 100 %}
+                <span class="label label-default">{{ entity.EstadoNombre }}</span>
             {% endif %}
             </td>
             <td>{{ entity.Local }}</td>
@@ -36,5 +40,6 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo comercio</a>
+    <a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}" class="btn btn-primary"><i class="fa fa-play"></i> Iniciar trámite de habilitación</a>
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_altamanual') }}" class="btn btn-default"><i class="fa fa-plus"></i> Alta manual</a>
 {% endblock %}
