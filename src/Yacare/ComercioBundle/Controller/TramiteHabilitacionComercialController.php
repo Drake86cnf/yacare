@@ -28,7 +28,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         // Fecha de vencimiento 5 años a partir de hoy
         $Venc = new \DateTime();
-        $Certi->setVencimiento($Venc->add(new \DateInterval('P5Y')));
+        $Certi->setVencimiento($Venc->add(new \DateInterval('P5Y'))->sub(new \DateInterval('P1D')));
         
         return $Certi;
     }

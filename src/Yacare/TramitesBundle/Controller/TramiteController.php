@@ -24,10 +24,17 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     public function cambiarestadoAction(Request $request, $id, $reqid, $estado)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\EstadoRequisito')->find($reqid);
+        
+        $Tramite = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\Tramite')->find($id);
+        if($Tramite && $Tramite->getEstado() == 0) {
+            $Tramite->setEstado(10);
+            $em->persist($Tramite);
+        }
+        
+        $EstadoRequisito = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\EstadoRequisito')->find($reqid);
+        $EstadoRequisito->setEstado($estado);
+        $em->persist($EstadoRequisito);
 
-        $entity->setEstado($estado);
-        $em->persist($entity);
         $em->flush();
 
         //$this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' . \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));

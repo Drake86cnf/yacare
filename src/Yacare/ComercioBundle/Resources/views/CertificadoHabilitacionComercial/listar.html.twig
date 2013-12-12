@@ -14,6 +14,7 @@
             <th>Titular</th>
             <th>Actividad</th>
             <th>Local</th>
+            <th>Fecha</th>
             <th>Vencimiento</th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
             <td>{{ entity.Comercio.Titular }}</td>
             <td>{{ entity.Comercio.ActividadPrincipal }}</td>
             <td>{% if entity.Comercio.Local and entity.Comercio.Local.Partida %}{{ entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
+            <td>{{ entity.createdAt|localizeddate('medium', 'none') }}</td>
             <td>{{ entity.Vencimiento|localizeddate('medium', 'none') }}</td>
         </tr>
     {% endfor %}
