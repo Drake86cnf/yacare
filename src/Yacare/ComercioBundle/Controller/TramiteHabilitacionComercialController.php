@@ -24,6 +24,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $Certi->setComercio($tramite->getComercio());
         $Certi->setTitular($tramite->getTitular());
         
+        $tramite->getComercio()->setEstado(100);
+        
         // Fecha de vencimiento 5 años a partir de hoy
         $Venc = new \DateTime();
         $Certi->setVencimiento($Venc->add(new \DateInterval('P5Y')));

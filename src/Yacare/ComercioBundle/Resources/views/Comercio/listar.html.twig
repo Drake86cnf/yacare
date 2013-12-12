@@ -20,7 +20,11 @@
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.id }}</td>
-            <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.Nombre }}
+            {% if entity.Estado == 0 %}
+                <span class="label label-warning">En trámite</span>
+            {% endif %}
+            </td>
             <td>{{ entity.Local }}</td>
             <td>{{ entity.ActividadPrincipal }}</td>
         </tr>
