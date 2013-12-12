@@ -71,7 +71,11 @@ class Tramite
     }
     
     public function EstaListoParaTerminar() {
-        return $this->PorcentajeCompleto() == 100 && $this->getEstado() < 90;
+        return $this->PorcentajeCompleto() >= 100 && $this->getEstado() < 90;
+    }
+    
+    public function EstaTerminado() {
+        return $this->getEstado() == 100;
     }
     
     

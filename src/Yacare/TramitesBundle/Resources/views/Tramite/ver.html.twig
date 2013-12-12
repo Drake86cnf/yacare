@@ -27,6 +27,13 @@
                 </div>
             </div>
             {% endblock %}
+        {% elseif entity.EstaTerminado %}
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
+                    <p>El trámite está terminado.</p>
+                </div>
+            </div>       
         {% elseif entity.EstaListoParaTerminar %}
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -38,8 +45,8 @@
         {% else %}
             <div class="panel panel-success">
                 <div class="panel-body">
-                    <i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
-                    <p>El trámite está terminado.</p>
+                    <i class="text-warning fa fa-question-circle fa-5x pull-left"></i>
+                    <p>Todos los requisitos están cumplidos, pero el trámite no se puede terminar.</p>
                 </div>
             </div>
         {% endif %}

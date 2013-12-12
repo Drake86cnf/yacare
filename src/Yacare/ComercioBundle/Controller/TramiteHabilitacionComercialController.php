@@ -11,26 +11,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
     public function EmitirComprobante($tramite) {
-        // Al finalizar un trámite de habilitación comercial, se emite el certificado correspondiente
-        $em = $this->getDoctrine()->getManager();
         
-        $Certi = new \Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial();
+        $Comprob = parent::EmitirComprobante($tramite);
         
-        $ComprobanteTipo = $em->getRepository('YacareTramitesBundle:ComprobanteTipo')->findOneBy(array(
-                'Clase' => '\\' . get_class($Certi)
-            ));
-
-        $Certi->setComprobanteTipo($ComprobanteTipo);
-        $Certi->setComercio($tramite->getComercio());
-        $Certi->setTitular($tramite->getTitular());
+        $Comprob->setComercio($tramite->getComercio());
+        $Comprob->setTitular($tramite->getTitular());
         
         $tramite->getComercio()->setEstado(100);
         
-        // Fecha de vencimiento 5 años a partir de hoy
-        $Venc = new \DateTime();
-        $Certi->setVencimiento($Venc->add(new \DateInterval('P5Y'))->sub(new \DateInterval('P1D')));
-        
-        return $Certi;
+        return $Comprob;
     }
 
 

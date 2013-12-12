@@ -46,6 +46,7 @@ class Comprobante
      */
     private $Numero;
     
+    
     protected function ConstruirNombre() {
         if($this->getComprobanteTipo()) {
             $res = $this->getComprobanteTipo()->getNombre();

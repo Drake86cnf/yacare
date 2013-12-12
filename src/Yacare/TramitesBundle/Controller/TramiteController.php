@@ -83,7 +83,28 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     }
     
     public function EmitirComprobante($tramite) {
-        return null;
+        // Al finalizar un trámite, ver si es necesario emitir un comprobante
+        $Comprob = null;
+        
+        $ComprobanteTipo = $tramite->getTramiteTipo()->getComprobanteTipo();
+        if($ComprobanteTipo) {
+            // Tiene un tipo de comprobante asociado
+            $Clase = $ComprobanteTipo->getClase();
+            if($Clase) {
+                // Instancio un comprobante del tipo asociado
+                $Comprob = new $Clase();
+                $Comprob->setComprobanteTipo($ComprobanteTipo);
+
+                if($ComprobanteTipo->getPeriodoValidez()) {
+                    // Este tipo de comprobante tiene un período de validez predeterminado
+                    // Fecha de vencimiento: validez indicada por el comprobante, menos 1 día
+                    $Venc = new \DateTime();
+                    $Comprob->setVencimiento($Venc->add(new \DateInterval('P' . $ComprobanteTipo->getPeriodoValidez())));
+                }
+            }
+        }
+
+        return $Comprob;
     }
     
     public function ObtenerProximoNumeroComprobante($comprob) {

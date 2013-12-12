@@ -26,10 +26,10 @@ class TramiteTipo
     private $Clase;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Instrumento")
+     * @ORM\ManyToOne(targetEntity="ComprobanteTipo")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $Comprobante;
+    protected $ComprobanteTipo;
     
     /**
      * @ORM\ManyToOne(targetEntity="Instrumento")
@@ -61,16 +61,8 @@ class TramiteTipo
         $this->Clase = $Clase;
     }
     
-    public function getComprobante() {
-        return $this->Comprobante;
-    }
-
     public function getFormulario() {
         return $this->Formulario;
-    }
-
-    public function setComprobante($Comprobante) {
-        $this->Comprobante = $Comprobante;
     }
 
     public function setFormulario($Formulario) {
@@ -91,5 +83,13 @@ class TramiteTipo
 
     public function setRequisitoEspejo($RequisitoEspejo) {
         $this->RequisitoEspejo = $RequisitoEspejo;
+    }
+    
+    public function getComprobanteTipo() {
+        return $this->ComprobanteTipo;
+    }
+
+    public function setComprobanteTipo($ComprobanteTipo) {
+        $this->ComprobanteTipo = $ComprobanteTipo;
     }
 }
