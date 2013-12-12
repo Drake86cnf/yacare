@@ -37,17 +37,14 @@ class Comprobante
     protected $TramiteOrigen;
 
     /**
-     * @var integer
      * @ORM\Column(type="integer")
      */
     private $NumeroPrefijo = 0;
     
     /**
-     * @var integer
      * @ORM\Column(type="integer")
      */
     private $Numero;
-    
     
     protected function ConstruirNombre() {
         if($this->getComprobanteTipo()) {

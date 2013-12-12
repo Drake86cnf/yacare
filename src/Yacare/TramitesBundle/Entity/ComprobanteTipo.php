@@ -31,6 +31,11 @@ class ComprobanteTipo
     private $Clase;
     
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $PeriodoValidez;
+    
+    /**
      * Al crear o editar un tipo de comprobante, se crea o edita un instrumento que lo refleja.
      * @ORM\ManyToOne(targetEntity="Instrumento", cascade={ "persist" })
      * @ORM\JoinColumn(nullable=true)
@@ -60,5 +65,13 @@ class ComprobanteTipo
 
     public function setInstrumentoEspejo($InstrumentoEspejo) {
         $this->InstrumentoEspejo = $InstrumentoEspejo;
+    }
+    
+    public function getPeriodoValidez() {
+        return $this->PeriodoValidez;
+    }
+
+    public function setPeriodoValidez($PeriodoValidez) {
+        $this->PeriodoValidez = $PeriodoValidez;
     }
 }
