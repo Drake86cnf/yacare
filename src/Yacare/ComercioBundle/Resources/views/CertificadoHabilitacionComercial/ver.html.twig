@@ -10,7 +10,7 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">Denominación</div>
-            <div class="panel-body">{{ entity.NombreFantasia }}</div>
+            <div class="panel-body">{{ entity.Comercio.Nombre }}</div>
         </div>
     </div>
 
@@ -37,21 +37,21 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">Domicilio</div>
-            <div class="panel-body">{{ entity.Local.Partida.Domicilio }}</div>
+            <div class="panel-body">{{ entity.Comercio.Local.Partida.Domicilio }}</div>
         </div>
     </div>
 
     <div class="col-sm-3">
         <div class="panel panel-default">
             <div class="panel-heading">Tipo</div>
-            <div class="panel-body">{{ entity.Local.Tipo }}</div>
+            <div class="panel-body">{{ entity.Comercio.Local.Tipo }}</div>
         </div>
     </div>
     
     <div class="col-sm-3">
         <div class="panel panel-default">
             <div class="panel-heading">Superficie</div>
-            <div class="panel-body">{{ entity.Local.Superficie }} m²</div>
+            <div class="panel-body">{{ entity.Comercio.Local.Superficie }} m²</div>
         </div>
     </div>
 </div>
@@ -62,7 +62,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Actividades</div>
             <div class="panel-body">
-                {{ entity.ActividadPrincipal }}{% if entity.ActividadSecundaria %}; {{ entity.ActividadSecundaria }}{% endif %}{% if entity.ActividadTerciaria %}; {{ entity.ActividadTerciaria }}{% endif %}
+                {{ entity.Comercio.ActividadPrincipal }}{% if entity.Comercio.ActividadSecundaria %}; {{ entity.Comercio.ActividadSecundaria }}{% endif %}{% if entity.Comercio.ActividadTerciaria %}; {{ entity.Comercio.ActividadTerciaria }}{% endif %}
             </div>
         </div>
     </div>
