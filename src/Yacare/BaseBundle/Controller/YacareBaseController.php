@@ -11,24 +11,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class YacareBaseController extends Controller
 {
     function __construct() {
-        // get_class() devuelve Yacare\TalBundle\Controller\TalControlador
-        // Tomo el segundo y cuarto valor (índices 1 y 3)
-        $PartesNombreClase = explode('\\', get_class($this));
+        $PartesNombreClase = \Yacare\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
 
         if(!isset($this->BundleName)) {
-            $this->BundleName = $PartesNombreClase[1];
-            if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
-                // Quitar la palabra 'Bundle' del nombre del bundle
-                $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
-            }
+            $this->BundleName = $PartesNombreClase[0];
         }
 
         if(!isset($this->EntityName)) {
-            $this->EntityName = $PartesNombreClase[3];
-            if(strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
-                // Quitar la palabra 'Controller' del nombre del controlador
-                $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
-            }
+            $this->EntityName = $PartesNombreClase[1];
         }
         
         if(!isset($this->BaseRouteEntityName)) {

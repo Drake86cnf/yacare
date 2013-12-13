@@ -6,6 +6,48 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class StringHelper {
     
+    /*
+     * Obtiene el nombre del bundle y de la entidad a partide una clase.
+     * Por ejemplo, para \Yacare\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
+     */
+    static public function ObtenerBundleYEntidad($nombreclase) {
+        $PartesNombreClase = explode('\\', $nombreclase);
+        
+        $res = array();
+        
+        $res[0] = $PartesNombreClase[1];
+        if(strlen($res[0]) > 6 && substr($res[0], -6) == 'Bundle') {
+            // Quitar la palabra 'Bundle' del nombre del bundle
+            $res[0] = substr($res[0], 0, strlen($res[0]) - 6);
+        }
+        
+        $res[1] = $PartesNombreClase[3];
+        if(strlen($res[1]) > 10 && substr($res[1], -10) == 'Controller') {
+            // Quitar la palabra 'Controller' del nombre del controlador
+            $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
+        }
+        
+        return $res;
+    }
+    
+    /*
+     * Obtiene una ruta base a partir de una clase.
+     * Por ejemplo, para "\Yacare\BaseBundle\Controller\PersonaController" devuelve "yacare_base_persona"
+     * Para ("\Yacare\BaseBundle\Controller\PersonaController", "editar") devuelve "yacare_base_persona_editar"
+     */
+    static public function ObtenerRutaBase($nombreclase, $accion = null) {
+        // Quito barras iniciales y finales
+        $nombreclase = trim($nombreclase, '\\');
+        $PartesNombreClase = StringHelper::ObtenerBundleYEntidad($nombreclase);
+
+        if($accion)
+            return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1] . '_' . $accion);
+        else
+            return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1]);
+    }
+    
+    
+    
     static public function ObtenerDocumento($text) {
         $Partes = preg_split('/[\: ]/', $text);
         $Tipo = '';
