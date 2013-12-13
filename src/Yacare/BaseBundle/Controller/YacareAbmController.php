@@ -15,23 +15,29 @@ class YacareAbmController extends YacareBaseController
     function __construct() {
         parent::__construct();
 
-        if(!isset($this->Paginar))
+        if(!isset($this->Paginar)) {
             $this->Paginar = true;
+        }
         
-        if(!isset($this->OrderBy))
+        if(!isset($this->OrderBy)) {
             $this->OrderBy = null;
+        }
         
-        if(!isset($this->Where))
+        if(!isset($this->Where)) {
             $this->Where = null;
+        }
         
-        if(!isset($this->Joins))
+        if(!isset($this->Joins)) {
             $this->Joins = array();
+        }
         
-        if(!isset($this->Limit))
+        if(!isset($this->Limit)) {
             $this->Limit = null;
+        }
         
-        if(!isset($this->BuscarPor))
+        if(!isset($this->BuscarPor)) {
             $this->BuscarPor = 'Nombre';
+        }
     }
 
 
@@ -117,10 +123,11 @@ class YacareAbmController extends YacareBaseController
     }
     
     protected function getFormType() {
-        if(isset($this->FormTypeName))
+        if(isset($this->FormTypeName)) {
             return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
-        else
+        } else {
             return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+        }
     }
     
     /**
@@ -209,7 +216,9 @@ class YacareAbmController extends YacareBaseController
         if(!$errors) {
             if ($editForm->isValid()) {
                 $errors = $this->guardarActionPrePersist($entity, $editForm);
-                $errors = $this->guardarActionSubirArchivos($entity, $editForm);
+                if(!$errors) {
+                    $errors = $this->guardarActionSubirArchivos($entity, $editForm);
+                }
                 if(!$errors) {
                     $em->persist($entity);
                     $em->flush();
