@@ -109,16 +109,14 @@ del Instituto Nacional de Estadística y Censos).</p>
 <h2>Conclusión</h2>
 {% if actividad.Exento %}
     <p>No es necesario tramitar una habilitación comercial para esta actividad.</p>
-{% elseif usosuelo == 0 %}
-    <p>La ubicación del inmueble no está zonificada por catastro.</p>
-{% elseif (superficie == 0 or superficie >= 16) and (usosuelo >= 1 and usosuelo <= 3) %}
+{% elseif (superficie == 0 or superficie >= 16) and (usosuelo <= 3) %}
     <p><i class="fa fa-check"></i> La habilitación comercial puede ser viable{% if usosuelo == 3 %} mediante la presentación de información adicional{% endif %}.</p>
-    <a class="btn btn-primary hidden-print" href="{{ path(baseroute ~ '_editar_1') }}">Iniciar el trámite</a>
+    <a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"><i class="fa fa-play"></i> Iniciar el trámite</a>
 {% else %}
     <p>La habilitación comercial no es viable.</p>
 {% endif %}
 
-<a class="btn btn-default hidden-print" onclick="window.print(); return false;" href="#">Imprimir</a>
+<a class="btn btn-default hidden-print" onclick="window.print(); return false;" href="#"><i class="fa fa-print"></i> Imprimir</a>
 
 <h2>Descargo</h2>
 <p>El presente informe preliminar no es vinculante y está dedicado a orientar sobre las características
@@ -143,8 +141,8 @@ del Instituto Nacional de Estadística y Censos).</p>
 
 {% block pagina_acciones %}
     {% if create %}
-       <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
-       <button type="submit" class="btn btn-primary"><i class="fa fa-white icon-ok"></i> Consultar</button>
+       <a class="btn btn-default hidden-print" data-togle="ajax-link" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+       <button type="submit" class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consultar</button>
     {% endif %}
 {% endblock %}
        

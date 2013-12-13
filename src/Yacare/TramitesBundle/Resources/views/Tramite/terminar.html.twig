@@ -15,7 +15,7 @@
         </p>
 
         {% if comprob %}
-            <p><i class="fa fa-info-circle"></i> Como resulado del trámite, se generó el comprobante &quot;<strong>{{ comprob }}</strong>&quot;.</p>
+            <p><i class="fa fa-info-circle"></i> Como resulado del trámite, se generó el comprobante &quot;<a data-toggle="ajax-link" href="{{ path(rutacomprob ~ '_ver', { 'id': entity.id }) }}">{{ comprob }}</a>&quot;.</p>
         {% endif %}
 
     {% else %}
@@ -25,7 +25,14 @@
     <p class="clearfix"> </p>
 {% endblock %}
     
+    
+{% block pagina_acciones %}
+    {% if comprob %}
+        <a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(rutacomprob ~ '_ver', { 'id': entity.id }) }}"><i class="fa fa-file-o"></i> Ver el comprobante</a>
+    {% endif %}
+{% endblock %}
+    
 {% block pagina_acciones2 %}
 <a class="btn btn-default hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i class="fa fa-reply"></i> Volver al trámite</a>
-<a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir al listado de trámites</a>
+<a class="btn btn-default hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir al listado de trámites</a>
 {% endblock %}

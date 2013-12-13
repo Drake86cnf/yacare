@@ -9,13 +9,10 @@
 
 <p>El uso del suelo para la actividad <strong>{{ entity.Comercio.ActividadPrincipal|lower }}</strong>
     en la zona es 
-    {% if entity.UsoSuelo and entity.UsoSuelo >= 1 and entity.UsoSuelo <= 3 %}
-        <span class="text text-success">
-    {% else %}
-        <span class="text text-danger">
+    {% if entity.UsoSuelo > 3 %}
+        <i class="fa fa-warning text-danger"></i>
     {% endif %}
-    <strong>{{ entity.UsoSueloNombre|lower }}</strong>
-    </span>.</p>
+    <strong>{{ entity.UsoSueloNombre|lower }}</strong>.</p>
 {% endblock %}
 
 {% block tramite_requisitos %}

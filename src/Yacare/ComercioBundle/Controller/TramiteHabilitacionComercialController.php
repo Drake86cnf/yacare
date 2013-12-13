@@ -18,6 +18,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $Comprob->setTitular($tramite->getTitular());
         
         $tramite->getComercio()->setEstado(100);
+        $tramite->getComercio()->setCertificadoHabilitacion($Comprob);
         
         return $Comprob;
     }
@@ -133,6 +134,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     }    
     
     public function guardarActionPrePersist($entity, $editForm) {
+        $em = $this->getDoctrine()->getManager();
+
         $res = parent::guardarActionPrePersist($entity, $editForm);
         
         $Comercio = $entity->getComercio();
@@ -143,6 +146,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             // Le doy al comercio el mismo titular y apoderado que inician trámite
             $Comercio->setTitular($entity->getTitular());
             $Comercio->setApoderado($entity->getApoderado());
+            
+            $em->persist($Comercio);
         }
         
         // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
@@ -150,24 +155,25 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         if($Local) {
             //$Superficie = $Local->getSuperficie();
             $Actividad = $Comercio->getActividadPrincipal();
-
-            $em = $this->getDoctrine()->getManager();
             
-            //$ValorUsoSuelo = 0;
+            // Busco el uso del suelo para esa zona
             $UsoSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
                     ->setParameter('codigo', $Actividad->getCodigoCpu())
                     ->setParameter('sup', $Local->getSuperficie())
                     ->setMaxResults(1)
                     ->getResult();
+            // Si es un array tomo el primero
             if($UsoSuelo && count($UsoSuelo) > 0) {
                 $UsoSuelo = $UsoSuelo[0];
             }
             
-            $Partida = $Local->getPartida();
-            if($Partida) {
-                $Zona = $Partida->getZona();
-                if($Zona) {
-                    $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
+            if($UsoSuelo) {
+                $Partida = $Local->getPartida();
+                if($Partida) {
+                    $Zona = $Partida->getZona();
+                    if($Zona) {
+                        $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
+                    }
                 }
             }
         }

@@ -55,6 +55,11 @@ class Tramite
      */
     private $FechaTerminado;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Comprobante")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Comprobante;
         
     
     public function EstaEnCurso() {
@@ -169,5 +174,13 @@ class Tramite
 
     public function setFechaTerminado(\DateTime $FechaTerminado) {
         $this->FechaTerminado = $FechaTerminado;
+    }
+    
+    public function getComprobante() {
+        return $this->Comprobante;
+    }
+
+    public function setComprobante($Comprobante) {
+        $this->Comprobante = $Comprobante;
     }
 }

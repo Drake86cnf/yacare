@@ -26,6 +26,13 @@ class Comercio {
      */
     protected $Estado = 0;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $CertificadoHabilitacion;
+    
+    
     
     public static function NombreEstado($estado) {
         switch($estado) {
@@ -50,5 +57,13 @@ class Comercio {
 
     public function setEstado($Estado) {
         $this->Estado = $Estado;
+    }
+    
+    public function getCertificadoHabilitacion() {
+        return $this->CertificadoHabilitacion;
+    }
+
+    public function setCertificadoHabilitacion($CertificadoHabilitacion) {
+        $this->CertificadoHabilitacion = $CertificadoHabilitacion;
     }
 }

@@ -14,6 +14,7 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
     function __construct() {
         parent::__construct();
         $this->ConservarVariables[] = 'parent_id';
+        $this->Where = 'r.Estado<90';
     }
     
     
@@ -64,6 +65,8 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
                 $Comprob->setTramiteOrigen($entity);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $em->persist($Comprob);
+                
+                $entity->setComprobante($Comprob);
             }
 
             $em->persist($entity);
@@ -72,13 +75,20 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
             $mensaje = null;
         } else {
             $mensaje = 'El trámite ya estaba terminado.';
-            $Comprob = null;
+            $Comprob = $entity->getComprobante();
+        }
+        
+        if($Comprob) {
+            $RutaComprob = \Yacare\BaseBundle\Helper\StringHelper::ObtenerRutaBase($Comprob->getComprobanteTipo()->getClase());
+        } else {
+            $RutaComprob = null;
         }
         
         return $this->ArrastrarVariables(array(
             'entity' => $entity,
             'mensaje' => $mensaje,
-            'comprob' => $Comprob
+            'comprob' => $Comprob,
+            'rutacomprob' => $RutaComprob
         ));
     }
     

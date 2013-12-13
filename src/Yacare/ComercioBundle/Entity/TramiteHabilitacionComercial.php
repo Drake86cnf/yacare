@@ -13,11 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
-    //use \Yacare\ComercioBundle\Entity\ConDatosComercio;
-    
     
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio", cascade={ "persist" })
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Comercio;
@@ -32,8 +30,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 
     
     public function EstaListoParaTerminar() {
-        return $this->getUsoSuelo() >= 1 
-                && $this->getUsoSuelo() <=3 
+        return $this->getUsoSuelo() <=3 
                 && parent::EstaListoParaTerminar();
     }
 
