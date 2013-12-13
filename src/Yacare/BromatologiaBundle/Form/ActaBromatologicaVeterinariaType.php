@@ -12,7 +12,7 @@ class ActaBromatologicaVeterinariaType extends AbstractType
     {
         $builder                 
             ->add('Talonario', null, array('label' => 'Talonario')) 
-            ->add('Numero', null, array('label' => 'Numero'))
+            ->add('Numero', null, array('label' => 'Numero'))            
             ->add('SubTipo', 'choice', array(
                 'choices'   => array(
                     'Cobro Tasa' => 'Cobro Tasa',
@@ -21,21 +21,10 @@ class ActaBromatologicaVeterinariaType extends AbstractType
                 'label' => 'Tipo de acta'))
             ->add('Fecha', 'date', array(
                 'years' => range(1900, 2099),
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
                 'label' => 'Fecha'))
-            ->add('Comercio', null, array('label' => 'Comercio'))
-            ->add('Persona', 'entity_id', array(
-                'label' => 'Persona',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'filters' => array (
-                    'filtro_grupo' => 1
-                ),
-                'required' => false)) 
-            ->add('Transporte', null, array('label' => 'Transporte'))
-            ->add('Dominio', null, array('label' => 'Dominio'))
-            ->add('Detalle', null, array('label' => 'Detalle'))
-            ->add('Obs', null, array('label' => 'Observaciones'))
             ->add('FuncionarioPrincipal', 'entity_id', array(
                 'label' => 'Funcionario Principal',
                 'property' => 'NombreVisible',
@@ -51,8 +40,38 @@ class ActaBromatologicaVeterinariaType extends AbstractType
                 'filters' => array (
                     'filtro_grupo' => 1
                 ),
-                'required' => false))
-            ->add('ResponsableNombre', null, array('label' => 'Responsable'))            
+                'required' => false))  
+            ->add('Dominio', null, array('label' => 'Dominio'))
+            ->add('Transporte', null, array('label' => 'Transporte')) 
+            ->add('ResponsableNombre', null, array('label' => 'Responsable'))     
+            ->add('Comercio', null, array('label' => 'Comercio'))
+            ->add('Persona', 'entity_id', array(
+                'label' => 'Persona',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                ),
+                'required' => false)) 
+            ->add('GuiaRemovido', null, array('label' => 'Guia de Removido', 'required' => false))
+            ->add('Huevo', null, array('label' => 'Huevos', 'required' => false))
+            ->add('Carne', null, array('label' => 'Carnes', 'required' => false))
+            ->add('Grasa', null, array('label' => 'Grasas', 'required' => false))
+            ->add('Mar', null, array('label' => 'Prod. de Mar', 'required' => false))
+            ->add('Embutido', null, array('label' => 'Embutidos', 'required' => false))
+            ->add('Chacinado', null, array('label' => 'Chacinados', 'required' => false))
+            ->add('Fiambre', null, array('label' => 'Fiambres', 'required' => false))
+            ->add('Lacteo', null, array('label' => 'Lacteos', 'required' => false))
+            ->add('Verdura', null, array('label' => 'Verduras', 'required' => false))
+            ->add('Fruta', null, array('label' => 'Frutas', 'required' => false))
+            ->add('Papa', null, array('label' => 'Papas', 'required' => false))
+            ->add('Almacen', null, array('label' => 'Almacen', 'required' => false))
+            ->add('Cerdo', null, array('label' => 'Cerdo', 'required' => false))
+            ->add('Pan', null, array('label' => 'Panificados', 'required' => false))
+            ->add('Ave', null, array('label' => 'Aves', 'required' => false))
+            ->add('Bebida', null, array('label' => 'Bebidas', 'required' => false))
+            ->add('Detalle', null, array('label' => 'Detalle', 'required' => false))
+            ->add('Obs', null, array('label' => 'Observaciones', 'required' => false))
         ;
     }
 

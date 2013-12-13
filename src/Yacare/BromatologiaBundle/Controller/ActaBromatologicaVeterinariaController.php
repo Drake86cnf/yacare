@@ -11,4 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ActaBromatologicaVeterinariaController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
+    
+    function __construct() {
+        parent::__construct();
+
+        $this->BuscarPor = 'id, p.NombreVisible';
+        $this->Joins[] = " JOIN r.Persona p";       
+    }
 }

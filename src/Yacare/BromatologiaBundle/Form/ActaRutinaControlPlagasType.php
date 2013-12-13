@@ -25,6 +25,8 @@ class ActaRutinaControlPlagasType extends AbstractType
                 'label' => 'Tipo de acta'))
             ->add('Fecha', 'date', array(
                 'years' => range(1900, 2099),
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
                 'label' => 'Fecha'))
             ->add('Comercio', null, array('label' => 'Comercio'))
