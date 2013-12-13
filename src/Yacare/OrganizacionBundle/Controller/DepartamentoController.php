@@ -27,7 +27,7 @@ class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareAbmCont
      * @Route("recalcular/")
      * @Template("YacareOrganizacionBundle:Departamento:listar.html.twig")
      */
-    public function recalcularAction() {
+    public function recalcularAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
         $items = $em->getRepository('YacareOrganizacionBundle:Departamento')->findAll();
@@ -39,6 +39,6 @@ class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareAbmCont
         
         $em->getConnection()->commit();
         
-        return parent::listarAction();
+        return parent::listarAction($request);
     }
 }

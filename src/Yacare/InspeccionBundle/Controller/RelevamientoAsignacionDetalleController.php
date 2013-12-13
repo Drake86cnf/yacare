@@ -24,9 +24,9 @@ class RelevamientoAsignacionDetalleController extends \Yacare\BaseBundle\Control
      * @Route("listarrelevamiento/{id}")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionDetalle:listar.html.twig")
      */
-    public function listarrelevamientoAction($id)
+    public function listarrelevamientoAction(Request $request, $id)
     {
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         $res['id'] = $id;
         
         return $res;

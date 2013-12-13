@@ -34,7 +34,7 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
             $this->Where .= " AND r.Tramite=$parent_id";
         }
         
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         
         if($parent_id) {
             $res['parent'] = $Tramite;

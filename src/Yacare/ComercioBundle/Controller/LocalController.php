@@ -45,7 +45,7 @@ class LocalController extends \Yacare\BaseBundle\Controller\YacareAbmController
             }
         }
         
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         
         return $res;
     }

@@ -27,9 +27,9 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
      * @Route("buscar/")
      * @Template()
      */
-    public function buscarAction()
+    public function buscarAction(Request $request)
     {
-        $res = parent::buscarAction();
+        $res = parent::buscarAction($request);
         
         //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
@@ -42,9 +42,9 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
      * @Route("buscarresultados/")
      * @Template()
      */
-    public function buscarresultadosAction()
+    public function buscarresultadosAction(Request $request)
     {
-        $res = parent::buscarresultadosAction();
+        $res = parent::buscarresultadosAction($request);
         
         //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
@@ -107,7 +107,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
             }
         }
         
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         
         $res['secciones'] = $this->ObtenerSecciones();
         

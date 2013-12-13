@@ -34,7 +34,7 @@ class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\Yacare
             $this->Where .= " AND r.TramiteTipo=$parent_id";
         }
         
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         
         if($parent_id) {
             $res['parent'] = $TramiteTipo;

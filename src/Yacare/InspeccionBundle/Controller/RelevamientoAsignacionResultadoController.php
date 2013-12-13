@@ -45,7 +45,7 @@ UPDATE Inspeccion_RelevamientoAsignacion
         if($filtro_asignacion)
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
 
-        $res = parent::listarAction();
+        $res = parent::listarAction($request);
         
         $em = $this->getDoctrine()->getManager();
         $query_secciones = $em->createQuery("SELECT DISTINCT r.Seccion FROM YacareCatastroBundle:Partida r ORDER BY r.Seccion");

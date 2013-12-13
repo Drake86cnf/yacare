@@ -9,7 +9,7 @@ trait ConBuscar {
      * @Route("buscar/")
      * @Template()
      */
-    public function buscarAction()
+    public function buscarAction(Request $request)
     {
         return $this->ArrastrarVariables(array(
         ));
@@ -20,10 +20,10 @@ trait ConBuscar {
      * @Route("buscarresultados/")
      * @Template()
      */
-    public function buscarresultadosAction()
+    public function buscarresultadosAction(Request $request)
     {
         $this->Paginar = false;
         $this->Limit = 500;
-        return $this->listarAction();
+        return $this->listarAction($request);
     }
 }
