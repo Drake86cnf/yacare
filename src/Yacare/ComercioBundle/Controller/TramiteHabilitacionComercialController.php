@@ -2,6 +2,7 @@
 
 namespace Yacare\ComercioBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -28,8 +29,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
      * @Route("consultar")
      * @Template()
      */
-    function consultarAction() {
-        $request = $this->getRequest();
+    function consultarAction(Request $request) {
         $porpartida = $request->query->get('porpartida');
         
         $editFormBuilder = $this->createFormBuilder()

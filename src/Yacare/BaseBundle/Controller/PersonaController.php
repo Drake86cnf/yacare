@@ -25,15 +25,13 @@ class PersonaController extends YacareAbmController
      * @Route("editarperfil/")
      * @Template()
      */
-    public function editarperfilAction()
+    public function editarperfilAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         $entity = $em->getRepository('YacareBaseBundle:Persona')->find($user->getId());
         
         $form = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
-
-        $request = $this->getRequest();
 
         if ($request->getMethod() === 'POST') {
             $form->bindRequest($request);

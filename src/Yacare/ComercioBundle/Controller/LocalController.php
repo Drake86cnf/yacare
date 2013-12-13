@@ -2,6 +2,7 @@
 
 namespace Yacare\ComercioBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -25,8 +26,7 @@ class LocalController extends \Yacare\BaseBundle\Controller\YacareAbmController
      * @Route("listar/")
      * @Template()
      */
-    function listarAction() {
-        $request = $this->getRequest();
+    public function listarAction(Request $request) {
         $filtro_buscar = $request->query->get('filtro_buscar');
         
         if($filtro_buscar) {

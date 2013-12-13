@@ -2,6 +2,7 @@
 
 namespace Yacare\TramitesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -22,13 +23,12 @@ class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\Yacare
      * @Route("listar/")
      * @Template()
      */
-    function listarAction() {
-        $request = $this->getRequest();
+    public function listarAction(Request $request) {
         $parent_id = $request->query->get('parent_id');
 
         if($parent_id) {
             $em = $this->getDoctrine()->getManager();
-            $parent_id = $this->getRequest()->query->get('parent_id');
+            $parent_id = $request->query->get('parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
 
             $this->Where .= " AND r.TramiteTipo=$parent_id";
@@ -55,7 +55,7 @@ class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\Yacare
         if($id === null) {
             // En caso de crear uno nuevo, le asigno el parent predeterminado
             $em = $this->getDoctrine()->getManager();
-            $parent_id = $this->getRequest()->query->get('parent_id');
+            $parent_id = $request->query->get('parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
             $res['entity']->setTramiteTipo($TramiteTipo);
         }

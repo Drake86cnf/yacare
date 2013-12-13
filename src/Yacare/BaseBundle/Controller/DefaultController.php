@@ -2,6 +2,7 @@
 
 namespace Yacare\BaseBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,9 +43,8 @@ class DefaultController extends YacareBaseController
      * @Route("/login", name="login")
      * @Template
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $request = $this->getRequest();
         $session = $request->getSession();
 
         // get the login error if there is one

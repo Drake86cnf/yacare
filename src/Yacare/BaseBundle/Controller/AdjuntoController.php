@@ -2,6 +2,7 @@
 
 namespace Yacare\BaseBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,7 +34,7 @@ class AdjuntoController extends YacareBaseController
     /**
      * @Route("miniatura/{token}")
      */
-    public function miniaturaAction($token, $ancho = null)
+    public function miniaturaAction(Request $request, $token, $ancho = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -53,7 +54,7 @@ class AdjuntoController extends YacareBaseController
                 $imagemanagerResponse = $this->container
                     ->get('liip_imagine.controller')
                         ->filterAction(
-                            $this->getRequest(),
+                            $request,
                             $entity->getRutaRelativa() . $entity->getToken(),      // original image you want to apply a filter to
                             'thumb256'              // filter defined in config.yml
                 );
@@ -97,7 +98,7 @@ class AdjuntoController extends YacareBaseController
                 break;
         }
 
-        $imagen_conenido = file_get_contents($this->get('kernel')->getRootDir() . '/../web' . $this->getRequest()->getBasePath() . $ArchivoImagen);
+        $imagen_conenido = file_get_contents($this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath() . $ArchivoImagen);
 
         $response = new \Symfony\Component\HttpFoundation\Response($imagen_conenido, 200, array(
             'Content-Type' => $imagen_tipo,

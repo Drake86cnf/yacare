@@ -19,7 +19,6 @@ class ComentarioController extends YacareBaseController
      */
     public function listarAction(Request $request)
     {
-        $request = $this->getRequest();
         $tipo = $request->query->get('tipo');
         $id = $request->query->get('id');
         

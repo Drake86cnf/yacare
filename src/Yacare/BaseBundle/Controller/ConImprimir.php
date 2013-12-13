@@ -2,18 +2,20 @@
 
 namespace Yacare\BaseBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 trait ConImprimir 
 {
      /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("imprimir/{id}")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()
      */
-    public function imprimirAction($id)
+    public function imprimirAction(Request $request, $id)
     {
-        $request = $this->getRequest();
         $fmt = $request->query->get('fmt');
-        if(!$fmt)
+        if(!$fmt) {
             $fmt = 'application/pdf';
+        }
         
         $fmt = str_replace(' ', '/', $fmt);
         

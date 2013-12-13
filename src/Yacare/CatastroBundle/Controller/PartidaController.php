@@ -2,6 +2,7 @@
 
 namespace Yacare\CatastroBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -61,8 +62,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
      * @Route("listar/")
      * @Template()
      */
-    function listarAction() {
-        $request = $this->getRequest();
+    public function listarAction(Request $request) {
         $filtro_seccion = $request->query->get('filtro_seccion');
         $filtro_macizo = $request->query->get('filtro_macizo');
         $filtro_partida = $request->query->get('filtro_partida');

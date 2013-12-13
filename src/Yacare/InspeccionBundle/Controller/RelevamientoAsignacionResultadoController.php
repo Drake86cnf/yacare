@@ -38,10 +38,8 @@ UPDATE Inspeccion_RelevamientoAsignacion
      * @Route("listarrelevamiento/{id}")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionResultado:listar.html.twig")
      */
-    public function listarrelevamientoAction($id)
+    public function listarrelevamientoAction(Request $request, $id)
     {
-        $request = $this->getRequest();
-        
         $filtro_asignacion = $request->query->get('filtro_asignacion');
         
         if($filtro_asignacion)

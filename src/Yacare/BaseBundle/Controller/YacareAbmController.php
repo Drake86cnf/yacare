@@ -45,7 +45,7 @@ class YacareAbmController extends YacareBaseController
      * @Route("listar/")
      * @Template()
      */
-    public function listarAction()
+    public function listarAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
        
@@ -65,7 +65,6 @@ class YacareAbmController extends YacareBaseController
             $where = "1=1";
         }
 
-        $request = $this->getRequest();
         $filtro_buscar = $request->query->get('filtro_buscar');
         if($filtro_buscar && $this->BuscarPor) {
             // Busco por varias palabras
@@ -110,7 +109,7 @@ class YacareAbmController extends YacareBaseController
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
                 $query,
-                $this->getRequest()->query->get('page', 1) /* page number */,
+                $request->query->get('page', 1) /* page number */,
                 10 /* limit per page */
             );
         } else {
@@ -208,7 +207,7 @@ class YacareAbmController extends YacareBaseController
 
         $typeName = $this->getFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
-        $editForm->bind($request);
+        $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($id);
 
         $errors = $this->guardarActionPreBind($entity);

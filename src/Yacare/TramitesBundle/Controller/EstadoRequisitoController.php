@@ -2,6 +2,7 @@
 
 namespace Yacare\TramitesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -22,13 +23,12 @@ class EstadoRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmC
      * @Route("listar/")
      * @Template()
      */
-    function listarAction() {
-        $request = $this->getRequest();
+    public function listarAction(Request $request) {
         $parent_id = $request->query->get('parent_id');
 
         if($parent_id) {
             $em = $this->getDoctrine()->getManager();
-            $parent_id = $this->getRequest()->query->get('parent_id');
+            $parent_id = $request->query->get('parent_id');
             $Tramite = $em->getReference('YacareTramitesBundle:Tramite', $parent_id);
 
             $this->Where .= " AND r.Tramite=$parent_id";

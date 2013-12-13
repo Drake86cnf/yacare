@@ -71,7 +71,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
         $editForm = $this->createForm(new $typeName(), $entity);
-        $editForm->bind($request);
+        $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);

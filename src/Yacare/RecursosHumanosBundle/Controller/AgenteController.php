@@ -13,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AgenteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-
     function __construct() {
         parent::__construct();
 

@@ -2,6 +2,7 @@
 
 namespace Yacare\SigemiBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,12 +19,10 @@ class ImportarController extends Controller
      * @Route("partidas/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
      */
-    public function importarPartidasAction()
+    public function importarPartidasAction(Request $request)
     {
         //DELETE FROM Catastro_Partida WHERE id NOT IN (SELECT DISTINCT Partida_id FROM Inspeccion_RelevamientoAsignacionDetalle);
         
-        
-        $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
         $cant = 500;
         
@@ -233,9 +232,8 @@ WHERE rnum >" . $desde . "
      * @Route("personas/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
      */
-    public function importarPersonasAction($desde = 0)
+    public function importarPersonasAction(Request $request, $desde = 0)
     {
-        $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
         $cant = 500;
         
@@ -701,9 +699,8 @@ WHERE rnum >" . $desde . "
      * @Route("agentes/")
      * @Template("YacareSigemiBundle:Importar:importar.html.twig")
      */
-    public function importarAgentesAction()
+    public function importarAgentesAction(Request $request)
     {
-        $request = $this->getRequest();
         $desde = (int)($request->query->get('desde'));
         $cant = 100;
         
