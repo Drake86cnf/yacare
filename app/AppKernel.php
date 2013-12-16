@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
             new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
             new Yacare\SigemiBundle\YacareSigemiBundle(),
+            new Yacare\ExpedientesBundle\YacareExpedientesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
