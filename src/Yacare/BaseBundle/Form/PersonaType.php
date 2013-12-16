@@ -19,7 +19,6 @@ class PersonaType extends AbstractType
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
-                'property' => 'Nombre',
                 'multiple' => true,
                 ))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array('label' => 'Domicilio'))
@@ -39,6 +38,7 @@ class PersonaType extends AbstractType
             ->add('Genero', 'choice', array(
                 'choices' => array('0' => 'Masculino', '1' => 'Femenino'),
                 'label' => 'Género',
+                'required' => false,
                 'empty_value' => 'Sin especificar',
             ))
             ->add('Pais', 'entity', array(
@@ -46,8 +46,7 @@ class PersonaType extends AbstractType
                 'empty_value' => 'Sin especificar',
                 'class' => 'YacareBaseBundle:Pais',
                 'required' => false,
-                'empty_value' => false,
-                'property' => 'Nombre'))
+                'empty_value' => false))
         ;
     }
 
