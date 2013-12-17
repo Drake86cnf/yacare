@@ -17,7 +17,7 @@
     </div>
     <div class="col-lg-4">
         {% if entity.RequisitosFaltantesCantidad > 0 %}
-            <p class="text-danger"><strong>Faltan presentar {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.</p>
+            <p class="text-danger"><strong>Faltan {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>, de un total de {{ entity.RequisitosObligatoriosCantidad }} obligatorios.</p>
             {% block tramite_encab_progreso %}
             <div class="progress hidden-print">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
