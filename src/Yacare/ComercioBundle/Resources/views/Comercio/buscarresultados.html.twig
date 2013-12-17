@@ -5,10 +5,10 @@
     {% for entity in entities %}
         <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
             <td><i class="fa fa-angle-right"></i></td>
-            <td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
-            <td><small class="text-muted">{{ entity.Tipo }}</small></td>
-            <td><small class="text-muted">{{ entity.Superficie }} m²</small></td>
-            <td><small class="text-muted">{{ entity.Partida.Titular }}</small></td>
+            <td><strong style="white-space: nowrap;">{{ entity.Nombre }}</strong><br />
+                <span class="text-muted"><small>de {{ entity.Titular }}</small></span></td>
+            <td><small class="text-muted">{{ entity.Local }}</small></td>
+            <td><small class="text-muted">{{ entity.ActividadPrincipal }}</small></td>
         </tr>
     {% endfor %}
     </tbody>

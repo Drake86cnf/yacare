@@ -1,13 +1,14 @@
 {% block pagina_contenido %}
 
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hoverselect">
     <tbody>
     {% for entity in entities %}
-        <tr>
+        <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
+            <td><i class="fa fa-angle-right"></i></td>
             <td>{{ entity.Numero }}</td>
-            <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Nombre  }}</a></td>
-            <td>{{ entity.Titular }}</td>
-            <td>{{ entity.Zona }}</td>
+            <td>{{ entity.Nombre  }}</td>
+            <td><small class="text-muted">{{ entity.Titular }}</small></td>
+            <td><small class="text-muted">{{ entity.Zona }}</small></td>
         </tr>
     {% endfor %}
     </tbody>

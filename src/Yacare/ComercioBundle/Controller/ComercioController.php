@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ComercioController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConBuscar;
+    
     /**
      * @Route("altamanual/")
      * @Template()

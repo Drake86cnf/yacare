@@ -1,23 +1,25 @@
 {% block pagina_contenido %}
 
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hoverselect">
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Clamae2014|slice(0,1) }} {{ entity.Clamae2014|slice(1,2) }}-{{ entity.Clamae2014|slice(3,3) }}-{{ entity.Clamae2014|slice(6,2) }}</a></td>
-            <td>{{ entity.Nombre }}
+        <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">
+            <td><i class="fa fa-angle-right"></i></td>
+            <td><span style="white-space: nowrap;">{{ entity.Clamae2014|slice(0,1) }} {{ entity.Clamae2014|slice(1,2) }}-{{ entity.Clamae2014|slice(3,3) }}-{{ entity.Clamae2014|slice(6,2) }}</span></td>
+            <td><span>{{ entity.Nombre }}</span>
                 <span class="label label-default">Cat. {{ entity.Categoria }}</span>
                 {% if entity.Exento %}<span class="label label-info">Excento</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. <abbr title="Dirección de Ecología y Medio Ambiente" class="initialism">DEyMA</abbr></span>{% endif %}
                 {% if entity.RequiereDbeh %}<span class="label label-info">Req. <abbr title="Dirección de Bromatología e Higiene" class="initialism">DBeH</abbr></span>{% endif %}
+            </td>
+            <td>
 {% if entity.Incluye %}
-                <p class="text-success"><small>Incluye {{ entity.Incluye|nl2br }}</small></p>
+                <span class="text-success"><small><strong>Incluye</strong> {{ entity.Incluye }}</small></span>
 {% endif %}
 {% if entity.NoIncluye %}
-            <p class="text-danger"><small>No incluye {{ entity.NoIncluye|nl2br }}</small></p>
+                <span class="text-danger"><small><strong>No incluye</strong> {{ entity.NoIncluye }}</small></span>
 {% endif %}
             </td>
-            <td>{{ entity.CodigoCpu }}</td>
         </tr>
     {% endfor %}
     </tbody>

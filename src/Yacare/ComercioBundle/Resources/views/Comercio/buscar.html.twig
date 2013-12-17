@@ -1,11 +1,11 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Buscar actividad{% endblock %}
+{% block pagina_titulo %}Buscar comercio{% endblock %}
 
 {% block pagina_contenido %}
 {% set destcontrol = app.request.get('destcontrol') %}
 
-{% include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
+{% include 'YacareComercioBundle:Comercio:buscarinicio.html.twig' %}
 
 <div id="resultadosbuscar">
     
@@ -17,7 +17,7 @@
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
-    
+     
     function buscarTexto(a) {
         var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
         yacareCargarUrlEn(url, '#resultadosbuscar');

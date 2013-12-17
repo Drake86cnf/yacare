@@ -1,12 +1,13 @@
 {% block pagina_contenido %}
 
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hoverselect">
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a onclick="seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible }}'); return false;">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</a></td>
-            <td>{{ entity.DocumentoNumero }}</td>
-            <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
+        <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape('js') }}'); return false;">
+            <td><i class="fa fa-angle-right"></i></td>
+            <td><span style="white-space: nowrap;">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</span></td>
+            <td><small class="text-muted">{{ entity.DocumentoNumero }}</small></td>
+            <td><small class="text-muted">{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</small></td>
         </tr>
     {% endfor %}
     </tbody>

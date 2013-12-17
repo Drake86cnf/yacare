@@ -34,10 +34,12 @@ class ActaRutinaComercioType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
                 'label' => 'Fecha'))
-            ->add('Comercio', null, array('label' => 'Comercio'))
+            ->add('Comercio', 'entity_id', array(
+                'label' => 'Comercio',
+                'class' => 'Yacare\ComercioBundle\Entity\Comercio',
+                ))
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
-                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'filters' => array (
                     'filtro_grupo' => 1
@@ -47,7 +49,6 @@ class ActaRutinaComercioType extends AbstractType
             ->add('Obs', null, array('label' => 'Observaciones'))
             ->add('FuncionarioPrincipal', 'entity_id', array(
                 'label' => 'Funcionario Principal',
-                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'filters' => array (
                     'filtro_grupo' => 1
@@ -55,7 +56,6 @@ class ActaRutinaComercioType extends AbstractType
                 'required' => false))
             ->add('FuncionarioSecundario', 'entity_id', array(
                 'label' => 'Funcionario Secundario',
-                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'filters' => array (
                     'filtro_grupo' => 1
