@@ -43,8 +43,8 @@ class ActaBromatologicaVeterinariaType extends AbstractType
                 'required' => false))  
             ->add('Dominio', null, array('label' => 'Dominio'))
             ->add('Transporte', null, array('label' => 'Transporte')) 
-            ->add('ResponsableNombre', null, array('label' => 'Responsable'))     
-            ->add('Comercio', null, array('label' => 'Comercio'))
+            ->add('ResponsableNombre', null, array('label' => 'Responsable'))            
+            ->add('Comercio', null, array('label' => 'Comercio')) 
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
                 'property' => 'NombreVisible',
