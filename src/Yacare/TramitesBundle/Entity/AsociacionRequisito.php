@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\TramitesBundle\Entity\AsociacionRequisito
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo_Requisito")
  */
 class AsociacionRequisito

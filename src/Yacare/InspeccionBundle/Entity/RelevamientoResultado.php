@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * RelevamientoIncidente
  *
  * @ORM\Table("Inspeccion_RelevamientoResultado")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class RelevamientoResultado
 {

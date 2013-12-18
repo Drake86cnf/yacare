@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
  *      }
  * )
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Persona implements UserInterface, \Serializable
 {

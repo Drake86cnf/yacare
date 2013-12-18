@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\InspeccionBundle\Entity\Acta
  *
  * @ORM\Table(name="Inspeccion_Acta")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="Tipo", type="integer")
  * @ORM\DiscriminatorMap({

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\TramitesBundle\Entity\Instrumento
  *
  * @ORM\Table(name="Tramites_Instrumento")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Instrumento
 {

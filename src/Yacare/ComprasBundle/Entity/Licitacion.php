@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\ComprasBundle\Entity\Licitacion
  *
  * @ORM\Table(name="Compras_Licitacion")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Licitacion
 {

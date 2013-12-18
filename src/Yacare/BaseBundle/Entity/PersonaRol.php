@@ -9,7 +9,7 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  * Yacare\BaseBundle\Entity\PersonaRol
  *
  * @ORM\Table(name="Base_PersonaRol")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class PersonaRol implements RoleInterface
 {

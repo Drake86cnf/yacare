@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Yacare\RecursosHumanosBundle\Entity\Agente
  *
  * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Agente
 {

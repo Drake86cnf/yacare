@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\TramitesBundle\Entity\TramiteTipo
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo")
  */
 class TramiteTipo

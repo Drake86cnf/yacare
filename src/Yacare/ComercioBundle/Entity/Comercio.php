@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\ComercioBundle\Entity\Comercio
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Comercio_Comercio")
  */
 class Comercio {

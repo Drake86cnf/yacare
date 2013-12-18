@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
   *          @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
  *      }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * 
  * UPDATE Catastro_Partida 
 	SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);

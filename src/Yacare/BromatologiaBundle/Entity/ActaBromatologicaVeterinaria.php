@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\BromatologiaBundle\Entity\ActaBromatologicaVeterinaria
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Bromatologia_ActaBromatologicaVeterinaria")
  */
 class ActaBromatologicaVeterinaria extends \Yacare\InspeccionBundle\Entity\Acta

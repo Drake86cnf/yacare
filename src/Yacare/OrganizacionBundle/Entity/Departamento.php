@@ -9,7 +9,7 @@ use Yacare\BaseBundle\Model\Tree;
  * Yacare\OrganizacionBundle\Entity\Departamento
  *
  * @ORM\Table(name="Organizacion_Departamento", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Departamento implements Tree\NodeInterface
 {

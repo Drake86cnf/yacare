@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Comercio_TramiteHabilitacionComercial")
  */
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite

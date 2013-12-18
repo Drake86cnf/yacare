@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Yacare\BaseBundle\Entity\Impresion
  *
  * @ORM\Table(name="Base_Impresion")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Impresion
 {

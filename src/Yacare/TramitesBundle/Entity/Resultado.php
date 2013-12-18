@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\TramitesBundle\Entity\Resultado
  *
  * @ORM\Table(name="Tramites_Resultado")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Resultado
 {

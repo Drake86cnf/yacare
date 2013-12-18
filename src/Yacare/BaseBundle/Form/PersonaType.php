@@ -45,8 +45,7 @@ class PersonaType extends AbstractType
                 'label' => 'Nacionalidad',
                 'empty_value' => 'Sin especificar',
                 'class' => 'YacareBaseBundle:Pais',
-                'required' => false,
-                'empty_value' => false))
+                'required' => false))
         ;
     }
 

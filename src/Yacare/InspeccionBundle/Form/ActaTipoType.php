@@ -18,7 +18,7 @@ class ActaTipoType extends AbstractType
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,
                 'empty_value' => false,
-                'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) {
                     return $er->createQueryBuilder('i')
                         ->orderBy('i.MaterializedPath', 'ASC');
                 },

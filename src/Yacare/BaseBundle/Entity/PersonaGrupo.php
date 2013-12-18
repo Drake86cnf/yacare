@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\BaseBundle\Entity\PersonaGrupo
  *
  * @ORM\Table(name="Base_PersonaGrupo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class PersonaGrupo
 {

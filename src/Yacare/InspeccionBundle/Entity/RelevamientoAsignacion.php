@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacion
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class RelevamientoAsignacion

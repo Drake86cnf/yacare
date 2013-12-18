@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Yacare\BaseBundle\Entity\Adjunto
  *
  * @ORM\Table(name="Base_Adjunto")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class Adjunto
 {

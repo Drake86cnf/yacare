@@ -9,7 +9,7 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class RelevamientoAsignacionDetalle
 {

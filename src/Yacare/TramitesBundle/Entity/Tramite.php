@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\TramitesBundle\Entity\Tramite
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_Tramite")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")

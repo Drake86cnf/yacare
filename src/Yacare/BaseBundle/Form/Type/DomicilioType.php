@@ -16,10 +16,7 @@ class DomicilioType extends AbstractType
                 'class' => 'YacareCatastroBundle:Calle',
                 'required'  => false,
                 'empty_value' => 'Otra (escribir a continuación)',
-                'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.Nombre', 'ASC');
-                }
+                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) { return $er->createQueryBuilder('i'); }
                 ))
             ->add('DomicilioCalleNombre', null, array(
                 'label' => 'Calle (otra)',

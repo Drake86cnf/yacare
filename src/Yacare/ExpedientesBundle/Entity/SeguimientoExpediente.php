@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\ExpedientesBundle\Entity\SeguimientoExpediente
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Expedientes_SeguimientoExpediente")
  */
 class SeguimientoExpediente {

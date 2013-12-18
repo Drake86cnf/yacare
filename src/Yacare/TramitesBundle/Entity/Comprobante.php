@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\TramitesBundle\Entity\Comprobante
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_Comprobantes")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ComprobanteTipo", type="string")

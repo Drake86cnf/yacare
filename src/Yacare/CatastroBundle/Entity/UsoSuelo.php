@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="Catastro_UsoSuelo_Codigo", columns={"Codigo"})
  *      }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  */
 class UsoSuelo
 {
