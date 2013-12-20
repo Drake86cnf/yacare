@@ -44,7 +44,10 @@ class ActaBromatologicaVeterinariaType extends AbstractType
             ->add('Dominio', null, array('label' => 'Dominio'))
             ->add('Transporte', null, array('label' => 'Transporte')) 
             ->add('ResponsableNombre', null, array('label' => 'Responsable'))            
-            ->add('Comercio', null, array('label' => 'Comercio')) 
+            ->add('Comercio', 'entity_id', array(
+                'label' => 'Comercio',
+                'class' => 'Yacare\ComercioBundle\Entity\Comercio',
+                'required' => false))
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
                 'property' => 'NombreVisible',

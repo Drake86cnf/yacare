@@ -37,7 +37,7 @@ class ActaRutinaComercioType extends AbstractType
             ->add('Comercio', 'entity_id', array(
                 'label' => 'Comercio',
                 'class' => 'Yacare\ComercioBundle\Entity\Comercio',
-                ))
+                'required' => false))
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',

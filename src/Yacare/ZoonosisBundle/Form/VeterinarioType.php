@@ -10,10 +10,17 @@ class VeterinarioType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder                 
-            ->add('Veterinario', null, array('label' => 'Veterinario')) 
-            ->add('Matricula', null, array('label' => 'Matrícula')) 
-            ->add('Clinica', null, array('label' => 'Clinica')) 
+        $builder                         
+            ->add('Veterinario', 'entity_id', array(
+                'label' => 'Veterinario',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                )))
+            ->add('Matricula', null, array('label' => 'Matrícula'))             
+            ->add('Clinica', 'entity_id', array(
+                'label' => 'Clinica',
+                'class' => 'Yacare\ComercioBundle\Entity\Comercio'))
         ;
     }
 

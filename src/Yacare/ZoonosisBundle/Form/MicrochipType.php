@@ -61,8 +61,13 @@ class MicrochipType extends AbstractType
                     '3' => 'Adopcion',
                     ),
                 'required'  => true,
-                'label' => 'Origen'))
-            ->add('Dueno', null, array('label' => 'Dueño'))
+                'label' => 'Origen'))            
+            ->add('Dueno', 'entity_id', array(
+                'label' => 'Dueño',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                )))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioLocalType(), 
                     array(
                         'data_class' => 'Yacare\ZoonosisBundle\Entity\Microchip',
@@ -75,8 +80,13 @@ class MicrochipType extends AbstractType
                     '3' => 'Total',
                     ),
                 'required'  => true,
-                'label' => 'Cerco'))   
-            ->add('ContactoAlternativo', null, array('label' => 'Contacto alternativo'))
+                'label' => 'Cerco'))               
+            ->add('ContactoAlternativo', 'entity_id', array(
+                'label' => 'Contacto alternativo',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'filters' => array (
+                    'filtro_grupo' => 1
+                )))
             ->add('Veterinario', null, array('label' => 'Veterinario'))
         ;
     }

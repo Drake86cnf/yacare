@@ -17,8 +17,7 @@ class CertificadoBpmType extends AbstractType
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'filters' => array (
                     'filtro_grupo' => 1
-                ),
-                'required' => false))    
+                )))    
             ->add('Nota', null, array('label' => 'Nota'))
             ->add('FechaExamen', 'date', array(
                 'years' => range(1900,2099),

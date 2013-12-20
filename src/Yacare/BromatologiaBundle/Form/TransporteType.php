@@ -11,7 +11,10 @@ class TransporteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array('label' => 'Nombre')) 
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Comercio', 'entity_id', array(
+                'label' => 'Comercio',
+                'class' => 'Yacare\ComercioBundle\Entity\Comercio'))
             ->add('Titular', 'entity_id', array(
                 'label' => 'Titular',
                 'property' => 'NombreVisible',
@@ -23,8 +26,8 @@ class TransporteType extends AbstractType
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioLocalType(), 
                     array(
                         'data_class' => 'Yacare\BromatologiaBundle\Entity\Transporte',
-                        'label' => 'Domicilio')
-                    )     
+                        'label' => 'Domicilio',
+                        'required' => false))     
         ;
     }
 

@@ -28,7 +28,10 @@ class ActaRutinaDecomisoType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
                 'label' => 'Fecha'))
-            ->add('Comercio', null, array('label' => 'Comercio'))            
+            ->add('Comercio', 'entity_id', array(
+                'label' => 'Comercio',
+                'class' => 'Yacare\ComercioBundle\Entity\Comercio',
+                'required' => false))            
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
                 'property' => 'NombreVisible',
