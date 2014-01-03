@@ -16,8 +16,6 @@ class DepartamentoController extends \Yacare\BaseBundle\Controller\YacareAbmCont
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
     public function __construct() {
-        $this->BundleName = 'Organizacion';
-        $this->EntityName = 'Departamento';
         $this->Paginar = false;
         $this->OrderBy = "MaterializedPath";
         parent::__construct();
