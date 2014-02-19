@@ -1,29 +1,33 @@
 {% block pagina_contenido %}
 
-<table class="table table-condensed table-hoverselect">
-    <tbody>
+<div class="container-fluid">
     {% for entity in entities %}
-        <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">
-            <td><i class="fa fa-angle-right"></i></td>
-            <td><span style="white-space: nowrap;">{{ entity.Clamae2014|slice(0,1) }} {{ entity.Clamae2014|slice(1,2) }}-{{ entity.Clamae2014|slice(3,3) }}-{{ entity.Clamae2014|slice(6,2) }}</span></td>
-            <td><span>{{ entity.Nombre }}</span>
-                <span class="label label-default">Cat. {{ entity.Categoria }}</span>
-                {% if entity.Exento %}<span class="label label-info">Excento</span>{% endif %}
+        <div class="row">
+            <div class="col-md-12" onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">
+                <span class="small text-muted">{{ entity.Ruta|raw }}</span><br />
+                <h2><a href="#" onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{ entity.Nombre }}</a></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>Categoría {{ entity.Categoria }}, división {{ entity.Division }}, código <span style="white-space: nowrap;">{{ entity.Clamae2014|slice(0,2) }}-{{ entity.Clamae2014|slice(2,3) }}-{{ entity.Clamae2014|slice(5,2) }}</span></p>
+                <span class="label label-default">Cat. {{ entity.CategoriaAntigua }}</span>
+                {% if entity.Exento %}<span class="label label-info">Exento</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. <abbr title="Dirección de Ecología y Medio Ambiente" class="initialism">DEyMA</abbr></span>{% endif %}
                 {% if entity.RequiereDbeh %}<span class="label label-info">Req. <abbr title="Dirección de Bromatología e Higiene" class="initialism">DBeH</abbr></span>{% endif %}
-            </td>
-            <td>
-{% if entity.Incluye %}
-                <span class="text-success"><small><strong>Incluye</strong> {{ entity.Incluye }}</small></span>
-{% endif %}
-{% if entity.NoIncluye %}
-                <span class="text-danger"><small><strong>No incluye</strong> {{ entity.NoIncluye }}</small></span>
-{% endif %}
-            </td>
-        </tr>
+            </div>
+            <div class="col-md-8">
+                {% if entity.Incluye %}
+                    <span class="text-success"><small><strong>Incluye</strong> {{ entity.Incluye }}</small></span>
+                {% endif %}
+                {% if entity.NoIncluye %}
+                    <span class="text-danger"><small><strong>No incluye</strong> {{ entity.NoIncluye }}</small></span>
+                {% endif %}
+            </div>
+        </div>
+        <hr />
     {% endfor %}
-    </tbody>
-</table>
+</div>
 
 {% if not entities %}
     <div class="alert alert-warning">
