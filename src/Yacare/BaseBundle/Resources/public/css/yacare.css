@@ -343,6 +343,7 @@ body {
 
 .navbar-brand {
     padding: 14px 0px 0px 12px;
+    height: 40px;
 }
 
 .navbar-slogan {
