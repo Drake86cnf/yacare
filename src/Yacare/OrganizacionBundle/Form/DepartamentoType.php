@@ -27,8 +27,7 @@ class DepartamentoType extends AbstractType
                 'label' => 'Depende de',
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,
-                'empty_value' => 'Ninguna',
-                'property' => 'Nombre'))
+                'empty_value' => 'Ninguno'))
         ;
     }
 
