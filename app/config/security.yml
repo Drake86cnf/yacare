@@ -17,8 +17,9 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         cssjs:
-            pattern:  ^%web_root%/bundles/yacarebase/(css|js)/
+            pattern:  ^%web_root%/bundles/yacarebase/(css|js|fonts|images|img)/
             security: false
             
         login_firewall:
