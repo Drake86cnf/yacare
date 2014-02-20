@@ -55,7 +55,7 @@ class Departamento implements Tree\NodeInterface
     
     
     public function getSangria($sangria = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') {
-        return str_repeat($sangria, substr_count($this->getMaterializedPath(), '/') - 1);
+        return str_repeat($sangria, $this->getNodeLevel());
     }
     
     

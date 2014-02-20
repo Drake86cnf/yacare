@@ -5,27 +5,47 @@
 {% block pagina_contenido %}
 {% include 'YacareBaseBundle::buscar.html.twig' %}
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th> </th>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Rango</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
-            <td>{{ entity.Codigo }}</td>
-            <td>{{ entity.Sangria|raw }}{{ entity.Nombre }}</td>
-            <td><span class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}">{{ entity.RangoNombre }}</span>
-</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="tree">
+{% set lastNodeLevel = -1 %}
+{% for entity in entities %}
+    {% if entity.NodeLevel == lastNodeLevel %}
+        </li>
+    {% endif %}
+    {% if entity.NodeLevel < lastNodeLevel %}
+        </li></ul>
+    {% endif %}
+    {% if entity.NodeLevel > lastNodeLevel %}
+        <ul>
+    {% endif %}
+    
+    <li><span>
+            {% if entity.LeafNode and 0 %}<i class="fa fa-minus-circle"></i>{% endif %}
+            <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a> {{ entity.Nombre }} 
+            
+            <ll class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}">{{ entity.RangoNombre }}</ll>
+        </span>
+    
+    {% set lastNodeLevel = entity.NodeLevel %}
+{% endfor %}
+</div>
+
+
+<script>
+$(function () {
+    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Contraer esta rama');
+    $('.tree li.parent_li > span').on('click', function (e) {
+        var children = $(this).parent('li.parent_li').find(' > ul > li');
+        if (children.is(":visible")) {
+            children.hide('fast');
+            $(this).attr('title', 'Expandir esta rama').find(' > i').addClass('fa-plus-circle').removeClass('fa-minus-circle');
+        } else {
+            children.show('fast');
+            $(this).attr('title', 'Contraer esta rama').find(' > i').addClass('fa-minus-circle').removeClass('fa-plus-circle');
+        }
+        e.stopPropagation();
+    });
+});
+</script>
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
