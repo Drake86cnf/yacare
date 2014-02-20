@@ -41,7 +41,7 @@ class DateExtension extends \Twig_Extension
             null
         );
 
-        return ucfirst($formatter->format($date->getTimestamp()));
+        return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }
 
     public function time_ago($value, $format = 'Y-m-d H:s') 

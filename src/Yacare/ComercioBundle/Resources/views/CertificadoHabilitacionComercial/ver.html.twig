@@ -1,73 +1,41 @@
 {% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %}
 
-{% block pagina_titulo %}{{ entity }}{% endblock %}
+{% block pagina_titulo %}{{ entity.Nombre }}{% endblock %}
 
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">Denominación</div>
-            <div class="panel-body">{{ entity.Comercio.Nombre }}</div>
-        </div>
-    </div>
+<p class="text-right">Río Grande, {{ entity.createdAt|localizeddate('full', 'none')|lower }}</p>
 
-    <div class="col-sm-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">Fecha de emisión</div>
-            <div class="panel-body">{{ entity.createdAt|localizeddate('medium', 'none') }}</div>
-        </div>
-    </div>
-    
-    <div class="col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">Vencimiento</div>
-            <div class="panel-body">{{ entity.Vencimiento|localizeddate('full', 'none') }}</div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block comprobante_contenido %}
-{{ parent() }}
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">Domicilio</div>
-            <div class="panel-body">{{ entity.Comercio.Local.Partida.Domicilio }}</div>
-        </div>
-    </div>
+<p>Se extiende el presente Certificado de Habilitación Comercial a {{ entity.Comercio.Titular }},
+    CUIT/CUIL Nº {{ entity.Comercio.Titular.Cuilt }}, para el ejercicio de las actividades
+    comerciales detalladas más abajo,
+    bajo el nombre comercial de <em>&quot;{{ entity.Comercio.Nombre }}&quot;</em>
+    , en el {{ entity.Comercio.Local.Tipo|lower }} con una superficie de {{ entity.Comercio.Local.Superficie }} m²
+    ubicado en {{ entity.Comercio.Local.Partida.Domicilio }} de esta ciudad.</p>
 
-    <div class="col-sm-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">Tipo</div>
-            <div class="panel-body">{{ entity.Comercio.Local.Tipo }}</div>
-        </div>
-    </div>
-    
-    <div class="col-sm-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">Superficie</div>
-            <div class="panel-body">{{ entity.Comercio.Local.Superficie }} m²</div>
-        </div>
-    </div>
-</div>
+<h2>Actividades</h2>
+<dl class="dl-horizontal">
+    <dt>{{ entity.Comercio.ActividadPrincipal.Clamae2014 }}</dt>
+    <dd>{{ entity.Comercio.ActividadPrincipal }}</dd>
+{% if entity.Comercio.ActividadSecundaria %}
+    <dt>{{ entity.Comercio.ActividadSecundaria.Clamae2014 }}</dt>
+    <dd>{{ entity.Comercio.ActividadSecundaria }}</dd>
+{% endif %}
+{% if entity.Comercio.ActividadTerciaria %}
+    <dt>{{ entity.Comercio.ActividadTerciaria.Clamae2014 }}</dt>
+    <dd>{{ entity.Comercio.ActividadTerciaria }}</dd>
+{% endif %}
+</dl>
 
-
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">Actividades</div>
-            <div class="panel-body">
-                {{ entity.Comercio.ActividadPrincipal }}{% if entity.Comercio.ActividadSecundaria %}; {{ entity.Comercio.ActividadSecundaria }}{% endif %}{% if entity.Comercio.ActividadTerciaria %}; {{ entity.Comercio.ActividadTerciaria }}{% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-
+<footer>El presente certificado es intransferible, es válido sólo para el ejercicio de las actividades
+    mencionadas, en el local comercial mencionado y es válido hasta el día
+    {{ entity.Vencimiento|localizeddate('full', 'none')|lower }} inclusive.</footer>
 {% endblock %}
 
 {% endblock %}

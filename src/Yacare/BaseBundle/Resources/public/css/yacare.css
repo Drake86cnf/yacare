@@ -373,6 +373,10 @@ body {
         border: none;
         background-color: rgb(8, 8, 8);
     }
+    .form-actions {
+        position: absolute;
+        top: 60px;
+    }
 }
 
 @media (min-width: 768px) {

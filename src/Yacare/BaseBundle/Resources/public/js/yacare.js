@@ -77,6 +77,8 @@ function yacareCargarUrlEn(url, destino) {
             document.title = newTitle;
         }
         
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        
         MejorarElementos();
         
         // Activo la función de los enalces AJAX
