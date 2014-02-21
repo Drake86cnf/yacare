@@ -11,9 +11,19 @@
     {% if entity.NodeLevel == lastNodeLevel %}
         </li>
     {% endif %}
-    {% if entity.NodeLevel < lastNodeLevel %}
+    {% if entity.NodeLevel <= lastNodeLevel - 1 %}
+        {# Desciende un nivel #}
         </li></ul>
     {% endif %}
+    {% if entity.NodeLevel <= lastNodeLevel - 2 %}
+        {# Por si desciende dos niveles de una vez #}
+        </li></ul>
+    {% endif %}
+    {% if entity.NodeLevel <= lastNodeLevel - 3 %}
+        {# Por si desciende 3 niveles de una vez #}
+        </li></ul>
+    {% endif %}
+
     {% if entity.NodeLevel > lastNodeLevel %}
         <ul>
     {% endif %}
