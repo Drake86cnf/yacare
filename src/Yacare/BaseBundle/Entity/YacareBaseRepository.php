@@ -15,7 +15,7 @@ class YacareBaseRepository extends EntityRepository
         }
         
         if(in_array('Yacare\BaseBundle\Entity\Suprimible', class_uses($this->_entityName))) {
-            $res->where($alias . 'Suprimido=0');
+            $res->where($alias . '.Suprimido=0');
         }
         
         return $res;
