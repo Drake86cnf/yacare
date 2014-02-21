@@ -5,6 +5,7 @@ namespace Yacare\OrganizacionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class DepartamentoType extends AbstractType
 {
@@ -27,7 +28,12 @@ class DepartamentoType extends AbstractType
                 'label' => 'Depende de',
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,
-                'empty_value' => 'Ninguno'))
+                'empty_value' => 'Ninguno',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.MaterializedPath', 'ASC');
+                    },
+                'property' => 'NombreConSangriaDeEspaciosDuros'))
         ;
     }
 
