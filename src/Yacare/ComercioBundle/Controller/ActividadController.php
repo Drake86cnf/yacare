@@ -20,6 +20,84 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         parent::__construct();
     }
     
+    public function guardarActionPrePersist($entity, $editForm)
+    {
+        /*
+         * Al guardar, busco un ParentNode acorde al código ClaMAE ingresado
+         * 
+         */
+        $codigo = $entity->getClamae2014();
+
+        $entity->setClaeAfip(substr($codigo, 0, 6));
+        $entity->setClane2010(substr($codigo, 0, 5));
+        
+        if(strlen($codigo) == 7) {
+            // Los códigos finales (de 7 dígitos) dependen de una clase (4 dígitos)
+            $codigoPadre = substr($codigo, 0, 4);
+        } else if(strlen($codigo) == 4) {
+            // Las clases (de 4 dígitos) dependen de un grupo (3 dígitos)
+            $codigoPadre = substr($codigo, 0, 3);
+        } else if(strlen($codigo) == 3) {
+            // Los grupos (de 3 dígitos) dependen de una división (2 dígitos)
+            $codigoPadre = substr($codigo, 0, 2);
+        } else if(strlen($codigo) == 2) {
+            // Las divisiones (de 2 dígitos) dependen de una categoría (1 letra)
+            // Esta estructura es fija del ClaNAE 2010
+            $codigo = (int)($codigo);
+            if($codigo <= 4) {
+                $codigoPadre = 'A';
+            } else if($codigo <= 9) {
+                $codigoPadre = 'B';
+            } else if($codigo <= 34) {
+                $codigoPadre = 'C';
+            } else if($codigo <= 35) {
+                $codigoPadre = 'D';
+            } else if($codigo <= 40) {
+                $codigoPadre = 'E';
+            } else if($codigo <= 44) {
+                $codigoPadre = 'F';
+            } else if($codigo <= 48) {
+                $codigoPadre = 'G';
+            } else if($codigo <= 54) {
+                $codigoPadre = 'H';
+            } else if($codigo <= 57) {
+                $codigoPadre = 'I';
+            } else if($codigo <= 63) {
+                $codigoPadre = 'J';
+            } else if($codigo <= 67) {
+                $codigoPadre = 'K';
+            } else if($codigo <= 68) {
+                $codigoPadre = 'L';
+            } else if($codigo <= 76) {
+                $codigoPadre = 'M';
+            } else if($codigo <= 83) {
+                $codigoPadre = 'N';
+            } else if($codigo <= 84) {
+                $codigoPadre = 'O';
+            } else if($codigo <= 85) {
+                $codigoPadre = 'P';
+            } else if($codigo <= 89) {
+                $codigoPadre = 'Q';
+            } else if($codigo <= 93) {
+                $codigoPadre = 'R';
+            } else if($codigo <= 96) {
+                $codigoPadre = 'S';
+            } else if($codigo <= 98) {
+                $codigoPadre = 'T';
+            } else if($codigo <= 99) {
+                $codigoPadre = 'U';
+            }
+        }
+        
+        if($codigoPadre) {
+            $em = $this->getDoctrine()->getManager();
+            $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array('Clamae2014' => $codigoPadre));
+            $entity->setParentNode($parentNode);
+        }
+        
+        return null;
+    }
+    
     /**
      * @Route("buscarresultados/")
      * @Template()
@@ -39,7 +117,7 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         ini_set('memory_limit', '2048M');
         
         $em = $this->getDoctrine()->getManager();
-        $em->getConnection()->beginTransaction();
+        /* $em->getConnection()->beginTransaction(); */
         $items = $em->getRepository('YacareComercioBundle:Actividad')->findAll();
         foreach($items as $item) {
             $item->setParentNode($item->getParentNode());
@@ -47,7 +125,7 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
             $em->flush();
         }
         
-        $em->getConnection()->commit();
+        /* $em->getConnection()->commit(); */
         
         return parent::listarAction($request);
     }

@@ -19,13 +19,13 @@
     {% for entity in entities %}
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
-            <td>{{ entity.Clamae2014|slice(0,2) }}{% if entity.Clamae2014|length > 2 %}-{{ entity.Clamae2014|slice(2,3) }}{% if entity.Clamae2014|length > 5 %}-{{ entity.Clamae2014|slice(5,2) }}{% endif %}{% endif %}</td>
+            <td>{{ entity.Clamae2014|slice(0,5) }}{% if entity.Clamae2014|length > 5 %}-{{ entity.Clamae2014|slice(5,2) }}{% endif %}</td>
             <td>{{ entity.Sangria|raw }}
                 {% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}
             </td>
             <td>{{ entity.CategoriaAntigua }}</td>
             <td>
-                {% if entity.Exento %}<span class="label label-info">Exento</span>{% endif %}
+                {% if entity.Exento %}<span class="label label-info">Exenta</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. DEyMA</span>{% endif %}
                 {% if entity.RequiereDbeh %}<span class="label label-info">Req. DBeH</span>{% endif %}
             </td>

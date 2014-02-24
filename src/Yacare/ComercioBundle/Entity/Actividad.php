@@ -18,18 +18,18 @@ class Actividad implements Tree\NodeInterface
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Model\Tree\Node;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Actividad")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $ParentNode;
     
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae1997;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Actividad")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    private $ParentNode;
     
     /**
      * @var string
@@ -121,18 +121,6 @@ class Actividad implements Tree\NodeInterface
     private $Instructivos;
     
     /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true, length=5)
-     */
-    private $Categoria;
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true, length=5)
-     */
-    private $Division;
-    
-    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $Final;
@@ -217,10 +205,6 @@ class Actividad implements Tree\NodeInterface
         return $this->DgrTdf;
     }
 
-    public function getCategoria() {
-        return $this->Categoria;
-    }
-
     public function getCodigoCpu() {
         return $this->CodigoCpu;
     }
@@ -269,10 +253,6 @@ class Actividad implements Tree\NodeInterface
         $this->DgrTdf = $DgrTdf;
     }
 
-    public function setCategoria($Categoria) {
-        $this->Categoria = $Categoria;
-    }
-
     public function setCodigoCpu($CodigoCpu) {
         $this->CodigoCpu = $CodigoCpu;
     }
@@ -313,24 +293,8 @@ class Actividad implements Tree\NodeInterface
         $this->CategoriaAntigua = $CategoriaAntigua;
     }
 
-    public function getDivision() {
-        return $this->Division;
-    }
-
-    public function setDivision($Division) {
-        $this->Division = $Division;
-    }
-    
-    public function getParentNode() {
-        return $this->ParentNode;
-    }
-
     public function getFinal() {
         return $this->Final;
-    }
-
-    public function setParentNode($ParentNode) {
-        $this->ParentNode = $ParentNode;
     }
 
     public function setFinal($Final) {

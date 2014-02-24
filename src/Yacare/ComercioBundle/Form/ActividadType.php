@@ -11,11 +11,10 @@ class ActividadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ParentNode', null, array(
-                'label' => 'Categoría superior',
-                'property' => 'NombreConSangriaDeEspaciosDuros'
+            ->add('Clamae2014', null, array(
+                'label' => 'Código ClaMAE 2014',
+                'required'  => true
                 ))
-            ->add('Clamae2014', null, array('label' => 'Código ClaMAE 2014'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Exento', 'choice', array(
                 'label' => 'Exento',
@@ -32,7 +31,7 @@ class ActividadType extends AbstractType
                 'required'  => true,
                 'choices' => array('0' => 'No', '1' => 'Sí')
                 ))
-            ->add('Categoria', 'choice', array(
+            ->add('CategoriaAntigua', 'choice', array(
                 'label' => 'Categoría antigua',
                 'required'  => true,
                 'choices' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6')
