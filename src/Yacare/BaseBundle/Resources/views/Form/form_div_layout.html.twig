@@ -20,7 +20,9 @@
 {% block form_row %}
 <div class="form-group">
     <label class="col-md-2 control-label">{{ label }}{% if required %} <span class="required" title="Este campo es obligatorio">*</span>{% endif %}</label>
-    <div class="col-md-10">{{ form_widget(form) }}{{ form_errors(form) }}</div>
+    <div class="col-md-10">{{ form_widget(form) }}{% if attr['help'] is defined %}
+        <span class="help-block">{{ attr['help'] }}</span>
+    {% endif %}{{ form_errors(form) }}</div>
 </div>
 {% endblock form_row %}
 
