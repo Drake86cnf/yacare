@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
+    use \Yacare\BaseBundle\Controller\ConEliminar;
     
     public function __construct() {
         $this->BundleName = 'Comercio';
