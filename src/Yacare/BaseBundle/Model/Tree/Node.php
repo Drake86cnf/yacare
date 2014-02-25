@@ -107,7 +107,7 @@ trait Node
      **/
     public function getNodeLevel()
     {
-        $res = count($this->getExplodedPath()) - 1;
+        $res = count($this->getExplodedPath()) - 2;
         return $res > 0 ? $res : 0;
     }
 
