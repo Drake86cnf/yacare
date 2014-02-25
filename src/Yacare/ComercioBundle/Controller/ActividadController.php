@@ -125,7 +125,7 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         $codigo = $entity->getClamae2014();
 
         $entity->setClaeAfip(substr($codigo, 0, 6));
-        $entity->setClane2010(substr($codigo, 0, 5));
+        $entity->setClanae2010(substr($codigo, 0, 5));
         
         if(strlen($codigo) == 7) {
             // Los códigos finales (de 7 dígitos) dependen de una clase (4 dígitos)

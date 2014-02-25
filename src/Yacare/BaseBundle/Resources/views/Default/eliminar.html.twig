@@ -2,20 +2,24 @@
 
 {% block pagina_titulo %}Eliminar {{ entity }}{% endblock %}
 
+{% block pagina_inicio %}
+    <form class="form-horizontal" action="{{ path(baseroute ~ '_eliminar2', arrastre|merge({ 'id': entity.id })) }}" method="post">
+{% endblock %}
+
 {% block pagina_contenido %}
+    {% form_theme delete_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
 
-{% form_theme delete_form 'YacareBaseBundle:Form:form_div_layout.html.twig' %}
-
-{% if entity %}
-<form class="form-horizontal" action="{{ path(baseroute ~ '_eliminar2', arrastre|merge({ 'id': entity.id })) }}" method="post">
-	{{ form_widget(delete_form) }}
-        <p>¿Está seguro de que desea eliminar de forma permanente el elemento seleccionado?</p>
-</form>
-{% endif %}
-
+    {% if entity %}
+            {{ form_widget(delete_form) }}
+            <p>¿Está seguro de que desea eliminar de forma permanente el elemento seleccionado?</p>
+    {% endif %}
 {% endblock %}
 
 {% block pagina_acciones %}
-<button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> Eliminar</button>
-<a data-dismiss="modal" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="icon icon-reply"></i> Cancelar</a>
+    <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> Eliminar</button>
+    <a data-dismiss="modal" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="icon icon-reply"></i> Cancelar</a>
+{% endblock %}
+
+{% block pagina_fin %}
+    </form>
 {% endblock %}
