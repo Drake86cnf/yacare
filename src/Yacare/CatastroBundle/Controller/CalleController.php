@@ -13,4 +13,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class CalleController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConExportarLista;
 }

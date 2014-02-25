@@ -21,7 +21,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a> <a class="btn btn-default btn-xs" target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="fa fa-print"></i> Imprimir</a></td>
+            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a> <a class="btn btn-default btn-xs hidden-print showonhover" target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="fa fa-print"></i> Imprimir</a></td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Departamento }}</td>

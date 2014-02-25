@@ -174,17 +174,30 @@ label {
     vertical-align: none;
 }
 
+.table-hover > tbody > tr > td > a.showonhover {
+    opacity: 0;
+}
+
+.table-hover > tbody > tr:hover > td > a.showonhover {
+    opacity: 1;
+}
+
+.table-hover > tbody > tr > td,
+.table-hover > tbody > tr > th {
+    border-top: 1px dotted #e0e0e0;
+}
+
 .table-hoverselect > tbody > tr > td,
 .table-hoverselect > tbody > tr > th {
-    border-top: 1px dotted #f0f0f0;
+    border-top: 1px dotted #e0e0e0;
 }
 
 .table-hoverselect > tbody > tr:hover > td,
 .table-hoverselect > tbody > tr:hover > th {
-    background-color: rgb(50, 118, 177);
-    color: white;
+    background-color: #f4f456;
+    color: black;
     cursor: pointer;
-    border-top: 1px dotted #f0f0f0;
+    border-top: 1px dotted #e0e0e0;
 }
 
 .ui-datepicker{

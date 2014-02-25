@@ -69,7 +69,7 @@ $(document).ready(function() {
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a class="btn btn-default btn-xs" href="#{{ entity.id }}" onClick="javascript:alert('Sólo puede editarse desde Sigemi.');"><i class="fa fa-edit"></i> Editar</a></td>
+            <td><a class="btn btn-default btn-xs hidden-print showonhover" href="#{{ entity.id }}" onClick="javascript:alert('Sólo puede editarse desde Sigemi.');"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Titular }}</td>

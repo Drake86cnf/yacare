@@ -17,7 +17,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>&nbsp;{{ entity.Nombre }}</td>
             <td>{{ entity.TipoNombre }}</td>
             <td>{% for requiere in entity.Requiere %}
