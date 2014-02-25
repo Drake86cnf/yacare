@@ -12,6 +12,7 @@ trait ConExportarLista
      */
     public function exportarListaAction(Request $request)
     {
+        ini_set('memory_limit', '512M');
         
         $dql = $this->getSelectDql();
 
