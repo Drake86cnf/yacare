@@ -5,8 +5,8 @@ namespace Yacare\BaseBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class YacareAbmController extends YacareBaseController
 {
@@ -39,16 +39,8 @@ class YacareAbmController extends YacareBaseController
             $this->BuscarPor = 'Nombre';
         }
     }
-
-
-    /**
-     * @Route("listar/")
-     * @Template()
-     */
-    public function listarAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-       
+    
+    protected function getSelectDql($filtro_buscar = null) {
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
         if(count($this->Joins) > 0) {
@@ -65,7 +57,6 @@ class YacareAbmController extends YacareBaseController
             $where = "1=1";
         }
 
-        $filtro_buscar = $request->query->get('filtro_buscar');
         if($filtro_buscar && $this->BuscarPor) {
             // Busco por varias palabras
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
@@ -99,6 +90,20 @@ class YacareAbmController extends YacareBaseController
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
         
+        return $dql;
+    }
+
+
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_buscar = $request->query->get('filtro_buscar');
+        $dql = $this->getSelectDql($filtro_buscar);
+
+        $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
         
         if($this->Limit) {

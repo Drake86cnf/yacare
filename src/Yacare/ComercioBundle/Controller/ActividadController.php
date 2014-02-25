@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConExportarLista;
+    
     public function __construct() {
         $this->BundleName = 'Comercio';
         $this->EntityName = 'Actividad';
@@ -19,6 +21,99 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         $this->Paginar = false;
         parent::__construct();
     }
+    
+    
+    protected function getExportarListaExcel($entities, $phpExcelObject) {
+        $phpExcelObject->getActiveSheet()
+            ->setCellValue('A1', 'ClaMAE 2014')
+            ->setCellValue('B1', 'Detalle')
+            ->setCellValue('C1', 'CPU')
+            ->setCellValue('D1', 'Categoría antigua')
+            ->setCellValue('E1', 'Exenta')
+            ->setCellValue('F1', 'DBeH')
+            ->setCellValue('G1', 'DEyMA')
+            ->setCellValue('H1', 'Ley 105')
+            ->setCellValue('I1', 'Incluye')
+            ->setCellValue('J1', 'No incluye')
+            ->setCellValue('K1', 'ClaNAE 97')
+            ->setCellValue('L1', 'ClaNAE 2010')
+            ->setCellValue('M1', 'ClaE AFIP RG3537/13')
+            ->setCellValue('N1', 'DGR TDF Ley 854/11');
+
+        $phpExcelObject->getDefaultStyle()->getFont()->setName('Calibri')->setSize(10);
+        $phpExcelObject->getDefaultStyle()->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
+        $phpExcelObject->getDefaultStyle()->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
+        
+        $i = 1;
+        foreach($entities as $entity) {
+            $i++;
+            
+            $phpExcelObject->getActiveSheet()
+                ->getStyle('A' . $i)
+                ->getNumberFormat()
+                ->setFormatCode('@');
+            
+            $phpExcelObject->getActiveSheet()
+                ->setCellValue('A' . $i, $entity->getClamae2014())
+                ->setCellValue('B' . $i, $entity->getNombre())
+                ->setCellValue('C' . $i, $entity->getCodigoCpu())
+                ->setCellValue('D' . $i, $entity->getCategoriaAntigua() ? $entity->getCategoriaAntigua() : '')
+                ->setCellValue('E' . $i, $entity->getExento() ? 'Sí' : '')
+                ->setCellValue('F' . $i, $entity->getRequiereDeyma() ? 'Sí' : '')
+                ->setCellValue('G' . $i, $entity->getRequiereDbeh() ? 'Sí' : '')
+                ->setCellValue('H' . $i, $entity->getLey105() ? 'Sí' : '')
+                ->setCellValue('I' . $i, $entity->getIncluye())
+                ->setCellValue('J' . $i, $entity->getNoIncluye())
+                ->setCellValue('K' . $i, $entity->getClanae1997())
+                ->setCellValue('L' . $i, $entity->getClanae2010())
+                ->setCellValue('M' . $i, $entity->getClaeAfip())
+                ->setCellValue('N' . $i, $entity->getDgrTdf());
+            
+            $phpExcelObject->getActiveSheet()->getRowDimension($i)->setRowHeight(12);
+            
+            $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getAlignment()->setIndent($entity->getNodeLevel());
+            $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+            if(!$entity->getFinal()) {
+                $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getFont()->setBold(true);
+            }
+        }
+        
+        $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setWidth(70);
+
+        /* $phpExcelObject->getActiveSheet()
+                ->getStyle('A1:N1')
+                ->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID); */
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('A1:N1')
+                ->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_YELLOW);
+        
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('A2:N' . $i)
+                ->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
+        /* $phpExcelObject->getActiveSheet()
+                ->getStyle('A2:N' . $i)
+                ->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID); */
+        
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('A2:A' . $i)
+                ->getNumberFormat()
+                ->setFormatCode('@');
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('A2:A' . $i)
+                ->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('K2:K' . $i)
+                ->getNumberFormat()
+                ->setFormatCode('@');
+        $phpExcelObject->getActiveSheet()
+                ->getStyle('K2:K' . $i)
+                ->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        
+        return $i;
+    }
+    
     
     public function guardarActionPrePersist($entity, $editForm)
     {

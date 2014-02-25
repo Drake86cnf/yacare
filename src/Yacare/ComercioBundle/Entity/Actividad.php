@@ -167,8 +167,7 @@ class Actividad implements Tree\NodeInterface
     }
     
     public function getSangria($sangria = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') {
-        $sang = substr_count($this->getMaterializedPath(), '/') - 1;
-        return str_repeat($sangria, $sang > 0 ? $sang : 0);
+        return str_repeat($sangria, $this->getNodeLevel());
     }
     
     

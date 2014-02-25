@@ -107,7 +107,8 @@ trait Node
      **/
     public function getNodeLevel()
     {
-        return count($this->getExplodedPath());
+        $res = count($this->getExplodedPath()) - 1;
+        return $res > 0 ? $res : 0;
     }
 
     public function isRootNode()
