@@ -25,11 +25,14 @@ h1, legend {
     padding: 0px;
     margin: 0px 8px;
     font-size: 24px;
-    color: rgb(38, 121, 181);
     margin: 0px 0px 12px;
-    border-bottom: 1px dotted rgb(226, 226, 226);
-    padding-bottom: 16px;
+    color: gray;
+    padding-bottom: 12px;
     padding-top: 7px;
+    /*
+    color: rgb(38, 121, 181);
+    border-bottom: 1px dotted rgb(226, 226, 226);
+     */
 }
 
 h2 {
@@ -447,7 +450,7 @@ body {
         border: none;
         background-color: rgb(8, 8, 8);
     }
-    .form-actions {
+    .nav-search, .form-actions {
         position: absolute;
         top: 60px;
     }

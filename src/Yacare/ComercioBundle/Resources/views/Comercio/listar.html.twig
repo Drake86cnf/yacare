@@ -11,8 +11,8 @@
             <th> </th>
             <th>#</th>
             <th>Nombre</th>
-            <th>Local</th>
-            <th>Actividad</th>
+            <th class="hidden-xs">Local</th>
+            <th class="hidden-sm hidden-xs">Actividad</th>
         </tr>
     </thead>
     <tbody>
@@ -29,8 +29,8 @@
                 <span class="label label-default">{{ entity.EstadoNombre }}</span>
             {% endif %}
             </td>
-            <td>{{ entity.Local }}</td>
-            <td>{{ entity.ActividadPrincipal }}</td>
+            <td class="hidden-xs">{{ entity.Local }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal }}</td>
         </tr>
     {% endfor %}
     </tbody>

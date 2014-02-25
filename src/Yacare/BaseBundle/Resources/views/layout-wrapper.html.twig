@@ -2,7 +2,7 @@
 
 {% set block_pagina_titulo = block('pagina_titulo') %}  
 {% if block_pagina_titulo is not empty %}
-    <h1 id="page-title">{{ block_pagina_titulo|raw }}</h1>
+<h1 id="page-title">{{ block_pagina_titulo|raw }}</h1>
 {% endif %}
 
 {% block pagina_contenido %}{% endblock %}

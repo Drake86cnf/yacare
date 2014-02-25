@@ -1,6 +1,6 @@
 {% extends 'YacareBaseBundle:Default:listar.html.twig' %}
 
-{% block pagina_titulo %}Calles{% endblock %}
+{% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
 
 {% block pagina_contenido %}
 {% include 'YacareBaseBundle::buscar.html.twig' %}
@@ -24,4 +24,8 @@
 
 {% include 'YacareBaseBundle::paginar.html.twig' %}
 
+{% endblock %}
+
+{% block pagina_acciones2 %}
+<a href="{{ path(baseroute ~ '_listarexportar') }}" class="btn btn-default"><i class="fa fa-download"></i> Descargar para Excel</a>
 {% endblock %}

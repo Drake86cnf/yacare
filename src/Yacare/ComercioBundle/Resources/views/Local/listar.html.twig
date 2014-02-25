@@ -10,9 +10,9 @@
         <tr>
             <th></th>
             <th>Domicilio</th>
-            <th>Tipo</th>
+            <th class="hidden-xs">Tipo</th>
             <th>Sup.</th>
-            <th>Titular</th>
+            <th class="hidden-sm hidden-xs">Titular</th>
         </tr>
     </thead>
     <tbody>
@@ -20,9 +20,9 @@
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Partida.Domicilio }}</td>
-            <td>{{ entity.Tipo }}</td>
+            <td class="hidden-xs">{{ entity.Tipo }}</td>
             <td>{{ entity.Superficie }} m²</td>
-            <td>{{ entity.Partida.Titular }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Partida.Titular }}</td>
         </tr>
     {% endfor %}
     </tbody>

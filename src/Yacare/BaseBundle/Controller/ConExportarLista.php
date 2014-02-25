@@ -22,8 +22,13 @@ trait ConExportarLista
         $entities = $query->getResult();
         
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-        $phpExcelObject->getProperties()->setCreator("Yacaré");
+        $phpExcelObject->getProperties()
+                ->setCreator('Yacaré')
+                ->setTitle($this->BundleName . ': ' . $this->getEntityLabelPlural())
+                ->setKeywords($this->BundleName . '  ' . $this->getEntityLabelPlural())
+                ->setDescription('Archivo exportado desde sistema de gestión Yacaré');
         $phpExcelObject->setActiveSheetIndex(0);
+        $phpExcelObject->getActiveSheet()->setTitle($this->getEntityLabelPlural());
 
         $phpExcelObject->getDefaultStyle()->getFont()->setName('Calibri')->setSize(10);
         $phpExcelObject->getDefaultStyle()->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
@@ -68,7 +73,7 @@ trait ConExportarLista
                 break;
         }
         
-        $NombreArchivo = $this->BundleName . '_' . $this->EntityName;
+        $NombreArchivo = $this->BundleName . '_' . $this->getEntityLabelPlural();
         
         $writer = $this->get('phpexcel')->createWriter($phpExcelObject, $WriterFormat);
         $response = $this->get('phpexcel')->createStreamedResponse($writer);

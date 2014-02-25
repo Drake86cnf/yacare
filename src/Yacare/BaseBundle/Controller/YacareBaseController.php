@@ -40,9 +40,12 @@ class YacareBaseController extends Controller
         if($incluirDelSistema) {
             $valorInicial['bundlename']  = strtolower('yacare_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
+            $valorInicial['entitylabel'] = $this->getEntityLabel();
+            $valorInicial['entitylabelplural'] = $this->getEntityLabelPlural();
             $valorInicial['baseroute'] = $this->getBaseRoute();
-            if(isset($this->Paginar))
+            if(isset($this->Paginar)) {
                 $valorInicial['paginar'] = $this->Paginar;
+            }
         }
         
         if($this->ConservarVariables) {
@@ -62,8 +65,9 @@ class YacareBaseController extends Controller
             $valorInicial['arrastre']['page'] = $val;
         }
         
-        if(!isset($valorInicial['arrastre']))
+        if(!isset($valorInicial['arrastre'])) {
             $valorInicial['arrastre'][''] = '';
+        }
         
         return $valorInicial;
     }
@@ -74,5 +78,26 @@ class YacareBaseController extends Controller
             return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
         else
             return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
+    }
+    
+    public function getEntityLabel() {
+        if(isset($this->EntityLabel)) {
+            return $this->EntityLabel;
+        } else {
+            return \Yacare\BaseBundle\Helper\StringHelper::ProperCase($this->EntityName);
+        }
+    }
+    
+    public function getEntityLabelPlural() {
+        if(isset($this->EntityLabelPlural)) {
+            return $this->EntityLabelPlural;
+        } else {
+            $res = $this->getEntityLabel();
+            if(strpos('aeiouy', substr($res, -1)) === FALSE) {
+                return $this->getEntityLabel() . 'es';
+            } else {
+                return $this->getEntityLabel() . 's';
+            }
+        }
     }
 }

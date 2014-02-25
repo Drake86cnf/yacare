@@ -9,10 +9,10 @@
     <thead>
         <tr>
             <th> </th>
-            <th><abbr title="Clasificador Municipal de Actividades Económicas">Código</abbr></th>
+            <th><abbr title="Clasificador Municipal de Actividades Económicas 2014">Código</abbr></th>
             <th>Nombre</th>
-            <th>Cat. antig.</th>
-            <th>Obs.</th>
+            <th class="hidden-sm hidden-xs">Cat. antig.</th>
+            <th class="hidden-sm hidden-xs">Obs.</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +23,8 @@
             <td>{{ entity.Sangria|raw }}
                 {% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}
             </td>
-            <td>{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
-            <td>
+            <td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
+            <td class="hidden-sm hidden-xs">
                 {% if entity.Exento %}<span class="label label-info">Exenta</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. DEyMA</span>{% endif %}
                 {% if entity.RequiereDbeh %}<span class="label label-info">Req. DBeH</span>{% endif %}

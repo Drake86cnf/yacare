@@ -17,6 +17,7 @@ class UsuarioController extends YacareAbmController
     
     function __construct() {
         $this->EntityName = 'Persona';
+        $this->EntityLabel = 'Usuario';
         $this->BaseRouteEntityName = 'Usuario';
         $this->BuscarPor = 'NombreVisible, Username';
         $this->FormTypeName = 'Usuario';
