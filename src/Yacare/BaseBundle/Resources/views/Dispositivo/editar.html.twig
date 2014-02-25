@@ -1,3 +1,3 @@
-{% extends 'YacareBaseBundle::editar.html.twig' %}
+{% extends 'YacareBaseBundle:Default:editar.html.twig' %}
 
 {% block pagina_titulo %}{% if entity.id %} {{ entity.Tipo }} {{ entity.Marca }} {{ entity.Modelo }} {{ entity.NumeroSerie }} {% else %} Nuevo dispositivo {% endif %}{% endblock %}

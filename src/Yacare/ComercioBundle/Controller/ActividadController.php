@@ -40,19 +40,10 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
             ->setCellValue('L1', 'ClaNAE 2010')
             ->setCellValue('M1', 'ClaE AFIP RG3537/13')
             ->setCellValue('N1', 'DGR TDF Ley 854/11');
-
-        $phpExcelObject->getDefaultStyle()->getFont()->setName('Calibri')->setSize(10);
-        $phpExcelObject->getDefaultStyle()->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
-        $phpExcelObject->getDefaultStyle()->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
         
         $i = 1;
         foreach($entities as $entity) {
             $i++;
-            
-            $phpExcelObject->getActiveSheet()
-                ->getStyle('A' . $i)
-                ->getNumberFormat()
-                ->setFormatCode('@');
             
             $phpExcelObject->getActiveSheet()
                 ->setCellValue('A' . $i, $entity->getClamae2014())
@@ -82,9 +73,6 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setWidth(12);
         $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setWidth(70);
 
-        /* $phpExcelObject->getActiveSheet()
-                ->getStyle('A1:N1')
-                ->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID); */
         $phpExcelObject->getActiveSheet()
                 ->getStyle('A1:N1')
                 ->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_YELLOW);
@@ -92,9 +80,6 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         $phpExcelObject->getActiveSheet()
                 ->getStyle('A2:N' . $i)
                 ->getFill()->getStartColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
-        /* $phpExcelObject->getActiveSheet()
-                ->getStyle('A2:N' . $i)
-                ->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID); */
         
         $phpExcelObject->getActiveSheet()
                 ->getStyle('A2:A' . $i)

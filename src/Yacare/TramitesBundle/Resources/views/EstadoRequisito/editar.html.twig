@@ -1,3 +1,3 @@
-{% extends 'YacareBaseBundle::editar.html.twig' %}
+{% extends 'YacareBaseBundle:Default:editar.html.twig' %}
 
 {% block pagina_titulo %}{% if entity.id %}{{ entity.AsociacionRequisito }}<small> de {{ entity.Tramite }}</small>{% else %}Nuevo estado de requisito{% endif %}{% endblock %}
