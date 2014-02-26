@@ -74,17 +74,32 @@ class AsociacionRequisito
             case 'ori':
                 return 'Original';
             case 'cop':
-                return 'Copia';
-            case 'cle':
+                return 'Original y copia';
+            case 'cos':
+                return 'Copia simple';
+            case 'coc':
+                return 'Copia certificada';
+            case 'col':
                 return 'Copia legalizada';
        }
     }
 
     
     public function getCondicion() {
-        $res = '';
+        if($this->Obs) {
+            return $this->Obs;
+        }
+        
+        return $res = '';
         if($this->CondicionQue) {
-            $res .= $this->CondicionQue;
+            switch($this->CondicionEs) {
+                case 'notnull';
+                    $res .= 'hay ';
+                    break;
+            }
+            $Partes = explode('.', $this->CondicionQue);
+            $res .= join(' de ', array_reverse($Partes));
+           
             switch($this->CondicionEs) {
                 case '==';
                     $res .= ' es igual a ';
@@ -111,7 +126,7 @@ class AsociacionRequisito
                     $res .= '';
                     break;
                 case 'true';
-                    $res .= ' es verdadero';
+                    //$res .= ' es verdadero';
                     break;
                 case 'false';
                     $res .= ' es falso';
@@ -126,11 +141,12 @@ class AsociacionRequisito
                     $res .= ' ' . $this->CondicionEs . ' ';
                     break;
             }
-            if($this->CondicionCuanto)
+            if($this->CondicionCuanto) {
                 $res .= ' ' . $this->CondicionCuanto;
+            }
         }
         
-        return $res;
+        return trim($res);
     }
 
     public function __toString() {

@@ -11,7 +11,7 @@
             <th> </th>
             <th>Código</th>
             <th>Nombre</th>
-            <th>Tipo</th>
+            <th class="hidden-sm hidden-xs">Tipo</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Codigo }}</td>
             <td>&nbsp;{{ entity.Nombre }}</td>
-            <td>{{ entity.TipoNombre }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.TipoNombre }}</td>
         </tr>
     {% endfor %}
     </tbody>

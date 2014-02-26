@@ -60,7 +60,7 @@
         <tr>
             <th>Requisito</th>
             <th>Estado</th>
-            <th>Fecha aprobado</th>
+            <th class="hidden-sm hidden-xs">Fecha aprobado</th>
         </tr>
     </thead>
     <tbody>
@@ -69,7 +69,7 @@
         <td>
             {% if entity.Estado < 90 %}
             <div class="btn-group hidden-print">
-                <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" ahref="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-folder-open"></i> Editar
+                <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i> Editar
                     &nbsp;<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
@@ -91,11 +91,13 @@
             {% endif %}
 
             {% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %}
-                <i class="fa fa-copy fa-fw"></i>
-            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
-                <i class="fa fa-file fa-fw"></i>
-            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cle' %}
                 <i class="fa fa-clipboard fa-fw"></i>
+            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cos' %}
+                <i class="fa fa-file-text-o fa-fw"></i>
+            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %}
+                <i class="fa fa-file-text fa-fw"></i>
+            {% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'col' or EstadoRequisito.AsociacionRequisito.Instancia == 'coc' %}
+                <i class="fa fa-legal fa-fw"></i>
             {% else %}
                 <i class="fa fa-circle-o fa-fw"></i>
             {% endif %}
@@ -103,15 +105,15 @@
             {% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
             {{ EstadoRequisito.AsociacionRequisito }}
             {% if EstadoRequisito.EsNecesario == 0 %}
-                </span><br /><small class="text text-muted">No corresponde, sólo se requiere si &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;</small>
+                </span><br /><small class="text text-muted">No corresponde.{% if EstadoRequisito.AsociacionRequisito.Condicion %} Sólo se requiere si &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;{% endif %}</small>
             {% endif %}
             {% if EstadoRequisito.EstadoRequisitoPadre %}
-                <br /><small class="text text-muted">Requerido para {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}</small>
+                <br /><small class="text text-muted">Requerido para {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}.</small>
             {% endif %}
         </td>
         <td>
             {% if EstadoRequisito.EsNecesario %}
-                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+                {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span> {% endif %}
                 {% if EstadoRequisito.Estado == 0 %}
                     {% if EstadoRequisito.AsociacionRequisito.Opcional %}
                         <span class="label label-default">
@@ -130,7 +132,7 @@
                 <span class="text text-muted">N/A</span>
             {% endif %}
         </td>
-        <td>{{ EstadoRequisito.FechaAprobado|localizeddate('medium', 'none') }}</td>
+        <td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|localizeddate('medium', 'none') }}</td>
     </tr>
 {% endfor %}
     </tbody>

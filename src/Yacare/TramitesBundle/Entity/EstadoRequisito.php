@@ -98,12 +98,26 @@ class EstadoRequisito
             return true;
         }
         
-        $FuncQue = '$this->getTramite()->get' . str_replace('.', '()->get', $Asoc->getCondicionQue()) . '()';
-        if(isset($$FuncQue)) {
-            $ValorQue = $$FuncQue;
-        } else {
-            $ValorQue = null;
+        /*
+         * Busco recursivamente las propiedades.
+         * Por ejemplo, "Titular.NumeroDocumento" se convierte en
+         * "$this->getTramite()->getTitular()->getNumeroDocumento()"
+         */
+        $Propiedades = explode('.', $Asoc->getCondicionQue());
+        $Objeto = $this->getTramite();
+        $ValorQue = null;
+        foreach ($Propiedades as $Propiedad) {
+            $NombreMetodo = 'get' . $Propiedad;
+            //echo $NombreMetodo . '; ';
+            if(method_exists($Objeto, $NombreMetodo)) {
+                $ValorQue = $Objeto->$NombreMetodo();
+                $Objeto = $ValorQue;
+            } else {
+                $ValorQue = null;
+                break;
+            }
         }
+        
         $ValorCuanto = $Asoc->getCondicionCuanto();
         
         switch($Asoc->getCondicionEs()) {

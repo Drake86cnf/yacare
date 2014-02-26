@@ -174,14 +174,14 @@ label {
 }
 
 .form-inline .form-group {
-    vertical-align: none;
+    vertical-align: initial;
 }
 
-.table-hover > tbody > tr > td > a.showonhover {
+.table-hover > tbody > tr > td > *.showonhover {
     opacity: 0;
 }
 
-.table-hover > tbody > tr:hover > td > a.showonhover {
+.table-hover > tbody > tr:hover > td > *.showonhover {
     opacity: 1;
 }
 

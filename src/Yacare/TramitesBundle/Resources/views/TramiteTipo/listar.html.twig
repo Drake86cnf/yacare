@@ -10,7 +10,7 @@
         <tr>
             <th> </th>
             <th>Nombre</th>
-            <th>Web</th>
+            <th class="hidden-sm hidden-xs">Web</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
                 <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-folder-open-o"></i> Ver</a>
             </td>
             <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.Url }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Url }}</td>
         </tr>
     {% endfor %}
     </tbody>

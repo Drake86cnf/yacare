@@ -28,6 +28,21 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      */
     private $UsoSuelo;
 
+    public function getInmueble() {
+        return $this->getComercio()->getInmueble();
+    }
+    
+    public function getLocal() {
+        return $this->getComercio()->getLocal();
+    }
+    
+    public function getRequiereDeyma() {
+        return $this->getComercio()->getRequiereDeyma();
+    }
+    
+    public function getRequiereDbeh() {
+        return $this->getComercio()->getRequiereDbeh();
+    }
     
     public function EstaListoParaTerminar() {
         return $this->getUsoSuelo() <=3 

@@ -26,8 +26,8 @@
     {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
         {% if AsocRequisito.Requisito.Tipo != 'tra' %}
             <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}</h{{ nivel }}></li>
-            {% if AsocRequisito.Obs %}
-                <p class="text-muted">{{ AsocRequisito.Obs }}</p>
+            {% if AsocRequisito.Condicion %}
+                <p class="text-muted">Sólo se requiere si {{ AsocRequisito.Condicion }}.</p>
             {% endif %}
             {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
         {% endif %}
@@ -59,11 +59,11 @@
 <hr />
 <h4>Referencias:</h4>
 <dl class="dl-horizontal">
-    <dt>Original</dt><dd>Deberá entregar el original, que queda en poder del municipio y será archivado como parte del expediente.</dd>
-    <dt>Copia certificada</dt><dd>Deberá presentar original y copia. La copia se certifica y queda en poder del municipio, el original lo conserva el contribuyente.
-        Si no puede mostrar el original, puede entregar copia legalizada por autoridad competente, que queda en poder del
-        municipio.</dd>
-    <dt>Copia simple</dt><dd>Puede presentar una fotocopia común, que queda en poder del municipio y será archivado como parte del expediente.</dd>
+    <dt>Copia simple</dt><dd>Puede presentar una fotocopia común, que quedará en poder del municipio y será archivada como parte del expediente.</dd>
+    <dt>Original y copia</dt><dd>Deberá presentar original y copia. La copia se certificará en el acto y quedará en poder del municipio, 
+        el original lo conserva el contribuyente. Si no puede mostrar el original, puede entregar copia certificada, que quedará en poder del municipio.</dd>
+    <dt>Copia legalizada</dt><dd>Deberá presentar copia legalizada o apostillada por autoridad competente, que quedará en poder del municipio.</dd>
+    <dt>Original</dt><dd>Deberá entregar el original, que quedará en poder del municipio y será archivado como parte del expediente.</dd>
 </dl>
 
 {% endblock %}

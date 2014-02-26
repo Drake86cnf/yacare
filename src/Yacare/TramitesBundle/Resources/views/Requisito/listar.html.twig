@@ -10,8 +10,8 @@
         <tr>
             <th> </th>
             <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Detalle</th>
+            <th class="hidden-xs">Tipo</th>
+            <th class="hidden-sm hidden-xs">Detalle</th>
         </tr>
     </thead>
     <tbody>
@@ -19,8 +19,8 @@
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>&nbsp;{{ entity.Nombre }}</td>
-            <td>{{ entity.TipoNombre }}</td>
-            <td>{% for requiere in entity.Requiere %}
+            <td class="hidden-xs">{{ entity.TipoNombre }}</td>
+            <td class="hidden-sm hidden-xs">{% for requiere in entity.Requiere %}
                 <span class="label label-info">{{ requiere.Nombre|length > 50 ? requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span>
             {% endfor %}</td>
         </tr>

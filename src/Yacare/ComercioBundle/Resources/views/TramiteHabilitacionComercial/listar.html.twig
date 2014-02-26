@@ -11,9 +11,9 @@
             <th></th>
             <th>#</th>
             <th>Nombre</th>
-            <th>Titular</th>
-            <th>Actividad</th>
-            <th>Domicilio</th>
+            <th class="hidden-sm hidden-xs">Titular</th>
+            <th class="hidden-sm hidden-xs">Actividad</th>
+            <th class="hidden-sm hidden-xs">Domicilio</th>
             <th>Estado</th>
         </tr>
     </thead>
@@ -23,9 +23,9 @@
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-folder-open"></i> Ver</a></td>
             <td>{{ entity.id }}</td>
             <td>{{ entity.Comercio.Nombre }}</td>
-            <td>{{ entity.Titular }}</td>
-            <td>{{ entity.Comercio.ActividadPrincipal }}</td>
-            <td>{% if entity.Comercio.Local and entity.Comercio.Local.Partida %}{{ entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Comercio.ActividadPrincipal }}</td>
+            <td class="hidden-sm hidden-xs">{% if entity.Comercio.Local and entity.Comercio.Local.Partida %}{{ entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
             <td>
                 {% if entity.Estado < 10 %}
                     <span class="label label-danger">

@@ -25,9 +25,9 @@
             </td>
             <td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
             <td class="hidden-sm hidden-xs">
-                {% if entity.Exento %}<span class="label label-info">Exenta</span>{% endif %}
+                {% if entity.Exento %}<span class="label label-success">Exenta</span>{% endif %}
                 {% if entity.RequiereDeyma %}<span class="label label-info">Req. DEyMA</span>{% endif %}
-                {% if entity.RequiereDbeh %}<span class="label label-info">Req. DBeH</span>{% endif %}
+                {% if entity.RequiereDbeh %}<span class="label label-warning">Req. DBeH</span>{% endif %}
             </td>
         </tr>
     {% endfor %}

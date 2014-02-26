@@ -42,8 +42,10 @@ class AsociacionRequisitoType extends AbstractType
                 'required'  => true,
                 'choices' => array('na' => 'n/a', 
                     'ori' => 'Original',
-                    'cop' => 'Copia simple',
-                    'cle' => 'Copia legalizada'
+                    'cop' => 'Original y copia',
+                    'cos' => 'Copia simple',
+                    'coc' => 'Copia certificada',
+                    'col' => 'Copia legalizada'
                     )
                 ))
             ->add('Opcional', 'checkbox', array(
