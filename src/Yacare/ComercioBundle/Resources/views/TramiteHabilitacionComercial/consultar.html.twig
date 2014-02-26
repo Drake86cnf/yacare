@@ -27,7 +27,7 @@ Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.S
         <h3>Importante</h3>
     </div>
     <div class="panel-body"> 
-        <i class="fa fa-warning fa-4x pull-left"></i> Los establecimientos comerciales deben contar con una superficie
+        <i class="fa fa-warning fa-4x pull-left text-warning"></i> Los establecimientos comerciales deben contar con una superficie
         mínima de 16 m² sin contar sanitarios y cocina, con un lado mínimo de 3 m. y una altura mínima de 2,4 m.
     </div>
 </div>
@@ -72,7 +72,7 @@ Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.S
 
 <h2>Sobre la actividad a desarrollar</h2>
 <p>La actividad principal a desarrollar se declara como &quot;<strong>{{ actividad|lower }}</strong>&quot;, tipificada 
-como una actividad de categoría {{ actividad.Categoria }} según el Clasificador
+como una actividad de categoría {{ actividad.CategoriaAntigua }} según el Clasificador
 Municipal de Actividades Económicas 2014 con el código <strong>{{ actividad.Clamae2014 }}</strong> 
 (correspondiente con el código {{ actividad.Clanae2010 }} del Clasificador Nacional de Actividades Económicas ClaNAE 2010 
 del Instituto Nacional de Estadística y Censos).</p>
@@ -122,7 +122,6 @@ del Instituto Nacional de Estadística y Censos).</p>
 <p>El presente informe preliminar no es vinculante y está dedicado a orientar sobre las características
     más importantes del trámite de Habilitación Comercial.</p>
 <p>Esta información está sujeta a aprobación por las autoridades competentes y puede cambiar sin previo aviso.</p>
-
     
 {% endif %}
 

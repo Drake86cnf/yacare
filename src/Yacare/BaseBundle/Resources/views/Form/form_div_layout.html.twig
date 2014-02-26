@@ -61,7 +61,7 @@
     {% set attr = attr|merge({ 'class': 'form-control' }) %}
     <select data-rel="chosen" data-placeholder="Seleccione..." {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
-            <option value="">{{ empty_value }}</option>
+            <option class="text-muted" value="">{{ empty_value }}</option>
         {% endif %}
         {% if preferred_choices|length > 0 %}
             {% set options = preferred_choices %}
