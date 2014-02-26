@@ -15,6 +15,7 @@ class TramiteTipo
     use \Yacare\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConObs;
+    use \Yacare\BaseBundle\Entity\ConNotas;
     use \Yacare\BaseBundle\Entity\ConUrl;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;

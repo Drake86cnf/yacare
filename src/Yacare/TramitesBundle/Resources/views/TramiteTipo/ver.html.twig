@@ -5,7 +5,7 @@
 {% macro listar(tramitetipo, nivel) %}
 
 {% if tramitetipo.Obs %}
-{{ tramitetipo.Obs|raw }}
+<p>{{ tramitetipo.Obs|raw }}</p>
 {% endif %}
 
 {% if tramitetipo.AsociacionRequisitos|length > 0 %}
@@ -13,19 +13,18 @@
 <ol>
     {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
         {% if AsocRequisito.Requisito.Tipo == 'tra' %}
-            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite previo)</small></h{{ nivel }}></li>
-            {% if AsocRequisito.Obs %}
-                <p class="text-muted">{{ AsocRequisito.Obs }}</p>
+            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite previo{% if AsocRequisito.Opcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
+            {% if AsocRequisito.Condicion %}
+                <p class="text-muted">Sólo si {{ AsocRequisito.Condicion }}.</p>
             {% endif %}
             {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
             {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
         {% endif %}
     {% endfor %}
     
-    <hr />
     {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
         {% if AsocRequisito.Requisito.Tipo != 'tra' %}
-            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}</h{{ nivel }}></li>
+            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}{% if AsocRequisito.Opcional %}<small> (opcional)</small>{% endif %}</h{{ nivel }}></li>
             {% if AsocRequisito.Condicion %}
                 <p class="text-muted">Sólo se requiere si {{ AsocRequisito.Condicion }}.</p>
             {% endif %}
@@ -50,14 +49,20 @@
 
 {{ _self.listar(entity, 2) }}
 
+{% if entity.ComprobanteTipo %}
 <p>Al finalizar el trámite, se emitirá un comprobante tipo <strong>{{ entity.ComprobanteTipo }}</strong>.</p>
+{% endif %}
+{% if entity.Notas %}
+<p>{{ entity.Notas }}</footer>
+{% endif %}
 
 {% if entity.Url %}
 <p>Puede obtener más información en {{ entity.Url }}</p>
 {% endif %}
 
 <hr />
-<h4>Referencias:</h4>
+<footer>
+<h4>Referencias</h4>
 <dl class="dl-horizontal">
     <dt>Copia simple</dt><dd>Puede presentar una fotocopia común, que quedará en poder del municipio y será archivada como parte del expediente.</dd>
     <dt>Original y copia</dt><dd>Deberá presentar original y copia. La copia se certificará en el acto y quedará en poder del municipio, 
@@ -65,7 +70,7 @@
     <dt>Copia legalizada</dt><dd>Deberá presentar copia legalizada o apostillada por autoridad competente, que quedará en poder del municipio.</dd>
     <dt>Original</dt><dd>Deberá entregar el original, que quedará en poder del municipio y será archivado como parte del expediente.</dd>
 </dl>
-
+</footer>
 {% endblock %}
 
 {% block pagina_acciones %}

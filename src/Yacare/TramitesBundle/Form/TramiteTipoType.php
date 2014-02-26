@@ -35,6 +35,9 @@ class TramiteTipoType extends AbstractType
                     'class' => 'tinymce',
                     'data-theme' => 'simple') // simple, advanced, bbcode
                 ))
+            ->add('Notas', null, array(
+                'label' => 'Notas al pie'
+                ))
         ;
     }
 
