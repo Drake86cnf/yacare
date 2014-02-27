@@ -67,12 +67,11 @@ inicio:
     defaults:  { _controller: YacareBaseBundle:Default:inicio }
 
 login:
-    path:      /login/
+    path:      /login
     defaults:  { _controller: YacareBaseBundle:Default:login }
 
 logout:
-    path:      /logout/
-    defaults:  { _controller: YacareBaseBundle:Default:logout }
+    path:      /logout
 
 login_check:
     pattern: /login_check
