@@ -1,3 +1,8 @@
+yacare_expedientes:
+    resource: "@YacareExpedientesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 yacare_sigemi:
     resource: "@YacareSigemiBundle/Controller/"
     type:     annotation
@@ -28,10 +33,6 @@ yacare_base:
     type:     annotation
     prefix:   /base/
 
-inicio:
-    path:      /
-    defaults:  { _controller: YacareBaseBundle:Default:inicio }
-    
 yacare_compras:
     resource: "@YacareComprasBundle/Controller/"
     type:     annotation
@@ -60,3 +61,18 @@ yacare_recursos_humanos:
 _imagine:
     resource: .
     type:     imagine
+    
+inicio:
+    path:      /
+    defaults:  { _controller: YacareBaseBundle:Default:inicio }
+
+login:
+    path:      /login/
+    defaults:  { _controller: YacareBaseBundle:Default:login }
+
+logout:
+    path:      /logout/
+    defaults:  { _controller: YacareBaseBundle:Default:logout }
+
+login_check:
+    pattern: /login_check
