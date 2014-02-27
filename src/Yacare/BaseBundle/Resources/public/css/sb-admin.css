@@ -127,8 +127,7 @@ table.tablesorter thead tr th:hover {
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a {
 	color: #999999;
-	padding: 8px 15px 8px 30px;
-        font-size: 13px;
+	padding: 15px 15px 15px 25px;
   }
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
@@ -155,6 +154,11 @@ table.tablesorter thead tr th:hover {
 
   .messages-dropdown .dropdown-menu li a {
 	white-space: normal;
+  }
+
+  .navbar-collapse {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 
 }

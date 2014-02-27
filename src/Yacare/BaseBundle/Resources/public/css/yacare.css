@@ -384,6 +384,12 @@ body {
     color: white;
 }
 
+.side-nav>li.dropdown>ul.dropdown-menu>li>a {
+    color: #999999;
+    padding: 8px 15px 8px 30px;
+    font-size: 13px;
+}
+
 .tree {
     min-height: 20px;
     /* padding: 19px;
