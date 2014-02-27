@@ -8,25 +8,18 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * @Route("base/")
+ */
 class DefaultController extends YacareBaseController
 {
-    function __construct() {
-        parent::__construct();
-
-        $this->MenuOpciones = array(
-            'Inicio' => '/inicio',
-        );
-    }
-    
     /**
      * @Route("/")
      * @Template
      */
     public function inicioAction()
     {
-        return $this->ArrastrarVariables(array(
-            'opciones' => $this->MenuOpciones
-        ));
+        return $this->ArrastrarVariables(array());
     }
     
     /**

@@ -58,15 +58,15 @@ trait ConEliminar {
                 $entity->Suprimir();
                 $em->persist($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('notice', 'Se suprimió el elemento "' . $entity . '".');
+                $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
             } else if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                 // Es eliminable... lo elimino de verdad
                 $em->remove($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('notice', 'Se eliminó el elemento "' . $entity . '".');
+                $this->get('session')->getFlashBag()->add('info', 'Se eliminó el elemento "' . $entity . '".');
             } else {
                 // No es eliminable ni suprimible... no se puede borrar
-                $this->get('session')->getFlashBag()->add('notice', 'No se puede eliminar el elemento "' . $entity . '".');
+                $this->get('session')->getFlashBag()->add('info', 'No se puede eliminar el elemento "' . $entity . '".');
             }
         }
 

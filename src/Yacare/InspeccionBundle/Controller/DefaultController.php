@@ -8,7 +8,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends \Yacare\BaseBundle\Controller\DefaultController
 {
-    function __construct() {
-        parent::__construct();
-    }
 }

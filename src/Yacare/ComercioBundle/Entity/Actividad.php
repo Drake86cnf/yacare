@@ -70,9 +70,9 @@ class Actividad implements Tree\NodeInterface
 
      /**
      * @var integer
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private $CategoriaAntigua;
+    private $CategoriaAntigua = 0;
     
     /**
      * @ORM\Column(type="string", nullable=true, length=50)
@@ -83,25 +83,25 @@ class Actividad implements Tree\NodeInterface
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $RequiereDbeh;
+    private $RequiereDbeh = false;
     
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $RequiereDeyma;
+    private $RequiereDeyma = false;
     
      /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $Exento;
+    private $Exento = false;
     
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $Ley105;
+    private $Ley105 = false;
     
     /**
      * @var string
@@ -124,7 +124,7 @@ class Actividad implements Tree\NodeInterface
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $Final;
+    private $Final = false;
     
     
     static public function NombresCategorias($categoria = null) {
@@ -140,6 +140,21 @@ class Actividad implements Tree\NodeInterface
     
     public function getCategoriaNombre() {
         return static::NombresCategorias($this->getCategoria());
+    }
+    
+    
+    public function getClamae2014Formateado()
+    {
+        $codigo = $this->getClamae2014();
+        if(strlen($codigo) == 3) {
+            return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 1);
+        } else if(strlen($codigo) == 4) {
+            return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 2);
+        } else if(strlen($codigo) == 7) {
+            return substr($codigo, 0, 6) . '-' . substr($codigo, 6, 1);
+        } else {
+            return $codigo;
+        }
     }
     
     

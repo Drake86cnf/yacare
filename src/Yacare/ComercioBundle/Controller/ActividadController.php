@@ -18,7 +18,7 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
         $this->BundleName = 'Comercio';
         $this->EntityName = 'Actividad';
         $this->BuscarPor = 'Nombre,Clamae2014';
-        $this->OrderBy = 'id';
+        $this->OrderBy = 'MaterializedPath';
         $this->Paginar = false;
         parent::__construct();
     }
@@ -103,18 +103,33 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
     
     public function guardarActionPrePersist($entity, $editForm)
     {
+        if(!$entity->getId()) {
+            /*
+             * No tiene id. Como es parte de un árbol, necesito asignar un id manualmente.
+             */
+            $nuevoId = $this->getDoctrine()->getManager()->createQuery('SELECT MAX(r.id) FROM YacareComercioBundle:Actividad r')->getSingleScalarResult();
+            $entity->setId(++$nuevoId);
+        }
+        
         /*
-         * Al guardar, busco un ParentNode acorde al código ClaMAE ingresado
-         * 
+         * Quito guiones, espacios y puntos del código
          */
-        $codigo = $entity->getClamae2014();
+        $codigo = trim(str_replace('-', '', str_replace(' ', '', str_replace('.', '', $entity->getClamae2014()))));
+        $entity->setClamae2014($codigo);
 
+        /*
+         * Calculo el ClaE AFIP y el ClaNAE 2010
+         */
         $entity->setClaeAfip(substr($codigo, 0, 6));
         $entity->setClanae2010(substr($codigo, 0, 5));
         
+        /*
+         * Busco un ParentNode acorde al código ingresado
+         */
         if(strlen($codigo) == 7) {
             // Los códigos finales (de 7 dígitos) dependen de una clase (4 dígitos)
             $codigoPadre = substr($codigo, 0, 4);
+            $entity->setFinal(true);
         } else if(strlen($codigo) == 4) {
             // Las clases (de 4 dígitos) dependen de un grupo (3 dígitos)
             $codigoPadre = substr($codigo, 0, 3);

@@ -35,7 +35,7 @@ class ActividadType extends AbstractType
             ->add('CategoriaAntigua', 'choice', array(
                 'label' => 'Categoría antigua',
                 'required'  => true,
-                'choices' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6')
+                'choices' => array('0' => 'n/a', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6')
                 ))
             ->add('Incluye', null, array(
                 'label' => 'Incluye',
