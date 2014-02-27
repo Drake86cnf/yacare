@@ -445,6 +445,36 @@ body {
     color: #000;
 }
 
+#login-wrapper {
+}
+
+#login-wrapper > #login-container {
+    margin-top: 4%;
+}
+
+#login-wrapper input {
+    max-width: 240px;
+}
+
+#login-wrapper h1 {
+    font-size: 32px;
+    font-weight: light;
+    color: rgb(38, 121, 181);
+}
+
+#login-wrapper > footer {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 16px;
+    margin: 16px;
+    padding: 8px;
+}
+
+body {
+    margin-top: 0px;
+}
+
 @media (max-width: 767px) {
     .navbar-inverse .navbar-collapse {
         border: none;
@@ -466,9 +496,7 @@ body {
     .side-nav {
         top: 64px;
     }
-    body {
-        margin-top: 0px;
-    }
+
     .navbar-slogan {
         padding: 0px 0px 0px 12px;
     }

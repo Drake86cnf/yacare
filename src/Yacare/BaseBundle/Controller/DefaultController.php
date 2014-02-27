@@ -3,37 +3,24 @@
 namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-/**
- * @Route("base/")
- */
-class DefaultController extends YacareBaseController
+class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("inicio/")
      * @Template
      */
     public function inicioAction()
     {
-        return $this->ArrastrarVariables(array());
-    }
-    
-    /**
-     * @Route("/logout", name="logout")
-     * @Template
-     */
-    public function logoutAction()
-    {
         return array();
     }
-
     
     /**
-     * @Route("/login", name="login")
+     * @Route("/login")
      * @Template
      */
     public function loginAction(Request $request)
@@ -55,5 +42,14 @@ class DefaultController extends YacareBaseController
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
             );
+    }
+    
+    /**
+     * @Route("/logout", name="logout")
+     * @Template
+     */
+    public function logoutAction()
+    {
+        return array();
     }
 }

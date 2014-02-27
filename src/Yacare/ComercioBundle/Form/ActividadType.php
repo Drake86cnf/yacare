@@ -14,7 +14,7 @@ class ActividadType extends AbstractType
             ->add('Clamae2014', null, array(
                 'label' => 'Código ClaMAE 2014',
                 'required' => true,
-                'attr' => array('help'=>'Sin guiones, puntos ni espacios. Para las actividades, utilizar siempre 7 dígitos (prefijar con 0 si es necesario).')
+                'attr' => array('help'=>'No es necesario escribir los guiones. Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')
                 ))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Exento', 'choice', array(
