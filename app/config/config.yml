@@ -96,36 +96,6 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
 
-stfalcon_tinymce:
-    include_jquery: false
-    tinymce_jquery: true
-    language: %locale%
-    selector: ".tinymce"
-    theme:
-        simple:
-            content_css: %web_root%/bundles/yacarebase/css/yacare.css
-            plugins: "link paste spellchecker textcolor"
-            toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker stfalcon"
-            toolbar2: ""
-            theme_modern_toolbar_location: "top"
-            theme_modern_toolbar_align: "left"
-            menubar: false
-            statusbar: false
-            paste_auto_cleanup_on_paste: true
-            spellchecker_languages: "+Spanish=sp"
-        medium:
-            content_css: %web_root%/bundles/yacarebase/css/yacare.css
-            plugins: "table hr link paste spellchecker"
-            toolbar1: "bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | hr removeformat | sub sup | spellchecker"
-            toolbar1: "cut copy paste pastetext pasteword | bullist numlist | undo redo | link unlink | tablecontrols"
-            theme_advanced_toolbar_location: "top"
-            theme_advanced_toolbar_align: "left"
-            menubar: false
-            statusbar: false
-            paste_auto_cleanup_on_paste: true
-            image_advtab: true
-            spellchecker_languages: "+Spanish=sp"
-
 liip_imagine:
     filter_sets:
         thumb256:
