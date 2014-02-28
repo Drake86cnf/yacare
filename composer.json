@@ -26,7 +26,6 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "jms/security-extra-bundle": "dev-master",
         "aferrandini/phpqrcode": "1.0.1",
-        "stfalcon/tinymce-bundle": "dev-master",
         "craue/formflow-bundle": "~2.0",
         "liip/imagine-bundle": "dev-master",
         "liuggio/excelbundle": "~2.0"
