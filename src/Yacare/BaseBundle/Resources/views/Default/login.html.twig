@@ -33,19 +33,21 @@
 
     <div id="login-wrapper" class="container-fluid">
         <div id="login-container" class="row">
-            <div class="col-md-6 hidden-xs">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 hidden-sm hidden-xs">
                 <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}" style="padding: 20px 64px;" alt="Municipio de Río Grande" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h1>Yacaré</h1>
+                <form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
+                    <p><img class="pull-left" style="margin-right: 12px" src="{{ asset('bundles/yacarebase/img/yacare_logo_gris32.png') }}" alt="" />
+                        Bienvenido. Para continuar es necesario que escriba su nombre de usuario y contraseña.</p>
                 {% if error %}
                     <div class="alert alert-dismissable alert-danger">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         {{ error }}
                     </div>
                 {% endif %}
-                <form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
-                    <p>Bienvenido. Por favor demuestre su autorización para utilizar el sistema.</p>
                     <fieldset>
                         <label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
                         <div class="form-group">
@@ -57,8 +59,9 @@
                         </div>
                     </fieldset>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
+                    
+                    <p>&nbsp;<br /><small class="text-muted">Si no tiene una contraseña póngase en contacto con la Dirección de Cómputos.</small></p>
                 </form>
-                <p>&nbsp;<br /><small class="text-muted">Si no tiene una contraseña póngase en contacto con la Dirección de Cómputos.</small></p>
             </div>
         </div>
         <footer><small class="text-muted pull-right">Municipio de Río Grande</small></footer>

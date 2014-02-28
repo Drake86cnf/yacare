@@ -64,6 +64,10 @@ function yacareCargarUrlEn(url, destino) {
                 window.history.pushState({ path: url }, '', url);
         }
     }
+    
+    $(".tinymce").each(function(){
+        tinymce.execCommand('mceRemoveEditor', false, this.id);
+    });
 
     //$(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
     $.get(url, function(data) {
@@ -122,6 +126,11 @@ function MejorarElementos() {
             var options = $.parseJSON($(this).attr('data-noty-options'));
             noty(options);
     });
+    
+    $(".tinymce").each(function(){
+        tinymce.execCommand('mceAddEditor', true, this.id);
+    });
+    $(".tinymce").tinymce();
 }
 
 

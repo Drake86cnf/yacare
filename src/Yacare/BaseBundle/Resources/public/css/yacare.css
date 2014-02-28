@@ -480,6 +480,10 @@ body {
         position: absolute;
         top: 60px;
     }
+    
+    #page-wrapper {
+        margin-top: 60px;
+    }
 }
 
 @media (min-width: 768px) {
