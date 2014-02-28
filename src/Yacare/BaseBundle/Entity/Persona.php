@@ -205,7 +205,14 @@ class Persona implements UserInterface, \Serializable
     }
     
     public function getRoles() {
-        return $this->UsuarioRoles->toArray();
+        $res = $this->UsuarioRoles->toArray();
+        if(in_array('ROLE_USUARIO', $res) == false) {
+            /*
+             * Todos tiene el rol USUARIO
+             */
+            $res[] = 'ROLE_USUARIO';
+        }
+        return $res;
     }
     
     public function getPasswordEnc() {
