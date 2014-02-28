@@ -20,7 +20,6 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Yacare\BaseBundle\YacareBaseBundle(),
