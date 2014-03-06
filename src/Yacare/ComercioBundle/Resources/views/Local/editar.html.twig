@@ -1,3 +1,13 @@
 {% extends 'YacareBaseBundle:Default:editar.html.twig' %}
 
 {% block pagina_titulo %}{% if entity.id %}{{ entity.Partida.Domicilio }}{% else %}Nuevo local{% endif %}{% endblock %}
+
+{% block pagina_fin %}
+    {{ parent() }}
+<script>
+    $('#yacare_comerciobundle_localtype_Tipo').change(function() {
+        $('#yacare_comerciobundle_localtype_DepositoClase').prop('disabled', $('#yacare_comerciobundle_localtype_Tipo').val() !== 'Depósito');
+    });
+    $('#yacare_comerciobundle_localtype_Tipo').trigger('change');
+</script>
+{% endblock  %}
