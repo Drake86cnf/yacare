@@ -178,5 +178,14 @@ $(document).ready(function(){
         e.preventDefault();
         return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
     });
+    
+    // Evitar que algunos dropdown se cierren automáticamente
+    // (especial para el menú lateral, se utiliza la clase keep-open)
+    $('.dropdown.keep-open').on({
+        "shown.bs.dropdown": function() { $(this).data('closable', false); },
+        "click":             function() { $(this).data('closable', true);  },
+        "hide.bs.dropdown":  function() { return $(this).data('closable'); }
+    });
+
 });
 

@@ -42,7 +42,7 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div role="navigation" id="menuprincipal" class="collapse navbar-collapse navbar-ex1-collapse">
           {% include 'YacareBaseBundle::menu.html.twig' %}
         </div><!-- /.navbar-collapse -->
       </nav>
@@ -105,25 +105,25 @@
     <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/yacare.js') }}"></script>
    
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '.tinymce',
-            language: 'es',
-            spellchecker_languages: '+Spanish=sp',
-            content_css: '{{ asset('bundles/yacarebase/css/yacare.css') }}',
-            plugins: 'link paste spellchecker textcolor',
-            toolbar1: 'bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
-            toolbar2: "",
-            theme_modern_toolbar_location: 'top',
-            theme_modern_toolbar_align: 'left',
-            menubar: false,
-            statusbar: false,
-            paste_auto_cleanup_on_paste: true,
-            use_callback_tinymce_init: false,
-            jquery_script_url: '{{ asset('bundles/yacarebase/js/jquery-2.1.0.min.js') }}'
-         });
-    </script>
-    {# tinymce_init() #}
+<script type="text/javascript">
+    tinymce.init({
+        selector: '.tinymce',
+        language: 'es',
+        spellchecker_languages: '+Spanish=sp',
+        content_css: '{{ asset('bundles/yacarebase/css/yacare.css') }}',
+        plugins: 'link paste spellchecker textcolor',
+        toolbar1: 'bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
+        toolbar2: "",
+        theme_modern_toolbar_location: 'top',
+        theme_modern_toolbar_align: 'left',
+        menubar: false,
+        statusbar: false,
+        paste_auto_cleanup_on_paste: true,
+        use_callback_tinymce_init: false,
+        jquery_script_url: '{{ asset('bundles/yacarebase/js/jquery-2.1.0.min.js') }}'
+     });
+</script>
+{# tinymce_init() #}
     
     {% block pagina_scripts %}{% endblock %}
   </body>
