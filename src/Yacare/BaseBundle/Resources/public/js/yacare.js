@@ -127,10 +127,10 @@ function MejorarElementos() {
             noty(options);
     });
     
-    $(".tinymce").each(function(){
+    $('.tinymce').each(function(){
         tinymce.execCommand('mceAddEditor', true, this.id);
     });
-    $(".tinymce").tinymce();
+    // $('.tinymce').tinymce();
 }
 
 
