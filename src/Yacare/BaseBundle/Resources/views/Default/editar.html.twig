@@ -1,7 +1,10 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
 {% block pagina_inicio %}
-    <form class="form-horizontal" action="{{ path(baseroute ~ '_guardar', arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
+    {% if (edit_form_action is defined) == false %}
+        {% set edit_form_action = baseroute ~ '_guardar' %}
+    {% endif %}
+    <form class="form-horizontal" action="{{ path(edit_form_action, arrastre|merge({ 'id': entity.id })) }}" method="post" {{ form_enctype(edit_form) }}>
 {% endblock %}
     
 {% block pagina_contenido %}
@@ -15,7 +18,7 @@
 {% endblock %}
         
 {% block pagina_acciones2 %}
-    {% if delete_form and entity.id %}
+    {% if delete_form is defined and entity.id %}
         <a data-toggle="ajax-link" class="btn btn-danger" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-trash-o"></i> Eliminar</a>
     {% endif %}
 {% endblock %}

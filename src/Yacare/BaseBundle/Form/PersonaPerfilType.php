@@ -13,11 +13,6 @@ class PersonaPerfilType extends AbstractType
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
             ->add('Email', null, array('label' => 'Correo electrónico'))
-            ->add('PasswordEnc', 'password', array(
-                'label' => 'Contraseña',
-                'required' => false,
-                'attr' => array('help' => 'Dejar en blanco para mantener la contraseña actual.')
-                ))
         ;
     }
 

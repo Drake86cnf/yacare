@@ -203,6 +203,10 @@ label {
     border-top: 1px dotted #e0e0e0;
 }
 
+.table-hoverselect > tbody > tr:hover * {
+    cursor: pointer;
+}
+
 .ui-datepicker{
     background-color:#FFF;
     border:1px solid rgba(0,0,0,0.2);

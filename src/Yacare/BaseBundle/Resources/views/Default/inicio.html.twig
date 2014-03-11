@@ -17,6 +17,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.Nombre }} {{ app.user.Apellido }}</a>
         <ul class="dropdown-menu">
             <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_editarperfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
+            <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_persona_cambiarcontrasena') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
             <li class="divider"></li>
             <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Desconectarse</a></li>
         </ul>
