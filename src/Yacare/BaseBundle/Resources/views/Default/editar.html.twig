@@ -18,7 +18,7 @@
 {% endblock %}
         
 {% block pagina_acciones2 %}
-    {% if delete_form is defined and entity.id %}
+    {% if delete_form is defined and not delete_form is null and entity.id %}
         <a data-toggle="ajax-link" class="btn btn-danger" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-trash-o"></i> Eliminar</a>
     {% endif %}
 {% endblock %}
