@@ -186,6 +186,5 @@ $(document).ready(function(){
         "click":             function() { $(this).data('closable', true);  },
         "hide.bs.dropdown":  function() { return $(this).data('closable'); }
     });
-
 });
 

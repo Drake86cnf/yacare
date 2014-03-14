@@ -15,18 +15,24 @@ class DomicilioLocalType extends AbstractType
                 'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
                 'required'  => true,
-                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) { return $er->createQueryBuilder('i'); }
+                'attr' => array('style' => 'width: 240px;')
                 ))
             ->add('DomicilioNumero', null, array(
                 'label' => 'Nº',
+                'trim' => true,
+                'attr' => array('style' => 'width: 50px;'),
                 'required' => false
                 ))
             ->add('DomicilioPiso', null, array(
                 'label' => 'Piso',
+                'trim' => true,
+                'attr' => array('style' => 'width: 32px;'),
                 'required' => false
                 ))
             ->add('DomicilioPuerta', null, array(
                 'label' => 'Puerta',
+                'trim' => true,
+                'attr' => array('style' => 'width: 32px;'),
                 'required' => false
                 ))
             ->setAttribute('widget', 'form_horizontal')

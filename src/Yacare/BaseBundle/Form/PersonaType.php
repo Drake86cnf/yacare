@@ -21,7 +21,9 @@ class PersonaType extends AbstractType
                 'class' => 'YacareBaseBundle:PersonaGrupo',
                 'multiple' => true,
                 ))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array('label' => 'Domicilio'))
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
+                'label' => 'Domicilio'
+                ))
             ->add('TelefonoNumero', null, array('label' => 'Teléfono(s)'))
             ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('PersonaJuridica', 'checkbox', array(

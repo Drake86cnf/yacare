@@ -1,3 +1,19 @@
 {% extends 'YacareBaseBundle:Default:editar.html.twig' %}
 
 {% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{% endif %}{% endblock %}
+
+{% block pagina_scripts %}
+{{ parent() }}
+    
+<script>
+    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change(function() {
+        if($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val()) {
+            $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').hide();
+        } else {
+            $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').show();
+        }
+    });
+    
+    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change();
+</script>
+{% endblock %}
