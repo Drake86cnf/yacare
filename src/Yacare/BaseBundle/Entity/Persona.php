@@ -96,10 +96,9 @@ class Persona implements UserInterface, \Serializable
     
 
     /**
-     * @var string
      * @ORM\Column(type="boolean")
      */
-    private $PersonaJuridica = 0;
+    private $PersonaJuridica = false;
     
     /**
      * @var string $RazonSocial
@@ -138,13 +137,11 @@ class Persona implements UserInterface, \Serializable
     private $Email;
 
     /**
-     * @var boolean $SituacionTributaria
      * @ORM\Column(type="integer", nullable=true)
      */
     private $SituacionTributaria;
 
     /**
-     * @var \DateTime $FechaNacimiento
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
