@@ -1,0 +1,4 @@
+#Foo\DummyBundle\Resources\translations\messages.es.yml
+The presented password cannot be empty.: Por favor escriba una contraseña
+The presented password is invalid.: Los datos suministrados son incorrectos
+Bad credentials: Los datos suministrados son incorrectos
