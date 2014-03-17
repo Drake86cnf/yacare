@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\SigemiBundle\Tests\Controller;
+namespace Yacare\MunirgBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
