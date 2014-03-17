@@ -3,10 +3,10 @@ yacare_expedientes:
     type:     annotation
     prefix:   /
 
-yacare_sigemi:
-    resource: "@YacareSigemiBundle/Controller/"
+yacare_munirg:
+    resource: "@YacareMunirgBundle/Controller/"
     type:     annotation
-    prefix:   /sigemi/
+    prefix:   /munirg/
 
 yacare_bromatologia:
     resource: "@YacareBromatologiaBundle/Controller/"
