@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Yacare\BaseBundle\YacareBaseBundle(),
@@ -32,7 +33,7 @@ class AppKernel extends Kernel
             new Yacare\TramitesBundle\YacareTramitesBundle(),
             new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
             new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
-            new Yacare\SigemiBundle\YacareSigemiBundle(),
+            new Yacare\MunirgBundle\YacareMunirgBundle(),
             new Yacare\ExpedientesBundle\YacareExpedientesBundle(),
         );
 
