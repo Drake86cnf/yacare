@@ -90,9 +90,7 @@ class YacareAbmController extends YacareBaseController
             $OrderByCampos = split(',', $this->OrderBy);
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
-        
-        echo $dql;
-        
+
         return $dql;
     }
 
