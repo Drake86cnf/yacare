@@ -19,8 +19,16 @@ class UsuarioType extends AbstractType
                 'property' => 'Nombre',
                 'multiple' => true,
                 ))
-            ->add('Username', null, array('label' => 'Usuario', 'required' => false))
-            ->add('PasswordEnc', 'password', array('label' => 'Contraseña', 'required' => false))
+            ->add('Username', null, array(
+                'label' => 'Usuario',
+                'required' => false,
+                'attr' => array('autocomplete' => 'off')
+                ))
+            ->add('PasswordEnc', 'password', array(
+                'label' => 'Contraseña',
+                'required' => false,
+                'attr' => array('autocomplete' => 'off')
+                ))
         ;
     }
 

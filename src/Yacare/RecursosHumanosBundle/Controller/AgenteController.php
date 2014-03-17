@@ -17,6 +17,6 @@ class AgenteController extends \Yacare\BaseBundle\Controller\YacareAbmController
         parent::__construct();
 
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
-        $this->Joins[] = " JOIN r.Persona p";
+        $this->Joins[] = ' JOIN r.Persona p';
     }
 }

@@ -39,6 +39,7 @@ class YacareAbmController extends YacareBaseController
             $this->BuscarPor = 'Nombre';
         }
     }
+
     
     protected function getSelectDql($filtro_buscar = null) {
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
@@ -89,6 +90,8 @@ class YacareAbmController extends YacareBaseController
             $OrderByCampos = split(',', $this->OrderBy);
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
+        
+        echo $dql;
         
         return $dql;
     }

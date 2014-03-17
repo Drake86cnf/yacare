@@ -1,75 +1,43 @@
-{% set yacare_mostrarmodal = 0 %}
-{% set block_pagina_titulo = block('pagina_titulo') %}  
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de gestión municipal Yacaré">
-    <meta name="author" content="Ernesto N. Carrea">
+{% extends 'YacareBaseBundle::blank.html.twig' %}
 
-    <title>Yacaré{% if block_pagina_titulo is not empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title>
-
-    <link rel="icon" href="{{ asset('bundles/yacarebase/img/yacare_logo64.png') }}">
-    
-    <link href="{{ asset('bundles/yacarebase/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/font-awesome.min.css') }}" rel="stylesheet" />
-
-    <link href="{{ asset('bundles/yacarebase/css/sb-admin.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/yacarebase/css/yacare.css') }}" rel="stylesheet" />
-    
-    <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/jquery-2.1.0.min.js') }}"></script>
-</head>
-
-<body>
-    {% for type, flashMessages in app.session.flashbag.all() %}
-    {% for flashMessage in flashMessages %}
-        <div class="alert alert-dismissable alert-{{ type }}">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            {{ flashMessage }}
+{% block pagina_contenido %}
+<div id="login-wrapper" class="container-fluid">
+    <div id="login-container" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 hidden-sm hidden-xs">
+            <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}" style="padding: 20px 64px;" alt="Municipio de Río Grande" />
         </div>
-    {% endfor %}
-    {% endfor %}
-
-    <div id="login-wrapper" class="container-fluid">
-        <div id="login-container" class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-4 hidden-sm hidden-xs">
-                <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}" style="padding: 20px 64px;" alt="Municipio de Río Grande" />
-            </div>
-            <div class="col-md-4">
-                <h1>Yacaré</h1>
-                <form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
-                    <p><img class="pull-left" style="margin-right: 12px" src="{{ asset('bundles/yacarebase/img/yacare_logo_gris32.png') }}" alt="" />
-                        Bienvenido. Para continuar es necesario que escriba su nombre de usuario y su contraseña.</p>
-                {% if error %}
-                    <div class="alert alert-dismissable alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        Error: {{ error.message|trans }}
+        <div class="col-md-4">
+            <h1>Yacaré</h1>
+            <form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
+                <p><img class="pull-left" style="margin-right: 12px" src="{{ asset('bundles/yacarebase/img/yacare_logo_gris32.png') }}" alt="" />
+                    Bienvenido. Para continuar es necesario que escriba su nombre de usuario y su contraseña.</p>
+            {% if error %}
+                <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Error: {{ error.message|trans }}
+                </div>
+                <p class="text">Si es la primera vez que utiliza el sistema Yacaré, es necesario realizar el alta mediante <a href="{{ path('yacare_munirg_ldap_importar') }}">este formulario</a>.</p>
+            {% endif %}
+                <fieldset>
+                    <label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
+                    <div class="form-group">
+                        <input class="input-sm" placeholder="Usuario" id="_username" name="_username" type="text" autofocus />
                     </div>
-                {% endif %}
-                    <fieldset>
-                        <label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
-                        <div class="form-group">
-                            <input class="input-sm" placeholder="Usuario" id="_username" name="_username" type="text" autofocus />
-                        </div>
-                        <label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
-                        <div class="form-group">
-                            <input class="input-sm" placeholder="Contraseña" id="_password" name="_password" type="password" value="" />
-                        </div>
-                    </fieldset>
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
-                    
-                    <p>&nbsp;<br /><small class="text-muted">Si no tiene una contraseña, póngase en contacto con la Dirección de Cómputos.</small></p>
-                </form>
-            </div>
-        </div>
-        <footer><small class="text-muted pull-right">Municipio de Río Grande</small></footer>
-    </div>
+                    <label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
+                    <div class="form-group">
+                        <input class="input-sm" placeholder="Contraseña" id="_password" name="_password" type="password" value="" />
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
 
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/jquery.history.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/yacare.js') }}"></script>
-  </body>
-</html>
+                <br />&nbsp;<br />
+                <p class="text-muted"><small>
+                    Si no tiene una contraseña, póngase en contacto con la Dirección de Cómputos.
+                </small></p>
+            </form>
+        </div>
+    </div>
+    <footer><small class="text-muted pull-right">Municipio de Río Grande</small></footer>
+</div>
+{% endblock %}

@@ -109,6 +109,8 @@ class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmControl
              */
             $nuevoId = $this->getDoctrine()->getManager()->createQuery('SELECT MAX(r.id) FROM YacareComercioBundle:Actividad r')->getSingleScalarResult();
             $entity->setId(++$nuevoId);
+            $metadata = $em->getClassMetaData(get_class($entity));
+            $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         }
         
         /*
