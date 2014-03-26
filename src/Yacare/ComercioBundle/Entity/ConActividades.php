@@ -22,6 +22,7 @@ trait ConActividades {
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $ActividadTerciaria;
+
     
     public function getRequiereDeyma() {
         $Activ1 = $this->getActividadPrincipal();
