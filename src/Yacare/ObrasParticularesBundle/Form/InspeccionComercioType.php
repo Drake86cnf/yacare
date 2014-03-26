@@ -11,17 +11,17 @@ class InspeccionComercioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TitularNombre', null, array('label' => 'Propietario'))
-            ->add('ActividadNombre', null, array('label' => 'Actividades'))
-            ->add('Actividades', new \Yacare\ComercioBundle\Form\Type\ActividadesType(), array(
-                'label' => 'Actividades ClaMAE 2014'
-                ))
-            ->add('NumeroSolicitud', null, array('label' => 'Nº de solicitud'))
-            ->add('ExpedienteNumero', null, array('label' => 'Nº de expediente'))
             ->add('Partida', 'entity_id', array(
                 'label' => 'Partida',
                 'class' => 'Yacare\CatastroBundle\Entity\Partida',
                 'required' => true))
+            ->add('TitularNombre', null, array('label' => 'Propietario'))
+            ->add('Actividades', new \Yacare\ComercioBundle\Form\Type\ActividadesType(), array(
+                'label' => 'Actividades ClaMAE 2014'
+                ))
+            ->add('ActividadNombre', null, array('label' => 'Actividades'))
+            ->add('NumeroSolicitud', null, array('label' => 'Nº de solicitud'))
+            ->add('ExpedienteNumero', null, array('label' => 'Nº de expediente'))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 ))  
