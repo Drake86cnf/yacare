@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 trait ConNombre
 {
     /**
-     * @var string $Nombre
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;

@@ -63,7 +63,7 @@ class YacareAbmController extends YacareBaseController
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
             foreach ($palabras as $palabra) {
-                $BuscarPorCampos = split(',', $this->BuscarPor);
+                $BuscarPorCampos = explode(',', $this->BuscarPor);
                 $BuscarPorNexo = '';
                 $this->Where .= ' AND (';
                 // Busco en varios campos
@@ -87,7 +87,7 @@ class YacareAbmController extends YacareBaseController
         }
 
         if($this->OrderBy) {
-            $OrderByCampos = split(',', $this->OrderBy);
+            $OrderByCampos = explode(',', $this->OrderBy);
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
 
