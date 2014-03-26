@@ -23,7 +23,14 @@ class InspeccionComercioController extends \Yacare\BaseBundle\Controller\YacareA
 
 REPLACE ObrasParticulares_InspeccionComercio
 	(id, Superficie, ExpedienteNumero, Obs, NumeroSolicitud, Partida_id, TitularNombre, createdAt, updatedAt, ActividadNombre)
-SELECT Tramite, Superficie, NumeroExpediente, Observaciones, NumeroSolicitud, (SELECT id FROM Catastro_Partida WHERE Numero=opart_comercio.Partida AND Numero>0), Propietario, NOW(), NOW(), Rubros
+SELECT Tramite, Superficie, NumeroExpediente, 
+		TRIM(CONCAT(TRIM(BOTH CHAR(0x00) FROM Observaciones), ' ', TRIM(BOTH CHAR(0x00) FROM Observac2), ' ', TRIM(BOTH CHAR(0x00) FROM Observac3))),
+		NumeroSolicitud,
+		(SELECT id FROM Catastro_Partida WHERE Numero=opart_comercio.Partida AND Numero>0),
+		TRIM(TRIM(BOTH CHAR(0x00) FROM Propietario)),
+		NOW(),
+		NOW(),
+		TRIM(TRIM(BOTH CHAR(0x00) FROM Rubros))
 	FROM opart_comercio WHERE Rubros NOT IN ('', 'FINAL DE OBRA');
 
 UPDATE ObrasParticulares_InspeccionComercio SET ExpedienteNumero=REPLACE(ExpedienteNumero, ' ', '');
