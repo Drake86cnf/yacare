@@ -12,7 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
  *      },
  *      indexes={
-  *          @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
+ *          @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
+ *          @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
+ *          @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *      }
  * )
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
