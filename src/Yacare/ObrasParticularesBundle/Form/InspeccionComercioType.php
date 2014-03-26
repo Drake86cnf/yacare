@@ -13,6 +13,9 @@ class InspeccionComercioType extends AbstractType
         $builder
             ->add('TitularNombre', null, array('label' => 'Propietario'))
             ->add('ActividadNombre', null, array('label' => 'Actividades'))
+            ->add('Actividades', new \Yacare\ComercioBundle\Form\Type\ActividadesType(), array(
+                'label' => 'Actividades ClaMAE 2014'
+                ))
             ->add('NumeroSolicitud', null, array('label' => 'Nº de solicitud'))
             ->add('ExpedienteNumero', null, array('label' => 'Nº de expediente'))
             ->add('Partida', 'entity_id', array(
