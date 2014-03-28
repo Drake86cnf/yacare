@@ -20,6 +20,7 @@ class InspeccionComercio
     use \Yacare\TramitesBundle\Entity\ConTitular;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+//    use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     
     /**
      * @ORM\Column(type="decimal", precision=14, scale=2, nullable=true)

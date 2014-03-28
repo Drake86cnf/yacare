@@ -19,12 +19,14 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6 {
 a, button {
     cursor: pointer;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
 }
 
 h1, legend {
     padding: 0px;
     margin: 0px 8px;
     font-size: 24px;
+    font-weight: 400;
     margin: 0px 0px 12px;
     color: gray;
     padding-bottom: 12px;
@@ -52,7 +54,7 @@ h4 {
 
 
 legend small {
-    font-weight: normal;
+    font-weight: 300;
     line-height: 1;
     color: rgb(153, 153, 153);
 }
@@ -160,7 +162,7 @@ input[type="file"] {
 }
 
 label {
-    font-weight: normal;
+    font-weight: 300;
 }
 
 .required {
