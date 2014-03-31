@@ -16,7 +16,7 @@ class InspeccionComercioController extends \Yacare\BaseBundle\Controller\YacareA
         parent::__construct();
         
         $this->BuscarPor = 'id, ExpedienteNumero, TitularNombre';
-        $this->OrderBy = 'id';
+        $this->OrderBy = 'id DESC';
     }
     
     /* 
