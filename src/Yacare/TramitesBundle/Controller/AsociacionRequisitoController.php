@@ -42,24 +42,17 @@ class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\Yacare
         
         return $res;
     }
-    
-    /**
-     * @Route("editar/{id}")
-     * @Route("crear/")
-     * @Template()
-     */
-    public function editarAction($id = null)
-    {
-        $res = parent::editarAction($id);
+
+
+    public function createNewEntity($request) {
+        $entity = parent::createNewEntity();
         
-        if($id === null) {
-            // En caso de crear uno nuevo, le asigno el parent predeterminado
-            $em = $this->getDoctrine()->getManager();
-            $parent_id = $request->query->get('parent_id');
-            $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
-            $res['entity']->setTramiteTipo($TramiteTipo);
-        }
+        // En caso de crear uno nuevo, le asigno el parent predeterminado
+        $em = $this->getDoctrine()->getManager();
+        $parent_id = $request->query->get('parent_id');
+        $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
+        $entity->setTramiteTipo($TramiteTipo);
         
-        return $res;
+        return $entity;
     }
 }

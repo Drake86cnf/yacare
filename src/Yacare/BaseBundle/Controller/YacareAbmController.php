@@ -162,7 +162,7 @@ class YacareAbmController extends YacareBaseController
      * @Route("crear/")
      * @Template()
      */
-    public function editarAction($id = null)
+    public function editarAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -203,8 +203,7 @@ class YacareAbmController extends YacareBaseController
         if($id) {
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         } else {
-            $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
-            $entity = new $entityName();
+            $entity = $this->createNewEntity($request);
         }
 
         if (!$entity) {
@@ -285,5 +284,12 @@ class YacareAbmController extends YacareBaseController
     protected function createDeleteForm($id)
     {
         return null;
+    }
+    
+    
+    protected function createNewEntity($request) {
+        $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+        $entity = new $entityName();
+        return $entity;
     }
 }
