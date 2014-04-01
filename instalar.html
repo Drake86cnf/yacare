@@ -13,41 +13,49 @@
     <h2>En Linux</h2>
 
     <ol>
-	<li>Es necesario instalar los
-	siguientes paquetes: 
-        <c>php5 php5-cli php5-gd php5-mysqlnd php5-mbstring php5-intl subversion git</pre>
+	<li>Es necesario instalar los siguientes paquetes: 
+        <pre>php5 php5-cli php5-gd php5-mysqlnd php5-mbstring php5-intl php5-ldap php5-apcu php5-xdebug subversion git</pre>
         En Fedora los paquetes php5-* se llaman php-*.
         En Ubuntu el paquete php5-mbstring no existe ya que viene incorporado en PHP.
         También es necesario instalar mysql-server (o MariaDB) si no se tiene uno.
 
         <li>Descargar desde la <a href="http://symfony.com/download" target="_blank">
-                página de Symfony</a> la versión estándar más reciente
+        página de Symfony</a> la versión estándar más reciente
 	(Symfony_Standard_Vendors_2.4.2.tgz al momento de escribir este
 	documento).
 
 	<li>Abrir una consola de comandos para los siguientes pasos.
-	<li>Crear una carpeta para la aplicación e ingresar a la misma, con los siguientes comandos:
+
+        <li>Crear una carpeta para la aplicación e ingresar a la misma, con los siguientes comandos:
 	<pre>mkdir yacare</pre>
 	<pre>cd yacare</pre>
-	<li>Obtener Yacaré desde el repositorio SVN, con el siguiente comando:
+	
+        <li>Obtener Yacaré desde el repositorio SVN, con el siguiente comando:
 	<pre>svn co http://webmuni/svn/yacare/trunk ./</pre>
-	<li>Descomprimir la distribución de Symfony descargada, sin remplazar los archivos existentes:
+	
+        <li>Descomprimir la distribución de Symfony descargada, sin remplazar los archivos existentes:
 	<pre>tar --strip-components=1 -zxkf /carpeta_de_descarga/Symfony_Standard_Vendors_2.4.2.tgz Symfony</pre>
-	<li>Descargar Composer:
+	
+        <li>Descargar Composer:
 	<pre>php -r &quot;eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));&quot;</pre>
-	<li>Instalar y actualizar los bundles:
+	
+        <li>Instalar y actualizar los bundles:
 	<pre>php composer.phar update</pre>
-	<li>Crear la base de datos y el usuario de acceso:
+	
+        <li>Crear la base de datos y el usuario de acceso:
 	<pre>mysql -uroot -p</pre>
 	<pre>CREATE DATABASE yacare;</pre>
 	<pre>GRANT ALL ON yacare.* TO 'yacare'@'localhost' IDENTIFIED BY '123456';</pre>
 	<pre>GRANT ALL ON yacare.* TO 'yacare'@'%' IDENTIFIED BY '123456';</pre>
 	<pre>EXIT;</pre>
-	<li>Si se dispone de datos de prueba, se los puede incorporar:
+	
+        <li>Si se dispone de datos de prueba, se los puede incorporar:
 	<pre>mysql -uyacare -p123456 --database=yacare &lt; yacare.sql</pre>
+        
         <li>Actualizar las estructuras de datos
 	<pre>php app/console doctrine:schema:update --force</pre>
-	<li>Ejecutar el servidor web de desarrollo:
+	
+        <li>Ejecutar el servidor web de desarrollo:
 	<pre>php app/console server:run</pre>
     </ol>
     
