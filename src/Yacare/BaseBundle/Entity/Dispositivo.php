@@ -12,18 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dispositivo
 {
+    use \Yacare\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
-
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     */
-    private $id;
     
     /**
      * @var string $Tipo
@@ -63,34 +54,21 @@ class Dispositivo
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;
-
+    
     /**
-     * Get id
-     * @return integer 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public function getId()
+    protected $Firmware;
+    
+    
+    public function __toString()
     {
-        return $this->id;
+        return trim(($this->getTipo() == 'Otro' ? '' : $this->getTipo()) . ' ' . $this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
     }
     
-    public function getMarca() {
-        return $this->Marca;
-    }
 
-    public function setMarca($Marca) {
-        $this->Marca = $Marca;
-    }
-
-    public function getModelo() {
-        return $this->Modelo;
-    }
-
-    public function setModelo($Modelo) {
-        $this->Modelo = $Modelo;
-    }
 
     public function getNumeroSerie() {
         return $this->NumeroSerie;
@@ -130,8 +108,27 @@ class Dispositivo
         $this->IdentificadorUnico = $IdentificadorUnico;
     }
     
-    public function __toString()
-    {
-        return trim(($this->getTipo() == 'Otro' ? '' : $this->getTipo()) . ' ' . $this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
+    public function getMarca() {
+        return $this->Marca;
+    }
+
+    public function getModelo() {
+        return $this->Modelo;
+    }
+
+    public function getFirmware() {
+        return $this->Firmware;
+    }
+
+    public function setMarca($Marca) {
+        $this->Marca = $Marca;
+    }
+
+    public function setModelo($Modelo) {
+        $this->Modelo = $Modelo;
+    }
+
+    public function setFirmware($Firmware) {
+        $this->Firmware = $Firmware;
     }
 }
