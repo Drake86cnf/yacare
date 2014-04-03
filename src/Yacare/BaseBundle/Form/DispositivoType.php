@@ -33,6 +33,7 @@ class DispositivoType extends AbstractType
                 'label' => 'Encargado',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => false))
+            ->add( 'Firmware',null, array ('label' => 'Versión de Firmware'))    
         ;
     }
 
