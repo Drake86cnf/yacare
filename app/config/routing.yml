@@ -1,3 +1,8 @@
+yacare_seguridad:
+    resource: "@YacareSeguridadBundle/Controller/"
+    type:     annotation
+    prefix:   /seguridad/
+
 yacare_obras_particulares:
     resource: "@YacareObrasParticularesBundle/Controller/"
     type:     annotation
