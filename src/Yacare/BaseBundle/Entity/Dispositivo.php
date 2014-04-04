@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Base_Dispositivo")
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="Tipo", type="string")
+ * @ORM\DiscriminatorMap({
+ *      "Cámara" = "\Yacare\SeguridadBundle\Entity\Camara"
+ * })
  */
 class Dispositivo
 {
@@ -16,12 +21,6 @@ class Dispositivo
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\Versionable;
     
-    /**
-     * @var string $Tipo
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $Tipo;
-        
     /**
      * @var string $Marca
      * @ORM\Column(type="string", length=255)
@@ -93,13 +92,7 @@ class Dispositivo
     public function setEncargado($Encargado) {
         $this->Encargado = $Encargado;
     }
-    public function getTipo() {
-        return $this->Tipo;
-    }
 
-    public function setTipo($Tipo) {
-        $this->Tipo = $Tipo;
-    }
     public function getIdentificadorUnico() {
         return $this->IdentificadorUnico;
     }

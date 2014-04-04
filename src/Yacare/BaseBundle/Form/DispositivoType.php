@@ -14,6 +14,7 @@ class DispositivoType extends AbstractType
             ->add('Tipo', 'choice', array(
                 'choices'   => array(
                     'Tableta' => 'Tableta',
+                    'Cámara' => 'Cámara',
                     'Notebook' => 'Notebook',
                     'Notebook' => 'Notebook',
                     'Teléfono celular' => 'Teléfono celular',
