@@ -65,10 +65,11 @@ class StringHelper {
                 $Numero = $v;
             }
             
-            if(strpos($Numero, '-'))
+            if(strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            else if(!$Tipo || $Tipo = 'SC')
+            } else if(!$Tipo || $Tipo = 'SC') {
                 $Tipo = 'DNI';
+            }
         }
 
         return array($Tipo, ltrim($Numero, '0'));
