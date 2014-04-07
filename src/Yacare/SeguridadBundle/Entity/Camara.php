@@ -37,9 +37,6 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
      */
     private $ContraseñaLogin;
     
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
       
     public function getCamaraTipo() {
         return $this->CamaraTipo;

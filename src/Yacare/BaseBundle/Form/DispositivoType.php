@@ -11,20 +11,6 @@ class DispositivoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Tipo', 'choice', array(
-                'choices'   => array(
-                    'Tableta' => 'Tableta',
-                    'Cámara' => 'Cámara',
-                    'Notebook' => 'Notebook',
-                    'Notebook' => 'Notebook',
-                    'Teléfono celular' => 'Teléfono celular',
-                    'Impresora' => 'Impresora',
-                    'Localizador GPS personal' => 'Localizador GPS personal',
-                    'Localizador GPS automóvil' => 'Localizador GPS automóvil',
-                    'Otro' => 'Otro'
-                    ),
-                'required'  => true,
-                'label' => 'Tipo'))
             ->add('Marca', null, array('label' => 'Marca'))
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('NumeroSerie', null, array('label' => 'Número de serie'))

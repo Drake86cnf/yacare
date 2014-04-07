@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Base_Dispositivo")
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="Tipo", type="string")
+ * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
  *      "Cámara" = "\Yacare\SeguridadBundle\Entity\Camara"
  * })
@@ -22,37 +22,26 @@ class Dispositivo
     use \Yacare\BaseBundle\Entity\Versionable;
     
     /**
-     * @var string $Marca
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $DispositivoTipo;                
-    
-    /**
-     * @var string $Marca
      * @ORM\Column(type="string", length=255)
      */
     protected $Marca;
 
     /**
-     * @var string $Modelo
      * @ORM\Column(type="string", length=255)
      */
     protected $Modelo;
     
     /**
-     * @var string $NumeroSerie
      * @ORM\Column(type="string", length=255)
      */
     protected $NumeroSerie;
     
     /**
-     * @var string $IdentificadorUnico
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $IdentificadorUnico;
     
     /**
-     * @var string $Comentario
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Comentario;
@@ -66,6 +55,8 @@ class Dispositivo
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Firmware;
+    
+    
     
     
     public function __toString()
@@ -130,21 +121,4 @@ class Dispositivo
     public function setFirmware($Firmware) {
         $this->Firmware = $Firmware;
     }
-    public function getTipo() {
-        return $this->Tipo;
-    }
-
-    public function setTipo($Tipo) {
-        $this->Tipo = $Tipo;
-    }
-    public function getDispositivoTipo() {
-        return $this->DispositivoTipo;
-    }
-
-    public function setDispositivoTipo($DispositivoTipo) {
-        $this->DispositivoTipo = $DispositivoTipo;
-    }
-
-
-
 }
