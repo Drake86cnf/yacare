@@ -25,6 +25,12 @@ class Dispositivo
      * @var string $Marca
      * @ORM\Column(type="string", length=255)
      */
+    protected $DispositivoTipo;                
+    
+    /**
+     * @var string $Marca
+     * @ORM\Column(type="string", length=255)
+     */
     protected $Marca;
 
     /**
@@ -124,4 +130,21 @@ class Dispositivo
     public function setFirmware($Firmware) {
         $this->Firmware = $Firmware;
     }
+    public function getTipo() {
+        return $this->Tipo;
+    }
+
+    public function setTipo($Tipo) {
+        $this->Tipo = $Tipo;
+    }
+    public function getDispositivoTipo() {
+        return $this->DispositivoTipo;
+    }
+
+    public function setDispositivoTipo($DispositivoTipo) {
+        $this->DispositivoTipo = $DispositivoTipo;
+    }
+
+
+
 }

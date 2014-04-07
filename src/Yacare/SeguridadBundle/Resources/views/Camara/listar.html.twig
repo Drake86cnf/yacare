@@ -1,0 +1,35 @@
+{% extends 'YacareBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Cámaras - VVU {% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Marca y modelo</th>
+            <th>Tipo</th>
+            <th>Encargado</th>
+            <th>Serie</th>
+            <th>Identificador</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+            <td>{{ entity.Marca }} {{ entity.Modelo }}</td>
+            <td>{{ entity.Tipo }}</td>
+            <td>{{ entity.Encargado | default('') }}</td>
+            <td>{{ entity.NumeroSerie }}</td>
+            <td>{{ entity.IdentificadorUnico }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Crear nuevo dispositivo</a>
+{% endblock %}

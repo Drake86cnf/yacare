@@ -40,13 +40,7 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-       
-    
-            
-
-
-
-
+      
     public function getCamaraTipo() {
         return $this->CamaraTipo;
     }
@@ -57,6 +51,14 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
 
     public function getCoordenadasGps() {
         return $this->CoordenadasGps;
+    }
+
+    public function getUsuarioLogin() {
+        return $this->UsuarioLogin;
+    }
+
+    public function getContraseñaLogin() {
+        return $this->ContraseñaLogin;
     }
 
     public function setCamaraTipo($CamaraTipo) {
@@ -71,5 +73,14 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
         $this->CoordenadasGps = $CoordenadasGps;
     }
 
+    public function setUsuarioLogin($UsuarioLogin) {
+        $this->UsuarioLogin = $UsuarioLogin;
+    }
 
+    public function setContraseñaLogin($ContraseñaLogin) {
+        $this->ContraseñaLogin = $ContraseñaLogin;
+    }
+
+
+    
 }
