@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
+ *      "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
  *      "Tableta" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *      "Cámara" = "\Yacare\SeguridadBundle\Entity\Camara",
- *      "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico"
+ *      "Cámara" = "\Yacare\SeguridadBundle\Entity\Camara"
  * })
  */
 class Dispositivo
@@ -65,7 +65,7 @@ class Dispositivo
     
     public function __toString()
     {
-        return trim(($this->getTipo() == 'Otro' ? '' : $this->getTipo()) . ' ' . $this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
+        return trim($this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
     }
     
 
