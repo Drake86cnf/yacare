@@ -22,6 +22,7 @@ class CamaraType extends \Yacare\BaseBundle\Form\DispositivoType
                 'required'  => true,
                 'label' => 'Tipo'))
             ->add('Ubicacion', null, array('label' => 'Ubicación'))
+            ->add('LoginContrasena', 'password', array('label' => 'Contraseña', 'required' => false, 'always_empty' => false))
         ;
     }
 

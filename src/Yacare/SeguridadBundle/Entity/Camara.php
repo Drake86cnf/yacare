@@ -30,12 +30,12 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $UsuarioLogin;
+    private $LoginUsuario;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ContraseñaLogin;
+    private $LoginContrasena;
     
       
     public function getCamaraTipo() {
@@ -50,14 +50,6 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
         return $this->CoordenadasGps;
     }
 
-    public function getUsuarioLogin() {
-        return $this->UsuarioLogin;
-    }
-
-    public function getContraseñaLogin() {
-        return $this->ContraseñaLogin;
-    }
-
     public function setCamaraTipo($CamaraTipo) {
         $this->CamaraTipo = $CamaraTipo;
     }
@@ -70,14 +62,20 @@ class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
         $this->CoordenadasGps = $CoordenadasGps;
     }
 
-    public function setUsuarioLogin($UsuarioLogin) {
-        $this->UsuarioLogin = $UsuarioLogin;
+    public function getLoginUsuario() {
+        return $this->LoginUsuario;
     }
 
-    public function setContraseñaLogin($ContraseñaLogin) {
-        $this->ContraseñaLogin = $ContraseñaLogin;
+    public function getLoginContrasena() {
+        return $this->LoginContrasena;
     }
 
+    public function setLoginUsuario($LoginUsuario) {
+        $this->LoginUsuario = $LoginUsuario;
+    }
 
+    public function setLoginContrasena($LoginContrasena) {
+        $this->LoginContrasena = $LoginContrasena;
+    }
     
 }

@@ -8,7 +8,6 @@
         <tr>
             <th> </th>
             <th>Marca y modelo</th>
-            <th>Tipo</th>
             <th>Encargado</th>
             <th>Serie</th>
             <th>Identificador</th>
@@ -19,7 +18,6 @@
         <tr>
             <td><a class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Marca }} {{ entity.Modelo }}</td>
-            <td>{{ entity.Tipo }}</td>
             <td>{{ entity.Encargado | default('') }}</td>
             <td>{{ entity.NumeroSerie }}</td>
             <td>{{ entity.IdentificadorUnico }}</td>
