@@ -141,7 +141,7 @@ class EntityToIdTransformer implements DataTransformerInterface
         }
 
         if (!$result) {
-            throw new TransformationFailedException('Can not find entity');
+            throw new TransformationFailedException('No se encuentra la entidad');
         }
 
         return $result;
