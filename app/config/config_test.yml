@@ -12,3 +12,14 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine:
+    dbal:
+      default_connection: default
+      connections:
+        default:
+          host:     "localhost"
+          dbname:   "yacatest"
+          user:     "yacatest"
+          password: "123456"
+          charset:  UTF8

@@ -24,3 +24,14 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+doctrine:
+    dbal:
+      default_connection: default
+      connections:
+        default:
+          host:     "localhost"
+          dbname:   "yacadev"
+          user:     "yacadev"
+          password: "123456"
+          charset:  UTF8
