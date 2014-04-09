@@ -23,3 +23,8 @@ doctrine:
           user:     "yacatest"
           password: "123456"
           charset:  UTF8
+          
+security:
+    firewalls:
+        secured_area:
+            security: false
