@@ -14,8 +14,8 @@
 
     <ol>
 	<li>Es necesario instalar los siguientes paquetes: 
-        <pre>php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu php5-xdebug php5-mbstring subversion git</pre>
-        En Fedora/CentOS los paquetes php5-* se llaman php-*.
+        <pre>php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu php5-xdebug php5-mbstring phpunit subversion git</pre>
+        En Fedora/CentOS los paquetes php5-* se llaman php-* y php-phpunit-PHPUnit.
         En Ubuntu el paquete php5-mbstring no existe ya que viene incorporado en PHP.
         También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
 
@@ -44,13 +44,16 @@
 	
         <li>Crear la base de datos y el usuario de acceso:
 	<pre>mysql -uroot -p</pre>
-	<pre>CREATE DATABASE yacare;</pre>
-	<pre>GRANT ALL ON yacare.* TO 'yacare'@'localhost' IDENTIFIED BY '123456';</pre>
-	<pre>GRANT ALL ON yacare.* TO 'yacare'@'%' IDENTIFIED BY '123456';</pre>
+	<pre>CREATE DATABASE yacadev;</pre>
+	<pre>GRANT ALL ON yacadev.* TO 'yacadev'@'localhost' IDENTIFIED BY '123456';</pre>
+	<pre>GRANT ALL ON yacadev.* TO 'yacadev'@'%' IDENTIFIED BY '123456';</pre>
+        <pre>CREATE DATABASE yacatest;</pre>
+	<pre>GRANT ALL ON yacatest.* TO 'yacatest'@'localhost' IDENTIFIED BY '123456';</pre>
+        <pre>GRANT ALL ON yacatest.* TO 'yacatest'@'%' IDENTIFIED BY '123456';</pre>
 	<pre>EXIT;</pre>
 	
         <li>Si se dispone de datos de prueba, se los puede incorporar:
-	<pre>mysql -uyacare -p123456 --database=yacare &lt; yacare.sql</pre>
+	<pre>mysql -uyacadev -p123456 --database=yacadev &lt; yacadev.sql</pre>
         
         <li>Actualizar las estructuras de datos
 	<pre>php app/console doctrine:schema:update --force</pre>
