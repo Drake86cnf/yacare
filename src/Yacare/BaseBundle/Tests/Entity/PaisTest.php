@@ -3,9 +3,9 @@
 namespace Yacare\BaseBundle\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Yacare\BaseBundle\Tests\YacareTestCase;
+use Yacare\BaseBundle\Tests\YacareWebTestCase;
 
-class PaisTest extends YacareTestCase
+class PaisTest extends YacareWebTestCase
 {
     protected $pais;
 

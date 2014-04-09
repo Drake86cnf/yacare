@@ -4,7 +4,7 @@ namespace Yacare\BaseBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class YacareTestCase extends WebTestCase
+class YacareWebTestCase extends WebTestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager

@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class YacareAbmController extends YacareBaseController
+abstract class YacareAbmController extends YacareBaseController
 {
     use \Yacare\BaseBundle\Controller\ConBuscar;
 
