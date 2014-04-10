@@ -28,3 +28,4 @@ security:
     firewalls:
         secured_area:
             security: false
+            anonymous:  ~
