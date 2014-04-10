@@ -52,7 +52,7 @@ abstract class YacareAbmController extends YacareBaseController
         
         $where = "";
         
-        if(in_array('Yacare\BaseBundle\Entity\Suprimible', class_uses('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName))) {
+        if(\Yacare\BaseBundle\Helper\ClassHelper::UsaTrait('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName, 'Yacare\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";

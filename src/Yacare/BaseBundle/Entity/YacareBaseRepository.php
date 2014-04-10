@@ -10,11 +10,11 @@ class YacareBaseRepository extends EntityRepository
     {
         $res = parent::createQueryBuilder($alias);
         
-        if(in_array('Yacare\BaseBundle\Entity\ConNombre', class_uses($this->_entityName))) {
+        if(\Yacare\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Yacare\BaseBundle\Entity\ConNombre')) {
             $res->addOrderBy($alias . '.Nombre');
         }
         
-        if(in_array('Yacare\BaseBundle\Entity\Suprimible', class_uses($this->_entityName))) {
+        if(\Yacare\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Yacare\BaseBundle\Entity\Suprimible')) {
             $res->where($alias . '.Suprimido=0');
         }
         

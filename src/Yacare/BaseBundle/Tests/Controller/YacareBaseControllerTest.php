@@ -2,10 +2,10 @@
 
 namespace Yacare\BaseBundle\Controller;
 
-use Yacare\BaseBundle\Tests\YacareWebTestCase;
+use Yacare\BaseBundle\Tests\PruebaFuncional;
 use Yacare\BaseBundle\Controller\YacareBaseController;
 
-class YacareBaseControllerTest extends YacareWebTestCase
+class YacareBaseControllerTest extends PruebaFuncional
 {
     protected $item;
 

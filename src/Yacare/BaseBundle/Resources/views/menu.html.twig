@@ -1,6 +1,5 @@
 <!-- left menu starts -->
 <ul class="nav navbar-nav side-nav">
-    {% if user is defined %}
     {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO')") %}
     <li class="dropdown keep-open">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-home fa-fw"></i> Catastro <b class="caret"></b></a>
@@ -116,7 +115,6 @@
             <li><a data-toggle="ajax-link" href="{{ path('yacare_seguridad_camara_listar') }}">Cámaras</a></li>          
         </ul>
     </li>
-    {% endif %}
     {% endif %}
 </ul>
 <!-- left menu ends -->
