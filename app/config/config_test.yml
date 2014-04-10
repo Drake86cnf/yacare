@@ -23,9 +23,16 @@ doctrine:
           user:     "yacatest"
           password: "123456"
           charset:  UTF8
-          
+
 security:
+    role_hierarchy:
+        # Convertir al usuario de pruebas en administrador para que corra todas las pruebas
+        ROLE_PRUEBAS: [ROLE_USUARIO, ROLE_ADMINISTRADOR, ROLE_ALLOWED_TO_SWITCH]
+
     firewalls:
-        secured_area:
-            security: false
-            anonymous:  ~
+        # Habilitar autenticación HTTP para el entorno de pruebas
+        areasegura:
+            pattern: ^/
+            http_basic:
+                realm: "This is a secured Area."
+                provider: in_memory
