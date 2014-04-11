@@ -2,9 +2,9 @@
 
 namespace Yacare\BaseBundle\Entity;
 
-use Yacare\BaseBundle\Tests\PruebaUnitaria;
+use Yacare\BaseBundle\Tests\Entity\GenericEntityTest;
 
-class PaisTest extends PruebaUnitaria
+class PaisTest extends GenericEntityTest
 {
     protected $item;
 
@@ -29,6 +29,9 @@ class PaisTest extends PruebaUnitaria
         $this->assertEquals('aHR0cDovL3lhY2FyZS5yaW9ncmFuZGUuZ29iLmFyL2NwLz9lbj1CYXNlK1BhaXMmaWQ9MzImdmVyPQ==', $this->item->getYri64());
     }
     
+    public function testPropiedades() {
+        $this->ProbarPropiedad('Iso', 'ar');
+    }
     
     /*
      * Prueba el código del trait "ConNombre"
@@ -36,10 +39,8 @@ class PaisTest extends PruebaUnitaria
     public function testConNombre()
     {
         $Nombre = 'Ernestópolis';
-
-        $this->item->setNombre($Nombre);
-
-        $this->assertEquals($Nombre, $this->item->getNombre());
+        
+        $this->ProbarPropiedad('Nombre', $Nombre);
         
         // Prueba el toString()
         $this->assertEquals($Nombre, (string)$this->item);
