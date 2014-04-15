@@ -7,7 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de trámites.
+ * 
+ * No confundir con "tipos de trámite".
+ * 
+ * @see Yacare\TramitesBundle\Entity\Tramite
+ * 
  * @Route("tramite/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {

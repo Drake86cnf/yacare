@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de grupos de personas.
+ * 
  * @Route("personagrupo/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class PersonaGrupoController extends YacareAbmController
 {

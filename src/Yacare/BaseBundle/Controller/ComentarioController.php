@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de comentarios.
+ * 
  * @Route("comentario/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class ComentarioController extends YacareBaseController
 {

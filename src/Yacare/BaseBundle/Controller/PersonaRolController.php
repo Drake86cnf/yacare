@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de roles de personas.
+ * 
  * @Route("personarol/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class PersonaRolController extends YacareAbmController
 {

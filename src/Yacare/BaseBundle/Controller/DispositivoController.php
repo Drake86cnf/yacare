@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de dispositivos.
+ * 
  * @Route("dispositivo/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class DispositivoController extends YacareAbmController
 {

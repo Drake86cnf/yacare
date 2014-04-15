@@ -8,6 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Controlador base para listados, altas, bajas y ediciones.
+ * 
+ * Controlador abstracto del cual derivan todos los controladores de ABM. 
+ * Implementa métodos genéricos para realizar listados (listar), altas (crear y 
+ * guardar), bajas (eliminar y eliminar2) y modificaciones (editar y guardar).
+ * 
+ * @abstract
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 abstract class YacareAbmController extends YacareBaseController
 {
     use \Yacare\BaseBundle\Controller\ConBuscar;
@@ -41,6 +51,26 @@ abstract class YacareAbmController extends YacareBaseController
     }
 
     
+    /**
+     * Genera la consulta DQL para el listado.
+     * 
+     * La contula generada contiene los JOIN y ORDER BY correspondiente además
+     * de la cláusula WHERE que incluye las condiciones predeterminadas y la
+     * condición Suprimido=0 para los elementos suprimibles (soft-delete) y las
+     * condiciones de páginación y búsqueda (esta última si el parámetro
+     * $filtro_buscar no es null).
+     * 
+     * @see listarAction()
+     * @see $Joins
+     * @see $Where
+     * @see $OrderBy
+     * @see $BuscarPor
+     * @see $Limit
+     * @see $Paginar
+     * 
+     * @param type $filtro_buscar
+     * @return string
+     */
     protected function getSelectDql($filtro_buscar = null) {
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
@@ -96,6 +126,13 @@ abstract class YacareAbmController extends YacareBaseController
 
 
     /**
+     * Obtiene el listado de entidades.
+     * 
+     * Utiliza las condiciones de límites y paginación y devuelve un array()
+     * con las entidades a listar.
+     * 
+     * @see getSelectDql()
+     * 
      * @Route("listar/")
      * @Template()
      */
@@ -158,6 +195,18 @@ abstract class YacareAbmController extends YacareBaseController
     
     
     /**
+     * Inicia la edición o creación de una entidad.
+     * 
+     * Recibe el ID de la entidad a editar o null en caso de crear una nueva
+     * (alta). Devuelve la entidad actual (desde la base de datos) o la entidad
+     * nueva (creada con el método createNewEntity) y el formulario de edición
+     * 
+     * @see createNewEntity()
+     * @see guardarAction()
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int $id El ID de la entidad a editar, o null si se trata de un
+     * alta.
+     * 
      * @Route("editar/{id}")
      * @Route("crear/")
      * @Template()
@@ -191,12 +240,19 @@ abstract class YacareAbmController extends YacareBaseController
     }
 
     /**
-     * @Route("guardar/{id}")
+     * Guarda los cambios en la entidad.
+     * 
+     * Recibe el formulario de alta o de edición y persiste los cambios en la
+     * base de datos o vuelve al formulario con una lista de errores.
+     * 
+     * @see editarAction()
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * 
      * @Route("guardar")
      * @Method("POST")
      * @Template()
      */
-    public function guardarAction(Request $request, $id=null)
+    public function guardarAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -287,7 +343,17 @@ abstract class YacareAbmController extends YacareBaseController
     }
     
     
-    protected function createNewEntity($request) {
+    /**
+     * Crea una entidad nueva.
+     * 
+     * Crea una entidad nueva, infiriendo el tipo de datos del nombre del
+     * bundle. Permite a los controladores derivados intervenir la creación de
+     * las entidades durante el procedo de alta.
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return object
+     */
+    protected function createNewEntity(Request $request) {
         $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
         $entity = new $entityName();
         return $entity;

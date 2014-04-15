@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de usuarios.
+ *
  * @Route("usuario/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class UsuarioController extends YacareAbmController
 {

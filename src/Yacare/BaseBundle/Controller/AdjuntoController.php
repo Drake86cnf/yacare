@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador para gestionar adjuntos asociados a otras entidades.
+ * 
  * @Route("adjunto/")
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class AdjuntoController extends YacareBaseController
 {
