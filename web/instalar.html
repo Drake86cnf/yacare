@@ -13,11 +13,29 @@
     <h2>En Linux</h2>
 
     <ol>
-	<li>Es necesario instalar los siguientes paquetes: 
-        <pre>php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu php5-xdebug php5-mbstring phpunit subversion git</pre>
-        En Fedora/CentOS los paquetes php5-* se llaman php-* y php-phpunit-PHPUnit.
-        En Ubuntu el paquete php5-mbstring no existe ya que viene incorporado en PHP.
-        También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
+	<li>Es necesario instalar los siguientes paquetes:
+            <ul>
+                <li>PHP 5.4 o superior</li>
+                <li>MySQL 5.1 o superior</li>
+                <li>PEAR, phpDocumentor y phpUnit</li>
+                <li>Subversion y GIT</li>
+            </ul>
+        
+            <p>Para ello, ejecutar</p>
+        En Ubuntu
+            <pre>apt-get install subversion git \
+    php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu \
+    php5-xdebug</pre>
+        En Fedora:
+            <pre>yum install subversion git php-pear-Image-GraphViz graphviz-php \
+    php php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
+    php-mbstring php-pear php-pear-PhpDocumentor php-phpunit-PHPUnit.</pre>
+        
+        En ambas:
+        <pre>sudo pear channel-discover pear.phpdoc.org</pre>
+        <pre>sudo pear install phpdoc/phpDocumentor</pre>
+        
+        <li>También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
 
         <li>Descargar desde la <a href="http://symfony.com/download" target="_blank">
         página de Symfony</a> la versión estándar más reciente
