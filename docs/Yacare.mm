@@ -1,6 +1,6 @@
 <map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node COLOR="#000000" CREATED="1397499799371" ID="ID_1330688129" MODIFIED="1397585278230" TEXT="Yacar&#xe9;">
+<node COLOR="#000000" CREATED="1397499799371" ID="ID_1330688129" MODIFIED="1397591097355" TEXT="Yacar&#xe9;">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -20,7 +20,7 @@
 </richcontent>
 <font NAME="SansSerif" SIZE="20"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
-<node COLOR="#0033ff" CREATED="1397499852375" HGAP="49" ID="ID_1892952041" MODIFIED="1397584342297" POSITION="right" TEXT="Desarrollo" VSHIFT="-69">
+<node COLOR="#0033ff" CREATED="1397499852375" HGAP="49" ID="ID_1892952041" MODIFIED="1397591092736" POSITION="right" TEXT="Desarrollo" VSHIFT="-69">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -44,8 +44,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
 <node COLOR="#00b439" CREATED="1397504917005" HGAP="42" ID="ID_1674749588" MODIFIED="1397585163671" TEXT="Sistemas heredados" VSHIFT="-38">
@@ -58,8 +57,7 @@
       Relevamiento de los sistemas actualmente presentes en el municipio, que deber&#237;an ser reemplazados por m&#243;dulos de Yacar&#233;.
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1397504932949" ID="ID_899229907" MODIFIED="1397584189148" TEXT="Comercio">
@@ -83,8 +81,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="sharp_bezier"/>
 </node>
 </node>
@@ -136,8 +133,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="sharp_bezier"/>
 </node>
 <node COLOR="#111111" CREATED="1397505037044" ID="ID_48829863" MODIFIED="1397584189149" TEXT="MovPrevias">
@@ -186,8 +182,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="sharp_bezier"/>
 </node>
 </node>
@@ -232,8 +227,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 <node COLOR="#990000" CREATED="1397584606778" ID="ID_812258994" MODIFIED="1397584620243" TEXT="Deportes">
@@ -274,8 +268,7 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 <node COLOR="#990000" CREATED="1397584666905" ID="ID_1575110434" MODIFIED="1397584704723" TEXT="Tr&#xe1;nsito">
@@ -313,15 +306,14 @@
       </li>
     </ul>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 </node>
 <node COLOR="#00b439" CREATED="1397505367920" HGAP="45" ID="ID_191676764" MODIFIED="1397585114051" TEXT="Modulos nuevos" VSHIFT="-2">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1397505374394" ID="ID_846759959" MODIFIED="1397585158195" TEXT="Tramites">
+<node COLOR="#990000" CREATED="1397505374394" HGAP="65" ID="ID_846759959" MODIFIED="1397591117100" TEXT="Tramites" VSHIFT="5">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -337,8 +329,7 @@
       Descripcion: gestion de tramites en general
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <edge STYLE="sharp_bezier"/>
 <font NAME="SansSerif" SIZE="14"/>
 </node>
