@@ -7,7 +7,9 @@ namespace Yacare\TramitesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\AsociacionRequisito
+ * Asociación de un requisito con un trámite.
+ * 
+ * Representa la asociación entre un requisito y un trámite, y sus condiciones.
  *
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo_Requisito")

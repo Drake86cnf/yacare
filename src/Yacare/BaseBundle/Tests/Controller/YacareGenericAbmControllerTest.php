@@ -31,7 +31,7 @@ abstract class YacareGenericAbmControllerTest extends PruebaFuncional
             return;
         }
         
-        /* $crawler = $this->clientRequest('GET', $this->getUrl($this->item->getBaseRoute('buscar')));
+        /* $crawler = $this->clientRequest('GET', $this->getUrl($this->item->obtenerRutaBase('buscar')));
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 

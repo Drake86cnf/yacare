@@ -71,7 +71,7 @@ abstract class YacareAbmController extends YacareBaseController
      * @param type $filtro_buscar
      * @return string
      */
-    protected function getSelectDql($filtro_buscar = null) {
+    protected function obtenerComandoSelect($filtro_buscar = null) {
         $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
         if(count($this->Joins) > 0) {
@@ -131,7 +131,7 @@ abstract class YacareAbmController extends YacareBaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      * 
-     * @see getSelectDql()
+     * @see obtenerComandoSelect()
      * 
      * @Route("listar/")
      * @Template()
@@ -139,7 +139,7 @@ abstract class YacareAbmController extends YacareBaseController
     public function listarAction(Request $request)
     {
         $filtro_buscar = $request->query->get('filtro_buscar');
-        $dql = $this->getSelectDql($filtro_buscar);
+        $dql = $this->obtenerComandoSelect($filtro_buscar);
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
@@ -164,7 +164,7 @@ abstract class YacareAbmController extends YacareBaseController
         ));
     }
     
-    protected function getFormType() {
+    protected function obtenerFormType() {
         if(isset($this->FormTypeName)) {
             return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
         } else {
@@ -199,9 +199,9 @@ abstract class YacareAbmController extends YacareBaseController
      * 
      * Recibe el ID de la entidad a editar o null en caso de crear una nueva
      * (alta). Devuelve la entidad actual (desde la base de datos) o la entidad
-     * nueva (creada con el método createNewEntity) y el formulario de edición
+     * nueva (creada con el método crearNuevaEntidad) y el formulario de edición
      * 
-     * @see createNewEntity()
+     * @see crearNuevaEntidad()
      * @see guardarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $id El ID de la entidad a editar, o null si se trata de un
@@ -226,9 +226,9 @@ abstract class YacareAbmController extends YacareBaseController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $typeName = $this->getFormType();
+        $typeName = $this->obtenerFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->crearFormEliminar($id);
 
         return $this->ArrastrarVariables(array(
             'entity'      => $entity,
@@ -259,17 +259,17 @@ abstract class YacareAbmController extends YacareBaseController
         if($id) {
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         } else {
-            $entity = $this->createNewEntity($request);
+            $entity = $this->crearNuevaEntidad($request);
         }
 
         if (!$entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
 
-        $typeName = $this->getFormType();
+        $typeName = $this->obtenerFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->handleRequest($request);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->crearFormEliminar($id);
 
         $errors = $this->guardarActionPreBind($entity);
 
@@ -312,7 +312,7 @@ abstract class YacareAbmController extends YacareBaseController
     
     
     protected function guardarActionAfterSuccess($entity) {
-        return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
     }
     
     
@@ -337,7 +337,7 @@ abstract class YacareAbmController extends YacareBaseController
     }
     
 
-    protected function createDeleteForm($id)
+    protected function crearFormEliminar($id)
     {
         return null;
     }
@@ -353,7 +353,7 @@ abstract class YacareAbmController extends YacareBaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return object
      */
-    protected function createNewEntity(Request $request) {
+    protected function crearNuevaEntidad(Request $request) {
         $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
         $entity = new $entityName();
         return $entity;

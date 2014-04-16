@@ -47,7 +47,7 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
 
         //$this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' . \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));
 
-        return $this->redirect($this->generateUrl($this->getBaseRoute('ver'), $this->ArrastrarVariables(array(
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array(
                 'id' => $id
                 ), false)));
     }

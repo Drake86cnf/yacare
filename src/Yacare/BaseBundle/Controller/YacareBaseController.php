@@ -66,9 +66,9 @@ abstract class YacareBaseController extends Controller
         if($incluirDelSistema) {
             $valorInicial['bundlename']  = strtolower('yacare_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
-            $valorInicial['entitylabel'] = $this->getEntityLabel();
-            $valorInicial['entitylabelplural'] = $this->getEntityLabelPlural();
-            $valorInicial['baseroute'] = $this->getBaseRoute();
+            $valorInicial['entitylabel'] = $this->obtenerEtiquetaEntidad();
+            $valorInicial['entitylabelplural'] = $this->obtenerEtiquetaEntidadPlural();
+            $valorInicial['baseroute'] = $this->obtenerRutaBase();
             if(isset($this->Paginar)) {
                 $valorInicial['paginar'] = $this->Paginar;
             }
@@ -109,7 +109,7 @@ abstract class YacareBaseController extends Controller
      * @param string $action La acción para la cual obtener la ruta.
      * @return string El nombre de la ruta para la acción solicitada o el nombre de la ruta base para este controlador.
      */
-    public function getBaseRoute($action = null) {
+    public function obtenerRutaBase($action = null) {
         if($action)
             return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
         else
@@ -128,10 +128,10 @@ abstract class YacareBaseController extends Controller
      * un nombre visible diferente, por ejemplo la entidad "Persona" se puede
      * usar con el nombre visible "Usuario".
      * 
-     * @see getEntityLabelPlural()
+     * @see obtenerEtiquetaEntidadPlural()
      * @return string El nombre visible de la clase de entidad.
      */
-    public function getEntityLabel() {
+    public function obtenerEtiquetaEntidad() {
         if(isset($this->EntityLabel)) {
             return $this->EntityLabel;
         } else {
@@ -143,20 +143,20 @@ abstract class YacareBaseController extends Controller
      * Obtiene el nombre visible en plural.
      * 
      * En caso de no estar definido, pluraliza mediante un algoritmo el valor
-     * obtenido de getEntityLabel().
+     * obtenido de obtenerEtiquetaEntidad().
      * 
-     * @see getEntityLabel()
+     * @see obtenerEtiquetaEntidad()
      * @return string El nombre visible de la clase de entidad en plural.
      */
-    public function getEntityLabelPlural() {
+    public function obtenerEtiquetaEntidadPlural() {
         if(isset($this->EntityLabelPlural)) {
             return $this->EntityLabelPlural;
         } else {
-            $res = $this->getEntityLabel();
+            $res = $this->obtenerEtiquetaEntidad();
             if(strpos('aeiouy', substr($res, -1)) === FALSE) {
-                return $this->getEntityLabel() . 'es';
+                return $this->obtenerEtiquetaEntidad() . 'es';
             } else {
-                return $this->getEntityLabel() . 's';
+                return $this->obtenerEtiquetaEntidad() . 's';
             }
         }
     }

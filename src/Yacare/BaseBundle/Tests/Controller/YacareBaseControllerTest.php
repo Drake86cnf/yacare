@@ -24,7 +24,7 @@ class YacareBaseControllerTest extends PruebaFuncional
     
     public function testBaseRoute()
     {
-        $this->assertEquals('yacare_base_yacarebase', $this->item->getBaseRoute());
-        $this->assertEquals('yacare_base_yacarebase_listar', $this->item->getBaseRoute('listar'));
+        $this->assertEquals('yacare_base_yacarebase', $this->item->obtenerRutaBase());
+        $this->assertEquals('yacare_base_yacarebase_listar', $this->item->obtenerRutaBase('listar'));
     }
 }

@@ -97,7 +97,7 @@ class EntityIdType extends AbstractType
     }
     
     // Devuelve el nombre de la ruta para una acción determinada o la base para conformar las rutas
-    protected function getBaseRoute($action = null) {
+    protected function obtenerRutaBase($action = null) {
         if($action) {
             return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_' . $action);
         } else {

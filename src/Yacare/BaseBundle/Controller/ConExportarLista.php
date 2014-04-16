@@ -14,7 +14,7 @@ trait ConExportarLista
     {
         ini_set('memory_limit', '512M');
         
-        $dql = $this->getSelectDql();
+        $dql = $this->obtenerComandoSelect();
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
@@ -24,11 +24,11 @@ trait ConExportarLista
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
         $phpExcelObject->getProperties()
                 ->setCreator('Yacaré')
-                ->setTitle($this->BundleName . ': ' . $this->getEntityLabelPlural())
-                ->setKeywords($this->BundleName . '  ' . $this->getEntityLabelPlural())
+                ->setTitle($this->BundleName . ': ' . $this->obtenerEtiquetaEntidadPlural())
+                ->setKeywords($this->BundleName . '  ' . $this->obtenerEtiquetaEntidadPlural())
                 ->setDescription('Archivo exportado desde sistema de gestión Yacaré');
         $phpExcelObject->setActiveSheetIndex(0);
-        $phpExcelObject->getActiveSheet()->setTitle($this->getEntityLabelPlural());
+        $phpExcelObject->getActiveSheet()->setTitle($this->obtenerEtiquetaEntidadPlural());
 
         $phpExcelObject->getDefaultStyle()->getFont()->setName('Calibri')->setSize(10);
         $phpExcelObject->getDefaultStyle()->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
@@ -73,7 +73,7 @@ trait ConExportarLista
                 break;
         }
         
-        $NombreArchivo = $this->BundleName . '_' . $this->getEntityLabelPlural();
+        $NombreArchivo = $this->BundleName . '_' . $this->obtenerEtiquetaEntidadPlural();
         
         $writer = $this->get('phpexcel')->createWriter($phpExcelObject, $WriterFormat);
         $response = $this->get('phpexcel')->createStreamedResponse($writer);

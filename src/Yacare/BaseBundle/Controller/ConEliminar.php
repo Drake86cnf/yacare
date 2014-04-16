@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 trait ConEliminar {
 
-    protected function createDeleteForm($id)
+    protected function crearFormEliminar($id)
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
@@ -22,7 +22,7 @@ trait ConEliminar {
      */
     public function eliminarAction($id)
     {
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->crearFormEliminar($id);
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
@@ -46,7 +46,7 @@ trait ConEliminar {
      */
     public function eliminar2Action(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->crearFormEliminar($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -70,6 +70,6 @@ trait ConEliminar {
             }
         }
 
-        return $this->redirect($this->generateUrl($this->getBaseRoute('listar'), $this->ArrastrarVariables(null, false)));
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
     }
 }

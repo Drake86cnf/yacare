@@ -155,7 +155,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'CalleType';
         $editForm = $this->createForm(new $typeName(), $entity);
-        //$deleteForm = $this->createDeleteForm($id);
+        //$deleteForm = $this->crearFormEliminar($id);
 
         return array(
             'entity'      => $entity,

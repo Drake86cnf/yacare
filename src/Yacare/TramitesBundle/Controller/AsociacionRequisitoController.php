@@ -44,8 +44,8 @@ class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\Yacare
     }
 
 
-    public function createNewEntity($request) {
-        $entity = parent::createNewEntity();
+    public function crearNuevaEntidad(Request $request) {
+        $entity = parent::crearNuevaEntidad($request);
         
         // En caso de crear uno nuevo, le asigno el parent predeterminado
         $em = $this->getDoctrine()->getManager();

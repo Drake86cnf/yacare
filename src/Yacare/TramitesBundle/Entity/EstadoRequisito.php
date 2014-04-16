@@ -7,7 +7,10 @@ namespace Yacare\TramitesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\TramiteRequisito
+ * Estado de un requisito de un trámite.
+ * 
+ * Define el estado en el que se encuentra un requisito asociado a un trámite
+ * en curso.
  *
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
  * @ORM\Table(name="Tramites_EstadoRequisito",
@@ -26,6 +29,10 @@ class EstadoRequisito
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**
+     * El trámite al cual está asociado este requisito.
+     * 
+     * @see \Yacare\TramitesBundle\Entity\Tramite
+     * 
      * @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -33,12 +40,18 @@ class EstadoRequisito
 
 
     /**
+     * La asociación entre el trámite y el requisito, que también describe las
+     * condiciones en las que está asociado.
+     * 
      * @ORM\ManyToOne(targetEntity="AsociacionRequisito")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $AsociacionRequisito;
     
     /**
+     * El requisito padre, en caso de que este no sea un requisito directo, sino
+     * sino un sub requisto (requisito de un requisito).
+     * 
      * @ORM\ManyToOne(targetEntity="EstadoRequisito")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -46,20 +59,32 @@ class EstadoRequisito
 
 
     /**
+     * El estado de este requisito para el trámite asociado.
+     * 
      * @ORM\Column(type="integer")
      */
     protected $Estado = 0;
     
     
     /**
+     * La fecha en la cual el requisito fue aprobado, o null si aun no lo fue.
+     * 
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $FechaAprobado;
     
     
-    /*
-     * Devuelve si este requisito es necesario para este trámite.
+    /**
+     * Devuelve true si este requisito es necesario para este trámite.
+     * 
+     * Los requisitos pueden ser opcionales o pueden ser solicitados en base a
+     * condiciones (por ejemplo sólo para personas jurídicas o sólo para
+     * inmuebles mayores a 100 m2).
+     * Este método devuelve true si este requisito debe solicitarse este
+     * trámite en particular.
+     * 
+     * @see $Tramite;
      */
     public function EsNecesario() {
         if($this->getEstadoRequisitoPadre()) {
@@ -70,6 +95,12 @@ class EstadoRequisito
         }
     }
     
+    /**
+     * Devuelve true si el requisito es opcional o si este es un sub requisito 
+     * de un requisito opcional.
+     * 
+     * @return bool Devuelve true si el requisito es opcional.
+     */
     public function EsOpcional() {
         if($this->getEstadoRequisitoPadre()) {
             // Es un sub-requisito. Evaluo también si el parent es opcional.
@@ -80,6 +111,14 @@ class EstadoRequisito
     }
     
     
+    /**
+     * Devuelve true si el requisito asociado se da por cumplido.
+     * 
+     * Para los requisitos opcionales, siempre devuelve true.
+     * 
+     * @see $AsociacionRequisito
+     * @return bool Devuelve true si el requisito se da por cumplido.
+     */
     public function EstaCumplido() {
         return $this->EsNecesario() == false 
                 || $this->EsOpcional()
@@ -87,8 +126,11 @@ class EstadoRequisito
     }
     
     
-    /*
-     * Devuelve si esta condición se cumple.
+    /**
+     * Devuelve true si se cumple la condición en la cual debe solicitarse el
+     * requisito asociado.
+     * 
+     * @see $AsociacionRequisito
      */
     public function CondicionSeCumple() {
         $Asoc = $this->getAsociacionRequisito();
@@ -140,6 +182,13 @@ class EstadoRequisito
         return ((string)$this->getAsociacionRequisito()) . ' en estado ' . $this->getEstadoNombre();
     }
     
+    
+    /**
+     * Devuelve un cadena con el nombre del estado del requisito asociado.
+     * 
+     * @param int $estado El estado del cual solicita el nombre.
+     * @return string El nombre del estado.
+     */
     public static function NombreEstado($estado) {
         switch($estado) {
             case 0: return 'Faltante';
@@ -156,6 +205,10 @@ class EstadoRequisito
     public function getEstadoNombre() {
         return EstadoRequisito::NombreEstado($this->Estado);
     }
+    
+    
+    
+    
     
     public function getEstado() {
         return $this->Estado;
