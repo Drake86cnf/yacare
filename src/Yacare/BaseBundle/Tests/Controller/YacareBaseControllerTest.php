@@ -5,16 +5,9 @@ namespace Yacare\BaseBundle\Controller;
 use Yacare\BaseBundle\Tests\PruebaFuncional;
 use Yacare\BaseBundle\Controller\YacareBaseController;
 
-class YacareBaseControllerTest extends PruebaFuncional
+abstract class YacareBaseControllerTest extends PruebaFuncional
 {
     protected $item;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->item = new YacareBaseController();
-    }
 
     public function testConstructor()
     {
