@@ -2,9 +2,9 @@
 
 namespace Yacare\ObrasParticularesBundle\Entity;
 
-use Yacare\BaseBundle\Tests\PruebaUnitaria;
+use Yacare\BaseBundle\Tests\Entity\GenericEntityTest;
 
-class InspeccionComercioTest extends PruebaUnitaria
+class InspeccionComercioTest extends GenericEntityTest
 {
     protected $item;
 
@@ -18,5 +18,9 @@ class InspeccionComercioTest extends PruebaUnitaria
 
     public function testPropiedades()
     {
+        $this->ProbarPropiedad('Superficie', 3.55);
+        $this->ProbarPropiedad('NumeroSolicitud', 55);
+        $this->ProbarPropiedad('ActividadNombre', 'Prueba de actividad');
+        $this->ProbarPropiedad('TitularNombre', 'Prueba de titular');
     }
 }
