@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
  *      "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *      "Tableta" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
  *      "Cámara" = "\Yacare\SeguridadBundle\Entity\Camara"
  * })
  */

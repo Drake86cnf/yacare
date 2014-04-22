@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador abstracto de dispositivos.
+ * Controlador de dispositivos genéricos.
  * 
+ * @Route("dispositivogenerico/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-abstract class DispositivoController extends YacareAbmController
+class DispositivoGenericoController extends DispositivoController
 {
 }

@@ -248,11 +248,12 @@ abstract class YacareAbmController extends YacareBaseController
      * @see editarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
      * 
+     * @Route("guardar/{id}")
      * @Route("guardar")
      * @Method("POST")
      * @Template()
      */
-    public function guardarAction(Request $request)
+    public function guardarAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -269,7 +270,6 @@ abstract class YacareAbmController extends YacareBaseController
         $typeName = $this->obtenerFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->handleRequest($request);
-        $deleteForm = $this->crearFormEliminar($id);
 
         $errors = $this->guardarActionPreBind($entity);
 
@@ -292,6 +292,8 @@ abstract class YacareAbmController extends YacareBaseController
         }
         
         if($errors) {
+            $deleteForm = $this->crearFormEliminar($id);
+            
             foreach ($errors as $error) {
                 $this->get('session')->getFlashBag()->add('danger', $error);
             }

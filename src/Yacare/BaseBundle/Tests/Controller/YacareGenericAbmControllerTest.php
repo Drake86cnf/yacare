@@ -7,7 +7,7 @@ use Yacare\BaseBundle\Tests\PruebaFuncional;
 /*
  * Prueba base para todas las pruebas que derivan de YacareAmbController
  */
-abstract class YacareGenericAbmControllerTest extends PruebaFuncional
+class YacareGenericAbmControllerTest extends PruebaFuncional
 {
     protected $item;
 
@@ -16,7 +16,7 @@ abstract class YacareGenericAbmControllerTest extends PruebaFuncional
     {
         $crawler = $this->clientRequestAction('listar');
 
-        $this->assertTrue($this->client->getResponse()->isSuccessful(), 'Probando que la página sea accesible');
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), 'Probando que la página listar sea accesible');
 
         $this->assertGreaterThan(
             0,

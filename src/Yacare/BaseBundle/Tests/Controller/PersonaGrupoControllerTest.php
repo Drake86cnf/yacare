@@ -13,4 +13,22 @@ class PersonaGrupoControllerTest extends \Yacare\BaseBundle\Tests\Controller\Yac
 
         $this->item = new PersonaGrupoController();
     }
+    
+    public function testCrear() {
+        $crawler = $this->clientRequestAction('editar_1');
+        
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), 'Probando que la página de crear sea accesible');
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        // set some values
+        $form['yacare_basebundle_personagrupotype[Nombre]'] = 'Grupo de pruebas';
+
+        // submit the form
+        $crawler = $this->client->submit($form);
+        
+        $this->assertFalse($this->clientTestResponse());
+        
+        //echo $this->client->getResponse()->getContent();
+    }
 }

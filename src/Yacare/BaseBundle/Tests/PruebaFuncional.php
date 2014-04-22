@@ -30,6 +30,8 @@ class PruebaFuncional extends WebTestCase
             'PHP_AUTH_USER' => 'pruebas',
             'PHP_AUTH_PW'   => 'pruebas',
         ));
+        
+        $this->client->followRedirects();
 
         /*
         // Login via form
@@ -47,29 +49,42 @@ class PruebaFuncional extends WebTestCase
          */
     }
     
-    /*
-     * Hace un request HTTP de una acción
+    /**
+     * Hace un request HTTP de una acción por nombre
      */
     public function clientRequestAction($actionname, $method = 'GET') {
-        return $this->clientRequest($this->getUrl($this->item->obtenerRutaBase($actionname)));
+        $url = $this->getUrl($this->item->obtenerRutaBase($actionname));
+        return $this->clientRequest($url);
     }
     
-    /*
+    /**
      * Hace un request HTTP de una URL
      */
     public function clientRequest($path, $method = 'GET') {
         $crawler = $this->client->request($method, $path);
         
+        $this->clientTestResponse();
+        
+        return $crawler;
+    }
+    
+    
+    /**
+     * Prueba que la respuesta se exitosa.
+     * 
+     * Si no lo es, intenta obtener y mostrar un mensaje de error.
+     */
+    public function clientTestResponse() {
         if (!$this->client->getResponse()->isSuccessful()) {
             echo $this->client->getResponse()->getContent();
             $block = $crawler->filter('div.text-exception h1');
             if ($block->count()) {
                 $error = $block->text();
-                echo $error;
+                return $error;
             }
         }
         
-        return $crawler;
+        return false;
     }
 
     /**
