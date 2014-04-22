@@ -13,9 +13,7 @@ class PruebaFuncional extends WebTestCase
      */
     private $em;
     
-    /**
-     * {@inheritDoc}
-     */
+
     public function setUp()
     {
         static::$kernel = static::createKernel();
@@ -31,7 +29,7 @@ class PruebaFuncional extends WebTestCase
             'PHP_AUTH_PW'   => 'pruebas',
         ));
         
-        $this->client->followRedirects();
+        //$this->client->followRedirects();
 
         /*
         // Login via form

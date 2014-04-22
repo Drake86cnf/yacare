@@ -104,6 +104,9 @@
     <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/jquery.history.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/yacare.js') }}"></script>
+    {% if app.environment != 'test' %}
+        <script type="text/javascript" src="{{ asset('bundles/yacarebase/js/yacare-ajax.js') }}"></script>
+    {% endif %}
    
 <script type="text/javascript">
     tinymce.init({

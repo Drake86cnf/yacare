@@ -1,4 +1,4 @@
-/*
+/**
  * Función ayudante de los campos de formulario Symfony tipo "entity_id"
  */
 function yacareEntityIdSeleccionarItem(destino, id, detalle) {
@@ -6,7 +6,7 @@ function yacareEntityIdSeleccionarItem(destino, id, detalle) {
     $(destino + '_Detalle').val(detalle);
 }
 
-/*
+/**
  * Mostrar una URL en una ventana modal
  */
 function yacareMostrarModalEn(url, destino) {
@@ -43,7 +43,7 @@ function yacareMostrarModalEn(url, destino) {
     return false;
 }
 
-/*
+/**
  * Seguir un enlace, pero via AJAX.
  */
 function yacareNavegarA(url) {
@@ -51,7 +51,7 @@ function yacareNavegarA(url) {
     yacareCargarUrlEn(url);     // con AJAX
 }
 
-/*
+/**
  * Cargar una URL en un elemento via AJAX.
  * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
  */
@@ -134,20 +134,7 @@ function MejorarElementos() {
 }
 
 
-$(document).ready(function(){
-    // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
-    window.onpopstate =function() {
-        yacareCargarUrlEn(document.location);
-    };
-
-    // Agrego la página actual al historial del navegador
-    window.history.pushState({ path: (window.location + '') }, '', window.location);
-
-    // Evito que los enlaces href="#" muevan la página hacia el tope
-    $('a[href="#"][data-top!=true]').click(function(e) {
-            e.preventDefault();
-    });
-    
+$(document).ready(function() {
     MejorarElementos();
 
     //chosen - improves select
@@ -173,12 +160,6 @@ $(document).ready(function(){
         });
     }, 15000);
 
-    // Activo la función de los enalces AJAX
-    $('[data-toggle="ajax-link"]').click(function(e) {
-        e.preventDefault();
-        return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
-    });
-    
     // Evitar que algunos dropdown se cierren automáticamente
     // (especial para el menú lateral, se utiliza la clase keep-open)
     $('.dropdown.keep-open').on({
