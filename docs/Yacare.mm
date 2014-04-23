@@ -1,6 +1,6 @@
 <map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node COLOR="#000000" CREATED="1397499799371" ID="ID_1330688129" MODIFIED="1397591097355" TEXT="Yacar&#xe9;">
+<node COLOR="#000000" CREATED="1397499799371" ID="ID_1330688129" MODIFIED="1397673828683" TEXT="Yacar&#xe9;">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -16,11 +16,10 @@
       Objetivo: Asistir a los agentes para mejorar el resultado de la gesti&#243;n en calidad y eficiencia. Aportar mejoras en la calidad mediante la medici&#243;n y mejora del servicio; y mejoras en la eficiencia mediante la agilizaci&#243;n y simplificaci&#243;n de los tr&#225;mites.
     </p>
   </body>
-</html>
-</richcontent>
-<font NAME="SansSerif" SIZE="20"/>
+</html></richcontent>
+<font NAME="Segoe UI" SIZE="20"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
-<node COLOR="#0033ff" CREATED="1397499852375" HGAP="49" ID="ID_1892952041" MODIFIED="1397591092736" POSITION="right" TEXT="Desarrollo" VSHIFT="-69">
+<node COLOR="#0033ff" CREATED="1397499852375" HGAP="40" ID="ID_1892952041" MODIFIED="1397676385144" POSITION="right" TEXT="Desarrollo" VSHIFT="108">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -46,8 +45,86 @@
   </body>
 </html></richcontent>
 <edge STYLE="sharp_bezier" WIDTH="8"/>
-<font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1397504917005" HGAP="42" ID="ID_1674749588" MODIFIED="1397585163671" TEXT="Sistemas heredados" VSHIFT="-38">
+<font NAME="Segoe UI Light" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1397505374394" HGAP="66" ID="ID_846759959" MODIFIED="1398177271061" TEXT="Tramites" VSHIFT="-13">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Caracter&#237;sticas:
+    </p>
+    <ul>
+      <li>
+        Gesti&#243;n de requisitos.
+      </li>
+      <li>
+        Gesti&#243;n de tipos de tr&#225;mite y sus requisitos y condiciones.
+      </li>
+      <li>
+        Gesti&#243;n de comprobantes.
+      </li>
+      <li>
+        Gesti&#243;n de tr&#225;mites.
+      </li>
+    </ul>
+  </body>
+</html>
+</richcontent>
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Segoe UI Light" SIZE="16"/>
+<icon BUILTIN="wizard"/>
+<node COLOR="#990000" CREATED="1397674468749" ID="ID_279670096" MODIFIED="1397674538957" TEXT="Tipo de tr&#xe1;mite">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Un tipo de tr&#225;mite describe un tr&#225;mite que puede realizarse, no una instancia de un tr&#225;mite enparticular.
+    </p>
+  </body>
+</html></richcontent>
+<font NAME="Segoe UI Light" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1397674474902" ID="ID_1379037971" MODIFIED="1397674477148" TEXT="Requisito">
+<font NAME="Segoe UI Light" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1397674479253" ID="ID_1889261804" MODIFIED="1397674480404" TEXT="Tramite">
+<font NAME="Segoe UI Light" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1397673086563" HGAP="70" ID="ID_633960315" MODIFIED="1397673821944" TEXT="Comercio" VSHIFT="19">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Caracter&#237;sticas:
+    </p>
+    <ul>
+      <li>
+        Gesti&#243;n de locales comerciales.
+      </li>
+      <li>
+        Gesti&#243;n de tr&#225;mites de habilitaci&#243;n comercial.
+      </li>
+      <li>
+        Gesti&#243;n de actividades comerciales (ClaMAE 2014).
+      </li>
+    </ul>
+  </body>
+</html></richcontent>
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Segoe UI Light" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1397673241213" FOLDED="true" HGAP="46" ID="ID_1035100997" MODIFIED="1398177282249" POSITION="right" TEXT="An&#xe1;lisis" VSHIFT="-130">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="Segoe UI Light" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1397504917005" HGAP="38" ID="ID_1674749588" MODIFIED="1397673832779" TEXT="Sistemas heredados" VSHIFT="4">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -59,11 +136,11 @@
   </body>
 </html></richcontent>
 <edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1397504932949" ID="ID_899229907" MODIFIED="1397584189148" TEXT="Comercio">
+<font NAME="Segoe UI Light" SIZE="16"/>
+<node COLOR="#990000" CREATED="1397504932949" ID="ID_899229907" MODIFIED="1397673845003" TEXT="Comercio">
 <edge STYLE="sharp_bezier"/>
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397583525927" ID="ID_1985765570" MODIFIED="1397584461050" TEXT="Habilitaciones comerciales">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397583525927" ID="ID_1985765570" MODIFIED="1397673330396" TEXT="Habilitaciones comerciales">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -85,13 +162,13 @@
 <edge STYLE="sharp_bezier"/>
 </node>
 </node>
-<node COLOR="#990000" CREATED="1397504963613" ID="ID_555568978" MODIFIED="1397584189148" TEXT="Obras particulaes">
+<node COLOR="#990000" CREATED="1397504963613" ID="ID_555568978" MODIFIED="1397673847131" TEXT="Obras particulaes">
 <edge STYLE="sharp_bezier"/>
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397504970372" ID="ID_112516630" MODIFIED="1397584189150" TEXT="Inspecciones comercio">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397504970372" ID="ID_112516630" MODIFIED="1397673330397" TEXT="Inspecciones comercio">
 <edge STYLE="sharp_bezier"/>
 </node>
-<node COLOR="#111111" CREATED="1397505032780" ID="ID_1863570778" MODIFIED="1397584553302" TEXT="OPart">
+<node COLOR="#111111" CREATED="1397505032780" ID="ID_1863570778" MODIFIED="1397673330397" TEXT="OPart">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -136,17 +213,17 @@
 </html></richcontent>
 <edge STYLE="sharp_bezier"/>
 </node>
-<node COLOR="#111111" CREATED="1397505037044" ID="ID_48829863" MODIFIED="1397584189149" TEXT="MovPrevias">
+<node COLOR="#111111" CREATED="1397505037044" ID="ID_48829863" MODIFIED="1397673330397" TEXT="MovPrevias">
 <edge STYLE="sharp_bezier"/>
 </node>
 </node>
-<node COLOR="#990000" CREATED="1397505340817" ID="ID_1676725565" MODIFIED="1397584724020" TEXT="Recursos humanos">
+<node COLOR="#990000" CREATED="1397505340817" ID="ID_1676725565" MODIFIED="1397673849451" TEXT="Recursos humanos">
 <edge STYLE="sharp_bezier"/>
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397505053675" ID="ID_815039602" MODIFIED="1397584189149" TEXT="Parte">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397505053675" ID="ID_815039602" MODIFIED="1397673330398" TEXT="Parte">
 <edge STYLE="sharp_bezier"/>
 </node>
-<node COLOR="#111111" CREATED="1397505046972" ID="ID_501658133" MODIFIED="1397584798090" TEXT="Gestion">
+<node COLOR="#111111" CREATED="1397505046972" ID="ID_501658133" MODIFIED="1397673330399" TEXT="Gestion">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -186,9 +263,9 @@
 <edge STYLE="sharp_bezier"/>
 </node>
 </node>
-<node COLOR="#990000" CREATED="1397584554211" ID="ID_1397512216" MODIFIED="1397584564277" TEXT="Catastro">
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397584559651" HGAP="62" ID="ID_554931812" MODIFIED="1397584606067" TEXT="Puertas" VSHIFT="17">
+<node COLOR="#990000" CREATED="1397584554211" HGAP="44" ID="ID_1397512216" MODIFIED="1397673870367" TEXT="Catastro" VSHIFT="-1">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397584559651" HGAP="62" ID="ID_554931812" MODIFIED="1397673330399" TEXT="Puertas" VSHIFT="17">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -230,9 +307,9 @@
 </html></richcontent>
 </node>
 </node>
-<node COLOR="#990000" CREATED="1397584606778" ID="ID_812258994" MODIFIED="1397584620243" TEXT="Deportes">
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397584621497" ID="ID_1911641853" MODIFIED="1397584666310" TEXT="Natatorio">
+<node COLOR="#990000" CREATED="1397584606778" HGAP="32" ID="ID_812258994" MODIFIED="1397673867942" TEXT="Deportes">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397584621497" ID="ID_1911641853" MODIFIED="1397673330400" TEXT="Natatorio">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -271,9 +348,9 @@
 </html></richcontent>
 </node>
 </node>
-<node COLOR="#990000" CREATED="1397584666905" ID="ID_1575110434" MODIFIED="1397584704723" TEXT="Tr&#xe1;nsito">
-<font NAME="SansSerif" SIZE="14"/>
-<node COLOR="#111111" CREATED="1397584681593" ID="ID_817932790" MODIFIED="1397584722911" TEXT="Tr&#xe1;nsito">
+<node COLOR="#990000" CREATED="1397584666905" HGAP="27" ID="ID_1575110434" MODIFIED="1397673864670" TEXT="Tr&#xe1;nsito" VSHIFT="15">
+<font NAME="Segoe UI Light" SIZE="14"/>
+<node COLOR="#111111" CREATED="1397584681593" ID="ID_817932790" MODIFIED="1397673330401" TEXT="Tr&#xe1;nsito">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -308,30 +385,6 @@
   </body>
 </html></richcontent>
 </node>
-</node>
-</node>
-<node COLOR="#00b439" CREATED="1397505367920" HGAP="45" ID="ID_191676764" MODIFIED="1397585114051" TEXT="Modulos nuevos" VSHIFT="-2">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1397505374394" HGAP="65" ID="ID_846759959" MODIFIED="1397591117100" TEXT="Tramites" VSHIFT="5">
-<richcontent TYPE="NOTE"><html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Estado: beta
-    </p>
-    <p>
-      Reemplaza a: ninguno
-    </p>
-    <p>
-      Descripcion: gestion de tramites en general
-    </p>
-  </body>
-</html></richcontent>
-<edge STYLE="sharp_bezier"/>
-<font NAME="SansSerif" SIZE="14"/>
 </node>
 </node>
 </node>
