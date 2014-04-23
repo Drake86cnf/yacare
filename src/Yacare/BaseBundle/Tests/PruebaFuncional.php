@@ -61,7 +61,7 @@ class PruebaFuncional extends WebTestCase
     public function clientRequest($path, $method = 'GET') {
         $crawler = $this->client->request($method, $path);
         
-        $this->clientTestResponse();
+        $this->clientTestResponse($crawler);
         
         return $crawler;
     }
@@ -72,7 +72,7 @@ class PruebaFuncional extends WebTestCase
      * 
      * Si no lo es, intenta obtener y mostrar un mensaje de error.
      */
-    public function clientTestResponse() {
+    public function clientTestResponse($crawler) {
         if (!$this->client->getResponse()->isSuccessful()) {
             echo $this->client->getResponse()->getContent();
             $block = $crawler->filter('div.text-exception h1');

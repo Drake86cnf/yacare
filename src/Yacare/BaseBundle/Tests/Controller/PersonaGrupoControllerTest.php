@@ -14,11 +14,6 @@ class PersonaGrupoControllerTest extends \Yacare\BaseBundle\Tests\Controller\Yac
         $this->item = new PersonaGrupoController();
     }
     
-    public function testlistarAction()
-    {
-        parent::testlistarAction();
-    }
-    
     public function testCrear() {
         $crawler = $this->clientRequestAction('editar_1');
         
@@ -33,7 +28,7 @@ class PersonaGrupoControllerTest extends \Yacare\BaseBundle\Tests\Controller\Yac
         $crawler = $this->client->submit($form);
         $this->client->followRedirect();
         
-        $this->assertFalse($this->clientTestResponse());
+        $this->assertFalse($this->clientTestResponse($crawler));
         
         //echo $this->client->getResponse()->getContent();
     }

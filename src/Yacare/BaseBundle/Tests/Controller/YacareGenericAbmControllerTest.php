@@ -15,8 +15,7 @@ class YacareGenericAbmControllerTest extends PruebaFuncional
     public function testlistarAction()
     {
         $crawler = $this->clientRequestAction('listar');
-
-        $this->assertTrue($this->client->getResponse()->isSuccessful(), 'Probando que la página listar sea accesible');
+        $this->clientTestResponse($crawler);
 
         $this->assertGreaterThan(
             0,
@@ -25,19 +24,19 @@ class YacareGenericAbmControllerTest extends PruebaFuncional
         );
     }
     
-    public function testbuscarAction()
+    public function disabledtestbuscarAction()
     {
         if(\Yacare\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Yacare\\BaseBundle\\Controller\\ConBuscar') == false) {
+            $this->markTestSkipped('Este controlador no soporta búsquedas.');
             return;
         }
-        
-        /* $crawler = $this->clientRequest('GET', $this->getUrl($this->item->obtenerRutaBase('buscar')));
 
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $crawler = $this->clientRequestAction('buscar');
+        $this->clientTestResponse($crawler);
 
         $this->assertGreaterThan(
             0,
             $crawler->filter('#page-title')->count()
-        ); */
+        );
     }
 }
