@@ -32,8 +32,8 @@
     php-mbstring php-pear php-pear-PhpDocumentor php-phpunit-PHPUnit.</pre>
         
         En ambas:
-        <pre>sudo pear channel-discover pear.phpdoc.org</pre>
-        <pre>sudo pear install phpdoc/phpDocumentor</pre>
+        <pre>wget http://phpdoc.org/phpDocumentor.phar</pre>
+        <pre>wget https://phar.phpunit.de/phpunit.phar</pre>
         
         <li>También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
 
@@ -78,6 +78,12 @@
 	
         <li>Ejecutar el servidor web de desarrollo:
 	<pre>php app/console server:run</pre>
+        
+        <li>Correr el conjunto de pruebas y generar documentación sobre cobertura:
+	<pre>php phpunit.phar -v -c app --coverage-html docs/cov</pre>
+        
+        <li>Generar documentación sobre la API:
+	<pre>phpdoc -d src -t docs/class</pre>
     </ol>
     
     <h2>En Windows</h2>
