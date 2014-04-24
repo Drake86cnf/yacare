@@ -32,6 +32,7 @@ class InspeccionComercio
      *@ORM\Column(type="string", length=255, nullable=true) 
      */
     private $EstadoTramite;
+
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -83,6 +84,14 @@ class InspeccionComercio
     public function setSuperficie($Superficie) {
         $this->Superficie = $Superficie;
     }
+    public function getEstadoTramite() {
+        return $this->EstadoTramite;
+    }
+
+    public function setEstadoTramite($EstadoTramite) {
+        $this->EstadoTramite = $EstadoTramite;
+    }
+
 
 
 }

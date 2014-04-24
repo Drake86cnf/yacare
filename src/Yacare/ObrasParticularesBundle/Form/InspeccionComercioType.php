@@ -25,7 +25,16 @@ class InspeccionComercioType extends AbstractType
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 ))  
+            ->add('EstadoTramite', 'choice', array(
+                'label' => 'Instancia del trámite',
+                'required'  => true,
+                'choices' => array(
+                    'Catastro y Planeamiento' => 'Catastro y Planeamiento Urbano', 
+                    'Obras Particulares-Inspeccion Tecnica' => 'Obras Particulares (Inspección)',
+                    'Pendiente-ObrasParticulares' => 'Obras Particulares (Pendiente)')
+                ))
         ;
+        
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

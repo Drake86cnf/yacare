@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class InspeccionComercioController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConImprimir;
+    
     function __construct() {
         parent::__construct();
         
