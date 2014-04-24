@@ -9,6 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de agentes.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("agente/")
  */
 class AgenteController extends \Yacare\BaseBundle\Controller\YacareAbmController

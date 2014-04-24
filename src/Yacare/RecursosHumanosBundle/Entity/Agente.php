@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Yacare\RecursosHumanosBundle\Entity\Agente
+ * Representa un agente (empleado).
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
@@ -45,12 +47,16 @@ class Agente
     */
     
     /**
+     * La persona asociada.
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Persona;
     
     /**
+     * La categoría actual.
+     * 
      * @var $Categoria
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -69,18 +75,24 @@ class Agente
     private $Funcion;
     
     /**
+     * La fecha de ingreso.
+     * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaIngreso;
 
     /**
+     * La fecha de baja.
+     * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaBaja;
     
     /**
+     * El departamento en el cual se desempeña.
+     * 
      * @var $Departamento
      * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
