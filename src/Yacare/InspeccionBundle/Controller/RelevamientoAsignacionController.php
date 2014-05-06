@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
+    use \Yacare\BaseBundle\Controller\ConEliminar;
+    
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoAsignacion';
@@ -30,22 +32,11 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         return $res;
     }
     
-    /**
-     * @Route("cancelar/{id}")
-     * @Route("cancelar")
-     * @Template("YacareInspeccionBundle:RelevamientoAsignacion:cancelar.html.twig")
-     */
-    public function cancelarAction($id=null, $confirma=FALSE)
-    {
-        if($confirma)  {
-            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar')));
-        }
-        
-        return array(
-            'id'      => $id,
-            );
-    }
     
+    public function afterEliminar($entity, $eliminado = false)
+    {
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listarrelevamiento'), $this->ArrastrarVariables(array('id' => $entity->getRelevamiento()->getId()), false)));
+    }
     
     
     /**

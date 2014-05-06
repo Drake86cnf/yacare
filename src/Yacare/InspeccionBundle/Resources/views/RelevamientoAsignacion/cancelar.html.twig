@@ -4,11 +4,23 @@
 
 {% block pagina_contenido %}
 
-<legend>Cancelar asignación</legend>
+<div class="container"><div class="row">
+    <div class="col-md-1">
+        <i class="text text-danger pull-left fa fa-warning fa-4x"></i>    
+    </div>
+    <div class="col-md-11">
+        <p class="text text-danger"><strong>¡Atención!</strong> Por favor verifique la información antes de proceder.</p>
+        <p>Se va a eliminar el siguiente registro de forma permanente:</p>
+        <p class="lead text-primary">{{ entity }}</p>
+        <p>¿Está seguro de que desea eliminar de forma permanente el elemento seleccionado?</p>
 
-<p>¿Está seguro de que desea eliminar la asignación?</p>
+        <a data-dismiss="modal" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-reply"></i> No, quiero volver</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-danger" href="{{ path(baseroute ~ '_cancelar', { 'id': id, 'confirma': 1 }) }}"><i class="fa fa-trash-o"></i> Si, quiero eliminarlo</button>
+        
+    <p>¿Está seguro de que desea eliminar la asignación?</p>
 
-<a class="btn btn-danger" href="{{ path('yacare_inspeccion_relevamientoasignacion_cancelar', { 'id': id, 'confirma': 1 }) }}"><i class="fa fa-trash-o"></i> Eliminar asignación</a>
-<a class="btn btn-default" href="{{ path('yacare_inspeccion_relevamientoasignacion_editar', { 'id': id }) }}">Cancelar</a>
 
+    </div>
+</div></div>
 {% endblock %}
