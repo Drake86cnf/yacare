@@ -1,4 +1,6 @@
 global.php.inc
+head.php.inc
+footer.php.inc
 db_local.php.inc
 db_remota.php.inc
 actualizar.php

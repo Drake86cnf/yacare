@@ -1,11 +1,12 @@
 <?php
-	include_once 'global.php.inc';
-	include_once 'db_local.php.inc';
+    include_once 'global.php.inc';
+    include_once 'db_local.php.inc';
+    include_once 'head.php.inc';
 
     $AsignacionDetalleId = (int)($_GET["id"]);
 
-	$sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
-	$row = $db_local->query($sql)->fetch();
+    $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
+    $row = $db_local->query($sql)->fetch();
 ?>
 
 <script>
@@ -207,5 +208,9 @@ function showPosition(position) {
 }
 
 </script>
+
+<?php
+    require_once 'footer.php.inc';
+?>
 </body>
 </html>

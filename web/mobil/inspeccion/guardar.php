@@ -1,6 +1,7 @@
 <?php
-	include_once 'global.php.inc';
-	include_once 'db_local.php.inc';
+    include_once 'global.php.inc';
+    include_once 'db_local.php.inc';
+    include_once 'head.php.inc';
 ?>
 
 <script>
@@ -75,6 +76,9 @@ RedirEditar();
 
 </div>
 
+<?php
+    require_once 'footer.php.inc';
+?>
 </body>
 
 </html>

@@ -1,16 +1,13 @@
-<head>
-<meta content="es-ar" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Yacaré - Inspección</title>
-<link href="global.css" rel="stylesheet" />
-</head>
+<?php
+    require_once 'head.php.inc';
+?>
 
 <body>
 
 <div class="encab">
-<div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
-<div class="encab-derecha">
-</div>
+    <div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
+    <div class="encab-derecha">
+    </div>
 </div>
 
 <div class="contenido">
@@ -28,6 +25,10 @@ Contraseña <input type="password" name="password" /><br />
 
 </form>
 
+<?php
+    require_once 'footer.php.inc';
+?>
+    
 </body>
 
 </html>

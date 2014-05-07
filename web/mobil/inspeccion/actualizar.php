@@ -1,5 +1,6 @@
 <?php
-	include 'global.php.inc';
+    include 'global.php.inc';
+    include 'head.php.inc';
 ?>
 
 <body>
@@ -72,6 +73,9 @@ function RedireccionarSinc() {
 </script>
 </div>
 
+<?php
+    include 'footer.php.inc';
+?>
 </body>
 
 </html>

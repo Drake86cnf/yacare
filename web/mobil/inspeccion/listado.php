@@ -1,6 +1,6 @@
 <?php
-	include 'global.php.inc';
-	include 'db_local.php.inc';
+
+    require_once 'db_local.php.inc';
 	
     if(isset($_GET['orden']))
         $ListadoVer = (int)$_GET['ver'];
@@ -16,6 +16,8 @@
             $ListadoOrdenar = 1;
         }
     }
+    
+    require_once 'head.php.inc';
 ?>
 
 <body>
@@ -25,26 +27,26 @@
 <?php
     if($ListadoOrdenar != 1) {
 ?>
- <button onclick="parent.location='listado.php?orden=1&ver=<?php echo $ListadoVer ?>';">Ordenar por sección</a>
+ <button onclick="parent.location='listado.php?orden=1&ver=<?php echo $ListadoVer ?>';">Ordenar por sección</button>
 <?php
     }
     if($ListadoOrdenar != 2) {
 ?>
- <button onclick="parent.location='listado.php?orden=2&ver=<?php echo $ListadoVer ?>';">Ordenar por calle</a>
+ <button onclick="parent.location='listado.php?orden=2&ver=<?php echo $ListadoVer ?>';">Ordenar por calle</button>
 <?php
     }
     if($ListadoVer != 0) {
 ?>
- <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=0';">Ver pendientes</a>
+ <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=0';">Ver pendientes</button>
 <?php
     }
     if($ListadoVer != 1) {
 ?>
- <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=1';">Ver todos</a>
+ <button onclick="parent.location='listado.php?orden=<?php echo $ListadoOrdenar ?>&ver=1';">Ver todos</button>
 <?php
     }
 ?> 
- <button onclick="parent.location='actualizar.php';">Sincronizar</a> 
+ <button onclick="parent.location='actualizar.php';">Sincronizar</button> 
 </div>
 </div>
 
@@ -114,6 +116,9 @@
 </table>
 </div>
 
+<?php
+    require_once 'footer.php.inc';
+?>
 </body>
 
 </html>

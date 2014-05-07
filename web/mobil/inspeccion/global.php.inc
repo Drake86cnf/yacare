@@ -23,8 +23,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta content="es-ar" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Yacaré - Inspección</title>
-<link href="global.css" rel="stylesheet" />
+    <meta content="es-ar" http-equiv="Content-Language" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Yacaré - Inspección</title>
+    <link href="global.css" rel="stylesheet" />
+    <link href="global.css" rel="stylesheet" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
 </head>
