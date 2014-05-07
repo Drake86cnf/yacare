@@ -5,13 +5,13 @@ namespace Yacare\InspeccionBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
+ * Controlador de relevamientos.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("relevamiento/")
  */
 class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareAbmController
 {
-    function __construct() {
-        $this->BundleName = 'Inspeccion';
-        $this->EntityName = 'Relevamiento';
-        parent::__construct();
-    }
+    use \Yacare\BaseBundle\Controller\ConEliminar;
 }

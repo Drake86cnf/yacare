@@ -14,8 +14,8 @@
     {% for entity in entities %}
         <tr>
             <td>
-                <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': entity.Id }) }}"><i class="fa fa-list"></i> Asignaciones</a>
-                <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': entity.Id }) }}"><i class="fa fa-list"></i> Resultados</a>
+                <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', { 'filtro_relevamiento': entity.Id }) }}"><i class="fa fa-list"></i> Asignaciones</a>
+                <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listar', { 'filtro_relevamiento': entity.Id }) }}"><i class="fa fa-list"></i> Resultados</a>
                 <a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
             </td>
             <td>{{ entity.Nombre }}</td>

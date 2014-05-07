@@ -1,6 +1,8 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Relevamientos - Asignaciones{% endblock %}
+{% block pagina_titulo %}Asignaciones{% endblock %}
+
+{% set filtro_relevamiento = app.request.query.get('filtro_relevamiento') %}
 
 {% block pagina_contenido %}
 {% if entities is empty %}
@@ -46,11 +48,13 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-<a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', { 'id': id }) }}"><i class="fa fa-map-marker"></i> Asignar macizo</a>
-<a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle', { 'id': id }) }}"><i class="fa fa-map-marker"></i> Asignar calle</a>
+{% if filtro_relevamiento is defined %}
+<a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', arrastre) }}"><i class="fa fa-map-marker"></i> Asignar macizo</a>
+<a class="btn btn-primary" href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarcalle',  arrastre) }}"><i class="fa fa-map-marker"></i> Asignar calle</a>
 &nbsp;
 &nbsp;
-<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver todos los resultados</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listar', { 'filtro_relevamiento': filtro_relevamiento }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver todos los resultados</a>
 &nbsp;
-<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Editar relevamiento</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamiento_editar', { 'id': filtro_relevamiento }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Editar relevamiento</a>
+{% endif %}
 {% endblock %}

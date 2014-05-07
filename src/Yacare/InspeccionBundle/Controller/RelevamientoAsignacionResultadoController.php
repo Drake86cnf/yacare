@@ -29,10 +29,33 @@ UPDATE Inspeccion_RelevamientoAsignacion
     use \Yacare\BaseBundle\Controller\ConImagen;
     
     function __construct() {
-        $this->BundleName = 'Inspeccion';
-        $this->EntityName = 'RelevamientoAsignacionResultado';
+        $this->ConservarVariables[] = 'filtro_relevamiento';
+        $this->ConservarVariables[] = 'filtro_asignacion';
+        
         parent::__construct();
     }
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request) {
+        $filtro_relevamiento = $request->query->get('filtro_relevamiento');
+        $filtro_asignacion = $request->query->get('filtro_asignacion');
+        
+        if($filtro_relevamiento) {
+            $this->Joins[] = " JOIN r.Asignacion a";
+            
+            $this->Where .= " AND a.Relevamiento=$filtro_relevamiento";
+        }
+        
+        if($filtro_asignacion) {
+            $this->Where .= " AND r.Asignacion=$filtro_asignacion";
+        }
+        
+        return parent::listarAction($request);
+    }
+    
     
     /**
      * @Route("listarrelevamiento/{id}")

@@ -16,6 +16,7 @@ class Relevamiento
     use \Yacare\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Entity\Suprimible;
     
     public function __construct()
     {

@@ -17,8 +17,8 @@ trait ConEliminar {
     }
     
     /**
-     * @Route("eliminar/{id}")
-     * @Template("YacareBaseBundle:Default:eliminar.html.twig")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar/{id}")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template("YacareBaseBundle:Default:eliminar.html.twig")
      */
     public function eliminarAction($id)
     {

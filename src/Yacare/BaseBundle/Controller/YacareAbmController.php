@@ -325,20 +325,29 @@ abstract class YacareAbmController extends YacareBaseController
         return null;
     }
     
+    
+    /**
+     * Función para que las clases derivadas puedan intervenir la entidad antes de persistirla.
+     * 
+     * @return array Devuelve un array con errores o null si está todo bien
+     */
     public function guardarActionPrePersist($entity, $editForm)
     {
-        // Función para que las clases derivadas puedan intervenir la entidad antes de persistir
-        // Devuelve un array con errores o null si está todo bien
         return array();
     }
     
+    /**
+     * Función para que las clases derivadas puedan manejar la subida de archivos
+     */
     public function guardarActionSubirArchivos($entity, $editForm)
     {
-        // Función para que las clases derivadas puedan manejar la subida de archivos
         return array();
     }
     
 
+    /**
+     * Crear el formulario de eliminar.
+     */
     protected function crearFormEliminar($id)
     {
         return null;

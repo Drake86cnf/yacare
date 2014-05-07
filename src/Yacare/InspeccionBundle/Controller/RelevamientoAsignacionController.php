@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de asignaciones.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
  * @Route("relevamientoasignacion/")
  */
 class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\YacareAbmController
@@ -15,9 +19,24 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
     function __construct() {
-        $this->BundleName = 'Inspeccion';
-        $this->EntityName = 'RelevamientoAsignacion';
+        $this->ConservarVariables[] = 'filtro_relevamiento';
+        
         parent::__construct();
+    }
+    
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request) {
+        $filtro_relevamiento = $request->query->get('filtro_relevamiento');
+        
+        if($filtro_relevamiento) {
+            $this->Where .= " AND r.Relevamiento=$filtro_relevamiento";
+        }
+        
+        return parent::listarAction($request);
     }
 
     /**
@@ -35,7 +54,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
     
     public function afterEliminar($entity, $eliminado = false)
     {
-        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listarrelevamiento'), $this->ArrastrarVariables(array('id' => $entity->getRelevamiento()->getId()), false)));
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(array('filtro_relevamiento' => $entity->getRelevamiento()->getId()), false)));
     }
     
     
@@ -70,7 +89,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
             // ************************* Guardar detalles
             if($entity->getCalle()) {
                 // Es por calle
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Calle' => $entity->getCalle()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('DomicilioCalle' => $entity->getCalle()));
             } else {
                 // Es por S-M-P
                 $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Seccion' => $entity->getSeccion(), 'Macizo' => $entity->getMacizo()));
@@ -116,70 +135,71 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
             
             $em->flush();
 
-            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listarrelevamiento'), array('id' => $entity->getRelevamiento()->getId())));
+            return $this->redirect($this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar'), array('filtro_relevamiento' => $entity->getRelevamiento()->getId())));
         }
 
         //$this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
-        return array(
+        return $this->ArrastrarVariables(array(
             'entity'      => $entity,
             'create'      => true,
-            'id'          => $id,
             'edit_form'   => $editForm->createView()
-        );
+        ));
     }
     
     
     /**
-     * @Route("asignarcalle/{id}")
+     * @Route("asignarcalle/")
      * @Template()
      */
-    public function asignarcalleAction($id = null)
+    public function asignarcalleAction(Request $request)
     {
+        $filtro_relevamiento = $request->query->get('filtro_relevamiento');
         $em = $this->getDoctrine()->getManager();
 
-        $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
-        $entity = new $entityName();
+        $entity = $this->crearNuevaEntidad($request);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+            throw $this->createNotFoundException('No se puede crear la entidad.');
         }
+        
+        $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'CalleType';
         $editForm = $this->createForm(new $typeName(), $entity);
         //$deleteForm = $this->crearFormEliminar($id);
 
-        return array(
+        return $this->ArrastrarVariables(array(
             'entity'      => $entity,
             'create'      => true,
-            'id'          => $id,
             'edit_form'   => $editForm->createView()
-        );
+        ));
     }
     
 
     /**
-     * @Route("asignarmacizo/{id}")
+     * @Route("asignarmacizo/")
      * @Template()
      */
-    public function asignarmacizoAction($id = null)
+    public function asignarmacizoAction(Request $request)
     {
+        $filtro_relevamiento = $request->query->get('filtro_relevamiento');
         $em = $this->getDoctrine()->getManager();
 
-        $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
-        $entity = new $entityName();
+        $entity = $this->crearNuevaEntidad($request);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+            throw $this->createNotFoundException('No se puede crear la entidad.');
         }
+        
+        $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
         
-        return array(
+        return $this->ArrastrarVariables(array(
             'entity'      => $entity,
             'create'      => true,
-            'id'          => $id,
             'edit_form'   => $editForm->createView()
-        );
+        ));
     }
 }

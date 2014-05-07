@@ -1,8 +1,9 @@
 {% extends 'YacareBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Relevamientos - Asignaciones - Resultados{% endblock %}
+{% block pagina_titulo %}Resultados de las asignaciones{% endblock %}
 
-
+{% set filtro_relevamiento = app.request.query.get('filtro_relevamiento') %}
+{% set filtro_asignacion = app.request.query.get('filtro_asignacion') %}
 
 {% block pagina_contenido %}
 {% if entities is empty %}
@@ -16,7 +17,7 @@
     </div>
 </div>
 {% else %}
-<table class="table table-striped">
+<table class="table table-hover">
     <thead>
         <tr>
             <th></th>
@@ -54,5 +55,5 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoasignacion_listarrelevamiento', { 'id': id }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver asignaciones</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', { 'filtro_relevamiento': filtro_relevamiento }) }}" class="btn btn-primary"><i class="fa fa-list"></i> Ver asignaciones</a>
 {% endblock %}

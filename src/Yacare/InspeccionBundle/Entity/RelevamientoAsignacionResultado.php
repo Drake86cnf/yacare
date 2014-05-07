@@ -48,8 +48,12 @@ class RelevamientoAsignacionResultado
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Ubicacion;
-
-
+    
+    
+    public function getRelevamiento() {
+        return $this->getAsignacion()->getRelevamiento();
+    }
+    
 
     public function getUbicacionLatitud() {
         if($this->Ubicacion){

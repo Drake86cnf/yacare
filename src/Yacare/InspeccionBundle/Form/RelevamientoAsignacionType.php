@@ -17,12 +17,11 @@ class RelevamientoAsignacionType extends AbstractType
                 'required' => true,
                 'empty_value' => false,
                 'property' => 'Nombre'))
-            ->add('Encargado', 'entity', array(
+            ->add('Encargado', 'entity_id', array(
                 'label' => 'Encargado',
-                'class' => 'YacareBaseBundle:Persona',
-                'required' => true,
-                'empty_value' => false,
-                'property' => 'NombreVisible'))
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
             ->add('Calle', 'entity', array(
                 'label' => 'Calle',
                 'class' => 'YacareCatastroBundle:Calle',
