@@ -36,7 +36,18 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
             $this->Where .= " AND r.Relevamiento=$filtro_relevamiento";
         }
         
-        return parent::listarAction($request);
+        $res = parent::listarAction($request);
+        
+        // Agrego una lista de relevamientos al resultado
+        $res['relevamientos'] = $this->ObtenerRelevamientos();
+        
+        return $res;
+    }
+    
+    private function ObtenerRelevamientos() {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT r.id, r.Nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.Nombre");
+        return $query->getResult();
     }
 
     /**
