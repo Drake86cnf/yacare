@@ -125,7 +125,9 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
                     $Deta->setRelevamiento($entity->getRelevamiento());
                     $Deta->setPartida($partida);
                     $Deta->setPartidaCalle($partida->getDomicilioCalle());
-                    $Deta->setPartidaCalleNombre($partida->getDomicilioCalle()->getNombre());
+                    if($partida->getDomicilioCalle()) {
+                        $Deta->setPartidaCalleNombre($partida->getDomicilioCalle()->getNombre());
+                    }
                     $Deta->setPartidaCalleNumero($partida->getDomicilioNumero());
                     $Deta->setPartidaSeccion($partida->getSeccion());
                     $Deta->setPartidaMacizo($partida->getMacizoNum() . $partida->getMacizoAlfa());
