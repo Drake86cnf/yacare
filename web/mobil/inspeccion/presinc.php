@@ -1,6 +1,6 @@
 <?php
-include_once 'global.php.inc';
-include_once 'db_remota.php.inc';
+    include_once 'global.php.inc';
+    include_once 'db_remota.php.inc';
 ?>
 <body>
     <div class="encab">
