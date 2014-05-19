@@ -77,7 +77,7 @@ class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         }
         
         if($filtro_macizo) {
-            $this->Where .= " AND r.Macizo='$filtro_macizo'";
+            $this->Where .= " AND r.Macizo LIKE '%$filtro_macizo%'";
         }
         
         if($filtro_partida) {
