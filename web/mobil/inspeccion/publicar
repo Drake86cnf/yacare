@@ -1,10 +1,6 @@
 #!/bin/sh
-for i in *.php
+for i in $(cat actualizar.txt)
 do
-	cp -f $i $i.yuf
+  	echo Publicando $i
+        cp -f $i $i.yuf
 done
-for i in *.inc
-do
-	cp -f $i $i.yuf
-done
-cp -f global.css global.css.yuf
