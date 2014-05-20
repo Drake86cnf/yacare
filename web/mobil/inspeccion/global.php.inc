@@ -1,8 +1,12 @@
 <?php
-    if(file_exists('debug.php.inc'))
+
+    header("Cache-Control: no-cache, must-revalidate");
+
+    if(file_exists('debug.php.inc')) {
         include_once 'debug.php.inc';
-    else
+    } else {
         $debug = FALSE;
+    }
 
 	session_start();
 	$hab = $_SESSION['habilitado'];
