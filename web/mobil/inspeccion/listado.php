@@ -76,10 +76,12 @@
         $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
     }
     
+    $ListadoVerSql = "Suprimido=0";
+    
     if($ListadoVer == 1) {
-        $ListadoVerSql = "1=1";
+        // Nada
     } else {
-        $ListadoVerSql = "ResultadosCantidad=0";
+        $ListadoVerSql .= " AND ResultadosCantidad=0";
     }
 
     
