@@ -46,9 +46,9 @@ include_once 'db_remota.php.inc';
     $cantidad_resultado = 0;
     foreach ($db_local->query($sql) as $row) {
         $insert = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
-        (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, CreatedAt, Version)
+            (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, CreatedAt, Version)
                     VALUES
-        (:detalle_id, :resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
+            (:detalle_id, :resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
         $insert->bindValue('obs', $row['Obs'], PDO::PARAM_STR);
         $insert->bindValue('imagen', $row['Imagen'], PDO::PARAM_LOB);
         $insert->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
@@ -91,6 +91,11 @@ include_once 'db_remota.php.inc';
         $PartidaCalle_id = $row['PartidaCalle_id'] ? $row['PartidaCalle_id'] : 'NULL';
         $ResultadosCantidad = (int) $row['ResultadosCantidad'];
 
+        
+        // Marco todo como suprimido. A continuación al importar marco como no suprimido lo que importo.
+        // De esa manera, queda eliminada cualquier entrada que no esté en las asignaciones que descargo.
+        $db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
+        
         // Si existen resultados para el registro que estoy por importar, no lo importo
         // para no pisar el trabajo hecho
         $registro_actual = $db_local->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND ResultadosCantidad<>0")->fetchColumn();
@@ -113,7 +118,8 @@ include_once 'db_remota.php.inc';
                                     PartidaCalleNumero,
                                     Encargado_id,
                                     PartidaCalle_id,
-                ResultadosCantidad)
+                                    ResultadosCantidad,
+                                    Suprimido)
                             VALUES ($Id,
                                     '$CreatedAt',
                                     '$UpdatedAt',
@@ -128,7 +134,8 @@ include_once 'db_remota.php.inc';
                                     '$PartidaCalleNumero',
                                     $Encargado_id,
                                     $PartidaCalle_id,
-                $ResultadosCantidad)";
+                                    $ResultadosCantidad,
+                                    0)";
             //echo $sql;
             $db_local->exec($sql);
         }
