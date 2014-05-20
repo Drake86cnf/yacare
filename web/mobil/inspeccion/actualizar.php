@@ -18,12 +18,13 @@
 $cantidad_archivos = 0;
 $cantidad_errores = 0;
 
-if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
+if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
 } else {
 	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
-	if(substr($carpeta_destino, -1) != '/')
-		$carpeta_destino .= '/';
+	if(substr($carpeta_destino, -1) != '/') {
+                $carpeta_destino .= '/';
+        }
 
 	$lista_archivos = fopen("http://192.168.100.5/yacare/mobil/inspeccion/actualizar.txt", 'r');
 
@@ -32,10 +33,11 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 			$archivo = trim(fgets($lista_archivos));
 			if($archivo) {
 				$contenido = file_get_contents('http://192.168.100.5/yacare/mobil/inspeccion/' . $archivo . '.yuf');
-                                if(file_exists($carpeta_destino . $archivo))
+                                if(file_exists($carpeta_destino . $archivo)) {
                                     $contenido_actual = @file_get_contents($carpeta_destino . $archivo);
-                                else
+                                } else {
                                     $contenido_actual = null;
+                                }
 				
                                 if($contenido) {
                                     if($contenido != $contenido_actual) {
