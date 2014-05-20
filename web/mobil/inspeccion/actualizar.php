@@ -49,6 +49,8 @@ if($_SERVER['HTTP_HOST'] == 'webmuni' || $debug) {
 		}
 	}
 	fclose($lista_archivos);
+        
+        include 'actualizar_db.php';
 }
 ?>
 

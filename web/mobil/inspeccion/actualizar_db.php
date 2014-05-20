@@ -1,7 +1,7 @@
 <?php
-	include_once 'global.php.inc';
-	include_once 'db_local.php.inc';
-	include_once 'db_remota.php.inc';
+    include_once 'global.php.inc';
+    include_once 'db_local.php.inc';
+    include_once 'db_remota.php.inc';
 
     try {
         $VersionActual = $db_local->query("SELECT ver FROM version")->fetchColumn();
@@ -35,7 +35,6 @@
         $db_local->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN Suprimido INTEGER NOT NULL DEFAULT 0");
         
         $db_local->exec("UPDATE version SET ver=$VersionActual");
-        
     }
     
     
