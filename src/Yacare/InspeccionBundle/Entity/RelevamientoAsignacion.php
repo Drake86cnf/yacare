@@ -41,7 +41,7 @@ class RelevamientoAsignacion
     
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Encargado;
     
@@ -107,9 +107,13 @@ class RelevamientoAsignacion
     
     
     public function getNombre() {
-        $this->Nombre = $this->getEncargado()->getNombreVisible();
+        if($this->getEncargado()) {
+            $this->Nombre = $this->getEncargado()->getNombreVisible();
+        } else {
+            $this->Nombre = 'Sin encargado';
+        }
         if($this->getCalle()) {
-            $this->Nombre .= ': calle ' . $this->Calle->getNombre();
+            $this->Nombre .= ': calle ' . $this->getCalle()->getNombre();
         } else {
             $this->Nombre .= ': sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo();
         }
