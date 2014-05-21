@@ -94,7 +94,7 @@ include_once 'db_remota.php.inc';
         
         // Marco todo como suprimido. A continuación al importar marco como no suprimido lo que importo.
         // De esa manera, queda eliminada cualquier entrada que no esté en las asignaciones que descargo.
-        $db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
+        @$db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
         
         // Si existen resultados para el registro que estoy por importar, no lo importo
         // para no pisar el trabajo hecho

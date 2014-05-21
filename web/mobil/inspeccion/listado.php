@@ -1,5 +1,4 @@
 <?php
-
     require_once 'db_local.php.inc';
 	
     if(isset($_GET['orden']))
@@ -22,7 +21,7 @@
 
 <body>
 <div class="encab">
-    <div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré 2 - Inspección</div>
+    <div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
 <div class="encab-derecha">
 <?php
     if($ListadoOrdenar != 1) {

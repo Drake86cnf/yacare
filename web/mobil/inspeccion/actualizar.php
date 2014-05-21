@@ -21,6 +21,8 @@ $cantidad_errores = 0;
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
 } else {
+        ini_set('realpath_cache_size', 0);
+    
 	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
 	if(substr($carpeta_destino, -1) != '/') {
                 $carpeta_destino .= '/';
@@ -63,7 +65,11 @@ if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
 <?php
     if($cantidad_archivos == 0 && $cantidad_errores == 0) {
 ?>
-window.location='presinc.php';
+window.setTimeout(RedireccionarSinc, 400);
+function RedireccionarSinc() {
+    window.location='presinc.php';
+}
+
 <?php
     } else {
 ?>
