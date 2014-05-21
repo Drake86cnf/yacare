@@ -2,7 +2,7 @@
     require_once '../global.php.inc';
     
     require_once '../db_local.php.inc';
-    require_once 'db_remota.php.inc';
+    require_once '../db_remota.php.inc';
 
     try {
         $VersionActual = $YacareDbLocal->query("SELECT ver FROM version")->fetchColumn();
