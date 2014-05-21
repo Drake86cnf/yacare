@@ -1,6 +1,0 @@
-#!/bin/sh
-for i in $(cat actualizar.txt)
-do
-  	echo Publicando $i
-        cp -f $i $i.yuf
-done

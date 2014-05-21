@@ -1,22 +1,38 @@
 <?php
-	include 'global.php.inc';
-	include 'db_local.php.inc';
-	    
-	if(isset($_GET['id']))
+    require_once '../global.php.inc';
+    require_once '../head.php.inc';
+
+    include 'db_local.php.inc';
+
+    if(isset($_GET['id'])) {
         $AsignacionDetalleId = $_GET['id'];
+    }
 ?>
 
-<body>
-<div class="encab">
-    <div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
-<div class="encab-derecha">
- <button onclick="window.close();">Cerrar</button> 
-</div>
-</div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
 
-<div class="contenido">
-<div class="datagrid">
-<table>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="text-primary" onclick="window.close();"><i class="fa fa-reply"></i> Cerrar</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<table class="table table-responsive table-hoverselect">
     <thead>
         <tr>
             <th>Incidente</th>
@@ -52,10 +68,13 @@
 <?php
 	}
 ?>    
-        </tbody>
+    </tbody>
 </table>
 </div>
 
+<?php
+    require_once '../footer.php.inc';
+?>
 </body>
 
 </html>

@@ -1,7 +1,8 @@
 <?php
-    include_once 'global.php.inc';
-    include_once 'db_local.php.inc';
-    include_once 'head.php.inc';
+    require_once '../global.php.inc';
+    require_once '../head.php.inc';
+
+    require_once 'db_local.php.inc';
 
     $AsignacionDetalleId = (int)($_GET["id"]);
 
@@ -52,23 +53,40 @@
 </script>
 
 <body>
+    
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a id="restartbutton" style="display: none;"><i class="fa fa-camera"></i> Tomar foto nuevamente</a></li>
+                <li><a onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')"><i class="fa fa-history"></i> Historial</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="text-warning" onclick="confirmarYTerminar()"><i class="fa fa-reply"></i> Terminar</a></li>
+                <li><a class="text-success" onclick="$('#form-editar').submit();" type='submit' name='Aceptar'><i class="fa fa-check"></i> Guardar y continuar</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<form name="editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
+<form name="editar" id="form-editar" action="guardar.php" method="post" onsubmit="ConfirmarSalida=0;">
 <input type="hidden" id="id" name="id" value="<?php echo $AsignacionDetalleId; ?>" />
 <input type="hidden" id="asignacion_id" name="asignacion_id" value="<?php echo $row['Asignacion_id']; ?>" />
 <input type="hidden" id="Imagen" name='Imagen'/>
 
-<div class="encab">
-<div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
-<div class="encab-derecha">
-    <button type="button" id="restartbutton" style="display: none;">Tomar foto nuevamente</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type='submit' name='Aceptar'>Guardar y continuar</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type='button' onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')">Historial</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type='button' onclick="confirmarYTerminar()">Terminar</button>
-</div>
-</div>
-
-<div class="barraizquierda">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 
 <fieldset name='Domicilio'>
 <legend>Calle <?php echo $row['PartidaCalleNombre']; ?> Nº <?php echo $row['PartidaCalleNumero']; ?></legend>
@@ -95,18 +113,22 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, longitud <input type='text' maxlength=16 size=5 name='lon' id='lon' readonly /><br />
 </fieldset>
 
+<legend>Obs.</legend>
 <fieldset name='Observaciones'>
 <textarea name='Obs' cols='50' rows='10' style="width: 95%" placeholder="Escriba aquí las observaciones" onchange='ConfirmarSalida=1;'></textarea>
 </fieldset>
-</div>
+    
+        </div><!-- col-*-4 -->
 
-<div class="contenido">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 <fieldset>
-<video id="video" width="800" height="600" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
-<canvas id="canvas" width="800" height="600" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
+<video id="video" width="800" height="600" class="img-responsive" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
+<canvas id="canvas" width="800" height="600" class="img-responsive" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
 <fieldset>
-
+    
+        </div><!-- col-*-8 -->
+    </div>
 </div>
 </form>
 
@@ -210,7 +232,7 @@ function showPosition(position) {
 </script>
 
 <?php
-    require_once 'footer.php.inc';
+    require_once '../footer.php.inc';
 ?>
 </body>
 </html>

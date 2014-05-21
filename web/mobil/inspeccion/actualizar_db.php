@@ -1,7 +1,8 @@
 <?php
-    include_once 'global.php.inc';
-    include_once 'db_local.php.inc';
-    include_once 'db_remota.php.inc';
+    require_once '../global.php.inc';
+    
+    require_once 'db_local.php.inc';
+    require_once 'db_remota.php.inc';
 
     try {
         $VersionActual = $db_local->query("SELECT ver FROM version")->fetchColumn();

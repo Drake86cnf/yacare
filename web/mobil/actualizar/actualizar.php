@@ -1,17 +1,38 @@
 <?php
-    include 'global.php.inc';
-    include 'head.php.inc';
+    require_once '../global.php.inc';
+    require_once '../head.php.inc';
 ?>
 
 <body>
-<div class="encab">
-<div class="encab-izquierda">Yacaré - Inspección</div>
-<div class="encab-derecha">
- <button onclick="parent.location='listado.php'">Volver</a>
-</div>
-</div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección:: Actualizar</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
 
-<div class="contenido">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="text-primary" onclick="parent.location='../';"><i class="fa fa-reply"></i> Volver</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="hidden-xs col-sm-2 col-md-2 col-lg-4">
+        <i class="fa fa-5x fa-download text-muted pull-right"></i>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
 <h1>Actualización automática</h1>
 <?php
 
@@ -20,6 +41,12 @@ ini_set('realpath_cache_size', 0);
 
 $cantidad_archivos = 0;
 $cantidad_errores = 0;
+
+if(isset($_REQUEST['ret'])) {
+    $RetAddress = $_REQUEST['ret'];
+} else {
+    $RetAddress = '../';
+}
 
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
@@ -70,38 +97,38 @@ if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
 		}
 	}
 	fclose($lista_archivos); */
-        
-        include 'actualizar_db.php';
 }
 ?>
 
 <p>Se actualizaron <?php echo $cantidad_archivos ?> archivos y hubo <?php echo $cantidad_errores ?> errores.</p>
-<p><a href="presinc.php">Haga clic aquí para continuar.</a></p>
+<p><a class="btn btn-primary" href="<?php echo $RetAddress ?>"><i class="fa fa-check"></i> Continuar</a></p>
 
 <script type="text/javascript">
 <?php
     if($cantidad_archivos == 0 && $cantidad_errores == 0) {
 ?>
-window.setTimeout(RedireccionarSinc, 400);
+window.setTimeout(RedireccionarSinc, 500);
 function RedireccionarSinc() {
-    window.location='presinc.php';
+    window.location='<?php echo $RetAddress ?>';
 }
-
+window.location='<?php echo $RetAddress ?>';
 <?php
     } else {
 ?>
-window.setTimeout(RedireccionarSinc, 4000);
+window.setTimeout(RedireccionarSinc, 40000);
 function RedireccionarSinc() {
-    window.location='presinc.php';
+    window.location='<?php echo $RetAddress ?>';
 }
 <?php
     }
 ?>
 </script>
+    </div>
+</div>
 </div>
 
 <?php
-    include 'footer.php.inc';
+    require_once '../footer.php.inc';
 ?>
 </body>
 

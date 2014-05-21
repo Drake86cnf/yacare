@@ -1,7 +1,8 @@
 <?php
-    include_once 'global.php.inc';
-    include_once 'db_local.php.inc';
-    include_once 'head.php.inc';
+    require_once '../global.php.inc';
+    require_once '../head.php.inc';
+
+    require_once 'db_local.php.inc';
 ?>
 
 <script>
@@ -10,12 +11,29 @@
 
 <body>
 
-<div class="encab">
-<div class="encab-izquierda"><img src="yacare_logo_48bw.png" width="48px">&nbsp;Yacaré - Inspección</div>
-<div class="encab-derecha">
- <button value='Back' onclick="parent.location='listado.php'">Terminar</button>
-</div>
-</div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="text-primary" onclick="parent.location='listado.php'"><i class="fa fa-reply"></i> Continuar</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    
 <div class="contenido">
 <?php		
 	$AsignacionDetalleId = (int)$_POST['id'];
@@ -77,7 +95,7 @@ RedirEditar();
 </div>
 
 <?php
-    require_once 'footer.php.inc';
+    require_once '../footer.php.inc';
 ?>
 </body>
 
