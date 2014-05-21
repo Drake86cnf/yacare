@@ -115,7 +115,7 @@ window.location='<?php echo $RetAddress ?>';
 <?php
     } else {
 ?>
-window.setTimeout(RedireccionarSinc, 40000);
+window.setTimeout(RedireccionarSinc, 4000);
 function RedireccionarSinc() {
     window.location='<?php echo $RetAddress ?>';
 }
