@@ -46,10 +46,29 @@
         
         <h2>Inspección</h2>
         <button class="btn btn-primary" onclick="parent.location='/admin/instalar.php';"><i class="fa fa-warning"></i> Instalación inicial</button>
+
+        <hr />
+        
+        <h2>Dearrollo</h2>
+        <p>La aplicación se encuentra en modo: <?php if($YacareModoDesarrollo) { echo 'desarrollo'; } else { echo 'normal'; } ?></p>
+        <?php if($YacareModoDesarrollo) { ?>
+            <button class="btn btn-danger" onclick="PonerEnModoDesarrollo(0);"><i class="fa fa-warning"></i> Cambiar a modo normal</button>
+        <?php } else { ?>
+            <button class="btn btn-danger" onclick="PonerEnModoDesarrollo(1);"><i class="fa fa-warning"></i> Cambiar a modo de desarrollo</button>
+        <?php } ?>
     </div>
 </div>
 </div>
 
+<script>
+function PonerEnModoDesarrollo(sino) {
+    var conf = confirm("¿Está seguro de que desea continuar? Por favor no cambie el modo de la aplicación si no está seguro de lo que está haciendo.");
+        if(conf) {
+            parent.location='debug.php?debug=' + sino;
+        }
+}
+</script>
+    
 <?php
     require_once '../footer.php.inc';
 ?>

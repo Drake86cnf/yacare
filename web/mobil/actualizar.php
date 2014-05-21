@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Actualizar</div>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección:: Actualizar</div>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@ if(isset($_REQUEST['ret'])) {
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $YacareModoDesarrollo) {
         echo "No se descargan actualizaciones.";
 } else {
-	$carpeta_destino = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
+	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
 	if(substr($carpeta_destino, -1) != '/') {
                 $carpeta_destino .= '/';
         }

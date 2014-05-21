@@ -48,7 +48,7 @@ if(isset($_REQUEST['ret'])) {
     $RetAddress = '../';
 }
 
-if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
+if($_SERVER['HTTP_HOST'] === 'webmuni' || $YacareModoDesarrollo) {
         echo "No se descargan actualizaciones.";
 } else {
 	$carpeta_destino = dirname(dirname($_SERVER['SCRIPT_FILENAME']));

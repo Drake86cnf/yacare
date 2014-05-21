@@ -4,12 +4,10 @@
     global $YacareCarpetaRaiz;
     $YacareCarpetaRaiz = __DIR__;
     
-    if(file_exists('debug.php.inc')) {
-        include_once 'debug.php.inc';
-    } else if(file_exists($YacareCarpetaRaiz . '/debug.php.inc')) {
-        include_once $YacareCarpetaRaiz . '/debug.php.inc';
+    if(file_exists($YacareCarpetaRaiz . '/debug.txt')) {
+        $YacareModoDesarrollo = true;
     } else {
-        $debug = FALSE;
+        $YacareModoDesarrollo = false;
     }
 	
     $mac = trim(@file_get_contents('/sys/class/net/wlan0/address'));
