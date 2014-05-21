@@ -21,7 +21,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="text-primary" onclick="parent.location='../';"><i class="fa fa-reply"></i> Volver</a></li>
+                <li><a class="text-primary" onclick="parent.location='/';"><i class="fa fa-reply"></i> Volver</a></li>
             </ul>
         </div>
     </div>
@@ -37,14 +37,15 @@
 
         <p>El identificador único de este dispositivo es: <strong class="text-primary"><?php echo $mac; ?></strong>.</p>
         
-        <h2>Base de datos</h2>
-        <p></p>
-        <button class="btn btn-primary" onclick="parent.location='actualizar/';"><i class="fa fa-download"></i> Actualizar aplicación</button>
+        <hr />
+        
+        <h2>General</h2>
+        <button class="btn btn-primary" onclick="parent.location='/actualizar/';"><i class="fa fa-download"></i> Actualizar aplicación</button>
         
         <hr />
         
-        <h1>Inspección</h1>
-        <button class="btn btn-primary" onclick="parent.location='inspeccion/instalar.php';"><i class="fa fa-warning"></i> Instalación inicial</button>
+        <h2>Inspección</h2>
+        <button class="btn btn-primary" onclick="parent.location='/admin/instalar.php';"><i class="fa fa-warning"></i> Instalación inicial</button>
     </div>
 </div>
 </div>
