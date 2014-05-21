@@ -123,8 +123,8 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 <fieldset>
-<video id="video" width="512" height="384" class="img-responsive" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
-<canvas id="canvas" width="512" height="384" class="img-responsive" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
+<video id="video" width="512" height="384" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
+<canvas id="canvas" width="512" height="384" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
 <fieldset>
     
         </div><!-- col-*-8 -->

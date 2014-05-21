@@ -37,7 +37,7 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
 <?php
     
-    include 'actualizar_db.php';
+    include '../admin/actualizar_db.php';
     
     if ($YacareDbRemota) {
         $estoy_conectado = TRUE;
