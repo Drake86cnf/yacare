@@ -97,7 +97,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 
 <fieldset>
 <legend>Incidentes</legend>
-<select name='Resultado' style="width: 360px;" required='required' onchange='ConfirmarSalida=1;'>
+<select name='Resultado' style="max-width: 240px;" required='required' onchange='ConfirmarSalida=1;'>
 <option value=''>Seleccione una incidencia</option>
 <?php
 	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo, Nombre ASC";
@@ -123,8 +123,8 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 <fieldset>
-<video id="video" width="800" height="600" class="img-responsive" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
-<canvas id="canvas" width="800" height="600" class="img-responsive" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
+<video id="video" width="640" height="480" class="img-responsive" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
+<canvas id="canvas" width="640" height="480" class="img-responsive" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
 <fieldset>
     
         </div><!-- col-*-8 -->
