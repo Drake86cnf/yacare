@@ -89,7 +89,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 
 <fieldset name='Domicilio'>
-<legend>Calle <?php echo $row['PartidaCalleNombre']; ?> Nº <?php echo $row['PartidaCalleNumero']; ?></legend>
+<legend><?php echo $row['PartidaCalleNombre']; ?> Nº <?php echo $row['PartidaCalleNumero']; ?></legend>
 Sección <?php echo $row['PartidaSeccion']; ?>,
 Macizo <?php echo $row['PartidaMacizo']; ?>,
 Parcela <?php echo $row['PartidaParcela']; ?>
@@ -113,7 +113,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, longitud <input type='text' maxlength=16 size=5 name='lon' id='lon' readonly /><br />
 </fieldset>
 
-<legend>Obs.</legend>
+<legend>Observaciones</legend>
 <fieldset name='Observaciones'>
 <textarea name='Obs' cols='50' rows='10' style="width: 95%" placeholder="Escriba aquí las observaciones" onchange='ConfirmarSalida=1;'></textarea>
 </fieldset>
@@ -122,10 +122,8 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
-<fieldset>
 <video id="video" width="512" height="384" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
 <canvas id="canvas" width="512" height="384" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
-<fieldset>
     
         </div><!-- col-*-8 -->
     </div>
