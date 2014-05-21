@@ -40,7 +40,7 @@
         <hr />
         
         <h2>General</h2>
-        <button class="btn btn-primary" onclick="parent.location='/actualizar/';"><i class="fa fa-download"></i> Actualizar aplicación</button>
+        <button class="btn btn-primary" onclick="parent.location='/actualizar/?esperar=1&ret=%2Fadmin%2F';"><i class="fa fa-download"></i> Actualizar aplicación</button>
         
         <hr />
         

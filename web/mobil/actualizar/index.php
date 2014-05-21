@@ -49,7 +49,7 @@ if(isset($_REQUEST['ret'])) {
 }
 
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $YacareModoDesarrollo) {
-        echo "No se descargan actualizaciones.";
+        echo "No se descargan actualizaciones mientras la aplicación está en modo de desarrollo.";
 } else {
 	$carpeta_destino = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
 	if(substr($carpeta_destino, -1) != '/') {
@@ -71,32 +71,6 @@ if($_SERVER['HTTP_HOST'] === 'webmuni' || $YacareModoDesarrollo) {
                 }
                 $zip->close();
         }
-
-	/* $lista_archivos = fopen("http://192.168.100.5/yacare/mobil/inspeccion/actualizar.txt", 'r');
-
-	if($lista_archivos) {
-		while(!feof($lista_archivos)) {
-			$archivo = trim(fgets($lista_archivos));
-			if($archivo) {
-				$contenido = file_get_contents('http://192.168.100.5/yacare/mobil/inspeccion/' . $archivo . '.yuf');
-                                if(file_exists($carpeta_destino . $archivo)) {
-                                    $contenido_actual = @file_get_contents($carpeta_destino . $archivo);
-                                } else {
-                                    $contenido_actual = null;
-                                }
-				
-                                if($contenido) {
-                                    if($contenido != $contenido_actual) {
-                                        file_put_contents($carpeta_destino . $archivo, $contenido);
-                                        $cantidad_archivos++;
-                                    }
-				} else {
-                                    $cantidad_errores++;
-                                }
-			}
-		}
-	}
-	fclose($lista_archivos); */
 }
 ?>
 
@@ -105,20 +79,17 @@ if($_SERVER['HTTP_HOST'] === 'webmuni' || $YacareModoDesarrollo) {
 
 <script type="text/javascript">
 <?php
-    if($cantidad_archivos == 0 && $cantidad_errores == 0) {
+    if($_REQUEST['esperar']) {
 ?>
-window.setTimeout(RedireccionarSinc, 500);
+window.setTimeout(RedireccionarSinc, 10000);
 function RedireccionarSinc() {
     window.location='<?php echo $RetAddress ?>';
 }
-window.location='<?php echo $RetAddress ?>';
 <?php
     } else {
+        header('Location: ' . $RetAddress);
 ?>
-window.setTimeout(RedireccionarSinc, 4000);
-function RedireccionarSinc() {
-    window.location='<?php echo $RetAddress ?>';
-}
+window.location='<?php echo $RetAddress ?>';
 <?php
     }
 ?>
