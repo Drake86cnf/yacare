@@ -51,7 +51,7 @@ if(isset($_REQUEST['ret'])) {
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
 } else {
-	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
+	$carpeta_destino = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
 	if(substr($carpeta_destino, -1) != '/') {
                 $carpeta_destino .= '/';
         }
