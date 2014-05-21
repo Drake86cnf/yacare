@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección:: Panel de control</div>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Panel de control</div>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -36,6 +36,15 @@
         <h1>Panel de control</h1>
 
         <p>El identificador único de este dispositivo es: <strong class="text-primary"><?php echo $mac; ?></strong>.</p>
+        
+        <h2>Base de datos</h2>
+        <p></p>
+        <button class="btn btn-primary" onclick="parent.location='actualizar/';"><i class="fa fa-download"></i> Actualizar aplicación</button>
+        
+        <hr />
+        
+        <h1>Inspección</h1>
+        <button class="btn btn-primary" onclick="parent.location='inspeccion/instalar.php';"><i class="fa fa-warning"></i> Instalación inicial</button>
     </div>
 </div>
 </div>

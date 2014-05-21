@@ -1,17 +1,39 @@
 <?php
-    include_once 'global.php.inc';
+    require_once '../global.php.inc';
+    require_once '../head.php.inc';
 ?>
 
 <body>
-<div class="encab">
-<div class="encab-izquierda">Yacaré - Inspección</div>
-<div class="encab-derecha">
- <button onclick="parent.location='listado.php'">Volver</a>
-</div>
-</div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección:: Instalar</div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
 
-<div class="contenido">
-<h1>Instalación</h1>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="text-primary" onclick="parent.location='listado.php';"><i class="fa fa-reply"></i> Volver</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="hidden-xs col-sm-2 col-md-2 col-lg-4">
+        <i class="fa fa-5x fa-wrench text-muted pull-right"></i>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
+        <h1>Instalación inicial</h1>
 <?php
     if(isset($_REQUEST['confirmar']) && $_REQUEST['confirmar']) {
         include_once 'db_local.php.inc';
@@ -69,12 +91,17 @@
     } else {
 ?>
 <p>¡ATENCIÓN! Al instalar la aplicación se borrarán todos los datos existentes en este dispositivo.</p>
-<button onclick="parent.location='instalar.php?confirmar=1';">Instalar ahora</button>
+<button class="btn btn-primary" onclick="parent.location='instalar.php?confirmar=1';"><i class="fa fa-warning"></i> Instalar ahora</button>
 <?php
     }
 ?>
+   </div>
+</div>
 </div>
 
+<?php
+    require_once '../footer.php.inc';
+?>
 </body>
 
 </html>

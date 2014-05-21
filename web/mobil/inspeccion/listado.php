@@ -61,7 +61,7 @@
 <?php
     }
 ?>
-    <li><a onclick="parent.location='../actualizar/actualizar.php?ret=..%2Finspeccion%2Fpresinc.php';"><i class="fa fa-refresh"></i> Sincronizar</a></li>
+    <li><a onclick="parent.location='../actualizar/?ret=..%2Finspeccion%2Fpresinc.php';"><i class="fa fa-refresh"></i> Sincronizar</a></li>
             </ul>
         </div>
     </div>
