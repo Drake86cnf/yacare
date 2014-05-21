@@ -21,7 +21,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="text-primary" onclick="parent.location='listado.php';"><i class="fa fa-reply"></i> Volver</a></li>
+                <li><a class="text-primary" onclick="parent.location='/';"><i class="fa fa-reply"></i> Volver</a></li>
             </ul>
         </div>
     </div>
@@ -36,17 +36,17 @@
         <h1>Instalación inicial</h1>
 <?php
     if(isset($_REQUEST['confirmar']) && $_REQUEST['confirmar']) {
-        include_once 'db_local.php.inc';
-        include_once 'db_remota.php.inc';
+        $YacareDbLocal = new PDO('sqlite:' . $YacareCarpetaRaiz . '/yacare.sqlite');
+        $YacareDbLocal->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        echo "<p>Recreando la tabla de tipos de incidente: ";
-        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoResultado;");
-        $db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
+        echo "<p>Recreando la tabla de inspección/relevamientos/tipos de incidente: ";
+        $YacareDbLocal->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoResultado;");
+        $YacareDbLocal->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
         echo "ok.</p>";
 
-        echo "<p>Recreando la tabla de asignaciones: ";
-        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionDetalle");
-        $db_local->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionDetalle
+        echo "<p>Recreando la tabla de inspección/relevamientos/asignaciones: ";
+        $YacareDbLocal->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionDetalle");
+        $YacareDbLocal->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionDetalle
             (id INTEGER PRIMARY KEY,
             CreatedAt,
             UpdatedAt,
@@ -61,12 +61,13 @@
             PartidaCalleNumero,
             Encargado_id INTEGER DEFAULT NULL,
             PartidaCalle_id INTEGER DEFAULT NULL,
-            ResultadosCantidad INTEGER NOT NULL DEFAULT 0)");
+            ResultadosCantidad INTEGER NOT NULL DEFAULT 0,
+            Suprimido INTEGER NOT NULL DEFAULT 0)");
         echo "ok</p>";
         
-        echo "<p>Recreando la tabla de resultados: ";
-        $db_local->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionResultado");
-        $db_local->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionResultado
+        echo "<p>Recreando la tabla de inspección/relevamientos/resultados: ";
+        $YacareDbLocal->exec("DROP TABLE IF EXISTS Inspeccion_RelevamientoAsignacionResultado");
+        $YacareDbLocal->exec("CREATE TABLE Inspeccion_RelevamientoAsignacionResultado
             (id INTEGER PRIMARY KEY,
             CreatedAt,
             UpdatedAt,
@@ -88,10 +89,20 @@
             Ubicacion)");
 
         echo "ok</p>";
+        
+        echo "<p>Recreando la tabla de versión: ";
+        $YacareDbLocal->exec("DROP TABLE IF EXISTS version");
+        $YacareDbLocal->exec("CREATE TABLE version (ver INTEGER)");
+        $YacareDbLocal->exec("INSERT INTO version (ver) VALUES (2)");
+        echo "ok</p>";
+?>
+        <button class="btn btn-success" onclick="parent.location='/';"><i class="fa fa-thumbs-o-up"></i> Continuar</button>
+<?php
     } else {
 ?>
-<p>¡ATENCIÓN! Al instalar la aplicación se borrarán todos los datos existentes en este dispositivo.</p>
-<button class="btn btn-primary" onclick="parent.location='instalar.php?confirmar=1';"><i class="fa fa-warning"></i> Instalar ahora</button>
+    <p>Al parecer, es la primera vez que utilizar Yacaré Móvil en este equipo. Es necesario realizar una instalación inicial.</p>
+    <p>¡ATENCIÓN! Al instalar la aplicación se borrarán todos los datos existentes en este dispositivo. Pulse el botón para continuar:</p>
+    <button class="btn btn-warning" onclick="parent.location='instalar.php?confirmar=1';"><i class="fa fa-warning"></i> Instalar ahora</button>
 <?php
     }
 ?>

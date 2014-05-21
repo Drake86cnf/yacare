@@ -1,13 +1,14 @@
 <?php
     require_once '../global.php.inc';
     
-    require_once 'db_local.php.inc';
+    require_once '../db_local.php.inc';
     require_once 'db_remota.php.inc';
 
     try {
-        $VersionActual = $db_local->query("SELECT ver FROM version")->fetchColumn();
+        $VersionActual = $YacareDbLocal->query("SELECT ver FROM version")->fetchColumn();
     } catch (Exception $e) {
-        $VersionActual = 0;
+        header('Location: /admin/instalar.php');
+        exit;
     }
 
     echo "<p>Versión actual de la base de datos: $VersionActual</p>";
@@ -16,14 +17,14 @@
         echo '<p>Actualizando base de datos a la versión 1</p>';
         // Iniciar sistema de versiones
         try {
-            $db_local->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN ResultadosCantidad INTEGER NOT NULL DEFAULT 0");
-            $db_local->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionResultado ADD COLUMN Asignacion_id INTEGER NULL DEFAULT NULL");
+            $YacareDbLocal->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN ResultadosCantidad INTEGER NOT NULL DEFAULT 0");
+            $YacareDbLocal->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionResultado ADD COLUMN Asignacion_id INTEGER NULL DEFAULT NULL");
         } catch (Exception $e) {
             // Nada
         }
 
-        $db_local->exec("CREATE TABLE version (ver INTEGER)");
-        $db_local->exec("INSERT INTO version (ver) VALUES (1)");
+        $YacareDbLocal->exec("CREATE TABLE version (ver INTEGER)");
+        $YacareDbLocal->exec("INSERT INTO version (ver) VALUES (1)");
         
         $VersionActual = 1;
     }
@@ -33,9 +34,9 @@
         $VersionActual = 2;
         echo "<p>Actualizando base de datos a la versión $VersionActual</p>";
         
-        $db_local->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN Suprimido INTEGER NOT NULL DEFAULT 0");
+        $YacareDbLocal->exec("ALTER TABLE Inspeccion_RelevamientoAsignacionDetalle ADD COLUMN Suprimido INTEGER NOT NULL DEFAULT 0");
         
-        $db_local->exec("UPDATE version SET ver=$VersionActual");
+        $YacareDbLocal->exec("UPDATE version SET ver=$VersionActual");
     }
     
     
@@ -46,6 +47,6 @@
         
         // ....
         
-        $db_local->exec("UPDATE version SET ver=$VersionActual");
+        $YacareDbLocal->exec("UPDATE version SET ver=$VersionActual");
         
     } */

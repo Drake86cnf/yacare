@@ -2,7 +2,7 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
 
-    require_once 'db_local.php.inc';
+    require_once '../db_local.php.inc';
 	
     if(isset($_GET['orden']))
         $ListadoVer = (int)$_GET['ver'];
@@ -103,7 +103,7 @@
 
     
     $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE $ListadoVerSql ORDER BY $ListadoOrdenarSql";
-    foreach ($db_local->query($sql) as $row) {
+    foreach ($YacareDbLocal->query($sql) as $row) {
         $Id = $row['id'];
         $PartidaCalleNombre = $row['PartidaCalleNombre'];
         $PartidaCalleNumero = $row['PartidaCalleNumero'];

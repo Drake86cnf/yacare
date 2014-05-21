@@ -2,12 +2,12 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
 
-    require_once 'db_local.php.inc';
+    require_once '../db_local.php.inc';
 
     $AsignacionDetalleId = (int)($_GET["id"]);
 
     $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id='$AsignacionDetalleId'";
-    $row = $db_local->query($sql)->fetch();
+    $row = $YacareDbLocal->query($sql)->fetch();
 ?>
 
 <script>
@@ -101,7 +101,7 @@ Parcela <?php echo $row['PartidaParcela']; ?>
 <option value=''>Seleccione una incidencia</option>
 <?php
 	$sql = "SELECT * FROM inspeccion_relevamientoResultado ORDER BY Grupo, Nombre ASC";
-	foreach ($db_local->query($sql) as $row) {
+	foreach ($YacareDbLocal->query($sql) as $row) {
 ?>
 <option value="<?php echo $row['Id'] ?>"><?php echo $row['Grupo'] ? $row['Grupo'] . ': ' : '' ?><?php echo $row['Nombre'] ?></option>
 <?php

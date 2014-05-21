@@ -2,7 +2,8 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
     
-    require_once 'db_remota.php.inc';
+    require_once '../db_remota.php.inc';
+    require_once '../db_local.php.inc';
 ?>
 
 <body>
@@ -41,33 +42,33 @@
     $SqliteDestino = "inspeccion-backup-" . date('Ymdhis') . ".sqlite";
     copy($SqliteOrigen, $SqliteDestino);
 
-    $IdEncargadoDispositivo = $db_remota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
-    //$IdRelevamientoActual = $db_remota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento WHERE Suprimido=0")->fetchColumn();
+    $IdEncargadoDispositivo = $YacareDbRemota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
+    //$IdRelevamientoActual = $YacareDbRemota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento WHERE Suprimido=0")->fetchColumn();
 
     // ********************** Traigo tipos de Incidentes
     echo "<p>Recibiendo tipos de incidente: ";
-    $db_local->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
-    $db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
+    $YacareDbLocal->exec("DROP TABLE Inspeccion_RelevamientoResultado;");
+    $YacareDbLocal->exec("CREATE TABLE Inspeccion_RelevamientoResultado (Id INTEGER PRIMARY KEY, Nombre, Grupo);");
 
     $cantidad_tipo_incidente = 0;
     $sql = "SELECT id, Nombre, Grupo FROM Inspeccion_RelevamientoResultado";
-    foreach ($db_remota->query($sql) as $row) {
+    foreach ($YacareDbRemota->query($sql) as $row) {
         $cantidad_tipo_incidente++;
         $Id = $row['id'];
         $Nombre = $row['Nombre'];
         $Grupo = $row['Grupo'];
 
-        $db_local->exec("INSERT INTO Inspeccion_RelevamientoResultado VALUES ($Id, '$Nombre', '$Grupo');");
+        $YacareDbLocal->exec("INSERT INTO Inspeccion_RelevamientoResultado VALUES ($Id, '$Nombre', '$Grupo');");
     }
 
     echo "se importaron $cantidad_tipo_incidente registros.</p>";
-    //$db_local->exec("CREATE TABLE Inspeccion_RelevamientoResultadoTipo (Id, Nombre, Grupo);");
+    //$YacareDbLocal->exec("CREATE TABLE Inspeccion_RelevamientoResultadoTipo (Id, Nombre, Grupo);");
     // ********************** Envío Relevamientos realizados 2
     echo "Enviando resultados: ";
     $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionResultado";
     $cantidad_resultado = 0;
-    foreach ($db_local->query($sql) as $row) {
-        $insert = $db_remota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
+    foreach ($YacareDbLocal->query($sql) as $row) {
+        $insert = $YacareDbRemota->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
             (Detalle_id, Resultado_id, Obs, Imagen, Ubicacion, UpdatedAt, CreatedAt, Version)
                     VALUES
             (:detalle_id, :resultado_id, :obs, :imagen,:ubicacion, NOW(), NOW(), 1)");
@@ -78,9 +79,9 @@
         $insert->bindValue('detalle_id', $row['Detalle_id'], PDO::PARAM_INT);
         $insert->execute();
         if ($insert->rowCount()) {
-            $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
-            $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=DetallesResultadosCantidad+1 WHERE id=" . $row['Asignacion_id']);
-            $db_local->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
+            $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
+            $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=DetallesResultadosCantidad+1 WHERE id=" . $row['Asignacion_id']);
+            $YacareDbLocal->exec("DELETE FROM Inspeccion_RelevamientoAsignacionResultado WHERE id=${row['id']}");
             $cantidad_resultado++;
         }
     }
@@ -96,7 +97,7 @@
                     AND Relevamiento_id IN (SELECT id FROM Inspeccion_Relevamiento WHERE Suprimido=0)
                     AND Asignacion_id IN (SELECT id FROM Inspeccion_RelevamientoAsignacion WHERE Suprimido=0)
                     AND ResultadosCantidad=0";
-    foreach ($db_remota->query($sql) as $row) {
+    foreach ($YacareDbRemota->query($sql) as $row) {
         $Id = $row['id'];
         $CreatedAt = $row['CreatedAt'];
         $UpdatedAt = $row['UpdatedAt'];
@@ -116,11 +117,11 @@
         
         // Marco todo como suprimido. A continuación al importar marco como no suprimido lo que importo.
         // De esa manera, queda eliminada cualquier entrada que no esté en las asignaciones que descargo.
-        @$db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
+        @$YacareDbLocal->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
         
         // Si existen resultados para el registro que estoy por importar, no lo importo
         // para no pisar el trabajo hecho
-        $registro_actual = $db_local->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND ResultadosCantidad<>0")->fetchColumn();
+        $registro_actual = $YacareDbLocal->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND ResultadosCantidad<>0")->fetchColumn();
         if ($registro_actual == $Id) {
             $cantidad_incidente_salteado++;
         } else {
@@ -152,24 +153,24 @@
                                     '$PartidaSeccion',
                                     '$PartidaMacizo',
                                     '$PartidaParcela',
-                                    " . $db_local->quote($PartidaCalleNombre) . ",
+                                    " . $YacareDbLocal->quote($PartidaCalleNombre) . ",
                                     '$PartidaCalleNumero',
                                     $Encargado_id,
                                     $PartidaCalle_id,
                                     $ResultadosCantidad,
                                     0)";
             //echo $sql;
-            $db_local->exec($sql);
+            $YacareDbLocal->exec($sql);
         }
     }
     echo "se importaron $cantidad_incidente registros, se saltearon $cantidad_incidente_salteado.</p>";
 
-    $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacionResultado
+    $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacionResultado
     SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(
         SELECT Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle
             WHERE Inspeccion_RelevamientoAsignacionDetalle.id=Inspeccion_RelevamientoAsignacionResultado.Detalle_id
     );");
-    $db_remota->exec("UPDATE Inspeccion_RelevamientoAsignacion
+    $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacion
     SET DetallesResultadosCantidad=(
         SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado
             WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id

@@ -2,7 +2,7 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
     
-    require_once 'db_remota.php.inc';
+    require_once '../db_remota.php.inc';
 ?>
 <body>
 
@@ -39,17 +39,17 @@
     
     include 'actualizar_db.php';
     
-    if ($db_remota) {
+    if ($YacareDbRemota) {
         $estoy_conectado = TRUE;
     } else {
         $estoy_conectado = FALSE;
     }
 
     if ($mac && $estoy_conectado) {
-        $Dispositivo = $db_remota->query("SELECT id, Encargado_id, Marca, Modelo, Comentario FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
+        $Dispositivo = $YacareDbRemota->query("SELECT id, Encargado_id, Marca, Modelo, Comentario FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetch();
         if ($Dispositivo && $Dispositivo['Encargado_id']) {
             $IdDispositivo = (int) ($Dispositivo['Encargado_id']);
-            $DispositivoEncargado = $db_remota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=$IdDispositivo")->fetch();
+            $DispositivoEncargado = $YacareDbRemota->query("SELECT id, NombreVisible FROM Base_Persona WHERE id=$IdDispositivo")->fetch();
             ?>
             <h1>Sincronizar datos</h1>
             <p>Se van a enviar los resultados que pudieran existir en este dispositivo y se van

@@ -2,7 +2,7 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
 
-    require_once 'db_local.php.inc';
+    require_once '../db_local.php.inc';
 ?>
 
 <script>
@@ -58,7 +58,7 @@
 		$dataURL = null;
 	}
     
-    $insert = $db_local->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
+    $insert = $YacareDbLocal->prepare("INSERT INTO Inspeccion_RelevamientoAsignacionResultado
         (CreatedAt, UpdatedAt, Version, Detalle_id, Asignacion_id, Resultado_id, Obs, Imagen, Ubicacion) 
         VALUES (
             datetime(),
@@ -78,7 +78,7 @@
     $insert->bindValue('imagen', $imagen_binario, PDO::PARAM_LOB);
     
     if($insert->execute()) {
-        $db_local->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=$AsignacionDetalleId");
+        $YacareDbLocal->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=$AsignacionDetalleId");
     }
 	
 	echo "<p>Resultado guardado</p>\r\n";

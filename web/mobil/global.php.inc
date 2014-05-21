@@ -1,13 +1,13 @@
 <?php
     header("Cache-Control: no-cache, must-revalidate");
 
-    global $YacareMobilRoot;
-    $YacareMobilRoot = __DIR__;
+    global $YacareCarpetaRaiz;
+    $YacareCarpetaRaiz = __DIR__;
     
     if(file_exists('debug.php.inc')) {
         include_once 'debug.php.inc';
-    } else if(file_exists($YacareMobilRoot . '/debug.php.inc')) {
-        include_once $YacareMobilRoot . '/debug.php.inc';
+    } else if(file_exists($YacareCarpetaRaiz . '/debug.php.inc')) {
+        include_once $YacareCarpetaRaiz . '/debug.php.inc';
     } else {
         $debug = FALSE;
     }

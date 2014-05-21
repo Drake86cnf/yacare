@@ -45,7 +45,7 @@
     $tipoLinea = 0;
     
     $sql = "SELECT Resultado_id, Obs, Imagen FROM Inspeccion_RelevamientoAsignacionResultado WHERE Detalle_id=$AsignacionDetalleId ORDER BY CreatedAt DESC";
-    foreach ($db_local->query($sql) as $row) {
+    foreach ($YacareDbLocal->query($sql) as $row) {
         $ResultadoId = $row['Resultado_id'];
         $Obs = $row['Obs'];
         $data = $row['Imagen'];
@@ -61,7 +61,7 @@
 
         echo " style=\"cursor: hand; cursor: pointer;\">";
 ?>
-            <td><?php echo $Incidente = $db_local->query("SELECT Nombre FROM Inspeccion_RelevamientoResultado WHERE Id=$ResultadoId")->fetchColumn(); ?></td>
+            <td><?php echo $Incidente = $YacareDbLocal->query("SELECT Nombre FROM Inspeccion_RelevamientoResultado WHERE Id=$ResultadoId")->fetchColumn(); ?></td>
             <td><?php echo $Obs; ?></td>
             <td><img src="<?php echo $Imagen; ?>" /></td>
         </tr>
