@@ -15,20 +15,37 @@
 <h1>Actualización automática</h1>
 <?php
 
+clearstatcache();
+ini_set('realpath_cache_size', 0);
+
 $cantidad_archivos = 0;
 $cantidad_errores = 0;
 
 if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
         echo "No se descargan actualizaciones.";
 } else {
-        ini_set('realpath_cache_size', 0);
-    
 	$carpeta_destino = dirname($_SERVER['SCRIPT_FILENAME']);
 	if(substr($carpeta_destino, -1) != '/') {
                 $carpeta_destino .= '/';
         }
+        
+        $ch = curl_init("http://192.168.100.5/yacare/mobil/actualizar.zip");
+        $fp = fopen($carpeta_destino . 'actualizar.zip', 'w');
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+        
+        $zip = new ZipArchive;
+        if ($zip->open($carpeta_destino . 'actualizar.zip') === TRUE) {
+                if($zip->extractTo($carpeta_destino)) {
+                        $cantidad_archivos++;
+                }
+                $zip->close();
+        }
 
-	$lista_archivos = fopen("http://192.168.100.5/yacare/mobil/inspeccion/actualizar.txt", 'r');
+	/* $lista_archivos = fopen("http://192.168.100.5/yacare/mobil/inspeccion/actualizar.txt", 'r');
 
 	if($lista_archivos) {
 		while(!feof($lista_archivos)) {
@@ -52,7 +69,7 @@ if($_SERVER['HTTP_HOST'] === 'webmuni' || $debug) {
 			}
 		}
 	}
-	fclose($lista_archivos);
+	fclose($lista_archivos); */
         
         include 'actualizar_db.php';
 }
