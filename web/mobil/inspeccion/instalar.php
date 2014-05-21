@@ -1,5 +1,5 @@
 <?php
-	include_once 'global.php.inc';
+    include_once 'global.php.inc';
 ?>
 
 <body>
