@@ -38,9 +38,8 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
         <h1>Resultados de la sincronización</h1>
 <?php
-    $SqliteOrigen = "inspeccion.sqlite";
-    $SqliteDestino = "inspeccion-backup-" . date('Ymdhis') . ".sqlite";
-    copy($SqliteOrigen, $SqliteDestino);
+    // Hago una copia de seguridad de la base de datos actual
+    copy($YacareCarpetaRaiz . '/yacare.sqlite', $YacareCarpetaRaiz . '/yacare-backup-' . date('Ymdhis') . '.sqlite');
 
     $IdEncargadoDispositivo = $YacareDbRemota->query("SELECT Encargado_id FROM Base_Dispositivo WHERE IdentificadorUnico='$mac'")->fetchColumn();
     //$IdRelevamientoActual = $YacareDbRemota->query("SELECT MAX(id) FROM Inspeccion_Relevamiento WHERE Suprimido=0")->fetchColumn();
@@ -87,11 +86,11 @@
     }
     echo "se exportaron $cantidad_resultado registros.</p>";
 
-
     // ********************** Recibir asignaciones nuevas
     echo "<p>Recibiendo asignaciones: ";
     $cantidad_incidente = 0;
     $cantidad_incidente_salteado = 0;
+    $IdsExistentes = array();   // Array para almacenar los id de los registros no suprimidos (ver más abajo)
     $sql = "SELECT * FROM Inspeccion_RelevamientoAsignacionDetalle
             WHERE Encargado_id=$IdEncargadoDispositivo
                     AND Relevamiento_id IN (SELECT id FROM Inspeccion_Relevamiento WHERE Suprimido=0)
@@ -114,11 +113,8 @@
         $PartidaCalle_id = $row['PartidaCalle_id'] ? $row['PartidaCalle_id'] : 'NULL';
         $ResultadosCantidad = (int) $row['ResultadosCantidad'];
 
-        
-        // Marco todo como suprimido. A continuación al importar marco como no suprimido lo que importo.
-        // De esa manera, queda eliminada cualquier entrada que no esté en las asignaciones que descargo.
-        @$YacareDbLocal->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id=$Id AND ResultadosCantidad<>0");
-        
+
+        $IdsExistentes[] = $Id;
         // Si existen resultados para el registro que estoy por importar, no lo importo
         // para no pisar el trabajo hecho
         $registro_actual = $YacareDbLocal->query("SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE id=$Id AND ResultadosCantidad<>0")->fetchColumn();
@@ -163,7 +159,14 @@
             $YacareDbLocal->exec($sql);
         }
     }
+    
     echo "se importaron $cantidad_incidente registros, se saltearon $cantidad_incidente_salteado.</p>";
+
+    // Marco como suprimido todo aquello que no haya sido importado, para eliminar registros obsoletos.
+    if(count($IdsExistentes) > 0) {
+        $Afectados = $YacareDbLocal->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Suprimido=1 WHERE id NOT IN (" . join(',', $IdsExistentes) . ")");
+        echo "<p>Se suprimieron $Afectados registros</p>";
+    }
 
     $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacionResultado
     SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(

@@ -56,7 +56,7 @@
                 a descargar nuevas asignaciones. Haga clic en el botón &quot;Sincronzar ahora&quot; a continuación:</p>
             <p>El encargado de este dispositivo: <?php echo $DispositivoEncargado['NombreVisible'] . ' (' . $Dispositivo['Encargado_id'] . ')' ?></p>
             <p>Información del dispositivo: <?php echo $Dispositivo['Marca'] . ' ' . $Dispositivo['Modelo'] . ' (' . $Dispositivo['Comentario'] . ')' ?></p>
-            <button class="btn btn-primary" onclick="parent.location='sinc.php';"><i class="fa fa-refresh"></i> Sincronizar ahora</button>
+            <button class="btn btn-success" onclick="parent.location='sinc.php';"><i class="fa fa-refresh"></i> Sincronizar ahora</button>
             <script>
                 window.setTimeout(RedireccionarSinc, 10000);
                 function RedireccionarSinc() {
@@ -83,6 +83,7 @@
         <?php
     }
     ?>
+    <hr />
     <p>El identificador único de este dispositivo es: <strong class="text-primary"><?php echo $mac; ?></strong>.</p>
     </div>
 </div>
