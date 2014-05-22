@@ -27,14 +27,11 @@ h1, legend {
     margin: 0px 8px;
     font-size: 24px;
     font-weight: 400;
-    margin: 0px 0px 12px;
     color: gray;
-    padding-bottom: 12px;
-    padding-top: 7px;
-    /*
-    color: rgb(38, 121, 181);
+    margin: 0px 0px 8px 0px;
+    padding-bottom: 4px;
+    padding-top: 4px;
     border-bottom: 1px dotted rgb(226, 226, 226);
-     */
 }
 
 h2 {

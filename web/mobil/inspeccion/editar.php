@@ -138,8 +138,8 @@ var streaming = false,
     video         = document.querySelector('#video'),
     canvas        = document.querySelector('#canvas'),
     restartbutton = document.querySelector('#restartbutton'),
-    width = 800,
-    finalheight = 600;
+    width = 640,
+    finalheight = 480;
 function initCamara() {
   navigator.getMedia = ( navigator.getUserMedia ||
                          navigator.webkitGetUserMedia ||
