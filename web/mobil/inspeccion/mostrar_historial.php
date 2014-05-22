@@ -2,7 +2,7 @@
     require_once '../global.php.inc';
     require_once '../head.php.inc';
 
-    include 'db_local.php.inc';
+    include '../db_local.php.inc';
 
     if(isset($_GET['id'])) {
         $AsignacionDetalleId = $_GET['id'];
