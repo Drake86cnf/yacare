@@ -23,8 +23,14 @@ class RelevamientoAsignacionMacizoType extends AbstractType
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
-            ->add('Seccion', null, array('label' => 'Sección'))
-            ->add('Macizo', null, array('label' => 'Macizo'))
+            ->add('Seccion', null, array(
+                'label' => 'Sección',
+                'required' => true
+                ))
+            ->add('Macizo', null, array(
+                'label' => 'Macizo',
+                'required' => true
+                ))
         ;
     }
 
