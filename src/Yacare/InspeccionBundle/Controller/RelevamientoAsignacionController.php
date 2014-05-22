@@ -97,6 +97,9 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         if ($editForm->isValid()) {
             $em->persist($entity);
             
+            // Guardo un cookie para que el formulario conserve la última información
+            $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'] = $entity->getEncargado()->getId();
+            
             // ************************* Guardar detalles
             if($entity->getCalle()) {
                 // Es por calle
@@ -104,6 +107,8 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
             } else {
                 // Es por S-M-P
                 $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('Seccion' => $entity->getSeccion(), 'Macizo' => $entity->getMacizo()));
+                // Guardo un cookie para que el formulario conserve la última información
+                $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'] = $entity->getSeccion();
             }
 
             if($partidas) {
@@ -176,6 +181,11 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         }
         
         $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
+        
+        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
+            $Encargado = $em->getReference('YacareBaseBundle:Persona', $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado']);
+            $entity->setEncargado($Encargado);
+        }
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'CalleType';
         $editForm = $this->createForm(new $typeName(), $entity);
@@ -205,6 +215,15 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
         }
         
         $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
+        
+        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
+            $Encargado = $em->getReference('YacareBaseBundle:Persona', $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado']);
+            $entity->setEncargado($Encargado);
+        }
+        
+        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'])) {
+            $entity->setSeccion($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion']);
+        }
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
