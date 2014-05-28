@@ -10,7 +10,7 @@
         }
     } catch (Exception $e) {
         // Nada
-        echo "<notice>" . $e->getMessage() . "</notice>";
+        echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
         $YacareDbRemota = null;
     }
 

@@ -67,11 +67,9 @@
             <div class="navbar-brand"><img src="../img/yacare_logo_64.png" width="32px">&nbsp;&nbsp;Yacaré :: Inspección :: Editar</div>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 <li><a id="restartbutton" style="display: none;"><i class="fa fa-camera"></i> Tomar foto nuevamente</a></li>
                 <li><a onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')"><i class="fa fa-history"></i> Historial</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
                 <li><a class="text-warning" onclick="confirmarYTerminar()"><i class="fa fa-reply"></i> Terminar</a></li>
                 <li><a class="text-success" onclick="$('#form-editar').submit();" type='submit' name='Aceptar'><i class="fa fa-check"></i> Guardar y continuar</a></li>
             </ul>
