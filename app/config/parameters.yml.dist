@@ -15,3 +15,6 @@ parameters:
 
     locale:            es
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    tapir.cliente: 'Municipio de Río Grande'
+    

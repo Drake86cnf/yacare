@@ -1,86 +1,20 @@
-yacare_seguridad:
-    resource: "@YacareSeguridadBundle/Controller/"
+app:
+    resource: "routing_app.yml"
+    
+tapir_base:
+    resource: "@TapirBaseBundle/Controller/"
     type:     annotation
-    prefix:   /seguridad/
-
-yacare_obras_particulares:
-    resource: "@YacareObrasParticularesBundle/Controller/"
-    type:     annotation
-    prefix:   /obrasparticulares/
-
-yacare_expedientes:
-    resource: "@YacareExpedientesBundle/Controller/"
-    type:     annotation
-    prefix:   /expedientes/
-
-yacare_munirg:
-    resource: "@YacareMunirgBundle/Controller/"
-    type:     annotation
-    prefix:   /munirg/
-
-yacare_bromatologia:
-    resource: "@YacareBromatologiaBundle/Controller/"
-    type:     annotation
-    prefix:   /bromatologia/
-
-yacare_zoonosis:
-    resource: "@YacareZoonosisBundle/Controller/"
-    type:     annotation
-    prefix:   /zoonosis/
-
-yacare_tramites:
-    resource: "@YacareTramitesBundle/Controller/"
-    type:     annotation
-    prefix:   /tramites/
-
-yacare_comercio:
-    resource: "@YacareComercioBundle/Controller/"
-    type:     annotation
-    prefix:   /comercio/
-
-yacare_base:
-    resource: "@YacareBaseBundle/Controller/"
-    type:     annotation
-    prefix:   /base/
-
-yacare_compras:
-    resource: "@YacareComprasBundle/Controller/"
-    type:     annotation
-    prefix:   /compras/
-
-yacare_organizacion:
-    resource: "@YacareOrganizacionBundle/Controller/"
-    type:     annotation
-    prefix:   /organizacion/
-
-yacare_catastro:
-    resource: "@YacareCatastroBundle/Controller/"
-    type:     annotation
-    prefix:   /catastro/
-
-yacare_inspeccion:
-    resource: "@YacareInspeccionBundle/Controller/"
-    type:     annotation
-    prefix:   /inspeccion/
-
-yacare_recursos_humanos:
-    resource: "@YacareRecursosHumanosBundle/Controller/"
-    type:     annotation
-    prefix:   /rrhh/
+    prefix:   /tapir/base/
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
-inicio:
-    path:      /
-    defaults:  { _controller: YacareBaseBundle:Default:inicio }
-
 login:
     path:      /login
-    defaults:  { _controller: YacareBaseBundle:Default:login }
+    defaults:  { _controller: TapirBaseBundle:Default:login }
 
 logout:
     path:      /logout
 
 login_check:
-    pattern: /login_check
+    pattern:   /login_check
