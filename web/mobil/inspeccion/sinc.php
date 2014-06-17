@@ -98,8 +98,8 @@
                     AND ResultadosCantidad=0";
     foreach ($YacareDbRemota->query($sql) as $row) {
         $Id = $row['id'];
-        $CreatedAt = $row['CreatedAt'];
-        $UpdatedAt = $row['UpdatedAt'];
+        $CreatedAt = $row['createdAt'];
+        $UpdatedAt = $row['updatedAt'];
         $Version = $row['Version'];
         $Relevamiento_id = $row['Relevamiento_id'];
         $Asignacion_id = $row['Asignacion_id'];

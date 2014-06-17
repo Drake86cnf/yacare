@@ -36,13 +36,13 @@
     
 <div class="contenido">
 <?php		
-	$AsignacionDetalleId = (int)$_POST['id'];
+    $AsignacionDetalleId = (int)$_POST['id'];
     $AsignacionId = (int)$_POST['asignacion_id'];
-	$Resultado = $_POST['Resultado'] ? $_POST['Resultado'] : 'NULL';
+    $Resultado = $_POST['Resultado'] ? $_POST['Resultado'] : 'NULL';
 
-	$Obs = $_POST['Obs'];
-	$lat = $_POST['lat'];
-	$lon = $_POST['lon'];
+    $Obs = $_POST['Obs'];
+    $lat = $_POST['lat'];
+    $lon = $_POST['lon'];
 
     if(!$_POST['lat'] || !$_POST['lon']) {
 		$Ubicacion = null;

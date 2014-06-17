@@ -14,6 +14,13 @@
 body, p, label, span, div, td, h1, h2, h3, h4, h5, h6 {
     cursor: default;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 14pt;
+}
+
+button, .btn {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor: pointer;
     font-weight: 400;
     font-size: 14pt;
 }
