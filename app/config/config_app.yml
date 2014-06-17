@@ -9,8 +9,7 @@ twig:
 
 assetic:
     assets:
-        tapir_favicon:
-            
+        tapir_favicon: 'favicon.ico'
         tapir_css:
             inputs:
         tapir_js:
