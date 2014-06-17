@@ -9,14 +9,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Yacare\BaseBundle\Entity\Adjunto
  *
  * @ORM\Table(name="Base_Adjunto")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Adjunto
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     public function __construct($Entidad = null, $Archivo = null)

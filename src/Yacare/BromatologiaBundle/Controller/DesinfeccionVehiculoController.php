@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("desinfeccionvehiculo/")
  */
-class DesinfeccionVehiculoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class DesinfeccionVehiculoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

@@ -1,4 +1,3 @@
-
 services:
     # entity_id type
     entity_id.type:

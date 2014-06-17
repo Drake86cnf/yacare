@@ -12,17 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  * ¡Atención! No define una instancia de un trámite, sino una especie. Esto es,
  * no representa un trámite en curso, sino que define cómo "se hace" un trámite.
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo")
  */
 class TramiteTipo
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Yacare\BaseBundle\Entity\ConObs;
-    use \Yacare\BaseBundle\Entity\ConNotas;
-    use \Yacare\BaseBundle\Entity\ConUrl;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConNotas;
+    use \Tapir\BaseBundle\Entity\ConUrl;
+    use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**

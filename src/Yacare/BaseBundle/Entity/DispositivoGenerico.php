@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\BaseBundle\Entity\DispositivoGenerico
  *
  * @ORM\Table(name="Base_DispositivoGenerico")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class DispositivoGenerico extends \Yacare\BaseBundle\Entity\Dispositivo
 {

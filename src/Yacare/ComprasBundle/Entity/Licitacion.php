@@ -8,16 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\ComprasBundle\Entity\Licitacion
  *
  * @ORM\Table(name="Compras_Licitacion")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Licitacion
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Importable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Importable;
     //use \Yacare\BaseBundle\Entity\Comentable;
-    use \Yacare\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     //use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     

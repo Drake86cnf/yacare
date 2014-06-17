@@ -13,6 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-abstract class DispositivoController extends YacareAbmController
+abstract class DispositivoController extends \Tapir\BaseBundle\Controller\AbmController
 {
 }

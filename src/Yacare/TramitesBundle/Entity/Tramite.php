@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Representa una instancia de un trámite en curso, con su avance y el estado
  * de sus requisitos.
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_Tramite")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
@@ -20,10 +20,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Tramite
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
-    use \Yacare\BaseBundle\Entity\ConObs;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     use \Yacare\TramitesBundle\Entity\ConTitular;

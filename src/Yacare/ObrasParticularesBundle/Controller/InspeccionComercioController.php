@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * @Route("inspeccioncomercio/")
  */
-class InspeccionComercioController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class InspeccionComercioController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConImprimir;
     

@@ -6,7 +6,7 @@
 
 {% block comprobante_encab %}
 
-<p class="text-right">Río Grande, {{ entity.createdAt|localizeddate('full', 'none')|lower }}</p>
+<p class="text-right">Río Grande, {{ entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
 
 {% endblock %}
 
@@ -35,7 +35,7 @@
 
 <footer>El presente certificado es intransferible, es válido sólo para el ejercicio de las actividades
     mencionadas, en el local comercial mencionado y es válido hasta el día
-    {{ entity.Vencimiento|localizeddate('full', 'none')|lower }} inclusive.</footer>
+    {{ entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
 {% endblock %}
 
 {% endblock %}

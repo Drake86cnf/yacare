@@ -1,4 +1,4 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% set tipo = app.request.get('tipo') %}
 {% set id = app.request.get('id') %}
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ entity.Persona }}</small></div>
             <div class="col-sm-10">{{ entity.Obs }}<br />
-                <small><abbr title="{{ entity.createdAt|localizeddate() }}" class="text-muted">{{ entity.createdAt|time_ago }}</abbr></small></div>
+                <small><abbr title="{{ entity.createdAt|tapir_fecha() }}" class="text-muted">{{ entity.createdAt|tapir_hacetiempo }}</abbr></small></div>
         </div>
         <hr />
     {% endfor %}

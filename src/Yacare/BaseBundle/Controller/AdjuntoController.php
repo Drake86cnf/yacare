@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("adjunto/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class AdjuntoController extends YacareBaseController
+class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
     /**
      * @Route("listar/{tipo}/{id}")

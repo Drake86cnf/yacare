@@ -9,6 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * @Route("actatipo/")
  */
-class ActaTipoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ActaTipoController extends \Tapir\BaseBundle\Controller\AbmController
 {
 }

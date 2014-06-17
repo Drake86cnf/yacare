@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class LdapController extends Controller
 {
     /**
-     * @Route("importar/")
+     * @Route("importar/", name="usuario_alta")
      * @Template("YacareMunirgBundle:Ldap:importar.html.twig")
      */
     public function importarAction(Request $request)

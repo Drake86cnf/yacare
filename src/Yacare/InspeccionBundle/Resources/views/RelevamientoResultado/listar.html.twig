@@ -1,4 +1,4 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Relevamientos - Tipos de resultado{% endblock %}
 
@@ -16,13 +16,13 @@
         <tr>
             <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoresultado_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
             <td>{{ entity.Grupo }}</td>
-            <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.nombre }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% include 'TapirBaseBundle::paginar.html.twig' %}
 
 {% endblock %}
 

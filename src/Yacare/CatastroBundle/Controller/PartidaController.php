@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("partida/")
  */
-class PartidaController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConBuscar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
     
     function __construct() {
         parent::__construct();

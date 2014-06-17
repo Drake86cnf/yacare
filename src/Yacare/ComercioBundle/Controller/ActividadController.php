@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("actividad/")
  */
-class ActividadController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
     use \Yacare\BaseBundle\Controller\ConEliminar;

@@ -11,6 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("usosuelo/")
  */
-class UsoSueloController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class UsoSueloController extends \Tapir\BaseBundle\Controller\AbmController
 {
 }

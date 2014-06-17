@@ -8,14 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\BaseBundle\Entity\PersonaGrupo
  *
  * @ORM\Table(name="Base_PersonaGrupo")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class PersonaGrupo
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Versionable;
     
     public function __construct()
     {

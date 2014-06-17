@@ -1,10 +1,10 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Grupos{% endblock %}
 
 {% block pagina_contenido %}
 
-{% include 'YacareBaseBundle::buscar.html.twig' %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hover">
     <thead>
@@ -23,7 +23,7 @@
     </tbody>
 </table>
 
-{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% include 'TapirBaseBundle::paginar.html.twig' %}
 
 <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo grupo</a>
 {% endblock %}

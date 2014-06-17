@@ -1,0 +1,3 @@
+{% extends app.request.get('tapir_mostrarmodal')
+    ? 'TapirBaseBundle::layout-modal.html.twig'
+    : 'TapirBaseBundle::layout-wrapper.html.twig' %}

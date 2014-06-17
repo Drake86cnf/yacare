@@ -1,11 +1,11 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}{% endblock %}
 
 {% block pagina_contenido %}
     {% if entity %}
         {{ entity.Obs }}<br />
-        <small class="text-muted">{{ entity.createdAt|time_ago }}</small>
+        <small class="text-muted">{{ entity.createdAt|tapir_hacetiempo }}</small>
     {% else %}
         <div class="alert alert-danger">
             No se pudo publicar el comentario.

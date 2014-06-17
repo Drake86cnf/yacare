@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * YacarSae\BaseBundle\Entity\Persona
+ * Yacare\BaseBundle\Entity\Persona
  *
  * @ORM\Table(name="Base_Persona", 
  *      uniqueConstraints={
@@ -21,16 +21,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
  *      }
  * )
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Persona implements UserInterface, \Serializable
 {
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Yacare\BaseBundle\Entity\ConDomicilio;
-    use \Yacare\BaseBundle\Entity\ConImagen;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Suprimible;
-    use \Yacare\BaseBundle\Entity\Importable;
+    use \Tapir\BaseBundle\Entity\ConImagen;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
@@ -40,7 +40,7 @@ class Persona implements UserInterface, \Serializable
     private $Grupos;
     
     /**
-     * @ORM\ManyToMany(targetEntity="PersonaRol", inversedBy="Personas")
+     * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol")
      * @ORM\JoinTable(name="Base_Persona_PersonaRol")
      */
     private $UsuarioRoles;
@@ -82,12 +82,12 @@ class Persona implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Salt = '23d0f70792accd85ccf1b09f892a89d2';                 // Sal predeterminada
+    private $Salt = '892ddb02bed8aafcddbff7f78f8841d6';                 // Sal predeterminada
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Password = 'VYHNTJyqYCoQQ0UI7V/HKYyJ5Ak06MCxQQFuhwxK';     // Contraseña predeterminada 123456
+    private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d';     // Contraseña predeterminada 123456
     
     /**
      * @ORM\Column(type="string", length=255)

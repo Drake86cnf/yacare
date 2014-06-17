@@ -53,14 +53,14 @@ trait ConEliminar {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
 
-            if(in_array('Yacare\BaseBundle\Entity\Suprimible', class_uses($entity))) {
+            if(in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
                 // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
                 $entity->Suprimir();
                 $em->persist($entity);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
                 return $this->afterEliminar($entity, true);
-            } else if(in_array('Yacare\BaseBundle\Entity\Eliminable', class_uses($entity))) {
+            } else if(in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                 // Es eliminable... lo elimino de verdad
                 $em->remove($entity);
                 $em->flush();

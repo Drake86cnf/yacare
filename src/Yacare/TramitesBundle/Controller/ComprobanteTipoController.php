@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("comprobantetipo/")
  */
-class ComprobanteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ComprobanteTipoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     public function guardarActionPrePersist($entity, $editForm) {
         // Crear o actualizar un instrumento asociado

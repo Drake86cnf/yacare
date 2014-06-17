@@ -9,14 +9,14 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoAsignacionDetalle
 {
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="Relevamiento")

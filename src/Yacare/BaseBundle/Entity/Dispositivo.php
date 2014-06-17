@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\BaseBundle\Entity\Dispositivo
  *
  * @ORM\Table(name="Base_Dispositivo")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
@@ -18,9 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dispositivo
 {
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Versionable;
     
     /**
      * @ORM\Column(type="string", length=255)

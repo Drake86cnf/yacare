@@ -8,17 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\ObrasParticularesBundle\Entity\InspeccionComercio
  *
  * @ORM\Table(name="ObrasParticulares_InspeccionComercio")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class InspeccionComercio
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Yacare\ComercioBundle\Entity\ConActividades;
     use \Yacare\ExpedientesBundle\Entity\ConExpediente;
     use \Yacare\TramitesBundle\Entity\ConTitular;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 //    use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     

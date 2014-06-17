@@ -11,14 +11,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("relevamiento/resutlado/")
  */
-class RelevamientoResultadoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
     function __construct() {
         $this->BundleName = 'Inspeccion';
         $this->EntityName = 'RelevamientoResultado';
-        $this->OrderBy = 'Grupo, Nombre';
+        $this->OrderBy = 'Grupo, nombre';
         parent::__construct();
     }
 }

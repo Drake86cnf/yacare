@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * @Route("actatalonario/")
  */
-class ActaTalonarioController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
 {
     /**
      * @Route("/ajax_persona", name="ajax_persona")

@@ -17,7 +17,7 @@ class LicitacionType extends AbstractType
                 'class' => 'YacareOrganizacionBundle:Departamento',
                 'required' => false,
                 'empty_value' => false,
-                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) {
+                'query_builder' => function(\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i')
                         ->orderBy('i.MaterializedPath', 'ASC');
                 },

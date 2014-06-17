@@ -1,9 +1,9 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Agentes{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'YacareBaseBundle::buscar.html.twig' %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hover">
     <thead>
@@ -21,8 +21,8 @@
             <td>{{ entity.Id }}</td>
             <td>{{ entity }}</td>
             <td>{{ entity.Departamento }}</td>
-            <td>{{ entity.FechaIngreso|localizeddate('medium', 'none') }}</td>
-            <td>{{ entity.FechaBaja|localizeddate('medium', 'none') }}</td>
+            <td>{{ entity.FechaIngreso|tapir_fecha('medium', 'none') }}</td>
+            <td>{{ entity.FechaBaja|tapir_fecha('medium', 'none') }}</td>
         </tr>
     {% endfor %}
     </tbody>

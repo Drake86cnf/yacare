@@ -10,15 +10,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Yacare\BaseBundle\Entity\Impresion
  *
  * @ORM\Table(name="Base_Impresion")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Impresion
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Suprimible;
-    use \Yacare\BaseBundle\Entity\Importable;
-    use \Yacare\BaseBundle\Entity\ConImagen;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
+    use \Tapir\BaseBundle\Entity\ConImagen;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     public function __construct()

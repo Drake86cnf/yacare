@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * @Route("licitacion/")
  */
-class LicitacionController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConImprimir;
     use \Yacare\BaseBundle\Controller\ConEliminar;

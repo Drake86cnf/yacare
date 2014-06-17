@@ -1,0 +1,120 @@
+<!-- left menu starts -->
+<ul class="nav navbar-nav side-nav">
+    {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-home fa-fw"></i> Catastro <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_partida_listar') }}">Partidas</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_calle_listar') }}">Calles</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_catastro_zona_listar') }}">Zonas</a></li>
+        </ul>
+    </li>
+    {% endif %}
+
+    {% if is_expr_granted("hasAnyRole('ROLE_COMPRAS')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money fa-fw"></i> Compras <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_compras_licitacion_listar') }}"> Licitaciones</a></li>
+        </ul>
+    </li>
+    {% endif %}
+        
+   {% if is_expr_granted("hasAnyRole('ROLE_COMERCIO')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart fa-fw"></i> Comercio <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_comercio_listar') }}"> Comercios</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar') }}"> Certificados de habilitación</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}"> Trámites de habilitación</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_local_listar') }}"> Locales</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actividad_listar') }}"> Actividades</a></li>
+        </ul>
+    </li>
+    {% endif %}
+    
+    {% if is_expr_granted("hasAnyRole('ROLE_TRAMITES')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-suitcase fa-fw"></i> Trámites <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_tramitetipo_listar') }}"> Tipos de trámite</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_comprobantetipo_listar') }}"> Tipos de comprobante</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_instrumento_listar') }}"> Instrumentos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_listar') }}"> Requisitos</a></li>
+        </ul>
+    </li>
+    {% endif %}
+
+    {% if is_expr_granted("hasAnyRole('ROLE_INSPECCION')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fire-extinguisher fa-fw"></i> Inspección <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_actatipo_listar') }}">Tipos de acta</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_actatalonario_listar') }}">Talonarios de acta</a></li>
+        
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamiento_listar') }}"> Relevamientos</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}"> Tipos de resultado</a></li>
+        </ul>
+    </li>
+    {% endif %}
+    
+    {% if is_expr_granted("hasAnyRole('ROLE_BROMATOLOGIA')") %}
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flask fa-fw"></i> Bromatología <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_bromatologia_actarutinacomercio_listar') }}">Actas comercios</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_bromatologia_actabromatologicaveterinaria_listar') }}">Actas bromatologicas veterinarias</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_bromatologia_actarutinadecomiso_listar') }}">Actas decomisos</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_bromatologia_actarutinatransporte_listar') }}">Actas transportes</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_bromatologia_actarutinacontrolplagas_listar') }}">Actas control de plagas</a></li>
+        </ul>
+    </li>   
+    {% endif %}
+    
+    {% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES')") %}
+     <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-building-o fa-fw"></i> Obras particulares <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_obrasparticulares_inspeccioncomercio_listar') }}">Inspección a comercios</a></li>
+        </ul>
+    </li>
+    {% endif %}
+    
+    {% if is_expr_granted("hasAnyRole('ROLE_ZOONOSIS')") %}
+     <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-circle-o fa-fw"></i> Zoonosis <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_microchip_listar') }}">Microchips</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_veterinario_listar') }}">Veterinarios</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_ataque_listar') }}">Ataques</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_zoonosis_raza_listar') }}">Razas</a></li>
+        </ul>
+    </li>
+    {% endif %}
+    
+    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+    <li class="divider"></li>
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i> Administración <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_listar') }}">Personas</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_listar') }}">Agentes</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('tapir_base_usuario_listar') }}">Usuarios</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_personarol_listar') }}">Roles</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_dispositivogenerico_listar') }}">Dispositivos</a></li>
+        </ul>
+    </li>    
+    {% endif %}
+    {% if is_expr_granted("hasAnyRole('ROLE_SEGURIDAD')") %}
+    <li class="divider"></li>
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shield fa-fw"></i> Seguridad <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_seguridad_camara_listar') }}">Cámaras</a></li>          
+        </ul>
+    </li>
+    {% endif %}
+</ul>
+<!-- left menu ends -->

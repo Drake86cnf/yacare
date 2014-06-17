@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("tramite/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
 {
     function __construct() {
         parent::__construct();
@@ -86,7 +86,7 @@ class TramiteController extends \Yacare\BaseBundle\Controller\YacareAbmControlle
         }
         
         if($Comprob) {
-            $RutaComprob = \Yacare\BaseBundle\Helper\StringHelper::ObtenerRutaBase($Comprob->getComprobanteTipo()->getClase());
+            $RutaComprob = \Tapir\BaseBundle\Helper\StringHelper::ObtenerRutaBase($Comprob->getComprobanteTipo()->getClase());
         } else {
             $RutaComprob = null;
         }

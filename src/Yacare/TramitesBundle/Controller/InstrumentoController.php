@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("instrumento/")
  */
-class InstrumentoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class InstrumentoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     public function __construct() {
         parent::__construct();

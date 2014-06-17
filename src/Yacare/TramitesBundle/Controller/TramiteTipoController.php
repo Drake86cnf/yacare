@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("tramitetipo/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteTipoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     public function guardarActionPrePersist($entity, $editForm) {
         // Crear o actualizar un requisito asociado

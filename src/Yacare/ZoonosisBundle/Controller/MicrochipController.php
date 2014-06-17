@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("microchip/")
  */
-class MicrochipController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class MicrochipController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

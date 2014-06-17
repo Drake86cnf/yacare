@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacion
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class RelevamientoAsignacion
@@ -19,10 +19,10 @@ class RelevamientoAsignacion
     UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=(SELECT COUNT(DISTINCT Detalle_id) FROM Inspeccion_RelevamientoAsignacionResultado WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id IN (SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id=Inspeccion_RelevamientoAsignacion.id));
     */
 
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
 
     /**

@@ -1,9 +1,9 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Departamentos{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'YacareBaseBundle::buscar.html.twig' %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <div class="tree">
 {% set lastNodeLevel = -1 %}
@@ -57,7 +57,7 @@ $(function () {
 });
 </script>
 
-{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% include 'TapirBaseBundle::paginar.html.twig' %}
 
 {% endblock %}
 

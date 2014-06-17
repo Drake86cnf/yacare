@@ -1,4 +1,4 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Terminar trámite {{ entity }}{% endblock %}
 
@@ -8,9 +8,9 @@
         <i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
 
         <p>
-            El trámite Nº {{ entity.id }} iniciado el {{ entity.createdAt|localizeddate('full', 'medium')|lower }} finalizó
+            El trámite Nº {{ entity.id }} iniciado el {{ entity.createdAt|tapir_fecha('full', 'medium')|lower }} finalizó
             {% if entity.FechaTerminado %}
-                el {{ entity.FechaTerminado|localizeddate('full', 'short')|lower }} ({{ entity.FechaTerminado|time_ago }})
+                el {{ entity.FechaTerminado|tapir_fecha('full', 'short')|lower }} ({{ entity.FechaTerminado|tapir_hacetiempo }})
             {% endif %}
         </p>
 

@@ -6,15 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\ComercioBundle\Entity\Local
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Local")
  */
 class Local {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
     //use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
-    use \Yacare\BaseBundle\Entity\Suprimible;
-    use \Yacare\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     

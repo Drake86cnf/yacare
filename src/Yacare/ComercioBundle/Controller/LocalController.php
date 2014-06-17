@@ -9,10 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("local/")
  */
-class LocalController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class LocalController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
-    use \Yacare\BaseBundle\Controller\ConBuscar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
 
     public function __construct() {
         $this->BundleName = 'Comercio';

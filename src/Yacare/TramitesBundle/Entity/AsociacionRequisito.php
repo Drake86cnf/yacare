@@ -11,14 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * Representa la asociación entre un requisito y un trámite, y sus condiciones.
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo_Requisito")
  */
 class AsociacionRequisito
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConObs;
-    use \Yacare\BaseBundle\Entity\Eliminable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\Eliminable;
 
     /**
      * @ORM\ManyToOne(targetEntity="TramiteTipo", inversedBy="AsociacionRequisitos")

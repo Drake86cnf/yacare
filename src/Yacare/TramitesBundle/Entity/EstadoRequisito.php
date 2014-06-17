@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Define el estado en el que se encuentra un requisito asociado a un trámite
  * en curso.
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_EstadoRequisito",
  *      uniqueConstraints={
  *          @ORM\UniqueConstraint(name="TramiteAsociacionRequisito", columns={"Tramite_id", "AsociacionRequisito_id"})
@@ -24,8 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EstadoRequisito
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**

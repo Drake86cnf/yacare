@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("relevamientoasignacion/")
  */
-class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     
@@ -46,7 +46,7 @@ class RelevamientoAsignacionController extends \Yacare\BaseBundle\Controller\Yac
     
     private function ObtenerRelevamientos() {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT r.id, r.Nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.Nombre");
+        $query = $em->createQuery("SELECT r.id, r.nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.nombre");
         return $query->getResult();
     }
 

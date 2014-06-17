@@ -17,7 +17,7 @@ class DomicilioType extends AbstractType
                 'required'  => false,
                 'attr' => array('style' => 'width: 240px;'),
                 'empty_value' => 'Otra (escribir a continuación)',
-                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) { return $er->createQueryBuilder('i'); }
+                'query_builder' => function(\Tapir\BaseBundle\Entity\TapirBaseRepository $er) { return $er->createQueryBuilder('i'); }
                 ))
             ->add('DomicilioCalleNombre', null, array(
                 'label' => ' ',

@@ -1,4 +1,4 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Asignaciones{% endblock %}
 
@@ -14,7 +14,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
         {% for relev in relevamientos %}
-            <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', arrastre|merge({ 'filtro_relevamiento': relev.id })) }}">{{ relev.Nombre }}</a></li>
+            <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path('yacare_inspeccion_relevamientoasignacion_listar', arrastre|merge({ 'filtro_relevamiento': relev.id })) }}">{{ relev.nombre }}</a></li>
         {% endfor %}
             </ul>
         </div>

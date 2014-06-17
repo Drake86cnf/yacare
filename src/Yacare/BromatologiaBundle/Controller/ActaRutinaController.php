@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("actarutina/")
  */
-class ActaRutinaController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ActaRutinaController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

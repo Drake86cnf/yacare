@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("libreta/")
  */
-class LibretaController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class LibretaController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     

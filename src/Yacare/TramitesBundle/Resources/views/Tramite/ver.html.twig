@@ -1,4 +1,4 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Trámite Nº {{ entity.id }}<small> {{ entity }}</small>{% endblock %}
 
@@ -6,10 +6,10 @@
 
 <div class="row">
     <div class="col-lg-8">
-        <p>El trámite fue presentado el {{ entity.createdAt|localizeddate('full', 'short')|lower }}
-            ({{ entity.createdAt|time_ago }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong>
+        <p>El trámite fue presentado el {{ entity.createdAt|tapir_fecha('full', 'short')|lower }}
+            ({{ entity.createdAt|tapir_hacetiempo }}) y está actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong>
             {% if entity.Estado == 100 and entity.FechaTerminado %}
-                . El trámite finalizó el día {{ entity.FechaTerminado|localizeddate('full', 'short')|lower }}.
+                . El trámite finalizó el día {{ entity.FechaTerminado|tapir_fecha('full', 'short')|lower }}.
             {% else %}
                 con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
             {% endif %}
@@ -132,7 +132,7 @@
                 <span class="text text-muted">N/A</span>
             {% endif %}
         </td>
-        <td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|localizeddate('medium', 'none') }}</td>
+        <td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
     </tr>
 {% endfor %}
     </tbody>

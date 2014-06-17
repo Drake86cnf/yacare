@@ -1,13 +1,13 @@
-{% extends 'YacareBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}{% endblock %}
 
 {% block pagina_contenido %}
 
 <div class="jumbotron">
-    <h1>Bienvenido <img class="pull-right" src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}" style="padding: 32px; transform: scaleX(-1);" alt="Yacaré" /></h1>
+    <h1>Bienvenido <img class="pull-right" src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}" style="padding: 32px; transform: scaleX(-1);" alt="{{ tapir_nombreaplicacion }}" /></h1>
     
-    <p>Sistema de gestión del Municipio de Río Grande.</p>
+    <p>{{ tapir_cliente }}.</p>
 </div>
 
 {% if app.user is defined %}
@@ -17,8 +17,8 @@
         Usted está conectado como <span class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.Nombre }} {{ app.user.Apellido }}</a>
         <ul class="dropdown-menu">
-            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_editarperfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
-            <li><a data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_persona_cambiarcontrasena') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('usuario_editarperfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
+            <li><a data-toggle="modal" data-target="#modal" href="{{ path('usuario_cambiarcontrasena') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
             <li class="divider"></li>
             <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Desconectarse</a></li>
         </ul>

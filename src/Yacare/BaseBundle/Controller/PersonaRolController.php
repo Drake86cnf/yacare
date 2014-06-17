@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("personarol/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class PersonaRolController extends YacareAbmController
+class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

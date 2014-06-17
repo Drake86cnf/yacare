@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("requisito/")
  */
-class RequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class RequisitoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     public function __construct() {
         parent::__construct();

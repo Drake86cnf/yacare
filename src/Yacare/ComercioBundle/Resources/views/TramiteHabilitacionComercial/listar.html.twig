@@ -3,7 +3,7 @@
 {% block pagina_titulo %}Trámites de habilitación comercial{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'YacareBaseBundle::buscar.html.twig' %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hoverselect">
     <thead>
@@ -48,7 +48,7 @@
     </tbody>
 </table>
 
-{% include 'YacareBaseBundle::paginar.html.twig' %}
+{% include 'TapirBaseBundle::paginar.html.twig' %}
 
 <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_consultar', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consulta</a>
 <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo trámite de habilitación comercial</a>

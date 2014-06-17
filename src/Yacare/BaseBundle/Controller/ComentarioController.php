@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("comentario/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class ComentarioController extends YacareBaseController
+class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
 {
     /**
      * @Route("listar")

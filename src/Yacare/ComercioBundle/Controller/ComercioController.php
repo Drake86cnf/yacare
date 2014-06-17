@@ -8,9 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("comercio/")
  */
-class ComercioController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConBuscar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
     
     /**
      * @Route("altamanual/")

@@ -9,15 +9,15 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionResultado
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoAsignacionResultado
 {
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\ConImagen;
-    use \Yacare\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConImagen;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")

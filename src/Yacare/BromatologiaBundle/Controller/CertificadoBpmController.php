@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("certificadobpm/")
  */
-class CertificadoBpmController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class CertificadoBpmController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;   
 }

@@ -26,7 +26,7 @@ class YacareGenericAbmControllerTest extends PruebaFuncional
     
     public function disabledtestbuscarAction()
     {
-        if(\Yacare\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Yacare\\BaseBundle\\Controller\\ConBuscar') == false) {
+        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Yacare\\BaseBundle\\Controller\\ConBuscar') == false) {
             $this->markTestSkipped('Este controlador no soporta búsquedas.');
             return;
         }

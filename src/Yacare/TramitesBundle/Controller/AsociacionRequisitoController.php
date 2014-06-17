@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("asociacionrequisito/")
  */
-class AsociacionRequisitoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
     

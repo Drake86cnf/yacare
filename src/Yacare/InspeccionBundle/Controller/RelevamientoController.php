@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * 
  * @Route("relevamiento/")
  */
-class RelevamientoController extends \Yacare\BaseBundle\Controller\YacareAbmController
+class RelevamientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
 }

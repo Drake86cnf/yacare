@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Yacare\ExpedientesBundle\Entity\SeguimientoExpediente
  *
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Expedientes_SeguimientoExpediente")
  */
 class SeguimientoExpediente {
-    use \Yacare\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConId;
     use \Yacare\ExpedientesBundle\Entity\ConExpediente;
-    use \Yacare\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
 }

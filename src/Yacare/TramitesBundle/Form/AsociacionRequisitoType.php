@@ -23,7 +23,7 @@ class AsociacionRequisitoType extends AbstractType
                 'class' => 'YacareTramitesBundle:Requisito',
                 'required'  => true,
                 'multiple' => false,
-                'query_builder' => function(\Yacare\BaseBundle\Entity\YacareBaseRepository $er) { return $er->createQueryBuilder('i'); }
+                'query_builder' => function(\Tapir\BaseBundle\Entity\TapirBaseRepository $er) { return $er->createQueryBuilder('i'); }
                 ))
             ->add('Propiedad', 'choice', array(
                 'label' => 'De',

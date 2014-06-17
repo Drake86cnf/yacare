@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *      }
  * )
- * @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\YacareBaseRepository")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * 
  * UPDATE Catastro_Partida 
 	SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);
@@ -39,11 +39,11 @@ SELECT COUNT(id), Seccion, Macizo, Parcela, UnidadFuncional FROM Catastro_Partid
  */
 class Partida
 {
-    use \Yacare\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
-    use \Yacare\BaseBundle\Entity\Versionable;
-    //use \Yacare\BaseBundle\Entity\Importable;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    //use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
