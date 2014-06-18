@@ -44,7 +44,7 @@ abstract class BaseController extends Controller
         }
         
         if(!isset($this->ConservarVariables)) {
-            $this->ConservarVariables = array('filtro_buscar', 'page');
+            $this->ConservarVariables = array('filtro_buscar');
         }
     }
 
