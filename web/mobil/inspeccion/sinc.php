@@ -76,7 +76,7 @@
         $insert->bindValue('ubicacion', $row['Ubicacion'], PDO::PARAM_STR);
         $insert->bindValue('resultado_id', $row['Resultado_id'], PDO::PARAM_INT);
         $insert->bindValue('detalle_id', $row['Detalle_id'], PDO::PARAM_INT);
-        $insert->execute();
+        @$insert->execute();
         if ($insert->rowCount()) {
             $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacionDetalle SET ResultadosCantidad=ResultadosCantidad+1 WHERE id=" . $row['Detalle_id']);
             $YacareDbRemota->exec("UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=DetallesResultadosCantidad+1 WHERE id=" . $row['Asignacion_id']);
