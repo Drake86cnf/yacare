@@ -42,6 +42,7 @@ UPDATE Inspeccion_RelevamientoAsignacion
     public function listarAction(Request $request) {
         $filtro_relevamiento = $request->query->get('filtro_relevamiento');
         $filtro_asignacion = $request->query->get('filtro_asignacion');
+        $filtro_archivado = $request->query->get('filtro_archivado');
         
         if($filtro_relevamiento) {
             $this->Joins[] = " JOIN r.Asignacion a";
@@ -65,8 +66,9 @@ UPDATE Inspeccion_RelevamientoAsignacion
     {
         $filtro_asignacion = $request->query->get('filtro_asignacion');
         
-        if($filtro_asignacion)
+        if($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
+        }
 
         $res = parent::listarAction($request);
         

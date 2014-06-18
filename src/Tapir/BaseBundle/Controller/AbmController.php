@@ -218,10 +218,9 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $this->obtenerEntidadPorId($id);
         } else {
-            $entityName = $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
-            $entity = new $entityName();
+            $entity = $this->crearNuevaEntidad($request);
         }
 
         if (!$entity) {
@@ -260,7 +259,7 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $this->obtenerEntidadPorId($id);
         } else {
             $entity = $this->crearNuevaEntidad($request);
         }
@@ -370,5 +369,20 @@ abstract class AbmController extends BaseController
         $entityName = $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
         $entity = new $entityName();
         return $entity;
+    }
+    
+    
+    /**
+     * Obtiene una entidad de la base de datos mediante su Id.
+     * 
+     * Permite a los controladores derivados intervenir la obtención de 
+     * entidades durante los procesos de edición, eliminación, archivado, etc.
+     * 
+     * @param integer
+     * @return object
+     */
+    protected function obtenerEntidadPorId($id) {
+        $em = $this->getDoctrine()->getManager();
+        return $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
     }
 }

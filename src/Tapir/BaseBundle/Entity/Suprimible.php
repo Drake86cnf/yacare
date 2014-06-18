@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait Suprimible
 {
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
     private $Suprimido = 0;
     

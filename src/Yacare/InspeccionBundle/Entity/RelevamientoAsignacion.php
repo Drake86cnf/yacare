@@ -23,6 +23,7 @@ class RelevamientoAsignacion
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Archivable;
 
 
     /**

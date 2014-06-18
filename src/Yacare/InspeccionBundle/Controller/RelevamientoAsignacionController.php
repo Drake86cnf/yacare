@@ -17,9 +17,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Yacare\BaseBundle\Controller\ConArchivar;
     
     function __construct() {
         $this->ConservarVariables[] = 'filtro_relevamiento';
+        $this->ConservarVariables[] = 'filtro_archivado';
         
         parent::__construct();
     }
@@ -31,9 +33,16 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
      */
     public function listarAction(Request $request) {
         $filtro_relevamiento = $request->query->get('filtro_relevamiento');
+        $filtro_archivado = $request->query->get('filtro_archivado');
         
         if($filtro_relevamiento) {
             $this->Where .= " AND r.Relevamiento=$filtro_relevamiento";
+        }
+        
+        if($filtro_archivado) {
+            $this->Where .= " AND r.Archivado=1";
+        } else {
+            $this->Where .= " AND r.Archivado=0";
         }
         
         $res = parent::listarAction($request);
@@ -64,6 +73,11 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     
     
     public function afterEliminar($entity, $eliminado = false)
+    {
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(array('filtro_relevamiento' => $entity->getRelevamiento()->getId()), false)));
+    }
+    
+    public function afterArchivar($entity, $archivado = false)
     {
         return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(array('filtro_relevamiento' => $entity->getRelevamiento()->getId()), false)));
     }
