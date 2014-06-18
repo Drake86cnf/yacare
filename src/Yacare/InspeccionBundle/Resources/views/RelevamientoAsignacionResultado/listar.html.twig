@@ -1,12 +1,11 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Resultados de las asignaciones{% endblock %}
+{% block pagina_titulo %}Resultados de las asignaciones ({{ entities|length }}){% endblock %}
 
 {% set filtro_relevamiento = app.request.query.get('filtro_relevamiento') %}
 {% set filtro_asignacion = app.request.query.get('filtro_asignacion') %}
 
 {% block pagina_contenido %}
-    {{ entities|length }}
 {% if entities is empty %}
 <div>
     <div class="alert alert-success">
