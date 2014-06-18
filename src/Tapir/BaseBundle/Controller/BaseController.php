@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador base abstracto para derivar todos los controladores de Yacaré.
+ * Controlador base abstracto para derivar todos los controladores de Tapir.
  * 
  * Controlador abstracto con funciones básicas que se heredan en todos los controladores de la aplicación.
  * 
@@ -18,12 +18,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 abstract class BaseController extends Controller
 {
+    protected $VendorName;
     protected $BundleName;
     protected $EntityName;
     protected $BaseRouteEntityName;
     protected $ConservarVariables;
     
     function __construct() {
+        if(!isset($this->VendorName)) {
+            $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
+        }
+        
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
 
         if(!isset($this->BundleName)) {
@@ -64,7 +69,7 @@ abstract class BaseController extends Controller
         $request = $this->getRequest();
 
         if($incluirDelSistema) {
-            $valorInicial['bundlename']  = strtolower('yacare_' . $this->BundleName);
+            $valorInicial['bundlename']  = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
             $valorInicial['entitylabel'] = $this->obtenerEtiquetaEntidad();
             $valorInicial['entitylabelplural'] = $this->obtenerEtiquetaEntidadPlural();
@@ -103,17 +108,18 @@ abstract class BaseController extends Controller
      * las rutas de este controlador.
      * 
      * Por ejemplo, para la acción "guardar", devuelve
-     * "yacare_bundle_entidad_guardar" (donde "bundle" y "entidad" tienen sus
+     * "tapir_bundle_entidad_guardar" (donde "bundle" y "entidad" tienen sus
      * respectivos valores para el controlador actual).
      * 
      * @param string $action La acción para la cual obtener la ruta.
      * @return string El nombre de la ruta para la acción solicitada o el nombre de la ruta base para este controlador.
      */
     public function obtenerRutaBase($action = null) {
-        if($action)
-            return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
-        else
-            return strtolower('yacare_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
+        if($action) {
+            return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
+        } else {
+            return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
+        }
     }
     
     

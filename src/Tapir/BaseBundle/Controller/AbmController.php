@@ -72,7 +72,7 @@ abstract class AbmController extends BaseController
      * @return string
      */
     protected function obtenerComandoSelect($filtro_buscar = null) {
-        $dql = "SELECT r FROM Yacare" . $this->BundleName . "Bundle:" . $this->EntityName . " r";
+        $dql = "SELECT r FROM " . $this->VendorName . $this->BundleName . "Bundle:" . $this->EntityName . " r";
         
         if(count($this->Joins) > 0) {
             foreach($this->Joins as $join) {
@@ -82,7 +82,7 @@ abstract class AbmController extends BaseController
         
         $where = "";
         
-        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait('Yacare\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
+        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->VendorName . '\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
@@ -144,6 +144,8 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
         
+        echo '<pre>' . $dql . '</pre>';
+        
         if($this->Limit) {
             $query->setMaxResults($this->Limit);
         }
@@ -166,9 +168,9 @@ abstract class AbmController extends BaseController
     
     protected function obtenerFormType() {
         if(isset($this->FormTypeName)) {
-            return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
+            return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
         } else {
-            return 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+            return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
         }
     }
     
@@ -181,7 +183,7 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         }
 
         if (!$entity) {
@@ -216,9 +218,9 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         } else {
-            $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+            $entityName = $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
             $entity = new $entityName();
         }
 
@@ -258,7 +260,7 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         } else {
             $entity = $this->crearNuevaEntidad($request);
         }
@@ -306,7 +308,7 @@ abstract class AbmController extends BaseController
                 'delete_form' => $deleteForm ? $deleteForm->createView() : null
                 ));
 
-            return $this->render('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
+            return $this->render($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
             return $this->guardarActionAfterSuccess($entity);
         }
@@ -365,7 +367,7 @@ abstract class AbmController extends BaseController
      * @return object
      */
     protected function crearNuevaEntidad(Request $request) {
-        $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+        $entityName = $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
         $entity = new $entityName();
         return $entity;
     }

@@ -8,7 +8,7 @@ class StringHelper {
     
     /*
      * Obtiene el nombre del bundle y de la entidad a partide una clase.
-     * Por ejemplo, para \Yacare\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
+     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
      */
     static public function ObtenerBundleYEntidad($nombreclase) {
         $PartesNombreClase = explode('\\', $nombreclase);
@@ -30,10 +30,22 @@ class StringHelper {
         return $res;
     }
     
+    
+    /*
+     * Obtiene el nombre la aplicación (vendor) a partir de una clase.
+     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
+     */
+    static public function ObtenerAplicacion($nombreclase) {
+        $PartesNombreClase = explode('\\', $nombreclase);
+        
+        return $PartesNombreClase[0];
+    }
+    
+    
     /*
      * Obtiene una ruta base a partir de una clase.
-     * Por ejemplo, para "\Yacare\BaseBundle\Controller\PersonaController" devuelve "yacare_base_persona"
-     * Para ("\Yacare\BaseBundle\Controller\PersonaController", "editar") devuelve "yacare_base_persona_editar"
+     * Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController" devuelve "tapir_base_persona"
+     * Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve "tapir_base_persona_editar"
      */
     static public function ObtenerRutaBase($nombreclase, $accion = null) {
         // Quito barras iniciales y finales

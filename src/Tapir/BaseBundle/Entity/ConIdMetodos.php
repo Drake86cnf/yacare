@@ -37,7 +37,7 @@ trait ConIdMetodos
     
     public function getYri($incluye_version = true)
     {
-        // get_class() devuelve Yacare\TalBundle\Entity\TalEntidad
+        // get_class() devuelve Tapir\TalBundle\Entity\TalEntidad
         // Tomo el segundo y cuarto valor (índices 1 y 3)
         $PartesNombreClase = explode('\\', get_class());
         $BundleName = str_replace('Bundle', '', $PartesNombreClase[1]);
