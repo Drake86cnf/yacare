@@ -6,6 +6,7 @@
 {% set filtro_asignacion = app.request.query.get('filtro_asignacion') %}
 
 {% block pagina_contenido %}
+    {{ entities|length }}
 {% if entities is empty %}
 <div>
     <div class="alert alert-success">
