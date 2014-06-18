@@ -144,7 +144,7 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
         
-        echo '<pre>' . $dql . '</pre>';
+        //echo '<pre>' . $dql . '</pre>';
         
         if($this->Limit) {
             $query->setMaxResults($this->Limit);
