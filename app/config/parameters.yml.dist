@@ -13,8 +13,11 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    debug_toolbar:          true
+    debug_redirects:        false
+    use_assetic_controller: true
+
     locale:            es
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     tapir.cliente: 'Municipio de Río Grande'
-    
