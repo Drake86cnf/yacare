@@ -21,6 +21,7 @@ abstract class BaseController extends Controller
     protected $VendorName;
     protected $BundleName;
     protected $EntityName;
+    protected $CompleteEntityName;
     protected $BaseRouteEntityName;
     protected $ConservarVariables;
     
@@ -37,6 +38,10 @@ abstract class BaseController extends Controller
 
         if(!isset($this->EntityName)) {
             $this->EntityName = $PartesNombreClase[1];
+        }
+        
+        if(!isset($this->CompleteEntityName)) {
+            $this->CompleteEntityName = '\\' . $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' .  $this->EntityName;
         }
         
         if(!isset($this->BaseRouteEntityName)) {
@@ -71,6 +76,7 @@ abstract class BaseController extends Controller
         if($incluirDelSistema) {
             $valorInicial['bundlename']  = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
+            $valorInicial['completeentityname'] = strtolower($this->CompleteEntityName);
             $valorInicial['entitylabel'] = $this->obtenerEtiquetaEntidad();
             $valorInicial['entitylabelplural'] = $this->obtenerEtiquetaEntidadPlural();
             $valorInicial['baseroute'] = $this->obtenerRutaBase();

@@ -88,8 +88,8 @@ class AsociacionRequisito
 
     
     public function getCondicion() {
-        if($this->Obs) {
-            return $this->Obs;
+        if($this->getObs()) {
+            return $this->getObs();
         }
         
         return $res = '';

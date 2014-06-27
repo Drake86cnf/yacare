@@ -10,12 +10,12 @@
     <p>{{ tapir_cliente }}.</p>
 </div>
 
-{% if app.user is defined %}
+{% if app.user %}
 <div class="container-fluid">
 <div class="row">
     <div class="col-xs-8 col-sm-8 col-md-8">
         Usted está conectado como <span class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.Nombre }} {{ app.user.Apellido }}</a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user }}</a>
         <ul class="dropdown-menu">
             <li><a data-toggle="ajax-link" href="{{ path('usuario_editarperfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
             <li><a data-toggle="modal" data-target="#modal" href="{{ path('usuario_cambiarcontrasena') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>

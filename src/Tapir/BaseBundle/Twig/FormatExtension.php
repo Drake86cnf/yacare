@@ -22,7 +22,7 @@ class FormatExtension extends \Twig_Extension
     public function tapir_importe($number, $decimals = 2, $decPoint = '.', $thousandsSep = ',')
     {
         $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-        $price = '$ ' . $price;
+        $price = '$ ' . $price;
 
         return $price;
     }

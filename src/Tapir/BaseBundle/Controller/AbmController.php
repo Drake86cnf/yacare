@@ -30,7 +30,11 @@ abstract class AbmController extends BaseController
         }
         
         if(!isset($this->OrderBy)) {
-            $this->OrderBy = null;
+            if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
+                $this->OrderBy = 'nombre';
+            } else {
+                $this->OrderBy = null;
+            }
         }
         
         if(!isset($this->Where)) {
@@ -72,7 +76,7 @@ abstract class AbmController extends BaseController
      * @return string
      */
     protected function obtenerComandoSelect($filtro_buscar = null) {
-        $dql = "SELECT r FROM " . $this->VendorName . $this->BundleName . "Bundle:" . $this->EntityName . " r";
+        $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";
         
         if(count($this->Joins) > 0) {
             foreach($this->Joins as $join) {
@@ -82,7 +86,7 @@ abstract class AbmController extends BaseController
         
         $where = "";
         
-        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->VendorName . '\\' . $this->BundleName . 'Bundle\Entity\\' . $this->EntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
+        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
@@ -183,7 +187,7 @@ abstract class AbmController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         if($id) {
-            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->CompleteEntityName)->find($id);
         }
 
         if (!$entity) {
@@ -366,7 +370,7 @@ abstract class AbmController extends BaseController
      * @return object
      */
     protected function crearNuevaEntidad(Request $request) {
-        $entityName = $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+        $entityName = $this->CompleteEntityName;
         $entity = new $entityName();
         return $entity;
     }
@@ -383,6 +387,6 @@ abstract class AbmController extends BaseController
      */
     protected function obtenerEntidadPorId($id) {
         $em = $this->getDoctrine()->getManager();
-        return $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        return $em->getRepository($this->CompleteEntityName)->find($id);
     }
 }

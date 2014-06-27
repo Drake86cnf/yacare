@@ -4,8 +4,8 @@
 
 {% macro listar(tramitetipo, nivel) %}
 
-{% if tramitetipo.Obs %}
-<p>{{ tramitetipo.Obs|raw }}</p>
+{% if tramitetipo.obs %}
+<p>{{ tramitetipo.obs|raw }}</p>
 {% endif %}
 
 {% if tramitetipo.AsociacionRequisitos|length > 0 %}
@@ -36,8 +36,8 @@
 {% endmacro %}
 
 {% macro mostrarrequisito(requisito) %}
-{% if requisito.Obs %}
-    <p>{{ requisito.Obs }}</p>
+{% if requisito.obs %}
+    <p>{{ requisito.obs }}</p>
 {% endif %}
 {% if requisito.Lugar or requisito.Url %}<p class="text-info">{% endif %}
 {% if requisito.Lugar %}Se obtiene en <strong>{{ requisito.Lugar }}</strong> {% endif %}
