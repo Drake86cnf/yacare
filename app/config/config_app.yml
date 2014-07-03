@@ -8,10 +8,17 @@ twig:
         tapir_menu: 'YacareBaseBundle:Default:menu.html.twig'
 
 assetic:
+    bundles:        [ 'YacareBaseBundle' ]
     assets:
-        tapir_favicon: 'favicon.ico'
-        tapir_css:
+        tapir_logoaplicacion:
             inputs:
-        tapir_js:
+                - '@YacareBaseBundle/Resources/public/img/muni_logo240.png'
+        tapir_logoaplicacion16:
             inputs:
-                        
+                - '@YacareBaseBundle/Resources/public/img/escudo64.png'
+        tapir_logoaplicacion64:
+            inputs:
+                - '@YacareBaseBundle/Resources/public/img/escudo64.svg'
+        tapir_favicon:
+            inputs:
+                - '@YacareBaseBundle/Resources/public/img/escudo64.png'
