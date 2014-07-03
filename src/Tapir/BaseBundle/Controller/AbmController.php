@@ -184,10 +184,8 @@ abstract class AbmController extends BaseController
      */
     public function verAction($id = null)
     {
-        $em = $this->getDoctrine()->getManager();
-
         if($id) {
-            $entity = $em->getRepository($this->CompleteEntityName)->find($id);
+            $entity = $this->obtenerEntidadPorId($id);
         }
 
         if (!$entity) {

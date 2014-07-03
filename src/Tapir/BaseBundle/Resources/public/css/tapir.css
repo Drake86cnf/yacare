@@ -24,6 +24,10 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 
 /* Global Styles */
 
+html {
+    overflow-y: scroll;
+}
+
 body {
   margin-top: 50px;
 }
@@ -113,30 +117,31 @@ table.tablesorter thead tr th:hover {
   /* Side Nav */
 
   .side-nav {
-	margin-left: -225px;
-	left: 225px;
-	width: 225px;
-	position: fixed;
-	top: 50px;
-	height: 100%;
-	border-radius: 0;
-	border: none;
-	background-color: #222222;
-	overflow-y: auto;
+    margin-left: -225px;
+    left: 225px;
+    width: 225px;
+    position: fixed;
+    top: 50px;
+    float: left;
+    height: 1080px !important;
+    border-radius: 0;
+    border: none;
+    background-color: #222222;
+    overflow-y: auto;
   }
 
   /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
 
   .side-nav>li.dropdown>ul.dropdown-menu {
-	position: relative;
-	min-width: 225px;
-	margin: 0;
-	padding: 0;
-	border: none;
-	border-radius: 0;
-	background-color: transparent;
-	box-shadow: none;
-	-webkit-box-shadow: none;
+    position: relative;
+    min-width: 225px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
   }
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a {
@@ -157,22 +162,58 @@ table.tablesorter thead tr th:hover {
 
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
-	background-color: #080808;
+    background-color: #080808;
   }
 
   /* Nav Messages */
 
   .messages-dropdown .dropdown-menu {
-	min-width: 300px;
+    min-width: 300px;
   }
 
   .messages-dropdown .dropdown-menu li a {
-	white-space: normal;
+    white-space: normal;
   }
 
   .navbar-collapse {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    /* padding-left: 15px !important;
+    padding-right: 15px !important; */
+    height: auto;
+    border-top: 0;
+    box-shadow: none;
+    max-height: none;
+    padding-left:0;
+    padding-right:0;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    width: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .navbar-collapse.in {
+    overflow-x: visible;
+  }
+  .navbar
+  {
+    max-width:300px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  .navbar-nav,
+  .navbar-nav > li,
+  .navbar-left,
+  .navbar-right,
+  .navbar-header
+  {
+    float:none !important;
+  }
+
+  .navbar-right .dropdown-menu {left:0;right:auto;}
+  .navbar-collapse .navbar-nav.navbar-right:last-child
+  {
+    margin-right: 0;
   }
 }
 
