@@ -12,12 +12,19 @@
         <link rel="icon" href="{{ asset_url }}">
     {% endimage %}
     
-    <link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
+    
+{% block stylesheets %}
+    {% stylesheets '@tapir_less' combine=false %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
 
+    <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <disabled-link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
     
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.0.min.js') }}"></script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/modernizr.custom.85769.js') }}"></disabled-script>
 </head>
 
 <body>
@@ -36,5 +43,8 @@
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
+    {% if app.environment != 'test' %}
+        <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
+    {% endif %}
   </body>
 </html>

@@ -12,25 +12,19 @@
     <link rel="icon" href="{{ asset_url }}">
 {% endimage %}
 
-{% block javascripts %}
-    {% javascripts '@jquery_js' '@bootstrap_js' '@modernizr_js' filter='?yui_js' combine=true %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
 
 {% block stylesheets %}
-    {% stylesheets '@bootstrap_less' '@tapir_less' combine=false %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% stylesheets '@tapir_less' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
 {% endblock %}
 
-    <disabled-link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
-
+    <disabled-link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
     
     <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/modernizr.custom.85769.js') }}"></disabled-script>
-    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></disabled-script>
   </head>
 
   <body>
@@ -109,13 +103,13 @@
     <div class="modal hidden-print" id="modal" role="dialog">
         Cargando...
     </div>
-
+    
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-ui-1.10.4.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.ui.datepicker-es.js') }}"></script>
-    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></disabled-script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-ui-1.10.4.custom.min.js') }}"></disabled-script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.ui.datepicker-es.js') }}"></disabled-script>
+    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
     {% if app.environment != 'test' %}
         <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
@@ -128,7 +122,7 @@
         selector: '.tinymce',
         language: 'es',
         spellchecker_languages: '+Spanish=sp',
-        content_css: '{{ asset('bundles/tapirbase/css/tapir.css') }}',
+        content_css: '{% stylesheets '@tapir_less' combine=false %}{{ asset_url }}{% endstylesheets %}',
         plugins: 'link paste spellchecker textcolor',
         toolbar1: 'bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
         toolbar2: "",
@@ -138,7 +132,7 @@
         statusbar: false,
         paste_auto_cleanup_on_paste: true,
         use_callback_tinymce_init: false,
-        jquery_script_url: '{{ asset('bundles/tapirbase/js/jquery-2.1.0.min.js') }}'
+        jquery_script_url: '{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}'
      });
 </script>
 {# tinymce_init() #}
