@@ -2,7 +2,7 @@
 
 namespace Yacare\SeguridadBundle\Controller;
 
-class CamaraControllerTest extends \Yacare\BaseBundle\Tests\Controller\YacareGenericAbmControllerTest
+class CamaraControllerTest extends \Tapir\BaseBundle\Tests\Controller\GenericAbmControllerTest
 {
     public function setUp()
     {

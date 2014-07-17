@@ -1,8 +1,8 @@
 <?php
 
-namespace Yacare\BaseBundle\Tests\Entity;
+namespace Tapir\BaseBundle\Tests\Entity;
 
-use Yacare\BaseBundle\Tests\PruebaUnitaria;
+use Tapir\BaseBundle\Tests\PruebaUnitaria;
 
 abstract class GenericEntityTest extends PruebaUnitaria
 {

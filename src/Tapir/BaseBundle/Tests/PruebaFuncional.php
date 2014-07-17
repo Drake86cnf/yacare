@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Tests;
+namespace Tapir\BaseBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

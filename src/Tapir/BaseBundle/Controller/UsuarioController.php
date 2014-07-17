@@ -19,7 +19,7 @@ class UsuarioController extends AbmController
     private $PassOriginal = '';
     
     function __construct() {
-        $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
+        //$entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
         $this->BundleName = $PartesNombreClase[0];

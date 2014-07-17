@@ -15,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
  * @ORM\DiscriminatorMap({
- *      "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial"
+ *      "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
+ *      "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat"
  * })
  */
 abstract class Tramite

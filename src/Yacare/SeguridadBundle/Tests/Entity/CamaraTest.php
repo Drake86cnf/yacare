@@ -2,7 +2,7 @@
 
 namespace Yacare\SeguridadBundle\Entity;
 
-use Yacare\BaseBundle\Tests\PruebaUnitaria;
+use Tapir\BaseBundle\Tests\PruebaUnitaria;
 
 class CamaraTest extends PruebaUnitaria
 {

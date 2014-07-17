@@ -1,28 +1,20 @@
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans300.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(../fonts/OpenSans400.woff) format('woff');
-}
-
-
 /* 
-Author: Start Bootstrap - http://startbootstrap.com
-'SB Admin' HTML Template by Start Bootstrap
-
-All Start Bootstrap themes are licensed under Apache 2.0. 
-For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
+    Created on : 03/07/2014, 20:08:28
+    Author     : Ernesto Carrea <equistango@gmail.com>
 */
 
-/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
-
-/* Global Styles */
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url("../fonts/OpenSans300.woff") format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url("../fonts/OpenSans400.woff") format('woff');
+}
 
 html {
     overflow-y: scroll;

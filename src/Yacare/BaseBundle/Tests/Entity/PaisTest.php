@@ -2,7 +2,7 @@
 
 namespace Yacare\BaseBundle\Entity;
 
-use Yacare\BaseBundle\Tests\Entity\GenericEntityTest;
+use Tapir\BaseBundle\Tests\Entity\GenericEntityTest;
 
 class PaisTest extends GenericEntityTest
 {

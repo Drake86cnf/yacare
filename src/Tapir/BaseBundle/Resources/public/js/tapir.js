@@ -1,3 +1,13 @@
+var nombreAplicacion, nombreCliente;
+
+tapirNombreAplicacion = 'Aplicación sin título';
+tapirNombreCliente = 'Cliente';
+
+function tapirIniciar(nombreAplicacion, nombreCliente) {
+    tapirNombreAplicacion = nombreAplicacion;
+    tapirNombreCliente = nombreCliente;
+}
+
 /**
  * Función ayudante de los campos de formulario Symfony tipo "entity_id"
  */
@@ -75,9 +85,9 @@ function yacareCargarUrlEn(url, destino) {
         
         var newTitle = $('#page-title').text();
         if(newTitle !== undefined) {
-            document.title = 'Yacaré - ' + newTitle;
+            document.title = tapirNombreAplicacion + ': ' + newTitle;
         } else {
-            newTitle = 'Yacaré';
+            newTitle = tapirNombreAplicacion;
             document.title = newTitle;
         }
         

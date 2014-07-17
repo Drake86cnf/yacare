@@ -31,8 +31,8 @@ class Local {
     private $Tipo;
     
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float")
      */
     private $Superficie;
     

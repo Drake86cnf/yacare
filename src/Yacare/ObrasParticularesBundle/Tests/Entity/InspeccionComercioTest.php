@@ -2,7 +2,7 @@
 
 namespace Yacare\ObrasParticularesBundle\Entity;
 
-use Yacare\BaseBundle\Tests\Entity\GenericEntityTest;
+use Tapir\BaseBundle\Tests\Entity\GenericEntityTest;
 
 class InspeccionComercioTest extends GenericEntityTest
 {

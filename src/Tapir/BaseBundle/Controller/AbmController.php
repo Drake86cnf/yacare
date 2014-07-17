@@ -72,8 +72,8 @@ abstract class AbmController extends BaseController
      * @see $Limit
      * @see $Paginar
      * 
-     * @param type $filtro_buscar
-     * @return string
+     * @param string $filtro_buscar El filtro a aplicar en formato DQL.
+     * @return string Una comando DQL para obtener el listado.
      */
     protected function obtenerComandoSelect($filtro_buscar = null) {
         $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";

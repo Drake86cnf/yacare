@@ -12,17 +12,17 @@ trait ConExpediente {
     protected $ExpedienteNumero;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Yacare\ExpedientesBundle\Entity\Expediente")
+     * ORM\ManyToOne(targetEntity="Yacare\ExpedientesBundle\Entity\Expediente")
      */
-    protected $Expediente;
+    //protected $Expediente;
 
-    public function getExpediente() {
+    /* public function getExpediente() {
         return $this->Expediente;
     }
 
     public function setExpediente($Expediente) {
         $this->Expediente = $Expediente;
-    }
+    } */
     
     public function getExpedienteNumero() {
         return $this->ExpedienteNumero;

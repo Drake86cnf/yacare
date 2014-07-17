@@ -5,7 +5,7 @@ namespace Yacare\BaseBundle\Controller;
 use Yacare\BaseBundle\Tests\YacareWebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class PersonaGrupoControllerTest extends \Yacare\BaseBundle\Tests\Controller\YacareGenericAbmControllerTest
+class PersonaGrupoControllerTest extends \Tapir\BaseBundle\Tests\Controller\GenericAbmControllerTest
 {
     public function setUp()
     {

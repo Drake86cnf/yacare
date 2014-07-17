@@ -1,11 +1,11 @@
 <?php
 
-namespace Yacare\BaseBundle\Controller;
+namespace Tapir\BaseBundle\Controller;
 
-use Yacare\BaseBundle\Tests\PruebaFuncional;
-use Yacare\BaseBundle\Controller\YacareBaseController;
+use Tapir\BaseBundle\Tests\PruebaFuncional;
+use Tapir\BaseBundle\Controller\BaseController;
 
-abstract class YacareBaseControllerTest extends PruebaFuncional
+abstract class BaseControllerTest extends PruebaFuncional
 {
     protected $item;
 

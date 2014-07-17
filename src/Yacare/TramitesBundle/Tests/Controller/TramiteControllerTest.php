@@ -2,7 +2,7 @@
 
 namespace Yacare\TramitesBundle\Controller;
 
-class TramiteControllerTest extends \Yacare\BaseBundle\Tests\Controller\YacareGenericAbmControllerTest
+class TramiteControllerTest extends \Tapir\BaseBundle\Tests\Controller\GenericAbmControllerTest
 {
     public function setUp()
     {

@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-{% set tapir_mostrarmodal = 0 %}
-{% set block_pagina_titulo = block('pagina_titulo') %}  
+<!DOCTYPE html>{% set tapir_mostrarmodal = 0 %}{% set block_pagina_titulo = block('pagina_titulo') %}  
 <html lang="es">
   <head>
     <meta charset="utf-8">
@@ -8,20 +6,31 @@
     <meta name="description" content="Sistema de gestión {{ tapir_nombreaplicacion }}">
     <meta name="author" content="Ernesto N. Carrea">
 
-    <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title>
+    <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not empty %}: {{ block_pagina_titulo|raw }}{% endif %}</title>
 
-    {% image '@tapir_favicon' %}
-        <link rel="icon" href="{{ asset_url }}">
-    {% endimage %}
-    
-    
-    <link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
+{% image '@tapir_favicon' %}
+    <link rel="icon" href="{{ asset_url }}">
+{% endimage %}
+
+{% block javascripts %}
+    {% javascripts '@jquery_js' '@bootstrap_js' '@modernizr_js' filter='?yui_js' combine=true %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@bootstrap_less' '@tapir_less' combine=false %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+    <disabled-link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
 
     <link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
     
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/modernizr.custom.85769.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/modernizr.custom.85769.js') }}"></disabled-script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></disabled-script>
   </head>
 
   <body>
@@ -104,7 +113,7 @@
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-ui-1.10.4.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.ui.datepicker-es.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
+    <disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></disabled-script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
@@ -113,6 +122,8 @@
     {% endif %}
    
 <script type="text/javascript">
+    tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
+    
     tinymce.init({
         selector: '.tinymce',
         language: 'es',
@@ -132,6 +143,6 @@
 </script>
 {# tinymce_init() #}
     
-    {% block pagina_scripts %}{% endblock %}
+{% block pagina_scripts %}{% endblock %}
   </body>
 </html>

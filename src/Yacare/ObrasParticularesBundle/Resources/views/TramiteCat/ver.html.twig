@@ -1,0 +1,29 @@
+{% extends 'YacareTramitesBundle:Tramite:ver.html.twig' %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+
+{% block tramite_encab %}
+{{ parent() }}
+
+<p>El uso del suelo para la actividad <strong>{{ entity.Comercio.ActividadPrincipal|lower }}</strong>
+    en la zona es 
+    {% if entity.UsoSuelo > 3 %}
+        <i class="fa fa-warning text-danger"></i>
+    {% endif %}
+    <strong>{{ entity.UsoSueloNombre|lower }}</strong>.</p>
+{% endblock %}
+
+{% block tramite_requisitos %}
+{{ parent() }}
+{% endblock %}
+
+{% endblock %}
+
+{% block pagina_acciones2 %}
+    {{ parent() }}
+    {% if entity.Estado < 90 and is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+        <a data-toggle="ajax-link" class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar el trámite</a>
+    {% endif %}
+{% endblock %}

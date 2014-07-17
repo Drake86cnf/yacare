@@ -2,7 +2,7 @@
 
 namespace Yacare\ObrasParticularesBundle\Controller;
 
-class InspeccionComercioControllerTest extends \Yacare\BaseBundle\Tests\Controller\YacareGenericAbmControllerTest
+class InspeccionComercioControllerTest extends \Tapir\BaseBundle\Tests\Controller\GenericAbmControllerTest
 {
     public function setUp()
     {

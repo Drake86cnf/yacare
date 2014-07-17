@@ -2,7 +2,7 @@
 
 namespace Yacare\TramitesBundle\Controller;
 
-class EstadoRequisitoControllerTest extends \Yacare\BaseBundle\Tests\Controller\YacareGenericAbmControllerTest
+class EstadoRequisitoControllerTest extends \Tapir\BaseBundle\Tests\Controller\GenericAbmControllerTest
 {
     public function setUp()
     {
