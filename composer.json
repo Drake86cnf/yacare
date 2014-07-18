@@ -29,7 +29,7 @@
         "craue/formflow-bundle": "~2.0",
         "liip/imagine-bundle": "dev-master",
         "liuggio/excelbundle": "~2.0",
-        "oyejorge/less.php": "~1.5"
+        "oyejorge/less.php": "~1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
