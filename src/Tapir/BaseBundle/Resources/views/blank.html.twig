@@ -15,7 +15,7 @@
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
     
 {% block stylesheets %}
-    {% stylesheets '@tapir_less' combine=false %}
+    {% stylesheets '@TapirBaseBundle/Resources/less/tapir.less' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
 {% endblock %}
@@ -40,11 +40,11 @@
     {% block pagina_contenido %}{% endblock %}
 
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('@TapirBaseBundle/Resources/public/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('@TapirBaseBundle/Resources/public/js/jquery.history.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('@TapirBaseBundle/Resources/public/js/tapir.js') }}"></script>
     {% if app.environment != 'test' %}
-        <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('@TapirBaseBundle/Resources/public/js/tapir-ajax.js') }}"></script>
     {% endif %}
   </body>
 </html>

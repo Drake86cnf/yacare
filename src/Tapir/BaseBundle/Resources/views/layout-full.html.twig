@@ -15,7 +15,7 @@
     <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
 
 {% block stylesheets %}
-    {% stylesheets '@tapir_less' %}
+    {% stylesheets '@TapirBaseBundle/Resources/less/tapir.less' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
 {% endblock %}
@@ -122,7 +122,7 @@
         selector: '.tinymce',
         language: 'es',
         spellchecker_languages: '+Spanish=sp',
-        content_css: '{% stylesheets '@tapir_less' combine=false %}{{ asset_url }}{% endstylesheets %}',
+        content_css: '{% stylesheets '@TapirBaseBundle/Resources/less/tapir.less' %}{{ asset_url }}{% endstylesheets %}',
         plugins: 'link paste spellchecker textcolor',
         toolbar1: 'bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
         toolbar2: "",
