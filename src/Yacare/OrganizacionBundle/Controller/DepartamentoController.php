@@ -13,12 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DepartamentoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     
-    public function __construct() {
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->Paginar = false;
         $this->OrderBy = "MaterializedPath";
-        parent::__construct();
     }
     
     /**

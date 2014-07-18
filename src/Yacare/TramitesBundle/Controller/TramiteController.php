@@ -18,8 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables[] = 'parent_id';
         $this->Where = 'r.Estado<90';
     }

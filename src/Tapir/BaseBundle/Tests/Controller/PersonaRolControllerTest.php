@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Controller;
+namespace Tapir\BaseBundle\Controller;
 
 use Yacare\BaseBundle\Tests\YacareWebTestCase;
 use Symfony\Component\HttpFoundation\Response;

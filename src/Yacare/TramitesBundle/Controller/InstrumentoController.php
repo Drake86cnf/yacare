@@ -9,8 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class InstrumentoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    public function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables = array ('filtro_buscar');
     }
 }

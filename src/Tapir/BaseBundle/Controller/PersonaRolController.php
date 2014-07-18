@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Controller;
+namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,5 +16,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
 }

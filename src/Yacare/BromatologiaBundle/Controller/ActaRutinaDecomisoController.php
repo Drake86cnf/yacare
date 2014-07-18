@@ -10,5 +10,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ActaRutinaDecomisoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
 }

@@ -13,8 +13,8 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
     
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
         
         $this->ConservarVariables[] = 'filtro_seccion';
         $this->ConservarVariables[] = 'filtro_macizo';

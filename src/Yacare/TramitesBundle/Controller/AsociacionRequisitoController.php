@@ -11,10 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     
-    public function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables = array('parent_id');
         $this->Paginar = false;
     }

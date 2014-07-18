@@ -16,14 +16,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConArchivar;
     
-    function __construct() {
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables[] = 'filtro_relevamiento';
         $this->ConservarVariables[] = 'filtro_archivado';
-        
-        parent::__construct();
     }
     
     

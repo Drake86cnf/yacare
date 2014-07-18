@@ -28,11 +28,11 @@ UPDATE Inspeccion_RelevamientoAsignacion
     
     use \Yacare\BaseBundle\Controller\ConImagen;
     
-    function __construct() {
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables[] = 'filtro_relevamiento';
         $this->ConservarVariables[] = 'filtro_asignacion';
-        
-        parent::__construct();
     }
     
     /**

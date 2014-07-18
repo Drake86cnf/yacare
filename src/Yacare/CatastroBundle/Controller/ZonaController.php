@@ -13,8 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ZonaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
 
         $this->BuscarPor = 'Codigo, Nombre';
         $this->OrderBy = 'Nombre';

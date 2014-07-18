@@ -1,6 +1,6 @@
 <?php
 
-namespace Yacare\BaseBundle\Controller;
+namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

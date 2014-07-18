@@ -52,7 +52,7 @@ class PruebaFuncional extends WebTestCase
      */
     public function clientRequestAction($actionname, $method = 'GET') {
         $url = $this->getUrl($this->item->obtenerRutaBase($actionname));
-        return $this->clientRequest($url);
+        return $this->clientRequest($url, $method);
     }
     
     /**
@@ -74,8 +74,11 @@ class PruebaFuncional extends WebTestCase
      */
     public function clientTestResponse($crawler) {
         if (!$this->client->getResponse()->isSuccessful()) {
-            echo $this->client->getResponse()->getContent();
             $block = $crawler->filter('div.text-exception h1');
+            if ($block->count() == 0) {
+                $block = $crawler->filter('h1');
+            }
+            echo substr($this->client->getResponse()->getContent(), 0, 1024);
             if ($block->count()) {
                 $error = $block->text();
                 return $error;

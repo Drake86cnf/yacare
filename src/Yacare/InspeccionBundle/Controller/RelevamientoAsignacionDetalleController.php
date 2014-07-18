@@ -13,11 +13,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoAsignacionDetalleController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function __construct() {
-        $this->BundleName = 'Inspeccion';
-        $this->EntityName = 'RelevamientoAsignacionDetalle';
+    function IniciarVariables() {
+        parent::IniciarVariables();
+
         $this->Where = 'r.ResultadosCantidad>0';
-        parent::__construct();
     }
     
     /**

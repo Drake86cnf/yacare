@@ -11,13 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class LocalController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     use \Tapir\BaseBundle\Controller\ConBuscar;
 
-    public function __construct() {
-        $this->BundleName = 'Comercio';
-        $this->EntityName = 'Local';
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->BuscarPor = null;
     }
     

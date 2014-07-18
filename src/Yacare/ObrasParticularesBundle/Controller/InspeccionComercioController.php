@@ -14,8 +14,8 @@ class InspeccionComercioController extends \Tapir\BaseBundle\Controller\AbmContr
 {
     use \Yacare\BaseBundle\Controller\ConImprimir;
     
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
         
         $this->BuscarPor = 'id, ExpedienteNumero, TitularNombre';
         $this->OrderBy = 'id DESC';

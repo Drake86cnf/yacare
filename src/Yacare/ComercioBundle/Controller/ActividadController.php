@@ -12,15 +12,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     
-    public function __construct() {
-        $this->BundleName = 'Comercio';
-        $this->EntityName = 'Actividad';
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->BuscarPor = 'Nombre,Clamae2014';
         $this->OrderBy = 'MaterializedPath';
         $this->Paginar = false;
-        parent::__construct();
     }
     
     

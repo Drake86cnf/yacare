@@ -13,12 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConImprimir;
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConQr;
-    
-    public function __construct() {
-        $this->BundleName = 'Compras';
-        $this->EntityName = 'Licitacion';
-        parent::__construct();
-    }
 }

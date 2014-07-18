@@ -24,8 +24,19 @@ abstract class BaseController extends Controller
     protected $CompleteEntityName;
     protected $BaseRouteEntityName;
     protected $ConservarVariables;
-    
+
     function __construct() {
+        $this->IniciarVariables();
+    }
+    
+    
+    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+    {
+        parent::setContainer($container);
+        $this->IniciarVariables();
+    }
+    
+    function IniciarVariables() {
         if(!isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
         }

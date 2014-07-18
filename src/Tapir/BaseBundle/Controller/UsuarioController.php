@@ -18,9 +18,10 @@ class UsuarioController extends AbmController
 {
     private $PassOriginal = '';
     
-    function __construct() {
-        //$entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
-        
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        $this->CompleteEntityName = $this->container->getParameter('tapir_usuarios_entidad');
+
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
         $this->BundleName = $PartesNombreClase[0];
         $this->EntityName = $PartesNombreClase[1];
@@ -29,7 +30,7 @@ class UsuarioController extends AbmController
         $this->BaseRouteEntityName = 'Usuario';
         $this->BuscarPor = 'NombreVisible, Username';
         $this->FormTypeName = 'Usuario';
-        parent::__construct();
+        
     }
     
     

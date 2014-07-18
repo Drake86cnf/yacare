@@ -13,8 +13,9 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
 {
     use \Yacare\BaseBundle\Controller\ConAdjuntos;
     
-    public function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables = array('parent_id');
         $this->Paginar = false;
     }

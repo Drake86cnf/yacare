@@ -16,11 +16,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    Use \Yacare\BaseBundle\Controller\ConEliminar;
+    Use \Tapir\BaseBundle\Controller\ConEliminar;
     Use \Tapir\BaseBundle\Controller\ConPerfil;
     
-    function __construct() {
+    function IniciarVariables() {
+        parent::IniciarVariables();
         $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
-        parent::__construct();
     }
 }

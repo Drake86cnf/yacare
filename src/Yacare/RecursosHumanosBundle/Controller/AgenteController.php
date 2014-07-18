@@ -17,8 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
 
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
         $this->Joins[] = ' JOIN r.Persona p';

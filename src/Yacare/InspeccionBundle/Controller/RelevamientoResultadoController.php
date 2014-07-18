@@ -13,12 +13,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
     
-    function __construct() {
-        $this->BundleName = 'Inspeccion';
-        $this->EntityName = 'RelevamientoResultado';
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->OrderBy = 'Grupo, nombre';
-        parent::__construct();
     }
 }

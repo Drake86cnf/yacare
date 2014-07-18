@@ -22,8 +22,8 @@ abstract class AbmController extends BaseController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
 
-    function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
 
         if(!isset($this->Paginar)) {
             $this->Paginar = true;

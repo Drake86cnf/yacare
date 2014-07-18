@@ -9,8 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class RequisitoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    public function __construct() {
-        parent::__construct();
+    function IniciarVariables() {
+        parent::IniciarVariables();
+        
         $this->ConservarVariables = array ('filtro_buscar');
         $this->Where = 'r.TramiteTipoEspejo IS NULL';
     }
