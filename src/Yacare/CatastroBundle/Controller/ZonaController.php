@@ -16,7 +16,7 @@ class ZonaController extends \Tapir\BaseBundle\Controller\AbmController
     function IniciarVariables() {
         parent::IniciarVariables();
 
-        $this->BuscarPor = 'Codigo, Nombre';
-        $this->OrderBy = 'Nombre';
+        $this->BuscarPor = 'Codigo, nombre';
+        $this->OrderBy = 'nombre';
     }
 }
