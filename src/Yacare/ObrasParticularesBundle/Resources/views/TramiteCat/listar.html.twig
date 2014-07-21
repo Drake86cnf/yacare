@@ -20,7 +20,7 @@
         <tr onclick="yacareNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}');">
             <td>{{ entity.id }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Comercio.ActividadPrincipal.Nombre|length > 50 ? entity.Comercio.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.Comercio.ActividadPrincipal.Nombre }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.ActividadSecundaria.Nombre|length > 50 ? entity.ActividadSecundaria.Nombre|slice(0, 50) ~ '...' : entity.ActividadSecundaria.Nombre }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.ActividadTerciaria.Nombre|length > 50 ? entity.ActividadTerciaria.Nombre|slice(0, 50) ~ '...' : entity.ActividadTerciaria.Nombre }}</td>
             <td class="hidden-sm hidden-xs">{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
