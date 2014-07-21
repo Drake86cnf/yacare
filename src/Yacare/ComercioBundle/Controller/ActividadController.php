@@ -13,6 +13,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
     use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
     
     function IniciarVariables() {
         parent::IniciarVariables();

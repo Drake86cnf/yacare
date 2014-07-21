@@ -6,8 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Tapir\BaseBundle\Helper\Damm;
 
 /**
- * ConIdMetodos
+ * Trait que agrega los métodos (getter y setter) a una entidad. Requiere ConId.
  *
+ * @see ConId
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConIdMetodos
 {

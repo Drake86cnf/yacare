@@ -24,9 +24,9 @@ abstract class GenericAbmControllerTest extends PruebaFuncional
         );
     }
     
-    public function disabledtestbuscarAction()
+    public function testbuscarAction()
     {
-        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Yacare\\BaseBundle\\Controller\\ConBuscar') == false) {
+        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Tapir\\BaseBundle\\Controller\\ConBuscar') == false) {
             $this->markTestSkipped('Este controlador no soporta búsquedas.');
             return;
         }

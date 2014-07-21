@@ -6,6 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Trait que agrega la capacidad de eliminar entidades.
+ * 
+ * La entidad controlada por el controlador debe ser Eliminable o Suprimible.
+ * 
+ * @see \Tapir\BaseBundle\Entity\Eliminable
+ * @see \Tapir\BaseBundle\Entity\Suprimible
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
+ */
 trait ConEliminar {
 
     protected function crearFormEliminar($id)

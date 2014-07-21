@@ -5,7 +5,9 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Archivable
+ * Trait que agrega la capacidad de archivar una entidad.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait Archivable
 {

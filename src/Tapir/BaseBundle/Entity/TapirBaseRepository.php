@@ -4,6 +4,20 @@ namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Repositorio básico de Tapir.
+ * 
+ * Reconoce entidades Suprimibles, Archivables y ConNombre y actua 
+ * inteligentemente agregando ORDER BY o WHERE.
+ * 
+ * Todos los repositorios de la aplicación deben derivar de este.
+ * 
+ * @see Suprimible
+ * @see Archivable
+ * @see ConNombre
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
+ */
 class TapirBaseRepository extends EntityRepository
 {
     public function createQueryBuilder($alias)

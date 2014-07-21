@@ -6,8 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Tapir\BaseBundle\Helper\Damm;
 
 /**
- * ConId
+ * Trait que agrega la columna "id" a una entidad. Los métodos (getter y setter)
+ * están en un trait separado.
+ * 
+ * @see ConIdMetodos
  *
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConId
 {

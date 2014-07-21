@@ -5,7 +5,9 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConNotas
+ * Agrega una columna de notas a una entidad y sus métodos (getter y setter).
+ *
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConNotas
 {

@@ -5,7 +5,14 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Suprimible
+ * Trait que agrega la capacidad de suprimir (soft-delete) una entidad.
+ * 
+ * La supresión no es permanente, se hace levantando una bandera en la columna
+ * "suprimido".
+ * 
+ * @see Eliminable
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait Suprimible
 {

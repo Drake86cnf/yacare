@@ -5,8 +5,9 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConImagen
- *
+ * Agrega una propiedad de imagen a una entidad.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConImagen
 {

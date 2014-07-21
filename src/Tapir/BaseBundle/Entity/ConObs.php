@@ -5,8 +5,9 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConObs
+ * Agrega una columna de observaciones a una entidad y sus métodos (getter y setter).
  *
+ * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConObs
 {

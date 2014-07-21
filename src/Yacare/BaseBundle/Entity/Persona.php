@@ -8,7 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * Yacare\BaseBundle\Entity\Persona
+ * Una persona (física o jurídica).
+ * 
+ * Representa una persona física o jurídica. Es el repositorio principal de
+ * personas, que todas las entidades que representan personas (por ejemplo
+ * Usuario, Agente, Aroveedor, etc.) deben encapsular.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table(name="Base_Persona", 
  *      uniqueConstraints={

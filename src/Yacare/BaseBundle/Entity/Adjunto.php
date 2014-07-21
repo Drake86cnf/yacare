@@ -6,8 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Yacare\BaseBundle\Entity\Adjunto
+ * Representa un archivo adjuntado a otra entidad.
  *
+ * @author Ernesto Carrea <equistango@gmail.com>
+ * 
  * @ORM\Table(name="Base_Adjunto")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */

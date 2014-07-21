@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
 {
+    use \Tapir\BaseBundle\Controller\ConBuscar;
     Use \Tapir\BaseBundle\Controller\ConEliminar;
     Use \Tapir\BaseBundle\Controller\ConPerfil;
     
