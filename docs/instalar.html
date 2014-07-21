@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBliC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Yacaré - Instalación</title>
+	<meta name="author" content="Ernesto Carrea">
+</head>
+
+<body lang="es-AR" dir="ltr">
+
+    <h1>Instalación de Yacaré para desarrollo</h1>
+
+    <h2>En Linux</h2>
+
+    <ol>
+    <li>Es necesario instalar los siguientes paquetes:
+        <ul>
+        <li>PHP 5.4 o superior</li>
+        <li>MySQL 5.1 o superior</li>
+        <li>Subversion y GIT</li>
+        </ul>
+
+    <p>Para ello, ejecutar:</p>
+    En Ubuntu:
+    <pre>
+    apt-get install subversion git \
+        php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu \
+        php5-xdebug
+    </pre>
+    En Fedora:
+    <pre>
+    yum install subversion git php-pear-Image-GraphViz graphviz-php \
+        php php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
+        php-mbstring
+    </pre>
+        
+    <li>También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
+
+    <li>Abrir una consola de comandos para los siguientes pasos.
+
+    <li>Descargar Yacaré desde SVN:
+    <pre>
+    mkdir yacare
+    cd yacare
+    svn co http://webmuni/svn/yacare/trunk ./
+    </pre>
+
+    <li>Descargar Composer y crear el proyecto (para descargar vendors)
+    <pre>
+    php -r "readfile('https://getcomposer.org/installer');" | php
+    php composer.phar create-project
+    </pre>
+
+    <li>Instalar los assets:
+    <pre>
+    php bin/console assets:install
+    php bin/console assetic:dump
+    </pre>
+
+    <li>Crear la base de datos y el usuario de acceso:
+    <pre>
+    mysql -uroot -p
+    CREATE DATABASE yacadev;
+    GRANT ALL ON yacadev.* TO 'yacadev'@'localhost' IDENTIFIED BY '123456';
+    GRANT ALL ON yacadev.* TO 'yacadev'@'%' IDENTIFIED BY '123456';
+    CREATE DATABASE yacatest;
+    GRANT ALL ON yacatest.* TO 'yacatest'@'localhost' IDENTIFIED BY '123456';
+    GRANT ALL ON yacatest.* TO 'yacatest'@'%' IDENTIFIED BY '123456';
+    EXIT;
+    </pre>
+	
+    <li>Si se dispone de datos de prueba, se los puede incorporar:
+    <pre>
+    mysql -uyacadev -p123456 --database=yacadev &lt; yacadev.sql
+    </pre>
+
+    <li>Actualizar las estructuras de datos
+    <pre>
+    php app/console doctrine:schema:update --force
+    </pre>
+
+    <li>Ejecutar el servidor web de desarrollo:
+    <pre>
+    php bin/console server:run
+    </pre>
+
+    <li>Correr el conjunto de pruebas y generar documentación sobre cobertura:
+    <pre>
+    bin/phpunit -v --coverage-html docs/cov
+    </pre>
+
+    <li>Generar documentación sobre la API:
+    <pre>
+    bin/phpdoc -d src -t docs/class
+    </pre>
+    
+    </ol>
+    
+    <h2>En Windows</h2>
+    <ol>
+        <li>Descargar e instalar su distribución favorita de Linux, por ejemplo Fedora.</li>
+        <li>Continuar desde el paso 1 de la sección anterior.</li>
+    </ol>
+
+</body>
+</html>
