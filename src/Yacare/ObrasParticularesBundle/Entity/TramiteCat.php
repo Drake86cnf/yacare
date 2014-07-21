@@ -50,6 +50,31 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
         $this->Partida = $Partida;
     }
     
+    public function getActividadPrincipal(){
+        return $this->ActividadPrincipal;
+    }
+    
+    public function setActividadPrincipal($ActividadPrincipal){
+        $this->ActividadPrincipal=$ActividadPrincipal;
+    }
+    
+    public function getActividadSecundaria(){
+        return $this->ActividadSecundaria;
+    }
+    
+    public function setActividadSecundaria($ActividadSecundaria){
+        $this->ActividadSecundaria=$ActividadSecundaria;
+    }
+    
+    
+    public function getActividadTerciaria(){
+        return $this->ActividadTerciaria;
+    }
+    
+    public function setActividadTerciaria($ActividadTerciaria){
+        $this->ActividadTerciaria=$ActividadTerciaria;
+    }
+ 
     public function getUsoSuelo() {
         return $this->UsoSuelo;
     }
