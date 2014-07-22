@@ -19,7 +19,7 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         $this->ConservarVariables[] = 'filtro_seccion';
         $this->ConservarVariables[] = 'filtro_macizo';
         $this->ConservarVariables[] = 'filtro_partida';
-        $this->BuscarPor = 'Numero, Nombre';
+        $this->BuscarPor = 'Numero, nombre';
         $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
     
@@ -27,31 +27,22 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
      * @Route("buscar/")
      * @Template()
      */
-    public function buscarAction(Request $request)
-    {
+    public function buscarAction(Request $request) {
         $res = parent::buscarAction($request);
-        
-        //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
-        
         return $res;
     }
-    
     
     /**
      * @Route("buscarresultados/")
      * @Template()
      */
-    public function buscarresultadosAction(Request $request)
-    {
+    public function buscarresultadosAction(Request $request) {
         $res = parent::buscarresultadosAction($request);
-        
-        //$res['secciones'] = $this->ObtenerSecciones();
         $res['calles'] = $this->ObtenerCalles();
-        
         return $res;
     }
-    
+
     // ************** Al importar:
     //UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
     //UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
@@ -122,7 +113,7 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
     
     private function ObtenerCalles() {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT r FROM YacareCatastroBundle:Calle r ORDER BY r.Nombre");
+        $query = $em->createQuery("SELECT r FROM YacareCatastroBundle:Calle r ORDER BY r.nombre");
         return $query->getResult();
     }
 }

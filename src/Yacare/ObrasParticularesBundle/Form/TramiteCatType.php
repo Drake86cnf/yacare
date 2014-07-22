@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TramiteCatType extends AbstractType
+class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -30,7 +30,7 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
 
         $res = parent::guardarActionPrePersist($entity, $editForm);
         
-        $this->setTitular($this->getPartida()->getTitular());
+        //$entity->setTitular($this->getPartida()->getTitular());
 
         $Actividad = $this->getActividadPrincipal();
 

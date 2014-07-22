@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Catastro_Calle",
  *      indexes={
- *          @ORM\Index(name="Catastro_Calle_Nombre", columns={"Nombre"})
+ *          @ORM\Index(name="Catastro_Calle_Nombre", columns={"nombre"})
  *      }
  * )
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

@@ -33,7 +33,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
-            - 'YacareBaseBundle:Form:form_div_layout.html.twig'
+            - 'TapirBaseBundle:Form:form_div_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:

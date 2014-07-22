@@ -25,7 +25,7 @@ class TapirBaseRepository extends EntityRepository
         $res = parent::createQueryBuilder($alias);
         
         if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
-            $res->addOrderBy($alias . '.Nombre');
+            $res->addOrderBy($alias . '.nombre');
         }
         
         if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Tapir\BaseBundle\Entity\Suprimible')) {

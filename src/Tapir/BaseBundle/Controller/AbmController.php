@@ -20,6 +20,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 abstract class AbmController extends BaseController
 {
+    use \Tapir\BaseBundle\Controller\ConBuscar;
+    
     function IniciarVariables() {
         parent::IniciarVariables();
 

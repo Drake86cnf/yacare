@@ -119,7 +119,7 @@ function yacareCargarUrlEn(url, destino) {
  */
 function MejorarElementos() {
     // datepicker
-    if (!Modernizr.inputtypes.date) {
+    /* if (Modernizr && !Modernizr.inputtypes.date) {
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $('.datepicker').datepicker({
             showButtonPanel: true,
@@ -128,7 +128,7 @@ function MejorarElementos() {
             changeMonth: true,
             changeYear: true
             });
-    }
+    } */
 
     // notifications
     $('.noty').click(function(e){
