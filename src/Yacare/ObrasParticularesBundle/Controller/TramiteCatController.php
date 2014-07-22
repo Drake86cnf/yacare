@@ -11,18 +11,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
-    /* public function EmitirComprobante($tramite) {
+    public function EmitirComprobante($tramite) {
         
         $Comprob = parent::EmitirComprobante($tramite);
         
-        $Comprob->setComercio($tramite->getComercio());
+        $Comprob->setLocal($tramite->getLocal());
         $Comprob->setTitular($tramite->getTitular());
-        
-        $tramite->getComercio()->setEstado(100);
-        $tramite->getComercio()->setCertificadoHabilitacion($Comprob);
-        
+       
         return $Comprob;
-    } */
+    }
 
 
     public function guardarActionPrePersist($entity, $editForm) {

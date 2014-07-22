@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ComprobanteTipo", type="string")
  * @ORM\DiscriminatorMap({
- *      "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial"
+ *      "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial",
+ *      "\Yacare\ObrasParticularesBundle\Entity\Cat" = "\Yacare\ObrasParticularesBundle\Entity\Cat"
  * })
  */
 class Comprobante

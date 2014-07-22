@@ -1,0 +1,39 @@
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %}
+
+{% block pagina_titulo %}Certificados de Aptitud Técnica Edilicia{% endblock %}
+
+{% block pagina_contenido %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
+
+<table class="table table-hoverselect">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Titular</th>
+            <th class="hidden-sm hidden-xs">Actividad</th>
+            <th class="hidden-sm hidden-xs">Local</th>
+            <th class="hidden-xs">Fecha</th>
+            <th>Vencimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr onclick="yacareNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}')">
+            <td>{{ entity.Numero }}</td>
+            <td>{{ entity.Titular }}</td>
+            <td class="hidden-sm hidden-xs">{% if entity.ActividadPrincipal %}{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}{% endif %}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
+            <td class="hidden-xs">{{ entity.createdAt|tapir_fecha('medium', 'none') }}</td>
+            <td>{{ entity.Vencimiento|tapir_fecha('medium', 'none') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'TapirBaseBundle::paginar.html.twig' %}
+{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_consultar', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consulta</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Iniciar nuevo trámite de habilitación comercial</a>
+{% endblock %}
