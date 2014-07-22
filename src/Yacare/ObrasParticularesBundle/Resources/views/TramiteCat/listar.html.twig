@@ -11,7 +11,7 @@
             <th>#</th>
             <th class="hidden-sm hidden-xs">Titular</th>
             <th class="hidden-sm hidden-xs">Actividad</th>
-            <th class="hidden-sm hidden-xs">Domicilio</th>
+            <th class="hidden-sm hidden-xs">Local</th>
             <th>Estado</th>
         </tr>
     </thead>
@@ -21,9 +21,7 @@
             <td>{{ entity.id }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.ActividadSecundaria.Nombre|length > 50 ? entity.ActividadSecundaria.Nombre|slice(0, 50) ~ '...' : entity.ActividadSecundaria.Nombre }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.ActividadTerciaria.Nombre|length > 50 ? entity.ActividadTerciaria.Nombre|slice(0, 50) ~ '...' : entity.ActividadTerciaria.Nombre }}</td>
-            <td class="hidden-sm hidden-xs">{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
             <td>
                 {% if entity.Estado < 10 %}
                     <span class="label label-danger">

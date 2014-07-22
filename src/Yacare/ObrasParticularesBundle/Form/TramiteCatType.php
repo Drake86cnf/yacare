@@ -13,12 +13,11 @@ class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Partida', 'entity_id', array(
-                'label' => 'Partida',
-                'class' => 'Yacare\CatastroBundle\Entity\Partida',
-                'required' => true))
-            ->add('Superficie', null, array(
-                'label' => 'Superficie (m²)'))
+            ->add('Local', 'entity_id', array(
+                'label' => 'Local',
+                'class' => 'Yacare\ComercioBundle\Entity\Local',
+                'required'  => true
+                ))
             ->add('ActividadPrincipal', 'entity_id', array(
                 'label' => 'Actividad principal',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',

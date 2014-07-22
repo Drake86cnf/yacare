@@ -44,7 +44,7 @@ class DepositoClase
     
     
     public function __toString() {
-        return $this->Categoria . ': ' . $this->Nombre;
+        return $this->Categoria . ': ' . $this->getNombre();
     }
     
 

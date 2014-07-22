@@ -32,12 +32,12 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
         
         //$entity->setTitular($this->getPartida()->getTitular());
 
-        $Actividad = $this->getActividadPrincipal();
+        $Actividad = $entity->getActividadPrincipal();
 
         // Busco el uso del suelo para esa zona
         $UsoSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
                 ->setParameter('codigo', $Actividad->getCodigoCpu())
-                ->setParameter('sup', $this->getSuperficie())
+                ->setParameter('sup', $entity->getLocal()->getSuperficie())
                 ->setMaxResults(1)
                 ->getResult();
         // Si es un array tomo el primero
@@ -46,7 +46,7 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
         }
 
         if($UsoSuelo) {
-            $Partida = $this->getPartida();
+            $Partida = $entity->getLocal()->getPartida();
             if($Partida) {
                 $Zona = $Partida->getZona();
                 if($Zona) {
@@ -55,7 +55,7 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
             }
         }
         
-        $entity->setNombre('Trámite de CAT de ' . $this->getTitular());
+        $entity->setNombre('Trámite de CAT de ' . $entity->getTitular());
 
         return $res;
     }

@@ -13,14 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\ExpedientesBundle\Entity\ConExpediente;
-    use \Yacare\ComercioBundle\Entity\ConActividades;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-     */
-    protected $Partida;
-    
+    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     
     /**
      * @var string
@@ -30,25 +23,11 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
      */
     private $UsoSuelo;
     
-    /**
-     * @var float
-     * @ORM\Column(type="float")
-     */
-    private $Superficie;
-    
     
     public function UsoSueloNombre() {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
 
-
-    public function getPartida() {
-        return $this->Partida;
-    }
-
-    public function setPartida($Partida) {
-        $this->Partida = $Partida;
-    }
     
     public function getActividadPrincipal(){
         return $this->ActividadPrincipal;
@@ -81,13 +60,5 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 
     public function setUsoSuelo($UsoSuelo) {
         $this->UsoSuelo = $UsoSuelo;
-    }
-    
-    public function getSuperficie() {
-        return $this->Superficie;
-    }
-
-    public function setSuperficie($Superficie) {
-        $this->Superficie = $Superficie;
     }
 }

@@ -24,7 +24,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      * @var string
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * Almacena un el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
+     * Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
      */
     private $UsoSuelo;
 
