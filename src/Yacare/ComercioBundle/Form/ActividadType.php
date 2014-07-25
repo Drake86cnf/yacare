@@ -32,6 +32,16 @@ class ActividadType extends AbstractType
                 'required'  => true,
                 'choices' => array('0' => 'No', '1' => 'Sí')
                 ))
+            ->add('RequiereCamaraGrasa', 'choice', array(
+                'label' => 'Requiere cámara de grasa',
+                'required'  => true,
+                'choices' => array('0' => 'No', '1' => 'Sí')
+                ))
+            ->add('RequiereCamaraBarro', 'choice', array(
+                'label' => 'Requiere cámara de barro',
+                'required'  => true,
+                'choices' => array('0' => 'No', '1' => 'Sí')
+                ))
             ->add('CategoriaAntigua', 'choice', array(
                 'label' => 'Categoría antigua',
                 'required'  => true,

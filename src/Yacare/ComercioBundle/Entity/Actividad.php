@@ -162,6 +162,9 @@ class Actividad implements Tree\NodeInterface
     private $Instructivos;
     
     /**
+     * Indica si es una actividad (final = 1) o una categorización (final = 0).
+     * Sólo pueden seleccionarse como actividades para un comercio las actividades finales.
+     * 
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $Final = false;
@@ -354,5 +357,21 @@ class Actividad implements Tree\NodeInterface
 
     public function setFinal($Final) {
         $this->Final = $Final;
+    }
+    
+    public function getRequiereCamaraBarro() {
+        return $this->RequiereCamaraBarro;
+    }
+
+    public function getRequiereCamaraGrasa() {
+        return $this->RequiereCamaraGrasa;
+    }
+
+    public function setRequiereCamaraBarro($RequiereCamaraBarro) {
+        $this->RequiereCamaraBarro = $RequiereCamaraBarro;
+    }
+
+    public function setRequiereCamaraGrasa($RequiereCamaraGrasa) {
+        $this->RequiereCamaraGrasa = $RequiereCamaraGrasa;
     }
 }
