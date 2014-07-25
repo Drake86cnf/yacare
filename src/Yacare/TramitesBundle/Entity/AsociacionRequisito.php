@@ -18,6 +18,7 @@ class AsociacionRequisito
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConNotas;
     use \Tapir\BaseBundle\Entity\Eliminable;
 
     /**

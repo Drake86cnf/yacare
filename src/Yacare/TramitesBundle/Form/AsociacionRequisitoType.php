@@ -52,6 +52,9 @@ class AsociacionRequisitoType extends AbstractType
                 'label' => 'Opcional',
                 'required'  => false,
                 ))
+            ->add('Notas', null, array(
+                'label' => 'Notas'
+                ))
             ->add('CondicionQue', 'text', array(
                 'label' => 'Sólo si',
                 'required'  => false,
@@ -81,6 +84,7 @@ class AsociacionRequisitoType extends AbstractType
                 ))
             ->add('Obs', null, array(
                 'label' => 'Explicación de la condición',
+                'required'  => false
                 )
         );
     }

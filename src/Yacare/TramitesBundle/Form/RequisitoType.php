@@ -40,6 +40,7 @@ class RequisitoType extends AbstractType
                 ))
             ->add('Obs', null, array(
                 'label' => 'Obs.',
+                'required'  => false
                 ))
         ;
     }
