@@ -28,7 +28,7 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarAction(Request $request) {
         $filtro_buscar = $request->query->get('filtro_buscar');
         
-        if($filtro_buscar) {
+        if ($filtro_buscar) {
             $this->Joins[] = " JOIN r.Partida p";
             $this->Joins[] = " JOIN p.Titular t";
             

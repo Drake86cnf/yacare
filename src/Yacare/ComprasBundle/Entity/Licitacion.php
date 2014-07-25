@@ -105,7 +105,7 @@ class Licitacion
         //   éstas dan como resultado el valor mayoritario (el que se repite 2 veces)
         // A continuación el algoritmo:
         
-        if(($this->Complejidad1 == $this->Complejidad2) && ($this->Complejidad2 == $this->Complejidad3)) {
+        if (($this->Complejidad1 == $this->Complejidad2) && ($this->Complejidad2 == $this->Complejidad3)) {
             // Son 3 iguales
             $this->setComplejidadComputada($this->Complejidad1);
         } else if ($this->Complejidad1 == $this->Complejidad2) {

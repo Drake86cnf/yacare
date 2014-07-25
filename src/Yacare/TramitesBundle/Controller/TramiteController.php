@@ -35,7 +35,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         $em = $this->getDoctrine()->getManager();
         
         $Tramite = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\Tramite')->find($id);
-        if($Tramite && $Tramite->getEstado() == 0) {
+        if ($Tramite && $Tramite->getEstado() == 0) {
             $Tramite->setEstado(10);
             $em->persist($Tramite);
         }
@@ -64,12 +64,12 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         
-        if($entity->getEstado() != 100) {
+        if ($entity->getEstado() != 100) {
             $entity->setEstado(100);
             $entity->setFechaTerminado(new \DateTime());
 
             $Comprob = $this->EmitirComprobante($entity);
-            if($Comprob) {
+            if ($Comprob) {
                 $Comprob->setTramiteOrigen($entity);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $em->persist($Comprob);
@@ -86,7 +86,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
             $Comprob = $entity->getComprobante();
         }
         
-        if($Comprob) {
+        if ($Comprob) {
             $RutaComprob = \Tapir\BaseBundle\Helper\StringHelper::ObtenerRutaBase($Comprob->getComprobanteTipo()->getClase());
         } else {
             $RutaComprob = null;
@@ -105,15 +105,15 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         $Comprob = null;
         
         $ComprobanteTipo = $tramite->getTramiteTipo()->getComprobanteTipo();
-        if($ComprobanteTipo) {
+        if ($ComprobanteTipo) {
             // Tiene un tipo de comprobante asociado
             $Clase = $ComprobanteTipo->getClase();
-            if($Clase) {
+            if ($Clase) {
                 // Instancio un comprobante del tipo asociado
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
 
-                if($ComprobanteTipo->getPeriodoValidez()) {
+                if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado
                     // Fecha de vencimiento: validez indicada por el comprobante, menos 1 día
                     $Venc = new \DateTime();
@@ -138,7 +138,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
     public function guardarActionPrePersist($entity, $editForm) {
         $res = parent::guardarActionPrePersist($entity, $editForm);
         
-        if(!$entity->getTramiteTipo()) {
+        if (!$entity->getTramiteTipo()) {
             // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el TramiteTipo que corresponde a la clase y lo guardo
             $em = $this->getDoctrine()->getManager();
@@ -162,9 +162,9 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         foreach($Asociaciones as $AsociacionRequisito) {
             // Primero busco para ver si ya existe
             $EstadoRequisito = null;
-            if($entity->getEstadosRequisitos()) {
+            if ($entity->getEstadosRequisitos()) {
                 foreach($entity->getEstadosRequisitos() as $EstReq) {
-                    if($EstReq->getAsociacionRequisito() === $AsociacionRequisito) {
+                    if ($EstReq->getAsociacionRequisito() === $AsociacionRequisito) {
                         // Ya existe, por lo tanto no lo agrego
                         $EstadoRequisito = $EstReq;
                         break;
@@ -172,7 +172,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
                 }
             }
 
-            if($EstadoRequisito == null) {
+            if ($EstadoRequisito == null) {
                 // No existe, así que la creo
                 $EstadoRequisito = new \Yacare\TramitesBundle\Entity\EstadoRequisito();
                 $EstadoRequisito->setTramite($entity);
@@ -181,14 +181,14 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
             $EstadoRequisito->setAsociacionRequisito($AsociacionRequisito);
             $EstadoRequisito->setEstadoRequisitoPadre($EstadoRequisitoPadre);
 
-            if(!$EstadoRequisito->getId()) {
+            if (!$EstadoRequisito->getId()) {
                 $entity->AgregarEstadoRequisito($EstadoRequisito);
             }
             
-            if($AsociacionRequisito->getRequisito()->getTipo() == 'tra') {
+            if ($AsociacionRequisito->getRequisito()->getTipo() == 'tra') {
                 // Es un trámite... asocio los sub-requisitos
                 $SubTramiteTipo = $AsociacionRequisito->getRequisito()->getTramiteTipoEspejo();
-                if($SubTramiteTipo) {
+                if ($SubTramiteTipo) {
                     $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, $SubTramiteTipo->getAsociacionRequisitos());
                 }
             }

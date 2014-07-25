@@ -63,7 +63,7 @@ trait ConPerfil {
 
         if ($form->isValid()) {
             // Guardo el password con hash
-            if($entity->getPasswordEnc()) {
+            if ($entity->getPasswordEnc()) {
                 // Genero una nueva sal
                 $entity->setSalt(md5(uniqid(null, true)));
 

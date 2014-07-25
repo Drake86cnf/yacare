@@ -33,7 +33,7 @@ class RelevamientoResultado
     }
     
     public function __toString() {
-        if($this->getGrupo())
+        if ($this->getGrupo())
             return $this->getGrupo() . ': ' . $this->getNombre();
         else
             return $this->getNombre();

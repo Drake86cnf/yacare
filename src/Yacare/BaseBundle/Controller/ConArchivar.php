@@ -15,7 +15,7 @@ trait ConArchivar {
         $em = $this->getDoctrine()->getManager();
         $entity = $this->obtenerEntidadPorId($id);
 
-        if(in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
+        if (in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
             // Es archivable
             $entity->setArchivado(0);
             $em->persist($entity);
@@ -36,7 +36,7 @@ trait ConArchivar {
         $em = $this->getDoctrine()->getManager();
         $entity = $this->obtenerEntidadPorId($id);
 
-        if(in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
+        if (in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
             // Es archivable
             $entity->Archivar();
             $em->persist($entity);

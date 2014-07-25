@@ -87,7 +87,7 @@ class EstadoRequisito
      * @see $Tramite;
      */
     public function EsNecesario() {
-        if($this->getEstadoRequisitoPadre()) {
+        if ($this->getEstadoRequisitoPadre()) {
             // Es un sub-requisito. Evaluo también si el parent es necesario.
             return $this->CondicionSeCumple() && $this->getEstadoRequisitoPadre()->EsNecesario();
         } else {
@@ -102,7 +102,7 @@ class EstadoRequisito
      * @return bool Devuelve true si el requisito es opcional.
      */
     public function EsOpcional() {
-        if($this->getEstadoRequisitoPadre()) {
+        if ($this->getEstadoRequisitoPadre()) {
             // Es un sub-requisito. Evaluo también si el parent es opcional.
             return $this->getAsociacionRequisito()->getOpcional() || $this->getEstadoRequisitoPadre()->EsOpcional();
         } else {
@@ -135,7 +135,7 @@ class EstadoRequisito
     public function CondicionSeCumple() {
         $Asoc = $this->getAsociacionRequisito();
 
-        if(!$Asoc->getCondicionQue()) {
+        if (!$Asoc->getCondicionQue()) {
             // No hay condición... lo doy siempre por cumplido
             return true;
         }
@@ -151,7 +151,7 @@ class EstadoRequisito
         foreach ($Propiedades as $Propiedad) {
             $NombreMetodo = 'get' . $Propiedad;
             //echo $NombreMetodo . '; ';
-            if(method_exists($Objeto, $NombreMetodo)) {
+            if (method_exists($Objeto, $NombreMetodo)) {
                 $ValorQue = $Objeto->$NombreMetodo();
                 $Objeto = $ValorQue;
             } else {

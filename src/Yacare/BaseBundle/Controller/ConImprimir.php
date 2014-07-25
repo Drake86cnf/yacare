@@ -13,14 +13,14 @@ trait ConImprimir
     public function imprimirAction(Request $request, $id)
     {
         $fmt = $request->query->get('fmt');
-        if(!$fmt) {
+        if (!$fmt) {
             $fmt = 'application/pdf';
         }
         
         $fmt = str_replace(' ', '/', $fmt);
         
         $tpl = $request->query->get('tpl');
-        if(!$tpl)
+        if (!$tpl)
             $tpl = 'imprimir';
         
         $em = $this->getDoctrine()->getManager();
@@ -35,7 +35,7 @@ trait ConImprimir
             'TipoMime' => $fmt
         ));
 
-        if(!$impresionEnCache) {
+        if (!$impresionEnCache) {
             // La impresión NO está en caché... la genero y la guardo en el cache
             // en principio la guardo sin contenido (placeholder), para obtener un id
             $impresionEnCache = new \Yacare\BaseBundle\Entity\Impresion();
@@ -70,12 +70,12 @@ trait ConImprimir
             $em->persist($impresionEnCache);
             $em->flush();
         } else {
-            if(is_array($impresionEnCache))
+            if (is_array($impresionEnCache))
                 $impresionEnCache = $impresionEnCache[0];
         }
 
         $contenido = $impresionEnCache->getContenido();
-        if(is_resource($contenido) && get_resource_type($contenido) == 'stream')
+        if (is_resource($contenido) && get_resource_type($contenido) == 'stream')
             $contenido = stream_get_contents($contenido);
 
         return new \Symfony\Component\HttpFoundation\Response(

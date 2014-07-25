@@ -56,7 +56,7 @@ class RelevamientoAsignacionResultado
     
 
     public function getUbicacionLatitud() {
-        if($this->Ubicacion){
+        if ($this->Ubicacion){
             $x = sscanf($this->Ubicacion, "POINT(%f %f)");
             $Latitud = $x[0];
         } else {
@@ -67,7 +67,7 @@ class RelevamientoAsignacionResultado
 
     
     public function getUbicacionLongitud() {
-        if($this->Ubicacion){
+        if ($this->Ubicacion){
             $x = sscanf($this->Ubicacion, "POINT(%f %f)");
             $Longitud = $x[1];
         } else {

@@ -35,11 +35,11 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $filtro_relevamiento = $request->query->get('filtro_relevamiento');
         $filtro_archivado = $request->query->get('filtro_archivado');
         
-        if($filtro_relevamiento) {
+        if ($filtro_relevamiento) {
             $this->Where .= " AND r.Relevamiento=$filtro_relevamiento";
         }
         
-        if($filtro_archivado) {
+        if ($filtro_archivado) {
             $this->Where .= " AND r.Archivado=1";
         } else {
             $this->Where .= " AND r.Archivado=0";
@@ -93,7 +93,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($id) {
+        if ($id) {
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         } else {
             $entityName = 'Yacare\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
@@ -115,7 +115,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
             $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'] = $entity->getEncargado()->getId();
             
             // ************************* Guardar detalles
-            if($entity->getCalle()) {
+            if ($entity->getCalle()) {
                 // Es por calle
                 $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array('DomicilioCalle' => $entity->getCalle()));
             } else {
@@ -125,7 +125,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
                 $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'] = $entity->getSeccion();
             }
 
-            if($partidas) {
+            if ($partidas) {
                 /* $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad=0')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute(); */
@@ -144,7 +144,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
                     $Deta->setRelevamiento($entity->getRelevamiento());
                     $Deta->setPartida($partida);
                     $Deta->setPartidaCalle($partida->getDomicilioCalle());
-                    if($partida->getDomicilioCalle()) {
+                    if ($partida->getDomicilioCalle()) {
                         $Deta->setPartidaCalleNombre($partida->getDomicilioCalle()->getNombre());
                     }
                     $Deta->setPartidaCalleNumero($partida->getDomicilioNumero());
@@ -196,7 +196,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         
         $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
         
-        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
+        if (isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
             $Encargado = $em->getReference('YacareBaseBundle:Persona', $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado']);
             $entity->setEncargado($Encargado);
         }
@@ -230,12 +230,12 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         
         $entity->setRelevamiento($em->getReference('YacareInspeccionBundle:Relevamiento', $filtro_relevamiento));
         
-        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
+        if (isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado'])) {
             $Encargado = $em->getReference('YacareBaseBundle:Persona', $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimoEncargado']);
             $entity->setEncargado($Encargado);
         }
         
-        if(isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'])) {
+        if (isset($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'])) {
             $entity->setSeccion($_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion']);
         }
 

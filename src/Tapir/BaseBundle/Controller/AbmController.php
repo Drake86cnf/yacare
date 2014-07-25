@@ -25,31 +25,31 @@ abstract class AbmController extends BaseController
     function IniciarVariables() {
         parent::IniciarVariables();
 
-        if(!isset($this->Paginar)) {
+        if (!isset($this->Paginar)) {
             $this->Paginar = true;
         }
         
-        if(!isset($this->OrderBy)) {
-            if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
+        if (!isset($this->OrderBy)) {
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
                 $this->OrderBy = 'nombre';
             } else {
                 $this->OrderBy = null;
             }
         }
         
-        if(!isset($this->Where)) {
+        if (!isset($this->Where)) {
             $this->Where = null;
         }
         
-        if(!isset($this->Joins)) {
+        if (!isset($this->Joins)) {
             $this->Joins = array();
         }
         
-        if(!isset($this->Limit)) {
+        if (!isset($this->Limit)) {
             $this->Limit = null;
         }
         
-        if(!isset($this->BuscarPor)) {
+        if (!isset($this->BuscarPor)) {
             $this->BuscarPor = 'nombre';
         }
     }
@@ -78,7 +78,7 @@ abstract class AbmController extends BaseController
     protected function obtenerComandoSelect($filtro_buscar = null) {
         $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";
         
-        if(count($this->Joins) > 0) {
+        if (count($this->Joins) > 0) {
             foreach($this->Joins as $join) {
                 $dql .= " " . $join;
             }
@@ -86,13 +86,13 @@ abstract class AbmController extends BaseController
         
         $where = "";
         
-        if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
         }
 
-        if($filtro_buscar && $this->BuscarPor) {
+        if ($filtro_buscar && $this->BuscarPor) {
             // Busco por varias palabras
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
@@ -102,7 +102,7 @@ abstract class AbmController extends BaseController
                 $this->Where .= ' AND (';
                 // Busco en varios campos
                 foreach($BuscarPorCampos as $BuscarPorCampo) {
-                    if(strpos($BuscarPorCampo, '.') === false)
+                    if (strpos($BuscarPorCampo, '.') === false)
                             $BuscarPorCampo = 'r.' . $BuscarPorCampo;
                     $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$palabra%'";
                     $BuscarPorNexo = ' OR ';
@@ -112,15 +112,15 @@ abstract class AbmController extends BaseController
         }
 
         $dql .= " WHERE $where";
-        if($this->Where) {
+        if ($this->Where) {
             $this->Where = trim($this->Where);
-            if(substr($this->Where, 0, 4) != "AND ") {
+            if (substr($this->Where, 0, 4) != "AND ") {
                 $this->Where = "AND " . $this->Where;
             }
             $dql .= ' ' . $this->Where;
         }
 
-        if($this->OrderBy) {
+        if ($this->OrderBy) {
             $OrderByCampos = explode(',', $this->OrderBy);
             $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
         }
@@ -150,11 +150,11 @@ abstract class AbmController extends BaseController
         
         //echo '<pre>' . $dql . '</pre>';
         
-        if($this->Limit) {
+        if ($this->Limit) {
             $query->setMaxResults($this->Limit);
         }
         
-        if($this->Paginar) {
+        if ($this->Paginar) {
             $paginator  = $this->get('knp_paginator');
             $entities = $paginator->paginate(
                 $query,
@@ -171,7 +171,7 @@ abstract class AbmController extends BaseController
     }
     
     protected function obtenerFormType() {
-        if(isset($this->FormTypeName)) {
+        if (isset($this->FormTypeName)) {
             return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
         } else {
             return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
@@ -184,7 +184,7 @@ abstract class AbmController extends BaseController
      */
     public function verAction($id = null)
     {
-        if($id) {
+        if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         }
 
@@ -219,7 +219,7 @@ abstract class AbmController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($id) {
+        if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         } else {
             $entity = $this->crearNuevaEntidad($request);
@@ -260,7 +260,7 @@ abstract class AbmController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($id) {
+        if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         } else {
             $entity = $this->crearNuevaEntidad($request);
@@ -276,13 +276,13 @@ abstract class AbmController extends BaseController
 
         $errors = $this->guardarActionPreBind($entity);
 
-        if(!$errors) {
+        if (!$errors) {
             if ($editForm->isValid()) {
                 $errors = $this->guardarActionPrePersist($entity, $editForm);
-                if(!$errors) {
+                if (!$errors) {
                     $errors = $this->guardarActionSubirArchivos($entity, $editForm);
                 }
-                if(!$errors) {
+                if (!$errors) {
                     $em->persist($entity);
                     $em->flush();
 
@@ -294,7 +294,7 @@ abstract class AbmController extends BaseController
             }
         }
         
-        if($errors) {
+        if ($errors) {
             $deleteForm = $this->crearFormEliminar($id);
             
             foreach ($errors as $error) {

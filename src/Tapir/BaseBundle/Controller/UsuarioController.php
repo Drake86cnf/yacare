@@ -43,7 +43,7 @@ class UsuarioController extends AbmController
     public function guardarActionPrePersist($entity, $editForm)
     {
         // Intervenir la entidad antes de persistir
-        if($entity->getPasswordEnc()) {
+        if ($entity->getPasswordEnc()) {
             // Guardo el password con hash
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($entity);

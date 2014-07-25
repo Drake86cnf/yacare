@@ -27,18 +27,24 @@ class Actividad implements Tree\NodeInterface
     private $ParentNode;
     
     /**
+     * Código correspondiente en el ClaNAE 1997 de INDEC.
+     * 
      * @var string
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae1997;
     
     /**
+     * Código correspondiente en el ClaNAE 2010 de INDEC.
+     * 
      * @var string
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae2010;
     
     /**
+     * Código correspondiente en la RG 3537/13 de AFIP.
+     * 
      * @var string
      * @ORM\Column(type="string", nullable=true, length=50)
      * 
@@ -47,6 +53,8 @@ class Actividad implements Tree\NodeInterface
     private $ClaeAfip;
     
     /**
+     * Código correspondiente en la Ley 854/11 de la DGR de TDF.
+     * 
      * @var string
      * @ORM\Column(type="string", nullable=true, length=50)
      * 
@@ -68,34 +76,62 @@ class Actividad implements Tree\NodeInterface
      */
     private $Clamae2014;
 
-     /**
+    /**
+     * Indica la categoría correspondiente en los rubros anteriores.
+     * 
      * @var integer
      * @ORM\Column(type="integer", nullable=false)
      */
     private $CategoriaAntigua = 0;
     
     /**
+     * Código correspondiente en la tabla del CPU.
+     * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $CodigoCpu;
     
     /**
+     * Indica si esta actividad requiere de aprobación por parte de Bromatología e Higiene.
+     * 
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $RequiereDbeh = false;
     
     /**
+     * Indica si esta actividad requiere de aprobación por parte de Ecología y medioambiente.
+     * 
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $RequiereDeyma = false;
     
-     /**
+    /**
+     * Algunas actividades están exentas del requisito de habilitación comercial.
+     * 
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $Exento = false;
+    
+    /**
+     * Indica si esta actividad requiere la instalación de una cámara decantadora de barro.
+     *
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $RequiereCamaraBarro = false;
+    
+    
+    /**
+     * Indica si esta actividad requiere la instalación de una cámara decantadora de grasa.
+     * 
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $RequiereCamaraGrasa = false;
+    
     
     /**
      * @var bool
@@ -104,12 +140,16 @@ class Actividad implements Tree\NodeInterface
     private $Ley105 = false;
     
     /**
+     * Texto que explica los alcances de la actividad.
+     * 
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
     private $Incluye;
     
     /**
+     * Texto que explica aquellas cosas que esta actividad no contempla.
+     * 
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
@@ -146,11 +186,11 @@ class Actividad implements Tree\NodeInterface
     public function getClamae2014Formateado()
     {
         $codigo = $this->getClamae2014();
-        if(strlen($codigo) == 3) {
+        if (strlen($codigo) == 3) {
             return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 1);
-        } else if(strlen($codigo) == 4) {
+        } else if (strlen($codigo) == 4) {
             return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 2);
-        } else if(strlen($codigo) == 7) {
+        } else if (strlen($codigo) == 7) {
             return substr($codigo, 0, 6) . '-' . substr($codigo, 6, 1);
         } else {
             return $codigo;
@@ -165,8 +205,8 @@ class Actividad implements Tree\NodeInterface
         $res = '';
         $par = $this;
         while($par = $par->getParentNode()) {
-            if(strcmp($par->__toString(), $this->__toString()) !== 0) {
-                if($res) {
+            if (strcmp($par->__toString(), $this->__toString()) !== 0) {
+                if ($res) {
                     $res = $par->__toString() . ' <i class="fa fa-angle-right"></i> ' . $res;
                 } else {
                     $res = $par->__toString();

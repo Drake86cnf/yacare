@@ -97,7 +97,7 @@ abstract class Tramite
      * @return int El porcentaje completado.
      */
     public function PorcentajeCompleto() {
-        if($this->RequisitosObligatoriosCantidad() == 0) {
+        if ($this->RequisitosObligatoriosCantidad() == 0) {
             return 0;
         } else {
             return round((1 - $this->RequisitosFaltantesCantidad() / $this->RequisitosObligatoriosCantidad()) * 100);
@@ -132,7 +132,7 @@ abstract class Tramite
     public function RequisitosObligatoriosCantidad() {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false) {
+            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false) {
                 $res++;
             }
         }
@@ -149,7 +149,7 @@ abstract class Tramite
     public function RequisitosFaltantesCantidad() {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false && $EstadoRequisito->EstaCumplido() == false) {
+            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false && $EstadoRequisito->EstaCumplido() == false) {
                 $res++;
             }
         }
@@ -167,12 +167,12 @@ abstract class Tramite
     public function ExplicarEstadosRequisitos() {
         $res = array();
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if($EstadoRequisito->EsNecesario() && $EstadoRequisito->EstaCumplido() == false) {
+            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EstaCumplido() == false) {
                 $res[] = 'Falta ' . (string)$EstadoRequisito;
             }
         }
         
-        if(count($res) == 0) {
+        if (count($res) == 0) {
             return 'Se cumplen todos los requisitos.';
         } else {
             return join(', ', $res);

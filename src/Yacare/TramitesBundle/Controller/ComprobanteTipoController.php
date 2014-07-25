@@ -13,7 +13,7 @@ class ComprobanteTipoController extends \Tapir\BaseBundle\Controller\AbmControll
         // Crear o actualizar un instrumento asociado
 
         $InstrumentoEspejo = $entity->getInstrumentoEspejo();
-        if(!$InstrumentoEspejo) {
+        if (!$InstrumentoEspejo) {
             $InstrumentoEspejo = new \Yacare\TramitesBundle\Entity\Instrumento();
         }
         

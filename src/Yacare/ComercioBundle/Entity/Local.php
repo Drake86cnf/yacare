@@ -54,11 +54,11 @@ class Local {
     
     private function ConstruirNombre() {
         $res = $this->getTipo();
-        if($this->getTipo() == 'Depósito' && $this->getDepositoClase()) {
+        if ($this->getTipo() == 'Depósito' && $this->getDepositoClase()) {
             $res .= ' clase ' . $this->getDepositoClase()->getTipo();
         }
         
-        if($this->getPartida()) {
+        if ($this->getPartida()) {
             $res .= ' en ' .  $this->getPartida()->getDomicilio();
         }
         

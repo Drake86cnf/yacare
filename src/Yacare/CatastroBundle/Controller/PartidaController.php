@@ -61,30 +61,30 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         $filtro_calle_altura = $request->query->get('filtro_calle_altura');
         $filtro_titular = $request->query->get('filtro_titular');
         
-        if($filtro_seccion == '-') {
+        if ($filtro_seccion == '-') {
             $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
-        } else if($filtro_seccion) {
+        } else if ($filtro_seccion) {
             $this->Where .= " AND r.Seccion='$filtro_seccion'";
         }
         
-        if($filtro_macizo) {
+        if ($filtro_macizo) {
             $this->Where .= " AND r.Macizo LIKE '$filtro_macizo'";
         }
         
-        if($filtro_partida) {
+        if ($filtro_partida) {
             $this->Where .= " AND r.Numero='$filtro_partida'";
         }
         
-        if($filtro_calle) {
+        if ($filtro_calle) {
             $this->Where .= " AND r.DomicilioCalle=$filtro_calle";
-            if($filtro_calle_altura) {
+            if ($filtro_calle_altura) {
                 $altura1 = $filtro_calle_altura - 30;
                 $altura2 = $filtro_calle_altura + 30;
                 $this->Where .= " AND r.DomicilioNumero BETWEEN $altura1 AND $altura2";
             }
         }
         
-        if($filtro_titular) {
+        if ($filtro_titular) {
             $this->Joins[] = " JOIN r.Titular p";
             
             // Busco por varias palabras

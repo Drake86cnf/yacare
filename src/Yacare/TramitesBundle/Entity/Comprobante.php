@@ -49,13 +49,13 @@ class Comprobante
     
     
     protected function ConstruirNombre() {
-        if($this->getComprobanteTipo()) {
+        if ($this->getComprobanteTipo()) {
             $res = $this->getComprobanteTipo()->getNombre();
         } else {
             $res = 'Comprob. ';
         }
         $res .= ' Nº ';
-        if($this->getNumeroPrefijo()) {
+        if ($this->getNumeroPrefijo()) {
             $res .=  str_pad($this->getNumeroPrefijo(), 4, '0', STR_PAD_LEFT) . '-';
         }
         $res .=  $this->getNumero();

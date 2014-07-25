@@ -16,13 +16,13 @@ class StringHelper {
         $res = array();
         
         $res[0] = $PartesNombreClase[1];
-        if(strlen($res[0]) > 6 && substr($res[0], -6) == 'Bundle') {
+        if (strlen($res[0]) > 6 && substr($res[0], -6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $res[0] = substr($res[0], 0, strlen($res[0]) - 6);
         }
         
         $res[1] = $PartesNombreClase[3];
-        if(strlen($res[1]) > 10 && substr($res[1], -10) == 'Controller') {
+        if (strlen($res[1]) > 10 && substr($res[1], -10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
         }
@@ -52,7 +52,7 @@ class StringHelper {
         $nombreclase = trim($nombreclase, '\\');
         $PartesNombreClase = StringHelper::ObtenerBundleYEntidad($nombreclase);
 
-        if($accion)
+        if ($accion)
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1] . '_' . $accion);
         else
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1]);
@@ -67,19 +67,19 @@ class StringHelper {
 
         foreach($Partes as $Parte) {
             $v = trim($Parte);
-            if($v == '') {
+            if ($v == '') {
                 // Ignorar
-            } else if($v == 'DU') {
+            } else if ($v == 'DU') {
                 $Tipo = 'DNI';
-            } else if($v == 'DU'  || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
+            } else if ($v == 'DU'  || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
                 $Tipo = $v;
             } else {
                 $Numero = $v;
             }
             
-            if(strpos($Numero, '-')) {
+            if (strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            } else if(!$Tipo || $Tipo = 'SC') {
+            } else if (!$Tipo || $Tipo = 'SC') {
                 $Tipo = 'DNI';
             }
         }

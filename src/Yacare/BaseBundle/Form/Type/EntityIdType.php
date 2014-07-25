@@ -72,13 +72,13 @@ class EntityIdType extends AbstractType
         $PartesNombreClase = explode('\\', $options['class']);
         
         $this->BundleName = $PartesNombreClase[1];
-        if(strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
+        if (strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
         }
 
         $this->EntityName = $PartesNombreClase[3];
-        if(strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
+        if (strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
         }
@@ -98,7 +98,7 @@ class EntityIdType extends AbstractType
     
     // Devuelve el nombre de la ruta para una acción determinada o la base para conformar las rutas
     protected function obtenerRutaBase($action = null) {
-        if($action) {
+        if ($action) {
             return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_' . $action);
         } else {
             return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName);

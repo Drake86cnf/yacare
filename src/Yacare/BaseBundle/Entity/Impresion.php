@@ -67,7 +67,7 @@ class Impresion
     {
         $Res = "http://yacare.riogrande.gob.ar/cp/?en=" . str_replace('/', '+', $this->getEntidadTipo()) . "&id=" . $this->getEntidadId();
         
-        if($incluye_version && $this->getEntidadVersion())
+        if ($incluye_version && $this->getEntidadVersion())
             $Res .= "&ver=" . $this->getEntidadVersion();
         
         $Res .= "&tk=" . $this->getToken();

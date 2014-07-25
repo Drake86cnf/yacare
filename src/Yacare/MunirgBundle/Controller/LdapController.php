@@ -46,20 +46,20 @@ class LdapController extends Controller
             $sr = \ldap_search($ServidorAd, "dc=municipiorg,dc=gob,dc=ar", "samaccountname=" . $Usuario);
             $info = \ldap_get_entries($ServidorAd, $sr);
             
-            if(!$info || $info['count'] != 1) {
+            if (!$info || $info['count'] != 1) {
                 $this->get('session')->getFlashBag()->add('warning', 'No se puede encontrar el usuario LDAP.');
                 $this->redirect($this->generateUrl('yacare_munirg_ldap_importar'));
             }
             
             $AgenteLegajo = $info[0]['employeenumber'][0];
             
-            if(!$AgenteLegajo) {
+            if (!$AgenteLegajo) {
                 $this->get('session')->getFlashBag()->add('warning', 'El usuario LDAP no tiene asignado un número de legajo.');
                 $this->redirect($this->generateUrl('yacare_munirg_ldap_importar'));
             }
             
             $Agente = $em->getRepository('YacareRecursosHumanosBundle:Agente')->find($AgenteLegajo);
-            if(!$Agente) {
+            if (!$Agente) {
                 $this->get('session')->getFlashBag()->add('warning', 'No existe ningún agente con legajo Nº ' . $AgenteLegajo);
                 $this->redirect($this->generateUrl('yacare_munirg_ldap_importar'));
             }

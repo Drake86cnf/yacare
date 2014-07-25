@@ -108,12 +108,12 @@ class RelevamientoAsignacion
     
     
     public function getNombre() {
-        if($this->getEncargado()) {
+        if ($this->getEncargado()) {
             $this->Nombre = $this->getEncargado()->getNombreVisible();
         } else {
             $this->Nombre = 'Sin encargado';
         }
-        if($this->getCalle()) {
+        if ($this->getCalle()) {
             $this->Nombre .= ': calle ' . $this->getCalle()->getNombre();
         } else {
             $this->Nombre .= ': sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo();
@@ -124,7 +124,7 @@ class RelevamientoAsignacion
 
     public function setNombre($Nombre) {
         $this->Nombre = $this->getEncargado()->getNombreVisible();
-        if($this->getCalle()) {
+        if ($this->getCalle()) {
             $this->Nombre .= ': calle ' . $this->Calle->getNombre();
         } else {
             $this->Nombre .= ': sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo();

@@ -65,7 +65,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             
             $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getAlignment()->setIndent($entity->getNodeLevel());
             $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-            if(!$entity->getFinal()) {
+            if (!$entity->getFinal()) {
                 $phpExcelObject->getActiveSheet()->getStyle('B' . $i)->getFont()->setBold(true);
             }
         }
@@ -103,7 +103,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     
     public function guardarActionPrePersist($entity, $editForm)
     {
-        if(!$entity->getId()) {
+        if (!$entity->getId()) {
             /*
              * No tiene id. Como es parte de un árbol, necesito asignar un id manualmente.
              */
@@ -128,66 +128,66 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         /*
          * Busco un ParentNode acorde al código ingresado
          */
-        if(strlen($codigo) == 7) {
+        if (strlen($codigo) == 7) {
             // Los códigos finales (de 7 dígitos) dependen de una clase (4 dígitos)
             $codigoPadre = substr($codigo, 0, 4);
             $entity->setFinal(true);
-        } else if(strlen($codigo) == 4) {
+        } else if (strlen($codigo) == 4) {
             // Las clases (de 4 dígitos) dependen de un grupo (3 dígitos)
             $codigoPadre = substr($codigo, 0, 3);
-        } else if(strlen($codigo) == 3) {
+        } else if (strlen($codigo) == 3) {
             // Los grupos (de 3 dígitos) dependen de una división (2 dígitos)
             $codigoPadre = substr($codigo, 0, 2);
-        } else if(strlen($codigo) == 2) {
+        } else if (strlen($codigo) == 2) {
             // Las divisiones (de 2 dígitos) dependen de una categoría (1 letra)
             // Esta estructura es fija del ClaNAE 2010
             $codigo = (int)($codigo);
-            if($codigo <= 4) {
+            if ($codigo <= 4) {
                 $codigoPadre = 'A';
-            } else if($codigo <= 9) {
+            } else if ($codigo <= 9) {
                 $codigoPadre = 'B';
-            } else if($codigo <= 34) {
+            } else if ($codigo <= 34) {
                 $codigoPadre = 'C';
-            } else if($codigo <= 35) {
+            } else if ($codigo <= 35) {
                 $codigoPadre = 'D';
-            } else if($codigo <= 40) {
+            } else if ($codigo <= 40) {
                 $codigoPadre = 'E';
-            } else if($codigo <= 44) {
+            } else if ($codigo <= 44) {
                 $codigoPadre = 'F';
-            } else if($codigo <= 48) {
+            } else if ($codigo <= 48) {
                 $codigoPadre = 'G';
-            } else if($codigo <= 54) {
+            } else if ($codigo <= 54) {
                 $codigoPadre = 'H';
-            } else if($codigo <= 57) {
+            } else if ($codigo <= 57) {
                 $codigoPadre = 'I';
-            } else if($codigo <= 63) {
+            } else if ($codigo <= 63) {
                 $codigoPadre = 'J';
-            } else if($codigo <= 67) {
+            } else if ($codigo <= 67) {
                 $codigoPadre = 'K';
-            } else if($codigo <= 68) {
+            } else if ($codigo <= 68) {
                 $codigoPadre = 'L';
-            } else if($codigo <= 76) {
+            } else if ($codigo <= 76) {
                 $codigoPadre = 'M';
-            } else if($codigo <= 83) {
+            } else if ($codigo <= 83) {
                 $codigoPadre = 'N';
-            } else if($codigo <= 84) {
+            } else if ($codigo <= 84) {
                 $codigoPadre = 'O';
-            } else if($codigo <= 85) {
+            } else if ($codigo <= 85) {
                 $codigoPadre = 'P';
-            } else if($codigo <= 89) {
+            } else if ($codigo <= 89) {
                 $codigoPadre = 'Q';
-            } else if($codigo <= 93) {
+            } else if ($codigo <= 93) {
                 $codigoPadre = 'R';
-            } else if($codigo <= 96) {
+            } else if ($codigo <= 96) {
                 $codigoPadre = 'S';
-            } else if($codigo <= 98) {
+            } else if ($codigo <= 98) {
                 $codigoPadre = 'T';
-            } else if($codigo <= 99) {
+            } else if ($codigo <= 99) {
                 $codigoPadre = 'U';
             }
         }
         
-        if($codigoPadre) {
+        if ($codigoPadre) {
             $em = $this->getDoctrine()->getManager();
             $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array('Clamae2014' => $codigoPadre));
             $entity->setParentNode($parentNode);

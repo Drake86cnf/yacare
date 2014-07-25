@@ -13,7 +13,7 @@ class ComprobanteController extends \Tapir\BaseBundle\Controller\AbmController
     public function guardarActionPrePersist($entity, $editForm) {
         $res = parent::guardarActionPrePersist($entity, $editForm);
         
-        if(!$entity->getComprobanteTipo()) {
+        if (!$entity->getComprobanteTipo()) {
             // La propiedad ComprobanteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el ComprobanteTipo que corresponde a la clase y lo guardo
             $em = $this->getDoctrine()->getManager();

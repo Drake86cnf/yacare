@@ -44,13 +44,13 @@ UPDATE Inspeccion_RelevamientoAsignacion
         $filtro_asignacion = $request->query->get('filtro_asignacion');
         $filtro_archivado = $request->query->get('filtro_archivado');
         
-        if($filtro_relevamiento) {
+        if ($filtro_relevamiento) {
             $this->Joins[] = " JOIN r.Asignacion a";
             
             $this->Where .= " AND a.Relevamiento=$filtro_relevamiento";
         }
         
-        if($filtro_asignacion) {
+        if ($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
         }
         
@@ -66,7 +66,7 @@ UPDATE Inspeccion_RelevamientoAsignacion
     {
         $filtro_asignacion = $request->query->get('filtro_asignacion');
         
-        if($filtro_asignacion) {
+        if ($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
         }
 

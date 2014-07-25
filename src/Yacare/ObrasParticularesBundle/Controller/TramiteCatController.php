@@ -38,15 +38,15 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
                 ->setMaxResults(1)
                 ->getResult();
         // Si es un array tomo el primero
-        if($UsoSuelo && count($UsoSuelo) > 0) {
+        if ($UsoSuelo && count($UsoSuelo) > 0) {
             $UsoSuelo = $UsoSuelo[0];
         }
 
-        if($UsoSuelo) {
+        if ($UsoSuelo) {
             $Partida = $entity->getLocal()->getPartida();
-            if($Partida) {
+            if ($Partida) {
                 $Zona = $Partida->getZona();
-                if($Zona) {
+                if ($Zona) {
                     $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
                 }
             }

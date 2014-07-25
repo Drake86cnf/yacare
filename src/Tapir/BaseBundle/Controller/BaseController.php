@@ -37,29 +37,29 @@ abstract class BaseController extends Controller
     }
     
     function IniciarVariables() {
-        if(!isset($this->VendorName)) {
+        if (!isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
         }
         
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
 
-        if(!isset($this->BundleName)) {
+        if (!isset($this->BundleName)) {
             $this->BundleName = $PartesNombreClase[0];
         }
 
-        if(!isset($this->EntityName)) {
+        if (!isset($this->EntityName)) {
             $this->EntityName = $PartesNombreClase[1];
         }
         
-        if(!isset($this->CompleteEntityName)) {
+        if (!isset($this->CompleteEntityName)) {
             $this->CompleteEntityName = '\\' . $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' .  $this->EntityName;
         }
         
-        if(!isset($this->BaseRouteEntityName)) {
+        if (!isset($this->BaseRouteEntityName)) {
             $this->BaseRouteEntityName = $this->EntityName;
         }
         
-        if(!isset($this->ConservarVariables)) {
+        if (!isset($this->ConservarVariables)) {
             $this->ConservarVariables = array('filtro_buscar');
         }
     }
@@ -79,28 +79,28 @@ abstract class BaseController extends Controller
      * una acción.
      */
     protected function ArrastrarVariables($valorInicial = null, $incluirDelSistema = true) {
-        if(!$valorInicial)
+        if (!$valorInicial)
             $valorInicial = array();
         
         $request = $this->getRequest();
 
-        if($incluirDelSistema) {
+        if ($incluirDelSistema) {
             $valorInicial['bundlename']  = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
             $valorInicial['completeentityname'] = strtolower($this->CompleteEntityName);
             $valorInicial['entitylabel'] = $this->obtenerEtiquetaEntidad();
             $valorInicial['entitylabelplural'] = $this->obtenerEtiquetaEntidadPlural();
             $valorInicial['baseroute'] = $this->obtenerRutaBase();
-            if(isset($this->Paginar)) {
+            if (isset($this->Paginar)) {
                 $valorInicial['paginar'] = $this->Paginar;
             }
         }
         
-        if($this->ConservarVariables) {
+        if ($this->ConservarVariables) {
             foreach($this->ConservarVariables as $vr) {
-                if(!isset($valorInicial[$vr])) {
+                if (!isset($valorInicial[$vr])) {
                     $val = $request->query->get($vr);
-                    if($val) {
+                    if ($val) {
                         $valorInicial[$vr] = $val;
                         $valorInicial['arrastre'][$vr] = $request->query->get($vr);
                     }
@@ -109,11 +109,11 @@ abstract class BaseController extends Controller
         }
 
         /* $val = $request->query->get('page');
-        if($val) {
+        if ($val) {
             $valorInicial['arrastre']['page'] = $val;
         } */
         
-        if(!isset($valorInicial['arrastre'])) {
+        if (!isset($valorInicial['arrastre'])) {
             $valorInicial['arrastre']['d'] = '';
         }
         
@@ -132,7 +132,7 @@ abstract class BaseController extends Controller
      * @return string El nombre de la ruta para la acción solicitada o el nombre de la ruta base para este controlador.
      */
     public function obtenerRutaBase($action = null) {
-        if($action) {
+        if ($action) {
             return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
         } else {
             return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
@@ -155,7 +155,7 @@ abstract class BaseController extends Controller
      * @return string El nombre visible de la clase de entidad.
      */
     public function obtenerEtiquetaEntidad() {
-        if(isset($this->EntityLabel)) {
+        if (isset($this->EntityLabel)) {
             return $this->EntityLabel;
         } else {
             return \Tapir\BaseBundle\Helper\StringHelper::ProperCase($this->EntityName);
@@ -172,11 +172,11 @@ abstract class BaseController extends Controller
      * @return string El nombre visible de la clase de entidad en plural.
      */
     public function obtenerEtiquetaEntidadPlural() {
-        if(isset($this->EntityLabelPlural)) {
+        if (isset($this->EntityLabelPlural)) {
             return $this->EntityLabelPlural;
         } else {
             $res = $this->obtenerEtiquetaEntidad();
-            if(strpos('aeiouy', substr($res, -1)) === FALSE) {
+            if (strpos('aeiouy', substr($res, -1)) === FALSE) {
                 return $this->obtenerEtiquetaEntidad() . 'es';
             } else {
                 return $this->obtenerEtiquetaEntidad() . 's';

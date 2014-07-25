@@ -27,7 +27,7 @@ class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmCont
     public function listarAction(Request $request) {
         $parent_id = $request->query->get('parent_id');
 
-        if($parent_id) {
+        if ($parent_id) {
             $em = $this->getDoctrine()->getManager();
             $parent_id = $request->query->get('parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
@@ -37,7 +37,7 @@ class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmCont
         
         $res = parent::listarAction($request);
         
-        if($parent_id) {
+        if ($parent_id) {
             $res['parent'] = $TramiteTipo;
         }
         

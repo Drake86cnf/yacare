@@ -38,7 +38,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required'  => true
                 ));
-        if($porpartida) {
+        if ($porpartida) {
             $editFormBuilder->add('Partida', 'entity_id', array(
                 'label' => 'Partida',
                 'class' => 'Yacare\CatastroBundle\Entity\Partida'
@@ -77,7 +77,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             
             $Actividad = $data['ActividadPrincipal'];
             
-            if(array_key_exists('Local', $data)) {
+            if (array_key_exists('Local', $data)) {
                 $Local = $data['Local'];
                 $Superficie = $Local->getSuperficie();
                 $Partida = $Local->getPartida();
@@ -97,12 +97,12 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                     ->setParameter('sup', $Superficie)
                     ->setMaxResults(1)
                     ->getResult();
-            if($UsoSuelo && count($UsoSuelo) > 0) {
+            if ($UsoSuelo && count($UsoSuelo) > 0) {
                 $UsoSuelo = $UsoSuelo[0];
             }
             
             $Zona = $Partida->getZona();
-            if($Zona && $UsoSuelo) {
+            if ($Zona && $UsoSuelo) {
                 $ValorUsoSuelo = $UsoSuelo->getUsoZona($Zona->getId());
             } else {
                 $ValorUsoSuelo = 0;
@@ -139,8 +139,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $res = parent::guardarActionPrePersist($entity, $editForm);
         
         $Comercio = $entity->getComercio();
-        if($Comercio) {
-            if($Comercio->getEstado() == 0) {
+        if ($Comercio) {
+            if ($Comercio->getEstado() == 0) {
                 $Comercio->setEstado(1);    // Habilitación en trámite
             }
             // Le doy al comercio el mismo titular y apoderado que inician trámite
@@ -152,7 +152,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
         $Local = $Comercio->getLocal();
-        if($Local) {
+        if ($Local) {
             //$Superficie = $Local->getSuperficie();
             $Actividad = $Comercio->getActividadPrincipal();
             
@@ -163,15 +163,15 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                     ->setMaxResults(1)
                     ->getResult();
             // Si es un array tomo el primero
-            if($UsoSuelo && count($UsoSuelo) > 0) {
+            if ($UsoSuelo && count($UsoSuelo) > 0) {
                 $UsoSuelo = $UsoSuelo[0];
             }
             
-            if($UsoSuelo) {
+            if ($UsoSuelo) {
                 $Partida = $Local->getPartida();
-                if($Partida) {
+                if ($Partida) {
                     $Zona = $Partida->getZona();
-                    if($Zona) {
+                    if ($Zona) {
                         $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
                     }
                 }

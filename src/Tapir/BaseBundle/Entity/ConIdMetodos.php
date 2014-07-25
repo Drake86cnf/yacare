@@ -47,7 +47,7 @@ trait ConIdMetodos
         $ClassName = $PartesNombreClase[3];
         $Res = "http://yacare.riogrande.gob.ar/cp/?en=$BundleName+$ClassName&id=" . $this->getId();
         
-        if($incluye_version && in_array('Tapir\BaseBundle\Entity\Versionable', class_uses($this)))
+        if ($incluye_version && in_array('Tapir\BaseBundle\Entity\Versionable', class_uses($this)))
             $Res .= "&ver=" . $this->getVersion();
         
         return $Res;

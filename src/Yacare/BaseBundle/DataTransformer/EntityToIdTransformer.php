@@ -118,7 +118,7 @@ class EntityToIdTransformer implements DataTransformerInterface
         $class = $this->class;
         $repository = $em->getRepository($class);
         
-        if(strpos($data, ': ') !== false) {
+        if (strpos($data, ': ') !== false) {
             $data = substr($data, 0, strpos($data, ': '));
         }
 

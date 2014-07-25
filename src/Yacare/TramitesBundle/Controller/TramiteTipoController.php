@@ -18,7 +18,7 @@ class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
         // Crear o actualizar un requisito asociado
 
         $RequisitoEspejo = $entity->getRequisitoEspejo();
-        if(!$RequisitoEspejo) {
+        if (!$RequisitoEspejo) {
             $RequisitoEspejo = new \Yacare\TramitesBundle\Entity\Requisito();
         }
         

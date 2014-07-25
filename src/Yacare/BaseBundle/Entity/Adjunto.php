@@ -25,7 +25,7 @@ class Adjunto
     {
         $this->Token = sha1(openssl_random_pseudo_bytes(256));
         
-        if($Entidad) {
+        if ($Entidad) {
             $this->setEntidadTipo(get_class($Entidad));
             $this->setEntidadId($Entidad->getId());
             
@@ -34,7 +34,7 @@ class Adjunto
             $this->setCarpeta(strtolower(str_replace('Bundle', '', $PartesNombreClase[1]) . '/' . $PartesNombreClase[3]));
         }
         
-        if($Archivo) {
+        if ($Archivo) {
             $this->SubirArchivo($Archivo);
         }
     }

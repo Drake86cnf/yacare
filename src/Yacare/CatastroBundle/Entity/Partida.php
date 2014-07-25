@@ -124,7 +124,7 @@ class Partida
     
     public function getSmpu() {
         $res = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
-        if($this->UnidadFuncional > 0) {
+        if ($this->UnidadFuncional > 0) {
             $res .= ', UF ' . $this->UnidadFuncional;
         }
         return $res;
@@ -132,26 +132,26 @@ class Partida
     
     public function CalcularNombre()
     {
-        if($this->DomicilioCalle) {
+        if ($this->DomicilioCalle) {
             $this->Nombre = $this->DomicilioCalle;
-            if($this->DomicilioNumero) {
+            if ($this->DomicilioNumero) {
                 $this->Nombre .= ' Nº ' . $this->DomicilioNumero;
             }
-            if($this->DomicilioPiso) {
+            if ($this->DomicilioPiso) {
                 $this->Nombre .= ', piso ' . $this->DomicilioPiso;
             }
-            if($this->DomicilioPuerta) {
+            if ($this->DomicilioPuerta) {
                 $this->Nombre .= ', pta. ' . $this->DomicilioPuerta;
             }
             
             $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
-            if($this->UnidadFuncional > 0) {
+            if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
             $this->Nombre .= ")";
         } else {
             $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
-            if($this->UnidadFuncional > 0) {
+            if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
         }

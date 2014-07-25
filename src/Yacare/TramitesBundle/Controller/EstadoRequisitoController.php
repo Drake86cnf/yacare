@@ -27,7 +27,7 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
     public function listarAction(Request $request) {
         $parent_id = $request->query->get('parent_id');
 
-        if($parent_id) {
+        if ($parent_id) {
             $em = $this->getDoctrine()->getManager();
             $parent_id = $request->query->get('parent_id');
             $Tramite = $em->getReference('YacareTramitesBundle:Tramite', $parent_id);
@@ -37,7 +37,7 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
         
         $res = parent::listarAction($request);
         
-        if($parent_id) {
+        if ($parent_id) {
             $res['parent'] = $Tramite;
         }
         
@@ -45,18 +45,18 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
     }
     
     public function guardarActionPrePersist($entity, $editForm) {
-        if($entity->getEstado() == 100 && !$entity->getFechaAprobado()) {
+        if ($entity->getEstado() == 100 && !$entity->getFechaAprobado()) {
             //Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
             $entity->setFechaAprobado(new \DateTime());
         }
         
-        if($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
+        if ($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
             // Doy el trámite por iniciado
             $em = $this->getDoctrine()->getManager();
 
             $entity->getTramite()->setEstado(10);
             $em->persist($entity->getTramite());
-        } /* else if($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) {
+        } /* else if ($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) {
             // Doy el trámite por terminado
             $em = $this->getDoctrine()->getManager();
 
@@ -73,13 +73,13 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
         $PartesNombreClase = explode('\\', get_class($entity->getTramite()));
 
         $BundleName = $PartesNombreClase[1];
-        if(strlen($BundleName) > 6 && substr($BundleName, -6) == 'Bundle') {
+        if (strlen($BundleName) > 6 && substr($BundleName, -6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $BundleName = substr($BundleName, 0, strlen($BundleName) - 6);
         }
 
         $EntityName = $PartesNombreClase[3];
-        if(strlen($EntityName) > 10 && substr($EntityName, -10) == 'Controller') {
+        if (strlen($EntityName) > 10 && substr($EntityName, -10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $EntityName = substr($EntityName, 0, strlen($EntityName) - 10);
         }

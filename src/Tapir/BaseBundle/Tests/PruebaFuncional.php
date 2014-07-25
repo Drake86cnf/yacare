@@ -95,7 +95,7 @@ class PruebaFuncional extends WebTestCase
     {
         parent::tearDown();
 
-        if($this->em) {
+        if ($this->em) {
             $this->em->close();
         }
     }

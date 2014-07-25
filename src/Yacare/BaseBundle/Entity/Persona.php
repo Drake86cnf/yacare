@@ -182,11 +182,11 @@ class Persona implements UserInterface, \Serializable
     
     
     public function getNombreVisible() {
-        if($this->RazonSocial)
+        if ($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
-        else if($this->Apellido && $this->Nombre)
+        else if ($this->Apellido && $this->Nombre)
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        else if($this->Nombre)
+        else if ($this->Nombre)
             $this->NombreVisible = $this->Nombre;
         else
             $this->NombreVisible = $this->Apellido;
@@ -195,11 +195,11 @@ class Persona implements UserInterface, \Serializable
     }
 
     public function setNombreVisible($NombreVisible) {
-        if($this->RazonSocial)
+        if ($this->RazonSocial)
             $this->NombreVisible = $this->RazonSocial;
-        else if($this->Apellido && $this->Nombre)
+        else if ($this->Apellido && $this->Nombre)
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        else if($this->Nombre)
+        else if ($this->Nombre)
             $this->NombreVisible = $this->Nombre;
         else
             $this->NombreVisible = $this->Apellido;
@@ -209,7 +209,7 @@ class Persona implements UserInterface, \Serializable
     
     public function getRoles() {
         $res = $this->UsuarioRoles->toArray();
-        if($this->getPasswordEnc() && in_array('ROLE_USUARIO', $res) == false) {
+        if ($this->getPasswordEnc() && in_array('ROLE_USUARIO', $res) == false) {
             /*
              * Todos los usuarios tienen el rol USUARIO (simpre que tengan una contraseña)
              */

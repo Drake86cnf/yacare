@@ -9,7 +9,7 @@ class ClassHelper {
      * Obtiene los traits usados por una clase, 
      */
     public static function ObtenerTraitsRecursivos($class) {
-        if(is_string($class) == false) {
+        if (is_string($class) == false) {
             $class = get_class($class);
         }
         $traits = [];

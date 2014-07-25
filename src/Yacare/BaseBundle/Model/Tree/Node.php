@@ -165,14 +165,14 @@ trait Node
         }
 
         $MatName = static::getMaterializedPathMaterial();
-        if($MatName) {
+        if ($MatName) {
             $MatFuncName = 'get' . $MatName;
             $MatContent = (string)($this->$MatFuncName());
         } else {
             $MatContent = (string)$this;
         }
         
-        if(null !== $node) {
+        if (null !== $node) {
             $path = $node->getMaterializedPath() . static::getMaterializedPathSeparator() . $MatContent;
         } else {
             $path = static::getMaterializedPathSeparator() . $MatContent;
@@ -184,7 +184,7 @@ trait Node
         }
 
         $this->ParentNode = $node;
-        if(null !== $node) {
+        if (null !== $node) {
             $this->ParentNode->addChildNode($this);
         }
 

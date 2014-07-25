@@ -88,12 +88,12 @@ class AsociacionRequisito
 
     
     public function getCondicion() {
-        if($this->getObs()) {
+        if ($this->getObs()) {
             return $this->getObs();
         }
         
         return $res = '';
-        if($this->CondicionQue) {
+        if ($this->CondicionQue) {
             switch($this->CondicionEs) {
                 case 'notnull';
                     $res .= 'hay ';
@@ -143,7 +143,7 @@ class AsociacionRequisito
                     $res .= ' ' . $this->CondicionEs . ' ';
                     break;
             }
-            if($this->CondicionCuanto) {
+            if ($this->CondicionCuanto) {
                 $res .= ' ' . $this->CondicionCuanto;
             }
         }
@@ -152,13 +152,13 @@ class AsociacionRequisito
     }
 
     public function __toString() {
-        if($this->getInstancia() && $this->getInstancia() !== 'na') {
+        if ($this->getInstancia() && $this->getInstancia() !== 'na') {
             $res = $this->getInstanciaNombre() . ' de ' . (string)($this->Requisito);
         } else {
             $res = (string)($this->Requisito);
         }
         
-        if($this->getPropiedad()) {
+        if ($this->getPropiedad()) {
              $res .= ' de ' . $this->getPropiedad();
         }
         
