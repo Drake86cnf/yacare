@@ -11,9 +11,8 @@
             <th>#</th>
             <th>Titular</th>
             <th class="hidden-sm hidden-xs">Actividad</th>
-            <th class="hidden-sm hidden-xs">Local</th>
-            <th class="hidden-xs">Fecha</th>
-            <th>Vencimiento</th>
+            <th class="hidden-sm hidden-xs">Fecha</th>
+            <th class="hidden-xs">Vencimiento</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +20,6 @@
         <tr onclick="yacareNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}')">
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Titular }}</td>
-            <td class="hidden-sm hidden-xs">{% if entity.ActividadPrincipal %}{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}{% endif %}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
             <td class="hidden-xs">{{ entity.createdAt|tapir_fecha('medium', 'none') }}</td>
             <td>{{ entity.Vencimiento|tapir_fecha('medium', 'none') }}</td>
