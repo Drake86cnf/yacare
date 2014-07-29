@@ -34,12 +34,19 @@ class UsuarioController extends AbmController
     }
     
     
+    /**
+     * Guarda una copia de la contraseña original antes de persistir la entidad.
+     */
     public function guardarActionPreBind($entity) {
         $this->PassOriginal = $entity->getPasswordEnc();
         return parent::guardarActionPreBind($entity);
     }
     
 
+    /**
+     * Interviene antes de persistir la entidad de modo de permitir que al editar
+     * si se deja la contraseña en blanco se conserva la contraseña actual.
+     */
     public function guardarActionPrePersist($entity, $editForm)
     {
         // Intervenir la entidad antes de persistir

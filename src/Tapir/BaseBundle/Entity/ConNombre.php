@@ -27,5 +27,4 @@ trait ConNombre
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
-
 }

@@ -5,7 +5,9 @@ namespace Yacare\TramitesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\ComprobanteTipo
+ * Tipo de comprobante.
+ * 
+ * Define un tipo de comprobante que puede emitirse.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_ComprobanteTipo")
@@ -19,6 +21,8 @@ class ComprobanteTipo
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
+     * El código alfanumérico que identifica a este tipo de comprobantes.
+     * 
      * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
      */
@@ -31,12 +35,18 @@ class ComprobanteTipo
     private $Clase;
     
     /**
+     * El período de validez predeterminado para este tipo de comprobantes.
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $PeriodoValidez;
     
     /**
-     * Al crear o editar un tipo de comprobante, se crea o edita un instrumento que lo refleja.
+     * Instrumento espejo.
+     * 
+     * Al crear o editar un tipo de comprobante, se crea o edita un instrumento
+     * que lo refleja.
+     * 
      * @ORM\ManyToOne(targetEntity="Instrumento", cascade={ "persist" })
      * @ORM\JoinColumn(nullable=true)
      */

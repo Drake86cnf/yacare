@@ -18,6 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 trait ConEliminar {
 
+    /**
+     * Crea el formulario de eliminación.
+     */
     protected function crearFormEliminar($id)
     {
         return $this->createFormBuilder(array('id' => $id))

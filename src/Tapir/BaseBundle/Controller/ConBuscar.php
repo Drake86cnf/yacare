@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 trait ConBuscar {
     /**
+     * Acción de mostrar el buscador.
+     * 
+     * @see buscarresultadosAction()
+     * 
      * @Route("buscar/")
      * @Template()
      */
@@ -25,6 +29,10 @@ trait ConBuscar {
     
     
     /**
+     * Acción de mostrar los resultados de la búsqueda.
+     * 
+     * @see buscarAction()
+     * 
      * @Route("buscarresultados/")
      * @Template()
      */

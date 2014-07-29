@@ -5,7 +5,9 @@ namespace Yacare\TramitesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\TramitesBundle\Entity\Requisito
+ * Requisito.
+ * 
+ * Representa un requisito que se puede asociar a un trámite.
  *
  * @ORM\Table(name="Tramites_Requisito")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
@@ -25,11 +27,22 @@ class Requisito
     }
         
     /**
+     * Requisitos de nivel superior.
+     * 
+     * @see $Requiere
+     * 
      * @ORM\ManyToMany(targetEntity="Requisito", mappedBy="Requiere")
      */
     private $MeRequieren;
     
     /**
+     * Sub-requisitos.
+     * 
+     * Si es un requisito "compuesto Y" o "compuesto O", estos son los requisitos
+     * que lo componen.
+     * 
+     * @see $Tipo
+     * 
      * @ORM\ManyToMany(targetEntity="Requisito", inversedBy="MeRequieren")
      * @ORM\JoinTable(name="Tramites_Requisito_Requisito",
      *      joinColumns={@ORM\JoinColumn(name="MeRequiere_id", referencedColumnName="id")},
@@ -40,25 +53,37 @@ class Requisito
     
     
     /**
+     * El tipo de requisito.
+     * 
+     * @see getTipoNombre()
+     * 
      * @var string
      * @ORM\Column(type="string", length=50)
      */
     private $Tipo;
     
     /**
+     * El lugar donde se obtiene o tramita este requisito.
+     * 
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Lugar;
     
     /**
+     * La dirección web donde se obtiene información sobre este requisito.
+     * 
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
     
     /**
-     * Al crear o editar un tipo de trámite, se crea o edita un requisito que lo refleja.
+     * Tipo de trámite hermanado con este requisito.
+     * 
+     * Al crear o editar un tipo de trámite, se crea o edita un requisito que lo
+     * refleja para que un trámite pueda ser requisito de otro.
+     * 
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=true)
      */

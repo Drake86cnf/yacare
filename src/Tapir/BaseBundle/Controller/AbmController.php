@@ -170,6 +170,13 @@ abstract class AbmController extends BaseController
         ));
     }
     
+    
+    /**
+     * Obtiene el nombre del tipo de formulario (FormType) que corresponde a la entidad
+     * administrada por este controlador.
+     * 
+     * @return string El nombre del tipo de formulario.
+     */
     protected function obtenerFormType() {
         if (isset($this->FormTypeName)) {
             return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
@@ -179,6 +186,12 @@ abstract class AbmController extends BaseController
     }
     
     /**
+     * Ver una entidad.
+     * 
+     * Es como editar, pero sólo lectura.
+     * 
+     * @see editarAction()
+     * 
      * @Route("ver/{id}")
      * @Template()
      */
@@ -207,6 +220,7 @@ abstract class AbmController extends BaseController
      * 
      * @see crearNuevaEntidad()
      * @see guardarAction()
+     * 
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $id El ID de la entidad a editar, o null si se trata de un
      * alta.
@@ -340,7 +354,7 @@ abstract class AbmController extends BaseController
     }
     
     /**
-     * Función para que las clases derivadas puedan manejar la subida de archivos
+     * Función para que las clases derivadas puedan manejar la subida de archivos.
      */
     public function guardarActionSubirArchivos($entity, $editForm)
     {
@@ -350,6 +364,10 @@ abstract class AbmController extends BaseController
 
     /**
      * Crear el formulario de eliminar.
+     * 
+     * Está en blanco ya que se espera que sea implementada por ConEliminar.
+     * 
+     * @see ConEliminar
      */
     protected function crearFormEliminar($id)
     {
@@ -360,12 +378,11 @@ abstract class AbmController extends BaseController
     /**
      * Crea una entidad nueva.
      * 
-     * Crea una entidad nueva, infiriendo el tipo de datos del nombre del
-     * bundle. Permite a los controladores derivados intervenir la creación de
-     * las entidades durante el procedo de alta.
+     * Crea una entidad nueva. Permite a los controladores derivados intervenir
+     * la creación de las entidades durante el procedo de alta.
      * 
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return object
+     * @return object La entidad nueva.
      */
     protected function crearNuevaEntidad(Request $request) {
         $entityName = $this->CompleteEntityName;
@@ -381,7 +398,7 @@ abstract class AbmController extends BaseController
      * entidades durante los procesos de edición, eliminación, archivado, etc.
      * 
      * @param integer
-     * @return object
+     * @return object La entidad.
      */
     protected function obtenerEntidadPorId($id) {
         $em = $this->getDoctrine()->getManager();

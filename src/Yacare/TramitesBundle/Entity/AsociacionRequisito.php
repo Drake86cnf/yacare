@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Asociación de un requisito con un trámite.
  * 
- * Representa la asociación entre un requisito y un trámite, y sus condiciones.
+ * Representa la asociación entre un requisito y un trámite, y las condiciones
+ * bajos las cuales que están asociados.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo_Requisito")
@@ -22,6 +23,10 @@ class AsociacionRequisito
     use \Tapir\BaseBundle\Entity\Eliminable;
 
     /**
+     * El tipo de trámite.
+     * 
+     * @see TramiteTipo
+     * 
      * @ORM\ManyToOne(targetEntity="TramiteTipo", inversedBy="AsociacionRequisitos")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -34,42 +39,82 @@ class AsociacionRequisito
     private $Propiedad;
 
     /**
+     * El requisito.
+     * 
+     * @see Requisito.
+     * 
      * @ORM\ManyToOne(targetEntity="Requisito")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $Requisito;
     
     /**
+     * La instancia del requisito (original, copia, etc.)
+     * 
      * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Instancia;
     
     /**
+     * Si el requisito es opcional, indica que se puede completar el trámite
+     * aunque el requisito no haya sido cumplido.
+     * 
      * @var boolean
      * @ORM\Column(type="boolean")
      */
     private $Opcional;
     
     /**
+     * El "qué" de la condición.
+     * 
+     * Por ejemplo, en la condición "categoría > 3", la categoría es el "qué",
+     * ">" es el "es" y 3 es el "cuánto".
+     * 
+     * @see $CondicionEs
+     * @see $CondicionCuanto
+     * 
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionQue;
     
     /**
+     * El "es" de la condición.
+     * 
+     * * Por ejemplo, en la condición "categoría > 3", la categoría es el "qué",
+     * ">" es el "es" y 3 es el "cuánto".
+     * 
+     * @see $CondicionQue
+     * @see $CondicionCuanto
+     * 
      * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $CondicionEs;
     
     /**
+     * El "cuánto" de la condición.
+     * 
+     * * Por ejemplo, en la condición "categoría > 3", la "categoría" es el "qué",
+     * ">" es el "es" y "3" es el "cuánto".
+     * 
+     * @see $CondicionQue
+     * @see $CondicionEs
+     * 
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionCuanto;
     
 
+    /**
+     * Devuelve una representación de cadena del valor Instancia.
+     * 
+     * @see $Instancia
+     * 
+     * @return string
+     */
     public function getInstanciaNombre() {
         switch($this->getInstancia()) {
             case 'na':
@@ -88,12 +133,22 @@ class AsociacionRequisito
     }
 
     
+    /**
+     * Devuelve una representación de cadena de la condición.
+     * 
+     * @see $CondicionQue
+     * @see $CondicionEs
+     * @see $CondicionCuanto
+     * 
+     * @return type
+     */
     public function getCondicion() {
         if ($this->getObs()) {
             return $this->getObs();
         }
         
-        return $res = '';
+        //return $res = '';
+        $res = '';
         if ($this->CondicionQue) {
             switch($this->CondicionEs) {
                 case 'notnull';

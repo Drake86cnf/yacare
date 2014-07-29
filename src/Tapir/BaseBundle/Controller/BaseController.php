@@ -18,13 +18,50 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 abstract class BaseController extends Controller
 {
+    /**
+     * @var string El nombre del vendor al cual pertenece este controlador.
+     * @see $BundleName
+     */
     protected $VendorName;
+    
+    /**
+     * @var string El nombre del bundle al cual pertenece este controlador.
+     * @see $VendorName
+     */
     protected $BundleName;
+    
+    /**
+     *
+     * @var string El nombre de la entidad principal que administra este controlador.
+     */
     protected $EntityName;
+    
+    /**
+     * @var string El nombre completo de la entidad, incluyendo vendor y bundle.
+     * @see $EntityName
+     */
     protected $CompleteEntityName;
+    
+    /**
+     *
+     * @var string El nombre de la entidad para las rutas generadas.
+     * 
+     * En la mayoría de los casos se deja en blanco y se asume que es lo mismo
+     * que EntityName. Puede ser diferente del nombre de la entidad en el bundle,
+     * por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
+     */
     protected $BaseRouteEntityName;
+    
+    /**
+     * @var array Un array con los nombres de las variables que se deben conservar al pasar de
+     * una acción a otra.
+     * 
+     * @see ArrastrarVariables()
+     * @see IniciarVariables()
+     */
     protected $ConservarVariables;
 
+    
     function __construct() {
         $this->IniciarVariables();
     }
@@ -36,6 +73,11 @@ abstract class BaseController extends Controller
         $this->IniciarVariables();
     }
     
+    /**
+     * Inicia las variables internas del controlador.
+     * 
+     * Intenta adivinar el nombre del bundle y la entidad.
+     */
     function IniciarVariables() {
         if (!isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
@@ -72,6 +114,8 @@ abstract class BaseController extends Controller
      * Por ejemplo, en la secuencia listar -> editar -> guardar -> listar, la
      * variable "page" que determina el número de página actual en el listado
      * debe ser conservada (arrastrada) entre acciones.
+     * 
+     * @see $ConservarVariables
      * 
      * @param string $valorInicial
      * @param bool $incluirDelSistema
