@@ -42,6 +42,11 @@ class ActividadType extends AbstractType
                 'required'  => true,
                 'choices' => array('0' => 'No', '1' => 'Sí')
                 ))
+            ->add('RequiereInfEscolar', 'choice', array(
+                'label' => 'Requiere informe de Infraestructura Escolar',
+                'required'  => true,
+                'choices' => array('0' => 'No', '1' => 'Sí')
+                ))
             ->add('CategoriaAntigua', 'choice', array(
                 'label' => 'Categoría antigua',
                 'required'  => true,
