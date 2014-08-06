@@ -107,6 +107,8 @@ class Actividad implements Tree\NodeInterface
      */
     private $RequiereDeyma = false;
     
+   
+    
     /**
      * Algunas actividades están exentas del requisito de habilitación comercial.
      * 
@@ -132,6 +134,13 @@ class Actividad implements Tree\NodeInterface
      */
     private $RequiereCamaraGrasa = false;
     
+     /**
+     * Indica si esta actividad requiere la aprobación de Infraestructura Escolar de provincia.
+     * 
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $RequiereInfEscolar = false;
     
     /**
      * @var bool
@@ -350,6 +359,7 @@ class Actividad implements Tree\NodeInterface
     public function setCategoriaAntigua($CategoriaAntigua) {
         $this->CategoriaAntigua = $CategoriaAntigua;
     }
+   
 
     public function getFinal() {
         return $this->Final;
@@ -373,5 +383,12 @@ class Actividad implements Tree\NodeInterface
 
     public function setRequiereCamaraGrasa($RequiereCamaraGrasa) {
         $this->RequiereCamaraGrasa = $RequiereCamaraGrasa;
+    }
+     public function getRequiereInfEscolar() {
+        return $this->RequiereInfEscolar;
+    }
+
+    public function setRequiereInfEscolar($RequiereInfEscolar) {
+        $this->RequiereInfEscolar = $RequiereInfEscolar;
     }
 }
