@@ -44,8 +44,34 @@ trait ConActividades {
                 || ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
     
+    public function getRequiereInfEscolar() {
+        $Activ1 = $this->getActividadPrincipal();
+        $Activ2 = $this->getActividadSecundaria();
+        $Activ3 = $this->getActividadTerciaria();
+
+        return ($Activ1 != null && $Activ1->getRequiereDbeh())
+                || ($Activ2 != null && $Activ2->getRequiereDbeh())
+                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+    }
     
-    
+    public function getRequiereCamaraGrasa() {
+        $Activ1 = $this->getActividadPrincipal();
+        $Activ2 = $this->getActividadSecundaria();
+        $Activ3 = $this->getActividadTerciaria();
+
+        return ($Activ1 != null && $Activ1->getRequiereDbeh())
+                || ($Activ2 != null && $Activ2->getRequiereDbeh())
+                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+    }
+    public function getRequiereCamaraBarro() {
+        $Activ1 = $this->getActividadPrincipal();
+        $Activ2 = $this->getActividadSecundaria();
+        $Activ3 = $this->getActividadTerciaria();
+
+        return ($Activ1 != null && $Activ1->getRequiereDbeh())
+                || ($Activ2 != null && $Activ2->getRequiereDbeh())
+                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+    }
     
     public function getActividadPrincipal() {
         return $this->ActividadPrincipal;
