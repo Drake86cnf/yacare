@@ -21,18 +21,27 @@ class FormatExtension extends \Twig_Extension
         );
     }
     
-    public function tapir_importe($number, $decimals = 2, $decPoint = '.', $thousandsSep = ',')
+    public function tapir_importe($number, $option='$')
     {
-        $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-        $price = $price;
-
-        return $price;
+        if($option == '-') {
+            if($number == 0){
+                return $option;   
+            } 
+        } else { 
+            if($number) {
+                $price = number_format($number, 2, '.', ',');
+                //$price = $price;
+                 return '$' . $price;
+            }
+            return '$' . $number;
+        }
+        
     }
     
 
     public function tapir_sino($valor)
     {
-        if ($valor) {            
+        if($valor) {            
             return "Sí";
         } else {
              return "No";             
@@ -41,9 +50,9 @@ class FormatExtension extends \Twig_Extension
     }
         
     
-    public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium') {
-        if ($date == null) {
-            return '';
+    public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium', $emptyMessage = '') {
+        if($date == null) {
+            return $emptyMessage;
         }
 
         $formatValues = array(
@@ -68,10 +77,10 @@ class FormatExtension extends \Twig_Extension
 
     public function tapir_hacetiempo($value, $format = 'Y-m-d H:s') 
     {
-        if (!$value) {
+        if(!$value) {
             return '';
         }
-        if (!($value instanceof \DateTime)) {
+        if(!($value instanceof \DateTime)) {
             $transformer = new DateTimeToStringTransformer(null, null, $format);
             $value = $transformer->reverseTransform($value);
         }
@@ -81,10 +90,10 @@ class FormatExtension extends \Twig_Extension
         
     public function tapir_cantidaddedias($value, $format = 'Y-m-d H:s') 
     {
-        if (!$value) {
+        if(!$value) {
             return '';
         }
-        if (!($value instanceof \DateTime)) {
+        if(!($value instanceof \DateTime)) {
             $transformer = new DateTimeToStringTransformer(null, null, $format);
             $value = $transformer->reverseTransform($value);
         }
@@ -173,26 +182,28 @@ class FormatExtension extends \Twig_Extension
             return 'ayer';
         } else {
             $distance_in_days = round($distance_in_minutes / 1440);
-            if ($distance_in_days <= 60) {
+            if($distance_in_days <= 60) {
                 return vsprintf('hace %d días', array('%d' => $distance_in_days));
             } else{
                  $distance_in_month=round($distance_in_days / 30);
-                 if ($distance_in_month < 20) {
+                 if($distance_in_month < 20) {
                     return vsprintf('hace %d meses', array('%d' => $distance_in_month)); 
                  } else {
                     $distance_in_year = abs(round(($distance_in_month / 12), 1, PHP_ROUND_HALF_UP));
 
-                    if (is_float($distance_in_year)) {
+                    if(is_float($distance_in_year)) {
                         $year = (int)$distance_in_year;
                         $month = ($distance_in_year-$year) * 10;
-                        if ($year == 1 and $month == 1) {
+                        if($year == 1 and $month == 1) {
                             return vsprintf('hace %d año y %u mes', array('%d' =>$year, '%u' =>$month));
-                        } else if ($year == 1) {
+                        } else if($year == 1 and $month > 1) {
                             return vsprintf('hace %d año y %u meses', array('%d' =>$year, '%u' =>$month));
-                        } else {
+                        } else if($month == 1 and $year > 1) {
                             return vsprintf('hace %d años y %u mes', array('%d' =>$year, '%u' =>$month));
+                        } else {
+                            return vsprintf('hace %d años y %u meses', array('%d' =>$year, '%u' =>$month));
                         }
-                    } else if ($distance_in_year == 1) {
+                    } else if($distance_in_year == 1) {
                         return vsprintf('hace %d año', array('%d' => $distance_in_year));
                     } else {
                         return vsprintf('hace %d años', array('%d' => $distance_in_year));

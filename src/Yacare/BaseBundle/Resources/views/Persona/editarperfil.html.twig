@@ -3,5 +3,5 @@
 {% block pagina_titulo %}Perfil de {{ entity }}{% endblock %}
 
 {% block pagina_acciones2 %}
-    <a data-toggle="modal" data-target="#modal" class="btn btn-link" href="{{ path(baseroute ~ '_cambiarcontrasena') }}">Cambiar contraseña</a>
+    <a data-toggle="modal" data-target="#modal" class="btn btn-link" href="{{ path('usuario_cambiarcontrasena') }}">Cambiar contraseña</a>
 {% endblock %}
