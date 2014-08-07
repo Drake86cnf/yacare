@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 abstract class AbmController extends BaseController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    //use \Tapir\BaseBundle\Controller\ConBuscar;
     
     function IniciarVariables() {
         parent::IniciarVariables();
@@ -195,7 +195,7 @@ abstract class AbmController extends BaseController
      * @Route("ver/{id}")
      * @Template()
      */
-    public function verAction($id = null)
+    public function verAction(Request $request, $id = null)
     {
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);

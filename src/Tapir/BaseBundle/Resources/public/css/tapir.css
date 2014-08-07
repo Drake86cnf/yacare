@@ -731,6 +731,7 @@ body {
     #wrapper {
         margin: 0px;
         padding: 0px !important;
+	padding-left: 0px !important;
     }
     
     #page-wrapper {
