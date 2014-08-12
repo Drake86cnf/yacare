@@ -58,7 +58,7 @@ abstract class AbmController extends BaseController
     /**
      * Genera la consulta DQL para el listado.
      * 
-     * La contula generada contiene los JOIN y ORDER BY correspondiente además
+     * La consulta generada contiene los JOIN y ORDER BY correspondiente además
      * de la cláusula WHERE que incluye las condiciones predeterminadas y la
      * condición Suprimido=0 para los elementos suprimibles (soft-delete) y las
      * condiciones de páginación y búsqueda (esta última si el parámetro
@@ -73,7 +73,7 @@ abstract class AbmController extends BaseController
      * @see $Paginar
      * 
      * @param string $filtro_buscar El filtro a aplicar en formato DQL.
-     * @return string Una comando DQL para obtener el listado.
+     * @return string Una comando DQL SELECT para obtener el listado.
      */
     protected function obtenerComandoSelect($filtro_buscar = null) {
         $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";

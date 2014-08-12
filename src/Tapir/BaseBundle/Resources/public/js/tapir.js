@@ -39,7 +39,7 @@ function yacareMostrarModalEn(url, destino) {
     urlFinal = urlFinal + 'tapir_mostrarmodal=1';
     
     $.get(urlFinal, function(data) {
-        div_modal.html(data).modal();
+        div_modal.html(data).modal({keyboard: true});
     }).fail(function(jqXHR) {
         // Muestro un error
         div_modal.html('<div class="modal-dialog"><div class="modal-content">\n\
@@ -47,7 +47,7 @@ function yacareMostrarModalEn(url, destino) {
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
 <h4 class="modal-title">Error</h4>\n\
 </div>\n\
-<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + jqXHR.responseText + '</div></div></div>').modal();
+<div class="modal-body">Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + jqXHR.responseText + '</div></div></div>').modal({keyboard: true});
     });
 
     return false;
