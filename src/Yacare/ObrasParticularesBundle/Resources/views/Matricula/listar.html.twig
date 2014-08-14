@@ -1,0 +1,35 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Matricula{% endblock %}
+
+{% block pagina_contenido %}
+{% include 'TapirBaseBundle::buscar.html.twig' %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Legajo</th>
+            <th>Nombre</th>
+            <th>Profesion</th>
+            <th>Fecha de vencimiento</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.Id }}</td>
+            <td>{{ entity }}</td>
+            <td>{{ entity.Profesion }}</td>
+            <td>{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
+<a data-toggle="ajax-link" href="{{ path('yacare_obrasparticulares_matricula_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nuevo matricula</a>
+{% endblock %}
