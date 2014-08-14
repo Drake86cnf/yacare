@@ -15,8 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
   
 {
     use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
+    
     /**
      * La persona asociada.
      * 
@@ -48,8 +47,8 @@ use Doctrine\ORM\Mapping as ORM;
     /**
      * La fecha de vencimiento del pago anual.
      * 
+     *@var $FechaVencimiento 
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
      */
     private $FechaVencimiento;
 
