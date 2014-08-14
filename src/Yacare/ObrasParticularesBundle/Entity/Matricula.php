@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
     private $Persona;
     
     
-    /**
+    /**Indica el estado del matriculado.
      * @var $Estado
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -38,7 +38,7 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $NumeroMatricula;
     
-    /**
+    /**Indica la profesion de la persona matriculada.
      * @var $Profesion
      * @ORM\Column(type="string")
      */
@@ -52,7 +52,7 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $FechaVencimiento;
 
-    /**
+    /**Email del profesional.
      * @var $Email
      * @ORM\Column(type="string")
      */
