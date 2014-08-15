@@ -26,19 +26,22 @@ use Doctrine\ORM\Mapping as ORM;
     
     
     /**Indica el estado del matriculado.
+     * 
      * @var $Estado
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Estado;
     
     
-     /**Indica el numero de matricula municipal.
+    /**Indica el numero de matricula municipal.
+     * 
      * @var $NumeroMatricula
      * @ORM\Column(type="integer", nullable=false)
      */
     private $NumeroMatricula;
     
     /**Indica la profesion de la persona matriculada.
+     * 
      * @var $Profesion
      * @ORM\Column(type="string")
      */
@@ -53,6 +56,7 @@ use Doctrine\ORM\Mapping as ORM;
     private $FechaVencimiento;
 
     /**Email del profesional.
+     * 
      * @var $Email
      * @ORM\Column(type="string")
      */
@@ -101,7 +105,7 @@ use Doctrine\ORM\Mapping as ORM;
         return $this->FechaVencimiento;
     }
 
-    public function setFechaVencimiento(\DateTime $FechaVencimiento = null) {
+    public function setFechaVencimiento($FechaVencimiento = null) {
         $this->FechaVencimiento = $FechaVencimiento;
     }
     
