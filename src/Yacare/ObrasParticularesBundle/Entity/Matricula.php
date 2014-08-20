@@ -25,28 +25,27 @@ use Doctrine\ORM\Mapping as ORM;
     private $Nombre;
     
     
-    /**Indica el estado del matriculado.
+    
+    
+    
+      /**
+     * Indica el estado de la matricula
      * 
-     * @var $Estado
-     * @ORM\Column(type="integer", nullable=false)
+     *@var $Estado 
+     * @ORM\Column(type="string", nullable=false)
      */
     private $Estado;
+
     
     
-    /**Indica el numero de matricula municipal.
+     /**
+     * Indica la profesion del matriculado
      * 
-     * @var $NumeroMatricula
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private $NumeroMatricula;
-    
-    
-    /**Indica la profesion de la persona matriculada.
-     * 
-     * @var $Profesion
-     * @ORM\Column(type="string")
+     *@var $Profesion 
+     * @ORM\Column(type="string", nullable=false)
      */
     private $Profesion;
+
     
     /**
      * La fecha de vencimiento del pago anual.
@@ -56,13 +55,14 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $FechaVencimiento;
 
-    
-    /**Email del profesional.
+    /**
+     * Email del matriculado.
      * 
-     * @var $Email
-     * @ORM\Column(type="string")
+     *@var $Email 
+     * @ORM\Column(type="string", nullable=true)
      */
     private $Email;
+
 
     
 
