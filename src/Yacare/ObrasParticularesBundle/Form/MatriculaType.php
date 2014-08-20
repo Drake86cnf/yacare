@@ -12,10 +12,28 @@ class MatriculaType extends AbstractType
     {
         $builder
             ->add('id', null, array('label' => 'Legajo', 'read_only' => true))
-            ->add('Nombre', null, array('label' => 'Nombres', 'required' => true))
-            ->add('Apellido', null, array('label' => 'Apellidos', 'required' => true))
-            ->add('username', null, array('label' => 'Nombre de usuario'))
-            ->add('FechaIngreso', 'date', array(
+            ->add('Nombre', null, array('label' => 'Nombre', 'required' => true))
+            ->add('Email', null, array('label' => 'Email', 'required' => false))
+            ->add('Estado', 'choice', array(
+                 'label' => 'Estado',
+                 'required'  => true,
+                 'choices' => array(
+                    0 => 'No habilitado',
+                    1 => 'Habilitado',
+                    
+                    )
+                 ))
+            ->add('Profesion', 'choice', array(
+                'label' => 'Profesion',
+                'required'  => true,
+                'choices' => array(
+                    0 => 'Ingeniero civil',
+                    1 => 'Arquitecto',
+                    91 => 'Maestro mayor de obras',
+                    100 => 'Tecnico en construcciones'
+                    )
+                ))
+            ->add('FechaVencimiento', 'date', array(
                 'years' => range(1900, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
@@ -35,4 +53,4 @@ class MatriculaType extends AbstractType
     {
         return 'yacare_obrasparticularesbundle_matriculatype';
     }
-}
+}   
