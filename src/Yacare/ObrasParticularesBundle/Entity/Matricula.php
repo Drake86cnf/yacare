@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
-    private $Persona;
+    private $Nombre;
     
     
     /**Indica el estado del matriculado.
@@ -40,6 +40,7 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $NumeroMatricula;
     
+    
     /**Indica la profesion de la persona matriculada.
      * 
      * @var $Profesion
@@ -55,6 +56,7 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $FechaVencimiento;
 
+    
     /**Email del profesional.
      * 
      * @var $Email
@@ -69,12 +71,12 @@ use Doctrine\ORM\Mapping as ORM;
         return $this->getPersona()->getNombreVisible();
     }
     
-    public function getPersona() {
-        return $this->Persona;
+    public function getNombre() {
+        return $this->Nombre;
     }
 
-    public function setPersona($Persona) {
-        $this->Persona = $Persona;
+    public function setNombre($Nombre) {
+        $this->Nombre = $Nombre;
     }
     
     public function getEstado() {
