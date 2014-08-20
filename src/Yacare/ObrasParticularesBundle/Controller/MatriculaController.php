@@ -21,6 +21,6 @@ class MatriculaController extends \Tapir\BaseBundle\Controller\AbmController
         parent::IniciarVariables();
 
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
-        $this->Joins[] = ' JOIN r.Persona p';
+       
     }
 }
