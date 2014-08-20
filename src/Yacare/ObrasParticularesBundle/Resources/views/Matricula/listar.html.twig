@@ -11,26 +11,23 @@
             <th>id</th>
             <th>Nombre</th>
             <th>Profesion</th>
-            <th>Fecha de vencimiento</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td>{{ entity.Id }}</td>
-            <td>{{ entity.NumeroMatricula }}</td>
-            <td>{{ entity.Profesion }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Nombre}}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Profesion}}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Estado }}</td>
             <td>{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+
+
 {% include 'TapirBaseBundle::paginar.html.twig' %}
 
-
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
-<a data-toggle="ajax-link" href="{{ path('yacare_obrasparticulares_matricula_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nueva matricula</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nueva Matricula</a>
 {% endblock %}
