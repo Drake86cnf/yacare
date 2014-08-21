@@ -10,42 +10,52 @@ class MatriculaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
-            ->add('id', null, array('label' => 'Legajo', 'read_only' => true))
-            ->add('Nombre', null, array('label' => 'Nombre', 'required' => true))
-            ->add('Email', null, array('label' => 'Email', 'required' => false))
-            ->add('Estado', 'choice', array(
-                 'label' => 'Estado',
-                 'required'  => true,
-                 'choices' => array(
-                    0 => 'No habilitado',
-                    1 => 'Habilitado',
-                    
-                    )
-                 ))
+            ->add('Nombre', 'entity_id' , array(
+                'label' => 'Nombre',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required'  => true))
+            ->add('Partida', 'entity_id', array(
+                'label' => 'Partida',
+                'class' => 'Yacare\CatastroBundle\Entity\Partida',
+                'required' => true))
+                
             ->add('Profesion', 'choice', array(
                 'label' => 'Profesion',
                 'required'  => true,
                 'choices' => array(
-                    0 => 'Ingeniero civil',
-                    1 => 'Arquitecto',
-                    91 => 'Maestro mayor de obras',
-                    100 => 'Tecnico en construcciones'
+                    'Ingeniero Civil' => 'Ingeniero Civil',
+                    'Arquitecto' => 'Arquitecto',
+                    'Maestro Mayor de Obras' => 'M.M Obras',
+                    'Tecnico Constructor' => 'T. Constructor',
+                    'Otro' => 'Otro'
                     )
                 ))
-            ->add('FechaVencimiento', 'date', array(
+            ->add('Estado', 'choice', array(
+                'label' => 'Estado',
+                'required'  => true,
+                'choices' => array(
+                    'Habilitado' => 'Habilitado',
+                    'No Habilitado' => 'No Habilitado',
+                    
+                    )
+                ))
+                ->add('FechaVencimiento', 'date', array(
                 'years' => range(1900, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de ingreso'))
-        ;
+                'label' => 'Fecha de Vencimiento'))
+                ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matricula'
+            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matricula',
+            'cascade_validation' => true,
         ));
     }
 
@@ -53,4 +63,4 @@ class MatriculaType extends AbstractType
     {
         return 'yacare_obrasparticularesbundle_matriculatype';
     }
-}   
+}
