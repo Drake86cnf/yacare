@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
   
 {
     use \Tapir\BaseBundle\Entity\ConId;
+    use \Yacare\CatastroBundle\Entity\ConPartida;
+    
     
     /**
      * La persona asociada.
@@ -25,9 +27,6 @@ use Doctrine\ORM\Mapping as ORM;
     private $Nombre;
     
     
-    
-    
-    
       /**
      * Indica el estado de la matricula
      * 
@@ -36,7 +35,6 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $Estado;
 
-    
     
      /**
      * Indica la profesion del matriculado
@@ -55,6 +53,7 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $FechaVencimiento;
 
+    
     /**
      * Email del matriculado.
      * 
