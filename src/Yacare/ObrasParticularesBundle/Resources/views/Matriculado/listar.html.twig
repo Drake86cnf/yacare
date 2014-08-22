@@ -18,10 +18,11 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td class="hidden-sm hidden-xs">{{ entity.Persona }}</td>
+            <td class=""><a class="btn btn-xs btn-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-edit"></i></a> {{ entity.Numero }}</td>
+            <td class="">{{ entity.Persona }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Persona.Domicilio }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Profesion }}</td>
-            <td>{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
+            <td class="hidden-sm">{{ entity.Profesion }}</td>
+            <td class="hidden-sm">{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
         </tr>
     {% endfor %}
     </tbody>

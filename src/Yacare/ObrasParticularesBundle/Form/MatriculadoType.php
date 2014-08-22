@@ -13,6 +13,10 @@ class MatriculadoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('Numero', null, array(
+                'label' => 'Número',
+                'required'  => true
+                ))
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
                 'property' => 'NombreVisible',

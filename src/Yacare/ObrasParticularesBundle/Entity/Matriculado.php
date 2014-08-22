@@ -26,6 +26,16 @@ class Matriculado
      */
     private $Persona;
     
+    
+    /**
+     * Número de matrícula. Temporal.
+     * 
+     * @var $Numero 
+     * @ORM\Column(type="integer", unique=true, nullable=false)
+     */
+    private $Numero;
+    
+    
     /**
      * Indica la profesion del matriculado
      * 
@@ -44,7 +54,7 @@ class Matriculado
 
     
     public function __toString() {
-        return $this->getPersona()->getNombreVisible();
+        return 'Matriculado Nº ' . $this->getNumero() . ': ' . $this->getPersona()->getNombreVisible();
     }
     
     public function getProfesion() {
@@ -69,5 +79,13 @@ class Matriculado
 
     public function setFechaVencimiento($FechaVencimiento) {
         $this->FechaVencimiento = $FechaVencimiento;
+    }
+    
+    public function getNumero() {
+        return $this->Numero;
+    }
+
+    public function setNumero($Numero) {
+        $this->Numero = $Numero;
     }
 }
