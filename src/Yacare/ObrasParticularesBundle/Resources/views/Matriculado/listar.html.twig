@@ -1,6 +1,6 @@
 {% extends 'TapirBaseBundle:Default:listar.html.twig' %}
 
-{% block pagina_titulo %}Matriculados{% endblock %}
+{% block pagina_titulo %}Profesionales matriculados{% endblock %}
 
 {% block pagina_contenido %}
 {% include 'TapirBaseBundle::buscar.html.twig' %}
@@ -10,19 +10,19 @@
         <tr>
             <th>#</th>
             <th>Nombre</th>
-            <th>Domicilio</th>
-            <th>Profesión</th>
-            <th>Vencimiento</th>
+            <th class="hidden-xs">Domicilio</th>
+            <th class="hidden-xs">Profesión</th>
+            <th class="hidden-xs hidden-print">Vencimiento</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td class=""><a class="btn btn-xs btn-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-edit"></i></a> {{ entity.Numero }}</td>
+            <td class=""><a class="btn btn-xs btn-link hidden-print" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-edit"></i></a> {{ entity.Numero }}</td>
             <td class="">{{ entity.Persona }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Persona.Domicilio }}</td>
-            <td class="hidden-sm">{{ entity.Profesion }}</td>
-            <td class="hidden-sm">{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
+            <td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
+            <td class="hidden-xs">{{ entity.Profesion }}</td>
+            <td class="hidden-xs hidden-print">{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
         </tr>
     {% endfor %}
     </tbody>
