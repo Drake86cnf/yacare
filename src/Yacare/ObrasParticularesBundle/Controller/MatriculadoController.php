@@ -6,31 +6,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-
 /**
- * Controlador de agentes.
+ * Controlador de matriculados.
  * 
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Alejandro Diaz <alediaz.rc@gmail.com>
  * 
- * @Route("matricula/")
+ * @Route("matriculado/")
  */
-class MatriculaController extends \Tapir\BaseBundle\Controller\AbmController 
+class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController 
 {
-      
-
     function IniciarVariables(){
         parent::IniciarVariables();
-        
-        $this->BuscarPor= 'p.Nombre , p.id ,p.Documento';
-        
-    }
-    
-    
-}    
-    
-{
-    
-    
 
-    
+        $this->BuscarPor= 'p.Nombre , p.id ,p.Documento';
+    }
 }

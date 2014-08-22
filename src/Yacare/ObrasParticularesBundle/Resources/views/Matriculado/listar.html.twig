@@ -1,6 +1,6 @@
-{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
 
-{% block pagina_titulo %}Matricula{% endblock %}
+{% block pagina_titulo %}Matriculados{% endblock %}
 
 {% block pagina_contenido %}
 {% include 'TapirBaseBundle::buscar.html.twig' %}
@@ -8,18 +8,19 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>id</th>
+            <th>#</th>
             <th>Nombre</th>
-            <th>Profesion</th>
-            <th>Estado</th>
+            <th>Domicilio</th>
+            <th>Profesión</th>
+            <th>Vencimiento</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td class="hidden-sm hidden-xs">{{ entity.Nombre}}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Profesion}}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Estado }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Persona }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Persona.Domicilio }}</td>
+            <td class="hidden-sm hidden-xs">{{ entity.Profesion }}</td>
             <td>{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
         </tr>
     {% endfor %}
