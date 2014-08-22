@@ -34,7 +34,9 @@ class MatriculadoType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'label' => 'Fecha de vencimiento'))
+                'label' => 'Fecha de vencimiento',
+                'required'  => false
+                ))
                 ;
     }
 

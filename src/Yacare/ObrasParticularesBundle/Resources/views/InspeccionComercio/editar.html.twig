@@ -1,7 +1,0 @@
-{% extends 'TapirBaseBundle:Default:editar.html.twig' %}
-
-{% block pagina_titulo %}{% if entity.id %}Inspección Nº {{ entity.id }}{% else %}Nueva inspección{% endif %}{% endblock %}
-
-{% block pagina_acciones2 %}
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_imprimir', { 'id': entity.id }) }}" class="btn btn-default"><i class="fa fa-print"></i> Imprimir</a>
-{% endblock %}
