@@ -5,7 +5,7 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConAdjuntos
+ * Agrega la capacidad de tener archivos adjuntos.
  */
 trait ConAdjuntos
 {

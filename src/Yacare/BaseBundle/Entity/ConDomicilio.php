@@ -5,7 +5,7 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConDomicilio
+ * Agrega la característica de tener domicilio.
  *
  */
 trait ConDomicilio

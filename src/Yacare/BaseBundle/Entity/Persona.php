@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Una persona (física o jurídica).
  * 
@@ -32,12 +31,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Persona implements UserInterface, \Serializable
 {
     use \Tapir\BaseBundle\Entity\ConId;
-    use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Tapir\BaseBundle\Entity\ConImagen;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Entity\ConDomicilio;
+    use \Yacare\BaseBundle\Entity\ConVerificacion;
     
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
@@ -182,30 +182,33 @@ class Persona implements UserInterface, \Serializable
     
     
     public function getNombreVisible() {
-        if ($this->RazonSocial)
+        if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
-        else if ($this->Apellido && $this->Nombre)
+        } else if ($this->Apellido && $this->Nombre) {
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        else if ($this->Nombre)
+        } else if ($this->Nombre) {
             $this->NombreVisible = $this->Nombre;
-        else
+        } else {
             $this->NombreVisible = $this->Apellido;
+        }
         
         return trim($this->NombreVisible, ',');
     }
 
     public function setNombreVisible($NombreVisible) {
-        if ($this->RazonSocial)
+        if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
-        else if ($this->Apellido && $this->Nombre)
+        } else if ($this->Apellido && $this->Nombre) {
             $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        else if ($this->Nombre)
+        } else if ($this->Nombre) {
             $this->NombreVisible = $this->Nombre;
-        else
+        } else {
             $this->NombreVisible = $this->Apellido;
+        }
         
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
+    
     
     public function getRoles() {
         $res = $this->UsuarioRoles->toArray();
@@ -423,5 +426,12 @@ class Persona implements UserInterface, \Serializable
     public function setAgenteId($AgenteId) {
         $this->AgenteId = $AgenteId;
     }
+    
+    public function getVerificacionNivel() {
+        return $this->VerificacionNivel;
+    }
 
+    public function setVerificacionNivel($VerificacionNivel) {
+        $this->VerificacionNivel = $VerificacionNivel;
+    }
 }
