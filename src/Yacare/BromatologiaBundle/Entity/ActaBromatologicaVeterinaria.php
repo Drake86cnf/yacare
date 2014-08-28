@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Bromatologia_ActaBromatologicaVeterinaria")
  */
-class ActaBromatologicaVeterinaria extends \Yacare\InspeccionBundle\Entity\Acta
+abstract class ActaBromatologicaVeterinaria extends \Yacare\InspeccionBundle\Entity\Acta
 {
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BromatologiaBundle\Entity\ConMercaderia;

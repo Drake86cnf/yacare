@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Bromatologia_ActaRutina")
  */
-class ActaRutina extends \Yacare\InspeccionBundle\Entity\Acta
+abstract class ActaRutina extends \Yacare\InspeccionBundle\Entity\Acta
 {
       /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")

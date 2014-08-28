@@ -15,7 +15,7 @@ trait ConVerificacion
      * @var integer
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $VerificacionNivel;
+    private $VerificacionNivel = 0;
     
     static public function VerificacionNivelNombre($verificacionNivel) {
         switch($verificacionNivel) {

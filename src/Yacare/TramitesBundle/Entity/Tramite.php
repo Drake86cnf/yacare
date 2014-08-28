@@ -46,6 +46,8 @@ abstract class Tramite
     /**
      * Indica de qué tipo de trámite se trata (discriminador).
      * 
+     * @see TramiteTipo
+     * 
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=false)
      */

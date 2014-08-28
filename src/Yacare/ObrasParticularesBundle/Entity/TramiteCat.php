@@ -5,7 +5,9 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ObrasParticularesBundle\Entity\TramiteCat
+ * Representa un trámite en curso de Certificado de Aptitud Técnica Edilicia.
+ * 
+ * @author Alejandro Diaz <alediaz.rc@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_TramiteCat")
@@ -16,10 +18,12 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
     use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     
     /**
-     * @var string
-     * @ORM\Column(type="integer", nullable=true)
+     * Valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
      * 
-     * Almacena un el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
+     * @see \Yacare\BaseBundle\Catastro\UsoSuelo
+     * 
+     * @var integer
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $UsoSuelo;
     
@@ -27,6 +31,9 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
     public function UsoSueloNombre() {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
+
+
+
 
     
     public function getActividadPrincipal(){

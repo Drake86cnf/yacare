@@ -23,6 +23,7 @@ class ActaTipoType extends AbstractType
                         ->orderBy('i.MaterializedPath', 'ASC');
                 },
                 'property' => 'NombreConSangriaDeEspaciosDuros'))
+            ->add('Clase', null, array('label' => 'Clase'))
         ;
     }
 

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * 
  * Representa una persona física o jurídica. Es el repositorio principal de
  * personas, que todas las entidades que representan personas (por ejemplo
- * Usuario, Agente, Aroveedor, etc.) deben encapsular.
+ * Usuario, Agente, Proveedor, etc.) deben encapsular.
  * 
  * @author Ernesto Carrea <equistango@gmail.com>
  *
