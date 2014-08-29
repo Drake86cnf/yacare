@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,83 +8,86 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_Matricula")
- * 
  */
 class Matriculado
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Tapir\BaseBundle\Entity\Archivable;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\Archivable;
+    use\Tapir\BaseBundle\Entity\Versionable;
+
     /**
      * La persona asociada.
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Persona;
-    
-    
+
     /**
-     * Número de matrícula. Temporal.
-     * 
-     * @var $Numero 
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * Número de matrícula.
+     * Temporal.
+     *
+     * @var $Numero @ORM\Column(type="integer", unique=true, nullable=false)
      */
     private $Numero;
-    
-    
+
     /**
      * Indica la profesion del matriculado
-     * 
-     * @var $Profesion 
-     * @ORM\Column(type="string", nullable=false)
+     *
+     * @var $Profesion @ORM\Column(type="string", nullable=false)
      */
     private $Profesion;
 
     /**
      * La fecha de vencimiento del pago anual.
-     * 
-     * @var $FechaVencimiento 
-     * @ORM\Column(type="date", nullable=true)
+     *
+     * @var $FechaVencimiento @ORM\Column(type="date", nullable=true)
      */
     private $FechaVencimiento;
 
-    
-    public function __toString() {
+    public function __toString()
+    {
         return 'Matriculado Nº ' . $this->getNumero() . ': ' . $this->getPersona()->getNombreVisible();
     }
-    
-    public function getProfesion() {
+
+    public function getProfesion()
+    {
         return $this->Profesion;
     }
 
-    public function setProfesion($Profesion) {
+    public function setProfesion($Profesion)
+    {
         $this->Profesion = $Profesion;
     }
-    
-    public function getPersona() {
+
+    public function getPersona()
+    {
         return $this->Persona;
     }
 
-    public function setPersona($Persona) {
+    public function setPersona($Persona)
+    {
         $this->Persona = $Persona;
     }
-    
-    public function getFechaVencimiento() {
+
+    public function getFechaVencimiento()
+    {
         return $this->FechaVencimiento;
     }
 
-    public function setFechaVencimiento($FechaVencimiento) {
+    public function setFechaVencimiento($FechaVencimiento)
+    {
         $this->FechaVencimiento = $FechaVencimiento;
     }
-    
-    public function getNumero() {
+
+    public function getNumero()
+    {
         return $this->Numero;
     }
 
-    public function setNumero($Numero) {
+    public function setNumero($Numero)
+    {
         $this->Numero = $Numero;
     }
 }

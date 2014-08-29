@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,5 +12,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class CalleController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConExportarLista;
+    use\Yacare\BaseBundle\Controller\ConExportarLista;
 }

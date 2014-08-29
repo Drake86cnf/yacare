@@ -1,28 +1,28 @@
 <?php
-
 namespace Tapir\BaseBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class StringHelper {
+class StringHelper
+{
     
     /*
-     * Obtiene el nombre del bundle y de la entidad a partide una clase.
-     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
+     * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
      */
-    static public function ObtenerBundleYEntidad($nombreclase) {
+    static public function ObtenerBundleYEntidad($nombreclase)
+    {
         $PartesNombreClase = explode('\\', $nombreclase);
         
         $res = array();
         
         $res[0] = $PartesNombreClase[1];
-        if (strlen($res[0]) > 6 && substr($res[0], -6) == 'Bundle') {
+        if (strlen($res[0]) > 6 && substr($res[0], - 6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $res[0] = substr($res[0], 0, strlen($res[0]) - 6);
         }
         
         $res[1] = $PartesNombreClase[3];
-        if (strlen($res[1]) > 10 && substr($res[1], -10) == 'Controller') {
+        if (strlen($res[1]) > 10 && substr($res[1], - 10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
         }
@@ -30,110 +30,107 @@ class StringHelper {
         return $res;
     }
     
-    
     /*
-     * Obtiene el nombre la aplicación (vendor) a partir de una clase.
-     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
+     * Obtiene el nombre la aplicación (vendor) a partir de una clase. Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
      */
-    static public function ObtenerAplicacion($nombreclase) {
+    static public function ObtenerAplicacion($nombreclase)
+    {
         $PartesNombreClase = explode('\\', $nombreclase);
         
         return $PartesNombreClase[0];
     }
     
-    
     /*
-     * Obtiene una ruta base a partir de una clase.
-     * Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController" devuelve "tapir_base_persona"
-     * Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve "tapir_base_persona_editar"
+     * Obtiene una ruta base a partir de una clase. Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController" devuelve "tapir_base_persona" Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve "tapir_base_persona_editar"
      */
-    static public function ObtenerRutaBase($nombreclase, $accion = null) {
+    static public function ObtenerRutaBase($nombreclase, $accion = null)
+    {
         // Quito barras iniciales y finales
         $nombreclase = trim($nombreclase, '\\');
         $PartesNombreClase = StringHelper::ObtenerBundleYEntidad($nombreclase);
-
+        
         if ($accion)
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1] . '_' . $accion);
         else
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1]);
     }
-    
-    
-    
-    static public function ObtenerDocumento($text) {
+
+    static public function ObtenerDocumento($text)
+    {
         $Partes = preg_split('/[\: ]/', $text);
         $Tipo = '';
         $Numero = '';
-
-        foreach($Partes as $Parte) {
+        
+        foreach ($Partes as $Parte) {
             $v = trim($Parte);
             if ($v == '') {
                 // Ignorar
-            } else if ($v == 'DU') {
-                $Tipo = 'DNI';
-            } else if ($v == 'DU'  || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
-                $Tipo = $v;
-            } else {
-                $Numero = $v;
-            }
+            } else 
+                if ($v == 'DU') {
+                    $Tipo = 'DNI';
+                } else 
+                    if ($v == 'DU' || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
+                        $Tipo = $v;
+                    } else {
+                        $Numero = $v;
+                    }
             
             if (strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            } else if (!$Tipo || $Tipo = 'SC') {
-                $Tipo = 'DNI';
-            }
+            } else 
+                if (! $Tipo || $Tipo = 'SC') {
+                    $Tipo = 'DNI';
+                }
         }
-
-        return array($Tipo, ltrim($Numero, '0'));
+        
+        return array(
+            $Tipo,
+            ltrim($Numero, '0')
+        );
     }
 
-    
-    static public function Desoraclizar($text) {
+    static public function Desoraclizar($text)
+    {
         return trim(StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
-    
-    static public function ProperCase($string, 
-            $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"),
-            $exceptions = array(
+
+    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), $exceptions = array(
                 'de', 'y', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
                 'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
-                )) {
+                ))
+    {
         /*
-         * Exceptions in lower case are words you don't want converted.
-         * Exceptions all in upper case are any words you don't want converted to title case
-         *   but should be converted to upper case, e.g.:
-         *   king henry viii or king henry Viii should be King Henry VIII
+         * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry Viii should be King Henry VIII
          */
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
+        
+        foreach ($delimiters as $dlnr => $delimiter) {
+            $words = explode($delimiter, $string);
+            $newwords = array();
+            foreach ($words as $wordnr => $word) {
+                if (in_array(mb_strtoupper($word, 'UTF-8'), $exceptions)) {
+                    // check exceptions list for any words that should be in upper case
+                    $word = mb_strtoupper($word, 'UTF-8');
+                } elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
+                    // check exceptions list for any words that should be in upper case
+                    $word = mb_strtolower($word, 'UTF-8');
+                } 
 
-        foreach ($delimiters as $dlnr => $delimiter){
-                $words = explode($delimiter, $string);
-                $newwords = array();
-                foreach ($words as $wordnr => $word){
-                        if (in_array(mb_strtoupper($word, 'UTF-8'), $exceptions)) {
-                                // check exceptions list for any words that should be in upper case
-                                $word = mb_strtoupper($word, 'UTF-8');
-                        }
-                        elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
-                                // check exceptions list for any words that should be in upper case
-                                $word = mb_strtolower($word, 'UTF-8');
-                        }
-
-                        elseif (!in_array($word, $exceptions)) {
-                                // convert to uppercase (non-utf8 only)
-                                $word = ucfirst($word);
-                        }
-                        array_push($newwords, $word);
+                elseif (! in_array($word, $exceptions)) {
+                    // convert to uppercase (non-utf8 only)
+                    $word = ucfirst($word);
                 }
-                $string = join($delimiter, $newwords);
+                array_push($newwords, $word);
+            }
+            $string = join($delimiter, $newwords);
         }
-
+        
         return $string;
     }
-    
-    
-    static public function ArreglarProblemasConocidos($text) {
+
+    static public function ArreglarProblemasConocidos($text)
+    {
         $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
         
         $remplazos = array(
@@ -180,8 +177,8 @@ class StringHelper {
             'y Cia. Sa' => 'y Cía. S.A.',
             '' => '',
             '' => '',
-            '' => '',
-            );
+            '' => ''
+        );
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
@@ -189,9 +186,9 @@ class StringHelper {
         
         return trim(str_replace('  ', ' ', $text));
     }
-    
 
-    static public function PonerTildes($text) {
+    static public function PonerTildes($text)
+    {
         $text = ' ' . $text . ' ';
         
         $remplazos = array(
@@ -340,8 +337,8 @@ class StringHelper {
             'informatica' => 'informática',
             'tecnologia' => 'tecnología',
             '' => '',
-            '' => '',
-            );
+            '' => ''
+        );
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);

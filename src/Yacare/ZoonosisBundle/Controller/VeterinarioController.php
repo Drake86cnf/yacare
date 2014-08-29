@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ZoonosisBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,5 +9,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class VeterinarioController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use\Tapir\BaseBundle\Controller\ConEliminar;
 }

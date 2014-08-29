@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,63 +11,69 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
-    use \Yacare\TramitesBundle\Entity\ConApoderado;
-    
+    use\Yacare\TramitesBundle\Entity\ConApoderado;
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Comercio;
-    
+
     /**
-     * @var string
-     * @ORM\Column(type="integer", nullable=true)
-     * 
-     * Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
+     *
+     * @var string @ORM\Column(type="integer", nullable=true)
+     *     
+     *      Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
      */
     private $UsoSuelo;
 
-    public function getInmueble() {
+    public function getInmueble()
+    {
         return $this->getComercio()->getInmueble();
     }
-    
-    public function getLocal() {
+
+    public function getLocal()
+    {
         return $this->getComercio()->getLocal();
     }
-    
-    public function getRequiereDeyma() {
+
+    public function getRequiereDeyma()
+    {
         return $this->getComercio()->getRequiereDeyma();
     }
-    
-    public function getRequiereDbeh() {
+
+    public function getRequiereDbeh()
+    {
         return $this->getComercio()->getRequiereDbeh();
     }
-    
-    public function EstaListoParaTerminar() {
-        return $this->getUsoSuelo() <=3 
-                && parent::EstaListoParaTerminar();
+
+    public function EstaListoParaTerminar()
+    {
+        return $this->getUsoSuelo() <= 3 && parent::EstaListoParaTerminar();
     }
 
-    
-    public function UsoSueloNombre() {
+    public function UsoSueloNombre()
+    {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
 
-
-
-    public function getUsoSuelo() {
+    public function getUsoSuelo()
+    {
         return $this->UsoSuelo;
     }
 
-    public function setUsoSuelo($UsoSuelo) {
+    public function setUsoSuelo($UsoSuelo)
+    {
         $this->UsoSuelo = $UsoSuelo;
     }
-    
-    public function getComercio() {
+
+    public function getComercio()
+    {
         return $this->Comercio;
     }
 
-    public function setComercio($Comercio) {
+    public function setComercio($Comercio)
+    {
         $this->Comercio = $Comercio;
     }
 }

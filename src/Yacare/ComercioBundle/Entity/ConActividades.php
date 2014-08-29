@@ -1,99 +1,101 @@
 <?php
-
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait ConActividades {
+trait ConActividades
+{
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $ActividadPrincipal;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $ActividadSecundaria;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $ActividadTerciaria;
 
-    
-    public function getRequiereDeyma() {
+    public function getRequiereDeyma()
+    {
         $Activ1 = $this->getActividadPrincipal();
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
-
-        return ($Activ1 != null && $Activ1->getRequiereDeyma())
-                || ($Activ2 != null && $Activ2->getRequiereDeyma())
-                || ($Activ3 != null && $Activ3->getRequiereDeyma());
+        
+        return ($Activ1 != null && $Activ1->getRequiereDeyma()) || ($Activ2 != null && $Activ2->getRequiereDeyma()) || ($Activ3 != null && $Activ3->getRequiereDeyma());
     }
-    
-    public function getRequiereDbeh() {
+
+    public function getRequiereDbeh()
+    {
         $Activ1 = $this->getActividadPrincipal();
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
-
-        return ($Activ1 != null && $Activ1->getRequiereDbeh())
-                || ($Activ2 != null && $Activ2->getRequiereDbeh())
-                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
-    
-    public function getRequiereInfEscolar() {
+
+    public function getRequiereInfEscolar()
+    {
         $Activ1 = $this->getActividadPrincipal();
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
-
-        return ($Activ1 != null && $Activ1->getRequiereDbeh())
-                || ($Activ2 != null && $Activ2->getRequiereDbeh())
-                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
-    
-    public function getRequiereCamaraGrasa() {
+
+    public function getRequiereCamaraGrasa()
+    {
         $Activ1 = $this->getActividadPrincipal();
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
-
-        return ($Activ1 != null && $Activ1->getRequiereDbeh())
-                || ($Activ2 != null && $Activ2->getRequiereDbeh())
-                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
-    public function getRequiereCamaraBarro() {
+
+    public function getRequiereCamaraBarro()
+    {
         $Activ1 = $this->getActividadPrincipal();
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
-
-        return ($Activ1 != null && $Activ1->getRequiereDbeh())
-                || ($Activ2 != null && $Activ2->getRequiereDbeh())
-                || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
-    
-    public function getActividadPrincipal() {
+
+    public function getActividadPrincipal()
+    {
         return $this->ActividadPrincipal;
     }
 
-    public function getActividadSecundaria() {
+    public function getActividadSecundaria()
+    {
         return $this->ActividadSecundaria;
     }
 
-    public function getActividadTerciaria() {
+    public function getActividadTerciaria()
+    {
         return $this->ActividadTerciaria;
     }
 
-    public function setActividadPrincipal($ActividadPrincipal) {
+    public function setActividadPrincipal($ActividadPrincipal)
+    {
         $this->ActividadPrincipal = $ActividadPrincipal;
     }
 
-    public function setActividadSecundaria($ActividadSecundaria) {
+    public function setActividadSecundaria($ActividadSecundaria)
+    {
         $this->ActividadSecundaria = $ActividadSecundaria;
     }
 
-    public function setActividadTerciaria($ActividadTerciaria) {
+    public function setActividadTerciaria($ActividadTerciaria)
+    {
         $this->ActividadTerciaria = $ActividadTerciaria;
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,71 +11,78 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Libreta
 {
-    use \Tapir\BaseBundle\Entity\ConId;   
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $Persona;
-   
+
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime @ORM\Column(type="datetime")
      */
     private $FechaCertificado;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BromatologiaBundle\Entity\Medico")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Profesional;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BromatologiaBundle\Entity\CertificadoBpm")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Curso;
-    
-      public function __toString() {
+
+    public function __toString()
+    {
         return $this->getPersona()->getNombreVisible();
-      }
-    
-    public function getPersona() {
+    }
+
+    public function getPersona()
+    {
         return $this->Persona;
     }
 
-    public function setPersona($Persona) {
+    public function setPersona($Persona)
+    {
         $this->Persona = $Persona;
     }
 
-    public function getFechaCertificado() {
+    public function getFechaCertificado()
+    {
         return $this->FechaCertificado;
     }
 
-    public function setFechaCertificado(\DateTime $FechaCertificado) {
+    public function setFechaCertificado(\DateTime $FechaCertificado)
+    {
         $this->FechaCertificado = $FechaCertificado;
     }
 
-    public function getProfesional() {
+    public function getProfesional()
+    {
         return $this->Profesional;
     }
 
-    public function setProfesional($Profesional) {
+    public function setProfesional($Profesional)
+    {
         $this->Profesional = $Profesional;
     }
 
-    public function getCurso() {
+    public function getCurso()
+    {
         return $this->Curso;
     }
 
-    public function setCurso($Curso) {
+    public function setCurso($Curso)
+    {
         $this->Curso = $Curso;
     }
- 
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

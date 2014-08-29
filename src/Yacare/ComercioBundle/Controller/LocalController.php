@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ComercioBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -11,21 +10,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class LocalController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use\Tapir\BaseBundle\Controller\ConEliminar;
+    use\Tapir\BaseBundle\Controller\ConBuscar;
 
-    function IniciarVariables() {
+    function IniciarVariables()
+    {
         parent::IniciarVariables();
         
         $this->BuscarPor = null;
     }
-    
-    
+
     /**
      * @Route("listar/")
      * @Template()
      */
-    public function listarAction(Request $request) {
+    public function listarAction(Request $request)
+    {
         $filtro_buscar = $request->query->get('filtro_buscar');
         
         if ($filtro_buscar) {

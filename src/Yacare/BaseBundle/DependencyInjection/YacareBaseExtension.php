@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class YacareBaseExtension extends Extension
 {
+
     /**
      * {@inheritDoc}
      */
@@ -21,8 +21,8 @@ class YacareBaseExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }
 }

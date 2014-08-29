@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,29 +7,35 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RelevamientoAsignacionType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Relevamiento', 'entity', array(
-                'label' => 'Relevamiento',
-                'class' => 'YacareInspeccionBundle:Relevamiento',
-                'required' => true,
-                'empty_value' => false,
-                'property' => 'Nombre'))
+        $builder->add('Relevamiento', 'entity', array(
+            'label' => 'Relevamiento',
+            'class' => 'YacareInspeccionBundle:Relevamiento',
+            'required' => true,
+            'empty_value' => false,
+            'property' => 'Nombre'
+        ))
             ->add('Encargado', 'entity_id', array(
-                'label' => 'Encargado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required' => true))
+            'label' => 'Encargado',
+            'property' => 'NombreVisible',
+            'class' => 'Yacare\BaseBundle\Entity\Persona',
+            'required' => true
+        ))
             ->add('Calle', 'entity', array(
-                'label' => 'Calle',
-                'class' => 'YacareCatastroBundle:Calle',
-                'required' => false,
-                'empty_value' => 'Ninguna',
-                'property' => 'Nombre'))
-            ->add('Seccion', null, array('label' => 'Sección'))
-            ->add('Macizo', null, array('label' => 'Macizo'))
-        ;
+            'label' => 'Calle',
+            'class' => 'YacareCatastroBundle:Calle',
+            'required' => false,
+            'empty_value' => 'Ninguna',
+            'property' => 'Nombre'
+        ))
+            ->add('Seccion', null, array(
+            'label' => 'Sección'
+        ))
+            ->add('Macizo', null, array(
+            'label' => 'Macizo'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

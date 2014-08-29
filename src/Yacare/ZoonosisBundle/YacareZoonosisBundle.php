@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ZoonosisBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

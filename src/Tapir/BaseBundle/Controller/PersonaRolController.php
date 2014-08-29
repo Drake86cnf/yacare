@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,11 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador de roles de personas.
- * 
+ *
  * @Route("personarol/")
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use\Tapir\BaseBundle\Controller\ConEliminar;
 }

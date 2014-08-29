@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,25 +7,27 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DocumentoType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('DocumentoTipo', 'choice', array(
-                'choices'  => array(
-                    '1'  => 'DNI',
-                    '2'   => 'LE',
-                    '3'   => 'LC',
-                    '4'   => 'CI',
-                    '5'   => 'Pasaporte',
-                    '98' => 'CUIL',
-                    '99' => 'CUIT',
-                    ),
-                'label' => 'Tipo'))
-            ->add('DocumentoNumero', null, array('label' => 'Número'))
-            ->setAttribute('widget', 'form_horizontal')
-        ;
+        $builder->add('DocumentoTipo', 'choice', array(
+            'choices' => array(
+                '1' => 'DNI',
+                '2' => 'LE',
+                '3' => 'LC',
+                '4' => 'CI',
+                '5' => 'Pasaporte',
+                '98' => 'CUIL',
+                '99' => 'CUIT'
+            ),
+            'label' => 'Tipo'
+        ))
+            ->add('DocumentoNumero', null, array(
+            'label' => 'Número'
+        ))
+            ->setAttribute('widget', 'form_horizontal');
     }
-    
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(

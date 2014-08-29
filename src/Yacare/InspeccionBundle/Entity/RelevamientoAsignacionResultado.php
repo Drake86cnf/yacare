@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,24 +12,24 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  */
 class RelevamientoAsignacionResultado
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\ConImagen;
-    use \Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\ConImagen;
+    use\Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Resultado;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Asignacion;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacionDetalle")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -38,25 +37,25 @@ class RelevamientoAsignacionResultado
     protected $Detalle;
 
     /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
+     *
+     * @var string @ORM\Column(type="text", nullable=true)
      */
     protected $Obs;
-    
+
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Ubicacion;
-    
-    
-    public function getRelevamiento() {
+
+    public function getRelevamiento()
+    {
         return $this->getAsignacion()->getRelevamiento();
     }
-    
 
-    public function getUbicacionLatitud() {
-        if ($this->Ubicacion){
+    public function getUbicacionLatitud()
+    {
+        if ($this->Ubicacion) {
             $x = sscanf($this->Ubicacion, "POINT(%f %f)");
             $Latitud = $x[0];
         } else {
@@ -65,9 +64,9 @@ class RelevamientoAsignacionResultado
         return $Latitud;
     }
 
-    
-    public function getUbicacionLongitud() {
-        if ($this->Ubicacion){
+    public function getUbicacionLongitud()
+    {
+        if ($this->Ubicacion) {
             $x = sscanf($this->Ubicacion, "POINT(%f %f)");
             $Longitud = $x[1];
         } else {
@@ -76,36 +75,43 @@ class RelevamientoAsignacionResultado
         return $Longitud;
     }
 
-    
-    public function getResultado() {
+    public function getResultado()
+    {
         return $this->Resultado;
     }
 
-    public function setResultado($Resultado) {
+    public function setResultado($Resultado)
+    {
         $this->Resultado = $Resultado;
     }
 
-    public function getDetalle() {
+    public function getDetalle()
+    {
         return $this->Detalle;
     }
 
-    public function setDetalle($Detalle) {
+    public function setDetalle($Detalle)
+    {
         $this->Detalle = $Detalle;
     }
-    
-    public function getObs() {
+
+    public function getObs()
+    {
         return $this->Obs;
     }
 
-    public function setObs($Obs) {
+    public function setObs($Obs)
+    {
         $this->Obs = $Obs;
     }
 
-    public function getUbicacion() {
+    public function getUbicacion()
+    {
         return $this->Ubicacion;
     }
 
-    public function setUbicacion($Ubicacion) {
+    public function setUbicacion($Ubicacion)
+    {
         $this->Ubicacion = $Ubicacion;
     }
 }

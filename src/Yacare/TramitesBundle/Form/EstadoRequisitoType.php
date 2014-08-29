@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\TramitesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,31 +7,30 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EstadoRequisitoType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Estado', 'choice', array(
-                'label' => 'Estado',
-                'required'  => true,
-                'choices' => array(
-                    '0' => 'Faltante',
-                    '10' => 'Observado',
-                    '15' => 'Rechazado',
-                    '90' => 'Desestimado',
-                    '95' => 'Presentado pendiente de aprobación',
-                    '100' => 'Aprobado'
-                    )
-                ))
+        $builder->add('Estado', 'choice', array(
+            'label' => 'Estado',
+            'required' => true,
+            'choices' => array(
+                '0' => 'Faltante',
+                '10' => 'Observado',
+                '15' => 'Rechazado',
+                '90' => 'Desestimado',
+                '95' => 'Presentado pendiente de aprobación',
+                '100' => 'Aprobado'
+            )
+        ))
             ->add('Obs', null, array(
-                'label' => 'Obs.',
-                ))
+            'label' => 'Obs.'
+        ))
             ->add('Adjuntos', 'adjuntos', array(
-                    'label' => 'Adjuntar archivos',
-                    'required' => false,
-                    'class' => 'Yacare\BaseBundle\Entity\Adjunto',
-                    'data_class' => null
-		))
-            ;
+            'label' => 'Adjuntar archivos',
+            'required' => false,
+            'class' => 'Yacare\BaseBundle\Entity\Adjunto',
+            'data_class' => null
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

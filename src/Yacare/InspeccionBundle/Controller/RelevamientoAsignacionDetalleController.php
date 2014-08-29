@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +12,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoAsignacionDetalleController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function IniciarVariables() {
-        parent::IniciarVariables();
 
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
         $this->Where = 'r.ResultadosCantidad>0';
     }
-    
+
     /**
      * @Route("listarrelevamiento/{id}")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionDetalle:listar.html.twig")

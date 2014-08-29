@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,6 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DispositivoGenericoType extends DispositivoType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);

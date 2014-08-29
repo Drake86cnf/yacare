@@ -1,31 +1,34 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Agrega una propiedad de imagen a una entidad.
- * 
+ *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConImagen
 {
+
     /**
-     * @var $imagen
-     * @ORM\Column(name="imagen", type="blob", nullable=true)
+     *
+     * @var $imagen @ORM\Column(name="imagen", type="blob", nullable=true)
      */
     private $imagen;
-    
-    public function getImagenBase64() {
+
+    public function getImagenBase64()
+    {
         return base64_encode($this->imagen);
     }
-    
-    public function getImagen() {
+
+    public function getImagen()
+    {
         return $this->imagen;
     }
 
-    public function setImagen($imagen) {
+    public function setImagen($imagen)
+    {
         $this->imagen = $imagen;
     }
 }

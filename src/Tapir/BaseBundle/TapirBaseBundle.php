@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

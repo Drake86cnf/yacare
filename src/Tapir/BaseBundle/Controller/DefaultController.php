@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,14 +9,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador predeterminado.
- * 
+ *
  * Contiene funciones puntuales de página de bienvenida (inicio), login y
  * logout.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class DefaultController extends Controller
 {
+
     /**
      * @Route("inicio/")
      * @Template
@@ -26,7 +26,7 @@ class DefaultController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Route("/login")
      * @Template
@@ -34,24 +34,22 @@ class DefaultController extends Controller
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
-
+        
         // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                SecurityContext::AUTHENTICATION_ERROR
-            );
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
-
+        
         return array(
-                // last username entered by the user
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error,
-            );
+            // last username entered by the user
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error' => $error
+        );
     }
-    
+
     /**
      * @Route("/logout", name="logout")
      * @Template

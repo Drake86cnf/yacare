@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,47 +11,46 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Medico
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $Medico;
-   
+
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var string @ORM\Column(type="string", length=255)
      */
     private $Matricula;
-    
-    
-      public function __toString() {
+
+    public function __toString()
+    {
         return $this->getMedico()->getNombreVisible();
     }
-        
-    
-    
-    public function getMedico() {
+
+    public function getMedico()
+    {
         return $this->Medico;
     }
 
-    public function setMedico($Medico) {
+    public function setMedico($Medico)
+    {
         $this->Medico = $Medico;
     }
 
-    public function getMatricula() {
+    public function getMatricula()
+    {
         return $this->Matricula;
     }
 
-    public function setMatricula($Matricula) {
+    public function setMatricula($Matricula)
+    {
         $this->Matricula = $Matricula;
     }
-
-
 }

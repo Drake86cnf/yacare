@@ -1,43 +1,45 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tapir\BaseBundle\Helper\Damm;
 
 /**
- * Trait que agrega los métodos (getter y setter) a una entidad. Requiere ConId.
+ * Trait que agrega los métodos (getter y setter) a una entidad.
+ * Requiere ConId.
  *
  * @see ConId
- * 
+ *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait ConIdMetodos
 {
+
     /**
      * Get id
-     * @return integer 
+     * 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    
-    public function setId($id) {
+
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    
+
     public function getDamm()
     {
         return str_pad(Damm::CalcCheckDigit($this->id), 5, '0', STR_PAD_LEFT);
     }
- 
 
     public function getYri64($incluye_version = true)
     {
         return base64_encode($this->getYri($incluye_version));
     }
-    
+
     public function getYri($incluye_version = true)
     {
         // get_class() devuelve Tapir\TalBundle\Entity\TalEntidad
@@ -52,11 +54,11 @@ trait ConIdMetodos
         
         return $Res;
     }
-    
-    
-    public function getYriQrBase64() {
-        $ContenidoQr = $this->getYri(true);
 
+    public function getYriQrBase64()
+    {
+        $ContenidoQr = $this->getYri(true);
+        
         ob_start();
         \PHPQRCode\QRcode::png($ContenidoQr);
         $imagen_contenido = ob_get_contents();

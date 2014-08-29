@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,26 +11,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoAnalisis
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\ConNombre;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
- /**
-     * @var integer
-     * @ORM\Column(type="integer")
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConNombre;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
+    /**
+     *
+     * @var integer @ORM\Column(type="integer")
      */
     private $Costo;
-    
- /**
-     * @var integer
-     * @ORM\Column(type="integer")
+
+    /**
+     *
+     * @var integer @ORM\Column(type="integer")
      */
-    private $Tipo;   
-    
-    public function getTipoNombre() {
-        switch ($this->Tipo){
+    private $Tipo;
+
+    public function getTipoNombre()
+    {
+        switch ($this->Tipo) {
             case 1:
                 return 'Físico Químico';
             case 2:
@@ -40,25 +40,24 @@ class TipoAnalisis
                 return '???';
         }
     }
-    
-    
-    
- 
-    public function getCosto() {
+
+    public function getCosto()
+    {
         return $this->Costo;
     }
 
-    public function setCosto($Costo) {
+    public function setCosto($Costo)
+    {
         $this->Costo = $Costo;
     }
 
-    public function getTipo() {
+    public function getTipo()
+    {
         return $this->Tipo;
     }
 
-    public function setTipo($Tipo) {
+    public function setTipo($Tipo)
+    {
         $this->Tipo = $Tipo;
     }
-
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\SeguridadBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,70 +11,79 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Camara extends \Yacare\BaseBundle\Entity\Dispositivo
 {
-    /**     
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $CamaraTipo;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $Ubicacion;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CoordenadasGps;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $LoginUsuario;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $LoginContrasena;
-    
-      
-    public function getCamaraTipo() {
+
+    public function getCamaraTipo()
+    {
         return $this->CamaraTipo;
     }
 
-    public function getUbicacion() {
+    public function getUbicacion()
+    {
         return $this->Ubicacion;
     }
 
-    public function getCoordenadasGps() {
+    public function getCoordenadasGps()
+    {
         return $this->CoordenadasGps;
     }
 
-    public function setCamaraTipo($CamaraTipo) {
+    public function setCamaraTipo($CamaraTipo)
+    {
         $this->CamaraTipo = $CamaraTipo;
     }
 
-    public function setUbicacion($Ubicacion) {
+    public function setUbicacion($Ubicacion)
+    {
         $this->Ubicacion = $Ubicacion;
     }
 
-    public function setCoordenadasGps($CoordenadasGps) {
+    public function setCoordenadasGps($CoordenadasGps)
+    {
         $this->CoordenadasGps = $CoordenadasGps;
     }
 
-    public function getLoginUsuario() {
+    public function getLoginUsuario()
+    {
         return $this->LoginUsuario;
     }
 
-    public function getLoginContrasena() {
+    public function getLoginContrasena()
+    {
         return $this->LoginContrasena;
     }
 
-    public function setLoginUsuario($LoginUsuario) {
+    public function setLoginUsuario($LoginUsuario)
+    {
         $this->LoginUsuario = $LoginUsuario;
     }
 
-    public function setLoginContrasena($LoginContrasena) {
+    public function setLoginContrasena($LoginContrasena)
+    {
         $this->LoginContrasena = $LoginContrasena;
     }
-    
 }

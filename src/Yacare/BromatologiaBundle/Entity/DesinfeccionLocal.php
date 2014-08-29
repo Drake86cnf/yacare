@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,40 +11,39 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DesinfeccionLocal
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
-    protected $Titular;    
- 
- /**
+    protected $Titular;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    protected $Local;  
-    
-     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
+    protected $Local;
+
+    /**
+     *
+     * @var \DateTime @ORM\Column(type="datetime")
      */
     private $FechaDesinfeccionLocal;
-    
+
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     *
+     * @var integer @ORM\Column(type="integer")
      */
-    private $TipoDesinfeccionLocal;   
-    
-    
-    public function getTipoDesinfeccionLocalNombre() {
-        switch ($this->TipoDesinfeccionLocal){
+    private $TipoDesinfeccionLocal;
+
+    public function getTipoDesinfeccionLocalNombre()
+    {
+        switch ($this->TipoDesinfeccionLocal) {
             case 1:
                 return 'Desinfección';
             case 2:
@@ -56,44 +54,49 @@ class DesinfeccionLocal
                 return '???';
         }
     }
-    
-          public function __toString() {
+
+    public function __toString()
+    {
         return $this->getLocal();
     }
-    
-    
-     
-    public function getTitular() {
+
+    public function getTitular()
+    {
         return $this->Titular;
     }
 
-    public function setTitular($Titular) {
+    public function setTitular($Titular)
+    {
         $this->Titular = $Titular;
     }
 
-    public function getLocal() {
+    public function getLocal()
+    {
         return $this->Local;
     }
 
-    public function setLocal($Local) {
+    public function setLocal($Local)
+    {
         $this->Local = $Local;
     }
 
-    public function getFechaDesinfeccionLocal() {
+    public function getFechaDesinfeccionLocal()
+    {
         return $this->FechaDesinfeccionLocal;
     }
 
-    public function setFechaDesinfeccionLocal(\DateTime $FechaDesinfeccionLocal) {
+    public function setFechaDesinfeccionLocal(\DateTime $FechaDesinfeccionLocal)
+    {
         $this->FechaDesinfeccionLocal = $FechaDesinfeccionLocal;
     }
 
-    public function getTipoDesinfeccionLocal() {
+    public function getTipoDesinfeccionLocal()
+    {
         return $this->TipoDesinfeccionLocal;
     }
 
-    public function setTipoDesinfeccionLocal($TipoDesinfeccionLocal) {
+    public function setTipoDesinfeccionLocal($TipoDesinfeccionLocal)
+    {
         $this->TipoDesinfeccionLocal = $TipoDesinfeccionLocal;
     }
-
-
-    }
+}

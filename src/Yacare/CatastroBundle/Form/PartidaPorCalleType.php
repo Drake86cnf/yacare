@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\CatastroBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,24 +7,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PartidaPorCalleType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('DomicilioCalle', 'entity', array(
-                'label' => 'Calle',
-                'class' => 'YacareCatastroBundle:Calle',
-                'required' => true,
-                'mapped' => false
-                ))
+        $builder->add('DomicilioCalle', 'entity', array(
+            'label' => 'Calle',
+            'class' => 'YacareCatastroBundle:Calle',
+            'required' => true,
+            'mapped' => false
+        ))
             ->add('DomicilioNumero', null, array(
-                'label' => 'Nº',
-                'mapped' => false
-                ))
-            ->setAttribute('widget', 'form_horizontal')
-        ;
+            'label' => 'Nº',
+            'mapped' => false
+        ))
+            ->setAttribute('widget', 'form_horizontal');
     }
-    
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'inherit_data' => true,

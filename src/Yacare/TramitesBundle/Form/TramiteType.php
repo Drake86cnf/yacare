@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\TramitesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,15 +7,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class TramiteType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Titular', 'entity_id', array(
-                'label' => 'Titular',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required'  => true
-                ))
-        ;
+        $builder->add('Titular', 'entity_id', array(
+            'label' => 'Titular',
+            'class' => 'Yacare\BaseBundle\Entity\Persona',
+            'required' => true
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

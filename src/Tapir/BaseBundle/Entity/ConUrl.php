@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,17 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConUrl
 {
+
     /**
+     *
      * @var string $Url
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *      @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
-    
-    public function getUrl() {
+
+    public function getUrl()
+    {
         return $this->Url;
     }
 
-    public function setUrl($Url) {
+    public function setUrl($Url)
+    {
         $this->Url = $Url;
     }
 }

@@ -1,29 +1,30 @@
 <?php
 // Esta clase está basada en el trabajo de KnpDoctrineBehaviors de KnpLabs <http://knplabs.com/>
- 
 namespace Yacare\BaseBundle\Model\Tree;
 
 use Yacare\BaseBundle\Model\Tree\NodeInterface;
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait Node
 {
+
     /**
+     *
      * @var ArrayCollection $ChildNodes the children in the tree
      */
     private $ChildNodes;
-    
+
     /**
      * Las clases que implementan esta característica deben implementar la variable $ParentNode;
      * private $ParentNode;
      */
-
+    
     /**
-     * @var string $MaterializedPath
      *
-     * @ORM\Column(type="text")
+     * @var string $MaterializedPath
+     *     
+     *      @ORM\Column(type="text")
      */
     protected $MaterializedPath = '';
 
@@ -36,7 +37,7 @@ trait Node
     {
         return '/';
     }
-    
+
     /**
      * Returns the column on which construct materialized path.
      *
@@ -48,8 +49,10 @@ trait Node
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getRealMaterializedPath()
     {
         return $this->getMaterializedPath() . self::getMaterializedPathSeparator() . $this->getId();
@@ -61,50 +64,60 @@ trait Node
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function setMaterializedPath($path)
     {
         $this->MaterializedPath = $path;
         $this->setParentMaterializedPath($this->getParentMaterializedPath());
-
+        
         return $this;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getParentMaterializedPath()
     {
         $path = $this->getExplodedPath();
         array_pop($path);
-
-        $parentPath = static::getMaterializedPathSeparator().implode(static::getMaterializedPathSeparator(), $path);
-
+        
+        $parentPath = static::getMaterializedPathSeparator() . implode(static::getMaterializedPathSeparator(), $path);
+        
         return $parentPath;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function setParentMaterializedPath($path)
     {
         $this->ParentNodePath = $path;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getRootMaterializedPath()
     {
         $explodedPath = $this->getExplodedPath();
-
+        
         return static::getMaterializedPathSeparator() . array_shift($explodedPath);
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getNodeLevel()
     {
         $res = count($this->getExplodedPath()) - 2;
@@ -122,54 +135,63 @@ trait Node
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getChildNodes()
     {
-        return $this->ChildNodes = $this->ChildNodes ?: new ArrayCollection;
+        return $this->ChildNodes = $this->ChildNodes ?  : new ArrayCollection();
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function addChildNode(NodeInterface $node)
     {
         $this->getChildNodes()->add($node);
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function isIndirectChildNodeOf(NodeInterface $node)
     {
-        return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath()
-            && 0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
+        return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath() && 0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function isChildNodeOf(NodeInterface $node)
     {
         return $this->getParentMaterializedPath() === $node->getRealMaterializedPath();
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function setChildNodeOf(NodeInterface $node = null)
     {
         $id = $this->getId();
         if (empty($id)) {
             throw new \LogicException('You must provide an id for this node if you want it to be part of a tree.');
         }
-
+        
         $MatName = static::getMaterializedPathMaterial();
         if ($MatName) {
             $MatFuncName = 'get' . $MatName;
-            $MatContent = (string)($this->$MatFuncName());
+            $MatContent = (string) ($this->$MatFuncName());
         } else {
-            $MatContent = (string)$this;
+            $MatContent = (string) $this;
         }
         
         if (null !== $node) {
@@ -178,58 +200,66 @@ trait Node
             $path = static::getMaterializedPathSeparator() . $MatContent;
         }
         $this->setMaterializedPath($path);
-
+        
         if (null !== $this->ParentNode) {
             $this->ParentNode->getChildNodes()->removeElement($this);
         }
-
+        
         $this->ParentNode = $node;
         if (null !== $node) {
             $this->ParentNode->addChildNode($this);
         }
-
+        
         foreach ($this->getChildNodes() as $child) {
             $child->setChildNodeOf($this);
         }
-
+        
         return $this;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getParentNode()
     {
         return $this->ParentNode;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function setParentNode(NodeInterface $node = null)
     {
         $this->ParentNode = $node;
         $this->setChildNodeOf($this->ParentNode);
-
+        
         return $this;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function getRootNode()
     {
         $parent = $this;
         while (null !== $parent->getParentNode()) {
             $parent = $parent->getParentNode();
         }
-
+        
         return $parent;
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     public function buildTree(array $results)
     {
         $this->getChildNodes()->clear();
@@ -242,73 +272,96 @@ trait Node
     }
 
     /**
-     * @param \Closure $prepare a function to prepare the node before putting into the result
      *
+     * @param \Closure $prepare
+     *            a function to prepare the node before putting into the result
+     *            
      * @return string the json representation of the hierarchical result
-     **/
+     *        
+     */
     public function toJson(\Closure $prepare = null)
     {
         $tree = $this->toArray($prepare);
-
+        
         return json_encode($tree);
     }
 
     /**
-     * @param \Closure $prepare a function to prepare the node before putting into the result
-     * @param array    $tree    a reference to an array, used internally for recursion
      *
+     * @param \Closure $prepare
+     *            a function to prepare the node before putting into the result
+     * @param array $tree
+     *            a reference to an array, used internally for recursion
+     *            
      * @return array the hierarchical result
-     **/
+     *        
+     */
     public function toArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function(NodeInterface $node) {
+            $prepare = function (NodeInterface $node)
+            {
                 return (string) $node;
             };
         }
         if (null === $tree) {
-            $tree = array($this->getId() => array('node' => $prepare($this), 'children' => array()));
+            $tree = array(
+                $this->getId() => array(
+                    'node' => $prepare($this),
+                    'children' => array()
+                )
+            );
         }
-
+        
         foreach ($this->getChildNodes() as $node) {
-            $tree[$this->getId()]['children'][$node->getId()] = array('node' => $prepare($node), 'children' => array());
+            $tree[$this->getId()]['children'][$node->getId()] = array(
+                'node' => $prepare($node),
+                'children' => array()
+            );
             $node->toArray($prepare, $tree[$this->getId()]['children']);
         }
-
+        
         return $tree;
     }
 
     /**
-     * @param \Closure $prepare a function to prepare the node before putting into the result
-     * @param array    $tree    a reference to an array, used internally for recursion
      *
+     * @param \Closure $prepare
+     *            a function to prepare the node before putting into the result
+     * @param array $tree
+     *            a reference to an array, used internally for recursion
+     *            
      * @return array the flatten result
-     **/
+     *        
+     */
     public function toFlatArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function(NodeInterface $node) {
+            $prepare = function (NodeInterface $node)
+            {
                 $pre = $node->getNodeLevel() > 1 ? implode('', array_fill(0, $node->getNodeLevel(), '--')) : '';
-
-                return $pre.(string) $node;
+                
+                return $pre . (string) $node;
             };
         }
         if (null === $tree) {
-            $tree = array($this->getId() => $prepare($this));
+            $tree = array(
+                $this->getId() => $prepare($this)
+            );
         }
-
+        
         foreach ($this->getChildNodes() as $node) {
             $tree[$node->getId()] = $prepare($node);
             $node->toFlatArray($prepare, $tree);
         }
-
+        
         return $tree;
     }
 
     public function offsetSet($offset, $node)
     {
         $node->setChildNodeOf($this);
-
+        
         return $this;
     }
 
@@ -328,13 +381,16 @@ trait Node
     }
 
     /**
-     * {@inheritdoc}
-     **/
+     *
+     * @ERROR!!!
+     *
+     */
     protected function getExplodedPath()
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());
-
-        return array_filter($path, function($item) {
+        
+        return array_filter($path, function ($item)
+        {
             return '' !== $item;
         });
     }

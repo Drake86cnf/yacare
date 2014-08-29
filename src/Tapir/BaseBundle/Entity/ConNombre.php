@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,20 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConNombre
 {
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $nombre;
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getNombre();
     }
-    
-    public function getNombre() {
+
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre) {
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 }

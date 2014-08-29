@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,21 +11,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class ActaRutinaDecomiso extends \Yacare\BromatologiaBundle\Entity\ActaRutina
 {
-    use \Yacare\BromatologiaBundle\Entity\ConMercaderia;
-    
+    use\Yacare\BromatologiaBundle\Entity\ConMercaderia;
+
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     *
+     * @var integer @ORM\Column(type="integer")
      */
     private $NotaNumero;
-        
- 
-    public function getNotaNumero() {
+
+    public function getNotaNumero()
+    {
         return $this->NotaNumero;
     }
 
-    public function setNotaNumero($NotaNumero) {
+    public function setNotaNumero($NotaNumero)
+    {
         $this->NotaNumero = $NotaNumero;
     }
-    
 }

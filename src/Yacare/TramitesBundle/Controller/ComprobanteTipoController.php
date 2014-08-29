@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\TramitesBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -9,11 +8,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class ComprobanteTipoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    public function guardarActionPrePersist($entity, $editForm) {
-        // Crear o actualizar un instrumento asociado
 
+    public function guardarActionPrePersist($entity, $editForm)
+    {
+        // Crear o actualizar un instrumento asociado
         $InstrumentoEspejo = $entity->getInstrumentoEspejo();
-        if (!$InstrumentoEspejo) {
+        if (! $InstrumentoEspejo) {
             $InstrumentoEspejo = new \Yacare\TramitesBundle\Entity\Instrumento();
         }
         

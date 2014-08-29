@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -8,27 +7,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Trait que agrega la capacidad de eliminar entidades.
- * 
+ *
  * La entidad controlada por el controlador debe ser Eliminable o Suprimible.
- * 
+ *
  * @see \Tapir\BaseBundle\Entity\Eliminable
  * @see \Tapir\BaseBundle\Entity\Suprimible
- * 
+ *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
-trait ConEliminar {
+trait ConEliminar
+{
 
     /**
      * Crea el formulario de eliminación.
      */
     protected function crearFormEliminar($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
+        return $this->createFormBuilder(array(
+            'id' => $id
+        ))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
-    
+
     /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar/{id}")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template("YacareBaseBundle:Default:eliminar.html.twig")
@@ -36,22 +37,21 @@ trait ConEliminar {
     public function eliminarAction($id)
     {
         $deleteForm = $this->crearFormEliminar($id);
-
+        
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-
-        if (!$entity) {
+        
+        if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
-
+        
         return $this->ArrastrarVariables(array(
-            'entity'      => $entity,
-            'create'      => $id ? false : true,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'create' => $id ? false : true,
+            'delete_form' => $deleteForm->createView()
         ));
     }
-    
-    
+
     /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar2/{id}")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
@@ -61,37 +61,45 @@ trait ConEliminar {
     {
         $form = $this->crearFormEliminar($id);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-
+            
             if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
                 // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
                 $entity->Suprimir();
                 $em->persist($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'Se suprimió el elemento "' . $entity . '".');
                 return $this->afterEliminar($entity, true);
-            } else if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
-                // Es eliminable... lo elimino de verdad
-                $em->remove($entity);
-                $em->flush();
-                $this->get('session')->getFlashBag()->add('info', 'Se eliminó el elemento "' . $entity . '".');
-                return $this->afterEliminar($entity, true);
-            } else {
-                // No es eliminable ni suprimible... no se puede borrar
-                $this->get('session')->getFlashBag()->add('info', 'No se puede eliminar el elemento "' . $entity . '".');
-            }
+            } else 
+                if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
+                    // Es eliminable... lo elimino de verdad
+                    $em->remove($entity);
+                    $em->flush();
+                    $this->get('session')
+                        ->getFlashBag()
+                        ->add('info', 'Se eliminó el elemento "' . $entity . '".');
+                    return $this->afterEliminar($entity, true);
+                } else {
+                    // No es eliminable ni suprimible... no se puede borrar
+                    $this->get('session')
+                        ->getFlashBag()
+                        ->add('info', 'No se puede eliminar el elemento "' . $entity . '".');
+                }
         }
-
+        
         return $this->afterEliminar($entity);
     }
-    
-    
+
     /**
      * Este método se dispara después de eliminar una entidad.
-     * @param bool $eliminado Indica si el elemento fue eliminado.
+     * 
+     * @param bool $eliminado
+     *            Indica si el elemento fue eliminado.
      */
     public function afterEliminar($entity, $eliminado = false)
     {

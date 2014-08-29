@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
-    
-    function IniciarVariables() {
+    use\Tapir\BaseBundle\Controller\ConEliminar;
+
+    function IniciarVariables()
+    {
         parent::IniciarVariables();
         
         $this->OrderBy = 'Grupo, nombre';

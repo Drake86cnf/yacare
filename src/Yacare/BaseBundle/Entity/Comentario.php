@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,50 +11,55 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comentario
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\ConObs;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConObs;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     /**
-     * @var $EntidadTipo
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var $EntidadTipo @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
 
     /**
-     * @var $EntidadId
-     * @ORM\Column(type="integer")
+     *
+     * @var $EntidadId @ORM\Column(type="integer")
      */
     private $EntidadId;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Persona;
 
-
-    public function getEntidadTipo() {
+    public function getEntidadTipo()
+    {
         return $this->EntidadTipo;
     }
 
-    public function setEntidadTipo($EntidadTipo) {
+    public function setEntidadTipo($EntidadTipo)
+    {
         $this->EntidadTipo = $EntidadTipo;
     }
 
-    public function getEntidadId() {
+    public function getEntidadId()
+    {
         return $this->EntidadId;
     }
 
-    public function setEntidadId($EntidadId) {
+    public function setEntidadId($EntidadId)
+    {
         $this->EntidadId = $EntidadId;
     }
-    
-    public function getPersona() {
+
+    public function getPersona()
+    {
         return $this->Persona;
     }
 
-    public function setPersona($Persona) {
+    public function setPersona($Persona)
+    {
         $this->Persona = $Persona;
     }
 }

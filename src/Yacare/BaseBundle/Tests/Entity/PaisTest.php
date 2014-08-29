@@ -1,20 +1,19 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Tapir\BaseBundle\Tests\Entity\GenericEntityTest;
 
 class PaisTest extends GenericEntityTest
 {
+
     protected $item;
 
     public function setUp()
     {
         parent::setUp();
-
+        
         $this->item = new Pais();
     }
-
     
     /*
      * Prueba el código del trait "ConId"
@@ -28,8 +27,9 @@ class PaisTest extends GenericEntityTest
         $this->assertEquals('http://yacare.riogrande.gob.ar/cp/?en=Base+Pais&id=32&ver=', $this->item->getYri());
         $this->assertEquals('aHR0cDovL3lhY2FyZS5yaW9ncmFuZGUuZ29iLmFyL2NwLz9lbj1CYXNlK1BhaXMmaWQ9MzImdmVyPQ==', $this->item->getYri64());
     }
-    
-    public function testPropiedades() {
+
+    public function testPropiedades()
+    {
         $this->ProbarPropiedad('Iso', 'ar');
     }
     
@@ -43,9 +43,8 @@ class PaisTest extends GenericEntityTest
         $this->ProbarPropiedad('Nombre', $Nombre);
         
         // Prueba el toString()
-        $this->assertEquals($Nombre, (string)$this->item);
+        $this->assertEquals($Nombre, (string) $this->item);
     }
-    
     
     /*
      * Prueba el código del trait "Versionable"
@@ -53,7 +52,7 @@ class PaisTest extends GenericEntityTest
     public function testVersionable()
     {
         $this->item->setVersion(55);
-
+        
         $this->assertEquals(55, $this->item->getVersion());
         
         // TODO: probar que al persistir incrementa la versión

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\SeguridadBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +12,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class CamaraController extends \Yacare\BaseBundle\Controller\DispositivoController
 {
-    
-    
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ZoonosisBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,60 +11,61 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Veterinario
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Veterinario;
-   
+
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var string @ORM\Column(type="string", length=255)
      */
     private $Matricula;
-    
-     /**
+
+    /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Clinica;
-    
-    
-      public function __toString() {
+
+    public function __toString()
+    {
         return $this->getVeterinario()->getNombreVisible();
     }
-      
-    
-    
-    public function getVeterinario() {
+
+    public function getVeterinario()
+    {
         return $this->Veterinario;
     }
 
-    public function setVeterinario($Veterinario) {
+    public function setVeterinario($Veterinario)
+    {
         $this->Veterinario = $Veterinario;
     }
 
-    public function getMatricula() {
+    public function getMatricula()
+    {
         return $this->Matricula;
     }
 
-    public function setMatricula($Matricula) {
+    public function setMatricula($Matricula)
+    {
         $this->Matricula = $Matricula;
     }
 
-    public function getClinica() {
+    public function getClinica()
+    {
         return $this->Clinica;
     }
 
-    public function setClinica($Clinica) {
+    public function setClinica($Clinica)
+    {
         $this->Clinica = $Clinica;
     }
-    
-   
 }

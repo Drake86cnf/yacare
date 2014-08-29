@@ -1,18 +1,21 @@
 <?php
- 
 namespace Yacare\BaseBundle\Model;
 
-trait Ordenable {
+trait Ordenable
+{
+
     /**
      * @ORM\Column(type="integer")
      */
     protected $Orden = 1;
-    
-    public function getOrden() {
+
+    public function getOrden()
+    {
         return $this->Orden;
     }
 
-    public function setOrden($Orden) {
+    public function setOrden($Orden)
+    {
         $this->Orden = $Orden;
     }
 }

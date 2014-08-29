@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -12,16 +11,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Controlador de usuarios.
  *
  * @Route("usuario/")
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class UsuarioController extends AbmController
 {
+
     private $PassOriginal = '';
-    
-    function IniciarVariables() {
+
+    function IniciarVariables()
+    {
         parent::IniciarVariables();
         $this->CompleteEntityName = $this->container->getParameter('tapir_usuarios_entidad');
-
+        
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
         $this->BundleName = $PartesNombreClase[0];
         $this->EntityName = $PartesNombreClase[1];
@@ -30,18 +32,16 @@ class UsuarioController extends AbmController
         $this->BaseRouteEntityName = 'Usuario';
         $this->BuscarPor = 'NombreVisible, Username';
         $this->FormTypeName = 'Usuario';
-        
     }
-    
-    
+
     /**
      * Guarda una copia de la contraseña original antes de persistir la entidad.
      */
-    public function guardarActionPreBind($entity) {
+    public function guardarActionPreBind($entity)
+    {
         $this->PassOriginal = $entity->getPasswordEnc();
         return parent::guardarActionPreBind($entity);
     }
-    
 
     /**
      * Interviene antes de persistir la entidad de modo de permitir que al editar

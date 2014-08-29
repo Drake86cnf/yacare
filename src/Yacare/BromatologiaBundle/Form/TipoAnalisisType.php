@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,19 +7,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class TipoAnalisisType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Nombre', null, array('label' => 'Nombre')) 
-            ->add('Costo', null, array('label' => 'Costo'))           
+        $builder->add('Nombre', null, array(
+            'label' => 'Nombre'
+        ))
+            ->add('Costo', null, array(
+            'label' => 'Costo'
+        ))
             ->add('Tipo', 'choice', array(
-                'choices'   => array(
-                    '1' => 'Físico químico',
-                    '2' => 'Microbiológico',
-                    ),
-                'required'  => true,
-                'label' => 'Tipo'))
-        ;
+            'choices' => array(
+                '1' => 'Físico químico',
+                '2' => 'Microbiológico'
+            ),
+            'required' => true,
+            'label' => 'Tipo'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -33,5 +36,5 @@ class TipoAnalisisType extends AbstractType
     public function getName()
     {
         return 'yacare_bromatologiabundle_tipoanalisistype';
-    }    
+    }
 }

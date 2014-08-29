@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,12 +9,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador de comentarios.
- * 
+ *
  * @Route("comentario/")
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
 {
+
     /**
      * @Route("listar")
      * @Template()
@@ -34,7 +35,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $editForm = $this->createForm(new \Yacare\BaseBundle\Form\ComentarioType(), $NuevoComentario);
         
         $entity = $em->getRepository($tipo)->find($id);
-       
+        
         $entities = $em->getRepository('YacareBaseBundle:Comentario')->findBy(array(
             'EntidadTipo' => $tipo,
             'EntidadId' => $id
@@ -43,11 +44,10 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         return $this->ArrastrarVariables(array(
             'form_comentario' => $editForm->createView(),
             'entity' => $entity,
-            'entities' => $entities,
+            'entities' => $entities
         ));
     }
-    
-    
+
     /**
      * @Route("publicar")
      * @Method("POST")
@@ -62,11 +62,13 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $editForm = $this->createForm(new \Yacare\BaseBundle\Form\ComentarioType(), $NuevoComentario);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            $NuevoComentario->setPersona($this->get('security.context')->getToken()->getUser());
+            $NuevoComentario->setPersona($this->get('security.context')
+                ->getToken()
+                ->getUser());
             
             $em->persist($NuevoComentario);
             $em->flush();
-
+            
             return $this->ArrastrarVariables(array(
                 'entity' => $NuevoComentario
             ));

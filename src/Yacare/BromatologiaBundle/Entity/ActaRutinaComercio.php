@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,5 +11,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class ActaRutinaComercio extends \Yacare\BromatologiaBundle\Entity\ActaRutina
 {
-   
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,22 +7,25 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CertificadoBpmType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder            
-            ->add('Persona', 'entity_id', array(
-                'label' => 'Persona',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'filters' => array (
-                    'filtro_grupo' => 1
-                )))    
-            ->add('Nota', null, array('label' => 'Nota'))
+        $builder->add('Persona', 'entity_id', array(
+            'label' => 'Persona',
+            'property' => 'NombreVisible',
+            'class' => 'Yacare\BaseBundle\Entity\Persona',
+            'filters' => array(
+                'filtro_grupo' => 1
+            )
+        ))
+            ->add('Nota', null, array(
+            'label' => 'Nota'
+        ))
             ->add('FechaExamen', 'date', array(
-                'years' => range(1900,2099),
-                'widget' => 'single_text',
-                'label' => 'Fecha del examen'))
-        ;
+            'years' => range(1900, 2099),
+            'widget' => 'single_text',
+            'label' => 'Fecha del examen'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

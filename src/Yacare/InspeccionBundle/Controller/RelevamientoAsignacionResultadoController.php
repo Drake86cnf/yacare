@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -14,32 +13,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     /*
-UPDATE Inspeccion_RelevamientoAsignacionResultado 
-	SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(
-		SELECT Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle
-			WHERE Inspeccion_RelevamientoAsignacionDetalle.id=Inspeccion_RelevamientoAsignacionResultado.Detalle_id
-	);
-UPDATE Inspeccion_RelevamientoAsignacion
-	SET DetallesResultadosCantidad=(
-		SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado
-			WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id
-	);
+     * UPDATE Inspeccion_RelevamientoAsignacionResultado SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=( SELECT Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionDetalle.id=Inspeccion_RelevamientoAsignacionResultado.Detalle_id ); UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=( SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionResultado WHERE Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id );
      */
     
-    use \Yacare\BaseBundle\Controller\ConImagen;
-    
-    function IniciarVariables() {
+    use\Yacare\BaseBundle\Controller\ConImagen;
+
+    function IniciarVariables()
+    {
         parent::IniciarVariables();
         
         $this->ConservarVariables[] = 'filtro_relevamiento';
         $this->ConservarVariables[] = 'filtro_asignacion';
     }
-    
+
     /**
      * @Route("listar/")
      * @Template()
      */
-    public function listarAction(Request $request) {
+    public function listarAction(Request $request)
+    {
         $filtro_relevamiento = $request->query->get('filtro_relevamiento');
         $filtro_asignacion = $request->query->get('filtro_asignacion');
         $filtro_archivado = $request->query->get('filtro_archivado');
@@ -56,8 +48,7 @@ UPDATE Inspeccion_RelevamientoAsignacion
         
         return parent::listarAction($request);
     }
-    
-    
+
     /**
      * @Route("listarrelevamiento/{id}")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionResultado:listar.html.twig")
@@ -69,7 +60,7 @@ UPDATE Inspeccion_RelevamientoAsignacion
         if ($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
         }
-
+        
         $res = parent::listarAction($request);
         
         $em = $this->getDoctrine()->getManager();

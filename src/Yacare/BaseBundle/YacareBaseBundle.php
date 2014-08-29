@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

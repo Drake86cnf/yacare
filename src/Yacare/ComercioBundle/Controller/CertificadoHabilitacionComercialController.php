@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\ComercioBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

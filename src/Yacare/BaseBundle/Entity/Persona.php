@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,50 +7,49 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Una persona (física o jurídica).
- * 
+ *
  * Representa una persona física o jurídica. Es el repositorio principal de
  * personas, que todas las entidades que representan personas (por ejemplo
  * Usuario, Agente, Proveedor, etc.) deben encapsular.
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Base_Persona", 
- *      uniqueConstraints={
- *          @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- *      },
- *      indexes={
- *          @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
- *          @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
- *          @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
- *          @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
- *      }
- * )
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Base_Persona",
+ *         uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ *         },
+ *         indexes={
+ *         @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
+ *         @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
+ *         @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
+ *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
+ *         }
+ *         )
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Persona implements UserInterface, \Serializable
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\ConImagen;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Tapir\BaseBundle\Entity\Importable;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\BaseBundle\Entity\ConDomicilio;
-    use \Yacare\BaseBundle\Entity\ConVerificacion;
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConImagen;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\Importable;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Yacare\BaseBundle\Entity\ConDomicilio;
+    use\Yacare\BaseBundle\Entity\ConVerificacion;
+
     /**
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
      */
     private $Grupos;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol")
      * @ORM\JoinTable(name="Base_Persona_PersonaRol")
      */
     private $UsuarioRoles;
-    
-    
+
     public function __construct()
     {
         $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
@@ -60,26 +58,27 @@ class Persona implements UserInterface, \Serializable
         $this->salt = md5(uniqid(null, true));
     }
 
-
     /**
+     *
      * @var string $Apellido
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $Apellido;
 
     /**
+     *
      * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $Nombre;
-    
+
     /**
+     *
      * @var string $NombreVisible
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $NombreVisible;
-    
-    
+
     /**
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
      */
@@ -88,57 +87,59 @@ class Persona implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Salt = '892ddb02bed8aafcddbff7f78f8841d6';                 // Sal predeterminada
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d';     // Contraseña predeterminada 123456
+    private $Salt = '892ddb02bed8aafcddbff7f78f8841d6'; // Sal predeterminada
     
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $PasswordEnc = 'MTIzNDU2';                                  // Contraseña predeterminada 123456, con base64
+    private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d'; // Contraseña predeterminada 123456
     
-
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $PasswordEnc = 'MTIzNDU2'; // Contraseña predeterminada 123456, con base64
+    
     /**
      * @ORM\Column(type="boolean")
      */
     private $PersonaJuridica = false;
-    
+
     /**
+     *
      * @var string $RazonSocial
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *      @ORM\Column(type="string", length=255, nullable=true)
      */
     private $RazonSocial = null;
 
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     *
+     * @var integer @ORM\Column(type="integer")
      */
     private $DocumentoTipo;
 
     /**
-     * @var string
-     * @ORM\Column(type="integer")
+     *
+     * @var string @ORM\Column(type="integer")
      */
     private $DocumentoNumero;
-    
+
     /**
-     * @var string
-     * @ORM\Column(type="string", length=50, nullable=true)
+     *
+     * @var string @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Cuilt;
 
     /**
+     *
      * @var string $TelefonoNumero
-     * @ORM\Column(type="string", nullable=true)
+     *      @ORM\Column(type="string", nullable=true)
      */
     private $TelefonoNumero;
 
     /**
+     *
      * @var string $Email
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *      @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
 
@@ -154,8 +155,9 @@ class Persona implements UserInterface, \Serializable
     private $FechaNacimiento;
 
     /**
+     *
      * @var integer $Genero
-     * @ORM\Column(type="integer", nullable=true)
+     *      @ORM\Column(type="integer", nullable=true)
      */
     private $Genero;
 
@@ -165,52 +167,58 @@ class Persona implements UserInterface, \Serializable
      */
     protected $Pais;
     
-    
     /* Columnas de importación del municipio de Río Grande */
     
     /**
+     *
      * @var string $ImportId
-     * @ORM\Column(type="string", length=50, nullable=true)
+     *      @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Tg06100Id;
-    
+
     /**
+     *
      * @var string $ImportId
-     * @ORM\Column(type="string", length=50, nullable=true)
+     *      @ORM\Column(type="string", length=50, nullable=true)
      */
     private $AgenteId;
-    
-    
-    public function getNombreVisible() {
+
+    public function getNombreVisible()
+    {
         if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
-        } else if ($this->Apellido && $this->Nombre) {
-            $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        } else if ($this->Nombre) {
-            $this->NombreVisible = $this->Nombre;
-        } else {
-            $this->NombreVisible = $this->Apellido;
-        }
+        } else 
+            if ($this->Apellido && $this->Nombre) {
+                $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+            } else 
+                if ($this->Nombre) {
+                    $this->NombreVisible = $this->Nombre;
+                } else {
+                    $this->NombreVisible = $this->Apellido;
+                }
         
         return trim($this->NombreVisible, ',');
     }
 
-    public function setNombreVisible($NombreVisible) {
+    public function setNombreVisible($NombreVisible)
+    {
         if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
-        } else if ($this->Apellido && $this->Nombre) {
-            $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-        } else if ($this->Nombre) {
-            $this->NombreVisible = $this->Nombre;
-        } else {
-            $this->NombreVisible = $this->Apellido;
-        }
+        } else 
+            if ($this->Apellido && $this->Nombre) {
+                $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+            } else 
+                if ($this->Nombre) {
+                    $this->NombreVisible = $this->Nombre;
+                } else {
+                    $this->NombreVisible = $this->Apellido;
+                }
         
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
-    
-    
-    public function getRoles() {
+
+    public function getRoles()
+    {
         $res = $this->UsuarioRoles->toArray();
         if ($this->getPasswordEnc() && in_array('ROLE_USUARIO', $res) == false) {
             /*
@@ -220,218 +228,260 @@ class Persona implements UserInterface, \Serializable
         }
         return $res;
     }
-    
-    public function getPasswordEnc() {
+
+    public function getPasswordEnc()
+    {
         return base64_decode($this->PasswordEnc);
     }
 
-    public function setPasswordEnc($PasswordEnc) {
+    public function setPasswordEnc($PasswordEnc)
+    {
         $this->PasswordEnc = base64_encode($PasswordEnc);
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getNombreVisible();
     }
-    
+
     public function eraseCredentials()
-    {
-    }
+    {}
 
     /**
+     *
      * @see \Serializable::serialize()
      */
     public function serialize()
     {
         return serialize(array(
-            $this->id,
+            $this->id
         ));
     }
 
     /**
+     *
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
     {
-        list (
-            $this->id,
-        ) = unserialize($serialized);
+        list ($this->id, ) = unserialize($serialized);
     }
 
     public function isEqualTo(UserInterface $user)
     {
         return $this->id === $user->getId();
     }
-    
 
-
-    public function getApellido() {
+    public function getApellido()
+    {
         return $this->Apellido;
     }
 
-    public function setApellido($Apellido) {
+    public function setApellido($Apellido)
+    {
         $this->Apellido = $Apellido;
         $this->getNombreVisible();
     }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->Nombre;
     }
 
-    public function setNombre($Nombre) {
+    public function setNombre($Nombre)
+    {
         $this->Nombre = $Nombre;
         $this->getNombreVisible();
     }
 
-    public function getRazonSocial() {
+    public function getRazonSocial()
+    {
         return $this->RazonSocial;
         $this->getNombreVisible();
     }
 
-    public function setRazonSocial($RazonSocial) {
+    public function setRazonSocial($RazonSocial)
+    {
         $this->RazonSocial = $RazonSocial;
     }
 
-    public function getDocumentoTipo() {
+    public function getDocumentoTipo()
+    {
         return $this->DocumentoTipo;
     }
 
-    public function setDocumentoTipo($DocumentoTipo) {
+    public function setDocumentoTipo($DocumentoTipo)
+    {
         $this->DocumentoTipo = $DocumentoTipo;
     }
 
-    public function getDocumentoNumero() {
+    public function getDocumentoNumero()
+    {
         return $this->DocumentoNumero;
     }
 
-    public function setDocumentoNumero($DocumentoNumero) {
+    public function setDocumentoNumero($DocumentoNumero)
+    {
         $this->DocumentoNumero = $DocumentoNumero;
     }
-    
-    public function getCuilt() {
+
+    public function getCuilt()
+    {
         return $this->Cuilt;
     }
 
-    public function setCuilt($Cuilt) {
+    public function setCuilt($Cuilt)
+    {
         $this->Cuilt = $Cuilt;
     }
 
-    public function getTelefonoNumero() {
+    public function getTelefonoNumero()
+    {
         return $this->TelefonoNumero;
     }
 
-    public function setTelefonoNumero($TelefonoNumero) {
+    public function setTelefonoNumero($TelefonoNumero)
+    {
         $this->TelefonoNumero = $TelefonoNumero;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->Email;
     }
 
-    public function setEmail($Email) {
+    public function setEmail($Email)
+    {
         $this->Email = $Email;
     }
 
-    public function getSituacionTributaria() {
+    public function getSituacionTributaria()
+    {
         return $this->SituacionTributaria;
     }
 
-    public function setSituacionTributaria($SituacionTributaria) {
+    public function setSituacionTributaria($SituacionTributaria)
+    {
         $this->SituacionTributaria = $SituacionTributaria;
     }
 
-    public function getFechaNacimiento() {
+    public function getFechaNacimiento()
+    {
         return $this->FechaNacimiento;
     }
 
-    public function setFechaNacimiento(\DateTime $FechaNacimiento = null) {
+    public function setFechaNacimiento(\DateTime $FechaNacimiento = null)
+    {
         $this->FechaNacimiento = $FechaNacimiento;
     }
 
-    public function getGenero() {
+    public function getGenero()
+    {
         return $this->Genero;
     }
 
-    public function setGenero($Genero) {
+    public function setGenero($Genero)
+    {
         $this->Genero = $Genero;
     }
-    
-    public function getPersonaJuridica() {
+
+    public function getPersonaJuridica()
+    {
         return $this->PersonaJuridica;
     }
 
-    public function setPersonaJuridica($PersonaJuridica) {
+    public function setPersonaJuridica($PersonaJuridica)
+    {
         $this->PersonaJuridica = $PersonaJuridica;
     }
-    
-    public function getPais() {
+
+    public function getPais()
+    {
         return $this->Pais;
     }
 
-    public function setPais($Pais) {
+    public function setPais($Pais)
+    {
         $this->Pais = $Pais;
     }
 
-    public function getGrupos() {
+    public function getGrupos()
+    {
         return $this->Grupos;
     }
 
-    public function setGrupos($Grupos) {
+    public function setGrupos($Grupos)
+    {
         $this->Grupos = $Grupos;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->Username;
     }
 
-    public function setUsername($Username) {
+    public function setUsername($Username)
+    {
         $this->Username = $Username;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->Salt;
     }
 
-    public function setSalt($Salt) {
+    public function setSalt($Salt)
+    {
         $this->Salt = $Salt;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->Password;
     }
 
-    public function setPassword($Password) {
+    public function setPassword($Password)
+    {
         $this->Password = $Password;
     }
-    
-    public function getUsuarioRoles() {
+
+    public function getUsuarioRoles()
+    {
         return $this->UsuarioRoles;
     }
 
-    public function setUsuarioRoles($UsuarioRoles) {
+    public function setUsuarioRoles($UsuarioRoles)
+    {
         $this->UsuarioRoles = $UsuarioRoles;
     }
-    
-    public function getTg06100Id() {
+
+    public function getTg06100Id()
+    {
         return $this->Tg06100Id;
     }
 
-    public function getAgenteId() {
+    public function getAgenteId()
+    {
         return $this->AgenteId;
     }
 
-    public function setTg06100Id($Tg06100Id) {
+    public function setTg06100Id($Tg06100Id)
+    {
         $this->Tg06100Id = $Tg06100Id;
     }
 
-    public function setAgenteId($AgenteId) {
+    public function setAgenteId($AgenteId)
+    {
         $this->AgenteId = $AgenteId;
     }
-    
-    public function getVerificacionNivel() {
+
+    public function getVerificacionNivel()
+    {
         return $this->VerificacionNivel;
     }
 
-    public function setVerificacionNivel($VerificacionNivel) {
+    public function setVerificacionNivel($VerificacionNivel)
+    {
         $this->VerificacionNivel = $VerificacionNivel;
     }
 }

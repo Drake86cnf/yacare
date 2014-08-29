@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,34 +12,32 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  */
 class PersonaRol implements RoleInterface
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+
     public function __construct()
     {
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
-    }      
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Nombre;    
+    }
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var string @ORM\Column(type="string", length=255)
+     */
+    private $Nombre;
+
+    /**
+     *
+     * @var string @ORM\Column(type="string", length=255)
      */
     private $Codigo;
 
-    
     /**
      * ORM\ManyToMany(targetEntity="Persona", mappedBy="UsuarioRoles", cascade={"persist"})
      */
     protected $Personas;
-
 
     public function setNombre($nombre)
     {
@@ -68,8 +65,9 @@ class PersonaRol implements RoleInterface
         ));
         $this->Codigo = str_replace('__', '_', $codigo);
     }
-    
-    public function getRole() {
+
+    public function getRole()
+    {
         return $this->Codigo;
     }
 
@@ -78,15 +76,18 @@ class PersonaRol implements RoleInterface
         return $this->Nombre;
     }
 
-    public function getCodigo() {
+    public function getCodigo()
+    {
         return $this->Codigo;
     }
 
-    public function setCodigo($Codigo) {
+    public function setCodigo($Codigo)
+    {
         $this->Codigo = $Codigo;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getNombre();
     }
 }

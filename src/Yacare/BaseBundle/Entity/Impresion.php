@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,12 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Impresion
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Tapir\BaseBundle\Entity\Importable;
-    use \Tapir\BaseBundle\Entity\ConImagen;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\Importable;
+    use\Tapir\BaseBundle\Entity\ConImagen;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     public function __construct()
     {
@@ -27,42 +26,42 @@ class Impresion
     }
 
     /**
+     *
      * @var string $EntidadTipo
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
-    
+
     /**
-     * @var $EntidadId
-     * @ORM\Column(type="integer")
+     *
+     * @var $EntidadId @ORM\Column(type="integer")
      */
     private $EntidadId;
-    
+
     /**
-     * @var $EntidadVersion
-     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var $EntidadVersion @ORM\Column(type="integer", nullable=true)
      */
     private $EntidadVersion;
 
     /**
-     * @var $TipoMime
-     * @ORM\Column(type="string", length=50)
+     *
+     * @var $TipoMime @ORM\Column(type="string", length=50)
      */
     private $TipoMime;
-    
+
     /**
-     * @var $Token
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var $Token @ORM\Column(type="string", length=255)
      */
     private $Token;
-    
+
     /**
-     * @var $Contenido
-     * @ORM\Column(type="blob")
+     *
+     * @var $Contenido @ORM\Column(type="blob")
      */
     private $Contenido;
-    
-    
+
     public function getYri($incluye_version = true)
     {
         $Res = "http://yacare.riogrande.gob.ar/cp/?en=" . str_replace('/', '+', $this->getEntidadTipo()) . "&id=" . $this->getEntidadId();
@@ -74,11 +73,11 @@ class Impresion
         
         return $Res;
     }
-    
-    
-    public function getYriQrBase64() {
-        $ContenidoQr = $this->getYri(true);
 
+    public function getYriQrBase64()
+    {
+        $ContenidoQr = $this->getYri(true);
+        
         ob_start();
         \PHPQRCode\QRcode::png($ContenidoQr);
         $imagen_contenido = ob_get_contents();
@@ -88,53 +87,64 @@ class Impresion
         header("Content-type: text/html");
         return base64_encode($imagen_contenido);
     }
-    
 
-    public function getEntidadTipo() {
+    public function getEntidadTipo()
+    {
         return $this->EntidadTipo;
     }
 
-    public function setEntidadTipo($EntidadTipo) {
+    public function setEntidadTipo($EntidadTipo)
+    {
         $this->EntidadTipo = $EntidadTipo;
     }
 
-    public function getEntidadId() {
+    public function getEntidadId()
+    {
         return $this->EntidadId;
     }
 
-    public function setEntidadId($EntidadId) {
+    public function setEntidadId($EntidadId)
+    {
         $this->EntidadId = $EntidadId;
     }
 
-    public function getEntidadVersion() {
+    public function getEntidadVersion()
+    {
         return $this->EntidadVersion;
     }
 
-    public function setEntidadVersion($EntidadVersion) {
+    public function setEntidadVersion($EntidadVersion)
+    {
         $this->EntidadVersion = $EntidadVersion;
     }
 
-    public function getTipoMime() {
+    public function getTipoMime()
+    {
         return $this->TipoMime;
     }
 
-    public function setTipoMime($TipoMime) {
+    public function setTipoMime($TipoMime)
+    {
         $this->TipoMime = $TipoMime;
     }
 
-    public function getContenido() {
+    public function getContenido()
+    {
         return $this->Contenido;
     }
 
-    public function setContenido($Contenido) {
+    public function setContenido($Contenido)
+    {
         $this->Contenido = $Contenido;
     }
-    
-    public function getToken() {
+
+    public function getToken()
+    {
         return $this->Token;
     }
 
-    public function setToken($Token) {
+    public function setToken($Token)
+    {
         $this->Token = $Token;
-    }    
+    }
 }

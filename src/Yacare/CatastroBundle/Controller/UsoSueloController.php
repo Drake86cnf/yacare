@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;

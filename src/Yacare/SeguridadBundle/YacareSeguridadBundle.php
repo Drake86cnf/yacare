@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\SeguridadBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

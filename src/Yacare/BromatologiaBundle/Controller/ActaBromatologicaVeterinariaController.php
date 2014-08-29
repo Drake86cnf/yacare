@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BromatologiaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,12 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ActaBromatologicaVeterinariaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
-    
-    function IniciarVariables() {
-        parent::IniciarVariables();
+    use\Tapir\BaseBundle\Controller\ConEliminar;
 
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
         $this->BuscarPor = 'id, p.NombreVisible';
-        $this->Joins[] = " JOIN r.Persona p";       
+        $this->Joins[] = " JOIN r.Persona p";
     }
 }

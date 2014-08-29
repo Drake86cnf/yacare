@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,27 +11,30 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RelevamientoResultado
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\ConNombre;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConNombre;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Grupo;
 
-    public function getGrupo() {
+    public function getGrupo()
+    {
         return $this->Grupo;
     }
 
-    public function setGrupo($Grupo) {
+    public function setGrupo($Grupo)
+    {
         $this->Grupo = $Grupo;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         if ($this->getGrupo())
             return $this->getGrupo() . ': ' . $this->getNombre();
         else

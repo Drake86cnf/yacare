@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,22 +8,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConAdjuntos
 {
+
     /**
      * @ORM\ManyToMany(targetEntity="\Yacare\BaseBundle\Entity\Adjunto", cascade={ "persist" })
      */
     protected $Adjuntos;
 
-    
     public function __construct()
     {
         $this->Adjuntos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    public function getAdjuntos() {
+
+    public function getAdjuntos()
+    {
         return $this->Adjuntos;
     }
 
-    public function setAdjuntos($Adjuntos) {
+    public function setAdjuntos($Adjuntos)
+    {
         $this->Adjuntos = $Adjuntos;
     }
 }

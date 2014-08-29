@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\TramitesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,37 +7,43 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class TramiteTipoType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Clase', null, array('label' => 'Clase'))
+        $builder->add('Nombre', null, array(
+            'label' => 'Nombre'
+        ))
+            ->add('Clase', null, array(
+            'label' => 'Clase'
+        ))
             ->add('Url', null, array(
-                'label' => 'Web',
-                'attr'  => array('placeholder' => 'Sitio web con información')
-                ))
+            'label' => 'Web',
+            'attr' => array(
+                'placeholder' => 'Sitio web con información'
+            )
+        ))
             ->add('ComprobanteTipo', 'entity', array(
-                'label' => 'Comprobante final',
-                'class' => 'YacareTramitesBundle:ComprobanteTipo',
-                'required'  => false,
-                'multiple' => false,
-                ))
+            'label' => 'Comprobante final',
+            'class' => 'YacareTramitesBundle:ComprobanteTipo',
+            'required' => false,
+            'multiple' => false
+        ))
             ->add('Formulario', 'entity', array(
-                'label' => 'Formulario inicial',
-                'class' => 'YacareTramitesBundle:Instrumento',
-                'required'  => false,
-                'multiple' => false,
-                ))
+            'label' => 'Formulario inicial',
+            'class' => 'YacareTramitesBundle:Instrumento',
+            'required' => false,
+            'multiple' => false
+        ))
             ->add('Obs', null, array(
-                'label' => 'Obs.',
-                'attr' => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'simple') // simple, advanced, bbcode
+            'label' => 'Obs.',
+            'attr' => array(
+                'class' => 'tinymce',
+                'data-theme' => 'simple'
+            ) // simple, advanced, bbcode
                 ))
             ->add('Notas', null, array(
-                'label' => 'Notas al pie'
-                ))
-        ;
+            'label' => 'Notas al pie'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

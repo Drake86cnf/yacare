@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\RecursosHumanosBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,16 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador de agentes.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
- * @Route("agente/")
+ *        
+ *         @Route("agente/")
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function IniciarVariables() {
-        parent::IniciarVariables();
 
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
         $this->Joins[] = ' JOIN r.Persona p';
     }

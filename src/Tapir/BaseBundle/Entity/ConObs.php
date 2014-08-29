@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,18 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConObs
 {
+
     /**
+     *
      * @var string $obs
-     * @ORM\Column(type="text", nullable=true)
+     *      @ORM\Column(type="text", nullable=true)
      */
     private $obs;
-    
-    public function getObs() {
+
+    public function getObs()
+    {
         return $this->obs;
     }
 
-    public function setObs($obs) {
+    public function setObs($obs)
+    {
         $this->obs = $obs;
     }
-
 }

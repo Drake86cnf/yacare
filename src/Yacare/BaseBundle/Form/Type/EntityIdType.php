@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -9,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Kernel;
-
 use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 
 /**
@@ -19,6 +17,7 @@ use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
  */
 class EntityIdType extends AbstractType
 {
+
     protected $registry;
 
     public function __construct(RegistryInterface $registry)
@@ -34,28 +33,22 @@ class EntityIdType extends AbstractType
             $em = $this->registry->getManager($options['em']);
         }
         
-        $builder->addViewTransformer(new EntityToIdTransformer(
-            $em,
-            $options['class'],
-            $options['property'],
-            $options['query_builder'],
-            $options['multiple']
-        ));
+        $builder->addViewTransformer(new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], $options['multiple']));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array(
-            'class',
+            'class'
         ));
-
+        
         $resolver->setDefaults(array(
-            'em'            => null,
-            'property'      => 'Nombre',
+            'em' => null,
+            'property' => 'Nombre',
             'query_builder' => null,
-            'filters'       => null,
-            'hidden'        => true,
-            'multiple'      => false
+            'filters' => null,
+            'hidden' => true,
+            'multiple' => false
         ));
     }
 
@@ -72,17 +65,17 @@ class EntityIdType extends AbstractType
         $PartesNombreClase = explode('\\', $options['class']);
         
         $this->BundleName = $PartesNombreClase[1];
-        if (strlen($this->BundleName) > 6 && substr($this->BundleName, -6) == 'Bundle') {
+        if (strlen($this->BundleName) > 6 && substr($this->BundleName, - 6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $this->BundleName = substr($this->BundleName, 0, strlen($this->BundleName) - 6);
         }
-
+        
         $this->EntityName = $PartesNombreClase[3];
-        if (strlen($this->EntityName) > 10 && substr($this->EntityName, -10) == 'Controller') {
+        if (strlen($this->EntityName) > 10 && substr($this->EntityName, - 10) == 'Controller') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $this->EntityName = substr($this->EntityName, 0, strlen($this->EntityName) - 10);
         }
-
+        
         $view->vars['baseroute'] = strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName);
     }
 
@@ -97,7 +90,8 @@ class EntityIdType extends AbstractType
     }
     
     // Devuelve el nombre de la ruta para una acción determinada o la base para conformar las rutas
-    protected function obtenerRutaBase($action = null) {
+    protected function obtenerRutaBase($action = null)
+    {
         if ($action) {
             return strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_' . $action);
         } else {

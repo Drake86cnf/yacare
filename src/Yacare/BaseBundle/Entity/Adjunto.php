@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,18 +8,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Representa un archivo adjuntado a otra entidad.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
- * 
- * @ORM\Table(name="Base_Adjunto")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *        
+ *         @ORM\Table(name="Base_Adjunto")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Adjunto
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBundle\Entity\ConNombre;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConNombre;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
     public function __construct($Entidad = null, $Archivo = null)
     {
         $this->Token = sha1(openssl_random_pseudo_bytes(256));
@@ -38,113 +37,125 @@ class Adjunto
             $this->SubirArchivo($Archivo);
         }
     }
-    
+
     protected function getRaizDeAdjuntos()
     {
         // the absolute directory path where uploaded
         // documents should be saved
         return __DIR__ . '/../../../../web/adjuntos/';
     }
-    
-    public function getRutaCompleta() {
+
+    public function getRutaCompleta()
+    {
         return $this->getRaizDeAdjuntos() . $this->getCarpeta() . '/';
     }
-    
-    public function getRutaRelativa() {
+
+    public function getRutaRelativa()
+    {
         return 'adjuntos/' . $this->getCarpeta() . '/';
     }
 
-    
-    public function SubirArchivo($Archivo) {
+    public function SubirArchivo($Archivo)
+    {
         $this->Token .= '.' . $Archivo->getClientOriginalExtension();
         $this->setNombre($Archivo->getClientOriginalName());
         $this->setTipoMime($Archivo->getMimeType());
         
         $RutaFinal = $this->getRutaCompleta();
-        if (!file_exists($RutaFinal) && !is_dir($RutaFinal)) {
+        if (! file_exists($RutaFinal) && ! is_dir($RutaFinal)) {
             mkdir($RutaFinal, 0775, true);
         }
         $Archivo->move($RutaFinal, $this->getToken());
     }
-    
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $EntidadId;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Persona;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      */
     private $Carpeta;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $TipoMime;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $Token;
 
-
-    public function getTipoMime() {
+    public function getTipoMime()
+    {
         return $this->TipoMime;
     }
 
-    public function setTipoMime($TipoMime) {
+    public function setTipoMime($TipoMime)
+    {
         $this->TipoMime = $TipoMime;
     }
-    
-    public function getEntidadTipo() {
+
+    public function getEntidadTipo()
+    {
         return $this->EntidadTipo;
     }
 
-    public function setEntidadTipo($EntidadTipo) {
+    public function setEntidadTipo($EntidadTipo)
+    {
         $this->EntidadTipo = $EntidadTipo;
     }
 
-    public function getEntidadId() {
+    public function getEntidadId()
+    {
         return $this->EntidadId;
     }
 
-    public function setEntidadId($EntidadId) {
+    public function setEntidadId($EntidadId)
+    {
         $this->EntidadId = $EntidadId;
     }
-    
-    public function getToken() {
+
+    public function getToken()
+    {
         return $this->Token;
     }
 
-    public function setToken($Token) {
+    public function setToken($Token)
+    {
         $this->Token = $Token;
     }
-    
-    public function getCarpeta() {
+
+    public function getCarpeta()
+    {
         return $this->Carpeta;
     }
 
-    public function setCarpeta($Carpeta) {
+    public function setCarpeta($Carpeta)
+    {
         $this->Carpeta = $Carpeta;
     }
-    
-    public function getPersona() {
+
+    public function getPersona()
+    {
         return $this->Persona;
     }
 
-    public function setPersona($Persona) {
+    public function setPersona($Persona)
+    {
         $this->Persona = $Persona;
     }
 }

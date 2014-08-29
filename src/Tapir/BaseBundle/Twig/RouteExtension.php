@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Twig;
 
 /**
@@ -7,22 +6,25 @@ namespace Tapir\BaseBundle\Twig;
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
-class RouteExtension {
+class RouteExtension
+{
+
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('tapir_rutaexiste', array($this, 'tapir_rutaexiste')),
+            new \Twig_SimpleFilter('tapir_rutaexiste', array(
+                $this,
+                'tapir_rutaexiste'
+            ))
         );
     }
-    
+
     function tapir_rutaexiste($name)
     {
         // I assume that you have a link to the container in your twig extension class
         $router = $this->container->get('router');
         return (null === $router->getRouteCollection()->get($name)) ? false : true;
     }
-
-    
 
     public function getName()
     {

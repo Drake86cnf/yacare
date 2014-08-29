@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -11,9 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
-    
-    function IniciarVariables() {
+    use\Tapir\BaseBundle\Controller\ConBuscar;
+
+    function IniciarVariables()
+    {
         parent::IniciarVariables();
         
         $this->ConservarVariables[] = 'filtro_seccion';
@@ -22,38 +22,41 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         $this->BuscarPor = 'Numero, nombre';
         $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
-    
+
     /**
      * @Route("buscar/")
      * @Template()
      */
-    public function buscarAction(Request $request) {
+    public function buscarAction(Request $request)
+    {
         $res = parent::buscarAction($request);
         $res['calles'] = $this->ObtenerCalles();
         return $res;
     }
-    
+
     /**
      * @Route("buscarresultados/")
      * @Template()
      */
-    public function buscarresultadosAction(Request $request) {
+    public function buscarresultadosAction(Request $request)
+    {
         $res = parent::buscarresultadosAction($request);
         $res['calles'] = $this->ObtenerCalles();
         return $res;
     }
-
+    
     // ************** Al importar:
-    //UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
-    //UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
-    //UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ', ParcelaNum, ParcelaAlfa),
-    //      Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
+    // UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
+    // UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
+    // UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ', ParcelaNum, ParcelaAlfa),
+    // Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
     
     /**
      * @Route("listar/")
      * @Template()
      */
-    public function listarAction(Request $request) {
+    public function listarAction(Request $request)
+    {
         $filtro_seccion = $request->query->get('filtro_seccion');
         $filtro_macizo = $request->query->get('filtro_macizo');
         $filtro_partida = $request->query->get('filtro_partida');
@@ -63,9 +66,10 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($filtro_seccion == '-') {
             $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
-        } else if ($filtro_seccion) {
-            $this->Where .= " AND r.Seccion='$filtro_seccion'";
-        }
+        } else 
+            if ($filtro_seccion) {
+                $this->Where .= " AND r.Seccion='$filtro_seccion'";
+            }
         
         if ($filtro_macizo) {
             $this->Where .= " AND r.Macizo LIKE '$filtro_macizo'";
@@ -104,14 +108,16 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $res;
     }
-    
-    private function ObtenerSecciones() {
+
+    private function ObtenerSecciones()
+    {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT DISTINCT r.Seccion FROM YacareCatastroBundle:Partida r ORDER BY r.Seccion");
         return $query->getResult();
     }
-    
-    private function ObtenerCalles() {
+
+    private function ObtenerCalles()
+    {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT r FROM YacareCatastroBundle:Calle r ORDER BY r.nombre");
         return $query->getResult();

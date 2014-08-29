@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,11 +7,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PersonaGrupoType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('Nombre', null, array('label' => 'Nombre'))
-        ;
+        $builder->add('Nombre', null, array(
+            'label' => 'Nombre'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

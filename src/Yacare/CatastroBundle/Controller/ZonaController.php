@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +12,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ZonaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    function IniciarVariables() {
-        parent::IniciarVariables();
 
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
         $this->BuscarPor = 'Codigo, nombre';
         $this->OrderBy = 'nombre';
     }
