@@ -63,7 +63,7 @@ body {
             header('Content-Disposition: attachment; filename="' . str_replace('/', '_', $EntidadTipo) . $EntidadId . '.pdf"');
             echo $row['Contenido'];
             exit(0);
-        } else if($Descargar == 2) {
+        } elseif ($Descargar == 2) {
             // Descargar imagen
             ob_clean();
             header('Content-type: image/png');

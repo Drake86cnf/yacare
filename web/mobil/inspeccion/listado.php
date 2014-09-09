@@ -86,7 +86,7 @@
     if($ListadoOrdenar == 1) {	
         $ListadoOrdenarSql = "PartidaSeccion, PartidaMacizo, PartidaParcela";
         setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
-    } else if($ListadoOrdenar == 2) { 
+    } elseif ($ListadoOrdenar == 2) { 
         $ListadoOrdenarSql = "PartidaCalleNombre, PartidaCalleNumero";
         setcookie("YacareAsignacionesListadoOrdenar", $ListadoOrdenar, time()+3600*24*60);
     } else {
