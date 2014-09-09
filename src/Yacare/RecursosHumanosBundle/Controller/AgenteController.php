@@ -22,6 +22,8 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         parent::IniciarVariables();
         
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
-        $this->Joins[] = ' JOIN r.Persona p';
+        if(in_array('r.Persona p', $this->Joins) == false) {
+        	$this->Joins[] = 'r.Persona p';
+        }
     }
 }

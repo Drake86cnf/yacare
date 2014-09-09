@@ -81,11 +81,12 @@ abstract class AbmController extends BaseController
         $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";
         
         if (count($this->Joins) > 0) {
+        	$this->Joins = array_unique($this->Joins);
             foreach ($this->Joins as $join) {
-                $dql .= " " . $join;
+                $dql .= " JOIN " . $join;
             }
         }
-        
+
         $where = "";
         
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
