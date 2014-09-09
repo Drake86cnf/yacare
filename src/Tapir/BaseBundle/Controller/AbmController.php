@@ -83,7 +83,7 @@ abstract class AbmController extends BaseController
         if (count($this->Joins) > 0) {
         	$this->Joins = array_unique($this->Joins);
             foreach ($this->Joins as $join) {
-                $dql .= " JOIN " . $join;
+                $dql .= " " . $join;
             }
         }
 

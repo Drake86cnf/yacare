@@ -23,7 +23,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
         if(in_array('r.Persona p', $this->Joins) == false) {
-        	$this->Joins[] = 'r.Persona p';
+        	$this->Joins[] = 'JOIN r.Persona p';
         }
     }
 }
