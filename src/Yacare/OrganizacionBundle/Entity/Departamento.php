@@ -63,10 +63,10 @@ class Departamento implements Tree\NodeInterface
         return str_repeat($sangria, $this->getNodeLevel());
     }
 
-    public function getNombreConSangriaDeEspaciosDuros()
+    public function getSangriaDeEspaciosDuros()
     {
-        // Atención, son 'espacios duro'
-        return $this->getSangria('   ') . $this->getNombre();
+        // Atención, son 'espacios duros'
+        return $this->getSangria('   ');
     }
 
     public function getRango()
