@@ -57,22 +57,30 @@ $(document).ready(function() {
 </script>
 {% endif %}
 
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
-            <th> </th>
-            <th>Partida</th>
+    		<th>Partida</th>
+        	<th>S</th>
+	        <th>M</th>
+	        <th>P</th>
+	        <th>UF</th>
+	        <th>Zona</th>
             <th>Detalle</th>
             <th>Titular</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a class="btn btn-default btn-xs hidden-print showonhover" href="#{{ entity.id }}" onClick="javascript:alert('Sólo puede editarse desde Sigemi.');"><i class="fa fa-edit"></i> Editar</a></td>
-            <td>{{ entity.Numero }}</td>
-            <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.Titular }}</td>
+        <tr data-toggle="modal" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+        	<td class="text-muted">{{ entity.Numero }}</td>
+        	<td>{{ entity.Seccion }}</td>
+        	<td>{{ entity.Macizo }}</td>
+        	<td>{{ entity.Parcela }}</td>
+        	<td class="text-muted">{{ entity.UnidadFuncional }}</td>
+        	<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
+            <td class="text-muted">{{ entity.Domicilio }}</td>
+            <td class="text-muted">{{ entity.Titular }}</td>
         </tr>
     {% endfor %}
     </tbody>

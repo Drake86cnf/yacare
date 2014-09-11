@@ -8,12 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Catastro_Partida",
  * uniqueConstraints={
- * @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
+ * 		@ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
  * },
  * indexes={
- * @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
- * @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
- * @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
+ * 		@ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
+ * 		@ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
+ * 		@ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  * }
  * )
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
@@ -41,7 +41,6 @@ class Partida
     use\Tapir\BaseBundle\Entity\ConNombre;
     use\Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use\Tapir\BaseBundle\Entity\Versionable;
-    // use \Tapir\BaseBundle\Entity\Importable;
     use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
