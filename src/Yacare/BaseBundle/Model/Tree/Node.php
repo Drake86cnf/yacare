@@ -24,7 +24,7 @@ trait Node
      *
      * @var string $MaterializedPath
      *     
-     *      @ORM\Column(type="text")
+     * @ORM\Column(type="text")
      */
     protected $MaterializedPath = '';
 
@@ -48,11 +48,6 @@ trait Node
         return null;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function getRealMaterializedPath()
     {
         return $this->getMaterializedPath() . self::getMaterializedPathSeparator() . $this->getId();
@@ -63,11 +58,6 @@ trait Node
         return $this->MaterializedPath;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function setMaterializedPath($path)
     {
         $this->MaterializedPath = $path;
@@ -76,11 +66,6 @@ trait Node
         return $this;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function getParentMaterializedPath()
     {
         $path = $this->getExplodedPath();
@@ -91,21 +76,12 @@ trait Node
         return $parentPath;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function setParentMaterializedPath($path)
     {
         $this->ParentNodePath = $path;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
+
     public function getRootMaterializedPath()
     {
         $explodedPath = $this->getExplodedPath();
@@ -113,11 +89,7 @@ trait Node
         return static::getMaterializedPathSeparator() . array_shift($explodedPath);
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
+
     public function getNodeLevel()
     {
         $res = count($this->getExplodedPath()) - 2;
@@ -134,51 +106,26 @@ trait Node
         return 0 === $this->getChildNodes()->count();
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function getChildNodes()
     {
         return $this->ChildNodes = $this->ChildNodes ?  : new ArrayCollection();
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function addChildNode(NodeInterface $node)
     {
         $this->getChildNodes()->add($node);
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function isIndirectChildNodeOf(NodeInterface $node)
     {
         return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath() && 0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function isChildNodeOf(NodeInterface $node)
     {
         return $this->getParentMaterializedPath() === $node->getRealMaterializedPath();
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function setChildNodeOf(NodeInterface $node = null)
     {
         $id = $this->getId();
@@ -217,21 +164,11 @@ trait Node
         return $this;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function getParentNode()
     {
         return $this->ParentNode;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function setParentNode(NodeInterface $node = null)
     {
         $this->ParentNode = $node;
@@ -240,11 +177,6 @@ trait Node
         return $this;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function getRootNode()
     {
         $parent = $this;
@@ -255,11 +187,6 @@ trait Node
         return $parent;
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     public function buildTree(array $results)
     {
         $this->getChildNodes()->clear();
@@ -380,11 +307,6 @@ trait Node
         return $this->getChildNodes()[$offset];
     }
 
-    /**
-     *
-     * @ERROR!!!
-     *
-     */
     protected function getExplodedPath()
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());

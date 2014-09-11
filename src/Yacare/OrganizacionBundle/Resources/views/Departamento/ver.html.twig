@@ -1,0 +1,13 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+
+
+{% endblock %}
+
+{% block pagina_acciones2 %}
+    {{ parent() }}
+    <a data-toggle="ajax-link" class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
+{% endblock %}
