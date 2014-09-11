@@ -134,26 +134,26 @@ class Partida
     public function CalcularNombre()
     {
         if ($this->DomicilioCalle) {
-            $this->Nombre = $this->DomicilioCalle;
+            $this->nombre = $this->DomicilioCalle;
             if ($this->DomicilioNumero) {
-                $this->Nombre .= ' Nº ' . $this->DomicilioNumero;
+                $this->nombre .= ' Nº ' . $this->DomicilioNumero;
             }
             if ($this->DomicilioPiso) {
-                $this->Nombre .= ', piso ' . $this->DomicilioPiso;
+                $this->nombre .= ', piso ' . $this->DomicilioPiso;
             }
             if ($this->DomicilioPuerta) {
-                $this->Nombre .= ', pta. ' . $this->DomicilioPuerta;
+                $this->nombre .= ', pta. ' . $this->DomicilioPuerta;
             }
             
-            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
             if ($this->UnidadFuncional > 0) {
-                $this->Nombre .= ', UF ' . $this->UnidadFuncional;
+                $this->nombre .= ', UF ' . $this->UnidadFuncional;
             }
-            $this->Nombre .= ")";
+            $this->nombre .= ")";
         } else {
-            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
             if ($this->UnidadFuncional > 0) {
-                $this->Nombre .= ', UF ' . $this->UnidadFuncional;
+                $this->nombre .= ', UF ' . $this->UnidadFuncional;
             }
         }
     }
@@ -161,7 +161,7 @@ class Partida
     public function getNombre()
     {
         $this->CalcularNombre();
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     public function setNombre($Nombre)
