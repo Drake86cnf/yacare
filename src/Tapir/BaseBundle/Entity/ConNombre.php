@@ -18,7 +18,10 @@ trait ConNombre
 
     public function __toString()
     {
-        return $this->getNombre();
+    	if($this->nombre)
+        	return $this->getNombre();
+    	else
+    		return '';
     }
 
     public function getNombre()
