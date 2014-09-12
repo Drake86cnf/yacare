@@ -157,9 +157,9 @@ class Persona implements UserInterface, \Serializable
     /**
      *
      * @var integer $Genero
-     *      @ORM\Column(type="integer", nullable=true)
+     *      @ORM\Column(type="integer", nullable=false)
      */
-    private $Genero;
+    private $Genero = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="Pais")
