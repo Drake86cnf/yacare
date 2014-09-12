@@ -16,18 +16,24 @@ trait ConPerfil
 {
 
     /**
-     * @Route("editarperfil/", name="usuario_editarperfil")
+     * @Route("editarperfil/{id}", name="usuario_editarperfil", defaults={"id" = null})
+     * @Route("editarperfil/", name="usuario_editarperfil_actual", defaults={"id" = null})
      * @Template()
      */
-    public function editarperfilAction(Request $request)
+    public function editarperfilAction(Request $request, $id = null)
     {
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')
-            ->getToken()
-            ->getUser();
-        $entity = $em->getRepository($entidadUsuario)->find($user->getId());
+        
+        if ($id) {
+            $entity = $em->getRepository($entidadUsuario)->find($id);
+        } else {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+            $entity = $em->getRepository($entidadUsuario)->find($user->getId());
+        }
         
         $form = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
         
@@ -52,20 +58,26 @@ trait ConPerfil
         // parent::__editarAction($id);
     }
 
+
     /**
-     * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena")
+     * @Route("cambiarcontrasena/{id}", name="usuario_cambiarcontrasena", defaults={"id" = null})
+     * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
      * @Template()
      */
-    public function cambiarContrasenaAction(Request $request)
+    public function cambiarContrasenaAction(Request $request, $id = null)
     {
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')
-            ->getToken()
-            ->getUser();
-        $entity = $em->getRepository($entidadUsuario)->find($user->getId());
+        if ($id) {
+            $entity = $em->getRepository($entidadUsuario)->find($id);
+        } else {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+            $entity = $em->getRepository($entidadUsuario)->find($user->getId());
+        }
         
         $form = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
         $form->handleRequest($request);
@@ -91,7 +103,9 @@ trait ConPerfil
             return $this->redirect($this->generateUrl('logout'));
         }
         
-        $em->refresh($user);
+        if(isset($user)) {
+            $em->refresh($user);
+        }
         
         return $this->ArrastrarVariables(array(
             'entity' => $entity,

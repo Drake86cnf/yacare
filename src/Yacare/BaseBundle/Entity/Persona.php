@@ -183,6 +183,7 @@ class Persona implements UserInterface, \Serializable
      */
     private $AgenteId;
 
+
     public function getNombreVisible()
     {
         if ($this->RazonSocial) {
@@ -216,11 +217,15 @@ class Persona implements UserInterface, \Serializable
         
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
+    
+    public function PuedeAcceder() {
+        return $this->getUsername() && $this->getPasswordEnc();
+    }
 
     public function getRoles()
     {
         $res = $this->UsuarioRoles->toArray();
-        if ($this->getPasswordEnc() && in_array('ROLE_USUARIO', $res) == false) {
+        if ($this->PuedeAcceder() && in_array('ROLE_USUARIO', $res) == false) {
             /*
              * Todos los usuarios tienen el rol USUARIO (simpre que tengan una contraseña)
              */
@@ -228,6 +233,7 @@ class Persona implements UserInterface, \Serializable
         }
         return $res;
     }
+    
 
     public function getPasswordEnc()
     {

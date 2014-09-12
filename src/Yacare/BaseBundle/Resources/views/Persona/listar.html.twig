@@ -16,7 +16,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}">
+        <tr data-toggle="modal" href="{{ path('yacare_base_persona_ver', arrastre|merge({ 'id': entity.id })) }}">
             <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
             <td>{{ entity.DocumentoNumero }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
