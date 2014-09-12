@@ -71,19 +71,13 @@
 		</div>
 	</div>
 
-	<hr />
-	<div class="row">
-		<div class="col-md-12">
-			{% if is_expr_granted("hasAnyRole('ROLE_IDDQD')") %}
-		    <a href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-link">Editar</a>
-			<a href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-link">Perfil</a>
-			{% endif %}
-		</div>
-	</div>
-
 </div>
 
 {% endblock pagina_contenido %}
 
-{% block pagina_pie %}
-{% endblock pagina_pie %}
+{% block pagina_acciones2 %}
+	{% if is_expr_granted("hasAnyRole('ROLE_IDDQD')") %}
+    <a href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+	<a href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-user"></i> Perfil</a>
+	{% endif %}
+{% endblock pagina_acciones2 %}

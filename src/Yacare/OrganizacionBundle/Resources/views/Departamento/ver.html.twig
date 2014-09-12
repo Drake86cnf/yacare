@@ -3,16 +3,30 @@
 {% block pagina_titulo %}{{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
-<objeto>
-	<renglon>
-		<etiqueta>
-			Nombre
-		</etiqueta>
-		<valor>
-			{{ entity.Nombre }}
-		</valor>
-	</renglon>
-</objeto>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-4 text-right text-muted">Nombre</div>
+					<div class="col-xs-8">{{ entity.Nombre }}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right text-muted">Depende de</div>
+					<div class="col-xs-8">{{ entity.ParentNode }}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right text-muted">Rango</div>
+					<div class="col-xs-8">{{ entity.RangoNombre }}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 hidden-xs">
+    		<i class="fa fa-building fa-4x text-muted pull-right"></i>
+		</div>
+	</div>
+</div>
 
 {% endblock %}
 

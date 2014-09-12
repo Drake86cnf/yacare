@@ -39,23 +39,22 @@ class Departamento implements Tree\NodeInterface
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
+    
+    public static function RangosNombre($rango) {
+        switch ($rango) {
+            case 1: return 'Ejecutivo';
+            case 20: return 'Ministerio';
+            case 30: return 'Secretaría';
+            case 40: return 'Subsecretaría';
+            case 50: return 'Dirección';
+            case 60: return 'Subdirección';
+            default: return '';
+        }
+    }
 
     public function getRangoNombre()
     {
-        switch ($this->getRango()) {
-            case 1:
-                return 'Ejecutivo';
-            case 20:
-                return 'Ministerio';
-            case 30:
-                return 'Secretaría';
-            case 40:
-                return 'Subsecretaría';
-            case 50:
-                return 'Dirección';
-            case 60:
-                return 'Subdirección';
-        }
+        return Departamento::RangosNombre($this->getRango());
     }
 
     public function getSangria($sangria = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
