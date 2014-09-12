@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\BaseBundle\Controller;
+namespace Yacare\RecursosHumanosBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -8,14 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador predeterminado.
- *
- * Contiene funciones puntuales de página de bienvenida (inicio), login y
- * logout.
+ * Controlador predeterminado (página de bienvenida).
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class DefaultController extends Controller
+class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
     /**
      * @Route("inicio/")
@@ -23,6 +20,6 @@ class DefaultController extends Controller
      */
     public function inicioAction()
     {
-        return array();
+        return parent::inicioAction();
     }
 }

@@ -10,6 +10,7 @@
         <tr>
             <th>Legajo</th>
             <th>Nombre</th>
+            <th>Cat.</th>
             <th>Departamento</th>
             <th>Fecha de ingreso</th>
             <th>Fecha de baja</th>
@@ -20,6 +21,7 @@
         <tr>
             <td>{{ entity.Id }}</td>
             <td>{{ entity }}</td>
+            <td>{{ entity.Categoria }}</td>
             <td>{{ entity.Departamento }}</td>
             <td>{{ entity.FechaIngreso|tapir_fecha('medium', 'none') }}</td>
             <td>{{ entity.FechaBaja|tapir_fecha('medium', 'none') }}</td>
