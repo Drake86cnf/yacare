@@ -56,8 +56,9 @@ class PersonaType extends AbstractType
         ))
             ->add('Genero', 'choice', array(
             'choices' => array(
-                '0' => 'Masculino',
-                '1' => 'Femenino'
+                '0' => 'Sin especificar',
+                '1' => 'Masculino',
+                '2' => 'Femenino'
             ),
             'label' => 'Género',
             'required' => false,

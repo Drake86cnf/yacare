@@ -218,6 +218,20 @@ class Persona implements UserInterface, \Serializable
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
     
+    public static function GenerosNombres($genero) {
+        switch($genero) {
+            case 0: return 'Sin especificar';
+            case 1: return 'Masculino';
+            case 2: return 'Femenino';
+            default: return 'n/a';
+        }
+    }
+    
+    public function getGeneroNombre() {
+        return Persona::GenerosNombres($this->getGenero());
+    }
+    
+    
     public function PuedeAcceder() {
         return $this->getUsername() && $this->getPasswordEnc();
     }

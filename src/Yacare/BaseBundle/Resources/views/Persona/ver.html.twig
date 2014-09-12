@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div class="col-sm-4 hidden-xs">
-			<img src="a" class="pull-right img-circle img-responsive" style="width: 96px; height: 96px;" />
+    		<i class="fa fa-user fa-4x text-muted pull-right"></i>
 		</div>
 	</div>
 
@@ -65,8 +65,8 @@
 				<div class="col-xs-6">{{ entity.FechaNacimiento|tapir_fecha('medium', 'none') }}</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6 text-right text-muted">Usuario</div>
-				<div class="col-xs-6"></div>
+				<div class="col-xs-6 text-right text-muted">Genero</div>
+				<div class="col-xs-6">{{ entity.GeneroNombre }}</div>
 			</div>
 		</div>
 	</div>
