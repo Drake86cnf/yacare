@@ -15,9 +15,10 @@
     <ol>
     <li>Es necesario instalar los siguientes paquetes:
         <ul>
-        <li>PHP 5.4 o superior</li>
-        <li>MySQL 5.1 o superior</li>
-        <li>Subversion y GIT</li>
+	        <li>PHP 5.4 o superior
+	        <li>MySQL 5.1 o superior
+	        <li>Subversion y GIT
+	        <li>(recomendado) Eclipse PDT con plugin Symfony (http://symfony.dubture.com)
         </ul>
 
     <p>Para ello, ejecutar:</p>
@@ -30,7 +31,7 @@
     En Fedora:
     <pre>
     yum install subversion git php-pear-Image-GraphViz graphviz-php \
-        php php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
+        php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
         php-mbstring
     </pre>
         
@@ -76,13 +77,14 @@
 
     <li>Actualizar las estructuras de datos
     <pre>
-    php app/console doctrine:schema:update --force
+    php bin/console doctrine:schema:update --force
     </pre>
 
     <li>Ejecutar el servidor web de desarrollo:
     <pre>
     php bin/console server:run
     </pre>
+    Ahora puede abrir en un navegador la dirección del servidor local: <a href="http://localhost:8000/app_dev.php/">http://localhost:8000/app_dev.php/</a> 
 
     <li>Correr el conjunto de pruebas y generar documentación sobre cobertura:
     <pre>
