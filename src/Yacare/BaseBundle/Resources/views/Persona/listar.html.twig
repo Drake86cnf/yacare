@@ -6,10 +6,9 @@
 
 {% include 'TapirBaseBundle::buscar.html.twig' %}
 
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
-            <th></th>
             <th>Nombre</th>
             <th>Documento</th>
             <th>Grupos</th>
@@ -17,8 +16,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
+        <tr data-toggle="ajax-link" href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}">
             <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
             <td>{{ entity.DocumentoNumero }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>

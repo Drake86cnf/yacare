@@ -2,21 +2,6 @@
     Created on : 03/07/2014, 20:08:28
     Author     : Ernesto Carrea <equistango@gmail.com>
 */
-@font-face {
-	font-family: 'Open Sans';
-	font-style: normal;
-	font-weight: 300;
-	src: local('Open Sans Light'), local('OpenSans-Light'),
-		url("../fonts/OpenSans300.woff") format('woff');
-}
-
-@font-face {
-	font-family: 'Open Sans';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Open Sans'), local('OpenSans'),
-		url("../fonts/OpenSans400.woff") format('woff');
-}
 
 /* Nav Messages */
 .messages-dropdown .dropdown-menu .message-preview .avatar,
