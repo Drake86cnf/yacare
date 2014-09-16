@@ -4,10 +4,10 @@ namespace Tapir\BaseBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Trait que agrega la capacidad de brindar un buscador.
+ * Agrega la capacidad de brindar un buscador.
  *
- * Para ello se deben también implementar las plantillas "buscar" y
- * "buscarresultados".
+ * Para ello se deben implementar las vistas "buscar" y "buscarresultados"
+ * para la entidad que este controlador controla.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  */

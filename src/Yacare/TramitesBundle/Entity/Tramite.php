@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Representa una instancia de un trámite en curso, con su avance y el estado
  * de sus requisitos.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_Tramite")

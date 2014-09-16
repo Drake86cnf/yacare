@@ -3,6 +3,11 @@ namespace Yacare\TramitesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Agrega la propiedad de Titular a una entidad.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 trait ConTitular
 {
 

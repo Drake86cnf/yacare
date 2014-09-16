@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Trait que agrega la capacidad de eliminar entidades.
+ * Agrega la capacidad de eliminar o suprimir entidades.
  *
  * La entidad controlada por el controlador debe ser Eliminable o Suprimible.
  *
