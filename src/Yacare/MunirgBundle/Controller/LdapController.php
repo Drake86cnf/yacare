@@ -33,14 +33,14 @@ class LdapController extends Controller
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
         
-        $ServidorAd =\ldap_connect($Dominio);
-       \ldap_set_option($ServidorAd, LDAP_OPT_PROTOCOL_VERSION, 3);
-       \ldap_set_option($ServidorAd, LDAP_OPT_REFERRALS, 0);
+        $ServidorAd = \ldap_connect($Dominio);
+        ldap_set_option($ServidorAd, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ServidorAd, LDAP_OPT_REFERRALS, 0);
         $UsrBind = @\ldap_bind($ServidorAd, $Usuario . '@' . $Dominio, $Contrasena);
         if ($UsrBind) {
             // $fields = array("samaccountname","mail","memberof","department","displayname","telephonenumber","primarygroupid");
-            $sr =\ldap_search($ServidorAd, "dc=municipiorg,dc=gob,dc=ar", "samaccountname=" . $Usuario);
-            $info =\ldap_get_entries($ServidorAd, $sr);
+            $sr = \ldap_search($ServidorAd, "dc=municipiorg,dc=gob,dc=ar", "samaccountname=" . $Usuario);
+            $info = \ldap_get_entries($ServidorAd, $sr);
             
             if (! $info || $info['count'] != 1) {
                 $this->get('session')
