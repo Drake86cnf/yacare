@@ -4,7 +4,11 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RelevamientoIncidente
+ * Tipos de resultado.
+ * 
+ * @see RelevamientoAsignacionResultado
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table("Inspeccion_RelevamientoResultado")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

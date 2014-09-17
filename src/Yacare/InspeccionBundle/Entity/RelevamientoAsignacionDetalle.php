@@ -5,7 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
- * Yacare\InspeccionBundle\Entity\RelevamientoAsignacionDetalle
+ * Detalle de asignación.
+ * 
+ * @see RelevamientoAsignacion
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

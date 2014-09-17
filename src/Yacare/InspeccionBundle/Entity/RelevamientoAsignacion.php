@@ -4,7 +4,9 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\InspeccionBundle\Entity\RelevamientoAsignacion
+ * Asignación de trabajo para un relevamiento.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

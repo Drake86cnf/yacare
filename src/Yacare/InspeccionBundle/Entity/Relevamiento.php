@@ -4,7 +4,9 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Relevamiento
+ * Relevamiento.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table("Inspeccion_Relevamiento")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

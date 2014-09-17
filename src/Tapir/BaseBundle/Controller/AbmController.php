@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 abstract class AbmController extends BaseController
 {
     // use \Tapir\BaseBundle\Controller\ConBuscar;
-
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -81,12 +80,12 @@ abstract class AbmController extends BaseController
         $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";
         
         if (count($this->Joins) > 0) {
-        	$this->Joins = array_unique($this->Joins);
+            $this->Joins = array_unique($this->Joins);
             foreach ($this->Joins as $join) {
                 $dql .= " " . $join;
             }
         }
-
+        
         $where = "";
         
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
@@ -221,9 +220,9 @@ abstract class AbmController extends BaseController
      *            El ID de la entidad a editar, o null si se trata de un
      *            alta.
      *            
-     * @Route("editar/{id}")
-     * @Route("crear/")
-     * @Template()
+     *            @Route("editar/{id}")
+     *            @Route("crear/")
+     *            @Template()
      */
     public function editarAction(Request $request, $id = null)
     {

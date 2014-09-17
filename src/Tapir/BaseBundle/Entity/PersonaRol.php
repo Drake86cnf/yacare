@@ -12,10 +12,10 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  */
 class PersonaRol implements RoleInterface
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Tapir\BaseBundle\Entity\Suprimible;
+    use\Tapir\BaseBundle\Entity\ConId;
+    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use\Tapir\BaseBundle\Entity\Versionable;
+    use\Tapir\BaseBundle\Entity\Suprimible;
 
     public function __construct()
     {

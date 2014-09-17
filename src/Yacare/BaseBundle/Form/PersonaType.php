@@ -61,8 +61,7 @@ class PersonaType extends AbstractType
                 '2' => 'Femenino'
             ),
             'label' => 'Género',
-            'required' => true,
-            'empty_value' => 'Sin especificar'
+            'required' => true
         ))
             ->add('Pais', 'entity', array(
             'label' => 'Nacionalidad',

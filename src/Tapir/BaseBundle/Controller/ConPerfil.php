@@ -58,7 +58,6 @@ trait ConPerfil
         // parent::__editarAction($id);
     }
 
-
     /**
      * @Route("cambiarcontrasena/{id}", name="usuario_cambiarcontrasena", defaults={"id" = null})
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
@@ -103,7 +102,7 @@ trait ConPerfil
             return $this->redirect($this->generateUrl('logout'));
         }
         
-        if(isset($user)) {
+        if (isset($user)) {
             $em->refresh($user);
         }
         

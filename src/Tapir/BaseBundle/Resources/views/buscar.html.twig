@@ -1,17 +1,20 @@
 <div id="nav-search" class="nav-search hidden-print">
-    {% set filtro_buscar = app.request.get('filtro_buscar') %}
-    <div class="input-group">
-        <div class="input-group margin-bottom-sm">
-        <span class="input-group-addon"><i class="fa fa-search nav-search-icon"></i></span>
-        <input class="form-control input-sm" type="text" autocomplete="off" autofocus size="64" maxlength="64" id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..." value="{{ filtro_buscar }}" style="max-width: 128px"/>
+	{% set filtro_buscar = app.request.get('filtro_buscar') %}
+	<div class="input-group">
+		<div class="input-group margin-bottom-sm">
+			<span class="input-group-addon"><i
+				class="fa fa-search nav-search-icon"></i></span> <input
+				class="form-control input-sm" type="text" autocomplete="off"
+				autofocus size="64" maxlength="64" id="filtro_buscar"
+				name="filtro_buscar" placeholder="Buscar..."
+				value="{{ filtro_buscar }}" style="max-width: 128px" /> {% if
+			filtro_buscar %} <a class="input-group-addon" href="#"
+				onclick="yacareNavegarA('?filtro_buscar=');">Ver todo</a> {% endif
+			%}
+		</div>
+	</div>
 
-        {% if filtro_buscar %}
-        <a class="input-group-addon" href="#" onclick="yacareNavegarA('?filtro_buscar=');">Ver todo</a>
-        {% endif %}
-        </div>
-    </div>
-
-    <script type="text/javascript">
+	<script type="text/javascript">
     //$(document).ready(function() {
         $('#filtro_buscar').keyup(function (e) {
             if (e.which === 13) {

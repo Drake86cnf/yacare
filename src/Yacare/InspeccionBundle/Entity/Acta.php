@@ -4,7 +4,9 @@ namespace Yacare\InspeccionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\InspeccionBundle\Entity\Acta
+ * Acta.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
  *
  * @ORM\Table(name="Inspeccion_Acta")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

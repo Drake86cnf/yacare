@@ -44,11 +44,11 @@ class FormatExtension extends \Twig_Extension
             }
         } else {
             if ($number) {
-                $price = number_format($number, 2, '.', ',');
+                $price = number_format($number, 2, ',', ' ');
                 // $price = $price;
-                return '$' . $price;
+                return '$ ' . $price;
             }
-            return '$' . $number;
+            return '$ ' . $number;
         }
     }
 

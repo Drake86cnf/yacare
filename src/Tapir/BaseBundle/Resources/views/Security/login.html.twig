@@ -1,44 +1,63 @@
 {% extends 'TapirBaseBundle::blank.html.twig' %}
 
 {% block pagina_contenido %}
+<span class="hidden-sm hidden-xs"> <br /> <br /> <br /> <br /></span>
 <div id="login-wrapper" class="container-fluid">
-    <div id="login-container" class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4 hidden-sm hidden-xs">
-            {% image '@tapir_logoaplicacion' %}
-                <img class="img-responsive center-block" src="{{ asset_url }}" style="padding: 20px 64px;" alt="{{ tapir_cliente }}" />
-            {% endimage %}
-        </div>
-        <div class="col-md-4">
-            <h1>{{ tapir_nombreaplicacion }}</h1>
-            <form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
-                <p>Bienvenido. Para continuar es necesario que escriba su nombre de usuario y su contraseña.</p>
-            {% if error %}
-                <div class="alert alert-dismissable alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Error: {{ error.message|trans }}
-                </div>
-                <p class="text">Si no dispone de un nombre de usuario, puede solicitar uno mediante <a href="{{ path('usuario_alta') }}">este formulario</a>.</p>
-            {% endif %}
-                <fieldset>
-                    <label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
-                    <div class="form-group">
-                        <input class="input-sm" placeholder="Usuario" id="_username" name="_username" type="text" autofocus />
-                    </div>
-                    <label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
-                    <div class="form-group">
-                        <input class="input-sm" placeholder="Contraseña" id="_password" name="_password" type="password" value="" />
-                    </div>
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Ingresar</button>
+	<div id="login-container" class="row">
+		<div class="col-md-2 hidden-sm hidden-xs">&nbsp;</div>
+		<div class="col-md-4">
+			{% image '@tapir_logoaplicacion' %} <img class="center-block"
+				src="{{ asset_url }}" alt="{{ tapir_cliente }}" /> {% endimage %}
+		</div>
+		<div class="col-md-4">
+			<h1>¡Bienvenido!</h1>
+			<form role="form" class="form-horizontal"
+				action="{{ path('login_check') }}" method="post">
+				<p>Para continuar es necesario que escriba su nombre de usuario y su
+					contraseña.</p>
+				{% if error %}
+				<div class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					Error: {{ error.message|trans }}
+				</div>
+				<p class="text">
+					Si no dispone de un nombre de usuario, puede solicitar uno mediante
+					<a href="{{ path('usuario_alta') }}">este formulario</a>.
+				</p>
+				{% endif %} <label for="_username"
+					class="hidden-md hidden-lg hidden-sm">Usuario</label>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-user fa-fw"></i>
+						</div>
+						<input class="form-control" placeholder="Usuario" id="_username"
+							name="_username" type="text" autofocus />
+					</div>
+				</div>
+				<label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-key fa-fw"></i>
+						</div>
+						<input class="form-control" placeholder="Contraseña"
+							id="_password" name="_password" type="password" value="" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Ingresar</button>
 
-                <br />&nbsp;<br />
-                <p class="text-muted"><small>
-                    Si no tiene una contraseña, póngase en contacto con el administrador del sistema.
-                </small></p>
-            </form>
-        </div>
-    </div>
-    <footer><small class="text-muted pull-right">{{ tapir_cliente }}</small></footer>
+				<br />&nbsp;<br />
+				<p class="text-muted">
+					<small> Si no tiene una contraseña, póngase en contacto con el
+						administrador del sistema. </small>
+				</p>
+			</form>
+		</div>
+		<div class="col-md-2 hidden-sm hidden-xs">&nbsp;</div>
+	</div>
+	<footer>
+		<small class="text-muted pull-right">{{ tapir_nombreaplicacion }}</small>
+	</footer>
 </div>
 {% endblock %}

@@ -17,7 +17,7 @@ trait ConIdMetodos
 
     /**
      * Get id
-     * 
+     *
      * @return integer
      */
     public function getId()

@@ -1,0 +1,14 @@
+{% macro grid_row() %}
+<div class="row">{% endmacro %} {% macro grid_row_end() %}</div>
+{% endmacro %} {% macro grid_col_13() %}
+<div class="col-xs-4">{% endmacro %} {% macro grid_row_13_end() %}</div>
+{% endmacro %} {% macro grid_col_23() %}
+<div class="col-xs-8">{% endmacro %} {% macro grid_row_23_end() %}</div>
+{% endmacro %} {% macro grid_col_12() %}
+<div class="col-xs-6">{% endmacro %} {% macro grid_col_12_end() %}</div>
+{% endmacro %} {% macro grid_label_text(label, text, class) %}
+<div class="row">
+	<div class="col-xs-6 text-right">{{ label }}</div>
+	<div class="col-xs-6 {{ class|default('') }}">{{ text }}</div>
+</div>
+{% endmacro %}

@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>{{ tapir_nombreaplicacion }} - {% block pagina_titulo %}{% endblock %}</title>
-    <link rel="icon" href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
-    <!link id="print-css" href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/css/yacare-print.css') }}" rel="stylesheet" />
+<meta charset="UTF-8" />
+<title>{{ tapir_nombreaplicacion }} - {% block pagina_titulo %}{%
+	endblock %}</title>
+<link rel="icon"
+	href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
+<!link id="print-css" href="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/yacarebase/css/yacare-print.css') }}" rel="stylesheet" />
 
 <style type="text/css">
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700');
-@import url('http://fonts.googleapis.com/css?family=Droid+Sans+Mono:400');
+
+@import
+	url('http://fonts.googleapis.com/css?family=Droid+Sans+Mono:400');
 
 @page {
-    size: A4;
+	size: A4;
 }
 
 @page :left {
-    margin-right: 3cm;
+	margin-right: 3cm;
 }
 
 @page :right {
-    margin-left: 3cm;
+	margin-left: 3cm;
 }
 
 body {
-    margin: 0;
-    /* margin-top: 20px 0 0 10px; */
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    height: 100%;
+	margin: 0;
+	/* margin-top: 20px 0 0 10px; */
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	height: 100%;
 }
 /* @media print {
     body {
@@ -35,126 +39,125 @@ body {
         min-width: 210mm;
     }
 } */
-
 a {
-    color: #4183c4;
-    text-decoration: none;
+	color: #4183c4;
+	text-decoration: none;
 }
+
 a:visited {
-    color: #4183c4;
-    text-decoration: none;
+	color: #4183c4;
+	text-decoration: none;
 }
 
 .content {
-	border: 0; 
-	padding: 0; 
- 	float: none !important; 
+	border: 0;
+	padding: 0;
+	float: none !important;
 }
 
 @media screen {
-    .content {
-        margin: 1cm 1cm 1cm 3cm;
-    }
+	.content {
+		margin: 1cm 1cm 1cm 3cm;
+	}
 }
 
 table.listado {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
 }
 
 table.listado caption {
-    padding: 8px;
-    font-size: 20px;
-    font-weight: 200;
-    border: 2px solid #473d04;
-    text-align: left;
-    border-radius: 4px;
-    margin-bottom: 12px;
+	padding: 8px;
+	font-size: 20px;
+	font-weight: 200;
+	border: 2px solid #473d04;
+	text-align: left;
+	border-radius: 4px;
+	margin-bottom: 12px;
 }
 
 table.listado th td {
-    font-size: 14px;
-    font-weight: 200;    
-    padding: 6px;
+	font-size: 14px;
+	font-weight: 200;
+	padding: 6px;
 }
 
 table.listado tr:nth-child(even) {
-  background-color: #f8f8f8;
+	background-color: #f8f8f8;
 }
 
 table.listado tr:nth-child(odd) {
-  background-color: white;
+	background-color: white;
 }
 
 table.listado tr td {
-    max-width: 50%;
-    padding: 6px;
+	max-width: 50%;
+	padding: 6px;
 }
 
 @media print {
-    table.listado tr td {
-        border-bottom: 1px solid silver;
-    }
+	table.listado tr td {
+		border-bottom: 1px solid silver;
+	}
 }
 
 table.listado tr td.label {
-    white-space: nowrap;
-    vertical-align: top;
-    max-width: 30%;
-    padding-right: 16px;
+	white-space: nowrap;
+	vertical-align: top;
+	max-width: 30%;
+	padding-right: 16px;
 }
 
 #footer {
-    margin: 5mm;
-    position: bottom;
-    bottom: 5mm;
-    right: 5mm;
-    padding: 2mm;
-    border: 1px solid silver;
-    border-radius: 3px;
-    z-index: 600000;
-    background-color: white;
-    overflow: auto;
-    page-break-inside: avoid;
+	margin: 5mm;
+	position: bottom;
+	bottom: 5mm;
+	right: 5mm;
+	padding: 2mm;
+	border: 1px solid silver;
+	border-radius: 3px;
+	z-index: 600000;
+	background-color: white;
+	overflow: auto;
+	page-break-inside: avoid;
 }
 
 #footer img {
-    float: left;
+	float: left;
 }
 
 #footer .fixedsmall {
-    float: right;
-    font-family: 'Droid Sans Mono', 'Courier New';
-    font-size: 7pt;
-    margin: 0;
-    padding: 0;
-    word-wrap: break-word;
+	float: right;
+	font-family: 'Droid Sans Mono', 'Courier New';
+	font-size: 7pt;
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
 }
 
 .currency {
+	
 }
 
 .currency:before {
-   content: "$ ";
+	content: "$ ";
 }
+
 .currency:after {
-   content: ".---";
+	content: ".---";
 }
 
 @media print {
-    .noprint
-    {
-        display: none;
-    }
+	.noprint {
+		display: none;
+	}
 }
 </style>
 </head>
 
 <body>
-<div class="content" id="content">
-    {% block pagina_contenido %}
-    {% endblock %}
-</div>
+	<div class="content" id="content">{% block pagina_contenido %} {%
+		endblock %}</div>
 </body>
 </html>

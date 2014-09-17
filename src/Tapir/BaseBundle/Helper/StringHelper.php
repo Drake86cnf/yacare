@@ -134,6 +134,7 @@ class StringHelper
         $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
         
         $remplazos = array(
+            
             // Nombres de calles
             'yugoeslavia' => 'yugoslavia',
             'sra.de' => 'sra. de',
@@ -192,6 +193,7 @@ class StringHelper
         $text = ' ' . $text . ' ';
         
         $remplazos = array(
+            
             // Nombres propios
             'saenz pena' => 'sáenz peña',
             'cristobal colon' => 'cristobal colón',
@@ -210,6 +212,7 @@ class StringHelper
             '' => '',
             '' => '',
             '' => '',
+            
             // Nombres
             'martin' => 'martín',
             'maria' => 'maría',
@@ -245,6 +248,7 @@ class StringHelper
             'matias' => 'matías',
             '' => '',
             '' => '',
+            
             // Apellidos
             'perez' => 'pérez',
             'hernandez' => 'hernández',
@@ -303,6 +307,7 @@ class StringHelper
             'nuñez' => 'núñez',
             '' => '',
             '' => '',
+            
             // Otras palabras
             'antartida' => 'antártida',
             'antartica' => 'antártica',

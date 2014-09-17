@@ -15,7 +15,7 @@ use Tapir\BaseBundle\Helper\Damm;
  */
 trait ConId
 {
-    use\Tapir\BaseBundle\Entity\ConIdMetodos;
+    use \Tapir\BaseBundle\Entity\ConIdMetodos;
 
     /**
      * @ORM\Column(name="id", type="integer")
