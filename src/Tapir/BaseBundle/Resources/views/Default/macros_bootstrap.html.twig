@@ -8,7 +8,7 @@
 <div class="col-xs-6">{% endmacro %} {% macro grid_col_12_end() %}</div>
 {% endmacro %} {% macro grid_label_text(label, text, class) %}
 <div class="row">
-	<div class="col-xs-4 text-right text-muted">{{ label }}</div>
-	<div class="col-xs-8 {{ class|default('') }}">{{ text }}</div>
+	<div class="col-xs-4 text-right text-muted">{{ label|raw }}</div>
+	<div class="col-xs-8 {{ class|default('') }}">{{ text|raw }}</div>
 </div>
 {% endmacro %}

@@ -9,12 +9,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
-                {{ bs.grid_label_text('Legajo', entity.id) }}
+                {{ bs.grid_label_text('Legajo', '<strong>' ~ entity.id ~ '</strong>') }}
                 {{ bs.grid_label_text('Documento', entity.Persona.DocumentoNumero) }}
                 {{ bs.grid_label_text('CUIL', entity.Persona.CuiltFormateado) }}
-                {{ bs.grid_label_text('Domicilio', entity.Persona.Domicilio) }}
-                {{ bs.grid_label_text('Teléfono', entity.Persona.TelefonoNumero) }}
-                {{ bs.grid_label_text('E-mail', entity.Persona.Email) }}
+                {{ bs.grid_label_text('Domicilio <i class="fa fa-home fa-fw"></i>', entity.Persona.Domicilio) }}
+                {{ bs.grid_label_text('Teléfono <i class="fa fa-phone fa-fw"></i>', entity.Persona.TelefonoNumero) }}
+                {{ bs.grid_label_text('E-mail <i class="fa fa-envelope fa-fw"></i>', entity.Persona.Email) }}
 		</div>
 		<div class="col-sm-4 hidden-xs">
 			<i class="fa fa-user fa-5x text-muted pull-right"></i>
@@ -25,14 +25,22 @@
 
 	{{ bs.grid_row() }}
 	   {{ bs.grid_col_12() }}
-            {{ bs.grid_label_text('Departamento', entity.Departamento) }}
-            {{ bs.grid_label_text('Función', entity.Funcion) }}
+	       {% set depname = entity.Departamento %}
+	       {% if entity.Departamento.ParentNode %}
+	           {% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode %}
+	           {% if entity.Departamento.ParentNode.ParentNode %}
+    	           {% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode.ParentNode %}
+    	       {% endif %}
+	       {% endif %}
+           {{ bs.grid_label_text('Departamento <i class="fa fa-building fa-fw"></i>', depname) }}
+           {{ bs.grid_label_text('Función', entity.Funcion) }}
        {{ bs.grid_col_12_end() }}
        {{ bs.grid_col_12() }}
-            {% set a='text-danger' %}
-            {{ bs.grid_label_text('Categoría', entity.Categoria) }}
-            {{ bs.grid_label_text('Situación', entity.Situacion) }}
-            {{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
+           {% set a='text-danger' %}
+           {{ bs.grid_label_text('Categoría', entity.Categoria) }}
+           {{ bs.grid_label_text('Situación', entity.Situacion) }}
+           {{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
+           {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
 	   {{ bs.grid_col_12_end() }}
    {{ bs.grid_row_end() }}
 
@@ -41,5 +49,13 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-	<button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
+{% if app.request.get('tapir_mostrarmodal') %}
+    <a class="btn btn-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
+    <button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
+{% else %}
+    <a class="btn btn-link" href="javascript:window.print();"><i class="fa fa-print"></i> Imprimir</a>
+    <a  class="btn btn-link pull-right" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver</button>
+{% endif %}
+    
+	
 {% endblock pagina_acciones %}
