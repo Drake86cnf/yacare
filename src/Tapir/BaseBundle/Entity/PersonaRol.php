@@ -23,6 +23,7 @@ class PersonaRol implements RoleInterface
     }
 
     /**
+     * El nombre del rol.
      *
      * @var string @ORM\Column(type="string", length=255)
      */
