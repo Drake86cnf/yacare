@@ -3,9 +3,10 @@
 {% block pagina_titulo %}Agentes{% endblock %}
 
 {% block pagina_contenido %}
+
 {% include 'TapirBaseBundle::buscar.html.twig' %}
 
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
             <th>Legajo</th>
@@ -18,7 +19,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
+        <tr data-toggle="modal" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.Id }}</td>
             <td>{{ entity }}</td>
             <td>{{ entity.Categoria }}</td>
@@ -30,9 +31,7 @@
     </tbody>
 </table>
 
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(entities) }}
-</div>
-<a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nuevo agente</a>
+{% include 'TapirBaseBundle::paginar.html.twig' %}
+
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nuevo agente</a>
 {% endblock %}

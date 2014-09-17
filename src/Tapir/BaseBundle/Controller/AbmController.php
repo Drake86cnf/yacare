@@ -124,7 +124,16 @@ abstract class AbmController extends BaseController
         
         if ($this->OrderBy) {
             $OrderByCampos = explode(',', $this->OrderBy);
-            $dql .= " ORDER BY r." . join(', r.', $OrderByCampos);
+            $OrderByCamposConTabla = array();
+            
+            foreach($OrderByCampos as $Campo) {
+                // Agrego "r." a los campos que no especifican una tabla
+                if(strpos($Campo, '.') === FALSE) {
+                    $Campo = 'r.' . $Campo;
+                }
+                $OrderByCamposConTabla[] = $Campo;
+            }
+            $dql .= " ORDER BY " . join(', ', $OrderByCamposConTabla);
         }
         
         return $dql;
@@ -188,7 +197,7 @@ abstract class AbmController extends BaseController
      * Es como editar, pero sólo lectura.
      *
      * @see editarAction() @Route("ver/{id}")
-     *      @Template()
+     * @Template()
      */
     public function verAction(Request $request, $id = null)
     {
@@ -196,7 +205,7 @@ abstract class AbmController extends BaseController
             $entity = $this->obtenerEntidadPorId($id);
         }
         
-        if (! $entity) {
+        if (!$entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         

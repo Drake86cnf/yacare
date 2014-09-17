@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Agente
 {
@@ -35,19 +35,25 @@ class Agente
     /**
      * La categoría actual.
      *
-     * @var $Categoria @ORM\Column(type="integer", nullable=false)
+     * @var $Categoria
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Categoria;
 
     /**
      *
-     * @var $Situacion @ORM\Column(type="integer", nullable=false)
+     * @var $Situacion
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Situacion;
 
     /**
      *
-     * @var $Funcion @ORM\Column(type="string")
+     * @var $Funcion
+     * 
+     * @ORM\Column(type="string")
      */
     private $Funcion;
 
@@ -70,15 +76,20 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
+    
 
     public function __toString()
     {
         return $this->getPersona()->getNombreVisible();
     }
+    
+    
 
     public function getPersona()
     {

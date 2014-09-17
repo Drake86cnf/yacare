@@ -25,5 +25,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         if(in_array('r.Persona p', $this->Joins) == false) {
         	$this->Joins[] = 'JOIN r.Persona p';
         }
+        
+        $this->OrderBy = 'p.NombreVisible';
     }
 }

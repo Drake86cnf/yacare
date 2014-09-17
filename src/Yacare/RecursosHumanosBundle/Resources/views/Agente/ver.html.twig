@@ -1,0 +1,45 @@
+{% extends 'TapirBaseBundle:Default:ver.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+                {{ bs.grid_label_text('Legajo', entity.id) }}
+                {{ bs.grid_label_text('Documento', entity.Persona.DocumentoNumero) }}
+                {{ bs.grid_label_text('Domicilio', entity.Persona.Domicilio) }}
+                {{ bs.grid_label_text('Teléfono', entity.Persona.TelefonoNumero) }}
+                {{ bs.grid_label_text('E-mail', entity.Persona.Email) }}
+		</div>
+		<div class="col-sm-4 hidden-xs">
+			<i class="fa fa-user fa-5x text-muted pull-right"></i>
+		</div>
+	</div>
+
+	<hr />
+
+	{{ bs.grid_row() }}
+	   {{ bs.grid_col_12() }}
+            {{ bs.grid_label_text('Departamento', entity.Departamento) }}
+            {{ bs.grid_label_text('Función', entity.Funcion) }}
+       {{ bs.grid_col_12_end() }}
+       {{ bs.grid_col_12() }}
+            {% set a='text-danger' %}
+            {{ bs.grid_label_text('Categoría', entity.Categoria) }}
+            {{ bs.grid_label_text('Situación', entity.Situacion) }}
+            
+	   {{ bs.grid_col_12_end() }}
+   {{ bs.grid_row_end() }}
+
+</div>
+
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+	<a href="#" class="btn btn-link pull-left"><i class="fa fa-pencil"></i> Editar</a>
+	<button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
+{% endblock pagina_acciones %}
