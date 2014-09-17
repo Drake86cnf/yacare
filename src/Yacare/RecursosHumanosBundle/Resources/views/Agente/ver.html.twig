@@ -11,6 +11,7 @@
 		<div class="col-sm-8 col-xs-12">
                 {{ bs.grid_label_text('Legajo', entity.id) }}
                 {{ bs.grid_label_text('Documento', entity.Persona.DocumentoNumero) }}
+                {{ bs.grid_label_text('CUIL', entity.Persona.CuiltFormateado) }}
                 {{ bs.grid_label_text('Domicilio', entity.Persona.Domicilio) }}
                 {{ bs.grid_label_text('Teléfono', entity.Persona.TelefonoNumero) }}
                 {{ bs.grid_label_text('E-mail', entity.Persona.Email) }}
@@ -31,7 +32,7 @@
             {% set a='text-danger' %}
             {{ bs.grid_label_text('Categoría', entity.Categoria) }}
             {{ bs.grid_label_text('Situación', entity.Situacion) }}
-            
+            {{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
 	   {{ bs.grid_col_12_end() }}
    {{ bs.grid_row_end() }}
 
@@ -40,6 +41,5 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-	<a href="#" class="btn btn-link pull-left"><i class="fa fa-pencil"></i> Editar</a>
 	<button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
 {% endblock pagina_acciones %}

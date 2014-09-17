@@ -182,6 +182,14 @@ class Persona implements UserInterface, \Serializable
      *      @ORM\Column(type="string", length=50, nullable=true)
      */
     private $AgenteId;
+    
+    public function CuiltFormateado() {
+        if(strlen($this->Cuilt) == 11) {
+            return substr($this->Cuilt, 0, 2) . '-' . substr($this->Cuilt, 2, 8) . '-' . substr($this->Cuilt, 10, 1);
+        } else {
+            return $this->Cuilt;
+        }
+    }
 
 
     public function getNombreVisible()
