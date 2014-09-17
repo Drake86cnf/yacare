@@ -12,10 +12,20 @@ trait ConNombre
 {
 
     /**
+     * El nombre de la entidad.
+     * 
+     * El nombre suele ser una representación de texto de la entidad. Para
+     * personas, calles o ciudades debe ser el nombre visible. Para otras
+     * entidades puede ser una etiqueta o representación (ToString) de la
+     * entidad, por ejemplo "Comprobante Nº 32". 
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $nombre;
 
+    /**
+     * @ignore
+     */
     public function __toString()
     {
         if ($this->nombre)
@@ -24,11 +34,17 @@ trait ConNombre
             return '';
     }
 
+    /**
+     * @ignore
+     */
     public function getNombre()
     {
         return $this->nombre;
     }
 
+    /**
+     * @ignore
+     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;

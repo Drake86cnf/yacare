@@ -47,6 +47,10 @@ class Departamento implements Tree\NodeInterface
     
 
     /**
+     * El nodo de nivel superior.
+     * 
+     * @see Node
+     * 
      * @ORM\ManyToOne(targetEntity="Departamento")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
@@ -99,40 +103,56 @@ class Departamento implements Tree\NodeInterface
 
     
     
-    
+    /**
+     * @ignore
+     */
     public function getRango()
     {
         return $this->Rango;
     }
 
+    /**
+     * @ignore
+     */
     public function setRango($Rango)
     {
         $this->Rango = $Rango;
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getCodigo()
     {
         return $this->Codigo;
     }
 
+    /**
+     * @ignore
+     */
     public function setCodigo($Codigo)
     {
         $this->Codigo = $Codigo;
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getHaceParteDiario()
     {
         return $this->HaceParteDiario;
     }
 
+    /**
+     * @ignore
+     */
     public function setHaceParteDiario($HaceParteDiario)
     {
         $this->HaceParteDiario = $HaceParteDiario;
         return $this;
     }
-    
 }
 
 

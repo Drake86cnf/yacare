@@ -12,17 +12,23 @@ trait ConUrl
 {
 
     /**
+     * La URL asociada a la entidad.
      *
-     * @var string $Url
-     *      @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
 
+    /**
+     * @ignore
+     */
     public function getUrl()
     {
         return $this->Url;
     }
 
+    /**
+     * @ignore
+     */
     public function setUrl($Url)
     {
         $this->Url = $Url;

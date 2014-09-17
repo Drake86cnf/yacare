@@ -42,6 +42,7 @@ class Agente
     private $Categoria;
 
     /**
+     * TODO: Verificar el significado de este campo en "Gestion.exe" / con Daniel Camargo.
      *
      * @var $Situacion
      * 
@@ -50,6 +51,7 @@ class Agente
     private $Situacion;
 
     /**
+     * La función que cumple, en formato de texto libre. 
      *
      * @var $Funcion
      * 
@@ -66,7 +68,7 @@ class Agente
     private $FechaIngreso;
 
     /**
-     * La fecha de baja.
+     * La fecha de baja, o NULL si todavía está activo.
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
@@ -91,71 +93,113 @@ class Agente
     
     
 
+    /**
+     * @ignore
+     */
     public function getPersona()
     {
         return $this->Persona;
     }
 
+    /**
+     * @ignore
+     */
     public function setPersona($Persona)
     {
         $this->Persona = $Persona;
     }
 
+    /**
+     * @ignore
+     */
     public function getCategoria()
     {
         return $this->Categoria;
     }
 
+    /**
+     * @ignore
+     */
     public function setCategoria($Categoria)
     {
         $this->Categoria = $Categoria;
     }
 
+    /**
+     * @ignore
+     */
     public function getSituacion()
     {
         return $this->Situacion;
     }
 
+    /**
+     * @ignore
+     */
     public function setSituacion($Situacion)
     {
         $this->Situacion = $Situacion;
     }
 
+    /**
+     * @ignore
+     */
     public function getFuncion()
     {
         return $this->Funcion;
     }
 
+    /**
+     * @ignore
+     */
     public function setFuncion($Funcion)
     {
         $this->Funcion = $Funcion;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaIngreso()
     {
         return $this->FechaIngreso;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaIngreso(\DateTime $FechaIngreso = null)
     {
         $this->FechaIngreso = $FechaIngreso;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaBaja()
     {
         return $this->FechaBaja;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaBaja(\DateTime $FechaBaja = null)
     {
         $this->FechaBaja = $FechaBaja;
     }
 
+    /**
+     * @ignore
+     */
     public function getDepartamento()
     {
         return $this->Departamento;
     }
 
+    /**
+     * @ignore
+     */
     public function setDepartamento($Departamento)
     {
         $this->Departamento = $Departamento;

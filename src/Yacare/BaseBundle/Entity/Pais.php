@@ -19,17 +19,26 @@ class Pais
     use\Tapir\BaseBundle\Entity\Versionable;
 
     /**
+     * El código ISO de país.
+     * 
+     * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      *
      * @var string $Iso
-     *      @ORM\Column(type="string", length=2)
+     * @ORM\Column(type="string", length=2)
      */
     private $Iso;
 
+    /**
+     * @ignore
+     */
     public function getIso()
     {
         return $this->Iso;
     }
 
+    /**
+     * @ignore
+     */
     public function setIso($Iso)
     {
         $this->Iso = $Iso;

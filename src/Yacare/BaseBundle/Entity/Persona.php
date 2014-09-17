@@ -39,12 +39,16 @@ class Persona implements UserInterface, \Serializable
     use\Yacare\BaseBundle\Entity\ConVerificacion;
 
     /**
+     * Los grupos a los cuales pertenece el usuario.
+     * 
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
      */
     private $Grupos;
-
+    
     /**
+     * Los roles asignados al usuario.
+     * 
      * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol")
      * @ORM\JoinTable(name="Base_Persona_PersonaRol")
      */
@@ -59,6 +63,7 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     * Los apellidos.
      *
      * @var string $Apellido
      *      @ORM\Column(type="string", length=255)
@@ -66,6 +71,7 @@ class Persona implements UserInterface, \Serializable
     private $Apellido;
 
     /**
+     * Los nombres de pila.
      *
      * @var string $Nombre
      *      @ORM\Column(type="string", length=255)
@@ -73,77 +79,105 @@ class Persona implements UserInterface, \Serializable
     private $Nombre;
 
     /**
+     * El nombre que se prefiere para representar a la persona.
+     * 
+     * Suele ser la combinación de apellido y nombre para las personas físicas
+     * y la razón social para las personas jurídicas.
      *
      * @var string $NombreVisible
-     *      @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $NombreVisible;
 
     /**
+     * El nombre de usuario.
+     * 
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
      */
     private $Username;
 
     /**
+     * La sal con la cual se hace el extracto de la contraseña.
+     * 
+     * @see $Password
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Salt = '892ddb02bed8aafcddbff7f78f8841d6'; // Sal predeterminada
     
     /**
+     * El extracto de la contraseña.
+     * 
+     * @see $Salt
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d'; // Contraseña predeterminada 123456
     
     /**
+     * La contraseña codificada.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $PasswordEnc = 'MTIzNDU2'; // Contraseña predeterminada 123456, con base64
     
     /**
+     * Indica si es persona jurídica (true) o física (false).
+     * 
      * @ORM\Column(type="boolean")
      */
     private $PersonaJuridica = false;
 
     /**
+     * La razón social (sólo para personas jurídicas).
      *
-     * @var string $RazonSocial
-     *      @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $RazonSocial = null;
 
     /**
-     *
+     * El tipo de documento.
+     * 
+     * @see DocumentoNumero
      * @var integer @ORM\Column(type="integer")
      */
     private $DocumentoTipo;
 
     /**
+     * El tipo de documento.
      *
+     * @see DocumentoTipo
      * @var string @ORM\Column(type="integer")
      */
     private $DocumentoNumero;
 
     /**
+     * El CUIL o CUIT.
      *
-     * @var string @ORM\Column(type="string", length=50, nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Cuilt;
 
     /**
+     * El o los números de teléfono en formato de texto libre.
      *
      * @var string $TelefonoNumero
-     *      @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $TelefonoNumero;
 
     /**
+     * La dirección de correo electrónico.
      *
      * @var string $Email
-     *      @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
 
     /**
+     * La situación tributaria.
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     private $SituacionTributaria;
@@ -155,13 +189,18 @@ class Persona implements UserInterface, \Serializable
     private $FechaNacimiento;
 
     /**
+     * El género (sólo personas físicas).
      *
      * @var integer $Genero
-     *      @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Genero = 0;
 
     /**
+     * El país de nacionalidad.
+     * 
+     * @see Pais
+     * 
      * @ORM\ManyToOne(targetEntity="Pais")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -170,19 +209,22 @@ class Persona implements UserInterface, \Serializable
     /* Columnas de importación del municipio de Río Grande */
     
     /**
+     * El id original en la tabla del SiGeMI. 
      *
-     * @var string $ImportId
-     *      @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Tg06100Id;
 
     /**
+     * El número de legado en caso de ser un agente.
      *
-     * @var string $ImportId
-     *      @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $AgenteId;
-    
+
+    /**
+     * Devuelve el campo Cuilt, formateado con guiones (12-12345678-9).
+     */
     public function CuiltFormateado() {
         if(strlen($this->Cuilt) == 11) {
             return substr($this->Cuilt, 0, 2) . '-' . substr($this->Cuilt, 2, 8) . '-' . substr($this->Cuilt, 10, 1);
@@ -192,6 +234,11 @@ class Persona implements UserInterface, \Serializable
     }
 
 
+    /**
+     * Construye un nombre visible.
+     * 
+     * @see $NombreVisible
+     */
     public function getNombreVisible()
     {
         if ($this->RazonSocial) {
@@ -225,6 +272,7 @@ class Persona implements UserInterface, \Serializable
         
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
+    
     
     public static function GenerosNombres($genero) {
         switch($genero) {
@@ -287,7 +335,7 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
-     *
+     * @ignore
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
@@ -295,219 +343,348 @@ class Persona implements UserInterface, \Serializable
         list ($this->id, ) = unserialize($serialized);
     }
 
+    /**
+     * @ignore
+     */
     public function isEqualTo(UserInterface $user)
     {
         return $this->id === $user->getId();
     }
 
+    /**
+     * @ignore
+     */
     public function getApellido()
     {
         return $this->Apellido;
     }
 
+    /**
+     * @ignore
+     */
     public function setApellido($Apellido)
     {
         $this->Apellido = $Apellido;
         $this->getNombreVisible();
     }
 
+    /**
+     * @ignore
+     */
     public function getNombre()
     {
         return $this->Nombre;
     }
 
+    /**
+     * @ignore
+     */
     public function setNombre($Nombre)
     {
         $this->Nombre = $Nombre;
         $this->getNombreVisible();
     }
 
+    /**
+     * @ignore
+     */
     public function getRazonSocial()
     {
         return $this->RazonSocial;
         $this->getNombreVisible();
     }
 
+    /**
+     * @ignore
+     */
     public function setRazonSocial($RazonSocial)
     {
         $this->RazonSocial = $RazonSocial;
     }
 
+    /**
+     * @ignore
+     */
     public function getDocumentoTipo()
     {
         return $this->DocumentoTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setDocumentoTipo($DocumentoTipo)
     {
         $this->DocumentoTipo = $DocumentoTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function getDocumentoNumero()
     {
         return $this->DocumentoNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function setDocumentoNumero($DocumentoNumero)
     {
         $this->DocumentoNumero = $DocumentoNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function getCuilt()
     {
         return $this->Cuilt;
     }
 
+    /**
+     * @ignore
+     */
     public function setCuilt($Cuilt)
     {
         $this->Cuilt = $Cuilt;
     }
 
+    /**
+     * @ignore
+     */
     public function getTelefonoNumero()
     {
         return $this->TelefonoNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function setTelefonoNumero($TelefonoNumero)
     {
         $this->TelefonoNumero = $TelefonoNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function getEmail()
     {
         return $this->Email;
     }
 
+    /**
+     * @ignore
+     */
     public function setEmail($Email)
     {
         $this->Email = $Email;
     }
 
+    /**
+     * @ignore
+     */
     public function getSituacionTributaria()
     {
         return $this->SituacionTributaria;
     }
 
+    /**
+     * @ignore
+     */
     public function setSituacionTributaria($SituacionTributaria)
     {
         $this->SituacionTributaria = $SituacionTributaria;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaNacimiento()
     {
         return $this->FechaNacimiento;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaNacimiento(\DateTime $FechaNacimiento = null)
     {
         $this->FechaNacimiento = $FechaNacimiento;
     }
 
+    /**
+     * @ignore
+     */
     public function getGenero()
     {
         return $this->Genero;
     }
 
+    /**
+     * @ignore
+     */
     public function setGenero($Genero)
     {
         $this->Genero = $Genero;
     }
 
+    /**
+     * @ignore
+     */
     public function getPersonaJuridica()
     {
         return $this->PersonaJuridica;
     }
 
+    /**
+     * @ignore
+     */
     public function setPersonaJuridica($PersonaJuridica)
     {
         $this->PersonaJuridica = $PersonaJuridica;
     }
 
+    /**
+     * @ignore
+     */
     public function getPais()
     {
         return $this->Pais;
     }
 
+    /**
+     * @ignore
+     */
     public function setPais($Pais)
     {
         $this->Pais = $Pais;
     }
 
+    /**
+     * @ignore
+     */
     public function getGrupos()
     {
         return $this->Grupos;
     }
 
+    /**
+     * @ignore
+     */
     public function setGrupos($Grupos)
     {
         $this->Grupos = $Grupos;
     }
 
+    /**
+     * @ignore
+     */
     public function getUsername()
     {
         return $this->Username;
     }
 
+    /**
+     * @ignore
+     */
     public function setUsername($Username)
     {
         $this->Username = $Username;
     }
 
+    /**
+     * @ignore
+     */
     public function getSalt()
     {
         return $this->Salt;
     }
 
+    /**
+     * @ignore
+     */
     public function setSalt($Salt)
     {
         $this->Salt = $Salt;
     }
 
+    /**
+     * @ignore
+     */
     public function getPassword()
     {
         return $this->Password;
     }
 
+    /**
+     * @ignore
+     */
     public function setPassword($Password)
     {
         $this->Password = $Password;
     }
 
+    /**
+     * @ignore
+     */
     public function getUsuarioRoles()
     {
         return $this->UsuarioRoles;
     }
 
+    /**
+     * @ignore
+     */
     public function setUsuarioRoles($UsuarioRoles)
     {
         $this->UsuarioRoles = $UsuarioRoles;
     }
 
+    /**
+     * @ignore
+     */
     public function getTg06100Id()
     {
         return $this->Tg06100Id;
     }
 
+    /**
+     * @ignore
+     */
     public function getAgenteId()
     {
         return $this->AgenteId;
     }
 
+    /**
+     * @ignore
+     */
     public function setTg06100Id($Tg06100Id)
     {
         $this->Tg06100Id = $Tg06100Id;
     }
 
+    /**
+     * @ignore
+     */
     public function setAgenteId($AgenteId)
     {
         $this->AgenteId = $AgenteId;
     }
 
+    /**
+     * @ignore
+     */
     public function getVerificacionNivel()
     {
         return $this->VerificacionNivel;
     }
 
+    /**
+     * @ignore
+     */
     public function setVerificacionNivel($VerificacionNivel)
     {
         $this->VerificacionNivel = $VerificacionNivel;

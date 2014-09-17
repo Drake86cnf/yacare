@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  *        
- *         @ORM\Table(name="Base_PersonaGrupo")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_PersonaGrupo")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class PersonaGrupo
 {
@@ -25,21 +25,31 @@ class PersonaGrupo
     }
 
     /**
+     * Las personas que pertenecen a este grupo.
+     * 
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
      */
     protected $Personas;
 
     /**
+     * El grupo de nivel superior.
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\PersonaGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
 
+    /**
+     * @ignore
+     */
     public function setParent($parent)
     {
         $this->Parent = $parent;
     }
 
+    /**
+     * @ignore
+     */
     public function getParent()
     {
         return $this->Parent;

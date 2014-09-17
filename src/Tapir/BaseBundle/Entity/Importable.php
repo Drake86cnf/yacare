@@ -4,8 +4,8 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait que agrega la los campos (y métodos) para hacer seguimiento de
- * registros importados desde otra fuente de datos.
+ * Agrega la los campos (y métodos) para hacer seguimiento de registros importados 
+ * desde otra fuente de datos.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
@@ -16,7 +16,7 @@ trait Importable
      * La fuente desde la cual fue importado el registro.
      *
      * Es de texto libre, puede ser el nombre de una tabla, base.tabla, archivo,
-     * o cualquier cosa que en conjunto con el Id permitan identificar el origen
+     * o cualquier cosa que en conjunto con el ImportId permitan identificar el origen
      * de este registro.
      *
      * @see $ImportId
@@ -44,31 +44,49 @@ trait Importable
      */
     private $ImportedAt;
 
+    /**
+     * @ignore
+     */
     public function getImportSrc()
     {
         return $this->ImportSrc;
     }
 
+    /**
+     * @ignore
+     */
     public function setImportSrc($importSrc)
     {
         $this->ImportSrc = $importSrc;
     }
 
+    /**
+     * @ignore
+     */
     public function getImportId()
     {
         return $this->ImportId;
     }
 
+    /**
+     * @ignore
+     */
     public function setImportId($importId)
     {
         $this->ImportId = $importId;
     }
 
+    /**
+     * @ignore
+     */
     public function getImportedAt()
     {
         return $this->ImportedAt;
     }
 
+    /**
+     * @ignore
+     */
     public function setImportedAt(\DateTime $importedAt)
     {
         $this->ImportedAt = $importedAt;

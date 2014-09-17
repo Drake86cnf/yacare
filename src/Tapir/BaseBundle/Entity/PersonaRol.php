@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use \Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
- * Tapir\BaseBundle\Entity\PersonaRol
+ * Rol asociable a un usuario.
  *
  * @ORM\Table(name="Base_PersonaRol")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
@@ -29,16 +29,22 @@ class PersonaRol implements RoleInterface
     private $Nombre;
 
     /**
+     * El código de rol.
      *
      * @var string @ORM\Column(type="string", length=255)
      */
     private $Codigo;
 
     /**
+     * Las personas que tienen este rol.
+     * 
      * ORM\ManyToMany(targetEntity="Persona", mappedBy="UsuarioRoles", cascade={"persist"})
      */
     protected $Personas;
 
+    /**
+     * @ignore
+     */
     public function setNombre($nombre)
     {
         $this->Nombre = $nombre;
@@ -66,26 +72,41 @@ class PersonaRol implements RoleInterface
         $this->Codigo = str_replace('__', '_', $codigo);
     }
 
+    /**
+     * @ignore
+     */
     public function getRole()
     {
         return $this->Codigo;
     }
 
+    /**
+     * @ignore
+     */
     public function getNombre()
     {
         return $this->Nombre;
     }
 
+    /**
+     * @ignore
+     */
     public function getCodigo()
     {
         return $this->Codigo;
     }
 
+    /**
+     * @ignore
+     */
     public function setCodigo($Codigo)
     {
         $this->Codigo = $Codigo;
     }
 
+    /**
+     * @ignore
+     */
     public function __toString()
     {
         return $this->getNombre();

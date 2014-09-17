@@ -1,15 +1,22 @@
 <?php
-// Esta clase está basada en el trabajo de KnpDoctrineBehaviors de KnpLabs <http://knplabs.com/>
 namespace Yacare\BaseBundle\Model\Tree;
 
 use Yacare\BaseBundle\Model\Tree\NodeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * Agrega la capacidad de organizar jerárquicamente las entidades.
+ * 
+ * Esta clase está basada en el trabajo de KnpDoctrineBehaviors de KnpLabs <http://knplabs.com/>
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
+ */
 trait Node
 {
 
     /**
+     * Los nodos hijos.
      *
      * @var ArrayCollection $ChildNodes the children in the tree
      */
@@ -21,6 +28,7 @@ trait Node
      */
     
     /**
+     * La ruta completa de este nodo.
      *
      * @var string $MaterializedPath
      *     
@@ -48,16 +56,25 @@ trait Node
         return null;
     }
 
+    /**
+     * @ignore
+     */
     public function getRealMaterializedPath()
     {
         return $this->getMaterializedPath() . self::getMaterializedPathSeparator() . $this->getId();
     }
 
+    /**
+     * @ignore
+     */
     public function getMaterializedPath()
     {
         return $this->MaterializedPath;
     }
 
+    /**
+     * @ignore
+     */
     public function setMaterializedPath($path)
     {
         $this->MaterializedPath = $path;
@@ -66,6 +83,9 @@ trait Node
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getParentMaterializedPath()
     {
         $path = $this->getExplodedPath();
@@ -76,12 +96,17 @@ trait Node
         return $parentPath;
     }
 
+    /**
+     * @ignore
+     */
     public function setParentMaterializedPath($path)
     {
         $this->ParentNodePath = $path;
     }
 
-
+    /**
+     * @ignore
+     */
     public function getRootMaterializedPath()
     {
         $explodedPath = $this->getExplodedPath();
@@ -89,43 +114,66 @@ trait Node
         return static::getMaterializedPathSeparator() . array_shift($explodedPath);
     }
 
-
+    /**
+     * @ignore
+     */
     public function getNodeLevel()
     {
         $res = count($this->getExplodedPath()) - 2;
         return $res > 0 ? $res : 0;
     }
 
+    /**
+     * @ignore
+     */
     public function isRootNode()
     {
         return self::getMaterializedPathSeparator() === $this->getParentMaterializedPath();
     }
 
+    /**
+     * @ignore
+     */
     public function isLeafNode()
     {
         return 0 === $this->getChildNodes()->count();
     }
 
+    /**
+     * @ignore
+     */
     public function getChildNodes()
     {
         return $this->ChildNodes = $this->ChildNodes ?  : new ArrayCollection();
     }
 
+    /**
+     * @ignore
+     */
     public function addChildNode(NodeInterface $node)
     {
         $this->getChildNodes()->add($node);
     }
 
+    /**
+     * @ignore
+     */
     public function isIndirectChildNodeOf(NodeInterface $node)
     {
         return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath() && 0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
     }
 
+    /**
+     * @ignore
+     */
     public function isChildNodeOf(NodeInterface $node)
     {
         return $this->getParentMaterializedPath() === $node->getRealMaterializedPath();
     }
 
+    /**
+     * @ignore
+     */
     public function setChildNodeOf(NodeInterface $node = null)
     {
         $id = $this->getId();
@@ -164,11 +212,17 @@ trait Node
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getParentNode()
     {
         return $this->ParentNode;
     }
 
+    /**
+     * @ignore
+     */
     public function setParentNode(NodeInterface $node = null)
     {
         $this->ParentNode = $node;
@@ -177,6 +231,9 @@ trait Node
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getRootNode()
     {
         $parent = $this;
@@ -187,6 +244,9 @@ trait Node
         return $parent;
     }
 
+    /**
+     * @ignore
+     */
     public function buildTree(array $results)
     {
         $this->getChildNodes()->clear();
@@ -199,12 +259,11 @@ trait Node
     }
 
     /**
-     *
+     * @ignore
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      *            
      * @return string the json representation of the hierarchical result
-     *        
      */
     public function toJson(\Closure $prepare = null)
     {
@@ -214,14 +273,13 @@ trait Node
     }
 
     /**
-     *
+     * @ignore
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      * @param array $tree
      *            a reference to an array, used internally for recursion
      *            
      * @return array the hierarchical result
-     *        
      */
     public function toArray(\Closure $prepare = null, array &$tree = null)
     {
@@ -252,7 +310,7 @@ trait Node
     }
 
     /**
-     *
+     * @ignore
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      * @param array $tree
@@ -285,6 +343,9 @@ trait Node
         return $tree;
     }
 
+    /**
+     * @ignore
+     */
     public function offsetSet($offset, $node)
     {
         $node->setChildNodeOf($this);
@@ -292,21 +353,33 @@ trait Node
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function offsetExists($offset)
     {
         return isset($this->getChildNodes()[$offset]);
     }
 
+    /**
+     * @ignore
+     */
     public function offsetUnset($offset)
     {
         unset($this->getChildNodes()[$offset]);
     }
 
+    /**
+     * @ignore
+     */
     public function offsetGet($offset)
     {
         return $this->getChildNodes()[$offset];
     }
 
+    /**
+     * @ignore
+     */
     protected function getExplodedPath()
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());
