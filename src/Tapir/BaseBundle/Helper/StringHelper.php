@@ -95,7 +95,7 @@ class StringHelper
     }
 
     static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), $exceptions = array(
-                'de', 'y', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
+                'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
                 'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
                 ))
@@ -183,6 +183,9 @@ class StringHelper
             'Funcion Publica' => 'Función Pública',
             'Medico' => 'Médico',
             'Medica' => 'Médica',
+            'Informatica' => 'Informática',
+            'Programadoe' => 'Programador',
+            'Tecnologia' => 'Tecnología',
             '' => '',
             '' => '',
             '' => '',
