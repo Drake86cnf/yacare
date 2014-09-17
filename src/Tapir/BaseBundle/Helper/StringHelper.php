@@ -177,6 +177,15 @@ class StringHelper
             'Esc. N 8' => 'Esc. Nº 8',
             'y Cia. Sa' => 'y Cía. S.A.',
             '' => '',
+            'Administracion' => 'Administración',
+            'Direccion' => 'Dirección',
+            'Coordinacion' => 'Coordinación',
+            'Funcion Publica' => 'Función Pública',
+            'Medico' => 'Médico',
+            'Medica' => 'Médica',
+            '' => '',
+            '' => '',
+            '' => '',
             '' => '',
             '' => ''
         );

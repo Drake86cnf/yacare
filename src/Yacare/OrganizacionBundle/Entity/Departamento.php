@@ -5,34 +5,46 @@ use Doctrine\ORM\Mapping as ORM;
 use Yacare\BaseBundle\Model\Tree;
 
 /**
- * Yacare\OrganizacionBundle\Entity\Departamento
+ * Un departamento representa a cualquiera de las partes en las que se divide la administración pública como ministerios, secretarías, subsecretarías, etc.
  *
  * @ORM\Table(name="Organizacion_Departamento", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Departamento implements Tree\NodeInterface
 {
-    /*
-     * Un departamento representa a cualquiera de las partes en las que se divide la administración pública como ministerios, secretarías, subsecretarías, etc.
-     */
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
+    use \Yacare\BaseBundle\Model\Tree\Node;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Importable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Yacare\BaseBundle\Model\Tree\Node;
-
     /**
+     * El rango del departamento.
+     * 
+     * Los rangos numéricamente más bajos son departamentos de nivel superior.
+     * 
+     * @see RangosNombres()
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Rango;
 
     /**
+     * El código de este departamento (opcional).
+     * 
      * @ORM\Column(type="string", nullable=true)
      */
     private $Codigo;
+    
+    /**
+     * Indica si hace parte diario. 
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $HaceParteDiario = false;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="Departamento")
@@ -40,21 +52,32 @@ class Departamento implements Tree\NodeInterface
      */
     private $ParentNode;
     
-    public static function RangosNombre($rango) {
+
+    public static function RangosNombres($rango)
+    {
         switch ($rango) {
-            case 1: return 'Ejecutivo';
-            case 20: return 'Ministerio';
-            case 30: return 'Secretaría';
-            case 40: return 'Subsecretaría';
-            case 50: return 'Dirección';
-            case 60: return 'Subdirección';
-            default: return '';
+            case 1:
+                return 'Ejecutivo';
+            case 20:
+                return 'Ministerio';
+            case 30:
+                return 'Secretaría';
+            case 40:
+                return 'Subsecretaría';
+            case 50:
+                return 'Dirección';
+            case 60:
+                return 'Subdirección';
+            case 70:
+                return 'Sector';
+            default:
+                return '';
         }
     }
 
     public function getRangoNombre()
     {
-        return Departamento::RangosNombre($this->getRango());
+        return Departamento::RangosNombres($this->getRango());
     }
 
     public function getSangria($sangria = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
@@ -67,14 +90,16 @@ class Departamento implements Tree\NodeInterface
         // Atención, son 'espacios duro'
         return $this->getSangria('        ');
     }
-    
+
     public function getNombreConSangriaDeEspaciosDuros()
     {
-    	// Atención, son 'espacios duro'
-    	return $this->getSangria('        ') . $this->getNombre();
+        // Atención, son 'espacios duro'
+        return $this->getSangria('        ') . $this->getNombre();
     }
-    
 
+    
+    
+    
     public function getRango()
     {
         return $this->Rango;
@@ -83,16 +108,7 @@ class Departamento implements Tree\NodeInterface
     public function setRango($Rango)
     {
         $this->Rango = $Rango;
-    }
-
-    public function getOrden()
-    {
-        return $this->Orden;
-    }
-
-    public function setOrden($Orden)
-    {
-        $this->Orden = $Orden;
+        return $this;
     }
 
     public function getCodigo()
@@ -103,7 +119,20 @@ class Departamento implements Tree\NodeInterface
     public function setCodigo($Codigo)
     {
         $this->Codigo = $Codigo;
+        return $this;
     }
+
+    public function getHaceParteDiario()
+    {
+        return $this->HaceParteDiario;
+    }
+
+    public function setHaceParteDiario($HaceParteDiario)
+    {
+        $this->HaceParteDiario = $HaceParteDiario;
+        return $this;
+    }
+    
 }
 
 
