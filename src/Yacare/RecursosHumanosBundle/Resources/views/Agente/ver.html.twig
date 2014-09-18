@@ -15,6 +15,7 @@
                 {{ bs.grid_label_text('Domicilio <i class="fa fa-home fa-fw"></i>', entity.Persona.Domicilio) }}
                 {{ bs.grid_label_text('Teléfono <i class="fa fa-phone fa-fw"></i>', entity.Persona.TelefonoNumero) }}
                 {{ bs.grid_label_text('E-mail <i class="fa fa-envelope fa-fw"></i>', entity.Persona.Email) }}
+                {{ bs.grid_label_text('Fecha de nacimiento', entity.Persona.FechaNacimiento|tapir_fecha('medium', 'none')) }}
 		</div>
 		<div class="col-sm-4 hidden-xs">
 			<i class="fa fa-user fa-5x text-muted pull-right"></i>
@@ -26,7 +27,7 @@
 	{{ bs.grid_row() }}
 	   {{ bs.grid_col_12() }}
 	       {% set depname = entity.Departamento %}
-	       {% if entity.Departamento.ParentNode %}
+	       {% if entity.Departamento and entity.Departamento.ParentNode %}
 	           {% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode %}
 	           {% if entity.Departamento.ParentNode.ParentNode %}
     	           {% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode.ParentNode %}
@@ -34,13 +35,17 @@
 	       {% endif %}
            {{ bs.grid_label_text('Departamento <i class="fa fa-building fa-fw"></i>', depname) }}
            {{ bs.grid_label_text('Función', entity.Funcion) }}
+           {{ bs.grid_label_text('Estudios', entity.EstudiosNivelNombre) }}
        {{ bs.grid_col_12_end() }}
        {{ bs.grid_col_12() }}
            {% set a='text-danger' %}
            {{ bs.grid_label_text('Categoría', entity.Categoria) }}
            {{ bs.grid_label_text('Situación', entity.SituacionNombre) }}
            {{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
-           {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
+           {% if entity.MotivoBaja > 0 %}
+               {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
+               {{ bs.grid_label_text('Motivo de baja', entity.MotivoBajaNombre) }}
+           {% endif %}
 	   {{ bs.grid_col_12_end() }}
    {{ bs.grid_row_end() }}
 

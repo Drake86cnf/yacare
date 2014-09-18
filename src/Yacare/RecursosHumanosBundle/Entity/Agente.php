@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Agente {
 	use \Tapir\BaseBundle\Entity\ConId;
@@ -70,6 +70,29 @@ class Agente {
 	 */
 	private $FechaBaja;
 	
+	
+	/**
+	 * El motivo de la baja, o 0 si está activo.
+	 *
+	 * @ORM\Column(type="smallint")
+	 */
+	private $MotivoBaja;
+	
+	/**
+	 * Nivel de estudios.
+	 *
+	 * @ORM\Column(type="smallint")
+	 */
+	private $EstudiosNivel;
+	
+	/**
+	 * Título (refiere a los estudios).
+	 *
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $EstudiosTitulo;
+	
+	
 	/**
 	 * El departamento en el cual se desempeña.
 	 *
@@ -80,6 +103,8 @@ class Agente {
 	public function __toString() {
 		return $this->getPersona ()->getNombreVisible ();
 	}
+	
+	
 	public static function SituacionesNombres($rango) {
 		switch ($rango) {
 			case 0 :
@@ -89,7 +114,7 @@ class Agente {
 			case 2	 :
 				return 'Baja';
 			case 3 :
-				return 'Adcripción a otros organismos';
+				return 'Adscripción a otros organismos';
 			case 4 :
 				return 'Largo tratamiento al 50%';
 			case 5 :
@@ -114,133 +139,295 @@ class Agente {
 				return '';
 		}
 	}
+	
+	/**
+	 * Obtiene el nombre de la situación.
+	 * @see $Situacion
+	 */
 	public function getSituacionNombre() {
 		return Agente::SituacionesNombres ( $this->getSituacion () );
 	}
 	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getPersona() {
-		return $this->Persona;
+	
+	public static function MotivosBajasNombres($rango) {
+	    switch ($rango) {
+	        case 0 :
+	            return 'n/a';
+	        case 1 :
+	            return 'Renuncia';
+	        case 2	 :
+	            return 'Cesantía';
+	        case 3 :
+	            return 'Rescinde contrato';
+	        case 4 :
+	            return 'Finalización de contrato';
+	        case 5 :
+	            return 'Jubilación';
+	        case 6 :
+	            return 'Retiro';
+	        case 7 :
+	            return 'Fallecimiento';
+	        default :
+	            return '';
+	    }
 	}
 	
 	/**
-	 *
-	 * @ignore
-	 *
+	 * Obtiene el nombre del motivo de baja.
+	 * @see $MotivoBaja
 	 */
-	public function setPersona($Persona) {
-		$this->Persona = $Persona;
+	public function getMotivoBajaNombre() {
+	    return Agente::MotivosBajasNombres ( $this->getMotivoBaja () );
+	}
+	
+	
+	public static function EstudiosNivelesNombres($rango) {
+	    switch ($rango) {
+	    	case 0 :
+	    	    return 'Sin escolaridad';
+	        case 1 :
+	        	return 'Menor de 4 años';
+        	case 2 :
+        	    return 'Primaria';
+    	    case 3 :
+    	        return 'Secundaria';
+	        case 4 :
+	            return 'Discapacitado';
+            case 5 :
+                return 'Primaria / preescolar discapacitado';
+            case 7 :
+                return 'Secundario discapacitado';
+            case 8 :
+                return 'Preescolar';
+            case 9 :
+                return 'Terciario';
+            case 10 :
+                return 'Universitario';
+            /**
+             * TODO: la tabla "titulos" en la base de recursos tiene información sin sentidlo
+             */
+	        default :
+	            return '';
+	    }
 	}
 	
 	/**
-	 *
-	 * @ignore
-	 *
+	 * Obtiene el nombre del nivel de estudios.
+	 * @see $MotivoBaja
 	 */
-	public function getCategoria() {
-		return $this->Categoria;
+	public function getEstudiosNivelNombre() {
+	    return Agente::EstudiosNivelesNombres ( $this->getEstudiosNivel () );
 	}
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getPersona()
+    {
+        return $this->Persona;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setPersona($Persona)
+    {
+        $this->Persona = $Persona;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCategoria()
+    {
+        return $this->Categoria;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCategoria($Categoria)
+    {
+        $this->Categoria = $Categoria;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getSituacion()
+    {
+        return $this->Situacion;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setSituacion($Situacion)
+    {
+        $this->Situacion = $Situacion;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getFuncion()
+    {
+        return $this->Funcion;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFuncion($Funcion)
+    {
+        $this->Funcion = $Funcion;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getFechaIngreso()
+    {
+        return $this->FechaIngreso;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFechaIngreso($FechaIngreso)
+    {
+        $this->FechaIngreso = $FechaIngreso;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getFechaBaja()
+    {
+        return $this->FechaBaja;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFechaBaja($FechaBaja)
+    {
+        $this->FechaBaja = $FechaBaja;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getMotivoBaja()
+    {
+        return $this->MotivoBaja;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setMotivoBaja($MotivoBaja)
+    {
+        $this->MotivoBaja = $MotivoBaja;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getEstudiosNivel()
+    {
+        return $this->EstudiosNivel;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setEstudiosNivel($EstudiosNivel)
+    {
+        $this->EstudiosNivel = $EstudiosNivel;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getEstudiosTitulo()
+    {
+        return $this->EstudiosTitulo;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setEstudiosTitulo($EstudiosTitulo)
+    {
+        $this->EstudiosTitulo = $EstudiosTitulo;
+        return $this;
+    }
+ 
 	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setCategoria($Categoria) {
-		$this->Categoria = $Categoria;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getSituacion() {
-		return $this->Situacion;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setSituacion($Situacion) {
-		$this->Situacion = $Situacion;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getFuncion() {
-		return $this->Funcion;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setFuncion($Funcion) {
-		$this->Funcion = $Funcion;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getFechaIngreso() {
-		return $this->FechaIngreso;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setFechaIngreso(\DateTime $FechaIngreso = null) {
-		$this->FechaIngreso = $FechaIngreso;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getFechaBaja() {
-		return $this->FechaBaja;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setFechaBaja(\DateTime $FechaBaja = null) {
-		$this->FechaBaja = $FechaBaja;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getDepartamento() {
-		return $this->Departamento;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setDepartamento($Departamento) {
-		$this->Departamento = $Departamento;
-	}
 }
