@@ -13,14 +13,14 @@
 
 <script>
     function seleccionarItem(id, detalle) {
-        yacareEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
+        tapirEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
      
     function buscarTexto(a) {
         var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
-        yacareCargarUrlEn(url, '#resultadosbuscar');
+        tapirCargarUrlEn(url, '#resultadosbuscar');
     }
     
     $('#filtro_buscar').focus();

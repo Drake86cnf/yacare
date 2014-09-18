@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
     window.onpopstate =function() {
-        yacareCargarUrlEn(document.location);
+        tapirCargarUrlEn(document.location);
     };
 
     // Agrego la página actual al historial del navegador
@@ -15,6 +15,6 @@ $(document).ready(function() {
     // Activo la función de los enalces AJAX
     $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
-        return yacareCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
+        return tapirCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
     });
 });

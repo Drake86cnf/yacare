@@ -17,7 +17,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr onclick="yacareNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}')">
+        <tr onclick="tapirNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}')">
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Titular }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>

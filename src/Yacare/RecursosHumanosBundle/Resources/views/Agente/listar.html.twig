@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="modal" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
             <td>{{ entity.Id }}</td>
             <td>{{ entity }}</td>
             <td>{{ entity.Categoria }}</td>
@@ -33,5 +33,5 @@
 
 {% include 'TapirBaseBundle::paginar.html.twig' %}
 
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nuevo agente</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nuevo agente</a>
 {% endblock %}

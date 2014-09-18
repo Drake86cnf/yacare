@@ -9,7 +9,7 @@
 				name="filtro_buscar" placeholder="Buscar..."
 				value="{{ filtro_buscar }}" style="max-width: 128px" /> {% if
 			filtro_buscar %} <a class="input-group-addon" href="#"
-				onclick="yacareNavegarA('?filtro_buscar=');">Ver todo</a> {% endif
+				onclick="tapirNavegarA('?filtro_buscar=');">Ver todo</a> {% endif
 			%}
 		</div>
 	</div>
@@ -19,7 +19,7 @@
         $('#filtro_buscar').keyup(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                yacareNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
+                tapirNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
             }
         });
    /// });
