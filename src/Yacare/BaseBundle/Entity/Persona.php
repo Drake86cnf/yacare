@@ -189,12 +189,21 @@ class Persona implements UserInterface, \Serializable
     private $FechaNacimiento;
 
     /**
-     * El género (sólo personas físicas).
+     * Género (sólo personas físicas).
      *
      * @var integer $Genero
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Genero = 0;
+    
+    /**
+     * Estado civil (sólo personas físicas).
+     *
+     * @var integer $EstadoCivil
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $EstadoCivil = 0;
+    
 
     /**
      * El país de nacionalidad.
@@ -283,8 +292,27 @@ class Persona implements UserInterface, \Serializable
         }
     }
     
+    public static function EstadosCivilesNombres($genero) {
+        switch($genero) {
+            case 0: return 'Sin especificar';
+            case 1: return 'Soltero/a';
+            case 2: return 'Casado/a';
+            case 3: return 'Divorciado/a';
+            case 4: return 'Viudo/a';
+            case 5: return 'En concubinato';
+            case 6: return 'Separado/a';
+            default: return 'n/a';
+        }
+    }
+    
+    
+    
     public function getGeneroNombre() {
         return Persona::GenerosNombres($this->getGenero());
+    }
+    
+    public function getEstadoCivilNombre() {
+        return Persona::EstadosCivilesNombres($this->getEstadoCivil());
     }
     
     
@@ -689,4 +717,24 @@ class Persona implements UserInterface, \Serializable
     {
         $this->VerificacionNivel = $VerificacionNivel;
     }
+
+    /**
+    * @ignore
+    */
+    public function getEstadoCivil()
+    {
+        return $this->EstadoCivil;
+    }
+
+    /**
+    * @ignore
+    */
+    public function setEstadoCivil($EstadoCivil)
+    {
+        $this->EstadoCivil = $EstadoCivil;
+        return $this;
+    }
+ 
+    
+    
 }
