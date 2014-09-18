@@ -38,7 +38,7 @@
        {{ bs.grid_col_12() }}
            {% set a='text-danger' %}
            {{ bs.grid_label_text('Categoría', entity.Categoria) }}
-           {{ bs.grid_label_text('Situación', entity.Situacion) }}
+           {{ bs.grid_label_text('Situación', entity.SituacionNombre) }}
            {{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
            {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
 	   {{ bs.grid_col_12_end() }}
