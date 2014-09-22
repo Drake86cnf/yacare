@@ -1,7 +1,7 @@
-yacare_seguridad:
-    resource: "@YacareSeguridadBundle/Controller/"
-    type:     annotation
-    prefix:   /seguridad/
+#yacare_seguridad:
+#    resource: "@YacareSeguridadBundle/Controller/"
+#    type:     annotation
+#    prefix:   /seguridad/
 
 yacare_obras_particulares:
     resource: "@YacareObrasParticularesBundle/Controller/"
@@ -18,15 +18,15 @@ yacare_munirg:
     type:     annotation
     prefix:   /munirg/
 
-yacare_bromatologia:
-    resource: "@YacareBromatologiaBundle/Controller/"
-    type:     annotation
-    prefix:   /bromatologia/
+#yacare_bromatologia:
+#    resource: "@YacareBromatologiaBundle/Controller/"
+#    type:     annotation
+#    prefix:   /bromatologia/
 
-yacare_zoonosis:
-    resource: "@YacareZoonosisBundle/Controller/"
-    type:     annotation
-    prefix:   /zoonosis/
+#yacare_zoonosis:
+#    resource: "@YacareZoonosisBundle/Controller/"
+#    type:     annotation
+#    prefix:   /zoonosis/
 
 yacare_tramites:
     resource: "@YacareTramitesBundle/Controller/"
@@ -43,10 +43,10 @@ yacare_base:
     type:     annotation
     prefix:   /base/
 
-yacare_compras:
-    resource: "@YacareComprasBundle/Controller/"
-    type:     annotation
-    prefix:   /compras/
+#yacare_compras:
+#    resource: "@YacareComprasBundle/Controller/"
+#    type:     annotation
+#    prefix:   /compras/
 
 yacare_organizacion:
     resource: "@YacareOrganizacionBundle/Controller/"
