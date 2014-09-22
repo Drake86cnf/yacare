@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-{% set tapir_mostrarmodal = 0 %}
-{% set block_pagina_titulo = block('pagina_titulo') %}
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ tapir_nombreaplicacion }}">
 <meta name="author" content="Ernesto N. Carrea">
+
+{% set tapir_mostrarmodal = 0 %} {% set block_pagina_titulo =
+block('pagina_titulo') %}
 
 <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not
 	empty %}: {{ block_pagina_titulo|raw }}{% endif %}</title> {% image
@@ -21,12 +22,11 @@
 	rel="stylesheet" />
 <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
 	rel="stylesheet" />
-{% block stylesheets %}{% stylesheets
-'@TapirBaseBundle/Resources/less/tapir.less' %}
-<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-{% endstylesheets %}{% endblock %}
+<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
+	rel="stylesheet" />
 </head>
-
 <body>
 
 	<div class="modal" id="modal" role="dialog" aria-hidden="true"
@@ -93,14 +93,21 @@
 	<!-- /#wrapper -->
 
 	<!-- Bootstrap core JavaScript -->
-	<disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-ui-1.10.4.custom.min.js') }}"></disabled-script>
-	<disabled-script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.ui.datepicker-es.js') }}"></disabled-script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
+	<disabled-script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/jquery-ui-1.10.4.custom.min.js') }}"></disabled-script>
+	<disabled-script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/jquery.ui.datepicker-es.js') }}"></disabled-script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
 	{% if app.environment != 'test' %}
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
 	{% endif %}
 
 	<script type="text/javascript">

@@ -15,12 +15,14 @@ block('pagina_titulo') %}
 
 <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
 
-<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}" 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
-{% block stylesheets %}
-{% stylesheets '@TapirBaseBundle/Resources/less/tapir.less' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-{% endstylesheets %} {% endblock %}
+<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
+	rel="stylesheet" />
 </head>
 
 <body>
