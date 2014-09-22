@@ -48,7 +48,7 @@ abstract class Comprobante
      *
      * Funciona como el punto de venta en las facturas. Sirve para que pueda haber
      * varias numeraciones para un mismo tipo de comprobante.
-     * Por ejemplo 0001-XXXXXXX, 0002-XXXXXXX, 0003-XXXXXXX, etc.
+     * Por ejemplo 0001-NNNNNNN, 0002-NNNNNNN, 0003-NNNNNNN, etc.
      *
      * @see $Numero @ORM\Column(type="integer")
      */

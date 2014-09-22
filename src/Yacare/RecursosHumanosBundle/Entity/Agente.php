@@ -40,7 +40,7 @@ class Agente {
 	private $Categoria;
 	
 	/**
-	 * TODO: Verificar el significado de este campo en "Gestion.exe" / con Daniel Camargo.
+	 * La situación del agente (Normal, baja, etc.).
 	 *
 	 * @var $Situacion @ORM\Column(type="integer", nullable=false)
 	 */
@@ -204,7 +204,8 @@ class Agente {
             case 10 :
                 return 'Universitario';
             /**
-             * TODO: la tabla "titulos" en la base de recursos tiene información sin sentidlo
+             * TODO: la tabla "titulos" en la base de recursos tiene información sin sentido. La info real está en el
+             * Oracle de Payroll.
              */
 	        default :
 	            return '';
