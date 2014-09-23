@@ -165,7 +165,7 @@ abstract class AbmController extends BaseController
         if ($this->Paginar) {
             $paginator = $this->get('knp_paginator');
             $entities = $paginator->paginate($query, $request->query->get('page', 1) /* page number */,
-                15 /* limit per page */
+                10 /* limit per page */
             );
         } else {
             $entities = $query->getResult();

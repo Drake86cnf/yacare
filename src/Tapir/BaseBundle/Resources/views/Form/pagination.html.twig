@@ -8,9 +8,9 @@
 {% if pageCount > 1 %}
 <div class="btn-group pull-right">
     {% if current > 1 %}
-        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}"><i class="fa fa-fast-backward fa-fw"></i></a>
+        <a class="btn btn-sm btn-default hidden-sm hidden-xs" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}"><i class="fa fa-fast-backward fa-fw"></i></a>
     {% else %}
-        <span class="btn btn-sm btn-default disabled"><i class="fa fa-fast-backward fa-fw"></i></span>
+        <span class="btn btn-sm btn-default disabled hidden-sm hidden-xs"><i class="fa fa-fast-backward fa-fw"></i></span>
     {% endif %}
 
     {% if previous is defined %}
@@ -19,7 +19,7 @@
         <span class="btn btn-sm btn-default disabled"><i class="fa fa-backward fa-fw"></i></span>
     {% endif %}
 
-    <span class="btn btn-sm btn-default disabled"> Pág. {{ current }}/{{ pageCount }}</span>
+    <button class="btn btn-sm btn-default disabled"> Pág. {{ current }} de {{ pageCount }}</button>
     
     {% if next is defined %}
         <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="fa fa-forward fa-fw"></i></a>
@@ -28,9 +28,9 @@
     {% endif %}
     
     {% if current < pageCount %}
-        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}"><i class="fa fa-fast-forward fa-fw"></i></a>
+        <a class="btn btn-sm btn-default hidden-sm hidden-xs" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}"><i class="fa fa-fast-forward fa-fw"></i></a>
     {% else %}
-        <span class="btn btn-sm btn-default disabled"><i class="fa fa-fast-forward fa-fw"></i></span>
+        <span class="btn btn-sm btn-default disabled hidden-sm hidden-xs"><i class="fa fa-fast-forward fa-fw"></i></span>
     {% endif %}
 </div>
 {% endif %}
