@@ -1,17 +1,47 @@
-{% block pagina_inicio %}{% endblock %} {% set block_pagina_titulo =
-block('pagina_titulo') %} {% if block_pagina_titulo is not empty %}
-<h1 id="page-title">{{ block_pagina_titulo|raw }}</h1>
-{% endif %} {% block pagina_contenido %}{% endblock %} {% block
-pagina_pie %}{% endblock %} {% set block_pagina_acciones =
-block('pagina_acciones') %} {% if block_pagina_acciones is not empty %}
-<div class="form-actions hidden-print">{{ block_pagina_acciones|raw }}</div>
-{% endif %} {% set block_pagina_acciones2 = block('pagina_acciones2') %}
+{% block pagina_inicio %}{% endblock %}
+
+<div id="content-header" class="row">
+{% set block_pagina_titulo = block('pagina_titulo') %}
+{% if block_pagina_titulo is not empty %}
+    <div class="col-xs-6 col-sm-4 col-md-3"><h1 id="page-title">{{ block_pagina_titulo|raw }}</h1></div>
+{% endif %}
+
+{% set block_pagina_buscar = block('pagina_buscar') %}
+{% if block_pagina_buscar is not empty %}
+    <div class="col-xs-6 col-sm-4 col-md-3 pull-right">
+	{{ block_pagina_buscar|raw }}
+	</div>
+{% endif %}
+
+{% set block_pagina_paginar = block('pagina_paginar') %}
+{% if block_pagina_paginar is not empty %}
+    <div class="col-xs-6 col-sm-4 col-md-3 pull-right" style="min-width: 280px;">
+	{{ block_pagina_paginar|raw }}
+	</div>
+{% endif %}
+
+{% set block_pagina_acciones = block('pagina_acciones') %}
+{% if block_pagina_acciones is not empty %}
+    <div class="col-xs-6 col-sm-4 col-md-3 pull-right">
+	{{ block_pagina_acciones|raw }}
+	</div>
+{% endif %}
+</div>
+
+{% block pagina_contenido %}{% endblock %}
+
+{% block pagina_pie %}{% endblock %}
+
+{% set block_pagina_acciones2 = block('pagina_acciones2') %}
 {% if block_pagina_acciones2 is not empty %}
-<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}
-</div>
-{% endif %} {% set block_pagina_acciones3 = block('pagina_acciones3') %}
+    <div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
+{% endif %}
+
+{% set block_pagina_acciones3 = block('pagina_acciones3') %}
 {% if block_pagina_acciones3 is not empty %}
-<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw }}
-</div>
-{% endif %} {% block pagina_fin %}{% endblock %} {% block pagina_scripts
-%}{% endblock %}
+    <div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw }}</div>
+{% endif %}
+
+{% block pagina_fin %}{% endblock %}
+
+{% block pagina_scripts %}{% endblock %}

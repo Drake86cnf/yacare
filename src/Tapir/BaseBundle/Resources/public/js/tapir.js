@@ -29,12 +29,9 @@ function tapirMostrarModalEn(url, destino) {
 	}
 
 	var div_modal = $(destino);
-	div_modal
-			.html(
-					'<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
+	div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
 <p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
-</div></div></div>')
-			.modal();
+</div></div></div>').modal();
 
 	// Agrego la variable tapir_mostrarmodal=1 para que incluya el marco
 	var urlFinal = url;
@@ -45,30 +42,25 @@ function tapirMostrarModalEn(url, destino) {
 	}
 	urlFinal = urlFinal + 'tapir_mostrarmodal=1';
 
-	$
-			.get(urlFinal, function(data) {
-				div_modal.html(data).modal({
-					keyboard : true
-				});
-			})
-			.fail(
-					function(jqXHR) {
-						// Muestro un error
-						div_modal
-								.html(
-										'<div class="modal-dialog"><div class="modal-content">\n\
+	$.get(urlFinal, function(data) {
+		div_modal.html(data).modal({
+			keyboard : true
+		});
+	}).fail(function(jqXHR) {
+		// Muestro un error
+		div_modal.html('<div class="modal-dialog"><div class="modal-content">\n\
 <div class="modal-header">\n\
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
 <h4 class="modal-title">Error</h4>\n\
 </div>\n\
 <div class="modal-body">Error al cargar el contenido de la ventana desde '
-												+ url
-												+ ', el error es: '
-												+ jqXHR.responseText
-												+ '</div></div></div>').modal({
-									keyboard : true
-								});
-					});
+			+ url
+			+ ', el error es: '
+			+ jqXHR.responseText
+			+ '</div></div></div>').modal({
+				keyboard : true
+			});
+	});
 
 	return false;
 }
@@ -101,43 +93,43 @@ function tapirCargarUrlEn(url, destino) {
 		tinymce.execCommand('mceRemoveEditor', false, this.id);
 	});
 
-	// $(destino).html('<p><i class="fa fa-spinner fa-spin"></i>
-	// Cargando...</p>');
-	$.get(
-			url,
-			function(data) {
-				$(destino).html(data);
+	//$(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
+	$.get(url, function(data) {
+		$(destino).html(data);
 
-				var newTitle = $('#page-title').text();
-				if (newTitle !== undefined) {
-					document.title = tapirNombreAplicacion + ': ' + newTitle;
-				} else {
-					newTitle = tapirNombreAplicacion;
-					document.title = newTitle;
-				}
+		var newTitle = $('#page-title').text();
+		if (newTitle !== undefined) {
+			document.title = tapirNombreAplicacion + ': ' + newTitle;
+		} else {
+			newTitle = tapirNombreAplicacion;
+			document.title = newTitle;
+		}
 
-				$('html, body').animate({
-					scrollTop : 0
-				}, 'fast');
+		if(destino == '#page-wrapper') {
+			// Si estoy cargando una página completa, muevo el scroll hacia arriba
+			$('html, body').animate({
+				scrollTop : 0
+			}, 'fast');
+		}
 
-				MejorarElementos();
+		MejorarElementos();
 
-				// Activo la función de los enalces AJAX
-				$(destino + ' [data-toggle="ajax-link"]').click(
-						function(e) {
-							e.preventDefault();
-							return tapirCargarUrlEn($(this).attr('href'), $(
-									this).attr('data-target'));
-						});
+		// Activo la función de los enalces AJAX
+		$(destino + ' [data-toggle="ajax-link"]').click(
+				function(e) {
+					e.preventDefault();
+					return tapirCargarUrlEn($(this).attr('href'), $(
+							this).attr('data-target'));
+				});
 
-				// Activo la función de los enlaces que abren modales
-				$(destino + ' [data-toggle="modal"]').click(
-						function(e) {
-							e.preventDefault();
-							return tapirMostrarModalEn($(this).attr('href'),
-									$(this).attr('data-target'));
-						});
-			}).fail(function(jqXHR) {
+		// Activo la función de los enlaces que abren modales
+		$(destino + ' [data-toggle="modal"]').click(
+				function(e) {
+					e.preventDefault();
+					return tapirMostrarModalEn($(this).attr('href'), $(
+							this).attr('data-target'));
+				});
+	}).fail(function(jqXHR) {
 		// Muestro un error
 		$(destino).html(jqXHR.responseText);
 	});
@@ -167,49 +159,39 @@ function MejorarElementos() {
 	$('.tinymce').each(function() {
 		tinymce.execCommand('mceAddEditor', true, this.id);
 	});
-	// $('.tinymce').tinymce();
 }
 
-$(document).ready(
-		function() {
-			MejorarElementos();
-
-			// chosen - improves select
-			/*
-			 * $('[data-rel="chosen"],[rel="chosen"]').chosen({ no_results_text:
-			 * "No se encontraron resultados.", placeholder_text_single:
-			 * "Seleccione...", placeholder_text_multiple: "Seleccione...",
-			 * search_contains: true });
-			 */
-
-			// Activo la función de los enlaces que abren modales
-			$('[data-toggle="modal"]').off('click');
-			$('[data-toggle="modal"]').click(
-					function(e) {
-						e.preventDefault();
-						return tapirMostrarModalEn($(this).attr('href'), $(
-								this).attr('data-target'));
-					});
-
-			// Pongo a las notificaciones un temporizador para que desaparezcan
-			// automáticamente
-			window.setTimeout(function() {
-				$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
-					$(this).remove();
-				});
-			}, 15000);
-
-			// Evitar que algunos dropdown se cierren automáticamente
-			// (especial para el menú lateral, se utiliza la clase keep-open)
-			$('.dropdown.keep-open').on({
-				"shown.bs.dropdown" : function() {
-					$(this).data('closable', false);
-				},
-				"click" : function() {
-					$(this).data('closable', true);
-				},
-				"hide.bs.dropdown" : function() {
-					return $(this).data('closable');
-				}
+$(document).ready(function() {
+	MejorarElementos();
+	
+	// Activo la función de los enlaces que abren modales
+	$('[data-toggle="modal"]').off('click');
+	$('[data-toggle="modal"]').click(
+			function(e) {
+				e.preventDefault();
+				return tapirMostrarModalEn($(this).attr('href'),
+						$(this).attr('data-target'));
 			});
+	
+	// Pongo a las notificaciones un temporizador para que desaparezcan
+	// automáticamente
+	window.setTimeout(function() {
+		$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
+			$(this).remove();
 		});
+	}, 15000);
+	
+	// Evitar que algunos dropdown se cierren automáticamente
+	// (especial para el menú lateral, se utiliza la clase keep-open)
+	$('.dropdown.keep-open').on({
+		'shown.bs.dropdown' : function() {
+			$(this).data('closable', false);
+		},
+		'click' : function() {
+			$(this).data('closable', true);
+		},
+		'hide.bs.dropdown' : function() {
+			return $(this).data('closable');
+		}
+	});
+});

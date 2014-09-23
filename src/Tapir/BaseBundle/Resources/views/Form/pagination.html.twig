@@ -1,0 +1,36 @@
+{#
+/**
+* @file
+* Plantilla de paginación para KnpPaginationBundle.
+* @author Ernesto Carrea <equistango@gmail.com>
+*/
+#}
+{% if pageCount > 1 %}
+<div class="btn-group pull-right">
+    {% if current > 1 %}
+        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}"><i class="fa fa-fast-backward fa-fw"></i></a>
+    {% else %}
+        <span class="btn btn-sm btn-default disabled"><i class="fa fa-fast-backward fa-fw"></i></span>
+    {% endif %}
+
+    {% if previous is defined %}
+        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-backward fa-fw"></i></a>
+    {% else %}
+        <span class="btn btn-sm btn-default disabled"><i class="fa fa-backward fa-fw"></i></span>
+    {% endif %}
+
+    <span class="btn btn-sm btn-default disabled"> Pág. {{ current }}/{{ pageCount }}</span>
+    
+    {% if next is defined %}
+        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="fa fa-forward fa-fw"></i></a>
+    {% else %}
+        <span class="btn btn-sm btn-default disabled"><i class="fa fa-forward fa-fw"></i></span>
+    {% endif %}
+    
+    {% if current < pageCount %}
+        <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}"><i class="fa fa-fast-forward fa-fw"></i></a>
+    {% else %}
+        <span class="btn btn-sm btn-default disabled"><i class="fa fa-fast-forward fa-fw"></i></span>
+    {% endif %}
+</div>
+{% endif %}

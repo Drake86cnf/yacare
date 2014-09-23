@@ -1,24 +1,21 @@
-<div id="nav-search" class="nav-search hidden-print form-inline">
-	{% set filtro_buscar = app.request.get('filtro_buscar') %}
-	<div class="form-group">
-		<div class="input-group">
-			<input class="form-control input-sm" type="text" autocomplete="off"
-				autofocus size="64" maxlength="64" id="filtro_buscar"
-				id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..."
-				value="{{ filtro_buscar }}" style="max-width: 160px" /> {% if
-			filtro_buscar %} <a class="input-group-addon" href="#"
-				onclick="tapirNavegarA('?filtro_buscar=');">Ver todo</a> {% endif %}
-		</div>
-	</div>
-
-	<script type="text/javascript">
-    //$(document).ready(function() {
-        $('#filtro_buscar').keyup(function (e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                tapirNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
-            }
-        });
-   /// });
-    </script>
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+<div class="input-group form-inline pull-right">
+	<input class="form-control input-sm" type="text" autocomplete="off"
+		autofocus size="64" maxlength="64" id="filtro_buscar"
+		id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..."
+		value="{{ filtro_buscar }}" style="max-width: 160px" />
+    {% if filtro_buscar %}
+    <button class="btn btn-sm btn-default" onclick="tapirNavegarA('?filtro_buscar=');">Ver todo</button>
+    {% endif %}
 </div>
+
+<script type="text/javascript">
+//$(document).ready(function() {
+    $('#filtro_buscar').keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            tapirNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
+        }
+    });
+/// });
+</script>

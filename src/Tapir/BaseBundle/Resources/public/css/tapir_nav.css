@@ -5,11 +5,21 @@
 */
 
 /* Edit Below to Customize Widths > 768px */
+#wrapper {
+	padding-left: 0;
+}
+
+#page-wrapper {
+	width: 100%;
+	padding: 5px 15px;
+}
+
 @media ( min-width :768px) {
 	/* Wrappers */
 	#wrapper {
 		padding-left: 225px;
 	}
+
 	#page-wrapper {
 		padding: 15px 25px;
 	}

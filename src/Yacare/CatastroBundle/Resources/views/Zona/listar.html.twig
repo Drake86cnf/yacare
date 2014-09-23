@@ -5,10 +5,9 @@
 {% block pagina_contenido %}
 {% include 'TapirBaseBundle::buscar.html.twig' %}
 
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
-            <th> </th>
             <th>Código</th>
             <th>Nombre</th>
             <th>FOS</th>
@@ -17,8 +16,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
             <td>{{ entity.Codigo }}</td>
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.Fos|number_format }}</td>
