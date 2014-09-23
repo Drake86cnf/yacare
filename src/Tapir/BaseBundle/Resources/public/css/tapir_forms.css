@@ -1,0 +1,42 @@
+/* 
+    Created on : 23/09/2014, 10:55
+    Author     : Ernesto Carrea <equistango@gmail.com>
+    Description: Estilos para formularios y botones
+*/
+
+input, select, textarea {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border-radius: 0px !important;
+    /* vertical-align: middle;
+    border: 1px solid rgb(204, 204, 204);
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    margin: 0px;
+    
+    height: 34px; 
+    padding: 6px 12px; 
+    line-height: 1.42857; */
+}
+
+.input-group-addon {
+	border-radius: 0px !important;
+}
+
+
+.btn {
+	border-radius: 2px;
+	/* font-size: 11pt;
+	padding: 6px 16px 6px 16px; */
+}
+
+.form-horizontal .form-group {
+    margin-right: 5px;
+    margin-left: 0px;
+}
+
+.form-inline .form-group {
+    vertical-align: initial;
+}
+
+.required {
+    color: red;
+}

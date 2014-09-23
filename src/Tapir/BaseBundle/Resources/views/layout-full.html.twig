@@ -18,14 +18,13 @@ block('pagina_titulo') %}
 <script type="text/javascript"
 	src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
 
-<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
-	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_nav.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_forms.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}" rel="stylesheet" />
 </head>
 <body>
 
@@ -110,16 +109,16 @@ block('pagina_titulo') %}
 		src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
 	{% endif %}
 
-	<script type="text/javascript">
+<script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
     
     tinymce.init({
         selector: '.tinymce',
         language: 'es',
         spellchecker_languages: '+Spanish=sp',
-        content_css: '{% stylesheets '@TapirBaseBundle/Resources/less/tapir.less' %}{{ asset_url }}{% endstylesheets %}',
-        plugins: 'link paste spellchecker textcolor',
-        toolbar1: 'bold italic underline strikethrough | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
+        content_css: '{{ asset('bundles/tapirbase/css/tapir.css') }}',
+        plugins: 'link paste spellchecker textcolor print',
+        toolbar1: 'bold italic underline strikethrough print | justifyleft justifycenter justifyright justifyfull | forecolor backcolor | removeformat | sub sup | undo redo spellchecker',
         toolbar2: "",
         theme_modern_toolbar_location: 'top',
         theme_modern_toolbar_align: 'left',

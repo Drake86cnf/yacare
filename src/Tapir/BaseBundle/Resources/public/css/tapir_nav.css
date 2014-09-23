@@ -1,0 +1,185 @@
+/* 
+    Created on : 23/09/2014, 10:52
+    Author     : Ernesto Carrea <equistango@gmail.com>
+    Description: Estilos para poner el menú de navegación a la izquierda.
+*/
+
+/* Edit Below to Customize Widths > 768px */
+@media ( min-width :768px) {
+	/* Wrappers */
+	#wrapper {
+		padding-left: 225px;
+	}
+	#page-wrapper {
+		padding: 15px 25px;
+	}
+
+	/* Side Nav */
+	.side-nav {
+		margin-left: -225px;
+		left: 225px;
+		width: 225px;
+		position: fixed;
+		top: 50px;
+		float: left;
+		height: 1080px !important;
+		border-radius: 0;
+		border: none;
+		background-color: #222222;
+		overflow-y: auto;
+	}
+
+	/* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
+	.side-nav>li.dropdown>ul.dropdown-menu {
+		position: relative;
+		min-width: 225px;
+		margin: 0;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+		background-color: transparent;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+	.side-nav>li.dropdown>ul.dropdown-menu>li>a {
+		color: #999999;
+		padding: 15px 15px 15px 25px;
+	}
+	.side-nav>li.dropdown>ul.dropdown-menu>li>a:hover, .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
+		.side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
+		color: #fff;
+		background-color: #080808;
+	}
+	.side-nav>li>a {
+		width: 225px;
+	}
+	.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus
+		{
+		background-color: #080808;
+	}
+
+	/* Nav Messages */
+	.messages-dropdown .dropdown-menu {
+		min-width: 300px;
+	}
+	.messages-dropdown .dropdown-menu li a {
+		white-space: normal;
+	}
+	.navbar-collapse {
+		/* padding-left: 15px !important;
+    padding-right: 15px !important; */
+		height: auto;
+		border-top: 0;
+		box-shadow: none;
+		max-height: none;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.navbar-collapse.collapse {
+		display: block !important;
+		width: auto !important;
+		padding-bottom: 0;
+		overflow: visible !important;
+	}
+	.navbar-collapse.in {
+		overflow-x: visible;
+	}
+	.navbar {
+		max-width: 300px;
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.navbar-nav, .navbar-nav>li, .navbar-left, .navbar-right, .navbar-header
+		{
+		float: none !important;
+	}
+	.navbar-right .dropdown-menu {
+		left: 0;
+		right: auto;
+	}
+	.navbar-collapse .navbar-nav.navbar-right:last-child {
+		margin-right: 0;
+	}
+}
+
+.navigation {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.navbar-fixed-top {
+	background-color: darkorange;
+	height: 50px;
+}
+
+.navbar-fixed-top {
+	border: none;
+}
+
+.navbar-brand {
+	padding: 14px 0px 0px 12px;
+	height: 40px;
+}
+
+.navbar-slogan {
+	padding: 16px 0px 0px 16px;
+	float: left;
+	font-size: 10pt;
+	clear: both;
+}
+
+.navbar-inverse .navbar-brand {
+	color: white;
+}
+
+.navbar-inverse .navbar-slogan {
+	color: white;
+}
+
+.navbar-toggle {
+	padding: 5px 10px;
+	border-radius: 3px;
+	border: none;
+	background-color: orange;
+	color: white;
+}
+
+.side-nav>li.dropdown>ul.dropdown-menu>li>a {
+	color: #999999;
+	padding: 8px 15px 8px 30px;
+	font-size: 13px;
+}
+
+@media ( max-width : 767px) {
+	.navbar-inverse .navbar-collapse {
+		border: none;
+		background-color: rgb(8, 8, 8);
+	}
+	.nav-search, .form-actions {
+		position: absolute;
+		top: 60px;
+	}
+	#page-wrapper {
+		margin-top: 60px;
+	}
+	.navbar-slogan {
+		visibility: hidden;
+		display: none;
+	}
+}
+
+@media ( min-width : 768px) {
+	.navbar-fixed-top {
+		right: auto;
+		width: 225px;
+		height: 64px;
+		border: none;
+	}
+	.side-nav {
+		top: 64px;
+	}
+	.navbar-slogan {
+		padding: 0px 0px 0px 12px;
+	}
+}

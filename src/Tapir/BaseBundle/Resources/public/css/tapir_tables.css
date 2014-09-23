@@ -1,0 +1,36 @@
+/* 
+    Created on : 23/09/2014, 10:56
+    Author     : Ernesto Carrea <equistango@gmail.com>
+    Description: Estilos para tablas
+*/
+.table-hover>tbody>tr>td>*.showonhover {
+	opacity: 0;
+}
+
+.table-hover>tbody>tr:hover>td>*.showonhover {
+	opacity: 1;
+}
+
+.table-hover>tbody>tr>td, .table-hover>tbody>tr>th {
+	border-top: 1px dotted #e0e0e0;
+}
+
+.table-hoverselect>tbody>tr>td, .table-hoverselect>tbody>tr>th {
+	border-top: 1px dotted #e0e0e0;
+}
+
+.table-hoverselect>tbody>tr:hover>td, .table-hoverselect>tbody>tr:hover>th
+	{
+	background-color: #f4f456;
+	color: black;
+	cursor: pointer;
+	border-top: 1px dotted #e0e0e0;
+}
+
+.table-hoverselect>tbody>tr:hover * {
+	cursor: pointer;
+}
+
+th {
+	font-weight: 400;
+}

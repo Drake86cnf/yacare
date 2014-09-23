@@ -1,6 +1,5 @@
-{% extends 'TapirBaseBundle::blank.html.twig' %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::blank.html.twig' %} {% block
+pagina_contenido %}
 <span class="hidden-sm hidden-xs"> <br /> <br /> <br /> <br /></span>
 <div id="login-wrapper" class="container-fluid">
 	<div id="login-container" class="row">
@@ -24,8 +23,7 @@
 					Si no dispone de un nombre de usuario, puede solicitar uno mediante
 					<a href="{{ path('usuario_alta') }}">este formulario</a>.
 				</p>
-				{% endif %} <label for="_username"
-					class="hidden-md hidden-lg hidden-sm">Usuario</label>
+				{% endif %} <label for="_username" class="sr-only">Usuario</label>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -35,7 +33,7 @@
 							name="_username" type="text" autofocus />
 					</div>
 				</div>
-				<label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
+				<label for="_password" class="sr-only">Contraseña</label>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -48,16 +46,14 @@
 				<button type="submit" class="btn btn-primary">Ingresar</button>
 
 				<br />&nbsp;<br />
-				<p class="text-muted">
-					<small> Si no tiene una contraseña, póngase en contacto con el
-						administrador del sistema. </small>
-				</p>
+				<p class="text-muted">Si no tiene una contraseña, póngase en
+					contacto con el administrador del sistema.</p>
 			</form>
 		</div>
 		<div class="col-md-2 hidden-sm hidden-xs">&nbsp;</div>
 	</div>
 	<footer>
-		<small class="text-muted pull-right">{{ tapir_nombreaplicacion }}</small>
+		<span class="text-muted pull-right">{{ tapir_nombreaplicacion }}</span>
 	</footer>
 </div>
 {% endblock %}
