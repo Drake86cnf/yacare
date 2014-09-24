@@ -1,14 +1,14 @@
 {% block pagina_contenido %}
-&nbsp;
-<table class="table table-condensed table-hoverselect">
+<h3>Resultados</h3>
+<table class="table table-hoverselect">
     <tbody>
     {% for entity in entities %}
         <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
             <td><i class="fa fa-angle-right"></i></td>
             <td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
-            <td><small class="text-muted">{{ entity.Tipo }}</small></td>
-            <td><small class="text-muted">{{ entity.Superficie }} m²</small></td>
-            <td><small class="text-muted">{{ entity.Partida.Titular }}</small></td>
+            <td><span class="text-muted">{{ entity.Tipo }}</span></td>
+            <td><span class="text-muted">{{ entity.Superficie }} m²</span></td>
+            <td><span class="text-muted">{{ entity.Partida.Titular }}</span></td>
         </tr>
     {% endfor %}
     </tbody>

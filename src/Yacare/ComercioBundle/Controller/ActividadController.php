@@ -10,9 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use\Yacare\BaseBundle\Controller\ConExportarLista;
-    use\Tapir\BaseBundle\Controller\ConEliminar;
-    use\Tapir\BaseBundle\Controller\ConBuscar;
+    use \Yacare\BaseBundle\Controller\ConExportarLista;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
 
     function IniciarVariables()
     {
@@ -251,7 +251,12 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     public function buscarresultadosAction(Request $request)
     {
         $this->Where = 'r.Final=1';
-        return parent::buscarresultadosAction($request);
+        
+        $this->Paginar = false;
+        $this->Limit = 500;
+        return $this->listarAction($request);
+        
+        //return parent::buscarresultadosAction($request);
     }
 
     /**

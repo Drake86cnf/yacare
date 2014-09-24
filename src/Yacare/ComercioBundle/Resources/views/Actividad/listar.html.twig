@@ -3,12 +3,9 @@
 {% block pagina_titulo %}Actividades económicas{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'TapirBaseBundle::buscar.html.twig' %}
-
-<table class="table table-condensed table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
-            <th> </th>
             <th><abbr title="Clasificador Municipal de Actividades Económicas 2014">Código</abbr></th>
             <th>Nombre</th>
             <th class="hidden-sm hidden-xs">Cat. antig.</th>
@@ -17,8 +14,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td class="onhover"><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
             <td>{{ entity.Clamae2014Formateado }}</td>
             <td>{{ entity.Sangria|raw }}
                 {% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}
@@ -36,10 +32,10 @@
     {% endfor %}
     </tbody>
 </table>
+{% endblock pagina_contenido %}
 
-{% include 'TapirBaseBundle::paginar.html.twig' %}
-
-{% endblock %}
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones2 %}
 <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva actividad</a>
