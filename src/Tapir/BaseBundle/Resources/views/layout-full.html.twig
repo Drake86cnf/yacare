@@ -64,7 +64,7 @@
 
 {% block pagina_inicio %}{% endblock %}
 
-<div id="content-header" class="content-header-row">
+<div id="content-header" class="content-bar-row">
 {% set block_pagina_titulo = block('pagina_titulo') %}
 {% if block_pagina_titulo is not empty %}
     <div class="content-bar-block-first pull-left"><h1 id="page-title">{{ block_pagina_titulo|raw }}</h1></div>
@@ -90,7 +90,7 @@
 	{{ block_pagina_acciones|raw }}
 	</div>
 {% endif %}
-</div>
+</div><div class="clearfix"></div>
 
 {% block pagina_contenido %}{% endblock %}
 

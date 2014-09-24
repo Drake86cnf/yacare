@@ -157,7 +157,7 @@ legend small {
 
 .content-bar-row {
 	height: 32px;
-	background-color: #f0f0f0;
+	margin-bottom: 12px;
 } 
 
 .content-bar-block-first {

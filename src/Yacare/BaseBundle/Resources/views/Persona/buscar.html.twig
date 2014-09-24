@@ -1,21 +1,23 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Personas{% endblock %}
+{% block pagina_titulo %}Buscar personas{% endblock %}
 
 {% block pagina_contenido %}
 {% set destcontrol = app.request.get('destcontrol') %}
 
-<div style="padding-bottom: 10px;">
-    <input class="input input-sm" size="50" maxlength="50" autocomplete="off" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text" id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
-    <button onclick="buscarPorNombre($('#filtro_buscar').val()); return false;" type="button" class="btn btn-primary btn-sm" id="filtro_buscar_buscar">Buscar</button>
+<div class="form-inline" style="padding-bottom: 10px;">
+    <input class="form-control input input-sm" size="50" maxlength="50" autocomplete="off"
+       onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+       id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
+    <button onclick="buscarPorNombre($('#filtro_buscar').val()); return false;" type="button"
+        class="btn btn-primary btn-sm" id="filtro_buscar_buscar"> Buscar</button>
 </div>
 
 <div id="resultadosbuscar">
     <p>Puede buscar por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
 </div>
 
-<script>
+<script type="text/javascript">
     function seleccionarItem(id, detalle) {
         tapirEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
         $('#modal').modal('hide');
@@ -23,7 +25,7 @@
     }
     
     function buscarPorNombre(nombre) {
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + nombre;
+        var url = '{{ path(baseroute ~ "_buscarresultados") }}?filtro_buscar=' + nombre;
         tapirCargarUrlEn(url, '#resultadosbuscar');
     }
 
