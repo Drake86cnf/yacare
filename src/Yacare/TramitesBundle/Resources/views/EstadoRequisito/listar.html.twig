@@ -7,25 +7,21 @@
 {% if entities is empty %}
 <div>
 <div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong><p>No hay requisitos.</p></strong>
-    <p>Este trámite aun no tiene requisitos asignados. Para asignar requisitos utilice el botón Nuevo requisito.
-    </p>
+    <h2>No hay requisitos.</h2>
+    <p>Este trámite aun no tiene requisitos asignados. Para asignar requisitos utilice el botón Nuevo requisito.</p>
 </div>
 </div>
 {% else %}
 <table class="table table-hover">
     <thead>
         <tr>
-            <th> </th>
             <th>Requisito</th>
             <th>Condición</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a></td>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
             <td>{% if entity.Opcional %}<span class="label label-info">Opcional</span> {% endif %}{{ entity }}</td>
             <td>{{ entity.Condicion }}</td>
         </tr>

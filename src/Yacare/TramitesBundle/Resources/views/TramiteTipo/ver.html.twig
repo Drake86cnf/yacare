@@ -74,10 +74,13 @@
 {% endblock %}
 
 {% block pagina_acciones %}
+    <a href="#" onclick="window.print(); return false;" class="btn btn-link"><i class="fa fa-print"></i> Imprimir</a>
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
     {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
         <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar trámite</a>
         <a class="btn btn-default" href="{{ path('yacare_tramites_asociacionrequisito_listar', { 'parent_id': entity.Id }) }}"><i class="fa fa-check"></i> Editar requisitos</a>
     {% endif %}
-    <a href="#" onclick="window.print(); return false;" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir</a>
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-primary"><i class="fa fa-reply"></i> Volver</a>
-{% endblock %}
+{% endblock pagina_acciones2 %}
