@@ -7,30 +7,29 @@
 #}
 {% if pageCount > 1 %}
 <div class="btn-group pull-right">
-    {% if current > 1 %}
-        <a class="btn btn-sm btn-default hidden-sm hidden-xs" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}"><i class="fa fa-fast-backward fa-fw"></i></a>
-    {% else %}
-        <span class="btn btn-sm btn-default disabled hidden-sm hidden-xs"><i class="fa fa-fast-backward fa-fw"></i></span>
-    {% endif %}
-
     {% if previous is defined %}
         <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-backward fa-fw"></i></a>
     {% else %}
         <span class="btn btn-sm btn-default disabled"><i class="fa fa-backward fa-fw"></i></span>
     {% endif %}
 
-    <button class="btn btn-sm btn-default disabled"> Pág. {{ current }} de {{ pageCount }}</button>
+    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown"> Pág. {{ current }} <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+        <li role="presentation" class="dropdown-header">Mostrando la página {{ current }} de un total de {{ pageCount }}.
+        <li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">Ir a la primera página</a>
+        <li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">Ir a la última página ({{ pageCount }})</a>
+        <li class="divider"></li>
+        {% if pageCount > 50 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 50})) }}">Página 50</a>{% endif %}
+        {% if pageCount > 100 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 100})) }}">Página 100</a>{% endif %}
+        {% if pageCount > 500 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 500})) }}">Página 500</a>{% endif %}
+        {% if pageCount > 1000 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1000})) }}">Página 1000</a>{% endif %}
+        
+    </ul>
     
     {% if next is defined %}
         <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="fa fa-forward fa-fw"></i></a>
     {% else %}
         <span class="btn btn-sm btn-default disabled"><i class="fa fa-forward fa-fw"></i></span>
-    {% endif %}
-    
-    {% if current < pageCount %}
-        <a class="btn btn-sm btn-default hidden-sm hidden-xs" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}"><i class="fa fa-fast-forward fa-fw"></i></a>
-    {% else %}
-        <span class="btn btn-sm btn-default disabled hidden-sm hidden-xs"><i class="fa fa-fast-forward fa-fw"></i></span>
     {% endif %}
 </div>
 {% endif %}

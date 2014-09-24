@@ -160,9 +160,11 @@ abstract class BaseController extends Controller
             }
         }
         
-        /*
-         * $val = $request->query->get('page'); if ($val) { $valorInicial['arrastre']['page'] = $val; }
-         */
+        // Arrastro el valor de la variable page
+        $val = $request->query->get('page');
+        if ($val) {
+            $valorInicial['arrastre']['page'] = $val;
+        }
         
         if (! isset($valorInicial['arrastre'])) {
             $valorInicial['arrastre']['d'] = '';

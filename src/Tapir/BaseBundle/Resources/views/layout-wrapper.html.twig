@@ -1,30 +1,30 @@
 {% block pagina_inicio %}{% endblock %}
 
-<div id="content-header" class="row">
+<div id="content-header" class="content-header-row">
 {% set block_pagina_titulo = block('pagina_titulo') %}
 {% if block_pagina_titulo is not empty %}
-    <div class="col-xs-6 col-sm-4 col-md-3"><h1 id="page-title">{{ block_pagina_titulo|raw }}</h1></div>
+    <div class="content-bar-block-first pull-left"><h1 id="page-title">{{ block_pagina_titulo|raw }}</h1></div>
 {% endif %}
 
 {% set block_pagina_buscar = block('pagina_buscar') %}
 {% if block_pagina_buscar is not empty %}
-    <div class="col-xs-6 col-sm-4 col-md-3 pull-right"><div class="pull-right">
+    <div class="content-bar-block pull-right">
 	{{ block_pagina_buscar|raw }}
-	</div></div>
+	</div>
 {% endif %}
 
 {% set block_pagina_paginar = block('pagina_paginar') %}
 {% if block_pagina_paginar is not empty %}
-    <div class="col-xs-6 col-sm-4 col-md-3 pull-right" style="min-width: 280px;"><div class="pull-right">
+    <div class="content-bar-block pull-right">
 	{{ block_pagina_paginar|raw }}
-	</div></div>
+	</div>
 {% endif %}
 
 {% set block_pagina_acciones = block('pagina_acciones') %}
 {% if block_pagina_acciones is not empty %}
-    <div class="col-xs-6 col-sm-4 col-md-3 pull-right"><div class="pull-right">
+    <div class="content-bar-block pull-right">
 	{{ block_pagina_acciones|raw }}
-	</div></div>
+	</div>
 {% endif %}
 </div>
 

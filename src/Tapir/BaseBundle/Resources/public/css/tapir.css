@@ -154,3 +154,21 @@ legend small {
 	max-height: 460px;
 	overflow: auto;
 }
+
+.content-bar-row {
+	height: 32px;
+	background-color: #f0f0f0;
+} 
+
+.content-bar-block-first {
+	height: 32px;
+}
+
+.content-bar-block {
+	height: 32px;
+	padding-left: 8px;
+}
+
+
+
+
