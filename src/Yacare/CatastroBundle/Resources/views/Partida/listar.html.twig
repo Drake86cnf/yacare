@@ -4,59 +4,6 @@
 
 {% block pagina_contenido %}
 
-{% if secciones %}
-{% set filtro_seccion = app.request.query.get('filtro_seccion') %}
-{% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-{% set filtro_partida = app.request.query.get('filtro_partida') %}
-<div id="nav-search" class="nav-search">
-    <div class="form-inline">
-        <label>Nº de partida</label>
-        <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="todas" value="{{ filtro_partida }}" style="max-width: 64px" />
-        {% if filtro_partida %}
-        <button class="btn btn-default btn-sm" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar') }}';">Todas</button>
-        {% endif %}
-
-        {% if not filtro_partida %}
-            <label>Sección</label>
-            <span class="btn-group">
-                {% for seccion in secciones %}
-                    {% if seccion.Seccion %}
-                        <a style="min-width: 8px;" class="btn btn-default btn-sm" type="button" href="{{ path('yacare_catastro_partida_listar', { 'filtro_seccion': seccion.Seccion }) }}">{{ seccion.Seccion }}</a>
-                    {% endif %}
-                {% endfor %}
-                {% if filtro_seccion %}
-                    <a class="btn btn-default btn-sm" type="button" href="{{ path('yacare_catastro_partida_listar', arrastre|merge({ 'filtro_seccion': '' })) }}">Todas</a>
-                {% endif %}
-            </span>
-            {% if filtro_seccion %}
-                <label>Macizo</label>
-                <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="todos" value="{{ filtro_macizo }}" style="max-width: 64px" />
-                {% if filtro_macizo %}
-                <button class="btn btn-default btn-sm" type="button" onClick="parent.location='{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion })) }}&filtro_macizo='">Todos</button>
-                {% endif %}
-            {% endif %}
-        {% endif %}
-    </div>
-</div>
-
-<script>
-$(document).ready(function() {
-    $("#filtro_macizo").keyup(function (e) {
-        if (e.which === 13) {
-            e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
-        }
-    });
-    $("#filtro_partida").keyup(function (e) {
-        if (e.which === 13) {
-            e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_partida=' + $("#filtro_partida").val();
-        }
-    });
-});
-</script>
-{% endif %}
-
 <table class="table table-hoverselect">
     <thead>
         <tr>
@@ -86,6 +33,67 @@ $(document).ready(function() {
     </tbody>
 </table>
 
-{% include 'TapirBaseBundle::paginar.html.twig' %}
-
 {% endblock %}
+
+{% block pagina_acciones %}
+{% if secciones %}
+{% set filtro_seccion = app.request.query.get('filtro_seccion') %}
+{% set filtro_macizo = app.request.query.get('filtro_macizo') %}
+{% set filtro_partida = app.request.query.get('filtro_partida') %}
+    <div class="input-group">
+        {% if not filtro_seccion %}
+            <label class="sr-only">Número de partida</label>
+            <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="partida" value="{{ filtro_partida }}" style="max-width: 64px" />
+            {% if filtro_partida %}
+            <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': '0' })) }}');"><i class="fa fa-times-circle"></i></button>
+            {% endif %}
+        {% endif %}
+&nbsp;
+        {% if not filtro_partida %}
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {% if filtro_seccion %}Sec. {{ filtro_seccion }}{% else %}Sección{% endif %} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                {% if filtro_seccion %}
+                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '', 'page': '0' })) }}">Todas</a>
+                    <li class="divider"></li>
+                {% endif %}
+                {% for seccion in secciones %}
+                    {% if seccion.Seccion %}
+                        <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'page': '0' })) }}">Sección {{ seccion.Seccion }}</a>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            
+                {% if filtro_seccion %}
+                    <label class="sr-only">Macizo</label>
+                    <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="macizo" value="{{ filtro_macizo }}" style="max-width: 64px" />
+                    {% if filtro_macizo %}
+                        <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': '0' })) }}');"><i class="fa fa-times-circle"></i></button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+<script>
+$(document).ready(function() {
+    $("#filtro_macizo").keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
+        }
+    });
+    $("#filtro_partida").keyup(function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_partida=' + $("#filtro_partida").val();
+        }
+    });
+});
+</script>
+{% endif %}
+{% endblock pagina_acciones %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}

@@ -55,10 +55,10 @@
 
 {% block pagina_acciones %}
 {% if app.request.get('tapir_mostrarmodal') %}
-    <a class="btn btn-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
+    <a data-toggle="ajax-link" class="btn btn-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
     <button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
 {% else %}
-    <a  class="btn btn-link pull-right" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
+    <a data-toggle="ajax-link" class="btn btn-link pull-right" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
 {% endif %}
     
 	
