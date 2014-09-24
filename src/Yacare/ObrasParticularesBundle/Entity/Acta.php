@@ -13,7 +13,7 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
 {
 
     /**
-     * El comercio asociado al acta, en caso de ser un acta de comercio o null si es un acta de obra.
+     * El comercio asociado al acta, en caso de ser un acta de comercio o null si	es un acta de obra.
      *
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(nullable=true)
