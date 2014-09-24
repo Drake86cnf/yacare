@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             
@@ -30,15 +29,15 @@ class AppKernel extends Kernel
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
             new Yacare\CatastroBundle\YacareCatastroBundle(),
             new Yacare\OrganizacionBundle\YacareOrganizacionBundle(),
-            new Yacare\ComprasBundle\YacareComprasBundle(),
+            //new Yacare\ComprasBundle\YacareComprasBundle(),
             new Yacare\ComercioBundle\YacareComercioBundle(),
             new Yacare\TramitesBundle\YacareTramitesBundle(),
-            new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
-            new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
+            //new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
+            //new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
             new Yacare\MunirgBundle\YacareMunirgBundle(),
             new Yacare\ExpedientesBundle\YacareExpedientesBundle(),
             new Yacare\ObrasParticularesBundle\YacareObrasParticularesBundle(),
-            new Yacare\SeguridadBundle\YacareSeguridadBundle(),
+            //new Yacare\SeguridadBundle\YacareSeguridadBundle(),
             new Tapir\BaseBundle\TapirBaseBundle(),
         );
 
