@@ -162,7 +162,7 @@ abstract class BaseController extends Controller
         
         // Arrastro el valor de la variable page
         $val = $request->query->get('page');
-        if ($val) {
+        if ($val && ((int)($val)) > 1) {
             $valorInicial['arrastre']['page'] = $val;
         }
         

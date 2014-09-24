@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="modal" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
         	<td class="text-muted">{{ entity.Numero }}</td>
         	<td>{{ entity.Seccion }}</td>
         	<td>{{ entity.Macizo }}</td>
@@ -45,7 +45,7 @@
             <label class="sr-only">Número de partida</label>
             <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="partida" value="{{ filtro_partida }}" style="max-width: 64px" />
             {% if filtro_partida %}
-            <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': '0' })) }}');"><i class="fa fa-times-circle"></i></button>
+            <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>
             {% endif %}
         {% endif %}
 &nbsp;
@@ -56,12 +56,12 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                 {% if filtro_seccion %}
-                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '', 'page': '0' })) }}">Todas</a>
+                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '', 'page': null })) }}">Todas</a>
                     <li class="divider"></li>
                 {% endif %}
                 {% for seccion in secciones %}
                     {% if seccion.Seccion %}
-                        <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'page': '0' })) }}">Sección {{ seccion.Seccion }}</a>
+                        <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'page': null })) }}">Sección {{ seccion.Seccion }}</a>
                     {% endif %}
                 {% endfor %}
                 </ul>
@@ -70,7 +70,7 @@
                     <label class="sr-only">Macizo</label>
                     <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="macizo" value="{{ filtro_macizo }}" style="max-width: 64px" />
                     {% if filtro_macizo %}
-                        <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': '0' })) }}');"><i class="fa fa-times-circle"></i></button>
+                        <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>
                     {% endif %}
                 {% endif %}
             </div>
