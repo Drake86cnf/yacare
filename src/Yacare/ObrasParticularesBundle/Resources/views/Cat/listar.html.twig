@@ -3,8 +3,6 @@
 {% block pagina_titulo %}Certificados de Aptitud Técnica Edilicia{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'TapirBaseBundle::buscar.html.twig' %}
-
 <table class="table table-hoverselect">
     <thead>
         <tr>
@@ -17,7 +15,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr onclick="tapirNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}')">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.Titular }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
@@ -27,9 +25,10 @@
     {% endfor %}
     </tbody>
 </table>
-
-{% include 'TapirBaseBundle::paginar.html.twig' %}
 {% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
 <a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_consultar', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consulta</a>

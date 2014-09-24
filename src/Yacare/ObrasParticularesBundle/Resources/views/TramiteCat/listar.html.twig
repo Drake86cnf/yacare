@@ -3,7 +3,6 @@
 {% block pagina_titulo %}Trámites de CAT{% endblock %}
 
 {% block pagina_contenido %}
-{% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hoverselect">
     <thead>
@@ -17,7 +16,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr onclick="tapirNavegarA('{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}');">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.id }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
             <td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}</td>
@@ -46,7 +45,11 @@
     </tbody>
 </table>
 
-{% include 'TapirBaseBundle::paginar.html.twig' %}
-
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo trámite de CAT</a>
 {% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo trámite de CAT</a>
+{% endblock pagina_acciones2 %}

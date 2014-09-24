@@ -5,9 +5,7 @@
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}
-
 <p class="text-right">Río Grande, {{ entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
-
 {% endblock %}
 
 {% block comprobante_contenido %}
@@ -28,5 +26,5 @@
 
 {% block pagina_acciones %}
     <a class="btn btn-primary print-preview" href="#" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
-    <a class="btn btn-primary" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado</a>
+    <a class="btn btn-primary" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}

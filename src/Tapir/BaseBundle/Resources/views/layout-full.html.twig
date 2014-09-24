@@ -72,21 +72,21 @@
 
 {% set block_pagina_buscar = block('pagina_buscar') %}
 {% if block_pagina_buscar is not empty %}
-    <div class="content-bar-block pull-right">
+    <div class="content-bar-block pull-right hidden-print">
 	{{ block_pagina_buscar|raw }}
 	</div>
 {% endif %}
 
 {% set block_pagina_paginar = block('pagina_paginar') %}
 {% if block_pagina_paginar is not empty %}
-    <div class="content-bar-block pull-right">
+    <div class="content-bar-block pull-right hidden-print">
 	{{ block_pagina_paginar|raw }}
 	</div>
 {% endif %}
 
 {% set block_pagina_acciones = block('pagina_acciones') %}
 {% if block_pagina_acciones is not empty %}
-    <div class="content-bar-block pull-right">
+    <div class="content-bar-block pull-right hidden-print">
 	{{ block_pagina_acciones|raw }}
 	</div>
 {% endif %}
