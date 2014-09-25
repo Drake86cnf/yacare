@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="modal" href="{{ path('yacare_base_persona_ver', arrastre|merge({ 'id': entity.id })) }}">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
             <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
             <td>{{ entity.DocumentoNumero }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
@@ -29,5 +29,5 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
-    <a data-toggle="ajax-link" href="{{ path('yacare_base_persona_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nueva persona</a>
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nueva persona</a>
 {% endblock %}

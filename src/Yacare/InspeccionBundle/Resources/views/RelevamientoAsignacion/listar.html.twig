@@ -25,7 +25,7 @@
     {% for entity in entities %}
         <tr>
             <td>
-                <a data-toggle="ajax-link" class="btn btn-link btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', arrastre|merge({ 'id': entity.Relevamiento.Id, 'filtro_asignacion': entity.id })) }}"><i class="fa fa-list"></i> Resultados</a>
+                <a data-toggle="ajax-link" class="btn btn-link btn-xs hidden-print" href="{{ path('yacare_inspeccion_relevamientoasignacionresultado_listarrelevamiento', arrastre|merge({ 'id': entity.Relevamiento.Id, 'filtro_asignacion': entity.id, 'page': null })) }}"><i class="fa fa-list"></i> Resultados</a>
                 <a data-toggle="ajax-link" class="btn btn-link btn-xs hidden-print" href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-times"></i> Eliminar</a>
                 {% if entity.Archivado %}
                 <a data-toggle="ajax-link" class="btn btn-link btn-xs hidden-print" href="{{ path(baseroute ~ '_desarchivar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-archive"></i> Desarchivar</a>
@@ -53,7 +53,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuRelevamientos">
         {% for relev in relevamientos %}
-            <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_relevamiento': relev.id })) }}">{{ relev.nombre }}</a></li>
+            <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_relevamiento': relev.id, 'page': null })) }}">{{ relev.nombre }}</a></li>
         {% endfor %}
             </ul>
         </div>
@@ -62,8 +62,8 @@
                 <i class="fa fa-archive"></i> Archivo <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuArchivado">
-                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_archivado': 0 })) }}">Mostrar activos</a></li>
-                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_archivado': 1 })) }}">Mostrar archivados</a></li>
+                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_archivado': 0, 'page': null })) }}">Mostrar activos</a></li>
+                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_archivado': 1, 'page': null })) }}">Mostrar archivados</a></li>
             </ul>
     </div>
 </div>

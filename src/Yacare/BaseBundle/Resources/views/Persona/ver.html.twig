@@ -75,6 +75,10 @@
 
 {% endblock pagina_contenido %}
 
+{% block pagina_acciones %}
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}
+
 {% block pagina_acciones2 %}
 	{% if is_expr_granted("hasAnyRole('ROLE_IDDQD')") %}
     <a href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
