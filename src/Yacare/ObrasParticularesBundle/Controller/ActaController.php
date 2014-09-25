@@ -1,13 +1,13 @@
 <?php
-namespace Yacare\BromatologiaBundle\Controller;
+namespace Yacare\ObrasParticularesBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("actarutinacomercio/")
+ * @Route("actacontroller/")
  */
-class ActaRutinaComercioController extends \Tapir\BaseBundle\Controller\AbmController
+class ActaController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use\Tapir\BaseBundle\Controller\ConEliminar;
 } 

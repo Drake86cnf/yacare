@@ -1,11 +1,11 @@
 <?php
-namespace Yacare\BromatologiaBundle\Form;
+namespace Yacare\ObrasParticularesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ActaRutinaComercioType extends AbstractType
+class ActaType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
