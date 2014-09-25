@@ -1,9 +1,21 @@
 {% extends 'form_div_layout.html.twig' %}
 
 {% block form_start %}{% spaceless %}
-	{% set attr = attr|merge({ 'class': 'form-horizontal', 'role': 'form' }) %}
-	{{ parent() }}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-horizontal')|trim, 'role': 'form'}) %}
+	{{- parent() -}}
 {% endspaceless %}{% endblock form_start %} 
+
+{% block textarea_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{- parent() -}}
+{%- endblock textarea_widget %}
+
+{% block form_widget_simple -%}
+    {% if type is not defined or 'file' != type %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}
 
 {% block form_widget %}
     {% if compound %}
@@ -52,24 +64,10 @@
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label }}</label>
 {% endspaceless %}{% endblock form_label %}
 
-{% block choice_widget_collapsed %}{% spaceless %}
-    {% set attr = attr|merge({ 'class': 'form-control' }) %}
-    <select data-rel="chosen" data-placeholder="Seleccione..." {{ block('widget_attributes') }}
-        {% if multiple %} multiple="multiple" {% endif %}>
-        {% if empty_value is not none %}
-	    <option class="text-muted" value="">{{ empty_value }}</option>
-	    {% endif %}
-	    {% if preferred_choices|length > 0 %}
-	       {% set options =	preferred_choices %}
-	       {{ block('choice_widget_options') }}
-	       {% if choices|length > 0 and separator is not none %}
-	           <option disabled="disabled">{{ separator }}</option>
-	       {% endif %}
-	    {% endif %}
-	{% set options = choices %}
-	{{ block('choice_widget_options') }}
-    </select>
-{% endspaceless %}{% endblock choice_widget_collapsed %}
+{% block choice_widget_collapsed -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{- parent() -}}
+{%- endblock %}
 
 {% block date_widget %}{% spaceless %}
     {% if widget == 'single_text' %}
