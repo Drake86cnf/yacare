@@ -42,7 +42,7 @@
 {% set filtro_partida = app.request.query.get('filtro_partida') %}
     <div class="input-group">
         {% if not filtro_seccion %}
-            <label class="sr-only">Número de partida</label>
+            <label class="sr-only" for="filtro_partida">Número de partida</label>
             <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="partida" value="{{ filtro_partida }}" style="max-width: 64px" />
             {% if filtro_partida %}
             <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>
@@ -67,7 +67,7 @@
                 </ul>
             
                 {% if filtro_seccion %}
-                    <label class="sr-only">Macizo</label>
+                    <label class="sr-only" for="filtro_macizo">Macizo</label>
                     <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="macizo" value="{{ filtro_macizo }}" style="max-width: 64px" />
                     {% if filtro_macizo %}
                         <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>

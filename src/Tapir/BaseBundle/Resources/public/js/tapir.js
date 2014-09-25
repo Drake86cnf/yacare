@@ -29,38 +29,47 @@ function tapirMostrarModalEn(url, destino) {
 	}
 
 	var div_modal = $(destino);
-	div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
-<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
-</div></div></div>').modal();
-
-	// Agrego la variable tapir_mostrarmodal=1 para que incluya el marco
-	var urlFinal = url;
-	if (urlFinal.indexOf('?') < 0) {
-		urlFinal = urlFinal + '?';
-	} else {
-		urlFinal = urlFinal + '&';
-	}
-	urlFinal = urlFinal + 'tapir_mostrarmodal=1';
-
-	$.get(urlFinal, function(data) {
-		div_modal.html(data).modal({
-			keyboard : true
-		});
-	}).fail(function(jqXHR) {
-		// Muestro un error
-		div_modal.html('<div class="modal-dialog"><div class="modal-content">\n\
-<div class="modal-header">\n\
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
-<h4 class="modal-title">Error</h4>\n\
-</div>\n\
-<div class="modal-body">Error al cargar el contenido de la ventana desde '
-			+ url
-			+ ', el error es: '
-			+ jqXHR.responseText
-			+ '</div></div></div>').modal({
+	
+	if(url) {
+		// Modal AJAX
+		div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
+	<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
+	</div></div></div>').modal();
+	
+		// Agrego la variable tapir_mostrarmodal=1 para que incluya el marco
+		var urlFinal = url;
+		if (urlFinal.indexOf('?') < 0) {
+			urlFinal = urlFinal + '?';
+		} else {
+			urlFinal = urlFinal + '&';
+		}
+		urlFinal = urlFinal + 'tapir_mostrarmodal=1';
+	
+		$.get(urlFinal, function(data) {
+			div_modal.html(data).modal({
 				keyboard : true
 			});
-	});
+		}).fail(function(jqXHR) {
+			// Muestro un error
+			div_modal.html('<div class="modal-dialog"><div class="modal-content">\n\
+	<div class="modal-header">\n\
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n\
+	<h4 class="modal-title">Error</h4>\n\
+	</div>\n\
+	<div class="modal-body">Error al cargar el contenido de la ventana desde '
+				+ url
+				+ ', el error es: '
+				+ jqXHR.responseText
+				+ '</div></div></div>').modal({
+					keyboard : true
+				});
+		});
+	} else {
+		// Sólo mostrar el modal
+		div_modal.modal({
+			keyboard : true
+		});
+	}
 
 	return false;
 }

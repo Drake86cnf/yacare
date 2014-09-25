@@ -13,8 +13,13 @@
             {{ bs.grid_label_text('Parcela', entity.Parcela) }}
             {{ bs.grid_label_text('Unidad funcional', entity.UnidadFuncional) }}
             {{ bs.grid_label_text('Domicilio', entity.Domicilio) }}
-            {{ bs.grid_label_text('Titular', '<a data-toggle="ajax-link" href="' ~ 
-                path('yacare_base_persona_ver', { 'id': entity.Titular.id }) ~ '">' ~ entity.Titular ~ '</a>') }}
+            {% if entity.Titular %}
+                {{ bs.grid_label_text('Titular', '<a data-toggle="ajax-link" href="' ~ 
+                    path('yacare_base_persona_ver', { 'id': entity.Titular.id }) ~ '">' ~ entity.Titular ~ '</a>') }}
+            {% endif %}
+            {% if entity.Zona %}
+                {{ bs.grid_label_text('Zona', entity.Zona) }}
+            {% endif %}
 		</div>
 		<div class="col-sm-4 hidden-xs">
 			<i class="fa fa-home fa-5x text-muted pull-right"></i>

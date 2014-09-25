@@ -6,6 +6,35 @@
 */
 #}
 {% if pageCount > 1 %}
+<div class="modal paginar-modal" id="paginar_modal" tabindex="-1" role="dialog"
+    aria-labelledby="paginar_modal_title" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+     <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                <span class="sr-only">Cerrar</span></button>
+            <h4 class="modal-title" id="paginar_modal_title">Páginas</h4>
+          </div>
+          <div class="modal-body">
+            <p>Mostrando la página {{ current }} de un total de {{ pageCount }}.</p>
+            
+            <div class="input-group">
+                <label class="sr-only" for="paginar_numero_ir">Ir a la página</label>
+                <input type="text" class="form-control" size="5" maxlength="5" id="paginar_numero_ir"
+                    name="paginar_numero_ir" placeholder="escriba el número de página" value="{{ current }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button"
+                        onClick="tapirNavegarA('{{ path(route, query|merge({(pageParameterName): null})) }}&page='
+                            + $('#paginar_numero_ir').val()); $('#paginar_modal').modal('hide');">Ir</button>
+                </span>
+            </div><!-- /input-group -->
+
+            <p><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">Ir a la primera página</a></p>
+            <p><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">Ir a la última página ({{ pageCount }})</a></p>
+        </div>
+     </div>
+  </div>
+</div>
 <div class="btn-group pull-right">
     {% if previous is defined %}
         <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-backward fa-fw"></i></a>
@@ -13,18 +42,7 @@
         <span class="btn btn-sm btn-default disabled"><i class="fa fa-backward fa-fw"></i></span>
     {% endif %}
 
-    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown"> Pág. {{ current }} <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu">
-        <li role="presentation" class="dropdown-header">Mostrando la página {{ current }} de un total de {{ pageCount }}.
-        <li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">Ir a la primera página</a>
-        <li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">Ir a la última página ({{ pageCount }})</a>
-        <li class="divider"></li>
-        {% if pageCount > 50 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 50})) }}">Página 50</a>{% endif %}
-        {% if pageCount > 100 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 100})) }}">Página 100</a>{% endif %}
-        {% if pageCount > 500 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 500})) }}">Página 500</a>{% endif %}
-        {% if pageCount > 1000 %}<li><a data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): 1000})) }}">Página 1000</a>{% endif %}
-        
-    </ul>
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#paginar_modal"> Pág. {{ current }} <span class="caret"></span></button>
     
     {% if next is defined %}
         <a class="btn btn-sm btn-default" data-toggle="ajax-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="fa fa-forward fa-fw"></i></a>
