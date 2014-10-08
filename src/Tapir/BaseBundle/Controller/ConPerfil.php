@@ -147,7 +147,7 @@ trait ConPerfil
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('logout'));
+            return $this->redirect($this->generateUrl('usuario_editarperfil', array('id' => $entity->getId())));
         }
         
         if (isset($user)) {
