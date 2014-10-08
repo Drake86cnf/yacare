@@ -2,7 +2,7 @@
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
 
-{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{% endif %}{% endblock %}
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{% endif %}{% endblock pagina_titulo %}
 
 {% block pagina_contenido %}
 <div class="container-fluid">
@@ -54,11 +54,13 @@
 
 {% block pagina_acciones %}
 {% if app.request.get('tapir_mostrarmodal') %}
-    <a data-toggle="ajax-link" class="btn btn-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
+    <a data-toggle="ajax-link" class="btn btn-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
     <button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
 {% else %}
     <a data-toggle="ajax-link" class="btn btn-link pull-right" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
 {% endif %}
-    
-	
 {% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    <a data-toggle="ajax-link" class="btn btn-primary" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-edit"></i> Editar</a>
+{% endblock pagina_acciones2 %}
