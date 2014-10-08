@@ -11,64 +11,70 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('Apellido', null, array(
-            'label' => 'Apellido'
-        ))
+                'label' => 'Apellido'
+            ))
             ->add('Nombre', null, array(
-            'label' => 'Nombre'
-        ))
+                'label' => 'Nombre'
+            ))
             ->add('RazonSocial', null, array(
-            'label' => 'Razón social'
-        ))
+                'label' => 'Razón social'
+            ))
             ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
-            'label' => 'Documento'
-        ))
+                'label' => 'Documento'
+            ))
             ->add('Cuilt', null, array(
-            'label' => 'CUIL/CUIT'
-        ))
+                'label' => 'CUIL/CUIT'
+            ))
             ->add('Grupos', 'entity', array(
-            'label' => 'Grupos',
-            'class' => 'YacareBaseBundle:PersonaGrupo',
-            'multiple' => true
-        ))
+                'label' => 'Grupos',
+                'class' => 'YacareBaseBundle:PersonaGrupo',
+                'multiple' => true
+            ))
+            ->add('UsuarioRoles', 'entity', array(
+                'label' => 'Roles',
+                'class' => 'TapirBaseBundle:PersonaRol',
+                'multiple' => true
+            ))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
-            'label' => 'Domicilio'
-        ))
+                'label' => 'Domicilio'
+            ))
             ->add('TelefonoNumero', null, array(
-            'label' => 'Teléfono(s)'
-        ))
+                'label' => 'Teléfono(s)'
+            ))
             ->add('Email', null, array(
-            'label' => 'Correo electrónico'
-        ))
+                'label' => 'Correo electrónico'
+            ))
             ->add('PersonaJuridica', 'checkbox', array(
-            'label' => 'Persona jurídica',
-            'required' => false
-        ))
+                'label' => 'Persona jurídica',
+                'required' => false
+            ))
             ->add('FechaNacimiento', 'date', array(
-            'years' => range(1900, 2099),
-            'input' => 'datetime',
-            'required' => false,
-            'widget' => 'single_text',
-            'attr' => array(
-                'class' => 'datepicker'
-            ),
-            'format' => 'dd/MM/yyyy',
-            'label' => 'Fecha de nacimiento'
-        ))
+                'years' => range(1900, 2099),
+                'input' => 'datetime',
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => array(
+                    'class' => 'datepicker'
+                ),
+                'format' => 'dd/MM/yyyy',
+                'label' => 'Fecha de nacimiento'
+            ))
             ->add('Genero', 'choice', array(
-            'choices' => array(
-                '0' => 'Sin especificar',
-                '1' => 'Masculino',
-                '2' => 'Femenino'
-            ),
-            'label' => 'Género',
-            'required' => true
-        ))
+                'choices' => array(
+                    '0' => 'Sin especificar',
+                    '1' => 'Masculino',
+                    '2' => 'Femenino'
+                ),
+                'label' => 'Género',
+                'required' => true
+            ))
             ->add('Pais', 'entity', array(
-            'label' => 'Nacionalidad',
-            'empty_value' => 'Sin especificar',
-            'class' => 'YacareBaseBundle:Pais',
-            'required' => false
-        ));
+                'label' => 'Nacionalidad',
+                'empty_value' => 'Sin especificar',
+                'class' => 'YacareBaseBundle:Pais',
+                'required' => false
+            ))
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -108,20 +108,28 @@ trait ConPerfil
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
+        $user = $this->get('security.context')->getToken()->getUser();
+        
         $em = $this->getDoctrine()->getManager();
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
         } else {
-            $user = $this->get('security.context')
-                ->getToken()
-                ->getUser();
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
         
-        $form = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
-        $form->handleRequest($request);
+        if($entity->getId() == $user->getId()) {
+            // Es el usuario conectado, muestro "cambiar contraseña"
+            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
+        } else {
+            // Es para otro usuario, muestro "crear contraseña"
+            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCrearContrasenaType(), $entity);
+        }
+        $editForm->handleRequest($request);
         
-        if ($form->isValid()) {
+        if ($editForm->isValid()) {
+            // TODO: si es "cambiar contraseña", hay que validar que haya puesto la contraseña actual.
+            // TODO: validar que haya puesto dos veces la misma contraseña
+            
             // Guardo el password con hash
             if ($entity->getPasswordEnc()) {
                 // Genero una nueva sal
@@ -148,7 +156,7 @@ trait ConPerfil
         
         return $this->ArrastrarVariables(array(
             'entity' => $entity,
-            'edit_form' => $form->createView(),
+            'edit_form' => $editForm->createView(),
             'terminado' => $terminado
         ));
     }
