@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Form;
+namespace Tapir\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,12 +18,12 @@ class PersonaRolType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BaseBundle\Entity\PersonaRol'
+            'data_class' => 'Tapir\BaseBundle\Entity\PersonaRol'
         ));
     }
 
     public function getName()
     {
-        return 'yacare_basebundle_personaroltype';
+        return 'tapir_basebundle_personaroltype';
     }
 }
