@@ -25,6 +25,8 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function volcarAction(Request $request)
     {
+        $this->Paginar = false;
+
         $res = parent::listarAction($request);
         
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
