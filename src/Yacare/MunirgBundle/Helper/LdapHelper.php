@@ -33,7 +33,7 @@ class LdapHelper
         $add["cn"] = $entity->getNombreLdap();
         $add["samaccountname"] = $entity->getNombreLdap();
         $add["objectClass"] = "Group";
-        $add["description"] = $entity->getNombre();
+        $add["description"] = 'Grupo Yacaré: ' . $entity->getNombre();
         return ldap_add($this->adldap->getLdapConnection(), "CN=" . $add["cn"] . ",CN=Users," . $this->adldap->getBaseDn(), $add);
         //return $this->adldap->group()->create($attributes);
     }
@@ -41,7 +41,7 @@ class LdapHelper
     
     public function ModificarGrupo($entity) {
         $add = array();
-        $add["description"] = $entity->getNombre();
+        $add["description"] = 'Grupo Yacaré: ' . $entity->getNombre();
         return ldap_mod_replace($this->adldap->getLdapConnection(), "CN=" . $entity->getNombreLdap() . ",CN=Users," . $this->adldap->getBaseDn(), $add);
         //return $this->adldap->group()->create($attributes);
     }
