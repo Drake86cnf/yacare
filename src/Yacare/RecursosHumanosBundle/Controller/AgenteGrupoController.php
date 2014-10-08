@@ -30,16 +30,11 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         $res = parent::listarAction($request);
         
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
-        $grupos = $ldap->ObtenerGrupos();
         
         foreach ($res['entities'] as $entity) {
             $nombreLdap = $entity->getNombreLdap();
             if($nombreLdap) {
-                if(in_array($nombreLdap, $grupos) == false) {
-                    $ldap->AgregarGrupo($entity);
-                } else {
-                    $ldap->ModificarGrupo($entity);
-                }
+                $ldap->AgregarOActualizarGrupo($entity);
             }
         }
         
@@ -56,12 +51,7 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         $nombreLdap = $entity->getNombreLdap();
         if($nombreLdap) {
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
-            $grupos = $ldap->ObtenerGrupos();
-            if(in_array($nombreLdap, $grupos) == false) {
-                $ldap->AgregarGrupo($entity);
-            } else {
-                $ldap->ModificarGrupo($entity);
-            }
+            $ldap->AgregarOActualizarGrupo($entity);
             $ldap = null;
         }
         
