@@ -34,9 +34,9 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
             $nombreLdap = $entity->getNombreLdap();
             if($nombreLdap) {
                 if(in_array($nombreLdap, $grupos) == false) {
-                    if($ldap->AgregarGrupo($entity) == false) {
-                        echo " Error " . $nombreLdap;
-                    }
+                    $ldap->AgregarGrupo($entity);
+                } else {
+                    $ldap->ModificarGrupo($entity);
                 }
             }
         }
