@@ -154,7 +154,7 @@ abstract class BaseController extends Controller
                     $val = $request->query->get($vr);
                     if ($val) {
                         $valorInicial[$vr] = $val;
-                        $valorInicial['arrastre'][$vr] = $request->query->get($vr);
+                        $valorInicial['arrastre'][$vr] = $val;
                     }
                 }
             }
@@ -164,6 +164,7 @@ abstract class BaseController extends Controller
         $val = $request->query->get('page');
         if ($val && ((int)($val)) > 1) {
             $valorInicial['arrastre']['page'] = $val;
+            $valorInicial['page'] = $val;
         }
         
         if (! isset($valorInicial['arrastre'])) {
