@@ -338,6 +338,14 @@ class Persona implements UserInterface, \Serializable
     public function setPasswordEnc($PasswordEnc)
     {
         $this->PasswordEnc = base64_encode($PasswordEnc);
+        
+        // Actualizo la sal y la contraseña con hash
+        /* $this->setSalt(md5(uniqid(null, true)));
+        
+        $factory = $this->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($this);
+        $encoded_password = $encoder->encodePassword($this->getPasswordEnc(), $this->getSalt());
+        $this->setPassword($encoded_password); */
     }
 
     public function __toString()

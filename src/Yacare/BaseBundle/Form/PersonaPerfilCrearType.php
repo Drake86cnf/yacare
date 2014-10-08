@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PersonaPerfilType extends AbstractType
+class PersonaPerfilCrearType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -13,6 +13,7 @@ class PersonaPerfilType extends AbstractType
         $builder->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
         ->add('Email', null, array('label' => 'Correo electrónico'))
         ->add('Username', null, array('label' => 'Nombre de usuario', 'required' => false))
+        ->add('PasswordEnc', null, array('label' => 'Contraseña', 'required' => false))
         ;
     }
 
@@ -25,6 +26,6 @@ class PersonaPerfilType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_basebundle_personaperfiltype';
+        return 'yacare_basebundle_personaperfilcreartype';
     }
 }

@@ -35,27 +35,67 @@ trait ConPerfil
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
         
-        $form = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
+        if($entity->getUsername()) {
+            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
+        } else {
+            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
+        }
         
         if ($request->getMethod() === 'POST') {
-            $form->bindRequest($request);
+            $editForm->handleRequest($request);
             
-            if ($form->isValid()) {
+            if ($editForm->isValid()) {
+                echo '11111111111111111111111111111111';
+                if ($entity->getPasswordEnc()) {
+                    echo '22222222222222222222222222222222';
+                    // Genero una nueva sal
+                    $entity->setSalt(md5(uniqid(null, true)));
+                
+                    $factory = $this->get('security.encoder_factory');
+                    $encoder = $factory->getEncoder($entity);
+                    $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
+                    $entity->setPassword($encoded_password);
+                } else {
+                    $entity->setPassword();
+                }
+                
                 $em->persist($entity);
                 $em->flush();
                 
-                return $this->redirect($this->generateUrl('editarperfil/'));
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
+                $errors = null;
+            } else {
+                $validator = $this->get('validator');
+                $errors = $validator->validate($entity);
             }
             
-            $em->refresh($user); // Add this line
+            if ($errors) {
+                foreach ($errors as $error) {
+                    $this->get('session')
+                    ->getFlashBag()
+                    ->add('danger', $error);
+                }
+                
+                $res = $this->ArrastrarVariables(array(
+                    'entity' => $entity,
+                    'errors' => $errors,
+                    'create' => $id ? false : true,
+                    'edit_form' => $editForm->createView()
+                ));
+                
+                return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
+            } else {
+                $em->refresh($user); // Add this line
+            }
         }
-        
+
         return $this->ArrastrarVariables(array(
             'entity' => $entity,
-            'edit_form' => $form->createView()
+            'edit_form_action' => 'usuario_editarperfil',
+            'edit_form' => $editForm->createView()
         ));
-        
-        // parent::__editarAction($id);
     }
 
     /**
