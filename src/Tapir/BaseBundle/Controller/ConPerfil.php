@@ -28,6 +28,7 @@ trait ConPerfil
         
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
+            $user = null;
         } else {
             $user = $this->get('security.context')
                 ->getToken()
@@ -60,6 +61,8 @@ trait ConPerfil
                 $em->persist($entity);
                 $em->flush();
                 
+                $this->editarperfilActionPostPersist($entity, $editForm);
+                
                 $this->get('session')
                     ->getFlashBag()
                     ->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
@@ -85,7 +88,9 @@ trait ConPerfil
                 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             } else {
-                $em->refresh($user); // Add this line
+                if($user) {
+                    $em->refresh($user);
+                }
             }
         }
 
@@ -145,7 +150,9 @@ trait ConPerfil
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('usuario_editarperfil', array('id' => $entity->getId())));
+            $this->cambiarcontrasenaActionPostPersist($entity, $editForm);
+            
+            return ;
         }
         
         if (isset($user)) {
@@ -157,5 +164,23 @@ trait ConPerfil
             'edit_form' => $editForm->createView(),
             'terminado' => $terminado
         ));
+    }
+    
+    
+    /**
+     * Función para que las clases derivadas puedan intervenir la entidad después de guardar el perfil.
+     */
+    public function editarperfilActionPostPersist($entity, $editForm)
+    {
+        return;
+    }
+    
+    
+    /**
+     * Función para que las clases derivadas puedan intervenir la entidad después de cambiar la contraseña.
+     */
+    public function cambiarcontrasenaActionPostPersist($entity, $editForm)
+    {
+        return;
     }
 }

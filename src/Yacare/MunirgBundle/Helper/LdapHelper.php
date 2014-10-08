@@ -47,6 +47,11 @@ class LdapHelper
     }
     
     
+    public function AgregarOActualizarUsuario($entity) {
+        
+    }
+    
+    
     public function AgregarOActualizarGrupo($entity) {
         $nombreLdap = $entity->getNombreLdap();
         if($nombreLdap) {

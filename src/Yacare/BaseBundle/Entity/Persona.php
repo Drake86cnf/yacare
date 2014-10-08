@@ -222,9 +222,9 @@ class Persona implements UserInterface, \Serializable
     private $Tg06100Id;
 
     /**
-     * El número de legado en caso de ser un agente.
+     * El agente asociado, en caso de ser un agente municipal.
      *
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $AgenteId;
 
