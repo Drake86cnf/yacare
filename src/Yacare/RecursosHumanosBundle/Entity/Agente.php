@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Representa un agente (empleado).
+ * Representa un agente municipal (empleado).
+ * 
+ * Está relacionado a una persona.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
@@ -21,8 +23,17 @@ class Agente {
 	use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 	
 	/*
-	 * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes; CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active, agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '', ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL, CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT ''; UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
+	 * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
+	 * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active, agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '', ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL, CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT ''; UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
 	 */
+	
+	/**
+	 * Los grupos a los cuales pertenece el agente.
+	 *
+	 * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
+	 * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo")
+	 */
+	private $Grupos;
 	
 	/**
 	 * La persona asociada.
@@ -220,10 +231,9 @@ class Agente {
 	    return Agente::EstudiosNivelesNombres ( $this->getEstudiosNivel () );
 	}
 
+	
     /**
-     *
      * @ignore
-     *
      */
     public function getPersona()
     {
@@ -231,9 +241,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setPersona($Persona)
     {
@@ -242,9 +250,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCategoria()
     {
@@ -252,9 +258,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCategoria($Categoria)
     {
@@ -263,9 +267,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getSituacion()
     {
@@ -273,9 +275,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSituacion($Situacion)
     {
@@ -284,9 +284,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFuncion()
     {
@@ -294,9 +292,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFuncion($Funcion)
     {
@@ -305,9 +301,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaIngreso()
     {
@@ -315,9 +309,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaIngreso($FechaIngreso)
     {
@@ -326,9 +318,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaBaja()
     {
@@ -336,9 +326,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaBaja($FechaBaja)
     {
@@ -347,9 +335,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getMotivoBaja()
     {
@@ -357,9 +343,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setMotivoBaja($MotivoBaja)
     {
@@ -368,9 +352,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDepartamento()
     {
@@ -378,9 +360,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDepartamento($Departamento)
     {
@@ -389,9 +369,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEstudiosNivel()
     {
@@ -399,9 +377,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEstudiosNivel($EstudiosNivel)
     {
@@ -410,9 +386,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEstudiosTitulo()
     {
@@ -420,9 +394,7 @@ class Agente {
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEstudiosTitulo($EstudiosTitulo)
     {
@@ -430,5 +402,20 @@ class Agente {
         return $this;
     }
  
-	
+    /**
+     * @ignore
+     */
+    public function getGrupos()
+    {
+        return $this->Grupos;
+    }
+    
+    /**
+     * @ignore
+     */
+    public function setGrupos($Grupos)
+    {
+        $this->Grupos = $Grupos;
+    }
+    
 }

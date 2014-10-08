@@ -14,18 +14,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  *        
- *         @ORM\Table(name="Base_Persona",
- *         uniqueConstraints={
- *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- *         },
- *         indexes={
- *         @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
- *         @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
- *         @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
- *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
- *         }
- *         )
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Persona", uniqueConstraints={
+ *  @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})},
+ *  indexes={
+ *      @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
+ *      @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
+ *      @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
+ *      @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
+ *         })
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Persona implements UserInterface, \Serializable
 {
@@ -39,7 +36,7 @@ class Persona implements UserInterface, \Serializable
     use\Yacare\BaseBundle\Entity\ConVerificacion;
 
     /**
-     * Los grupos a los cuales pertenece el usuario.
+     * Los grupos a los cuales pertenece la persona.
      * 
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
@@ -66,7 +63,7 @@ class Persona implements UserInterface, \Serializable
      * Los apellidos.
      *
      * @var string $Apellido
-     *      @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Apellido;
 
@@ -74,7 +71,7 @@ class Persona implements UserInterface, \Serializable
      * Los nombres de pila.
      *
      * @var string $Nombre
-     *      @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
 

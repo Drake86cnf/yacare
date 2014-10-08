@@ -75,7 +75,38 @@ class FormatExtension extends \Twig_Extension
             'full' => \IntlDateFormatter::FULL
         );
         
-        $formatter = \IntlDateFormatter::create('es_AR', $formatValues[$dateFormat], $formatValues[$timeFormat], $date->getTimezone()->getName(), \IntlDateFormatter::GREGORIAN, null);
+        $patrn = null;
+        $dateFormatValue = \IntlDateFormatter::NONE;
+        switch($dateFormat) {
+        	case 'none':
+        		$dateFormatValue = \IntlDateFormatter::NONE;
+        		break;
+        	case 'month':
+        	case 'shortmonth':
+        		$dateFormatValue = \IntlDateFormatter::SHORT;
+        		$patrn = 'MM/yyyy';
+        		break;
+        	case 'mediummonth':
+        		$dateFormatValue = \IntlDateFormatter::SHORT;
+        		$patrn = 'MMM/yyyy';
+        		break;
+       		case 'short':
+       			$dateFormatValue = \IntlDateFormatter::SHORT;
+       			$patrn = 'dd/MM/yy';
+       			break;
+       		case 'medium':
+       			$dateFormatValue = \IntlDateFormatter::MEDIUM;
+       			$patrn = 'dd/MM/yyyy';
+       			break;
+      		case 'long':
+      			$dateFormatValue = \IntlDateFormatter::LONG;
+      			break;
+      		case 'full':
+      			$dateFormatValue = \IntlDateFormatter::FULL;
+      			break;
+        }
+        
+        $formatter = \IntlDateFormatter::create('es_AR', $dateFormatValue, $formatValues[$timeFormat], $date->getTimezone()->getName(), \IntlDateFormatter::GREGORIAN, $patrn);
         
         return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }

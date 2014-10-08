@@ -1,17 +1,17 @@
 <?php
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\RecursosHumanosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Representa un grupo de personas.
+ * Representa un grupo de agentes.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  *        
- * @ORM\Table(name="Base_PersonaGrupo")
+ * @ORM\Table(name="Rrhh_AgenteGrupo")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
-class PersonaGrupo
+class AgenteGrupo
 {
     use\Tapir\BaseBundle\Entity\ConId;
     use\Tapir\BaseBundle\Entity\ConNombre;
@@ -21,31 +21,31 @@ class PersonaGrupo
 
     public function __construct()
     {
-        $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Agentes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Las personas que pertenecen a este grupo.
+     * Los agentes que pertenecen a este grupo.
      * 
-     * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Agente", mappedBy="Grupos", cascade={"persist"})
      */
-    protected $Personas;
+    protected $Agentes;
 
     /**
      * El grupo de nivel superior.
      * 
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\PersonaGrupo")
+     * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\AgenteGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
     
     
     /**
-     * Indica si el grupo se replica al servidor de dominio.
+     * Indica el nombre del grupo en el servidor LDAP, si está asociado.
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Dominio;
+    private $NombreLdap;
     
 
     /**
@@ -67,17 +67,17 @@ class PersonaGrupo
     /**
      * @ignore
      */
-    public function getDominio()
+    public function getNombreLdap()
     {
-        return $this->Dominio;
+        return $this->NombreLdap;
     }
 
     /**
      * @ignore
      */
-    public function setDominio($Dominio)
+    public function setNombreLdap($NombreLdap)
     {
-        $this->Dominio = $Dominio;
+        $this->NombreLdap = $NombreLdap;
         return $this;
     }
  }

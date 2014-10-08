@@ -7,14 +7,14 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Dominio</th>
+            <th>LDAP</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
             <td>{{ entity.Nombre }}</td>
-            <td>{% if entity.Dominio %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{{ entity.NombreLdap }}</td>
         </tr>
     {% endfor %}
     </tbody>
