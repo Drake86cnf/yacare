@@ -7,7 +7,8 @@ class StringHelper
 {
     
     /*
-     * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
+     * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para
+     * \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
      */
     static public function ObtenerBundleYEntidad($nombreclase)
     {
@@ -30,8 +31,10 @@ class StringHelper
         return $res;
     }
     
+    
     /*
-     * Obtiene el nombre la aplicación (vendor) a partir de una clase. Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
+     * Obtiene el nombre la aplicación (vendor) a partir de una clase. Por ejemplo, para
+     * \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
      */
     static public function ObtenerAplicacion($nombreclase)
     {
@@ -40,8 +43,11 @@ class StringHelper
         return $PartesNombreClase[0];
     }
     
+    
     /*
-     * Obtiene una ruta base a partir de una clase. Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController" devuelve "tapir_base_persona" Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve "tapir_base_persona_editar"
+     * Obtiene una ruta base a partir de una clase. Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController"
+     * devuelve "tapir_base_persona" Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve
+     * "tapir_base_persona_editar".
      */
     static public function ObtenerRutaBase($nombreclase, $accion = null)
     {
@@ -55,6 +61,7 @@ class StringHelper
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1]);
     }
 
+    
     static public function ObtenerDocumento($text)
     {
         $Partes = preg_split('/[\: ]/', $text);
@@ -89,11 +96,13 @@ class StringHelper
         );
     }
 
+    
     static public function Desoraclizar($text)
     {
         return trim(StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
 
+    
     static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), $exceptions = array(
                 'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
@@ -101,7 +110,9 @@ class StringHelper
                 ))
     {
         /*
-         * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry Viii should be King Henry VIII
+         * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
+         * don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry
+         * Viii should be King Henry VIII
          */
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
         

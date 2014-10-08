@@ -71,8 +71,7 @@ abstract class AbmController extends BaseController
      * @see $Limit
      * @see $Paginar
      *
-     * @param string $filtro_buscar
-     *            El filtro a aplicar en formato DQL.
+     * @param string $filtro_buscar El filtro a aplicar en formato DQL.
      * @return string Una comando DQL SELECT para obtener el listado.
      */
     protected function obtenerComandoSelect($filtro_buscar = null)
@@ -145,8 +144,10 @@ abstract class AbmController extends BaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      *
-     * @see obtenerComandoSelect() @Route("listar/")
-     *      @Template()
+     * @see obtenerComandoSelect()
+     * 
+     * @Route("listar/")
+     * @Template()
      */
     public function listarAction(Request $request)
     {
@@ -302,7 +303,8 @@ abstract class AbmController extends BaseController
                 if (! $errors) {
                     $em->persist($entity);
                     $em->flush();
-                    
+                    $this->guardarActionPostPersist($entity, $editForm);
+
                     $this->get('session')
                         ->getFlashBag()
                         ->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
@@ -357,6 +359,16 @@ abstract class AbmController extends BaseController
     {
         return array();
     }
+    
+    
+    /**
+     * Función para que las clases derivadas puedan intervenir la entidad después de persistirla.
+     */
+    public function guardarActionPostPersist($entity, $editForm)
+    {
+        return;
+    }
+    
 
     /**
      * Función para que las clases derivadas puedan manejar la subida de archivos.
