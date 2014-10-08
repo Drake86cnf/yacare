@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Trait para agregar a la entidad de usuario, para agregarle las funciones.
+ * Trait para agregar al controlador de usuarios, para agregarle funciones de manejo de perfil.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
@@ -45,9 +45,7 @@ trait ConPerfil
             $editForm->handleRequest($request);
             
             if ($editForm->isValid()) {
-                echo '11111111111111111111111111111111';
                 if ($entity->getPasswordEnc()) {
-                    echo '22222222222222222222222222222222';
                     // Genero una nueva sal
                     $entity->setSalt(md5(uniqid(null, true)));
                 
