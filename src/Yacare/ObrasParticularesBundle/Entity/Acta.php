@@ -43,6 +43,29 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      * @var integer @ORM\Column(type="integer")
      */
     protected $Plazo;
+    
+    /**
+     * El profesional a cargo de la obra, en caso que corresponda.
+     *
+     * Se aplica a todos los subtipos excepto "inspección".
+     * 
+     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\Matriculado")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Profesional;
+    
+    
+    
+    
+    function getProfesional() {
+	return $this->Profesional;
+    }
+
+    function setProfesional($Profesional) {
+	$this->Profesional = $Profesional;
+    }
+
+        
 
     public function getComercio()
     {
