@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("agente/")
+ * @Route("agente/")
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 {
@@ -27,5 +27,19 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         $this->OrderBy = 'p.NombreVisible';
+    }
+    
+    
+    /**
+     * Actualizo el servidor de dominio al editar el agente.
+     */
+    public function guardarActionPostPersist($entity, $editForm)
+    {
+        if($entity->getId()) {
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap->AgregarOActualizarAgente($entity);
+            $ldap = null;
+        }
+        return;
     }
 }

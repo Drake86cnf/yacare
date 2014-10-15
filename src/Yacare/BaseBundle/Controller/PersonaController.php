@@ -27,7 +27,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     }
     
     /**
-     * Función para que las clases derivadas puedan intervenir la entidad después de guardar el perfil.
+     * Actualizo el servidor de dominio al editar el perfil de usuario.
      */
     public function editarperfilActionPostPersist($entity, $editForm)
     {
@@ -37,7 +37,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
             
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
-            $ldap->AgregarOActualizarUsuario($Agente);
+            $ldap->AgregarOActualizarAgente($Agente);
             $ldap = null;
         }
         return;
@@ -45,7 +45,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     
     
     /**
-     * Función para que las clases derivadas puedan intervenir la entidad después de cambiar la contraseña.
+     * Actualizo el servidor de dominio al cambiar la contraseña.
      */
     public function cambiarcontrasenaActionPostPersist($entity, $editForm)
     {
@@ -55,7 +55,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
         
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
-            $ldap->AgregarOActualizarUsuario($Agente);
+            $ldap->CambiarContrasena($Agente);
             $ldap = null;
         }
         return;

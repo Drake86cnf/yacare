@@ -45,6 +45,8 @@
                {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
                {{ bs.grid_label_text('Motivo de baja', entity.MotivoBajaNombre) }}
            {% endif %}
+           
+           {% for Grupo in entity.Grupos %}<span class="label label-info">{{ Grupo }}</span> {% endfor %}
 	   {{ bs.grid_col_12_end() }}
    {{ bs.grid_row_end() }}
 </div>

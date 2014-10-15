@@ -26,3 +26,86 @@
 	<div class="col-xs-4 text-right text-muted"><h3 class="text-muted">{{ label|raw }}</h3></div>
 </div>
 {% endmacro %}
+
+{% macro info_socio_personal(entity) %}
+<div class="col-sm-8 col-xs-12">
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-4 text-right">Documento</div>
+					<div class="col-xs-8">{{ entity.documentoNumero }}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right">
+						<i class="fa fa-home text-muted"></i>&nbsp;Domicilio
+					</div>
+					<div class="col-xs-8">{{ entity.domicilio }}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right">
+						<i class="fa fa-phone text-muted"></i>&nbsp;Teléfono
+					</div>
+					<div class="col-xs-8">{{ entity.telefono|replace({';': '\r', '"': ''})|nl2br }}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right">
+						<i class="fa fa-envelope-o text-muted"></i>&nbsp;E-mail
+					</div>
+					<div class="col-xs-8">{{ entity.email }}</div>
+				</div>
+			</div>
+		</div>
+{% endmacro %}
+
+{% macro imagen_entidad_persona(entity) %}
+<div class="col-sm-4 hidden-xs">
+			<img src="{{ path('lazaro_base_persona_verimagen', { 'id': entity.Id }) }}"
+				class="pull-right img-circle img-responsive"
+				style="width: 96px; height: 96px;" />
+		</div>
+{% endmacro %}
+
+{% macro tabla_operaciones_socio(operaciones) %}
+<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Comercio</th>
+							<th>Fecha</th>
+							<th>Cuotas</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+				<tbody>
+ 		{% for operacion in operaciones %}
+			<tr>
+				<td>{{ operacion.Comercio}}</td>
+				<td>{{ operacion.Fecha | tapir_fecha('short','none')}}</td>
+				<td>{{ operacion.Cuotas}}</td>
+				<td>{{ operacion.Total | tapir_importe}}</td> 
+		{% endfor %}
+		</tbody>
+		</table>
+{% endmacro %}
+{% macro tabla_posnet_mensajes(mensajes) %}
+<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Comercio</th>
+							<th>Fecha</th>
+							<th>Mensaje</th>
+						</tr>
+					</thead>
+				<tbody>
+ 			{% for mensaje in mensajes %}
+				<tr>
+					<td>{{ mensaje.Comercio}}</td>
+					<td>{{ mensaje.Fecha | tapir_fecha('short','none')}}</td>
+					<td>{{ mensaje.Mensaje}}</td> 
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+
+{% endmacro %}
+
+

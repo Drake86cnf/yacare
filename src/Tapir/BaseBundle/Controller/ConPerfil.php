@@ -151,8 +151,6 @@ trait ConPerfil
             $em->flush();
             
             $this->cambiarcontrasenaActionPostPersist($entity, $editForm);
-            
-            return ;
         }
         
         if (isset($user)) {

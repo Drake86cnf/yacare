@@ -53,7 +53,26 @@ abstract class AbmController extends BaseController
             $this->BuscarPor = 'nombre';
         }
     }
-
+    
+    
+    /**
+     * Obtiene la cantidad de registros del listado.
+     * @see listarAction()
+     * @see obtenerComandoSelect()
+     * @return int Cantidad de registros.
+     */
+    public function obtenerCantidadRegistros($whereAdicional = null) {
+    	$dql = $this->obtenerComandoSelect(null, true, $whereAdicional);
+    	
+    	$em = $this->getDoctrine()->getManager();
+    	$query = $em->createQuery($dql);
+    	$cant = $query->getSingleScalarResult();
+    	
+    	return $cant;
+    }
+    
+    
+    
     /**
      * Genera la consulta DQL para el listado.
      *
@@ -74,9 +93,15 @@ abstract class AbmController extends BaseController
      * @param string $filtro_buscar El filtro a aplicar en formato DQL.
      * @return string Una comando DQL SELECT para obtener el listado.
      */
-    protected function obtenerComandoSelect($filtro_buscar = null)
+    protected function obtenerComandoSelect($filtro_buscar = null, $soloContar = false, $whereAdicional = null)
     {
-        $dql = "SELECT r FROM " . $this->CompleteEntityName . " r";
+        $dql = "SELECT ";
+        if($soloContar) {
+        	$dql .= "COUNT(r) AS cant";
+        } else {
+        	$dql .= "r";
+        }
+        $dql .= " FROM " . $this->CompleteEntityName . " r";
         
         if (count($this->Joins) > 0) {
             $this->Joins = array_unique($this->Joins);
@@ -113,6 +138,7 @@ abstract class AbmController extends BaseController
         }
         
         $dql .= " WHERE $where";
+        
         if ($this->Where) {
             $this->Where = trim($this->Where);
             if (substr($this->Where, 0, 4) != "AND ") {
@@ -121,7 +147,15 @@ abstract class AbmController extends BaseController
             $dql .= ' ' . $this->Where;
         }
         
-        if ($this->OrderBy) {
+        if ($whereAdicional) {
+        	$whereAdicional = trim($whereAdicional);
+        	if (substr($whereAdicional, 0, 4) != "AND ") {
+        		$whereAdicional = "AND " . $whereAdicional;
+        	}
+        	$dql .= ' ' . $whereAdicional;
+        }
+        
+        if ($this->OrderBy && $soloContar == false) {
             $OrderByCampos = explode(',', $this->OrderBy);
             $OrderByCamposConTabla = array();
             
@@ -191,13 +225,31 @@ abstract class AbmController extends BaseController
             return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
         }
     }
+    
+    
+    
+    /**
+     * Pantalla de inicio.
+     *
+     * Cada controlador puede implementar ad libitum.
+     * 
+     * @Route("inicio/")
+     * @Template()
+     */
+    public function inicioAction(Request $request)
+    {
+    	return $this->ArrastrarVariables(array());
+    }
+    
 
     /**
      * Ver una entidad.
      *
      * Es como editar, pero sólo lectura.
      *
-     * @see editarAction() @Route("ver/{id}")
+     * @see editarAction()
+     * 
+     * @Route("ver/{id}")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
