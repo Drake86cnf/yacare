@@ -29,7 +29,7 @@ class LdapHelper
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         //setlocale(LC_CTYPE, "en_US.UTF-8");
         exec("ssh root@corona 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " . escapeshellarg($Contrasena) . "'");
-        exec("winexe -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 'net user " . addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "'");
+        exec("winexe --interactive=0 -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 'net user " . addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "'");
         //$this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
     
