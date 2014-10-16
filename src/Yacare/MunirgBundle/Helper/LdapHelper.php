@@ -96,6 +96,17 @@ class LdapHelper
     }
     
     
+    public function ObtenerGruposAnteriores($Agente) {
+        $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
+        $Usuario = $this->ConnMuni->UserGet($NombreUsuario);
+        $GruposUsuario = array();
+        foreach($Usuario['memberof'] as $GrupoUsuario) {
+            $GruposUsuario[] = $GrupoUsuario;
+        }
+        return $GruposUsuario;
+    }
+    
+    
     /*
      * Agrega o quita al usuario de los grupos que corresponda
      */ 

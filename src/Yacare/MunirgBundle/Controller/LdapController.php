@@ -139,6 +139,36 @@ class LdapController extends Controller
         ldap_unbind($ServidorAd);
         if ($UsrBind) {
             $Persona = $Agente->getPersona();
+            
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $GruposAnteriores = $ldap->ObtenerGruposAnteriores($Agente);
+            $GruposActuales = $Agente->getGrupos();
+            
+            // Agrego los grupos al agente
+            $GruposAgentes = $em->getRepository('YacareRecursosHumanosBundle:AgenteGrupo')->findAll();
+            foreach($GruposAnteriores as $GrupoAnterior) {
+                // echo "Verificando " . $GrupoAnterior . '<br />';
+                $existe = false;
+                // Busco si ya está asociado a este grupo
+                foreach($GruposActuales as $GrupoActual) {
+                    if(strcasecmp($GrupoAnterior, $GrupoActual->getNombreLdap()) == 0) {
+                        $existe = true;
+                        // echo "Ya está en el grupo " . $GrupoActual . '<br />';
+                        break;
+                    }
+                }
+                
+                // El agente no está en el grupo. Lo agrego
+                if(!$existe) {
+                    echo "No existe en " . $GrupoAnterior;
+                    foreach($GruposAgentes as $Grupo) {
+                        if(strcasecmp($GrupoAnterior, $Grupo->getNombreLdap()) == 0) {
+                            // echo "Agregando al grupo " . $Grupo . '<br />';
+                            $Agente->getGrupos()->add($Grupo);
+                        }
+                    }
+                }
+            }
     
             // Actualizo sal, usuario, contraseña encodeada y contraseña hash
             $Persona->setSalt(md5(uniqid(null, true)));
@@ -152,7 +182,6 @@ class LdapController extends Controller
             $em->persist($Persona);
             $em->flush();
             
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
             $ldap->CambiarContrasena($Agente);
             $ldap = null;
 
