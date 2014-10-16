@@ -160,7 +160,7 @@ class LdapController extends Controller
                 
                 // El agente no está en el grupo. Lo agrego
                 if(!$existe) {
-                    echo "No existe en " . $GrupoAnterior;
+                    // echo "No existe en " . $GrupoAnterior;
                     foreach($GruposAgentes as $Grupo) {
                         if(strcasecmp($GrupoAnterior, $Grupo->getNombreLdap()) == 0) {
                             // echo "Agregando al grupo " . $Grupo . '<br />';
