@@ -19,25 +19,23 @@ block('pagina_titulo') %}
 <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_nav.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirbase/css/tapir_forms.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}" rel="stylesheet" />
 </head>
 
 <body>
-	{% for type, flashMessages in app.session.flashbag.all() %} {% for
-	flashMessage in flashMessages %}
-	<div class="alert alert-dismissable alert-{{ type }}">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		{{ flashMessage|raw }}
-	</div>
-	{% endfor %} {% endfor %} {% block pagina_contenido %}{% endblock %}
+
+{% block pagina_contenido %}{% endblock %}
 
 	<!-- Bootstrap core JavaScript -->
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.form.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
-	{% if app.environment != 'test' %}
+{% if app.environment != 'test' %}
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
-	{% endif %}
+{% endif %}
 </body>
 </html>

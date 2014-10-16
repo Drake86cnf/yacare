@@ -28,7 +28,7 @@ trait ConNombre
      */
     public function __toString()
     {
-        if ($this->nombre)
+        if ($this->getNombre())
             return $this->getNombre();
         else
             return '';
