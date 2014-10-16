@@ -1,0 +1,27 @@
+{% extends 'TapirBaseBundle::blank.html.twig' %}
+
+{% block pagina_contenido %}
+<br />
+<br />
+<div id="login-wrapper" class="container-fluid">
+    <div id="login-container" class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3 hidden-sm hidden-xs">
+            <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}"
+                style="padding: 10px 64px;" alt="Municipio de Río Grande" />
+        </div>
+        <div class="col-md-6">
+            <h1>¡Gracias!</h1>
+            <br />
+            <p><i class="fa fa-thumbs-up fa-4x text-success pull-left"></i> Su cuenta de usuario fue actualizada y
+                unificada.</p>
+            <p>Puede continuar utilizando los sistemas normalmente. Su nombre de usuario es
+                <strong>{{ agente.Persona.Username }}</strong>.</p>
+            <hr />
+            <p>Este es un proceso de única vez. Si vuelve a ver un aviso de unificación de cuentas no es necesario
+                que lo haga nuevamente.</p>
+            <p><a href="http://webmuni/">Haga clic aquí para continuar</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

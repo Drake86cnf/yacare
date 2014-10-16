@@ -133,8 +133,8 @@ class Partida
 
     public function CalcularNombre()
     {
-        if ($this->DomicilioCalle) {
-            $this->nombre = $this->DomicilioCalle;
+        if ($this->getDomicilioCalle()) {
+            $this->nombre = $this->getDomicilioCalle()->getNombre();
             if ($this->DomicilioNumero) {
                 $this->nombre .= ' Nº ' . $this->DomicilioNumero;
             }

@@ -1,0 +1,72 @@
+{% extends 'TapirBaseBundle::blank.html.twig' %}
+
+{% block pagina_contenido %}
+<br />
+<br />
+<div id="login-wrapper" class="container-fluid">
+    <div id="login-container" class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3 hidden-sm hidden-xs">
+            <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}"
+                style="padding: 10px 64px;" alt="Municipio de Río Grande" />
+        </div>
+        <div class="col-md-6">
+            <h1>¡Bienvenido!</h1>
+            <form role="form" id="enrolar_form" class="form-horizontal"
+                action="{{ path('yacare_munirg_ldap_enrolarverificar') }}" method="post">
+                <p>Como parte del proceso de unificación de cuentas, es necesario que todos los usuarios actualicen su
+                    cuenta de ingreso a los sistemas.</p>
+                <p>Para actualizar su cuenta, por favor escriba sus datos a continuación. Si tiene dudas, lea las
+                    sección de ayuda más abajo.</p>
+            	{% for type, flashMessages in app.session.flashbag.all() %}
+                	{% for flashMessage in flashMessages %}
+                	<div class="alert alert-{{ type }}" role="alert">
+                		{{ flashMessage|raw }}
+                	</div>
+                	{% endfor %}
+            	{% endfor %}
+                <fieldset>
+                    <label for="_username" class="hidden-md hidden-lg hidden-sm">Número de DNI</label>
+                        <div class="form-group"><input class="form-control" placeholder="Número de DNI" id="_documento"
+                            name="_documento" type="text" autocomplete="off" autofocus /></div>
+                    <label for="_username" class="hidden-md hidden-lg hidden-sm">Nombre de usuario</label>
+                        <div class="form-group"><input class="form-control" placeholder="Nombre de usuario"
+                            id="_username" name="_username" type="text" autocomplete="off"  /></div>
+                    <label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
+                        <div class="form-group"><input class="form-control" placeholder="Contraseña" id="_password"
+                            name="_password" type="password" autocomplete="off" value="" /></div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Continuar <i class="fa fa-play"></i></button>
+            </form>
+            <br />
+            <h2>Ayuda</h2>
+            <p><i class="fa fa-warning text-danger"></i> ¡Atención! Estos datos no tienen ninguna relación con sus cuentas
+                personales como Facebook, HotMail, GMail, etc. Sólo debe ingresar aquí una cuenta de usuario y
+                contraseña del Municipio de Río Grande. Si no tiene un usuario de acceso a estos sistemas,
+                no es necesario que haga la unificación de cuentas.</p>
+            <p><strong>¿Cuál es mi nombre de usuario y contraseña?</strong><br />
+                Son los mismos que utiliza para ingresar a su computadora (en el municipio) o a otros sistemas como
+                SIAF o GLPI. Normalmente el usuario se compone de inicial del nombre y apellido completo (por ejemplo
+                jperez).
+                </p>
+            <p><strong>¿Cuántas veces debo unificar mi cuenta?</strong><br/>
+                Este proceso se realiza por única vez. Si ya unificó su cuenta, no es necesario que lo haga
+                nuevamente. <a href="http://webmuni/">Haga clic aquí para continuar</a>.</p>
+            <p><strong>No tengo nombre de usuario</strong><br/>
+                Este proceso es sólo para los usuarios que tienen una cuenta en el sistema anterior. Si no tiene cuenta
+                y necesita una, deberá comunicarse con el sector de informática, cuyos datos están al pié de la
+                página.</p>
+            <p><strong>¿Por qué debo unificar mi cuenta?</strong><br/>
+                La unificación de cuentas es parte de una actualización tecnológica iniciada por el sector de Cómputos,
+                que incluye la migración de sistemas de dominio Windows versión 2008 a Linux versión 2014.</p>
+
+            <hr />
+            
+            <h2>Más información</h2>
+            <p><strong>Sector de Informática</strong>, Área de Innovación<br />
+                Teléfono directo: (02964) 43-6250<br />
+                Interno: 205</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
