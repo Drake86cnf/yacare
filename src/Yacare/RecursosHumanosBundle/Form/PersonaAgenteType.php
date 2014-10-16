@@ -23,9 +23,6 @@ class PersonaAgenteType extends AbstractType
             ->add('Username', null, array(
                 'label' => 'Usuario'
             ))
-            ->add('PasswordEnc', null, array(
-                'label' => 'Contraseña'
-            ))
             ->add('Cuilt', null, array(
                 'label' => 'CUIL/CUIT'
             ))
