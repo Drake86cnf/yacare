@@ -29,7 +29,9 @@ class LdapHelper
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         //setlocale(LC_CTYPE, "en_US.UTF-8");
         exec("ssh root@corona 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " . escapeshellarg($Contrasena) . "'");
-        exec("ssh apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 \"net user " . addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
+        // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
+        // una sesión del servidor web. 
+        exec("ssh apache@localhost 'winexe --interactive=0 -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 \"net user " . addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
         //$this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
     
