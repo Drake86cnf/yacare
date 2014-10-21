@@ -16,7 +16,7 @@ body {
 	}
 }
 
-a.btn-link:hover {
+a.btn-link:hover, a:hover {
 	text-decoration: none !important;
 }
 

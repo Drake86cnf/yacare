@@ -92,13 +92,13 @@ class FormatExtension extends \Twig_Extension
         		break;
        		case 'short':
        			$dateFormatValue = \IntlDateFormatter::SHORT;
-       			$patrn = 'dd/MM/yy';
+       			//$patrn = 'dd/MM/yy';
        			break;
        		case 'medium':
        			$dateFormatValue = \IntlDateFormatter::MEDIUM;
-       			$patrn = 'dd/MM/yyyy';
+       			//$patrn = 'dd/MM/yyyy';
        			break;
-      		case 'long':
+       		case 'long':
       			$dateFormatValue = \IntlDateFormatter::LONG;
       			break;
       		case 'full':

@@ -10,7 +10,7 @@
 {% set block_pagina_titulo = block('pagina_titulo') %}
 
 <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not empty %}:
-    {{ block_pagina_titulo|raw }}{% endif %}</title>
+    {{ block_pagina_titulo|striptags|trim|raw }}{% endif %}</title>
 {% image '@tapir_favicon' %}<link rel="icon" href="{{ asset_url }}">{% endimage %}
 
 <script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.1.min.js') }}"></script>
@@ -36,7 +36,7 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
+					data-target="#menuprincipal">
 					<span class="sr-only">Mostrar u ocultar el menú de navegación</span>
 					<span class="fa fa-ellipsis-v"></span>
 				</button>
@@ -121,6 +121,7 @@
 {% if app.environment != 'test' %}
 	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
 {% endif %}
+	<script type="text/javascript" src="{{ asset('bundles/andreyboloninchartjs/Chart.min.js') }}"></script>
 
 <script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
