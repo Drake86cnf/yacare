@@ -70,7 +70,7 @@ class LdapController extends Controller
             }
         }
         
-        $ServidorAd =\ldap_connect($Dominio);
+        $ServidorAd =\ldap_connect('192.168.100.44');
         ldap_set_option($ServidorAd, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($ServidorAd, LDAP_OPT_REFERRALS, 0);
         $UsrBind = @\ldap_bind($ServidorAd, $Usuario . '@' . $Dominio, $Contrasena);
@@ -132,7 +132,7 @@ class LdapController extends Controller
             }
         }
     
-        $ServidorAd =\ldap_connect($Dominio);
+        $ServidorAd =\ldap_connect('192.168.100.44');
         ldap_set_option($ServidorAd, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($ServidorAd, LDAP_OPT_REFERRALS, 0);
         $UsrBind = @\ldap_bind($ServidorAd, $Usuario . '@' . $Dominio, $Contrasena);
@@ -222,7 +222,7 @@ class LdapController extends Controller
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
         
-        $ServidorAd =\ldap_connect($Dominio);
+        $ServidorAd =\ldap_connect('192.168.100.44');
         ldap_set_option($ServidorAd, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($ServidorAd, LDAP_OPT_REFERRALS, 0);
         $UsrBind = @\ldap_bind($ServidorAd, $Usuario . '@' . $Dominio, $Contrasena);
