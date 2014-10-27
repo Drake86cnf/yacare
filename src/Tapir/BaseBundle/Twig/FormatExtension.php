@@ -66,7 +66,7 @@ class FormatExtension extends \Twig_Extension
         if ($date == null) {
             return $emptyMessage;
         }
-        
+
         $formatValues = array(
             'none' => \IntlDateFormatter::NONE,
             'short' => \IntlDateFormatter::SHORT,
@@ -74,7 +74,7 @@ class FormatExtension extends \Twig_Extension
             'long' => \IntlDateFormatter::LONG,
             'full' => \IntlDateFormatter::FULL
         );
-        
+
         $patrn = null;
         $dateFormatValue = \IntlDateFormatter::NONE;
         switch($dateFormat) {
@@ -90,6 +90,10 @@ class FormatExtension extends \Twig_Extension
         		$dateFormatValue = \IntlDateFormatter::SHORT;
         		$patrn = 'MMM/yyyy';
         		break;
+        	case 'fullmonth':
+        	    $dateFormatValue = \IntlDateFormatter::SHORT;
+        	    $patrn = "MMMM 'de' yyyy";
+        	    break;
        		case 'short':
        			$dateFormatValue = \IntlDateFormatter::SHORT;
        			//$patrn = 'dd/MM/yy';
@@ -105,9 +109,9 @@ class FormatExtension extends \Twig_Extension
       			$dateFormatValue = \IntlDateFormatter::FULL;
       			break;
         }
-        
+
         $formatter = \IntlDateFormatter::create('es_AR', $dateFormatValue, $formatValues[$timeFormat], $date->getTimezone()->getName(), \IntlDateFormatter::GREGORIAN, $patrn);
-        
+
         return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }
 
@@ -139,19 +143,19 @@ class FormatExtension extends \Twig_Extension
     {
         $datetime_transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
         $timestamp_transformer = new DateTimeToTimestampTransformer();
-        
+
         // Transforming to DateTime
         $from_time = (! ($from_time instanceof \DateTime)) ? $datetime_transformer->reverseTransform($from_time) : $from_time;
-        
+
         $to_time = empty($to_time) ? new \DateTime('now') : $to_time;
         $to_time = (! ($to_time instanceof \DateTime)) ? $datetime_transformer->reverseTransform($to_time) : $to_time;
-        
+
         // Transforming to Timestamp
         $from_time = $timestamp_transformer->transform($from_time);
         $to_time = $timestamp_transformer->transform($to_time);
         $distance_in_minutes = round((abs($to_time - $from_time)) / 60);
         $distance_in_days = round($distance_in_minutes / 1440);
-        
+
         return $distance_in_days;
     }
 
@@ -171,7 +175,7 @@ class FormatExtension extends \Twig_Extension
      *            or DateTime
      * @param $to_time String
      *            or DateTime
-     * @param bool $include_seconds            
+     * @param bool $include_seconds
      *
      * @return mixed
      */
@@ -179,19 +183,19 @@ class FormatExtension extends \Twig_Extension
     {
         $datetime_transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
         $timestamp_transformer = new DateTimeToTimestampTransformer();
-        
+
         // Transforming to DateTime
         $from_time = (! ($from_time instanceof \DateTime)) ? $datetime_transformer->reverseTransform($from_time) : $from_time;
-        
+
         $to_time = empty($to_time) ? new \DateTime('now') : $to_time;
         $to_time = (! ($to_time instanceof \DateTime)) ? $datetime_transformer->reverseTransform($to_time) : $to_time;
-        
+
         // Transforming to Timestamp
         $from_time = $timestamp_transformer->transform($from_time);
         $to_time = $timestamp_transformer->transform($to_time);
         $distance_in_minutes = round((abs($to_time - $from_time)) / 60);
         $distance_in_seconds = round(abs($to_time - $from_time));
-        
+
         if ($distance_in_minutes <= 1) {
             if ($include_seconds) {
                 if ($distance_in_seconds < 5) {
@@ -239,7 +243,7 @@ class FormatExtension extends \Twig_Extension
                     ));
                 } else {
                     $distance_in_year = abs(round(($distance_in_month / 12), 1, PHP_ROUND_HALF_UP));
-                    
+
                     if (is_float($distance_in_year)) {
                         $year = (int) $distance_in_year;
                         $month = ($distance_in_year - $year) * 10;
@@ -248,13 +252,13 @@ class FormatExtension extends \Twig_Extension
                                 '%d' => $year,
                                 '%u' => $month
                             ));
-                        } else 
+                        } else
                             if ($year == 1 and $month > 1) {
                                 return vsprintf('hace %d año y %u meses', array(
                                     '%d' => $year,
                                     '%u' => $month
                                 ));
-                            } else 
+                            } else
                                 if ($month == 1 and $year > 1) {
                                     return vsprintf('hace %d años y %u mes', array(
                                         '%d' => $year,
@@ -266,7 +270,7 @@ class FormatExtension extends \Twig_Extension
                                         '%u' => $month
                                     ));
                                 }
-                    } else 
+                    } else
                         if ($distance_in_year == 1) {
                             return vsprintf('hace %d año', array(
                                 '%d' => $distance_in_year

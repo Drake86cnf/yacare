@@ -17,21 +17,21 @@ trait ConObs
      * @var string $obs
      *      @ORM\Column(type="text", nullable=true)
      */
-    private $obs;
+    private $Obs;
 
     /**
      * @ignore
      */
     public function getObs()
     {
-        return $this->obs;
+        return $this->Obs;
     }
 
     /**
      * @ignore
      */
-    public function setObs($obs)
+    public function setObs($Obs)
     {
-        $this->obs = $obs;
+        $this->Obs = $Obs;
     }
 }

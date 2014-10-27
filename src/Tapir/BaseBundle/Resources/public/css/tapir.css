@@ -123,6 +123,10 @@ legend small {
 	overflow-y: hidden;
 }
 
+.pagina-pie {
+    padding: 6px 12px 6px 12px;
+}
+
 .modal-content {
 	border-radius: 0px;
 }

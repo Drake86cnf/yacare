@@ -21,7 +21,7 @@ trait ConNombre
      * 
      * @ORM\Column(type="string", length=255)
      */
-    private $nombre;
+    private $Nombre;
 
     /**
      * @ignore
@@ -39,14 +39,14 @@ trait ConNombre
      */
     public function getNombre()
     {
-        return $this->nombre;
+        return $this->Nombre;
     }
 
     /**
      * @ignore
      */
-    public function setNombre($nombre)
+    public function setNombre($Nombre)
     {
-        $this->nombre = $nombre;
+        $this->Nombre = $Nombre;
     }
 }

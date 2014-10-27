@@ -40,7 +40,7 @@
 					<span class="sr-only">Mostrar u ocultar el menú de navegación</span>
 					<span class="fa fa-ellipsis-v"></span>
 				</button>
-				<a class="navbar-brand" href="{{ path('inicio') }}">{% image '@tapir_logoaplicacion16' %}<img 
+				<a class="navbar-brand" href="{{ path('inicio') }}">{% image '@tapir_logoaplicacion16' %}<img
 				    src="{{ asset_url }}" alt="{{ tapir_nombreaplicacion }}"
 				    width="16" />{% endimage %} {{ tapir_nombreaplicacion }}</a>
 				<span class="navbar-slogan">{{ tapir_cliente }}</span>
@@ -100,10 +100,12 @@
 {% if block_pagina_acciones2 is not empty %}
 	<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
 {% endif %}
+
 {% set block_pagina_acciones3 = block('pagina_acciones3') %}
 {% if block_pagina_acciones3 is not empty %}
 	<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw }}</div>
 {% endif %}
+
 {% block pagina_fin %}{% endblock %}
 
 		</div>
@@ -125,7 +127,7 @@
 
 <script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
-    
+
     tinymce.init({
         selector: '.tinymce',
         language: 'es',
