@@ -36,6 +36,13 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
     protected $EstadoAvance;
 
     /**
+     * Indica si todas las observaciones del acta en cuestion fueron cumplidas.
+     *
+     * @var integer @ORM\Column(type="integer")
+     */
+    protected $Estado;
+    
+    /**
      * El plazo para la regularización, si corresponde.
      *
      * Se aplica a todos los subtipos excepto "inspección".
