@@ -31,7 +31,7 @@ abstract class AbmController extends BaseController
         
         if (! isset($this->OrderBy)) {
             if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
-                $this->OrderBy = 'nombre';
+                $this->OrderBy = 'Nombre';
             } else {
                 $this->OrderBy = null;
             }
