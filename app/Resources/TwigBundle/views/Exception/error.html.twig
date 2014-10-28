@@ -1,0 +1,12 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+
+{% block pagina_titulo %}Ocurrió un error :({% endblock %}
+
+{% block pagina_contenido %}
+    <p><i class="fa fa-bug text-warning fa-4x pull-right"></i>
+    	El servidor informó un error {{ status_code }} ({{ status_text }})
+    	al realizar la operación solicitada.</p>
+   	<p>Por favor <a href="#" onclick="history.go(-1);">vuelva a donde estaba</a> e intente nuevamente.
+   		Si el problema persiste por favor reporte el error al administrador del sistema.</p>
+{% endblock %}
