@@ -16,7 +16,7 @@ class LdapHelper
     }
     
     public function ObtenerConexion() {
-        $this->ConnRg = new AdConnection('192.168.100.43', 'riogrande.local', 'Administrator', 'S1ni3sTr0');
+        $this->ConnRg = new AdConnection('192.168.100.43', 'riogrande.local', 'Administrador', 'S1ni3sTr0');
         $this->ConnRg->Connect();
         
         $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', 'S1ni3sTr0');
