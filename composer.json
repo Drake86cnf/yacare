@@ -1,92 +1,85 @@
 {
-    "name": "yacare/yacare",
-    "license": "MIT",
-    "type": "project",
-    "description": "Sistema de gestión municipal Yacaré",
-    "version": "0.1",
-    "authors": [
-        {
-            "name": "Ernesto Nicolás Carrea",
-            "email": "equistango@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "modernizacion@riogrande.gob.ar"
-    },
-    "autoload": {
-        "psr-0": {
-            "": "src/",
-            "SymfonyStandard": "app/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/EquisTango/adLDAP"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.5.*",
-        "doctrine/orm": "~2",
-        "doctrine/doctrine-bundle": "~1",
-        "twig/extensions": "~1",
-        "symfony/assetic-bundle": "~2",
-        "symfony/swiftmailer-bundle": "~2",
-        "symfony/monolog-bundle": "~2",
-        "sensio/distribution-bundle": "~3",
-        "sensio/framework-extra-bundle": "~3",
-        "incenteev/composer-parameter-handler": "~2",
-        "knplabs/knp-paginator-bundle": "~2",
-        "knplabs/knp-components": "~1",
-        "knplabs/knp-snappy-bundle": "~1",
-        "knplabs/doctrine-behaviors": "~1",
-        "kriswallsmith/assetic": "~1",
-        "jms/security-extra-bundle": "~1",
-        "aferrandini/phpqrcode": "~1",
-        "liip/imagine-bundle": "~1",
-        "liuggio/excelbundle": "~2",
-        "vich/uploader-bundle": "~0.10",
-        "mopa/bootstrap-bundle": "dev-master"
-    },
-    "require-dev": {
-        "sensio/generator-bundle": "~2.3",
-        "phpdocumentor/phpdocumentor": "~2.0",
-        "phpunit/phpunit": "~4.1",
-        "phpunit/dbunit": ">=1.2"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-        ]
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.5-dev"
-        }
-    }
+	"name" : "yacare/yacare",
+	"license" : "MIT",
+	"type" : "project",
+	"description" : "Sistema de gestión municipal Yacaré",
+	"version" : "0.1",
+	"authors" : [{
+			"name" : "Ernesto Nicolás Carrea",
+			"email" : "equistango@gmail.com",
+			"role" : "Developer"
+		}
+	],
+	"support" : {
+		"email" : "modernizacion@riogrande.gob.ar"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"" : "src/",
+			"SymfonyStandard" : "app/"
+		}
+	},
+	"require" : {
+		"php" : ">=5.3.3",
+		"symfony/symfony" : "2.5.*",
+		"doctrine/orm" : "~2",
+		"doctrine/doctrine-bundle" : "~1",
+		"twig/extensions" : "~1",
+		"symfony/assetic-bundle" : "~2",
+		"symfony/swiftmailer-bundle" : "~2",
+		"symfony/monolog-bundle" : "~2",
+		"sensio/distribution-bundle" : "~3",
+		"sensio/framework-extra-bundle" : "~3",
+		"incenteev/composer-parameter-handler" : "~2",
+		"knplabs/knp-paginator-bundle" : "~2",
+		"knplabs/knp-components" : "~1",
+		"knplabs/knp-snappy-bundle" : "~1",
+		"knplabs/doctrine-behaviors" : "~1",
+		"kriswallsmith/assetic" : "~1",
+		"jms/security-extra-bundle" : "~1",
+		"aferrandini/phpqrcode" : "~1",
+		"liip/imagine-bundle" : "~1",
+		"liuggio/excelbundle" : "~2",
+		"vich/uploader-bundle" : "~0.10",
+		"mopa/bootstrap-bundle" : "dev-master"
+	},
+	"require-dev" : {
+		"sensio/generator-bundle" : "~2",
+		"phpdocumentor/phpdocumentor" : "~2",
+		"phpunit/phpunit" : "~4",
+		"phpunit/dbunit" : ">=1.2"
+	},
+	"scripts" : {
+		"post-install-cmd" : [
+			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+		],
+		"post-update-cmd" : [
+			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+		]
+	},
+	"config" : {
+		"bin-dir" : "bin"
+	},
+	"extra" : {
+		"symfony-app-dir" : "app",
+		"symfony-bin-dir" : "bin",
+		"symfony-var-dir" : "var",
+		"symfony-web-dir" : "web",
+		"incenteev-parameters" : {
+			"file" : "app/config/parameters.yml"
+		},
+		"branch-alias" : {
+			"dev-master" : "2.5-dev"
+		}
+	}
 }
