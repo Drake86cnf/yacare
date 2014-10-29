@@ -11,7 +11,7 @@
 			<th>Nombre</th>
 			<th>Cat.</th>
 			<th>Departamento</th>
-			<th>Situación</th>
+			<th>Usuario</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,7 +21,7 @@
 			<td>{{ entity }}</td>
 			<td>{{ entity.Categoria }}</td>
 			<td>{{ entity.Departamento }}</td>
-			<td>{{ entity.SituacionNombre }}</td>
+			<td>{{ entity.Persona.Username }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
