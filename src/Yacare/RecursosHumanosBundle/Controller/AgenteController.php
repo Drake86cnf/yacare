@@ -31,6 +31,31 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     
     
     /**
+     * @Route("volcar/")
+     * @Route("volcar/{id}")
+     * @Template("YacareRecursosHumanosBundle:Agente:listar.html.twig")
+     */
+    public function volcarAction(Request $request, $id = null)
+    {
+        $this->Paginar = false;
+    
+        if($id) {
+            $this->Where = 'r.id=' . $id;
+        }
+        $res = parent::listarAction($request);
+    
+        $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+    
+        foreach ($res['entities'] as $entity) {
+            $ldap->AgregarOActualizarAgente($entity);
+        }
+    
+        $ldap = null;
+        return $res;
+    }
+    
+    
+    /**
      * Actualizo el servidor de dominio al editar el agente.
      */
     public function guardarActionPostPersist($entity, $editForm)
