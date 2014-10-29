@@ -46,12 +46,16 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
     
+        $AgentesVolcados = array();
         foreach ($res['entities'] as $Agente) {
             if($Agente->getPersona()->PuedeAcceder()) {
                 $ldap->AgregarOActualizarAgente($Agente);
+                $AgentesVolcados[] = $Agente;
             }
         }
     
+        $res['entities'] = $AgentesVolcados;
+        
         $ldap = null;
         return $res;
     }
