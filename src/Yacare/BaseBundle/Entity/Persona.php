@@ -328,7 +328,14 @@ class Persona implements UserInterface, \Serializable
         }
         return $res;
     }
-    
+
+    /**
+     * @ignore
+     */
+    public function setUsername($Username)
+    {
+        $this->Username = strtolower($Username);
+    }
 
     public function getPasswordEnc()
     {
@@ -619,13 +626,6 @@ class Persona implements UserInterface, \Serializable
         return $this->Username;
     }
 
-    /**
-     * @ignore
-     */
-    public function setUsername($Username)
-    {
-        $this->Username = $Username;
-    }
 
     /**
      * @ignore
