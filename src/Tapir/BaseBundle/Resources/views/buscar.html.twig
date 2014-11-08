@@ -1,11 +1,21 @@
 {% set filtro_buscar = app.request.get('filtro_buscar') %}
+{% if pagina_buscar_destino is defined %}
+	{% set pagina_buscar_destino_final = pagina_buscar_destino %}
+{% else %}
+	{% set pagina_buscar_destino_final = '' %}
+{% endif %}
+{% if '?' in pagina_buscar_destino_final %}
+	{% set pagina_buscar_destino_final = pagina_buscar_destino_final ~ '&' %}
+{% else %}
+	{% set pagina_buscar_destino_final = pagina_buscar_destino_final ~ '?' %}
+{% endif %}
 <div class="input-group">
 	<input class="form-control input-sm" type="text" autocomplete="off"
 		autofocus size="50" maxlength="100" id="filtro_buscar"
 		id="filtro_buscar" name="filtro_buscar" placeholder="Buscar..."
 		value="{{ filtro_buscar }}" style="max-width: 140px" />
     {% if filtro_buscar %}
-    <button class="btn btn-sm btn-primary" onclick="tapirNavegarA('?filtro_buscar=');"><i class="fa fa-times-circle"></i></button>
+    <button id="tapir_buscar_todo" class="btn btn-sm btn-primary" onclick="tapirNavegarA('{{ pagina_buscar_destino_final|raw }}filtro_buscar=');"><i class="fa fa-times-circle"></i></button>
     {% endif %}
 </div>
 
@@ -13,8 +23,8 @@
 //$(document).ready(function() {
     $('#filtro_buscar').keyup(function (e) {
         if (e.which === 13) {
-            e.preventDefault();
-            tapirNavegarA('?filtro_buscar=' + $('#filtro_buscar').val());
+        	e.preventDefault();
+            tapirNavegarA('{{ pagina_buscar_destino_final|raw }}filtro_buscar=' + $('#filtro_buscar').val());
         }
     });
 /// });

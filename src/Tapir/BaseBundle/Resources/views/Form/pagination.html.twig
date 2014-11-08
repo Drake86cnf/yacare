@@ -24,7 +24,7 @@
                     name="paginar_numero_ir" placeholder="escriba el número de página" value="{{ current }}">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button"
-                        onClick="tapirNavegarA('{{ path(route, query|merge({(pageParameterName): null})) }}&page='
+                        onClick="tapirNavegarA('{{ path(route, query|merge({(pageParameterName): null, 'placeholder': 0})) }}&page='
                             + $('#paginar_numero_ir').val()); $('#paginar_modal').modal('hide');">Ir</button>
                 </span>
             </div><!-- /input-group -->

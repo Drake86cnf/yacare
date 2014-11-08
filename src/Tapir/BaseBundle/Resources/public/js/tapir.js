@@ -74,6 +74,15 @@ function tapirMostrarModalEn(url, destino) {
 	return false;
 }
 
+
+/**
+ * Vuelve hacia atrás (como el botón atrás del navegador).
+ */
+function tapirAtras() {
+	history.go(-1);
+	return false;
+}
+
 /**
  * Seguir un enlace, pero via AJAX.
  */
