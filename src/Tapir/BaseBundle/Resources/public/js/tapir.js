@@ -79,7 +79,7 @@ function tapirMostrarModalEn(url, destino) {
  * Vuelve hacia atrás (como el botón atrás del navegador).
  */
 function tapirAtras() {
-	history.go(-1);
+	window.history.back();
 	return false;
 }
 

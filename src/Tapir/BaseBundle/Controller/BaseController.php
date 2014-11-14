@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 abstract class BaseController extends Controller
 {
-
     /**
      *
      * @var string El nombre del vendor al cual pertenece este controlador.
@@ -131,6 +130,8 @@ abstract class BaseController extends Controller
      */
     protected function ArrastrarVariables($valorInicial = null, $incluirDelSistema = true)
     {
+    	
+    	
         if (! $valorInicial)
             $valorInicial = array();
         
