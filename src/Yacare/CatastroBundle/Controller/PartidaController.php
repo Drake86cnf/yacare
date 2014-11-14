@@ -19,7 +19,7 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         $this->ConservarVariables[] = 'filtro_seccion';
         $this->ConservarVariables[] = 'filtro_macizo';
         $this->ConservarVariables[] = 'filtro_partida';
-        $this->BuscarPor = 'Numero, nombre';
+        $this->BuscarPor = 'Numero, Nombre';
         $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
 

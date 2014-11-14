@@ -56,7 +56,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     private function ObtenerRelevamientos()
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT r.id, r.nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.nombre");
+        $query = $em->createQuery("SELECT r.id, r.Nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.Nombre");
         return $query->getResult();
     }
 
