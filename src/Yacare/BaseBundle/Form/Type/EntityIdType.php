@@ -46,6 +46,10 @@ class EntityIdType extends AbstractType
             'em' => null,
             'property' => 'Nombre',
             'query_builder' => null,
+            /* 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
+            {
+                return $er->createQueryBuilder('i');
+            }, */
             'filters' => null,
             'hidden' => true,
             'multiple' => false

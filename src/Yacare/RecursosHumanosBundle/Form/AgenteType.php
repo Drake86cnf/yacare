@@ -18,7 +18,11 @@ class AgenteType extends AbstractType
                 'label' => 'Grupos',
                 'class' => 'YacareRecursosHumanosBundle:AgenteGrupo',
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+                'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
+                {
+                    return $er->createQueryBuilder('i');
+                }
             ))
             ->add('FechaIngreso', 'date', array(
                 'years' => range(1900, 2099),
