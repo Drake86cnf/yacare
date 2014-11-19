@@ -141,8 +141,6 @@ abstract class BaseController extends Controller
      */
     protected function ArrastrarVariables($valorInicial = null, $incluirDelSistema = true)
     {
-    	
-    	
         if (! $valorInicial)
             $valorInicial = array();
         
