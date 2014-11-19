@@ -51,7 +51,7 @@ abstract class AbmController extends BaseController
         }
 
         if (! isset($this->BuscarPor)) {
-            $this->BuscarPor = 'nombre';
+            $this->BuscarPor = 'Nombre';
         }
     }
 
