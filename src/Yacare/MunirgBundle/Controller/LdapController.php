@@ -33,7 +33,7 @@ class LdapController extends Controller
         $Dominio = 'municipiorg.gob.ar';
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
-        $Documento = $request->get('_documento');
+        $Documento = str_replace(array('.', ' ', '-', ','), '', $request->get('_documento'));
         
         if(!$Documento || !$Usuario || !$Contrasena) {
             $this->get('session')
@@ -102,7 +102,7 @@ class LdapController extends Controller
         $Dominio = 'municipiorg.gob.ar';
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
-        $Documento = $request->get('_documento');
+        $Documento = str_replace(array('.', ' ', '-', ','), '', $request->get('_documento'));
     
         $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array('DocumentoNumero' => $Documento));
         if (count($Persona) != 1) {
