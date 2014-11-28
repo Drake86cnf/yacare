@@ -99,7 +99,7 @@ class StringHelper
     
     static public function Desoraclizar($text)
     {
-        return trim(StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
+        return trim(StringHelper::ProperCase(StringHelper::PonerTildes(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text)))));
     }
 
     
