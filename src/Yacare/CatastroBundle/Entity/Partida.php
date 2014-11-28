@@ -124,7 +124,8 @@ class Partida
 
     public function getSmpu()
     {
-        $res = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+        $res = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . 
+            ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
         if ($this->UnidadFuncional > 0) {
             $res .= ', UF ' . $this->UnidadFuncional;
         }
@@ -133,27 +134,31 @@ class Partida
 
     public function CalcularNombre()
     {
-        if ($this->getDomicilioCalle()) {
-            $this->nombre = $this->getDomicilioCalle()->getNombre();
+        if ($this->getDomicilioCalle() && $this->getDomicilioCalle()->getId()) {
+            
+            $this->Nombre = $this->getDomicilioCalle()->getNombre();
+            
             if ($this->DomicilioNumero) {
-                $this->nombre .= ' Nº ' . $this->DomicilioNumero;
+                $this->Nombre .= ' Nº ' . $this->DomicilioNumero;
             }
             if ($this->DomicilioPiso) {
-                $this->nombre .= ', piso ' . $this->DomicilioPiso;
+                $this->Nombre .= ', piso ' . $this->DomicilioPiso;
             }
             if ($this->DomicilioPuerta) {
-                $this->nombre .= ', pta. ' . $this->DomicilioPuerta;
+                $this->Nombre .= ', pta. ' . $this->DomicilioPuerta;
             }
             
-            $this->nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
+                $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
             if ($this->UnidadFuncional > 0) {
-                $this->nombre .= ', UF ' . $this->UnidadFuncional;
+                $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
-            $this->nombre .= ")";
+            $this->Nombre .= ")";
         } else {
-            $this->nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
+                $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
             if ($this->UnidadFuncional > 0) {
-                $this->nombre .= ', UF ' . $this->UnidadFuncional;
+                $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
         }
     }
@@ -161,7 +166,7 @@ class Partida
     public function getNombre()
     {
         $this->CalcularNombre();
-        return $this->nombre;
+        return $this->Nombre;
     }
 
     public function setNombre($Nombre)

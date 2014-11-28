@@ -19,7 +19,7 @@ trait ConNombre
      * entidades puede ser una etiqueta o representación (ToString) de la
      * entidad, por ejemplo "Comprobante Nº 32". 
      * 
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Nombre;
 
@@ -28,10 +28,11 @@ trait ConNombre
      */
     public function __toString()
     {
-        if ($this->getNombre())
-            return $this->getNombre();
-        else
+        if (isset($this->Nombre)) {
+            return $this->Nombre;
+        } else {
             return '';
+        }
     }
 
     /**
