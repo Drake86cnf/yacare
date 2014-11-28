@@ -10,12 +10,6 @@ body {
 	margin-top: 0;
 }
 
-@media print {
-	a[href]:after {
-		content: none !important;
-	}
-}
-
 a.btn-link:hover, a:hover {
 	text-decoration: none !important;
 }
@@ -44,7 +38,7 @@ a, button {
 
 h1, legend {
 	padding: 0px;
-	font-size: 18pt;
+	font-size: 16pt;
 	font-weight: 400;
 	color: gray;
 	margin: 2px 0px;
@@ -56,17 +50,17 @@ h1, legend {
 
 h2 {
 	margin-top: 10px;
-	font-size: 16pt;
+	font-size: 14pt;
 }
 
 h3 {
 	margin-top: 8px;
-	font-size: 14pt;
+	font-size: 12pt;
 }
 
 h4 {
 	margin-top: 6px;
-	font-size: 12pt;
+	font-size: 11pt;
 }
 
 legend small {
@@ -75,7 +69,21 @@ legend small {
 	color: rgb(153, 153, 153);
 }
 
+@media screen and (max-width: 767px) {
+	body, p, label, span, div, td {
+		font-size: 10pt;
+	}
+}
+
 @media print {
+	body {
+		/* min-width: 768px; */
+	}
+	
+	body, p, label, span, div, td {
+		font-size: 9pt;
+	}
+	
 	@page {
 		margin-top: 10mm !important;
 		margin-right: 10mm !important;
@@ -92,8 +100,10 @@ legend small {
 		margin: 0px;
 		padding: 0px !important;
 	}
+	a[href]:after {
+		content: none !important;
+	}
 }
-
 
 .nav-search {
 	position: absolute;

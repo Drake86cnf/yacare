@@ -20,13 +20,27 @@
 
 {% macro grid_label_text(label, text, class) %}
 <div class="row">
-	<div class="col-xs-4 text-right text-label">{{ label|raw }}</div>
+	<div class="col-xs-4 text-right text-label text-nowrap">{{ label|raw }}</div>
 	<div class="col-xs-8 {{ class|default('') }}">{{ text|raw }}</div>
 </div>
 {% endmacro %}
 
+{% macro grid_label_text66(label, text, class) %}
+<div class="row">
+	<div class="col-xs-6 text-right text-label text-nowrap">{{ label|raw }}</div>
+	<div class="col-xs-6 {{ class|default('') }}">{{ text|raw }}</div>
+</div>
+{% endmacro %}
+
+
 {% macro grid_header(label) %}
 <div class="row">
-	<div class="col-xs-8 col-xs-offset-4"><h3 class="text-muteda">{{ label|raw }}</h3></div>
+	<div class="col-xs-8 col-xs-offset-4"><strong>{{ label|raw }}</strong></div>
+</div>
+{% endmacro %}
+
+{% macro grid_header2(label) %}
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-4 pull-left"><h4 class="text-muteda">{{ label|raw }}</h4></div>
 </div>
 {% endmacro %}
