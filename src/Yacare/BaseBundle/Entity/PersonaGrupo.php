@@ -45,7 +45,7 @@ class PersonaGrupo
      *
      * @ORM\Column(type="boolean")
      */
-    private $Dominio;
+    private $Dominio = false;
     
 
     /**
