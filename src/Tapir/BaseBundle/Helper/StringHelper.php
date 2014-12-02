@@ -173,6 +173,8 @@ class StringHelper
             'TELEFÓNICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.',
             '.' => '. ',
             'Nro.' => 'Nº',
+            'N º' => 'Nº',
+            'N°' => 'Nº',
             'S. A. G. C.' => 'S.A.G.C.',
             'S. A.' => 'S.A.',
             'S. R. L.' => 'S.R.L.',
@@ -387,6 +389,55 @@ class StringHelper
         }
         
         return trim($text);
+    }
+    
+    
+    /*
+     * Obtiene el apellido y nombre de la persona por separado.
+     * Devuelve un array con dos elementos (apellidos y nombre).
+     * TODO: mejorar para que reconozca algunos apellidos dobles (por lista).
+     */
+    static public function ObtenerApellidoYNombres($nombreCompleto)
+    {
+        $nombreCompleto = trim(str_replace(array('.'), '', $nombreCompleto));
+        $PartesNombre = explode(' ', $nombreCompleto, 2);
+        
+        if(count($PartesNombre) == 1) {
+            $PartesNombre[] = '';
+        }
+    
+        return $PartesNombre;
+    }
+    
+    
+    /*
+     * Obtiene el nombre de la calle y la altura por separado.
+     * Devuelve un array con dos o tres elementos (calle, altura [y departamento]).
+     * TODO: mejorar para que si no existe 'Nº', reconozca el final del nombre de la calle cuando encuentre un dígito.
+     */
+    static public function ObtenerCalleYNumero($domicilio)
+    {
+        $domicilio = StringHelper::Desoraclizar($domicilio);
+        $PartesNombre = explode('Nº', $domicilio, 2);
+        
+        /* if(count($PartesNombre) == 1) {
+            $PartesNombre = explode(' ', $PartesNombre[0], 2);
+        } */
+    
+        if(count($PartesNombre) == 1) {
+            $PartesNombre[] = '';
+        }
+        
+        $PartesNombre[0] = trim($PartesNombre[0]);
+        $PartesNombre[1] = trim($PartesNombre[1]);
+        
+        $PartesNumero = explode(' ', $PartesNombre[1], 2);
+        if(count($PartesNumero) == 2) {
+            $PartesNombre[1] = trim($PartesNumero[0]);
+            $PartesNombre[2] = trim($PartesNumero[1]);
+        }
+
+        return $PartesNombre;
     }
 }
 

@@ -16,7 +16,7 @@
     <tbody>
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}">
-            <td>{{ entity.Numero }}</td>
+            <td>{{ entity.id }}</td>
             <td>{{ entity.Persona }}</td>
             <td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
             <td class="hidden-xs">{{ entity.Profesion }}</td>

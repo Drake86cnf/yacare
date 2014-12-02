@@ -12,34 +12,31 @@ class MatriculadoType extends AbstractType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Numero', null, array(
-            'label' => 'Número',
-            'required' => true
-        ))
-            ->add('Persona', 'entity_id', array(
-            'label' => 'Persona',
-            'property' => 'NombreVisible',
-            'class' => 'Yacare\BaseBundle\Entity\Persona',
-            'required' => true
-        ))
+        $builder->add('Persona', 'entity_id', array(
+                'label' => 'Persona',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true
+            ))
             ->add('Profesion', 'choice', array(
-            'label' => 'Profesion',
-            'required' => true,
-            'choices' => array(
-                'Ingeniero civil' => 'Ingeniero civil',
-                'Arquitecto' => 'Arquitecto',
-                'Maestro mayor de obras' => 'Maestro mayor de obras',
-                'Técnico constructor' => 'Técnico constructor'
-            )
-        ))
+                'label' => 'Profesion',
+                'required' => true,
+                'choices' => array(
+                    'Ingeniero civil' => 'Ingeniero civil',
+                    'Ingeniero en construcciones' => 'Ingeniero en construcciones',
+                    'Arquitecto' => 'Arquitecto',
+                    'Maestro mayor de obras' => 'Maestro mayor de obras',
+                    'Técnico constructor' => 'Técnico constructor'
+                )
+            ))
             ->add('FechaVencimiento', 'date', array(
-            'years' => range(2000, 2099),
-            'input' => 'datetime',
-            'widget' => 'single_text',
-            'format' => 'dd/MM/yyyy',
-            'label' => 'Fecha de vencimiento',
-            'required' => false
-        ));
+                'years' => range(2000, 2099),
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'label' => 'Fecha de vencimiento',
+                'required' => false
+            ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

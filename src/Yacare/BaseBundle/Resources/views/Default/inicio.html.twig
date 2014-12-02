@@ -4,11 +4,11 @@
 
 {% block pagina_contenido %}
 
-<div class="jumbotron">
+<div class="jumbotron"><div class="container-fluid">
     <h1>Bienvenido <img class="pull-right" src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}" style="padding: 32px; transform: scaleX(-1);" alt="{{ tapir_nombreaplicacion }}" /></h1>
     
     <p>{{ tapir_cliente }}.</p>
-</div>
+</div></div>
 
 {% if app.user %}
 <div class="container-fluid">
