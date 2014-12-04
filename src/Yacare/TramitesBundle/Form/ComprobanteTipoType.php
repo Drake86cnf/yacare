@@ -22,7 +22,7 @@ class ComprobanteTipoType extends AbstractType
             ->add('PeriodoValidez', 'choice', array(
             'label' => 'Período de validez',
             'required' => false,
-            'empty_value' => 'Sin vencimiento',
+            'placeholder' => 'Sin vencimiento',
             'choices' => array(
                 '1D' => '1 día',
                 '2D' => '2 días',

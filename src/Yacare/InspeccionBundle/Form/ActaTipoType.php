@@ -15,10 +15,9 @@ class ActaTipoType extends AbstractType
         ))
             ->add('Departamento', 'entity', array(
             'label' => 'Departamento',
-            'empty_value' => 'Sin especificar',
+            'placeholder' => 'Sin especificar',
             'class' => 'YacareOrganizacionBundle:Departamento',
             'required' => false,
-            'empty_value' => false,
             'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
             {
                 return $er->createQueryBuilder('i')

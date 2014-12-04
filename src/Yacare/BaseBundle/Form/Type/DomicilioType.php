@@ -17,7 +17,7 @@ class DomicilioType extends AbstractType
             'attr' => array(
                 'style' => 'width: 240px;'
             ),
-            'empty_value' => 'Otra (escribir a continuación)',
+            'placeholder' => 'Otra (escribir a continuación)',
             'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
             {
                 return $er->createQueryBuilder('i');

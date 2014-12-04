@@ -28,12 +28,14 @@ class PersonaType extends AbstractType
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ))
             ->add('UsuarioRoles', 'entity', array(
                 'label' => 'Roles',
                 'class' => 'TapirBaseBundle:PersonaRol',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
                 'label' => 'Domicilio'
@@ -70,7 +72,7 @@ class PersonaType extends AbstractType
             ))
             ->add('Pais', 'entity', array(
                 'label' => 'Nacionalidad',
-                'empty_value' => 'Sin especificar',
+                'placeholder' => 'Sin especificar',
                 'class' => 'YacareBaseBundle:Pais',
                 'required' => false
             ))

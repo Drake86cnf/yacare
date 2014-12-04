@@ -39,7 +39,9 @@ class Persona implements UserInterface, \Serializable
      * Los grupos a los cuales pertenece la persona.
      * 
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
-     * @ORM\JoinTable(name="Base_Persona_PersonaGrupo")
+     * @ORM\JoinTable(name="Base_Persona_PersonaGrupo",
+     *  joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
+     * )
      */
     private $Grupos;
     
@@ -47,7 +49,9 @@ class Persona implements UserInterface, \Serializable
      * Los roles asignados al usuario.
      * 
      * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol")
-     * @ORM\JoinTable(name="Base_Persona_PersonaRol")
+     * @ORM\JoinTable(name="Base_Persona_PersonaRol",
+     *  joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
+     * )
      */
     private $UsuarioRoles;
 

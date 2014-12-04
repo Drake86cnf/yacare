@@ -55,7 +55,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             ))
                 ->add('DepositoClase', 'entity', array(
                 'label' => 'Tipo de depósito',
-                'empty_value' => '(sólo para depósitos)',
+                'placeholder' => '(sólo para depósitos)',
                 'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
                 'required' => false
             ))

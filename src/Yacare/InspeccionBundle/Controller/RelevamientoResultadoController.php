@@ -18,6 +18,6 @@ class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmCo
     {
         parent::IniciarVariables();
         
-        $this->OrderBy = 'Grupo, nombre';
+        $this->OrderBy = 'Grupo, Nombre';
     }
 }

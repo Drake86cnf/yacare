@@ -30,7 +30,7 @@ class AsociacionRequisitoType extends AbstractType
             ->add('Propiedad', 'choice', array(
             'label' => 'De',
             'required' => false,
-            'empty_value' => 'n/a',
+            'placeholder' => 'n/a',
             'choices' => array(
                 'Titular' => 'Titular',
                 'Apoderado' => 'Apoderado',
@@ -65,7 +65,7 @@ class AsociacionRequisitoType extends AbstractType
             ->add('CondicionEs', 'choice', array(
             'label' => 'Es',
             'required' => false,
-            'empty_value' => 'n/a',
+            'placeholder' => 'n/a',
             'choices' => array(
                 '==' => 'igual',
                 '>' => 'mayor',
