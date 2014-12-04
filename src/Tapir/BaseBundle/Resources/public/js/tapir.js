@@ -96,6 +96,8 @@ function tapirNavegarA(url) {
  * toma "page-wrapper" que es el contenedor principal.
  */
 function tapirCargarUrlEn(url, destino) {
+	$('#ajax-spinner').show();
+	
 	if (destino === undefined) {
 		destino = '#page-wrapper';
 
@@ -131,6 +133,8 @@ function tapirCargarUrlEn(url, destino) {
 		}
 
 		MejorarElementos();
+		
+		$('#ajax-spinner').hide();
 
 		// Activo la función de los enalces AJAX
 		$(destino + ' [data-toggle="ajax-link"]').click(
@@ -150,6 +154,7 @@ function tapirCargarUrlEn(url, destino) {
 	}).fail(function(jqXHR) {
 		// Muestro un error
 		$(destino).html(jqXHR.responseText);
+		$('#ajax-spinner').hide();
 	});
 
 	return false;

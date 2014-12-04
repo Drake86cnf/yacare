@@ -17,4 +17,6 @@ $(document).ready(function() {
         e.preventDefault();
         return tapirCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
     });
+    
+    $('#ajax-spinner').hide();
 });

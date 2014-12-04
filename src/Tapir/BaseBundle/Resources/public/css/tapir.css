@@ -187,6 +187,15 @@ legend small {
 	padding-left: 8px;
 }
 
-
-
-
+.ajax-spinner {
+	z-index: 100000;
+	position: fixed;
+	width: 120px;
+	height: 28px;
+	left: 50%;
+	top: 10px;
+	width: 120px;
+    margin-left: -60px;
+    padding: 4px;
+    background-color: #f3e35a;
+}
