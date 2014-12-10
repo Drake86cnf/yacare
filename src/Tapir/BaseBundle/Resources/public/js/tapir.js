@@ -96,7 +96,7 @@ function tapirNavegarA(url) {
  * toma "page-wrapper" que es el contenedor principal.
  */
 function tapirCargarUrlEn(url, destino) {
-	$('#ajax-spinner').show();
+	AjaxSpinnerTimeout = setTimeout(function(){ $('#ajax-spinner').show(); }, 700);
 	
 	if (destino === undefined) {
 		destino = '#page-wrapper';
@@ -134,6 +134,7 @@ function tapirCargarUrlEn(url, destino) {
 
 		MejorarElementos();
 		
+		clearTimeout(AjaxSpinnerTimeout);
 		$('#ajax-spinner').hide();
 
 		// Activo la función de los enalces AJAX
@@ -153,6 +154,7 @@ function tapirCargarUrlEn(url, destino) {
 				});
 	}).fail(function(jqXHR) {
 		// Muestro un error
+		clearTimeout(AjaxSpinnerTimeout);
 		$(destino).html(jqXHR.responseText);
 		$('#ajax-spinner').hide();
 	});

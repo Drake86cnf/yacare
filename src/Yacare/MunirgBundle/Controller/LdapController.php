@@ -43,10 +43,15 @@ class LdapController extends Controller
         }
         
         $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array('DocumentoNumero' => $Documento));
-        if (count($Persona) != 1) {
+        if (count($Persona) < 1) {
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 'No se encuentra una persona relacionada al DNI Nº ' . $Documento . ' en la base de datos.');
+            return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
+        } else if (count($Persona) > 1) {
+            $this->get('session')
+                ->getFlashBag()
+                ->add('danger', 'Hay más de una persona asociada al DNI Nº ' . $Documento . ' en la base de datos.');
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
         
