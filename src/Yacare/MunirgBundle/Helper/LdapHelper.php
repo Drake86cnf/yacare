@@ -16,7 +16,7 @@ class LdapHelper
     }
     
     public function ObtenerConexion() {
-        $this->ConnRg = new AdConnection('192.168.100.43', 'riogrande.local', 'Administrador', 'S1ni3sTr0');
+        $this->ConnRg = new AdConnection('192.168.100.41', 'riogrande.local', 'Administrador', 'S1ni3sTr0');
         $this->ConnRg->Connect();
         
         $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', 'S1ni3sTr0');
@@ -28,7 +28,7 @@ class LdapHelper
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         //setlocale(LC_CTYPE, "en_US.UTF-8");
-        exec("ssh -n root@corona 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " . escapeshellarg($Contrasena) . "'");
+        exec("ssh -n root@pegasus 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " . escapeshellarg($Contrasena) . "'");
         // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
         // una sesión del servidor web. 
         exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 \"net user " . addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
