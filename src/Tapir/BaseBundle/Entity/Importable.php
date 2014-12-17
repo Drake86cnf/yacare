@@ -4,7 +4,7 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Agrega la los campos (y métodos) para hacer seguimiento de registros importados 
+ * Agrega los campos (y métodos) para hacer seguimiento de registros importados 
  * desde otra fuente de datos.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
