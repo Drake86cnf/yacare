@@ -32,23 +32,59 @@ class FormatExtension extends \Twig_Extension
             new \Twig_SimpleFilter('tapir_importe', array(
                 $this,
                 'tapir_importe'
-            ))
+            )),
+        	new \Twig_SimpleFilter('tapir_porcentaje', array(
+        			$this,
+        			'tapir_porcentaje'
+        	))
         );
     }
 
+
+    public function tapir_porcentaje($number, $decimales = 0, $option = '%')
+    {
+    	if (strpos($option, '-') !== false && $number == 0) {
+    		return '-';
+    	} else {
+    		if ($number) {
+    			$price = number_format($number, $decimales, ',', ' ');
+    			// $price = $price;
+    			if(strpos($option, '%') !== false) {
+                	return $price . '%';
+                } else {
+                	return $price;
+                }
+    		} else {
+    			if(strpos($option, '%') !== false) {
+    				return $number . '%';
+    			} else {
+    				return $number;
+    			}
+    		}
+    	}
+    }
+
+
     public function tapir_importe($number, $option = '$')
     {
-        if ($option == '-') {
-            if ($number == 0) {
-                return $option;
-            }
+        if (strpos($option, '-') !== false && $number == 0) {
+            return '-';
         } else {
             if ($number) {
                 $price = number_format($number, 2, ',', ' ');
                 // $price = $price;
-                return '$ ' . $price;
+                if(strpos($option, '$') !== false) {
+                	return '$ ' . $price;
+                } else {
+                	return $price;
+                }
+            } else {
+            	if(strpos($option, '$') !== false) {
+            		return '$ ' . $number;
+            	} else {
+            		return $number;
+            	}
             }
-            return '$ ' . $number;
         }
     }
 
