@@ -289,19 +289,24 @@ class FormatExtension extends \Twig_Extension
                                 '%u' => $month
                             ));
                         } else
-                            if ($year == 1 and $month > 1) {
+                            if ($year == 1 && $month > 1) {
                                 return vsprintf('hace %d año y %u meses', array(
                                     '%d' => $year,
                                     '%u' => $month
                                 ));
                             } else
-                                if ($month == 1 and $year > 1) {
+                                if ($month == 1 && $year > 1) {
                                     return vsprintf('hace %d años y %u mes', array(
                                         '%d' => $year,
                                         '%u' => $month
                                     ));
-                                } else {
+                                } else if ($month > 0) {
                                     return vsprintf('hace %d años y %u meses', array(
+                                            '%d' => $year,
+                                            '%u' => $month
+                                    ));
+                                } else {
+                                    return vsprintf('hace %d años', array(
                                         '%d' => $year,
                                         '%u' => $month
                                     ));
