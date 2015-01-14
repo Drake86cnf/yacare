@@ -173,6 +173,11 @@ function MejorarElementos() {
 	 * $('.datepicker').datepicker({ showButtonPanel: true, dateFormat:
 	 * 'dd/mm/yy', showAnim: '', changeMonth: true, changeYear: true }); }
 	 */
+	$('.with-datepicker').datepicker({
+	    todayBtn: "linked",
+	    language: "es",
+	    autoclose: true
+	});
 
 	// notifications
 	$('.noty').click(function(e) {
