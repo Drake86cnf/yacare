@@ -9,6 +9,8 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  *
  * @ORM\Table(name="Base_PersonaRol")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class PersonaRol implements RoleInterface
 {

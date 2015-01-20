@@ -1,0 +1,28 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Desduplicar personas{% endblock %}
+
+{% block pagina_contenido %}
+
+<div class="container">
+
+<div class="row">
+    <div class="col-md-6"><strong>{{ entity1.NombreVisible }}</strong></div>
+    <div class="col-md-6"><strong>{{ entity2.NombreVisible }}</strong></div>
+</div>
+<div class="row">
+    <div class="col-md-6">Documento: {{ entity1.DocumentoNumero }}</div>
+    <div class="col-md-6">Documento: {{ entity2.DocumentoNumero }}</div>
+</div>
+<div class="row">
+    <div class="col-md-6">Domicilio: {{ entity1.Domicilio }}</div>
+    <div class="col-md-6">Domicilio: {{ entity2.Domicilio }}</div>
+</div>
+
+</div>
+
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_desduplicar', { 'id1': entity1.id, 'id2': entity2.id, 'ok': 1 } ) }}" class="btn btn-success"><i class="fa fa-check"></i> Confirmar</a>
+{% endblock pagina_acciones %}
