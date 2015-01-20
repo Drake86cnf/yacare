@@ -1,7 +1,7 @@
 services:
     tapir.base_bundle.auditable_listener:
         class: "Tapir\\BaseBundle\\ORM\\Auditable\\AuditableListener"
-        arguments: [ '@service_container', '@security.context' ]
+        arguments: [ '@service_container' ]
         public:  false
         tags:
             - { name: doctrine.event_subscriber }

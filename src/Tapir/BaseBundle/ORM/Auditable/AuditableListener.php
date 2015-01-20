@@ -14,19 +14,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class AuditableListener implements EventSubscriber
 {
     private $container;
-    private $securityContext;
-    
-    public function __construct(Container $container, $securityContext) {
+
+    public function __construct(Container $container) {
         $this->container = $container;
-        $this->securityContext = $securityContext;
-    }  
+    }
 
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $em            = $eventArgs->getEntityManager();
         $entity        = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user          = $this->securityContext->getToken()->getUser();
+        $user          = $this->container->get('security.context')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $Registro = new \Tapir\BaseBundle\Model\Auditable\Registro();
@@ -58,7 +56,7 @@ class AuditableListener implements EventSubscriber
         $uow           = $em->getUnitOfWork();
         $entity        = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user          = $this->securityContext->getToken()->getUser();
+        $user          = $this->container->get('security.context')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $uow->computeChangeSet($classMetadata, $entity);
@@ -81,7 +79,7 @@ class AuditableListener implements EventSubscriber
         $em            = $eventArgs->getEntityManager();
         $entity        = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user          = $this->securityContext->getToken()->getUser();
+        $user          = $this->container->get('security.context')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $Registro = new \Tapir\BaseBundle\Model\Auditable\Registro();
