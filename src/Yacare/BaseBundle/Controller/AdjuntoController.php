@@ -24,7 +24,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(array(
+        $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(array(
             'EntidadTipo' => $tipo,
             'EntidadId' => $id
         ));
