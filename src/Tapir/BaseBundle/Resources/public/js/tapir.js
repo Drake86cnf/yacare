@@ -12,6 +12,35 @@ function tapirImprimir() {
 	window.print();
 }
 
+function tapirAgregarElementoUri(url, nombre, valor) {
+    if(url.indexOf('?') >= 0) {
+        url = url + '&' + encodeURIComponent(nombre) + '=' + encodeURIComponent(valor);
+    } else {
+    	url = url + '?' + encodeURIComponent(nombre) + '=' + encodeURIComponent(valor);
+    }
+    return url;
+}
+
+function tapirEnfocarControl(elemId) {
+    var elem = $(elemId);
+
+    if(elem != null) {
+        if(elem.createTextRange) {
+            var range = elem.createTextRange();
+            range.move('character', elem.value.length);
+            range.select();
+        } else {
+            if(elem.selectionStart) {
+                elem.focus();
+                elem.setSelectionRange(elem.value.length, elem.value.length);
+            } else {
+                elem.focus();
+            }
+        }
+    }
+}
+
+
 /**
  * Función ayudante de los campos de formulario Symfony tipo "entity_id"
  */
@@ -36,14 +65,14 @@ function tapirMostrarModalEn(url, destino) {
 	<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
 	</div></div></div>').modal();
 	
-		// Agrego la variable tapir_mostrarmodal=1 para que incluya el marco
+		// Agrego la variable tapir_modal=1 para que incluya el marco
 		var urlFinal = url;
 		if (urlFinal.indexOf('?') < 0) {
 			urlFinal = urlFinal + '?';
 		} else {
 			urlFinal = urlFinal + '&';
 		}
-		urlFinal = urlFinal + 'tapir_mostrarmodal=1';
+		urlFinal = urlFinal + 'tapir_modal=1';
 	
 		$.get(urlFinal, function(data) {
 			div_modal.html(data).modal({
@@ -86,9 +115,23 @@ function tapirAtras() {
 /**
  * Seguir un enlace, pero via AJAX.
  */
-function tapirNavegarA(url) {
+function tapirNavegarA(url, destino) {
 	// parent.location = url; // sin AJAX
-	tapirCargarUrlEn(url); // con AJAX
+	tapirCambiarDireccion(url);
+	tapirCargarUrlEn(url, destino); // con AJAX
+}
+
+
+/**
+ * Cambiar la URL en la barra de dirección (y en el historial) del navegador.
+ */
+function tapirCambiarDireccion(url) {
+	if (url !== window.location) {
+		urlfinal = url.replace('&sinencab=1', '');
+		window.history.pushState({
+			path : urlfinal
+		}, '', urlfinal);
+	}
 }
 
 /**
@@ -98,15 +141,8 @@ function tapirNavegarA(url) {
 function tapirCargarUrlEn(url, destino) {
 	AjaxSpinnerTimeout = setTimeout(function(){ $('#ajax-spinner').show(); }, 700);
 	
-	if (destino === undefined) {
+	if (destino === undefined || destino === '') {
 		destino = '#page-wrapper';
-
-		// Agrego la nueva URL al historial del navegador
-		if (url !== window.location) {
-			window.history.pushState({
-				path : url
-			}, '', url);
-		}
 	}
 
 	$(".tinymce").each(function() {
