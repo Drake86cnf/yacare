@@ -82,11 +82,6 @@ liip_imagine:
                 thumbnail: { size: [256, 256], mode: outbound }
 
 services:
-    tapirbasebundle.twig.tapir_formatextension:
-        class: Tapir\BaseBundle\Twig\FormatExtension
-        tags:
-        -  { name: twig.extension }
-
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
