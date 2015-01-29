@@ -43,7 +43,7 @@ abstract class BaseController extends Controller
 
     /**
      * @var string El nombre de la entidad para las rutas generadas.
-     *     
+     *
      *      En la mayoría de los casos se deja en blanco y se asume que es lo mismo
      *      que EntityName. Puede ser diferente del nombre de la entidad en el bundle,
      *      por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
@@ -54,7 +54,7 @@ abstract class BaseController extends Controller
      *
      * @var array Un array con los nombres de las variables que se deben conservar al pasar de
      *      una acción a otra.
-     *     
+     *
      * @see ArrastrarVariables()
      * @see IniciarVariables()
      */
@@ -70,17 +70,17 @@ abstract class BaseController extends Controller
         parent::setContainer($container);
         $this->IniciarVariables();
     }
-    
-    
+
+
     /**
      * Obtiene el Entity Manager de Doctrine.
      */
     protected function getEm() {
     	return $this->getDoctrine()->getManager();
     }
-    
 
-    
+
+
     /**
      * Inicia las variables internas del controlador.
      *
@@ -91,38 +91,38 @@ abstract class BaseController extends Controller
         if (! isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
         }
-        
+
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
-        
+
         if (! isset($this->BundleName)) {
             $this->BundleName = $PartesNombreClase[0];
         }
-        
+
         if (! isset($this->EntityName)) {
             $this->EntityName = $PartesNombreClase[1];
         }
-        
+
         if (! isset($this->CompleteEntityName)) {
             $this->CompleteEntityName = '\\' . $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
         }
-        
+
         if (! isset($this->BaseRouteEntityName)) {
             $this->BaseRouteEntityName = $this->EntityName;
         }
-        
+
         if (! isset($this->ConservarVariables)) {
             $this->ConservarVariables = array(
                 'filtro_buscar'
             );
         }
     }
-    
-    
+
+
     public function ObtenerVariable($request, $varName) {
     	return $request->query->get($varName);
     }
 
-    
+
     /**
      * Arrastra variables entre acciones.
      *
@@ -134,8 +134,8 @@ abstract class BaseController extends Controller
      *
      * @see $ConservarVariables
      *
-     * @param string $valorInicial            
-     * @param bool $incluirDelSistema            
+     * @param string $valorInicial
+     * @param bool $incluirDelSistema
      * @return string El array con todas las variables necesarias para pasar a
      *         una acción.
      */
@@ -143,9 +143,9 @@ abstract class BaseController extends Controller
     {
         if (! $valorInicial)
             $valorInicial = array();
-        
+
         $request = $this->getRequest();
-        
+
         if ($incluirDelSistema) {
             $valorInicial['bundlename'] = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
@@ -157,30 +157,30 @@ abstract class BaseController extends Controller
                 $valorInicial['paginar'] = $this->Paginar;
             }
         }
-        
+
         if ($this->ConservarVariables) {
             foreach ($this->ConservarVariables as $vr) {
-                if (! isset($valorInicial[$vr])) {
-                    $val = $request->query->get($vr);
-                    if ($val) {
+                $val = $request->query->get($vr);
+                if ($val) {
+                    if (! isset($valorInicial[$vr])) {
                         $valorInicial[$vr] = $val;
-                        $valorInicial['arrastre'][$vr] = $val;
                     }
+                    $valorInicial['arrastre'][$vr] = $val;
                 }
             }
         }
-        
+
         // Arrastro el valor de la variable page
         $val = $request->query->get('page');
         if ($val && ((int)($val)) > 1) {
             $valorInicial['arrastre']['page'] = $val;
             $valorInicial['page'] = $val;
         }
-        
+
         if (! isset($valorInicial['arrastre'])) {
             $valorInicial['arrastre']['d'] = '';
         }
-        
+
         return $valorInicial;
     }
 
