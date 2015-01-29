@@ -56,7 +56,7 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-{% if app.request.get('tapir_mostrarmodal') %}
+{% if app.request.get('tapir_modal') %}
     <a data-toggle="ajax-link" class="btn btn-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}"><i class="fa fa-print"></i> Versión para imprimir</a>
     <button data-dismiss="modal" class="btn btn-link pull-right"><i class="fa fa-reply"></i> Volver</button>
 {% else %}

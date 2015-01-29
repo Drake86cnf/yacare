@@ -23,7 +23,16 @@ trait ConBuscar
      */
     public function buscarAction(Request $request)
     {
-        return $this->ArrastrarVariables(array());
+        $this->Paginar = false;
+        $this->Limit = 500;
+        $filtro_buscar = $request->query->get('filtro_buscar');
+        if($filtro_buscar) {
+            // Si hay texto de búsqueda, derivo a buscar
+            return $this->listarAction($request);
+        } else {
+            // Si no hay texto de búsqueda, devuelvo una respuesta vacía
+            return $this->ArrastrarVariables(array());
+        }
     }
 
     /**
@@ -33,10 +42,8 @@ trait ConBuscar
      * @Route("buscarresultados/")
      * @Template()
      */
-    public function buscarresultadosAction(Request $request)
+    /* public function buscarresultadosAction(Request $request)
     {
-        $this->Paginar = false;
-        $this->Limit = 500;
-        return $this->listarAction($request);
-    }
+        
+    } */
 }

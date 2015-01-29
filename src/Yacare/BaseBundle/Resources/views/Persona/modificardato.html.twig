@@ -1,0 +1,12 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Solicitud de modificación{% endblock %}
+
+{% block pagina_contenido %}
+    {{ form_errors(edit_form) }}
+    {{ form_widget(edit_form) }}
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-success"><i class="fa fa-check"></i> Guardar</a>
+{% endblock pagina_acciones %}

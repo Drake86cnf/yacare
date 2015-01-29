@@ -103,13 +103,13 @@
 	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
 		value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
 		data-toggle="modal"
-		href="{{ path(baseroute ~ '_buscar', { 'destcontrol': old_id }) }}"
+		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
 		style="cursor: pointer;" />
     {% set id = old_id %}
     {% set full_name = old_full_name %}
     <span class="input-group-btn">
 		<button class="btn btn-default" type="button" data-toggle="modal"
-			href="{{ path(baseroute ~ '_buscar', { 'destcontrol': id }) }}">
+			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
 			<i class="fa fa-search"></i>
 		</button>
 	</span>

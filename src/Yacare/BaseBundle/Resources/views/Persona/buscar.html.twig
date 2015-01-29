@@ -1,37 +1,91 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
 
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+{% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
+{% if not tapir_buscar_destino %}
+    {% set tapir_buscar_destino = path(baseroute ~ '_ver', arrastre) %}
+{% endif %}
+
 {% block pagina_titulo %}Buscar personas{% endblock %}
 
 {% block pagina_contenido %}
-{% set destcontrol = app.request.get('destcontrol') %}
-
-<div class="form-inline" style="padding-bottom: 10px;">
-    <input class="form-control input input-sm" size="50" maxlength="50" autocomplete="off"
-       onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
-       id="filtro_buscar" name="filtro_buscar" value="" placeholder="Buscar por nombre o DNI..." />
-    <button onclick="buscarPorNombre($('#filtro_buscar').val()); return false;" type="button"
-        class="btn btn-primary btn-sm" id="filtro_buscar_buscar"> Buscar</button>
-</div>
-
 <div id="resultadosbuscar">
-    <p>Puede buscar por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
-</div>
+    <div class="input-group">
+        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus
+           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+           id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o DNI..." />
+        <span class="input-group-btn"><button onclick="buscarPorNombre($('#filtro_buscar').val()); return false;" type="button"
+            class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
+    </div>
 
+{% if entities is defined and entities|length > 0 %}
+    {% if entities|length == 1 %}
+        {% set entity = entities|first %}
+    <script type="text/javascript">
+        $('#filtro_buscar').prop('disabled', true);
+        setTimeout(function() {
+        	seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape("js") }}');
+        }, 3500);
+    </script>
+    <hr />
+    <div class="row">
+        <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
+        <div class="col-xs-8">
+            <h1>¡Encontrado!</h1>
+            <p>Se va a seleccionar automáticamente <strong>{{ entity }}</strong>, DNI {{ entity.DocumentoNumero }},
+            porque es el único resultado que coincide con la búsqueda.</p>
+        </div>
+    </div>
+    {% endif %}
+    
+
+    <table class="table table-responsive table-condensed table-hoverselect">
+    <tbody>
+        {% for entity in entities %}
+            <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape('js') }}'); return false;">
+                <td><i class="fa fa-bullet"></i></td>
+                <td><span style="white-space: nowrap;">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</span></td>
+                <td><span class="text-muted">{{ entity.CuiltODocumento }}</span></td>
+                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Domicilio }}</span></td>
+                <td class="visible-lg"><small class="text-muted">{% for Nombre in entity.Grupos %}<span
+                    class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</small></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+{% else %}
+    <p class="lead">Puede buscar por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
+{% endif %}
+    
 <script type="text/javascript">
     function seleccionarItem(id, detalle) {
-        tapirEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
+        if('{{ tapir_buscar_destino }}'.charAt(0) == '#') {
+            // Si comienza con #, es un selector
+            tapirEntityIdSeleccionarItem('{{ tapir_buscar_destino }}', id, detalle);
+        } else {
+            // De lo contrario, asumo que es una URL
+            url = tapirAgregarElementoUri('{{ tapir_buscar_destino }}', 'id', id);
+        	tapirNavegarA(url);
+        }
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
     
     function buscarPorNombre(nombre) {
-        var url = '{{ path(baseroute ~ "_buscarresultados") }}?filtro_buscar=' + nombre;
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', nombre);
+        if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            tapirCambiarDireccion(url);
+        }
+        url = tapirAgregarElementoUri(url, 'sinencab', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
         tapirCargarUrlEn(url, '#resultadosbuscar');
     }
 
-    $('#filtro_buscar').focus();
+    tapirEnfocarControl('#filtro_buscar');
 </script>
 {% endblock %}
 
-{% block pagina_acciones %}
+{% block pagina_fin %}
+</div>
 {% endblock %}
+

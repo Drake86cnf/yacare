@@ -1,4 +1,9 @@
 services:
+    tapirbasebundle.twig.tapir_formatextension:
+        class: Tapir\BaseBundle\Twig\FormatExtension
+        tags:
+        -  { name: twig.extension }
+        
     tapir.base_bundle.auditable_listener:
         class: "Tapir\\BaseBundle\\ORM\\Auditable\\AuditableListener"
         arguments: [ '@service_container' ]

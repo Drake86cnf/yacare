@@ -16,16 +16,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Domicilio
 {
     use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConNombre;
     use\Tapir\BaseBundle\Entity\Versionable;
     use\Tapir\BaseBundle\Entity\Suprimible;
     use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     use\Yacare\BaseBundle\Entity\ConDomicilio;
+    use\Yacare\BaseBundle\Entity\ConVerificacion;
     use\Yacare\CatastroBundle\Entity\ConPartida;
 
     /**
      * El tipo de domicilio.
      *
+     * 0) Sin especificar, simplemente "domicilio". Especialmente útil para datos importados de otros sistemas.
      * 1) El domicilio real de las personas, es el lugar donde tienen establecido el asiento principal de su residencia
      * y de sus negocios.
      * 2) El domicilio legal es el lugar donde la ley presume, sin admitir prueba en contra, que una persona reside de
@@ -36,13 +39,16 @@ class Domicilio
      *
      * 1 y 2 según Código Civil, Título VI, artículos 89 y 90.
      *
-     * @var integer @ORM\Column(type="integer", nullable=false)
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false)
      */
-    protected $Tipo;
+    protected $Tipo = 0;
 
     static public function TipoNombre($tipo)
     {
         switch ($tipo) {
+            case 0:
+                return '';
             case 1:
                 return 'real';
             case 2:
@@ -50,13 +56,32 @@ class Domicilio
             case 3:
                 return 'comercial';
             default:
-                return 'Desconocido';
+                return 'desconocido';
         }
     }
 
     public function getTipoNombre()
     {
         return Domicilio::TipoNombre($this->getTipo());
+    }
+    
+    
+    public function __toString()
+    {
+        $res = $this->DomicilioCalle;
+    
+        if ($this->DomicilioNumero)
+            $res .= ' Nº ' . $this->DomicilioNumero;
+        else
+            $res .= ' S/N';
+    
+        if ($this->DomicilioPiso)
+            $res .= ', piso ' . $this->DomicilioPiso;
+    
+        if ($this->DomicilioPuerta)
+            $res .= ', pta. ' . $this->DomicilioPuerta;
+    
+        return $res;
     }
 
     public function getTipo()
@@ -67,5 +92,6 @@ class Domicilio
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;
+        return $this;
     }
 }

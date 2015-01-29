@@ -167,6 +167,13 @@ class Persona implements UserInterface, \Serializable
      * @ORM\Column(type="string", nullable=true)
      */
     private $TelefonoNumero;
+    
+    /**
+     * El nivel de verificación del campo TelefonoNumero.
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $TelefonoVerificacionNivel = 0;
 
     /**
      * La dirección de correo electrónico.
@@ -232,6 +239,7 @@ class Persona implements UserInterface, \Serializable
      */
     private $AgenteId;
 
+
     /**
      * Devuelve el campo Cuilt, formateado con guiones (12-12345678-9).
      */
@@ -240,6 +248,18 @@ class Persona implements UserInterface, \Serializable
             return substr($this->Cuilt, 0, 2) . '-' . substr($this->Cuilt, 2, 8) . '-' . substr($this->Cuilt, 10, 1);
         } else {
             return $this->Cuilt;
+        }
+    }
+    
+    
+    /*
+     * Devuelve el campo Cuilt si tiene. De lo contrario devuelve el documento.
+     */
+    public function CuiltODocumento() {
+        if($this->Cuilt) {
+            return $this->CuiltFormateado();
+        } else {
+            return $this->DocumentoNumero;
         }
     }
 
@@ -743,7 +763,15 @@ class Persona implements UserInterface, \Serializable
         $this->EstadoCivil = $EstadoCivil;
         return $this;
     }
- 
-    
-    
+
+    public function getTelefonoVerificacionNivel()
+    {
+        return $this->TelefonoVerificacionNivel;
+    }
+
+    public function setTelefonoVerificacionNivel($TelefonoVerificacionNivel)
+    {
+        $this->TelefonoVerificacionNivel = $TelefonoVerificacionNivel;
+        return $this;
+    }
 }

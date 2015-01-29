@@ -255,6 +255,10 @@ abstract class AbmController extends BaseController
      */
     public function verAction(Request $request, $id = null)
     {
+        if (!$id) {
+            $id = $request->query->get('id');
+        }
+
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         }

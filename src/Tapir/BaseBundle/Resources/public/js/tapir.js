@@ -61,9 +61,9 @@ function tapirMostrarModalEn(url, destino) {
 	
 	if(url) {
 		// Modal AJAX
-		div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
+		/* div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
 	<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
-	</div></div></div>').modal();
+	</div></div></div>').modal(); */
 	
 		// Agrego la variable tapir_modal=1 para que incluya el marco
 		var urlFinal = url;
@@ -76,7 +76,8 @@ function tapirMostrarModalEn(url, destino) {
 	
 		$.get(urlFinal, function(data) {
 			div_modal.html(data).modal({
-				keyboard : true
+				keyboard : true,
+				backdrop : true
 			});
 		}).fail(function(jqXHR) {
 			// Muestro un error
@@ -90,7 +91,8 @@ function tapirMostrarModalEn(url, destino) {
 				+ ', el error es: '
 				+ jqXHR.responseText
 				+ '</div></div></div>').modal({
-					keyboard : true
+					keyboard : true,
+					backdrop: true
 				});
 		});
 	} else {
@@ -114,6 +116,9 @@ function tapirAtras() {
 
 /**
  * Seguir un enlace, pero via AJAX.
+ * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
+ * La diferencia con tapirCargarUrlEn() es que tapirNavegarA() indica navegación, incluyendo cambio de URL en la
+ * barra de navegación, mientras que tapirCargarUrlEn() es sólo un refresco o actualización de una porción.   
  */
 function tapirNavegarA(url, destino) {
 	// parent.location = url; // sin AJAX
@@ -135,8 +140,9 @@ function tapirCambiarDireccion(url) {
 }
 
 /**
- * Cargar una URL en un elemento via AJAX. Si no se pasa un elemento destino, se
- * toma "page-wrapper" que es el contenedor principal.
+ * Cargar una URL en un elemento via AJAX.
+ * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
+ * @see tapirNavegarA()
  */
 function tapirCargarUrlEn(url, destino) {
 	AjaxSpinnerTimeout = setTimeout(function(){ $('#ajax-spinner').show(); }, 700);
@@ -260,4 +266,5 @@ $(document).ready(function() {
 			return $(this).data('closable');
 		}
 	});
+	
 });
