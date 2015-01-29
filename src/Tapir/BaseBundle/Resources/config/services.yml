@@ -1,4 +1,9 @@
 services:
+    tapirbasebundle.twig.tapir_extension:
+        class: Tapir\BaseBundle\Twig\TapirExtension
+        tags:
+        -  { name: twig.extension }
+        
     tapirbasebundle.twig.tapir_formatextension:
         class: Tapir\BaseBundle\Twig\FormatExtension
         tags:

@@ -2,11 +2,22 @@
 
 {% block pagina_titulo %}Solicitud de modificación{% endblock %}
 
+{% block pagina_inicio %}
+<form class="form-horizontal"
+	action="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': campo_nombre })) }}"
+	method="post" {{ form_enctype(edit_form) }}>
+{% endblock %}
+
 {% block pagina_contenido %}
     {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
+    {{ form_rest(edit_form) }}
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-success"><i class="fa fa-check"></i> Guardar</a>
+    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Guardar</button>
 {% endblock pagina_acciones %}
+
+{% block pagina_fin %}
+</form>
+{% endblock %}

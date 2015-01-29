@@ -5,8 +5,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Damm
 {
-
-    static public function taq($digits)
+    static function taq($digits)
     {
         $taq_table = array(
             '0317598642',

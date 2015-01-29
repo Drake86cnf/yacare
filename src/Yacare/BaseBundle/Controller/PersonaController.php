@@ -24,7 +24,6 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
-        $this->ConservarVariables[] = 'campo';
     }
     
     /**
@@ -81,27 +80,33 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $campo = $request->query->get('campo');
+        $campoNombre = $this->ObtenerVariable($request, 'campo_nombre');
         
         $editFormBuilder = $this->createFormBuilder($entity);
         
-        switch($campo) {
+        switch($campoNombre) {
             case 'Cuilt':
-                $editFormBuilder->add($campo, 'text', array(
+                $editFormBuilder->add($campoNombre, 'text', array(
                     'label' => 'CUIL/CUIT',
                     'required' => true
                 ));
                 break;
+            case 'DocumentoNumero':
+                    $editFormBuilder->add($campoNombre, 'text', array(
+                    'label' => 'Documento',
+                    'required' => true
+                    ));
+                    break;
             case 'Domicilio':
-                $editFormBuilder->add($campo, 'text', array(
-                    'label' => 'CUIL/CUIT',
+                $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
+                    'label' => 'Domicilio',
                     'required' => true
                 ));
                 break;
             case 'TelefonoNumero':
-                $editFormBuilder->add($campo, 'text', array(
-                'label' => 'Teléfono',
-                'required' => true
+                $editFormBuilder->add($campoNombre, 'text', array(
+                    'label' => 'Teléfono(s)',
+                    'required' => true
                 ));
                 $editFormBuilder->add('TelefonoVerificacionNivel', 'choice', array(
                     'choices' => array(
@@ -115,11 +120,11 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                 ));
                 break;
             case 'Email':
-                $editFormBuilder->add($campo, 'text', array(
+                $editFormBuilder->add($campoNombre, 'text', array(
                     'label' => 'E-mail',
                     'required' => true
                 ));
-                $editFormBuilder->add($campo . 'VerificacionNivel', 'choice', array(
+                $editFormBuilder->add($campoNombre . 'VerificacionNivel', 'choice', array(
                     'choices' => array(
                         '0' => 'Sin confirmar',
                         '10' => 'Confirmado',
@@ -127,37 +132,40 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                         '30' => 'Certificado'
                     ),
                     'label' => 'Nivel',
-                    'required' => true,
-                    'mapped' => false
+                    'required' => true
                 ));
                 break;
+                case 'Pais':
+                    $editFormBuilder->add('Pais', 'entity', array(
+                        'label' => 'Nacionalidad',
+                        'placeholder' => 'Sin especificar',
+                        'class' => 'YacareBaseBundle:Pais',
+                        'required' => false,
+                        'expanded' => true
+                        /* 'preferred_choices' => array('Argentina') */
+                    ));
+                    break;
         }
         
         $editForm = $editFormBuilder->getForm();
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {
-            echo '1';
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false)));
         } else {
-            echo '2';
-            echo get_class($editForm);
             $children = $editForm->all();
             foreach ($children as $child) {
-                echo '5'. $child->getErrorsAsString();
+                $child->getErrorsAsString();
             }
             
             $errors = $editForm->getErrors(true, true);
-            //$errors = $this->get('validator')->validate($entity);
         }
         
         if ($errors) {
-            echo '3' . $errors->count();
             foreach ($errors as $error) {
-                $this->get('session')->getFlashBag()->add('danger', $error);
-                echo '4' . $error->getMessage();
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
             }
         } else {
             $errors = null;
@@ -165,6 +173,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             
         return $this->ArrastrarVariables(array(
             'edit_form' => $editForm->createView(),
+            'campo_nombre' => $campoNombre,
             'entity' => $entity,
             'errors' => $errors
         ));

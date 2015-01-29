@@ -182,6 +182,13 @@ class Persona implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
+    
+    /**
+     * El nivel de verificación del campo Email.
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $EmailVerificacionNivel = 0;
 
     /**
      * La situación tributaria.
@@ -774,4 +781,16 @@ class Persona implements UserInterface, \Serializable
         $this->TelefonoVerificacionNivel = $TelefonoVerificacionNivel;
         return $this;
     }
+
+    public function getEmailVerificacionNivel()
+    {
+        return $this->EmailVerificacionNivel;
+    }
+
+    public function setEmailVerificacionNivel($EmailVerificacionNivel)
+    {
+        $this->EmailVerificacionNivel = $EmailVerificacionNivel;
+        return $this;
+    }
+ 
 }
