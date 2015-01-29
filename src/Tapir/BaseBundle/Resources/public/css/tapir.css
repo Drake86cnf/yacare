@@ -199,3 +199,21 @@ legend small {
     padding: 4px;
     background-color: #f3e35a;
 }
+
+.grilladatos {
+	padding: 12px;
+}
+
+.grilladatos-renglon {
+    border-bottom: 1px dotted #e0e0e0;
+    padding-bottom: 4px;
+    padding-top: 4px;	
+}
+
+.grilladatos-etiqueta {
+	font-weight: 600;
+}
+
+.grilladatos-valor {
+    
+}

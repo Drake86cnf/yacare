@@ -20,12 +20,16 @@ trait ConVerificacion
     static public function VerificacionNivelNombre($verificacionNivel)
     {
         switch ($verificacionNivel) {
-            case 1:
-                return 'Sin verificar';
-            case 2:
-                return 'Validado';
-            case 3:
-                return 'Validado';
+            case 0:
+                return 'Sin confirmar';
+            case 10:
+                return 'Confirmado';
+            case 20:
+                return 'Cotejado';
+            case 30:
+                return 'Certificado';
+            case 40:
+                return 'Nativo';
             default:
                 return 'Desconocido';
         }

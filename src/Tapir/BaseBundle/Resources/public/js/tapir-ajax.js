@@ -15,7 +15,7 @@ $(document).ready(function() {
     // Activo la función de los enalces AJAX
     $('[data-toggle="ajax-link"]').click(function(e) {
         e.preventDefault();
-        return tapirCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
+        return tapirNavegarA($(this).attr('href'), $(this).attr('data-target'));
     });
     
     $('#ajax-spinner').hide();

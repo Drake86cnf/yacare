@@ -1,22 +1,30 @@
+{% set tapir_modal = 1 %}
 {% block pagina_inicio %}{% endblock %}
 <div class="modal-dialog modal-lg" role="dialog">
 	<div class="modal-content">
-		{% set block_pagina_titulo = block('pagina_titulo') %} {% if
-		block_pagina_titulo is not empty %}
+		{% set block_pagina_titulo = block('pagina_titulo') %}
+		{% if block_pagina_titulo is not empty %}
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">&times;</button>
 			<h3 class="modal-title" id="modal-title">{{ block_pagina_titulo|raw
 				}}</h3>
 		</div>
-		{% endif %} {% block modal_header %}{% endblock modal_header %}
-		<div class="modal-body" id="modal-body">{% block pagina_contenido %}{%
-			endblock %}</div>
-		{% if block('pagina_acciones') is not empty or
-		block('pagina_acciones2') is not empty %}
-		<div class="modal-footer">{% endif %} {% block pagina_acciones2 %}{%
-			endblock %} {% block pagina_acciones %}{% endblock %}</div>
+		{% endif %}
+		
+		{% block modal_header %}{% endblock modal_header %}
+		<div class="modal-body" id="modal-body">
+		{% block pagina_contenido %}{% endblock %}</div>
+		{% if block('pagina_acciones') is not empty or block('pagina_acciones2') is not empty %}
+		    <div class="modal-footer">
+		{% endif %}
+		{% block pagina_acciones2 %}{% endblock %}
+		{% block pagina_acciones %}{% endblock %}
+		{% if block('pagina_acciones') is not empty or block('pagina_acciones2') is not empty %}
+		    </div>
+        {% endif %}
 	</div>
 </div>
-{% block pagina_pie %}{% endblock %} {% block pagina_fin %}{% endblock
-%} {% block pagina_scripts %}{% endblock %}
+{% block pagina_pie %}{% endblock %}
+{% block pagina_fin %}{% endblock %}
+{% block pagina_scripts %}{% endblock %}

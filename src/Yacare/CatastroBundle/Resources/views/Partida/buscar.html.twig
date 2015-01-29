@@ -3,7 +3,7 @@
 {% block pagina_titulo %}Buscar partidas{% endblock %}
 
 {% block pagina_contenido %}
-{% set destcontrol = app.request.get('destcontrol') %}
+{% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
 
 {% include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
 
@@ -13,7 +13,7 @@
 
 <script>
     function seleccionarItem(id, detalle) {
-        tapirEntityIdSeleccionarItem('#{{ destcontrol }}', id, detalle);
+        tapirEntityIdSeleccionarItem('#{{ tapir_buscar_destino }}', id, detalle);
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }

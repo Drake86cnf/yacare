@@ -1,14 +1,19 @@
 services:
+    yacarebasebundle.twig.yacare_formatextension:
+        class: Yacare\BaseBundle\Twig\FormatExtension
+        tags:
+        -  { name: twig.extension }
+        
     # entity_id type
     entity_id.type:
         class: Yacare\BaseBundle\Form\Type\EntityIdType
-        arguments: [@doctrine]
+        arguments: [ '@doctrine' ]
         tags:
             - { name: form.type, alias: entity_id }
 
     # adjuntos type
     adjuntos.type:
         class: Yacare\BaseBundle\Form\Type\AdjuntosType
-        arguments: [@doctrine]
+        arguments: [ '@doctrine' ]
         tags:
             - { name: form.type, alias: adjuntos }

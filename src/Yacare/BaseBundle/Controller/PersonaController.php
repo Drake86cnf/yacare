@@ -24,6 +24,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
+        $this->ConservarVariables[] = 'campo';
     }
     
     /**
@@ -65,36 +66,108 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Muestra un formulario de consultas para buscar personas y ver sus datos.
      *
-     * @Route("consultar/")
+     * @Route("modificardato/{id}")
      * @Template()
      */
-    public function consultarAction(Request $request)
+    public function modificardatoAction(Request $request, $id)
     {
-        $data = array();
-        $res = array();
+        $em = $this->getDoctrine()->getManager();
         
-        $this->Paginar = false;
-        $this->Limit = 50;
-        
-        $form = $this->createFormBuilder($data)
-            ->add('filtro_buscar', 'text', array(
-                'label' => 'Nombre o documento',
-                'required' => false
-            ))
-            ->getForm();
-    
-        $form->handleRequest($request);
-    
-        if ($form->isValid()) {
-            $data = $form->getData();
-            $request->query->set('filtro_buscar', $data['filtro_buscar']);
-            $reslistar = parent::listarAction($request);
-            $res['entities'] = $reslistar['entities'];
+        if ($id) {
+            $entity = $this->obtenerEntidadPorId($id);
         }
         
-        $res['edit_form'] = $form->createView();
-    
-        return $this->ArrastrarVariables($res);
+        if (!$entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+        
+        $campo = $request->query->get('campo');
+        
+        $editFormBuilder = $this->createFormBuilder($entity);
+        
+        switch($campo) {
+            case 'Cuilt':
+                $editFormBuilder->add($campo, 'text', array(
+                    'label' => 'CUIL/CUIT',
+                    'required' => true
+                ));
+                break;
+            case 'Domicilio':
+                $editFormBuilder->add($campo, 'text', array(
+                    'label' => 'CUIL/CUIT',
+                    'required' => true
+                ));
+                break;
+            case 'TelefonoNumero':
+                $editFormBuilder->add($campo, 'text', array(
+                'label' => 'Teléfono',
+                'required' => true
+                ));
+                $editFormBuilder->add('TelefonoVerificacionNivel', 'choice', array(
+                    'choices' => array(
+                        '0' => 'Sin confirmar',
+                        '10' => 'Confirmado',
+                        '20' => 'Cotejado',
+                        '30' => 'Certificado'
+                    ),
+                    'label' => 'Nivel',
+                    'required' => true
+                ));
+                break;
+            case 'Email':
+                $editFormBuilder->add($campo, 'text', array(
+                    'label' => 'E-mail',
+                    'required' => true
+                ));
+                $editFormBuilder->add($campo . 'VerificacionNivel', 'choice', array(
+                    'choices' => array(
+                        '0' => 'Sin confirmar',
+                        '10' => 'Confirmado',
+                        '20' => 'Cotejado',
+                        '30' => 'Certificado'
+                    ),
+                    'label' => 'Nivel',
+                    'required' => true,
+                    'mapped' => false
+                ));
+                break;
+        }
+        
+        $editForm = $editFormBuilder->getForm();
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isValid()) {
+            echo '1';
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false)));
+        } else {
+            echo '2';
+            echo get_class($editForm);
+            $children = $editForm->all();
+            foreach ($children as $child) {
+                echo '5'. $child->getErrorsAsString();
+            }
+            
+            $errors = $editForm->getErrors(true, true);
+            //$errors = $this->get('validator')->validate($entity);
+        }
+        
+        if ($errors) {
+            echo '3' . $errors->count();
+            foreach ($errors as $error) {
+                $this->get('session')->getFlashBag()->add('danger', $error);
+                echo '4' . $error->getMessage();
+            }
+        } else {
+            $errors = null;
+        }
+            
+        return $this->ArrastrarVariables(array(
+            'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'errors' => $errors
+        ));
     }
     
     
