@@ -58,12 +58,15 @@ function tapirMostrarModalEn(url, destino) {
 	}
 
 	var div_modal = $(destino);
-	
-	if(url) {
+
+	if (url) {
 		// Modal AJAX
-		/* div_modal.html('<div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="min-height: 64px;">\n\
-	<p class="text text-center"><br /><i class="fa fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\
-	</div></div></div>').modal(); */
+		/*
+		 * div_modal.html('<div class="modal-dialog"><div
+		 * class="modal-content"><div class="modal-body" style="min-height:
+		 * 64px;">\n\ <p class="text text-center"><br /><i class="fa
+		 * fa-spinner fa-lg fa-spin"></i> Cargando...</p>\n\ </div></div></div>').modal();
+		 */
 	
 		// Agrego la variable tapir_modal=1 para que incluya el marco
 		var urlFinal = url;
@@ -105,7 +108,6 @@ function tapirMostrarModalEn(url, destino) {
 	return false;
 }
 
-
 /**
  * Vuelve hacia atrás (como el botón atrás del navegador).
  */
@@ -115,10 +117,11 @@ function tapirAtras() {
 }
 
 /**
- * Seguir un enlace, pero via AJAX.
- * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
- * La diferencia con tapirCargarUrlEn() es que tapirNavegarA() indica navegación, incluyendo cambio de URL en la
- * barra de navegación, mientras que tapirCargarUrlEn() es sólo un refresco o actualización de una porción.   
+ * Seguir un enlace, pero via AJAX. Si no se pasa un elemento destino, se toma
+ * "page-wrapper" que es el contenedor principal. La diferencia con
+ * tapirCargarUrlEn() es que tapirNavegarA() indica navegación, incluyendo
+ * cambio de URL en la barra de navegación, mientras que tapirCargarUrlEn() es
+ * sólo un refresco o actualización de una porción.
  */
 function tapirNavegarA(url, destino) {
 	// parent.location = url; // sin AJAX
@@ -140,13 +143,16 @@ function tapirCambiarDireccion(url) {
 }
 
 /**
- * Cargar una URL en un elemento via AJAX.
- * Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor principal.
+ * Cargar una URL en un elemento via AJAX. Si no se pasa un elemento destino, se
+ * toma "page-wrapper" que es el contenedor principal.
+ * 
  * @see tapirNavegarA()
  */
 function tapirCargarUrlEn(url, destino) {
-	AjaxSpinnerTimeout = setTimeout(function(){ $('#ajax-spinner').show(); }, 700);
-	
+	AjaxSpinnerTimeout = setTimeout(function() {
+		$('#ajax-spinner').show();
+	}, 700);
+
 	if (destino === undefined || destino === '') {
 		destino = '#page-wrapper';
 	}
@@ -155,46 +161,50 @@ function tapirCargarUrlEn(url, destino) {
 		tinymce.execCommand('mceRemoveEditor', false, this.id);
 	});
 
-	//$(destino).html('<p><i class="fa fa-spinner fa-spin"></i> Cargando...</p>');
-	$.get(url, function(data) {
-		$(destino).html(data);
+	// $(destino).html('<p><i class="fa fa-spinner fa-spin"></i>
+	// Cargando...</p>');
+	$.get(
+			url,
+			function(data) {
+				$(destino).html(data);
 
-		var newTitle = $('#page-title').text();
-		if (newTitle !== undefined) {
-			document.title = tapirNombreAplicacion + ': ' + newTitle;
-		} else {
-			newTitle = tapirNombreAplicacion;
-			document.title = newTitle;
-		}
+				var newTitle = $('#page-title').text();
+				if (newTitle !== undefined) {
+					document.title = tapirNombreAplicacion + ': ' + newTitle;
+				} else {
+					newTitle = tapirNombreAplicacion;
+					document.title = newTitle;
+				}
 
-		if(destino == '#page-wrapper') {
-			// Si estoy cargando una página completa, muevo el scroll hacia arriba
-			$('html, body').animate({
-				scrollTop : 0
-			}, 'fast');
-		}
+				if (destino == '#page-wrapper') {
+					// Si estoy cargando una página completa, muevo el scroll
+					// hacia arriba
+					$('html, body').animate({
+						scrollTop : 0
+					}, 'fast');
+				}
 
-		MejorarElementos();
-		
-		clearTimeout(AjaxSpinnerTimeout);
-		$('#ajax-spinner').hide();
+				MejorarElementos();
 
-		// Activo la función de los enalces AJAX
-		$(destino + ' [data-toggle="ajax-link"]').click(
-				function(e) {
-					e.preventDefault();
-					return tapirCargarUrlEn($(this).attr('href'), $(
-							this).attr('data-target'));
-				});
+				clearTimeout(AjaxSpinnerTimeout);
+				$('#ajax-spinner').hide();
 
-		// Activo la función de los enlaces que abren modales
-		$(destino + ' [data-toggle="modal"]').click(
-				function(e) {
-					e.preventDefault();
-					return tapirMostrarModalEn($(this).attr('href'), $(
-							this).attr('data-target'));
-				});
-	}).fail(function(jqXHR) {
+				// Activo la función de los enalces AJAX
+				$(destino + ' [data-toggle="ajax-link"]').click(
+						function(e) {
+							e.preventDefault();
+							return tapirNavegarA($(this).attr('href'), $(
+									this).attr('data-target'));
+						});
+
+				// Activo la función de los enlaces que abren modales
+				$(destino + ' [data-toggle="modal"]').click(
+						function(e) {
+							e.preventDefault();
+							return tapirMostrarModalEn($(this).attr('href'), $(
+									this).attr('data-target'));
+						});
+			}).fail(function(jqXHR) {
 		// Muestro un error
 		clearTimeout(AjaxSpinnerTimeout);
 		$(destino).html(jqXHR.responseText);
@@ -216,9 +226,10 @@ function MejorarElementos() {
 	 * 'dd/mm/yy', showAnim: '', changeMonth: true, changeYear: true }); }
 	 */
 	$('.with-datepicker').datepicker({
-	    todayBtn: "linked",
-	    language: "es",
-	    autoclose: true
+		todayBtn : "linked",
+		todayHighlight : true,
+		language: 'es',
+		autoclose : true
 	});
 
 	// notifications
@@ -235,7 +246,7 @@ function MejorarElementos() {
 
 $(document).ready(function() {
 	MejorarElementos();
-	
+
 	// Activo la función de los enlaces que abren modales
 	$('[data-toggle="modal"]').off('click');
 	$('[data-toggle="modal"]').click(
@@ -244,7 +255,7 @@ $(document).ready(function() {
 				return tapirMostrarModalEn($(this).attr('href'),
 						$(this).attr('data-target'));
 			});
-	
+
 	// Pongo a las notificaciones un temporizador para que desaparezcan
 	// automáticamente
 	window.setTimeout(function() {
@@ -252,7 +263,7 @@ $(document).ready(function() {
 			$(this).remove();
 		});
 	}, 15000);
-	
+
 	// Evitar que algunos dropdown se cierren automáticamente
 	// (especial para el menú lateral, se utiliza la clase keep-open)
 	$('.dropdown.keep-open').on({
@@ -266,5 +277,4 @@ $(document).ready(function() {
 			return $(this).data('closable');
 		}
 	});
-	
 });
