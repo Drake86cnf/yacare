@@ -46,9 +46,12 @@ class PersonaType extends AbstractType
             ->add('Email', null, array(
                 'label' => 'Correo electrónico'
             ))
-            ->add('PersonaJuridica', 'checkbox', array(
-                'label' => 'Persona jurídica',
-                'required' => false
+            ->add('PersonaJuridica', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                'choices' => array(
+                    '0' => 'Física',
+                    '1' => 'Jurídica'
+                ),
+                'label' => 'Persona'
             ))
             ->add('FechaNacimiento', 'date', array(
                 'years' => range(1900, 2099),
@@ -61,12 +64,7 @@ class PersonaType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de nacimiento'
             ))
-            ->add('Genero', 'choice', array(
-                'choices' => array(
-                    '0' => 'Sin especificar',
-                    '1' => 'Masculino',
-                    '2' => 'Femenino'
-                ),
+            ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array(
                 'label' => 'Género',
                 'required' => true
             ))

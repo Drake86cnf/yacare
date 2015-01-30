@@ -1,4 +1,5 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
+{% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as yacare %}
 
 {% block pagina_titulo %}{{ entity }}{% endblock %}
 
@@ -16,7 +17,7 @@
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">CUIL/CUIT</td>
             <td>{{ entity.CuiltFormateado }}
-			    {% if entity.Cuilt|tapir_escuiltvalido %}<i class="fa fa-check text-success" title="La CUIL/CUIT es válida"></i>{% else %}<i class="fa fa-warning text-danger"></i>{% endif %}
+			    {% if not entity.Cuilt|tapir_escuiltvalido %}<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>{% endif %}
 			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
                 {% if entity.Cuilt %}Cambiar{% else %}Agregar{% endif %}</a>
             </td>
@@ -30,16 +31,18 @@
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right"><i class="fa fa-phone text-muted"></i>&nbsp;Teléfono</td>
-            <td>{{ entity.TelefonoNumero }}
-                {% if entity.TelefonoNumero and entity.TelefonoVerificacionNivel > 0 %}<small class="text-muted">({{ entity.TelefonoVerificacionNivel|yacare_verificacionnivel }})</small>{% endif %}
+            <td>
+                {% if entity.TelefonoNumero %}{{ yacare.verificacion_icono(entity.TelefonoVerificacionNivel) }}{% endif %}
+                {{ entity.TelefonoNumero }}
                 <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'TelefonoNumero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
                 {% if entity.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}</a>
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right"><i class="fa fa-envelope-o text-muted"></i>&nbsp;E-mail</td>
-            <td>{{ entity.Email }}
-				{% if entity.Email and entity.EmailVerificacionNivel > 0 %}<small class="text-muted">({{ entity.EmailVerificacionNivel|yacare_verificacionnivel }})</small>{% endif %}
+            <td>
+				{% if entity.Email %}{{ yacare.verificacion_icono(entity.EmailVerificacionNivel)|raw }}{% endif %}
+				{{ entity.Email }}
                 <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Email' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
                 {% if entity.Email %}Cambiar{% else %}Agregar{% endif %}</a>
             </td>

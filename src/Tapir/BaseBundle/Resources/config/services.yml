@@ -15,3 +15,9 @@ services:
         public:  false
         tags:
             - { name: doctrine.event_subscriber }
+
+    app.form.type.buttongroup:
+        class: Tapir\BaseBundle\Form\Type\ButtonGroupType
+        tags:
+            - { name: form.type, alias: buttongroup }
+           

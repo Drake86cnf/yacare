@@ -316,6 +316,7 @@ class Persona implements UserInterface, \Serializable
             case 0: return 'Sin especificar';
             case 1: return 'Masculino';
             case 2: return 'Femenino';
+            case 3: return 'Otro';
             default: return 'n/a';
         }
     }
