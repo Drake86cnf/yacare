@@ -18,7 +18,7 @@ class DomicilioLocalType extends AbstractType
                 'style' => 'width: 240px;'
             )
         ))
-            ->add('DomicilioNumero', null, array(
+        ->add('DomicilioNumero', null, array(
             'label' => 'Nº',
             'trim' => true,
             'attr' => array(
@@ -26,7 +26,7 @@ class DomicilioLocalType extends AbstractType
             ),
             'required' => false
         ))
-            ->add('DomicilioPiso', null, array(
+        ->add('DomicilioPiso', null, array(
             'label' => 'Piso',
             'trim' => true,
             'attr' => array(
@@ -34,7 +34,7 @@ class DomicilioLocalType extends AbstractType
             ),
             'required' => false
         ))
-            ->add('DomicilioPuerta', null, array(
+        ->add('DomicilioPuerta', null, array(
             'label' => 'Puerta',
             'trim' => true,
             'attr' => array(
@@ -42,7 +42,7 @@ class DomicilioLocalType extends AbstractType
             ),
             'required' => false
         ))
-            ->setAttribute('widget', 'form_horizontal');
+        ->setAttribute('widget', 'form_horizontal');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

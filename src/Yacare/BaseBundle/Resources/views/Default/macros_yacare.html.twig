@@ -1,0 +1,11 @@
+{% macro verificacion_icono(nivel) %}{% spaceless %}
+    {% if nivel == 0 %}
+        <small><i class="fa fa-question text-muted fa-fw" title="Sin confirmar"></i></small>    
+    {% elseif nivel == 20 %}
+        <small><i class="fa fa-check text-success fa-fw" title="Cotejado"></i></small>
+    {% elseif nivel == 30 %}
+        <small><i class="fa fa-certificate text-success fa-fw" title="Certificado"></i></small>
+    {% elseif nivel == 40 %}
+        <small><i class="fa fa-certificate text-success fa-fw" title="Nativo"></i></small>
+    {% endif %}
+{% endspaceless %}{% endmacro %}
