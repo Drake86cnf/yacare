@@ -32,8 +32,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources:
-            - 'TapirBaseBundle:Form:form_div_layout.html.twig'
+        resources: [ 'TapirBaseBundle:Form:bootstrap_3_horizontal_layout.html.twig' ]
 
 # Doctrine Configuration
 doctrine:
