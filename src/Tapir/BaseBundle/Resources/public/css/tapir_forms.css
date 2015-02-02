@@ -38,9 +38,14 @@ input, select, textarea {
 }
 
 .required {
-    color: red;
+    /* color: #800000; */
+    white-space: nowrap; 
 }
 
+.required:after {
+	color: red;
+	content: ' *';
+}
 
 .input-cuilt {
 	max-width: 240px;

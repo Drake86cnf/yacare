@@ -92,11 +92,10 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                 ));
                 break;
             case 'DocumentoNumero':
-                    $editFormBuilder->add($campoNombre, 'text', array(
-                    'label' => 'Documento',
-                    'required' => true
-                    ));
-                    break;
+                    $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
+                    'label' => 'Documento'
+                ));
+                break;
             case 'Domicilio':
                 $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
                     'label' => 'Domicilio',
