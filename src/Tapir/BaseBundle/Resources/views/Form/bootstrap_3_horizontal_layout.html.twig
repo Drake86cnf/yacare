@@ -31,6 +31,7 @@
             {{- block('buttongroup_widget_options') -}}
         </div>
         <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
+        {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
     {% endspaceless %}
 {% endblock %}
 

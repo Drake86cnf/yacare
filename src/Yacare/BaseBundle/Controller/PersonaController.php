@@ -108,13 +108,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                     'label' => 'Teléfono(s)',
                     'required' => true
                 ));
-                $editFormBuilder->add('TelefonoVerificacionNivel', 'choice', array(
-                    'choices' => array(
-                        '0' => 'Sin confirmar',
-                        '10' => 'Confirmado',
-                        '20' => 'Cotejado',
-                        '30' => 'Certificado'
-                    ),
+                $editFormBuilder->add('TelefonoVerificacionNivel', new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), array(
                     'label' => 'Nivel',
                     'required' => true
                 ));
@@ -124,13 +118,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                     'label' => 'E-mail',
                     'required' => true
                 ));
-                $editFormBuilder->add($campoNombre . 'VerificacionNivel', 'choice', array(
-                    'choices' => array(
-                        '0' => 'Sin confirmar',
-                        '10' => 'Confirmado',
-                        '20' => 'Cotejado',
-                        '30' => 'Certificado'
-                    ),
+                $editFormBuilder->add($campoNombre . 'VerificacionNivel', new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), array(
                     'label' => 'Nivel',
                     'required' => true
                 ));
