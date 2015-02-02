@@ -86,7 +86,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         switch($campoNombre) {
             case 'Cuilt':
-                $editFormBuilder->add($campoNombre, 'text', array(
+                $editFormBuilder->add($campoNombre, new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
                     'label' => 'CUIL/CUIT',
                     'required' => true
                 ));
