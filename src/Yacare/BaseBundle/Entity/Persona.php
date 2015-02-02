@@ -251,11 +251,7 @@ class Persona implements UserInterface, \Serializable
      * Devuelve el campo Cuilt, formateado con guiones (12-12345678-9).
      */
     public function CuiltFormateado() {
-        if(strlen($this->Cuilt) == 11) {
-            return substr($this->Cuilt, 0, 2) . '-' . substr($this->Cuilt, 2, 8) . '-' . substr($this->Cuilt, 10, 1);
-        } else {
-            return $this->Cuilt;
-        }
+        return \Tapir\BaseBundle\Helper\Cuilt::FormatearCuilt($this->Cuilt);
     }
     
     
@@ -386,6 +382,19 @@ class Persona implements UserInterface, \Serializable
         $encoded_password = $encoder->encodePassword($this->getPasswordEnc(), $this->getSalt());
         $this->setPassword($encoded_password); */
     }
+    
+
+    public function setDocumentoNumero($DocumentoNumero)
+    {
+        $this->DocumentoNumero = str_replace(array ( '.', ',', ' ' ), '', $DocumentoNumero);
+    }
+    
+    public function setCuilt($Cuilt)
+    {
+        $this->Cuilt = \Tapir\BaseBundle\Helper\Cuilt::FormatearCuilt($Cuilt);
+    }
+    
+    
 
     public function __toString()
     {
@@ -501,25 +510,9 @@ class Persona implements UserInterface, \Serializable
     /**
      * @ignore
      */
-    public function setDocumentoNumero($DocumentoNumero)
-    {
-        $this->DocumentoNumero = $DocumentoNumero;
-    }
-
-    /**
-     * @ignore
-     */
     public function getCuilt()
     {
         return $this->Cuilt;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setCuilt($Cuilt)
-    {
-        $this->Cuilt = $Cuilt;
     }
 
     /**

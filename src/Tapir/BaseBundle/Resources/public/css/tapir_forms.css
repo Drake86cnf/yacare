@@ -40,3 +40,8 @@ input, select, textarea {
 .required {
     color: red;
 }
+
+
+.input-cuilt {
+	max-width: 240px;
+}
