@@ -148,7 +148,7 @@ class Persona implements UserInterface, \Serializable
      * El número de documento.
      *
      * @see DocumentoTipo
-     * @var string @ORM\Column(type="integer")
+     * @var string @ORM\Column(type="bigint")
      */
     private $DocumentoNumero;
 
