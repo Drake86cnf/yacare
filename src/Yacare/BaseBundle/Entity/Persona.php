@@ -139,6 +139,8 @@ class Persona implements UserInterface, \Serializable
     /**
      * El tipo de documento.
      * 
+     * @Assert\Length(min = "3", max="10")
+     * 
      * @see DocumentoNumero
      * @var integer @ORM\Column(type="integer")
      */

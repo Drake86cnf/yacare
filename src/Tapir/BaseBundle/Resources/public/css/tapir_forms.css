@@ -47,6 +47,10 @@ input, select, textarea {
 	content: ' *';
 }
 
-.input-cuilt {
+.tapir-input-cuilt {
 	max-width: 240px;
+}
+
+.tapir-input-documento {
+    max-width: 240px;
 }
