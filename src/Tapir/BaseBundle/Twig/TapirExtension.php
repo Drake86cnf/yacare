@@ -11,13 +11,13 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTra
 class TapirExtension extends \Twig_Extension {
     public function getFilters() {
         return array (
-                new \Twig_SimpleFilter ( 'tapir_escuiltvalido', array (
+                new \Twig_SimpleFilter ( 'tapir_cuiltesvalida', array (
                         $this,
-                        'tapir_escuiltvalido'
+                        'tapir_cuiltesvalida'
                 ) )
         );
     }
-    public function tapir_escuiltvalido($Cuilt) {
+    public function tapir_cuiltesvalida($Cuilt) {
         $CuiltSaneado = str_split ( str_replace ( '-', '', trim ( $Cuilt ) ) );
 
         if (count ( $CuiltSaneado ) != 11) {

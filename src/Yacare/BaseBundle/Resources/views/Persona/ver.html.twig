@@ -17,7 +17,7 @@
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">CUIL/CUIT</td>
             <td>{{ entity.CuiltFormateado }}
-			    {% if not entity.Cuilt|tapir_escuiltvalido %}<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>{% endif %}
+			    {% if not entity.Cuilt|tapir_cuiltesvalida %}<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>{% endif %}
 			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
                 {% if entity.Cuilt %}Cambiar{% else %}Agregar{% endif %}</a>
             </td>

@@ -21,7 +21,8 @@ class DocumentoType extends AbstractType
                 'label' => 'Tipo'
             ))
             ->add('DocumentoNumero', null, array(
-                'label' => 'Número'
+                'label' => 'Número',
+                'attr' => array ( 'class' => 'tapir-input-documento')
             ))
             ->setAttribute('widget', 'form_horizontal');
     }
