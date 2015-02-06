@@ -284,7 +284,6 @@ function MejorarElementos(destino) {
 		}
 	});
 
-		
 	$(desintoFinal + '.input-daterange').datepicker({
 		todayBtn : "linked",
 		todayHighlight : true,
