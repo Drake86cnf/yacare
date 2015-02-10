@@ -1,0 +1,55 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Liquidación de haberes del período {{ ames }}{% endblock pagina_titulo %}
+
+{% block pagina_contenido %}
+<table class="table table-hover">
+	<thead>
+		<tr>
+		    <th>Cant.</th>
+		    <th>Cód.</th>
+			<th>Concepto</th>
+			<th class="text-right">Rem.</th>
+			<th class="text-right">No rem.</th>
+			<th class="text-right">Desc.</th>
+		</tr>
+	</thead>
+	<tbody>
+	    {% set total_rem = 0 %}
+        {% set total_norem = 0 %}
+        {% set total_desc = 0 %}
+        {% for detalle in detalles %}
+          {% set imp_rem = 0 %}
+          {% set imp_norem = 0 %}
+          {% set imp_desc = 0 %}
+		  {% if detalle.TIPO == 1 %}{% set imp_rem = detalle.MONTO %}{% endif %}
+		  {% if detalle.TIPO == 2 %}{% set imp_norem = detalle.MONTO %}{% endif %}
+		  {% if detalle.TIPO == 6 %}{% set imp_norem = detalle.MONTO %}{% endif %}
+		  {% if detalle.TIPO == 3 %}{% set imp_desc = detalle.MONTO %}{% endif %}
+		  
+		  {% set total_rem = total_rem + imp_rem %}
+          {% set total_norem = total_norem + imp_norem %}
+          {% set total_desc = total_desc + imp_desc %}
+		<tr>
+		    <td>{% if detalle.VO %}{{ detalle.VO }}{% endif %}</td>
+		    <td class="text-muted">{{ detalle.COHADE }}</td>
+			<td>{{ detalle.DESCITM|tapir_mejorartexto }}</td>
+			<td class="text-right">{% if imp_rem %}{{ imp_rem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if imp_norem %}{{ imp_norem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if imp_desc %}{{ imp_desc|tapir_importe }}{% endif %}</td>
+		</tr>
+		{% endfor %}
+		
+		<tr class="info">
+		    <td colspan="3"><strong>NETO A PERCIBIR: {{ (total_rem+total_norem-total_desc)|tapir_importe }}</strong></td>
+			<td class="text-right">{% if total_rem %}{{ total_rem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if total_norem %}{{ total_norem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if total_desc %}{{ total_desc|tapir_importe }}{% endif %}</td>
+		</tr>
+	</tbody>
+</table>
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+<a data-toggle="ajax-link" class="btn btn-link pull-right" href="{{ path(baseroute ~ '_recibolistar', arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}

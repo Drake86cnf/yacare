@@ -6,6 +6,7 @@ use Twig_Filter_Method;
 use Twig_Function_Method;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
+use Tapir;
 
 class FormatExtension extends \Twig_Extension
 {
@@ -24,6 +25,10 @@ class FormatExtension extends \Twig_Extension
             new \Twig_SimpleFilter('tapir_sino', array(
                 $this,
                 'tapir_sino'
+            )),
+            new \Twig_SimpleFilter('tapir_mejorartexto', array(
+                $this,
+                'tapir_mejorartexto'
             )),
             new \Twig_SimpleFilter('tapir_fecha', array(
                 $this,
@@ -95,6 +100,11 @@ class FormatExtension extends \Twig_Extension
         } else {
             return "No";
         }
+    }
+    
+    public function tapir_mejorartexto($valor)
+    {
+        return Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($valor);
     }
 
     public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium', $emptyMessage = '')
