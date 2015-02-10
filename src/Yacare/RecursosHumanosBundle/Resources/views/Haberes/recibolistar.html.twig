@@ -14,7 +14,7 @@
 	<tbody>
 		{% for recibo in recibos %}
 		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': agente.id, 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
-			<td>{{ recibo.AMES }}</td>
+			<td>{{ recibo.AMES|slice(4, 2) }}/{{ recibo.AMES|slice(0, 4) }}</td>
 			<td>{% if recibo.PERI == '7' %}Mensual
     			{% elseif recibo.PERI == '5' %}SAC
     			{% else %}{{ recibo.PERI }}

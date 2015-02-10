@@ -46,14 +46,16 @@ class Agente {
 	/**
 	 * La categoría actual.
 	 *
-	 * @var $Categoria @ORM\Column(type="integer", nullable=false)
+	 * @var $Categoria
+	 * @ORM\Column(type="integer", nullable=false)
 	 */
 	private $Categoria;
 	
 	/**
 	 * La situación del agente (Normal, baja, etc.).
 	 *
-	 * @var $Situacion @ORM\Column(type="integer", nullable=false)
+	 * @var $Situacion
+	 * @ORM\Column(type="integer", nullable=false)
 	 */
 	private $Situacion;
 	
@@ -61,7 +63,8 @@ class Agente {
 	 * La función que cumple, en formato de texto libre.
 	 *
 	 *
-	 * @var $Funcion @ORM\Column(type="string")
+	 * @var $Funcion
+	 * @ORM\Column(type="string")
 	 */
 	private $Funcion;
 	
@@ -107,8 +110,9 @@ class Agente {
 	/**
 	 * El departamento en el cual se desempeña.
 	 *
-	 * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-	 *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+	 * @var $Departamento
+	 * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+	 * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
 	 */
 	protected $Departamento;
 	public function __toString() {
