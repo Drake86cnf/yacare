@@ -4,7 +4,7 @@ parameters:
 twig:
     globals:
         tapir_nombreaplicacion: "Yacaré"
-        tapir_cliente: %tapir.cliente%
+        tapir_cliente: "%tapir.cliente%"
         tapir_menu: 'YacareBaseBundle:Default:menu.html.twig'
 
 assetic:
@@ -22,3 +22,17 @@ assetic:
         tapir_favicon:
             inputs:
                 - '@YacareBaseBundle/Resources/public/img/escudo64.png'
+
+doctrine:
+    dbal:
+      connections:
+        haberes:
+          driver: oci8
+          host: ~
+          #port: '1521'
+          dbname: 'DBMUNI'
+          service: true
+          user: 'haberes'
+          password: 'haberes'
+          #charset: AL32UTF8 
+                
