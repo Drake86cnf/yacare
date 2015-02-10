@@ -380,6 +380,11 @@ class StringHelper
             'juridicos' => 'jurídicos',
             'informatica' => 'informática',
             'tecnologia' => 'tecnología',
+            'antiguedad' => 'antigüedad',
+            'asignacion' => 'asignación',
+            'categoria' => 'categoría',
+            'titulo' => 'título',
+            'radicacion' => 'radicación',
             '' => '',
             '' => ''
         );

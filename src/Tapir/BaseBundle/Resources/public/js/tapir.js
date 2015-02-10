@@ -140,12 +140,16 @@ function tapirCambiarDireccion(url) {
  * @see tapirNavegarA()
  */
 function tapirCargarUrlEn(url, destino) {
+	var AjaxSpinnerTimeout;
+
 	AjaxSpinnerTimeout = setTimeout(function() {
 		$('#ajax-spinner').show();
 	}, 700);
 
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#page-wrapper';
+	} else {
+		destinoFinal = destino;
 	}
 
 	$(".tinymce").each(function() {
@@ -155,6 +159,7 @@ function tapirCargarUrlEn(url, destino) {
 	// $(destino).html('<p><i class="fa fa-spinner fa-spin"></i>
 	// Cargando...</p>');
 	$.get(url, function(data) {
+		clearTimeout(AjaxSpinnerTimeout);
 		$(destinoFinal).html(data);
 
 		var newTitle = $('#page-title').text();
@@ -172,9 +177,8 @@ function tapirCargarUrlEn(url, destino) {
 			}, 'fast');
 		}
 
-		MejorarElementos(destinoFinal);
-
 		clearTimeout(AjaxSpinnerTimeout);
+		MejorarElementos(destinoFinal);
 		$('#ajax-spinner').hide();
 	}).fail(function(jqXHR) {
 		// Muestro un error
@@ -284,12 +288,12 @@ function MejorarElementos(destino) {
 		}
 	});
 
-	$(desintoFinal + '.input-daterange').datepicker({
+	/* $(desintoFinal + '.input-daterange').datepicker({
 		todayBtn : "linked",
 		todayHighlight : true,
 		language : 'es',
 		autoclose : true
-	});
+	}); */
 
 	// Valida y formatea una fecha ingresada al perder el foco en el control
 	$(desintoFinal + '.valirdar-fecha').blur(function(e) {
