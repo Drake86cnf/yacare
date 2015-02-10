@@ -15,10 +15,10 @@
     <tbody>
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
-            <td>{{ entity.Partida.Domicilio }}</td>
+            <td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
             <td class="hidden-xs">{{ entity.Tipo }}</td>
             <td>{{ entity.Superficie }} m²</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Partida.Titular }}</td>
+            <td class="hidden-sm hidden-xs">{% if entity.Partida %}{{ entity.Partida.Titular }}{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>
