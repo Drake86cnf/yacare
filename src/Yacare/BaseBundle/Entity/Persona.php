@@ -139,7 +139,7 @@ class Persona implements UserInterface, \Serializable
     /**
      * El tipo de documento.
      * 
-     * @Assert\Length(min = "3", max="10")
+     * 
      * 
      * @see DocumentoNumero
      * @var integer @ORM\Column(type="integer")
@@ -149,8 +149,10 @@ class Persona implements UserInterface, \Serializable
     /**
      * El número de documento.
      *
+     *@Assert\Length(min = "3", max="10")
+     *
      * @see DocumentoTipo
-     * @var string @ORM\Column(type="string", length=20)
+     * @var string @ORM\Column(type="string")
      */
     private $DocumentoNumero;
 
@@ -179,7 +181,8 @@ class Persona implements UserInterface, \Serializable
 
     /**
      * La dirección de correo electrónico.
-     *
+     * 
+     * @Assert\Email(message = "El mail '{{ value }}' no es una dirección válida.")
      * @var string $Email
      * @ORM\Column(type="string", length=255, nullable=true)
      */
