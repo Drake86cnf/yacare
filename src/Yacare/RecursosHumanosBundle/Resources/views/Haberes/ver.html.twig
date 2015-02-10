@@ -1,6 +1,6 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Liquidación de haberes del período {{ ames }}{% endblock pagina_titulo %}
+{% block pagina_titulo %}Liquidación de haberes del período {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}{% endblock pagina_titulo %}
 
 {% block pagina_contenido %}
 <table class="table table-hover">
