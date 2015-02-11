@@ -15,7 +15,7 @@ class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmCont
     function IniciarVariables()
     {
         parent::IniciarVariables();
-        
+
         $this->ConservarVariables = array(
             'parent_id'
         );
@@ -28,35 +28,35 @@ class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmCont
      */
     public function listarAction(Request $request)
     {
-        $parent_id = $request->query->get('parent_id');
-        
+        $parent_id = $this->ObtenerVariable($request, 'parent_id');
+
         if ($parent_id) {
             $em = $this->getDoctrine()->getManager();
-            $parent_id = $request->query->get('parent_id');
+            //$parent_id = $this->ObtenerVariable($request, 'parent_id');
             $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
-            
+
             $this->Where .= " AND r.TramiteTipo=$parent_id";
         }
-        
+
         $res = parent::listarAction($request);
-        
+
         if ($parent_id) {
             $res['parent'] = $TramiteTipo;
         }
-        
+
         return $res;
     }
 
     public function crearNuevaEntidad(Request $request)
     {
         $entity = parent::crearNuevaEntidad($request);
-        
+
         // En caso de crear uno nuevo, le asigno el parent predeterminado
         $em = $this->getDoctrine()->getManager();
-        $parent_id = $request->query->get('parent_id');
+        $parent_id = $this->ObtenerVariable($request, 'parent_id');
         $TramiteTipo = $em->getReference('YacareTramitesBundle:TramiteTipo', $parent_id);
         $entity->setTramiteTipo($TramiteTipo);
-        
+
         return $entity;
     }
 }

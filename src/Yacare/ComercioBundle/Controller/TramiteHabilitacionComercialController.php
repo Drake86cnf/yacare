@@ -14,13 +14,13 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     public function EmitirComprobante($tramite)
     {
         $Comprob = parent::EmitirComprobante($tramite);
-        
+
         $Comprob->setComercio($tramite->getComercio());
         $Comprob->setTitular($tramite->getTitular());
-        
+
         $tramite->getComercio()->setEstado(100);
         $tramite->getComercio()->setCertificadoHabilitacion($Comprob);
-        
+
         return $Comprob;
     }
 
@@ -30,8 +30,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
      */
     function consultarAction(Request $request)
     {
-        $porpartida = $request->query->get('porpartida');
-        
+        $porpartida = $this->ObtenerVariable($request, 'porpartida');
+
         $editFormBuilder = $this->createFormBuilder()->add('ActividadPrincipal', 'entity_id', array(
             'label' => 'Actividad principal',
             'class' => 'Yacare\ComercioBundle\Entity\Actividad',
@@ -69,14 +69,14 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             ));
         }
         $editForm = $editFormBuilder->getForm();
-        
+
         $editForm->handleRequest($request);
-        
+
         if ($editForm->isValid()) {
             $data = $editForm->getData();
-            
+
             $Actividad = $data['ActividadPrincipal'];
-            
+
             if (array_key_exists('Local', $data)) {
                 $Local = $data['Local'];
                 $Superficie = $Local->getSuperficie();
@@ -88,9 +88,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 $Partida = $data['Partida'];
                 $Tipo = $data['Tipo'];
             }
-            
+
             $em = $this->getDoctrine()->getManager();
-            
+
             $ValorUsoSuelo = 0;
             $UsoSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
                 ->setParameter('codigo', $Actividad->getCodigoCpu())
@@ -100,14 +100,14 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             if ($UsoSuelo && count($UsoSuelo) > 0) {
                 $UsoSuelo = $UsoSuelo[0];
             }
-            
+
             $Zona = $Partida->getZona();
             if ($Zona && $UsoSuelo) {
                 $ValorUsoSuelo = $UsoSuelo->getUsoZona($Zona->getId());
             } else {
                 $ValorUsoSuelo = 0;
             }
-            
+
             return $this->ArrastrarVariables(array(
                 'usosuelo' => $ValorUsoSuelo,
                 'usosuelo_nombre' => \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($ValorUsoSuelo),
@@ -123,7 +123,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 'edit_form' => $editForm->createView()
             ));
         }
-        
+
         return $this->ArrastrarVariables(array(
             'entity' => null,
             'create' => true,
@@ -136,9 +136,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     public function guardarActionPrePersist($entity, $editForm)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         $res = parent::guardarActionPrePersist($entity, $editForm);
-        
+
         $Comercio = $entity->getComercio();
         if ($Comercio) {
             if ($Comercio->getEstado() == 0) {
@@ -147,16 +147,16 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             // Le doy al comercio el mismo titular y apoderado que inician trámite
             $Comercio->setTitular($entity->getTitular());
             $Comercio->setApoderado($entity->getApoderado());
-            
+
             $em->persist($Comercio);
         }
-        
+
         // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
         $Local = $Comercio->getLocal();
         if ($Local) {
             // $Superficie = $Local->getSuperficie();
             $Actividad = $Comercio->getActividadPrincipal();
-            
+
             // Busco el uso del suelo para esa zona
             $UsoSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
                 ->setParameter('codigo', $Actividad->getCodigoCpu())
@@ -167,7 +167,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             if ($UsoSuelo && count($UsoSuelo) > 0) {
                 $UsoSuelo = $UsoSuelo[0];
             }
-            
+
             if ($UsoSuelo) {
                 $Partida = $Local->getPartida();
                 if ($Partida) {
@@ -178,9 +178,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 }
             }
         }
-        
+
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
-        
+
         return $res;
     }
 }

@@ -12,29 +12,29 @@ trait ConImprimir
      */
     public function imprimirAction(Request $request, $id)
     {
-        $fmt = $request->query->get('fmt');
+        $fmt = $this->ObtenerVariable($request, 'fmt');
         if (! $fmt) {
             $fmt = 'application/pdf';
         }
-        
+
         $fmt = str_replace(' ', '/', $fmt);
-        
-        $tpl = $request->query->get('tpl');
+
+        $tpl = $this->ObtenerVariable($request, 'tpl');
         if (! $tpl)
             $tpl = 'imprimir';
-        
+
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         if (! $entity)
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        
+
         $impresionEnCache = $em->getRepository('YacareBaseBundle:Impresion')->findBy(array(
             'EntidadTipo' => $this->BundleName . '/' . $this->EntityName,
             'EntidadId' => $entity->getId(),
             'EntidadVersion' => $entity->getVersion(),
             'TipoMime' => $fmt
         ));
-        
+
         if (! $impresionEnCache) {
             // La impresión NO está en caché... la genero y la guardo en el cache
             // en principio la guardo sin contenido (placeholder), para obtener un id
@@ -47,7 +47,7 @@ trait ConImprimir
             $em->persist($impresionEnCache);
             $em->flush();
             $em->refresh($impresionEnCache);
-            
+
             // Ahora genero el contenido y guardo nuevamente la impresión
             $html = $this->renderView('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':' . $tpl . '.html.twig', array(
                 'id' => $id,
@@ -56,7 +56,7 @@ trait ConImprimir
                 'fmt' => 'text/html',
                 'tpl' => $tpl
             ));
-            
+
             $impresionEnCache->setImagen($this->get('knp_snappy.image')
                 ->getOutputFromHtml($html));
             switch ($fmt) {
@@ -68,18 +68,18 @@ trait ConImprimir
                         ->getOutputFromHtml($html));
                     break;
             }
-            
+
             $em->persist($impresionEnCache);
             $em->flush();
         } else {
             if (is_array($impresionEnCache))
                 $impresionEnCache = $impresionEnCache[0];
         }
-        
+
         $contenido = $impresionEnCache->getContenido();
         if (is_resource($contenido) && get_resource_type($contenido) == 'stream')
             $contenido = stream_get_contents($contenido);
-        
+
         return new \Symfony\Component\HttpFoundation\Response($contenido, 200, array(
             'Content-Type' => $impresionEnCache->getTipoMime(),
             'Content-Length' => strlen($contenido),
