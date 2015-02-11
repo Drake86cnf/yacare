@@ -186,7 +186,7 @@ abstract class AbmController extends BaseController
      */
     public function listarAction(Request $request)
     {
-        $filtro_buscar = $request->query->get('filtro_buscar');
+        $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         $dql = $this->obtenerComandoSelect($filtro_buscar);
 
         $em = $this->getDoctrine()->getManager();
@@ -256,7 +256,7 @@ abstract class AbmController extends BaseController
     public function verAction(Request $request, $id = null)
     {
         if (!$id) {
-            $id = $request->query->get('id');
+            $id = $this->ObtenerVariable($request, 'id');
         }
 
         if ($id) {

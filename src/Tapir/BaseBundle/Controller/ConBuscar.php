@@ -17,7 +17,7 @@ trait ConBuscar
     /**
      * Acción de mostrar el buscador.
      *
-     * @see buscarresultadosAction() 
+     * @see buscarresultadosAction()
      * @Route("buscar/")
      * @Template()
      */
@@ -25,7 +25,7 @@ trait ConBuscar
     {
         $this->Paginar = false;
         $this->Limit = 500;
-        $filtro_buscar = $request->query->get('filtro_buscar');
+        $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         if($filtro_buscar) {
             // Si hay texto de búsqueda, derivo a buscar
             return $this->listarAction($request);
@@ -44,6 +44,6 @@ trait ConBuscar
      */
     /* public function buscarresultadosAction(Request $request)
     {
-        
+
     } */
 }
