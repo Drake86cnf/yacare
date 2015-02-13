@@ -35,7 +35,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($Persona->getAgenteId());
 
         $sql = "SELECT AMES, PERI, NETO, KTHA, KTFM, KTEX, KTDL FROM RESUMEN
-                    WHERE CODIGO LIKE '% " . $Agente->getId() . "/%' AND NETO>0 AND PERI IN ('7', '5')
+                    WHERE CODIGO LIKE '% " . $Agente->getId() . "/%' AND NETO>0 
                     ORDER BY CODIGO, AMES DESC";
         $ConsultaRecibos = $connHaberes->prepare($sql);
         $ConsultaRecibos->execute();
