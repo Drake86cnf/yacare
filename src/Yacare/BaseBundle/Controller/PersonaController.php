@@ -123,14 +123,14 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                 ));
                 break;
             case 'Pais':
-                    $editFormBuilder->add('Pais', 'entity', array(
-                        'label' => 'Nacionalidad',
-                        'placeholder' => 'Sin especificar',
-                        'class' => 'YacareBaseBundle:Pais',
-                        'required' => false,
-                        'preferred_choices' => $em->getRepository($this->CompleteEntityName)->findById(array(1, 2, 11, 15))
-                    ));
-                    break;
+                $editFormBuilder->add('Pais', 'entity', array(
+                    'label' => 'Nacionalidad',
+                    'placeholder' => 'Sin especificar',
+                    'class' => 'YacareBaseBundle:Pais',
+                    'required' => false,
+                    'preferred_choices' => $em->getRepository($this->CompleteEntityName)->findById(array(1, 2, 11, 15))
+                ));
+                break;
             case 'Genero':
                 $editFormBuilder->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array(
                     'label' => 'Género',
