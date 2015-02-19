@@ -250,4 +250,22 @@ abstract class BaseController extends Controller
             }
         }
     }
+    
+    /**
+     * Devuelve el nombre del bundle al cual pertenece este controlador.
+     * 
+     * @see $BundleName
+     */
+    public function getBundleName() {
+        return $this->BundleName;
+    }
+    
+    /**
+     * Devuelve el nombre de la entidad principal que administra este controlador.
+     * 
+     * @see $EntityName
+     */
+    public function getEntityName() {
+        return $this->EntityName;
+    }
 }

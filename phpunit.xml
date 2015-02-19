@@ -11,11 +11,11 @@
     processIsolation            = "false"
     stopOnFailure               = "false"
     syntaxCheck                 = "false"
-    bootstrap                   = "var/bootstrap.php.cache" >
+    bootstrap                   = "tests/bootstrap.php" >
 
     <testsuites>
         <testsuite name="Yacaré Test Suite">
-            <directory>src/*/*Bundle/Tests</directory>
+            <directory>tests/*/*Bundle</directory>
         </testsuite>
     </testsuites>
 
@@ -28,12 +28,11 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/*/*Bundle/Resources</directory>
-                <directory>src/*/*Bundle/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
 
     <logging>
-      <log type="coverage-html" target="docs/cov" charset="UTF-8" highlight="false" />
+      <log type="coverage-html" target="docs/cov" charset="UTF-8" highlight="true" />
     </logging>
 </phpunit>
