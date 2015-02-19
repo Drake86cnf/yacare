@@ -268,4 +268,13 @@ abstract class BaseController extends Controller
     public function getEntityName() {
         return $this->EntityName;
     }
+    
+    /**
+     * Devuelve el nombre del vendor o aplicación al cual pertenece este controlador.
+     *
+     * @see $VendorName
+     */
+    public function getVendorName() {
+        return $this->VendorName;
+    }
 }
