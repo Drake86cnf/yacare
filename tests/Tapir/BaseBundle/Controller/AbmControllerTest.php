@@ -22,7 +22,8 @@ abstract class AbmControllerTest extends \Tapir\BaseBundle\Controller\BaseContro
         $this->assertGreaterThan(0, $crawler->filter('#page-title')
             ->count(), 'Probando que el listado tenga un título');
     }
-
+    
+    
     public function testbuscarAction()
     {
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Tapir\\BaseBundle\\Controller\\ConBuscar') == false) {
