@@ -43,10 +43,10 @@ yacare_base:
     type:     annotation
     prefix:   /base/
 
-#yacare_compras:
-#    resource: "@YacareComprasBundle/Controller/"
-#    type:     annotation
-#    prefix:   /compras/
+yacare_compras:
+    resource: "@YacareComprasBundle/Controller/"
+    type:     annotation
+    prefix:   /compras/
 
 yacare_organizacion:
     resource: "@YacareOrganizacionBundle/Controller/"
@@ -70,4 +70,4 @@ yacare_recursos_humanos:
 
 inicio:
     path:      /
-    defaults:  { _controller: YacareBaseBundle:Default:inicio }
+    defaults:  { _controller: "YacareBaseBundle:Default:inicio" }
