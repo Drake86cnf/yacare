@@ -70,7 +70,7 @@ class FormatExtension extends \Twig_Extension
     }
 
 
-    public function tapir_importe($number, $option = '$')
+    public function tapir_importe($number, $option = '')
     {
         if (strpos($option, '-') !== false && $number == 0) {
             return '-';

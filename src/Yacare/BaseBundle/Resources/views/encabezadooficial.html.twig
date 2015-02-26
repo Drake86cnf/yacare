@@ -1,0 +1,18 @@
+{% if not encabezado_subtitulo is defined %}
+    {% set encabezado_subtitulo = 'Camino al bicentenario' %}
+{% endif %}
+<div class="encabezadooficial">
+    <img src="{{ asset('bundles/yacarebase/img/escudo64.svg') }}" width="80" alt="Escudo del Municipio" class="encabezadooficial-logo pull-left" />
+    <div class="encabezadooficial-izquierda pull-left">
+        <h1>Municipio de Río Grande</h1>
+        <h2>Tierra del Fuego &bull; Argentina</h2>
+        <h3>{{ encabezado_subtitulo }}</h3>
+        <p></p>
+    </div>
+
+    <p class="encabezadooficial-derecha pull-right text-right">
+        Sebastián Elcano 203<br />
+        (9420) Río Grande<br />
+        www.riogrande.gob.ar
+    </p>
+</div>
