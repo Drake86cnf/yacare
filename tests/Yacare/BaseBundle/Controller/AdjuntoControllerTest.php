@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
 
-class AdjuntoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class AdjuntoControllerTest extends \Tapir\BaseBundle\Controller\BaseControllerTest
 {
 	public function setup()
 	{
