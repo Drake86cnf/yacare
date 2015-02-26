@@ -3,10 +3,9 @@
 {% block pagina_titulo %}Licitaciones{% endblock %}
 
 {% block pagina_contenido %}
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
-            <th></th>
             <th>Nº<br />licitación</th>
             <th>Nº<br />expediente</th>
             <th>Nombre</th>
@@ -19,8 +18,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}">
-            <td><a data-toggle="ajax-link" class="btn btn-default btn-xs hidden-print showonhover" href="{{ path('yacare_compras_licitacion_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a> <a class="btn btn-default btn-xs hidden-print showonhover" target="_blank" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="fa fa-print"></i> Imprimir</a></td>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.Numero }}</td>
             <td>{{ entity.ExpedienteNumero }}</td>
             <td>{{ entity.Nombre }}</td>

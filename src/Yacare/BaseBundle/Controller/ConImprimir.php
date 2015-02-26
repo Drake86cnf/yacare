@@ -61,7 +61,7 @@ trait ConImprimir
 
         $tpl = $this->ObtenerVariable($request, 'tpl');
         if (! $tpl) {
-            $tpl = 'imprimir';
+            $tpl = 'generar';
         }
         
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
@@ -96,24 +96,24 @@ trait ConImprimir
                 $em->refresh($impresionEnCache);
             }
             
-            $urlImprimir = $this->generateUrl($this->obtenerRutaBase('generar'), array(
-                'id' => $id,
-                'entity' => $entity,
-                'impresion' => $impresionEnCache,
-                'fmt' => 'text/html',
-                'tpl' => $tpl
-            ), true);
+            $urlImprimir = $this->generateUrl($this->obtenerRutaBase($tpl), array('id' => $id), true);
             
-            $impresionEnCache->setImagen($this->get('knp_snappy.image')->getOutput($urlImprimir));
             switch ($fmt) {
                 case 'text/html':
-                    $impresionEnCache->setContenido($html);
+                    $impresionEnCache->setContenido($html = $this->renderView('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':generar.html.twig', array(
+                        'id' => $id,
+                        'entity' => $entity,
+                        'impresion' => $impresionEnCache,
+                        'fmt' => 'text/html',
+                        'tpl' => $tpl
+                    )));
                     break;
                 case 'application/pdf':
                     $impresionEnCache->setContenido($this->get('knp_snappy.pdf')->getOutput($urlImprimir));
                     break;
             }
-
+            $impresionEnCache->setImagen($this->get('knp_snappy.image')->getOutput($urlImprimir));
+            
             // Ahora genero el contenido y guardo nuevamente la impresión
             /* $html = $this->renderView('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':' . $tpl . '.html.twig', array(
                 'id' => $id,
