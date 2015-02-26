@@ -6,7 +6,7 @@ security:
     providers:
         personas:
             # Usuarios de la tabla de personas
-            entity: { class: YacareBaseBundle:Persona, property: Username }
+            entity: { class: "YacareBaseBundle:Persona", property: Username }
         in_memory:
             # Usuarios adicionales para pruebas unitarias
             memory:
@@ -45,7 +45,7 @@ security:
                 target: /
                 invalidate_session: true
             remember_me:
-                key:      %secret%
+                key:      "%secret%"
                 lifetime: 3600
                 path:     /.*
                 domain:   ~
@@ -56,6 +56,7 @@ security:
         - { path: ^%web_root%/bundles/yacarebase/css/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^%web_root%/bundles/yacarebase/js/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^%web_root%/bundles/yacarebase/images/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/munirg/ldap/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: ROLE_USUARIO }
@@ -64,5 +65,3 @@ security:
         - { path: /compras, roles: ROLE_COMPRAS }
         - { path: /inspeccion, roles: ROLE_INSPECCION }
         - { path: /tramites, roles: ROLE_TRAMITES }
-        #, requires_channel: https }
-        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
