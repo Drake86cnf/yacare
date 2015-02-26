@@ -1,0 +1,82 @@
+{% extends 'YacareBaseBundle::comprobante.html.twig' %}
+
+{% block pagina_titulo %}Licitación Nº {{ entity.Numero }}: {{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+
+{% set encabezado_subtitulo = 'Dirección de Compras' %}
+{% include 'YacareBaseBundle::encabezadooficial.html.twig' %}
+
+<h1>Licitación Nº {{ entity.Numero }}: {{ entity }}</h1>
+
+        <br />
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="">Licitacion Nº</td>
+                    <td>{{ entity.Numero }}</td>
+                </tr>
+                <tr>
+                    <td class="">Detalle</td>
+                    <td>{{ entity.Nombre }}</td>
+                </tr>
+                <tr>
+                    <td class="">Expediente Nº</td>
+                    <td>{{ entity.ExpedienteNumero }}</td>
+                </tr>
+                <tr>
+                    <td class="">Presupuesto oficial</td>
+                    <td><span class="currency">{{ entity.PresupuestoOficial|tapir_importe }}</span></td>
+                </tr>
+                <tr>
+                    <td class="">Complejidad computada</td>
+                    <td>
+                    {% if entity.ComplejidadComputada == 0 %}
+                        Baja
+                    {% elseif entity.ComplejidadComputada == 1 %}
+                        Media
+                    {% elseif entity.ComplejidadComputada == 2 %}
+                        Alta
+                    {% else %}
+                        ---
+                    {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">Coeficiente</td>
+                    <td>{{ entity.PliegoCoeficiente }}%</td>
+                </tr>
+                <tr>
+                    <td class="">Valor del pliego</td>
+                    <td><span class="currency">{{ entity.PliegoValor|tapir_importe }}</span></td>
+                </tr>
+                <tr>
+                    <td class="">Observaciones</td>
+                    <td>{{ entity.Obs|raw('html') }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+{% if impresion is defined and impresion %}
+    <div class="etiquetaqr">
+        <a class="pull-left" data-toggle="ajax-link" href="{{ impresion.Yri }}"><img src="data:image/png;base64,{{ impresion.YriQrBase64 }}" alt="{{ impresion.Yri }}" /></a>
+        <div class="etiquetaqr-info">
+            M{{ impresion.Damm }} &gt; E{{ impresion.EntidadId }} &gt; V{{ impresion.EntidadVersion }}<br />
+            {{ entity.CreatedAt|date("d/m/Y H:i:s") }}<br />
+            {{ impresion.Token|upper|slice(0, 16) }}<br />
+            {{ impresion.Token|upper|slice(16, 16) }}<br />
+            <p class="etiquetaqr-codigo">{{ impresion.MiniToken|upper }}</p>
+        </div>
+    </div>
+{% else %}
+{% endif %}
+    <div class="hidden-print">
+        <button class="btn btn-default" onClick="window.print();">Imprimir</button>
+        <a class="btn btn-default" href="{{ path('yacare_compras_licitacion_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}">Ver o descargar en PDF</a>
+    </div>
+
+{% endblock %}
+
+
+{% block pagina_pie %}
+{% endblock pagina_pie %}

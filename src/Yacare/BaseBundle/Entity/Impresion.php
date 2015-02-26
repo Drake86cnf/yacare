@@ -28,39 +28,50 @@ class Impresion
     /**
      *
      * @var string $EntidadTipo
-     *      @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
 
     /**
      *
-     * @var $EntidadId @ORM\Column(type="integer")
+     * @var $EntidadId
+     * @ORM\Column(type="integer")
      */
     private $EntidadId;
 
     /**
      *
-     * @var $EntidadVersion @ORM\Column(type="integer", nullable=true)
+     * @var $EntidadVersion
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $EntidadVersion;
 
     /**
      *
-     * @var $TipoMime @ORM\Column(type="string", length=50)
+     * @var $TipoMime 
+     * @ORM\Column(type="string", length=50)
      */
     private $TipoMime;
 
     /**
      *
-     * @var $Token @ORM\Column(type="string", length=255)
+     * @var $Token
+     * @ORM\Column(type="string", length=255)
      */
     private $Token;
 
     /**
      *
-     * @var $Contenido @ORM\Column(type="blob")
+     * @var $Contenido
+     * @ORM\Column(type="blob")
      */
     private $Contenido;
+    
+    
+    public function MiniToken() {
+        return substr($this->Token, 26, 6);
+    }
+    
 
     public function getYri($incluye_version = true)
     {
