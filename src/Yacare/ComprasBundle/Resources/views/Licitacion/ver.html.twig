@@ -1,15 +1,8 @@
-{% extends 'YacareBaseBundle::comprobante.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Licitación Nº {{ entity.Numero }}: {{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
-
-{% set encabezado_subtitulo = 'Dirección de Compras' %}
-{% include 'YacareBaseBundle::encabezadooficial.html.twig' %}
-
-<h1>Licitación Nº {{ entity.Numero }}: {{ entity }}</h1>
-
-        <br />
         <table class="table table-striped">
             <tbody>
                 <tr>
@@ -73,8 +66,18 @@
             <p class="etiquetaqr-codigo">{{ impresion.MiniToken|upper }}</p>
         </div>
     </div>
+{% else %}
 {% endif %}
 
 {% endblock %}
+
+{% block pagina_acciones %}
+    <a class="btn btn-primary" href="{{ path(baseroute ~ '_imprimir', { 'id': entity.Id, 'fmt': 'application/pdf' }) }}"><i class="fa fa-file-pdf-o"></i> Descargar PDF</a>
+    <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    <a class="btn btn-default" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
+{% endblock pagina_acciones2 %}
 
 {% block pagina_pie %}{% endblock pagina_pie %}
