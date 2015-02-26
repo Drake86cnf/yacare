@@ -59,6 +59,7 @@ doctrine:
                     TapirBaseBundle:  ~
                     
                     YacareBaseBundle: ~
+                    YacareComprasBundle: ~
                     YacareCatastroBundle: ~
                     YacareComercioBundle: ~
                     YacareExpedientesBundle: ~
@@ -91,6 +92,22 @@ knp_paginator:
     page_range: 10                     # default page range used in pagination control
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:
+            - { name: page-size, value: A4 }
+            - { name: lowquality, value: false }
+            - { name: print-media-type, value: true }
+            #print-media-type: true
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage
+        options:
+            - { name: page-size, value: A4 }
+            - { name: print-media-type, value: true }
 
 liip_imagine:
     filter_sets:
