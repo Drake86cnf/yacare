@@ -15,12 +15,24 @@ class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
     use \Yacare\BaseBundle\Controller\ConQr;
     
     /**
-     * 
+     * Intervengo guardar para recalcular complejidad.
      */
     public function guardarActionPrePersist($entity, $editForm)
     {
         $entity->ComputarComplejidad();
         
         return null;
+    }
+    
+    
+    /**
+     * Muestra una pantalla de información sobre el cálculo de la licitación.
+     *
+     * @Route("ayuda/")
+     * @Template()
+     */
+    public function ayudaAction()
+    {
+    	return $this->ArrastrarVariables(array());
     }
 }
