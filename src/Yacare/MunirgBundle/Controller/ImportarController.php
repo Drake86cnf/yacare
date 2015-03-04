@@ -1075,7 +1075,13 @@ WHERE rnum >" . $desde . "
     	        }
     	
     	        $entity->setProfesion ( $Profesion );
-    	        $entity->setFechaVencimiento ( strtotime( trim ( $Row[7] ) ) );
+    	        
+    	        if($Row[7]) {
+    	           $fecha =  \DateTime::createFromFormat('Y-m-d', $Row[7]);
+    	           $entity->setFechaVencimiento ( $fecha );
+    	        } else {
+    	            $entity->setFechaVencimiento ( null );
+    	        }
     	        
     	        // Si no está en el grupo agentes, lo agrego
     	        if ($Persona->getGrupos ()->contains ( $GrupoMatriculados ) == false) {
