@@ -40,6 +40,18 @@ class Matriculado
      */
     private $FechaVencimiento;
     
+    
+    public function getProfesionAbreviada() {
+        switch($this->Profesion) {
+            case 'Ingeniero civil': return 'Ing. civil';
+            case 'Ingeniero en construcciones': return 'Ing. en constr.';
+            case 'Arquitecto': return 'Arq.';
+            case 'Maestro mayor de obras': return 'M.M.O.';
+            case 'Técnico constructor': return 'Téc. constr.';
+            default: return $this->Profesion;
+        }
+    }
+    
 
     public function __toString()
     {
