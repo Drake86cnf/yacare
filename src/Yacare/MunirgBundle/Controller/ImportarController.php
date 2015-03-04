@@ -1075,7 +1075,7 @@ WHERE rnum >" . $desde . "
     	        }
     	
     	        $entity->setProfesion ( $Profesion );
-    	        $entity->setFechaVencimiento ( trim ( $Row[7] ) );
+    	        $entity->setFechaVencimiento ( strtotime( trim ( $Row[7] ) ) );
     	        
     	        // Si no está en el grupo agentes, lo agrego
     	        if ($Persona->getGrupos ()->contains ( $GrupoMatriculados ) == false) {
