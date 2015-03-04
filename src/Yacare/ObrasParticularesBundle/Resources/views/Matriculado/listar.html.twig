@@ -31,5 +31,6 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo matriculado</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listarhabilitados', arrastre) }}" class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista de matriculados al día</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo matriculado</a>
 {% endblock pagina_acciones2 %}
