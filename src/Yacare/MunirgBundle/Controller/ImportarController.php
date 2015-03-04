@@ -1040,7 +1040,6 @@ WHERE rnum >" . $desde . "
     	        $Persona->setNombre ( StringHelper::Desoraclizar ( $ApellidoYNombres [1] ) );
     	        $Persona->setTelefonoNumero ( trim ( $Row[5] ) );
     	        $Persona->setEmail ( trim ( $Row[6] ) );
-    	        $Persona->setFechaVencimiento ( trim ( $Row[7] ) );
     	         
     	        $em->persist ( $Persona );
     	        $em->flush ();
@@ -1076,6 +1075,8 @@ WHERE rnum >" . $desde . "
     	        }
     	
     	        $entity->setProfesion ( $Profesion );
+    	        $entity->setFechaVencimiento ( trim ( $Row[7] ) );
+    	        
     	        // Si no está en el grupo agentes, lo agrego
     	        if ($Persona->getGrupos ()->contains ( $GrupoMatriculados ) == false) {
     	            $Persona->getGrupos ()->add ( $GrupoMatriculados );
