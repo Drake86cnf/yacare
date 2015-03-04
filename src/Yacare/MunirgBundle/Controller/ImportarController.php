@@ -963,7 +963,7 @@ WHERE rnum >" . $desde . "
 	
 	    $em = $this->getDoctrine ()->getManager ();
 	
-	    $ArchivoMatriculados = fopen('matriculados.csv', 'r');
+	    $ArchivoMatriculados = fopen('MatriculadosFusion.csv', 'r');
 	
 	    $importar_importados = 0;
 	    $importar_actualizados = 0;
@@ -1008,7 +1008,7 @@ WHERE rnum >" . $desde . "
     	        
     	        
     	        $ApellidoYNombres = StringHelper::ObtenerApellidoYNombres ( $Row [2] );
-    	         
+
     	        $PartesDomicilio = StringHelper::ObtenerCalleYNumero ( $Row [3] );
     	         
     	        /* $Calle = $em->getRepository ( 'YacareCatastroBundle:Calle' )->findOneBy ( array (
@@ -1040,6 +1040,7 @@ WHERE rnum >" . $desde . "
     	        $Persona->setNombre ( StringHelper::Desoraclizar ( $ApellidoYNombres [1] ) );
     	        $Persona->setTelefonoNumero ( trim ( $Row[5] ) );
     	        $Persona->setEmail ( trim ( $Row[6] ) );
+    	        $Persona->setFechaVencimiento ( trim ( $Row[7] ) );
     	         
     	        $em->persist ( $Persona );
     	        $em->flush ();
