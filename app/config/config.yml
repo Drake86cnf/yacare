@@ -37,6 +37,11 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
+        types:
+            geometry:   CrEOF\Spatial\DBAL\Types\GeometryType
+            point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
+            polygon:    CrEOF\Spatial\DBAL\Types\Geometry\PolygonType
+            linestring: CrEOF\Spatial\DBAL\Types\Geometry\LineStringType
         default_connection: default
         connections:
             default:
@@ -57,6 +62,13 @@ doctrine:
         default_entity_manager: default
         entity_managers:
             default:
+                dql:
+                    numeric_functions:
+                        st_contains:     CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STContains
+                        st_distance:     CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STDistance
+                        st_area:         CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STArea
+                        st_length:       CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STLength
+                        st_geomfromtext: CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STGeomFromText
                 connection: default
                 mappings:
                     TapirBaseBundle:  ~
