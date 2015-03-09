@@ -1,24 +1,24 @@
 {% extends 'TapirBaseBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Dispositivos{% endblock %}
+{% block pagina_titulo %}Rastreadores GPS{% endblock %}
 
 {% block pagina_contenido %}
 <table class="table table-hoverselect">
     <thead>
         <tr>
-            <th>Marca y modelo</th>
-            <th>Encargado</th>
             <th>Serie</th>
-            <th>Identificador</th>
+            <th>IMEI</th>
+            <th>Encargado</th>
+            <th>Nº de línea</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
-            <td>{{ entity.Marca }} {{ entity.Modelo }}</td>
-            <td>{{ entity.Encargado | default('') }}</td>
             <td>{{ entity.NumeroSerie }}</td>
             <td>{{ entity.IdentificadorUnico }}</td>
+            <td>{{ entity.Encargado | default('') }}</td>
+            <td>{{ entity.TelefonoNumero }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -28,5 +28,5 @@
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Crear nuevo dispositivo</a>
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo dispositivo</a>
 {% endblock %}

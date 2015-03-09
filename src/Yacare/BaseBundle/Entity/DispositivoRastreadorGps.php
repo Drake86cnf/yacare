@@ -15,11 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DispositivoRastreadorGps extends \Yacare\BaseBundle\Entity\Dispositivo
 {
-	/*
-	 * @ORM \Column(type"string", length=50)
+	/**
+	 * @ORM\Column(type="string", length=50)
 	 */
 	protected $TelefonoNumero;
-	
+
+
 	public function getTelefonoNumero()
 	{
 		return $this->TelefonoNumero;
