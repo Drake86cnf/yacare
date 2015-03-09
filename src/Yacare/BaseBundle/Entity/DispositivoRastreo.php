@@ -18,9 +18,11 @@ class DispositivoRastreo
 	use\Tapir\BaseBundle\Entity\ConId;
 	use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 	
-	/*protected $Latitud;
+    /**
+	 * @ORM\Column(type="point")
+	 */
+	protected $Ubicacion;
 	
-	protected $Longitud;*/
 	
 	/**
 	 * @ORM\Column(type="float")
@@ -28,7 +30,7 @@ class DispositivoRastreo
 	protected $Velocidad;
 	
 	/**
-	 * @ORM\Column(type="string", length=50)
+	 * @ORM\Column(type="float")
 	 */
 	protected $Rumbo;
 	
@@ -37,26 +39,7 @@ class DispositivoRastreo
 	 * @ORM\JoinColumn(nullable=true)
 	 */
 	protected $Dispositivo;
-	
-	/*public function getLatitud()
-	{
-		return $this->Latitud;
-	}
-	
-	public function setLatitud($Latitud)
-	{
-		$this->Latitud = $Latitud;
-	}
-	
-	public function getLongitud()
-	{
-		return $this->Longitud;
-	}
-	
-	public function setLongitud($Longitud)
-	{
-		$this->Longitud = $Longitud;
-	}*/
+
 	
 	public function getVelocidad()
 	{
@@ -87,4 +70,16 @@ class DispositivoRastreo
 	{
 		$this->Dispositivo = $Dispositivo;
 	}
+
+    public function getUbicacion()
+    {
+        return $this->Ubicacion;
+    }
+
+    public function setUbicacion($Ubicacion)
+    {
+        $this->Ubicacion = $Ubicacion;
+        return $this;
+    }
+ 
 }
