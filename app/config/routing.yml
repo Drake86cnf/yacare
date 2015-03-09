@@ -3,7 +3,7 @@ app:
 
 login:
     path:      /login
-    defaults:  { _controller: TapirBaseBundle:Security:login }
+    defaults:  { _controller: "TapirBaseBundle:Security:login" }
 
 tapir_base:
     resource: "@TapirBaseBundle/Controller/"
