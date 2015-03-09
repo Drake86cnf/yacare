@@ -100,7 +100,7 @@ trait ConImprimir
             
             switch ($fmt) {
                 case 'text/html':
-                    $impresionEnCache->setContenido($html = $this->renderView('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':generar.html.twig', array(
+                    $impresionEnCache->setContenido($this->renderView('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':generar.html.twig', array(
                         'id' => $id,
                         'entity' => $entity,
                         'impresion' => $impresionEnCache,

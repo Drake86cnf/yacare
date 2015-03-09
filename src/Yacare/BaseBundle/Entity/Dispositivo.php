@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
- * "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico"
+ * "Otro"               = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
+ * "RastreadorGps"      = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
  * })
  */
 class Dispositivo
