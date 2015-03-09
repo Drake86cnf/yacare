@@ -56,9 +56,9 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
             case 'image/png':
             case 'image/gif':
             case 'image/svg':
-                $imagemanagerResponse = $this->container->get('liip_imagine.controller')->filterAction($request, $entity->getRutaRelativa() . $entity->getToken(),                 // original image you want to apply a filter to
+                /* $imagemanagerResponse = $this->container->get('liip_imagine.controller')->filterAction($request, $entity->getRutaRelativa() . $entity->getToken(),                 // original image you want to apply a filter to
                 'thumb256')                // filter defined in config.yml
-                ;
+                ; */
                 
                 // string to put directly in the "src" of the tag <img>
                 $cacheManager = $this->container->get('liip_imagine.cache.manager');
