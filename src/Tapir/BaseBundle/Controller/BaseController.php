@@ -19,6 +19,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 abstract class BaseController extends Controller
 {
     /**
+     * @var string El nombre del EntityManager que se usa en este controlador.
+     * @see $EmName
+     */
+    protected $EmName;
+    
+    /**
      * @var string El nombre del vendor al cual pertenece este controlador.
      * @see $BundleName
      */
@@ -76,7 +82,7 @@ abstract class BaseController extends Controller
      * Obtiene el Entity Manager de Doctrine.
      */
     protected function getEm() {
-    	return $this->getDoctrine()->getManager();
+    	return $this->getDoctrine()->getManager($this->EmName);
     }
 
 
@@ -88,6 +94,10 @@ abstract class BaseController extends Controller
      */
     function IniciarVariables()
     {
+        if (! isset($this->EmName)) {
+            $this->EmName = 'default';
+        }
+        
         if (! isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
         }

@@ -294,6 +294,8 @@ function MejorarElementos(destino) {
 		language : 'es',
 		autoclose : true
 	}); */
+	
+	$(desintoFinal + '[data-toggle="tooltip"]').tooltip()
 
 	// Valida y formatea una fecha ingresada al perder el foco en el control
 	$(desintoFinal + '.valirdar-fecha').blur(function(e) {
