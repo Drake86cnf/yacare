@@ -41,7 +41,11 @@ class FormatExtension extends \Twig_Extension
         	new \Twig_SimpleFilter('tapir_porcentaje', array(
         			$this,
         			'tapir_porcentaje'
-        	))
+        	)),
+            new \Twig_SimpleFilter('tapir_decodehtml', array(
+                $this,
+                'tapir_decodehtml'
+            ))
         );
     }
 
@@ -100,6 +104,11 @@ class FormatExtension extends \Twig_Extension
         } else {
             return "No";
         }
+    }
+    
+    public function tapir_decodehtml($valor)
+    {
+        return htmlspecialchars_decode($valor, ENT_QUOTES);
     }
     
     public function tapir_mejorartexto($valor)

@@ -65,7 +65,7 @@ abstract class AbmController extends BaseController
     public function obtenerCantidadRegistros($whereAdicional = null) {
     	$dql = $this->obtenerComandoSelect(null, true, $whereAdicional);
 
-    	$em = $this->getDoctrine()->getManager();
+    	$em = $this->getEm();
     	$query = $em->createQuery($dql);
     	$cant = $query->getSingleScalarResult();
 
@@ -189,7 +189,7 @@ abstract class AbmController extends BaseController
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         $dql = $this->obtenerComandoSelect($filtro_buscar);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         $query = $em->createQuery($dql);
 
         // echo '<pre>' . $dql . '</pre>';
@@ -293,8 +293,6 @@ abstract class AbmController extends BaseController
      */
     public function editarAction(Request $request, $id = null)
     {
-        //$em = $this->getDoctrine()->getManager();
-
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         } else {
@@ -333,7 +331,7 @@ abstract class AbmController extends BaseController
      */
     public function guardarAction(Request $request, $id = null)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
 
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
@@ -475,7 +473,7 @@ abstract class AbmController extends BaseController
      */
     protected function obtenerEntidadPorId($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         return $em->getRepository($this->CompleteEntityName)->find($id);
     }
 }
