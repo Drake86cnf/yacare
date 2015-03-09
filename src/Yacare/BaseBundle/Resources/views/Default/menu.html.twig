@@ -1,6 +1,18 @@
 <!-- left menu starts -->
 <ul class="nav navbar-nav side-nav">
     <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_buscar') }}"><i class="fa fa-user fa-fw"></i> Personas</a></li>
+
+    {% if is_expr_granted("hasAnyRole('ROLE_TIC')") %}
+    <li class="divider"></li>
+    <li class="dropdown keep-open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-laptop fa-fw"></i> TIC<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_dispositivorastreadorgps_listar') }}">Rastreadores GPS</a></li>
+            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_dispositivogenerico_listar') }}">Dispositivos</a></li>
+        </ul>
+    </li>    
+    {% endif %}
+    
     {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO')") %}
     <li class="dropdown keep-open">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-home fa-fw"></i> Catastro <b class="caret"></b></a>
@@ -81,7 +93,6 @@
             <li><a data-toggle="ajax-link" href="{{ path('tapir_base_personarol_listar') }}">Roles</a></li>
             <li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_listar') }}">Agentes</a></li>
             <li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agentegrupo_listar') }}">Grupos</a></li>
-            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_dispositivogenerico_listar') }}">Dispositivos</a></li>
         </ul>
     </li>    
     {% endif %}
