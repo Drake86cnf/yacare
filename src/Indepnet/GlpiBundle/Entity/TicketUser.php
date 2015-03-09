@@ -126,7 +126,7 @@ class TicketUser
         return $this->UseNotification;
     }
 
-    public function setUseNotification(boolean $UseNotification)
+    public function setUseNotification($UseNotification)
     {
         $this->UseNotification = $UseNotification;
         return $this;
@@ -137,7 +137,7 @@ class TicketUser
         return $this->AlternativeEmail;
     }
 
-    public function setAlternativeEmail(string $AlternativeEmail)
+    public function setAlternativeEmail($AlternativeEmail)
     {
         $this->AlternativeEmail = $AlternativeEmail;
         return $this;
