@@ -1,0 +1,43 @@
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
+
+{% block pagina_titulo %}Requerimientos{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Prioridad</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Usuarios</th>
+            <th>Estado</th>
+            <th>Última novedad</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+            <td>{{ entity.Date|tapir_fecha('medium', 'none') }}</td>
+            <td class="{% if entity.Priority == 4 %}text-danger{% elseif entity.Priority == 3 %}text-warning{% endif %}">
+                {% if entity.Priority == 4 %}<i class="fa fa-fire"></i> {% endif %}
+                {{ entity.PriorityName }}</td>
+            <td>{{ entity.Name }}<br />
+            {% if entity.FollowUps|length > 0 %}
+                <span><small>Hay {{ entity.FollowUps|length }} seguimiento{% if entity.FollowUps|length >1 %}s{% endif %}.</small></span>
+            {% endif %}
+            </td>
+            <td>{{ entity.ItilCategory.CompleteName }}</td>
+            <td><div class="small">{% for user in entity.Users %}
+                {{ user.TypeName }}: {{ user.User.FirstName }} {{ user.User.RealName }}<br />
+            {% endfor %}</div></td>
+            <td>{{ entity.StatusName }}</td>
+            <td>{{ entity.DateMod|tapir_hacetiempo }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}

@@ -25,14 +25,27 @@ assetic:
 
 doctrine:
     dbal:
-      connections:
-        haberes:
-          driver: oci8
-          host: ~
-          #port: '1521'
-          dbname: 'DBMUNI'
-          service: true
-          user: 'haberes'
-          password: 'haberes'
-          #charset: AL32UTF8 
-                
+        connections:
+            haberes:
+                driver: oci8
+                host: ~
+                dbname: 'DBMUNI'
+                service: true
+                user: 'haberes'
+                password: 'haberes'
+           
+            glpi:
+                driver: pdo_mysql
+                host: antares
+                dbname: 'glpi'
+                service: true
+                user: 'glpi'
+                password: 'glpi'
+    orm:
+        entity_managers:
+            haberes:
+                connection: haberes
+            glpi:
+                connection: glpi
+                mappings:
+                    IndepnetGlpiBundle: ~

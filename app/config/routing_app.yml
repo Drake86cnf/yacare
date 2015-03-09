@@ -68,6 +68,11 @@ yacare_recursos_humanos:
     type:     annotation
     prefix:   /rrhh/
 
+glpi:
+    resource: "@IndepnetGlpiBundle/Controller/"
+    type:     annotation
+    prefix:   /glpi/
+
 inicio:
     path:      /
     defaults:  { _controller: "YacareBaseBundle:Default:inicio" }
