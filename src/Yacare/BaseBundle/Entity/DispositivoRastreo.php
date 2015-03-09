@@ -25,12 +25,12 @@ class DispositivoRastreo
 	
 	
 	/**
-	 * @ORM\Column(type="float")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $Velocidad;
 	
 	/**
-	 * @ORM\Column(type="float")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $Rumbo;
 	
