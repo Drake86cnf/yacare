@@ -13,24 +13,24 @@ abstract class DispositivoType extends AbstractType
         $builder->add('Marca', null, array(
             'label' => 'Marca'
         ))
-            ->add('Modelo', null, array(
+        ->add('Modelo', null, array(
             'label' => 'Modelo'
         ))
-            ->add('NumeroSerie', null, array(
+        ->add('NumeroSerie', null, array(
             'label' => 'Número de serie'
         ))
-            ->add('IdentificadorUnico', null, array(
+        ->add('IdentificadorUnico', null, array(
             'label' => 'Identificador único'
         ))
-            ->add('Comentario', null, array(
+        ->add('Comentario', null, array(
             'label' => 'Comentario'
         ))
-            ->add('Encargado', 'entity_id', array(
+        ->add('Encargado', 'entity_id', array(
             'label' => 'Encargado',
             'class' => 'Yacare\BaseBundle\Entity\Persona',
             'required' => false
         ))
-            ->add('Firmware', null, array(
+        ->add('Firmware', null, array(
             'label' => 'Versión de Firmware'
         ));
     }

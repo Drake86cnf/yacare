@@ -1,7 +1,7 @@
 <?php
 namespace Yacare\BaseBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+    use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Yacare\BaseBundle\Entity\Dispositivo
