@@ -1,0 +1,23 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as yacare %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+{% if ultimorastreo %}
+    Se lo vió por última vez
+    {% if ultimorastreo.Velocidad == 0 %}estacionado{% endif %} 
+    en {{ ultimorastreo.Ubicacion }}
+    {% if ultimorastreo.Velocidad > 0 %}
+    , dirigiéndose hacia {{ ultimorastreo.Rumbo }} a una velocidad de {{ ultimorastreo.Velocidad }}
+    {% endif %}.
+{% endif %}
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <span adata-toggle="ajax-link" onclick="return tapirAtras();" class="btn btn-link"><i class="fa fa-reply"></i> Volver</span>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+{% endblock pagina_acciones2 %}

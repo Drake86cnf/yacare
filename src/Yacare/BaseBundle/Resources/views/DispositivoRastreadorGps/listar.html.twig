@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.NumeroSerie }}</td>
             <td>{{ entity.IdentificadorUnico }}</td>
             <td>{{ entity.Encargado | default('') }}</td>

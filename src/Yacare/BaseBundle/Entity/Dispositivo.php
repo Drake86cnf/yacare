@@ -18,6 +18,7 @@ namespace Yacare\BaseBundle\Entity;
 class Dispositivo
 {
     use\Tapir\BaseBundle\Entity\ConId;
+    use\Tapir\BaseBundle\Entity\ConObs;
     use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use\Tapir\BaseBundle\Entity\Versionable;
 
@@ -40,11 +41,6 @@ class Dispositivo
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $IdentificadorUnico;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $Comentario;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
@@ -74,16 +70,6 @@ class Dispositivo
     public function setNumeroSerie($NumeroSerie)
     {
         $this->NumeroSerie = $NumeroSerie;
-    }
-
-    public function getComentario()
-    {
-        return $this->Comentario;
-    }
-
-    public function setComentario($Comentario)
-    {
-        $this->Comentario = $Comentario;
     }
 
     public function getEncargado()

@@ -22,9 +22,6 @@ abstract class DispositivoType extends AbstractType
         ->add('IdentificadorUnico', null, array(
             'label' => 'Identificador único'
         ))
-        ->add('Comentario', null, array(
-            'label' => 'Comentario'
-        ))
         ->add('Encargado', 'entity_id', array(
             'label' => 'Encargado',
             'class' => 'Yacare\BaseBundle\Entity\Persona',
@@ -32,6 +29,9 @@ abstract class DispositivoType extends AbstractType
         ))
         ->add('Firmware', null, array(
             'label' => 'Versión de Firmware'
+        ))
+        ->add('Obs', null, array(
+            'label' => 'Observaciones'
         ));
     }
 
