@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *
- * @ORM\Table(name="Base_DispostivoRastreo")
+ * @ORM\Table(name="Base_DispositivoRastreo")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class DispositivoRastreo
