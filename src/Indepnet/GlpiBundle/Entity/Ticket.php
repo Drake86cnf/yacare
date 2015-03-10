@@ -673,7 +673,7 @@ class Ticket
         return $this->IsDeleted;
     }
 
-    public function setIsDeleted(boolean $IsDeleted)
+    public function setIsDeleted($IsDeleted)
     {
         $this->IsDeleted = $IsDeleted;
         return $this;
