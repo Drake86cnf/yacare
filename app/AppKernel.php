@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             
             new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
