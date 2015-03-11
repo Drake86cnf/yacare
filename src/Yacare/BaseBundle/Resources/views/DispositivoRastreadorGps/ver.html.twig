@@ -5,13 +5,11 @@
 
 {% block pagina_contenido %}
 {% if ultimorastreo %}
-    Se lo vió por última vez
-    {% if ultimorastreo.Velocidad == 0 %}estacionado{% endif %} 
-    en {{ ultimorastreo.Ubicacion }}
-    {% if ultimorastreo.Velocidad > 0 %}
-    , dirigiéndose hacia {{ ultimorastreo.Rumbo }} a una velocidad de {{ ultimorastreo.Velocidad }}
-    {% endif %}.
+    {{ google_map_container(map) }}
+    {{ google_map_js(map) }}
 {% endif %}
+
+
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}

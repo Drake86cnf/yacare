@@ -58,6 +58,7 @@ security:
         - { path: ^%web_root%/bundles/yacarebase/images/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pub, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/munirg/ldap/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: ROLE_USUARIO }
         - { path: /base, roles: ROLE_ADMINISTRADOR }
@@ -65,3 +66,4 @@ security:
         - { path: /compras, roles: ROLE_COMPRAS }
         - { path: /inspeccion, roles: ROLE_INSPECCION }
         - { path: /tramites, roles: ROLE_TRAMITES }
+        
