@@ -24,6 +24,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
     public function verAction(Request $request, $id = null)
     {
         $res = parent::verAction($request, $id);
+        
+        $entity = $res['entity'];
     
         $em = $this->getEm();
         $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
@@ -62,8 +64,9 @@ class DispositivoRastreadorGpsController extends DispositivoController
             $marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
             $marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
             
-            $marker->setOption('clickable', false);
+            $marker->setOption('clickable', true);
             $marker->setOption('flat', true);
+            $marker->setOption('title', (string)$entity);
             
             // Add your marker to the map
             $map->addMarker($marker);
