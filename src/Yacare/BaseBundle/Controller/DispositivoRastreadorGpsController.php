@@ -120,6 +120,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	));
     	
     	$map->setLanguage('es');
+    	$res['dispositivos'] = $Dispositivos;
     	
     	foreach ($Dispositivos as $Dispositivo) {
     		$id = $Dispositivo->getId();
