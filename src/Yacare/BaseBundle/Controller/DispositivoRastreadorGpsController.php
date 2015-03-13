@@ -91,4 +91,59 @@ class DispositivoRastreadorGpsController extends DispositivoController
     
         return $res;
     }
+    
+    /**
+     * @Route ("vertodos/")
+     * @Template()
+     */
+    public function vertodosAction (Request $request) 
+    {
+    	//$res = parent::listarAction($request);
+    	$em = $this->getEm();
+    	$Dispositivos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreadorGps')
+    		->findAll();
+    	
+    	$map = $this->get('ivory_google_map.map');
+    	
+    	//$map->setMapOption('zoom', 3);
+    	$map->setAsync(true);
+    	$map->setAutoZoom(true);
+    	
+    	$map->setMapOptions(array(
+    			'disableDefaultUI'       => true,
+    			'disableDoubleClickZoom' => true
+    	));
+    	
+    	$map->setStylesheetOptions(array(
+    			'width'  => '100%',
+    			'height' => '480px'
+    	));
+    	
+    	$map->setLanguage('es');
+    	
+    	foreach ($Dispositivos as $Dispositivo) {
+    		$id = $Dispositivo->getId();
+    		$UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
+            	->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 ); 
+    		
+    		if($UltimoRastreo) {
+    			//$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
+    			$UltimoRastreo = $UltimoRastreo[0];
+    			$marker = new \Ivory\GoogleMap\Overlays\Marker();
+    		
+    			$marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
+    			$marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
+    		
+    			$marker->setOption('clickable', false);
+    			$marker->setOption('flat', true);
+    		
+    			// Add your marker to the map
+    			$map->addMarker($marker); 
+    		}
+    	}
+    	
+    	$res['map'] = $map;
+    	
+    	return $res;
+    }
 }
