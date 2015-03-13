@@ -24,9 +24,9 @@ class DispositivoRastreadorGpsController extends DispositivoController
     public function verAction(Request $request, $id = null)
     {
         $res = parent::verAction($request, $id);
-        
+    	
         $entity = $res['entity'];
-    
+        
         $em = $this->getEm();
         $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
             ->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 );
@@ -37,39 +37,10 @@ class DispositivoRastreadorGpsController extends DispositivoController
         }
         $res['ultimorastreo'] = $UltimoRastreo;
         
-        $map = $this->get('ivory_google_map.map');
-        
-        
-        //$map->setMapOption('zoom', 3);
-        $map->setAsync(true);
-        $map->setAutoZoom(true);
-        
-        $map->setMapOptions(array(
-            'disableDefaultUI'       => true,
-            'disableDoubleClickZoom' => true
-        ));
-        
-        $map->setStylesheetOptions(array(
-            'width'  => '100%',
-            'height' => '480px'
-        ));
-        
-        $map->setLanguage('es');
+        $map = $this->CrearMapa();
         
         if($UltimoRastreo) {
-            $map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
-            
-            $marker = new \Ivory\GoogleMap\Overlays\Marker();
-            
-            $marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
-            $marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
-            
-            $marker->setOption('clickable', true);
-            $marker->setOption('flat', true);
-            $marker->setOption('title', (string)$entity);
-            
-            // Add your marker to the map
-            $map->addMarker($marker);
+        	$this->ColocarMarcador($map, $UltimoRastreo, $entity);
         } else {
             $map->setCenter(-53.789858, -67.692911, true);
         }
@@ -101,53 +72,75 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function vertodosAction (Request $request) 
     {
-    	//$res = parent::listarAction($request);
     	$em = $this->getEm();
     	$Dispositivos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreadorGps')
     		->findAll();
     	
-    	$map = $this->get('ivory_google_map.map');
+    	$map = $this->CrearMapa();
     	
-    	//$map->setMapOption('zoom', 3);
-    	$map->setAsync(true);
-    	$map->setAutoZoom(true);
-    	
-    	$map->setMapOptions(array(
-    			'disableDefaultUI'       => true,
-    			'disableDoubleClickZoom' => true
-    	));
-    	
-    	$map->setStylesheetOptions(array(
-    			'width'  => '100%',
-    			'height' => '480px'
-    	));
-    	
-    	$map->setLanguage('es');
-    	$res['dispositivos'] = $Dispositivos;
-    	
-    	foreach ($Dispositivos as $Dispositivo) {
+    	foreach ($Dispositivos as $Dispositivo)
+    	{
     		$id = $Dispositivo->getId();
+    		$res = parent::verAction($request, $id);
+    		$entity = $res['entity'];
+    		
     		$UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
             	->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 ); 
     		
     		if($UltimoRastreo) {
-    			//$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
     			$UltimoRastreo = $UltimoRastreo[0];
-    			$marker = new \Ivory\GoogleMap\Overlays\Marker();
-    		
-    			$marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
-    			$marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
-    		
-    			$marker->setOption('clickable', false);
-    			$marker->setOption('flat', true);
-    		
-    			// Add your marker to the map
-    			$map->addMarker($marker); 
+    			$this->ColocarMarcador($map, $UltimoRastreo, $entity);
     		}
     	}
-    	
+    	$res['dispositivos'] = $Dispositivos;
     	$res['map'] = $map;
     	
     	return $res;
+    }
+    
+    /*
+     * Rutina que crea un mapa base de GoogleMaps.
+     */
+    private function CrearMapa ()
+    {
+    	$map = $this->get('ivory_google_map.map');
+    	 
+    	//$map->setMapOption('zoom', 3);
+    	$map->setAsync(true);
+    	$map->setAutoZoom(true);
+    	 
+    	$map->setMapOptions(array(
+    			'disableDefaultUI'       => true,
+    			'disableDoubleClickZoom' => true
+    	));
+    	 
+    	$map->setStylesheetOptions(array(
+    			'width'  => '100%',
+    			'height' => '480px'
+    	));
+    	 
+    	$map->setLanguage('es');
+    	
+    	return $map;
+    }
+    
+    /*
+     * Rutina que crea un marcador en base a las coordenadas parasadas como parametros.
+     */
+    private function ColocarMarcador ($map, $UltimoRastreo, $entity) 
+    {
+    	$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
+    	
+    	$marker = new \Ivory\GoogleMap\Overlays\Marker();
+    	
+    	$marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
+    	$marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
+    	
+    	$marker->setOption('clickable', true);
+        $marker->setOption('flat', true);
+        $marker->setOption('title', (string)$entity);
+    	
+    	// Add your marker to the map
+    	$map->addMarker($marker);
     }
 }
