@@ -3,7 +3,7 @@ namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de CalleController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

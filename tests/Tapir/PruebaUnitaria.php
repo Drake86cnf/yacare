@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Tapir;
 
-/*
+/**
  * Clase base para todas las pruebas unitarias.
  *
  * @abstract

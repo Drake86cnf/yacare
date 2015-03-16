@@ -3,7 +3,7 @@ namespace Yacare\RecursosHumanosBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de AgenteController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

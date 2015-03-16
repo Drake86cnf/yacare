@@ -125,7 +125,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
     }
     
     /**
-     * Rutina que crea un marcador en base a las coordenadas parasadas como parametros.
+     * Rutina que crea un marcador en base a las coordenadas pasadas como parametros.
      */
     private function ColocarMarcador ($map, $UltimoRastreo, $entity) 
     {

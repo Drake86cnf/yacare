@@ -4,7 +4,7 @@ namespace Yacare\BaseBundle\Controller;
 use Yacare\BaseBundle\Tests\YacareWebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de PersonaController.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>

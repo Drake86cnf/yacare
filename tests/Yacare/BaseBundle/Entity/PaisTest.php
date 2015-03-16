@@ -15,7 +15,7 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         $this->item = new Pais();
     }
     
-    /*
+    /**
      * Prueba el código del trait "ConId"
      */
     public function testConId()
@@ -33,7 +33,7 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         $this->ProbarPropiedad('Iso', 'ar');
     }
     
-    /*
+    /**
      * Prueba el código del trait "ConNombre"
      */
     public function testConNombre()
@@ -46,7 +46,7 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         $this->assertEquals($Nombre, (string) $this->item);
     }
     
-    /*
+    /**
      * Prueba el código del trait "Versionable"
      */
     public function testVersionable()

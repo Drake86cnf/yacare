@@ -3,7 +3,7 @@ namespace Tests\Tapir;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/*
+/**
  * Clase base para todas las pruebas funcionales.
  *
  * @abstract

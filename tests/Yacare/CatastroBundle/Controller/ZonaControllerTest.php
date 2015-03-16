@@ -3,7 +3,7 @@ namespace Yacare\CatastroBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de ZonaController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
