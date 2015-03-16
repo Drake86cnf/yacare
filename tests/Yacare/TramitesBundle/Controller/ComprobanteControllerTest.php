@@ -3,7 +3,7 @@ namespace Yacare\TramitesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de ComprobanteController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

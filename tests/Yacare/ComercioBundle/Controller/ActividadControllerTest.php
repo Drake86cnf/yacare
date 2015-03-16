@@ -3,7 +3,7 @@ namespace Yacare\ComercioBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de ActividadController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

@@ -3,7 +3,7 @@ namespace Yacare\InspeccionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de RelevamientoAsignacionDetalleController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

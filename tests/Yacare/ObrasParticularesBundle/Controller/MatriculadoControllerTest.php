@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de MatriculadoController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

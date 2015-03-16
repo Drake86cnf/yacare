@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/*
+/**
  * Prueba de ActaController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>

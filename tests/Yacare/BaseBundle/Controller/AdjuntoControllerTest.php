@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/* 
+/**
  * Prueba de AdjuntoController.
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
