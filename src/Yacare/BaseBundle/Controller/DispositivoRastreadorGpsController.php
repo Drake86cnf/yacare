@@ -98,7 +98,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	return $res;
     }
     
-    /*
+    /**
      * Rutina que crea un mapa base de GoogleMaps.
      */
     private function CrearMapa ()
@@ -124,7 +124,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	return $map;
     }
     
-    /*
+    /**
      * Rutina que crea un marcador en base a las coordenadas parasadas como parametros.
      */
     private function ColocarMarcador ($map, $UltimoRastreo, $entity) 
