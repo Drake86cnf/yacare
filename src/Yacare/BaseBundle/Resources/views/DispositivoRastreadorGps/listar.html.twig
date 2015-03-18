@@ -3,26 +3,30 @@
 {% block pagina_titulo %}Rastreadores GPS{% endblock %}
 
 {% block pagina_contenido %}
+<div class="">
 <table class="table table-hoverselect">
     <thead>
         <tr>
             <th>Serie</th>
-            <th>IMEI</th>
+            <th class="clearfix visible-md visible-lg">IMEI</th>
             <th>Encargado</th>
-            <th>Nº de línea</th>
+            <th class="clearfix visible-md visible-lg">Nº de línea</th>
+            <th>Observaciones</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
             <td>{{ entity.NumeroSerie }}</td>
-            <td>{{ entity.IdentificadorUnico }}</td>
+            <td class="clearfix visible-md visible-lg">{{ entity.IdentificadorUnico }}</td>
             <td>{{ entity.Encargado | default('') }}</td>
-            <td>{{ entity.TelefonoNumero }}</td>
+            <td class="clearfix visible-md visible-lg">{{ entity.TelefonoNumero }}</td>
+            <td>{{ entity.Obs }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}

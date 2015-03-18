@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-
 /**
  * Controlador de rastreadores GPS.
  *
@@ -111,7 +110,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	 
     	$map->setMapOptions(array(
     			'disableDefaultUI'       => true,
-    			'disableDoubleClickZoom' => true
+    			'disableDoubleClickZoom' => true,
+    			'mapTypeId'				 => 'roadmap'
     	));
     	 
     	$map->setStylesheetOptions(array(
@@ -126,21 +126,47 @@ class DispositivoRastreadorGpsController extends DispositivoController
     
     /**
      * Rutina que crea un marcador en base a las coordenadas pasadas como parametros.
+     * 
+     * La rutina crea primero una "infoWindow" y realiza los distintos 'set' añadiendo las opciones con la cual trabajará.
+     * Luego realiza las mismas operaciones de configuración a un 'marker', que será el marcador que apuntará en el mapa a al último rastreo de un dispositivo GPS.
      */
     private function ColocarMarcador ($map, $UltimoRastreo, $entity) 
     {
+    	$infoWindow = new \Ivory\GoogleMap\Overlays\InfoWindow;
+    	
+    	// Configuración de las opciones de "Info Window"
+    	$infoWindow->setPrefixJavascriptVariable('info_window_');
+    	$infoWindow->setPosition(0, 0, true);
+    	$infoWindow->setPixelOffset(1.1, 2.1, 'px', 'pt');
+    	$infoWindow->setContent($entity->getObs());
+    	$infoWindow->setOpen(true);
+    	//$infoWindow->setAutoOpen(true);
+    	//$infoWindow->setOpenEvent(\Ivory\GoogleMap\Events\MouseEvent::CLICK);
+    	$infoWindow->setAutoClose(false);
+    	$infoWindow->setOptions(array(
+    		'disableAutoPan' => false,
+    		'zIndex'         => 10,
+    		'maxWidth'		 => 70
+    	));
+    	
     	$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
     	
-    	$marker = new \Ivory\GoogleMap\Overlays\Marker();
     	
+    	// Configuración de las opciones del marcador a incorporar
+    	$marker = new \Ivory\GoogleMap\Overlays\Marker();
+    	    	
     	$marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
     	$marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
-    	
-    	$marker->setOption('clickable', true);
-        $marker->setOption('flat', true);
-        $marker->setOption('title', (string)$entity);
-    	
-    	// Add your marker to the map
+    	$marker->setOptions(array(
+    		'clickable' => true,
+        	'flat'      => true,
+        	'title'     => (string)$entity
+    	));
+        
+        // Incorporo la ventana de información como una propiedad más al marcador.
+        $marker->setInfoWindow($infoWindow);
+        
+    	// Incorporo el marcador al mapa.
     	$map->addMarker($marker);
     }
 }
