@@ -56,6 +56,8 @@ function tapirEntityIdSeleccionarItem(destino, id, detalle) {
 function tapirMostrarModalEn(url, destino) {
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#modal';
+	} else {
+		destinoFinal = destino;
 	}
 
 	var div_modal = $(destinoFinal);
