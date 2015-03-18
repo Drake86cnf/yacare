@@ -18,7 +18,9 @@ class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         
-        $this->BuscarPor = 'p.Nombre , p.id ,p.Documento';
+        $this->Joins[] = 'JOIN r.Persona p';
+        $this->OrderBy = 'p.NombreVisible';
+        $this->BuscarPor = 'p.Nombre , p.DocumentoNumero';
     }
     
     
@@ -31,8 +33,6 @@ class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarhabilitadosAction(Request $request) {
         $this->Where = 'r.FechaVencimiento>CURRENT_DATE()';
         $this->Paginar = false;
-        $this->Joins[] = 'JOIN r.Persona p';
-        $this->OrderBy = 'p.NombreVisible';
     
         $res = parent::listarAction($request);
         
