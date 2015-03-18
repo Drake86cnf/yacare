@@ -146,7 +146,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	$infoWindow->setOptions(array(
     		'disableAutoPan' => false,
     		'zIndex'         => 10,
-    		'maxWidth'		 => 70
+    		'maxWidth'		 => 100
     	));
     	
     	$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
