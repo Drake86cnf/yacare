@@ -4,12 +4,12 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ObrasParticularesBundle\Entity\Matriculado
+ * Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="ObrasParticulares_Matriculado")
+ * @ORM\Table(name="ObrasParticulares_EmpresaConstructora")
  */
-class Matriculado
+class EmpresaConstructora
 {
     use\Tapir\BaseBundle\Entity\ConId;
     use\Tapir\BaseBundle\Entity\Suprimible;
@@ -17,20 +17,22 @@ class Matriculado
     use\Tapir\BaseBundle\Entity\Versionable;
 
     /**
-     * La persona asociada.
+     * La persona juŕidica asociada.
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Persona;
-
+    
+    
     /**
-     * Indica la profesion del matriculado
+     * El representante técnico.
      *
-     * @var $Profesion
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\Matriculado")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
-    private $Profesion;
+    private $RepresentanteTecnico;
+
 
     /**
      * La fecha de vencimiento del pago anual.
@@ -40,37 +42,10 @@ class Matriculado
      */
     private $FechaVencimiento;
     
-    public function getNombre()
-    {
-        return (string)$this;
-    }
     
-    
-    public function getProfesionAbreviada() {
-        switch($this->Profesion) {
-            case 'Ingeniero civil': return 'Ing. civil';
-            case 'Ingeniero en construcciones': return 'Ing. en constr.';
-            case 'Arquitecto': return 'Arq.';
-            case 'Maestro mayor de obras': return 'M.M.O.';
-            case 'Técnico constructor': return 'Téc. constr.';
-            default: return $this->Profesion;
-        }
-    }
-    
-
     public function __toString()
     {
-        return 'Matriculado Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
-    }
-
-    public function getProfesion()
-    {
-        return $this->Profesion;
-    }
-
-    public function setProfesion($Profesion)
-    {
-        $this->Profesion = $Profesion;
+        return 'Empresa Constructura Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
     }
 
     public function getPersona()
@@ -91,5 +66,16 @@ class Matriculado
     public function setFechaVencimiento($FechaVencimiento)
     {
         $this->FechaVencimiento = $FechaVencimiento;
+    }
+
+    public function getRepresentanteTecnico()
+    {
+        return $this->RepresentanteTecnico;
+    }
+
+    public function setRepresentanteTecnico($RepresentanteTecnico)
+    {
+        $this->RepresentanteTecnico = $RepresentanteTecnico;
+        return $this;
     }
 }
