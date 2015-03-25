@@ -26,6 +26,11 @@ class DispositivoRastreadorGpsController extends DispositivoController
     	
         $entity = $res['entity'];
         
+        if ($entity->getObs() == null)
+        {
+        	$entity->setObs('Serie '. $entity->getNumeroSerie());
+        }
+        
         $em = $this->getEm();
         $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
             ->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 );
@@ -82,6 +87,11 @@ class DispositivoRastreadorGpsController extends DispositivoController
     		$id = $Dispositivo->getId();
     		$res = parent::verAction($request, $id);
     		$entity = $res['entity'];
+    		
+    		if ($entity->getObs() == null)
+    		{
+    			$entity->setObs('Serie '. $entity->getNumeroSerie());
+    		}
     		
     		$UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
             	->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 ); 
