@@ -6,7 +6,7 @@
     {% set tapir_buscar_destino = path(baseroute ~ '_ver', arrastre) %}
 {% endif %}
 
-{% block pagina_titulo %}Buscar personas{% endblock %}
+{% block pagina_titulo %}Buscar matriculado{% endblock %}
 
 {% block pagina_contenido %}
 <div id="resultadosbuscar">
@@ -24,7 +24,7 @@
     <script type="text/javascript">
         $('#filtro_buscar').prop('disabled', true);
         setTimeout(function() {
-        	seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape("js") }}');
+        	seleccionarItem('{{ entity.id }}', '{{ entity.Persona.NombreVisible|escape("js") }}');
         }, 3500);
     </script>
     <hr />
@@ -32,39 +32,37 @@
         <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
         <div class="col-xs-8">
             <h1>¡Encontrado!</h1>
-            <p>Se va a seleccionar automáticamente <strong>{{ entity }}</strong>, DNI {{ entity.DocumentoNumero }},
+            <p>Se va a seleccionar automáticamente <strong>{{ entity }}</strong>, DNI {{ entity.Persona.DocumentoNumero }},
             porque es el único resultado que coincide con la búsqueda.</p>
         </div>
     </div>
     {% endif %}
     
-
     &nbsp;
     <table class="table table-responsive table-condensed table-hoverselect">
     <thead>
         <tr>
-            <th></th>
+            <th>Mat. Nº</th>
             <th>Nombre</th>
+            <th>Profesión</th>
             <th>Documento</th>
             <th>Domicilio</th>
-            <th>Grupos</th>
         </tr>
     </thead>
     <tbody>
         {% for entity in entities %}
-            <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape('js') }}'); return false;">
-                <td><i class="fa fa-caret-right showonhover"></i></td>
-                <td><span style="white-space: nowrap;">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</span></td>
-                <td><span class="text-muted">{{ entity.CuiltODocumento }}</span></td>
-                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Domicilio }}</span></td>
-                <td class="visible-lg"><small class="text-muted">{% for Nombre in entity.Grupos %}<span
-                    class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</small></td>
+            <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Persona.NombreVisible|escape('js') }}'); return false;">
+                <td><i class="fa fa-caret-right showonhover"></i> {{ entity.id }} </td>
+                <td><span style="white-space: nowrap;">{{ entity.Persona.NombreVisible }}</span></td>
+                <td class="visible-lg">{{ entity.ProfesionAbreviada }}</td>
+                <td><span class="text-muted">{{ entity.Persona.CuiltODocumento }}</span></td>
+                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Persona.Domicilio }}</span></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
 {% else %}
-    <p class="lead">Puede buscar personas físicas o jurídicas, por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
+    <p class="lead">Puede buscar profesionales matriculados por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
 {% endif %}
     
 <script type="text/javascript">

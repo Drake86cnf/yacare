@@ -10,6 +10,13 @@
 .table-hover>tbody>tr:hover>td>*.showonhover {
 	opacity: 1;
 }
+.table-hoverselect>tbody>tr>td>*.showonhover {
+    opacity: 0;
+}
+
+.table-hoverselect>tbody>tr:hover>td>*.showonhover {
+    opacity: 1;
+}
 
 .table-hover>tbody>tr>td, .table-hover>tbody>tr>th {
 	border-top: 1px dotted #e0e0e0;

@@ -1,0 +1,32 @@
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
+
+{% block pagina_titulo %}Obras Particulares - Empresas constructoras{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-condensed table-stripped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Domicilio</th>
+            <th>Teléfono</th>
+            <th>Representante técnico</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.Persona }}</td>
+            <td>{{ entity.Persona.Domicilio }}</td>
+            <td>{{ entity.Persona.TelefonoNumero }}</td>
+            <td>{{ entity.RepresentanteTecnico.Persona }} <span class="text-muted">(mat. {{ entity.RepresentanteTecnico.id }})</span></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block pagina_acciones %}
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-default hidden-print"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}
