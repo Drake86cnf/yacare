@@ -45,7 +45,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         $map = $this->CrearMapa();
         
         if($UltimoRastreo) {
-        	$this->ColocarMarcador($map, $UltimoRastreo, $entity);
+        	$map->addMarker($this->CrearMarcador($UltimoRastreo, $entity));
         } else {
             $map->setCenter(-53.789858, -67.692911, true);
         }
@@ -72,11 +72,21 @@ class DispositivoRastreadorGpsController extends DispositivoController
     }
     
     /**
-     * @Route ("coordjson/")
+     * @Route ("coordjson/{id}")
      */
-    public function coordjsonAction (Request $request)
+    public function coordjsonAction (Request $request, $id)
     {
-        $res = array('nombre' => 'Ernesto', 'apellido' => 'Carrea');
+        $em = $this->getEm();
+        $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')
+            ->findBy( array ( 'Dispositivo' => $id ), array('id' => 'DESC'), 1 );
+        
+        if(count($UltimoRastreo) == 1) {
+            // Si es un array de un 1 elemento, lo convierto en un elemento plano.
+            $UltimoRastreo = $UltimoRastreo[0];
+        }
+        
+        $res = array('x' => $UltimoRastreo->getUbicacion()->getX(), 'y' => $UltimoRastreo->getUbicacion()->getY());
+        
         return new JsonResponse($res);
     }
     
