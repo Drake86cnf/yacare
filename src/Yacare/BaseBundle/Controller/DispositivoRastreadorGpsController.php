@@ -2,6 +2,7 @@
 namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -71,6 +72,17 @@ class DispositivoRastreadorGpsController extends DispositivoController
     }
     
     /**
+     * @Route ("coordjson/")
+     */
+    public function coordjsonAction (Request $request)
+    {
+        $res = array('nombre' => 'Ernesto', 'apellido' => 'Carrea');
+        return new JsonResponse($res);
+    }
+    
+    
+    
+    /**
      * @Route ("vertodos/")
      * @Template()
      */
@@ -98,7 +110,9 @@ class DispositivoRastreadorGpsController extends DispositivoController
     		
     		if($UltimoRastreo) {
     			$UltimoRastreo = $UltimoRastreo[0];
-    			$this->ColocarMarcador($map, $UltimoRastreo, $entity);
+    			$map->addMarker($this->CrearMarcador($UltimoRastreo, $entity));
+    			
+    			//$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
     		}
     	}
     	$res['dispositivos'] = $Dispositivos;
@@ -140,7 +154,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
      * La rutina crea primero una "infoWindow" y realiza los distintos 'set' añadiendo las opciones con la cual trabajará.
      * Luego realiza las mismas operaciones de configuración a un 'marker', que será el marcador que apuntará en el mapa a al último rastreo de un dispositivo GPS.
      */
-    private function ColocarMarcador ($map, $UltimoRastreo, $entity) 
+    private function CrearMarcador ($UltimoRastreo, $entity) 
     {
     	$infoWindow = new \Ivory\GoogleMap\Overlays\InfoWindow;
     	
@@ -159,9 +173,6 @@ class DispositivoRastreadorGpsController extends DispositivoController
     		'maxWidth'		 => 100
     	));
     	
-    	$map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
-    	
-    	
     	// Configuración de las opciones del marcador a incorporar
     	$marker = new \Ivory\GoogleMap\Overlays\Marker();
     	    	
@@ -176,7 +187,6 @@ class DispositivoRastreadorGpsController extends DispositivoController
         // Incorporo la ventana de información como una propiedad más al marcador.
         $marker->setInfoWindow($infoWindow);
         
-    	// Incorporo el marcador al mapa.
-    	$map->addMarker($marker);
+        return $marker;
     }
 }
