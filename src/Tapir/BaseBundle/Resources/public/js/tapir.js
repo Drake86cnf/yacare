@@ -128,6 +128,8 @@ function tapirNavegarA(url, destino) {
  */
 function tapirCambiarDireccion(url) {
 	if (url !== window.location) {
+		//var err = new Error();
+		//alert('Cambiar ' + url + ', Error ' + err.stack);
 		urlfinal = url.replace('&sinencab=1', '');
 		window.history.pushState({
 			path : urlfinal
@@ -148,6 +150,8 @@ function tapirCargarUrlEn(url, destino) {
 		$('#ajax-spinner').show();
 	}, 700);
 
+	//var err = new Error();
+	//alert('Cargar ' + url);// + ', Error ' + err.stack);
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#page-wrapper';
 	} else {
@@ -162,7 +166,11 @@ function tapirCargarUrlEn(url, destino) {
 	// Cargando...</p>');
 	$.get(url, function(data) {
 		clearTimeout(AjaxSpinnerTimeout);
-		$(destinoFinal).html(data);
+		try {
+			$(destinoFinal).html(data);
+		} catch(err) {
+			$(destinoFinal).append('<div class="alert alert-dismissable alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert">×</button>Error al cargar fragmento AJAX: ' + err + '</div>');
+		}
 
 		var newTitle = $('#page-title').text();
 		if (newTitle !== undefined) {
@@ -251,6 +259,8 @@ function tapirValidarFecha(fecha) {
  * Incorporo funciones mejoradas como calendario, chosen, etc.
  */
 function MejorarElementos(destino) {
+	//alert('Mejorar ' + destino);
+	
 	if (destino) {
 		desintoFinal = destino + ' ';
 	} else {
@@ -258,13 +268,7 @@ function MejorarElementos(destino) {
 	}
 	
 	// Activo la función de los enalces AJAX
-	$(desintoFinal + '[data-toggle="ajax-link"]').click(
-		function(e) {
-			e.preventDefault();
-			return tapirCargarUrlEn($(this).attr('href'), $(this).attr('data-target'));
-		});
-
-	// Activo la función de los enalces AJAX
+	$(desintoFinal + '[data-toggle="ajax-link"]').off('click');
 	$(desintoFinal + '[data-toggle="ajax-link"]').click(
 		function(e) {
 			e.preventDefault();
@@ -347,38 +351,51 @@ function tapirFormatearCuilt(cuilt) {
 	}
 }
 
-$(document).ready(
-		function() {
-			MejorarElementos();
+$(document).ready(function() {
+    // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
+    window.onpopstate = function() {
+        tapirCargarUrlEn(document.location);
+    };
+    
+    // Evito que los enlaces href="#" muevan la página hacia el tope
+    $('a[href="#"][data-top!=true]').click(function(e) {
+            e.preventDefault();
+    });
 
-			// Activo la función de los enlaces que abren modales
-			$('[data-toggle="modal"]').off('click');
-			$('[data-toggle="modal"]').click(
-				function(e) {
-					e.preventDefault();
-					return tapirMostrarModalEn($(this).attr('href'),
-							$(this).attr('data-target'));
-				});
+    // Cierro el spinner de "Cargando..."
+    $('#ajax-spinner').hide();
 
-			// Pongo a las notificaciones un temporizador para que desaparezcan
-			// automáticamente
-			window.setTimeout(function() {
-				$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
-					$(this).remove();
-				});
-			}, 15000);
+    // Mejorar elementos tipo data-toggle
+	MejorarElementos();
 
-			// Evitar que algunos dropdown se cierren automáticamente
-			// (especial para el menú lateral, se utiliza la clase keep-open)
-			$('.dropdown.keep-open').on({
-				'shown.bs.dropdown' : function() {
-					$(this).data('closable', false);
-				},
-				'click' : function() {
-					$(this).data('closable', true);
-				},
-				'hide.bs.dropdown' : function() {
-					return $(this).data('closable');
-				}
-			});
+	// Activo la función de los enlaces que abren modales
+	$('[data-toggle="modal"]').off('click');
+	$('[data-toggle="modal"]').click(
+		function(e) {
+			e.preventDefault();
+			return tapirMostrarModalEn($(this).attr('href'),
+					$(this).attr('data-target'));
 		});
+
+	// Pongo a las notificaciones un temporizador para que desaparezcan
+	// automáticamente
+	window.setTimeout(function() {
+		$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
+			$(this).remove();
+		});
+	}, 15000);
+
+	// Evitar que algunos dropdown se cierren automáticamente
+	// (especial para el menú lateral, se utiliza la clase keep-open)
+	$('.dropdown.keep-open').on({
+		'shown.bs.dropdown' : function() {
+			$(this).data('closable', false);
+		},
+		'click' : function() {
+			$(this).data('closable', true);
+		},
+		'hide.bs.dropdown' : function() {
+			return $(this).data('closable');
+		}
+	});
+});
