@@ -21,6 +21,7 @@ class LdapHelper
         
         $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', 'S1ni3sTr0');
         $this->ConnMuni->DomainAdminsGroupName = 'Admins. del dominio';
+        $this->ConnMuni->DomainUsersGroupName = 'Usuarios del dominio';
         $this->ConnMuni->Connect();
     }
 
