@@ -22,6 +22,7 @@ class AdConnection
     protected $AdminUsername, $AdminPassword;
     
     public $DomainAdminsGroupName = 'Domain Admins';
+    public $DomainUsersGroupName = 'Domain Users';
     
     const UAC_ACCOUNTDISABLE = 2;
     const UAC_PASSWD_NOTREQD = 32;
@@ -251,6 +252,8 @@ class AdConnection
     public function CustomizeAdminGroupName($name) {
         if(strcasecmp($name, 'Domain Admins') == 0 || strcasecmp($name, 'Admins. del dominio') == 0) {
             return $this->DomainAdminsGroupName;
+        } else if(strcasecmp($name, 'Domain Users') == 0 || strcasecmp($name, 'Usuarios del dominio') == 0) {
+            return $this->DomainUsersGroupName;
         } else {
             return $name;
         }
@@ -260,6 +263,8 @@ class AdConnection
     public function UncustomizeAdminGroupName($name) {
         if(strcasecmp($name, $this->DomainAdminsGroupName) == 0) {
             return 'Domain Admins';
+        } else if(strcasecmp($name, $this->DomainUsersGroupName) == 0) {
+            return 'Domain Users';
         } else {
             return $name;
         }
