@@ -15,7 +15,7 @@ namespace Yacare\BaseBundle\Entity;
  * "RastreadorGps"      = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
  * })
  */
-class Dispositivo
+abstract class Dispositivo
 {
     use\Tapir\BaseBundle\Entity\ConId;
     use\Tapir\BaseBundle\Entity\ConObs;
