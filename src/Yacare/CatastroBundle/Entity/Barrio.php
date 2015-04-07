@@ -38,7 +38,7 @@ class Barrio
         return $this->NombreOriginal;
     }
 
-    public function setNombreOriginal(string $NombreOriginal)
+    public function setNombreOriginal($NombreOriginal)
     {
         $this->NombreOriginal = $NombreOriginal;
         return $this;
@@ -49,7 +49,7 @@ class Barrio
         return $this->Ordenanza;
     }
 
-    public function setOrdenanza(string $Ordenanza)
+    public function setOrdenanza($Ordenanza)
     {
         $this->Ordenanza = $Ordenanza;
         return $this;
