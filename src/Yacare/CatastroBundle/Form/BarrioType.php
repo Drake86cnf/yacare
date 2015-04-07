@@ -16,6 +16,9 @@ class BarrioType extends AbstractType
             ->add('NombreOriginal', null, array(
                 'label' => 'Nombre original'
             ))
+            ->add('Ordenanza', null, array(
+                'label' => 'Ordenanza'
+            ))
             ->add('Notas', null, array(
                 'label' => 'Límites'
             ))
