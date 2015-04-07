@@ -47,18 +47,25 @@ trait ConDomicilio
 
     public function getDomicilio()
     {
-        $res = $this->DomicilioCalle;
+        if($this->DomicilioCalle) {
+            $res = $this->DomicilioCalle;
+        } else {
+            $res = $this->DomicilioCalleNombre;
+        }
         
-        if ($this->DomicilioNumero)
+        if ($this->DomicilioNumero) {
             $res .= ' Nº ' . $this->DomicilioNumero;
-        else
-            $res .= ' S/N';
+        } else {
+           $res .= ' S/N';
+        }
         
-        if ($this->DomicilioPiso)
+        if ($this->DomicilioPiso) {
             $res .= ', piso ' . $this->DomicilioPiso;
+        }
         
-        if ($this->DomicilioPuerta)
+        if ($this->DomicilioPuerta) {
             $res .= ', pta. ' . $this->DomicilioPuerta;
+        }
         
         return $res;
     }
