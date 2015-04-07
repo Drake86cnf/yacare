@@ -22,19 +22,36 @@ class Barrio
     use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $NombreOriginal;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Ordenanza;
 
     public function getNombreOriginal()
     {
         return $this->NombreOriginal;
     }
 
-    public function setNombreOriginal($NombreOriginal)
+    public function setNombreOriginal(string $NombreOriginal)
     {
         $this->NombreOriginal = $NombreOriginal;
+        return $this;
+    }
+
+    public function getOrdenanza()
+    {
+        return $this->Ordenanza;
+    }
+
+    public function setOrdenanza(string $Ordenanza)
+    {
+        $this->Ordenanza = $Ordenanza;
+        return $this;
     }
 }
