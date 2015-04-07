@@ -17,6 +17,7 @@ class Barrio
     use\Tapir\BaseBundle\Entity\ConId;
     use\Tapir\BaseBundle\Entity\ConNombre;
     use\Tapir\BaseBundle\Entity\ConObs;
+    use\Tapir\BaseBundle\Entity\ConNotas;
     use\Tapir\BaseBundle\Entity\Versionable;
     use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 

@@ -16,9 +16,13 @@ class BarrioType extends AbstractType
             ->add('NombreOriginal', null, array(
                 'label' => 'Nombre original'
             ))
+            ->add('Notas', null, array(
+                'label' => 'Límites'
+            ))
             ->add('Obs', null, array(
                 'label' => 'Obs.'
-            ));
+            ))
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
