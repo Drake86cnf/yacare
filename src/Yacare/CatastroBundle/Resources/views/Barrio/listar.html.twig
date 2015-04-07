@@ -8,12 +8,14 @@
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Nombre original</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
             <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.NombreOriginal }}</td>
         </tr>
     {% endfor %}
     </tbody>
