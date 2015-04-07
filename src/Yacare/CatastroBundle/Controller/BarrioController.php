@@ -12,5 +12,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class BarrioController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use\Yacare\BaseBundle\Controller\ConExportarLista;
 }
