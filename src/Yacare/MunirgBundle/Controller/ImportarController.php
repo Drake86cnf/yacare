@@ -1104,14 +1104,14 @@ WHERE rnum >" . $desde . "
             }
         }
         
+        fclose($ArchivoMatriculados);
+        
         return array(
             'importar_importados' => $importar_importados,
             'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
             'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log);
-        
-        fclose($ArchivoMatriculados);
     }
 
     /**
@@ -1121,11 +1121,11 @@ WHERE rnum >" . $desde . "
     public function importarBadabumAction(Request $request)
     {
         $desde = (int) ($request->query->get('desde'));
-        $cant = 100;
+        $cant = 500;
         
         mb_internal_encoding('UTF-8');
         ini_set('display_errors', 1);
-        set_time_limit(6000);
+        set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
         $em = $this->getDoctrine()->getManager();
@@ -1136,6 +1136,10 @@ WHERE rnum >" . $desde . "
         $importar_actualizados = 0;
         $importar_procesados = 0;
         $log = array();
+        
+        for ($i = 0; $i < $desde; $i++) {
+            fgetcsv($ArchivoCsv);
+        }
         
         while (! feof($ArchivoCsv)) {
             $Row = fgetcsv($ArchivoCsv);
@@ -1229,7 +1233,13 @@ WHERE rnum >" . $desde . "
                 $importar_procesados ++;
                 $log[] = $Row[0] . ': ' . (string) $Persona;
             }
+            
+            if($importar_procesados >= $cant) {
+                break;
+            }
         }
+        
+        fclose($ArchivoCsv);
         
         return array(
             'importar_importados' => $importar_importados,
@@ -1237,7 +1247,5 @@ WHERE rnum >" . $desde . "
             'importar_procesados' => $importar_procesados,
             'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
             'log' => $log);
-        
-        fclose($ArchivoCsv);
     }
 }
