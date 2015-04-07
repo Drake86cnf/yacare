@@ -410,6 +410,8 @@ class StringHelper
         if(count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
+        
+        $PartesNombre[1] = str_replace(array(','), ' ', $PartesNombre[1]);
     
         return $PartesNombre;
     }
