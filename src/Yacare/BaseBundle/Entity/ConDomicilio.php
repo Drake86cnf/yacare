@@ -35,7 +35,7 @@ trait ConDomicilio
 
     /**
      *
-     * @var integer @ORM\Column(type="integer", nullable=true)
+     * @var integer @ORM\Column(type="string", nullable=true)
      */
     protected $DomicilioPuerta;
 
