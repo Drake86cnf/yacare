@@ -41,9 +41,17 @@ abstract class AbmController extends BaseController
         if (! isset($this->Where)) {
             $this->Where = null;
         }
+        
+        if (! isset($this->GroupBy)) {
+            $this->GroupBy = null;
+        }
 
         if (! isset($this->Joins)) {
             $this->Joins = array();
+        }
+        
+        if (! isset($this->ExtraFields)) {
+            $this->ExtraFields = array();
         }
 
         if (! isset($this->Limit)) {
@@ -101,6 +109,9 @@ abstract class AbmController extends BaseController
         	$dql .= "COUNT(r) AS cant";
         } else {
         	$dql .= "r";
+        	if($this->ExtraFields) {
+        	    $dql .= ", " . join(', ', $this->ExtraFields);
+        	}
         }
         $dql .= " FROM " . $this->CompleteEntityName . " r";
 
@@ -155,6 +166,10 @@ abstract class AbmController extends BaseController
         	}
         	$dql .= ' ' . $whereAdicional;
         }
+        
+        if ($this->GroupBy) {
+            $dql .= ' GROUP BY ' . $this->GroupBy;
+        }
 
         if ($this->OrderBy && $soloContar == false) {
             $OrderByCampos = explode(',', $this->OrderBy);
@@ -162,14 +177,18 @@ abstract class AbmController extends BaseController
 
             foreach($OrderByCampos as $Campo) {
                 // Agrego "r." a los campos que no especifican una tabla
-                if(strpos($Campo, '.') === FALSE) {
+                if(strpos($Campo, '.') === false) {
                     $Campo = 'r.' . $Campo;
+                } elseif (substr($Campo, 0, 1) == '.') {
+                    $Campo = substr($Campo, 1);
                 }
                 $OrderByCamposConTabla[] = $Campo;
             }
             $dql .= " ORDER BY " . join(', ', $OrderByCamposConTabla);
         }
 
+        //echo '------------------------------------------------------------------- ' . $dql;
+        
         return $dql;
     }
 
