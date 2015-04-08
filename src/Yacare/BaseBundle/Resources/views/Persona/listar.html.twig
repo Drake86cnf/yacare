@@ -12,7 +12,9 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Documento</th>
+            <th class="hidden-print hidden-sm hidden-xs">Documento</th>
+            <th>Teléfono</th>
+            <th>Domicilio</th>
             <th>Grupos</th>
         </tr>
     </thead>
@@ -20,7 +22,9 @@
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
             <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
-            <td>{{ entity.DocumentoNumero }}</td>
+            <td class="hidden-print hidden-sm hidden-xs">{{ entity.DocumentoNumero }}</td>
+            <td>{{ entity.TelefonoNumero }}</td>
+            <td>{{ entity.Domicilio }}</td>
             <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
         </tr>
     {% endfor %}
