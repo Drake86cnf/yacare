@@ -45,6 +45,10 @@ class FormatExtension extends \Twig_Extension
             new \Twig_SimpleFilter('tapir_decodehtml', array(
                 $this,
                 'tapir_decodehtml'
+            )),
+            new \Twig_SimpleFilter('tapir_abreviar', array(
+                $this,
+                'tapir_abreviar'
             ))
         );
     }
@@ -103,6 +107,15 @@ class FormatExtension extends \Twig_Extension
             return "Sí";
         } else {
             return "No";
+        }
+    }
+    
+    public function tapir_abreviar($texto, $largo = 20)
+    {
+        if(strlen($texto) > $largo + 3) {
+            return substr($texto, 0, $largo) . '...';
+        } else {
+            return $texto;
         }
     }
     
