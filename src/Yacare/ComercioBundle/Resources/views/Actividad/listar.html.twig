@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
+        <tr {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"{% endif %}>
             <td>{{ entity.Clamae2014Formateado }}</td>
             <td>{{ entity.Sangria|raw }}
                 {% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}
