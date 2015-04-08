@@ -4,13 +4,15 @@
 <div class="jumbotron">
 	<div class="container-fluid">
 		<h1>
-			Bienvenido <img class="pull-right"
+			Bienvenido {{ app.user.Nombre|split(' ')|first }} 
+			<img class="pull-right"
 				src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}"
 				style="padding: 32px; transform: scaleX(-1);"
 				alt="{{ tapir_nombreaplicacion }}" />
 		</h1>
 
-		<p>{{ tapir_cliente }}.</p>
+		<h2>{{ tapir_cliente }}.</h2>
+		<small><a href="http://www.riogrande.gob.ar" target="_blank">www.riogrande.gob.ar</a></small>
 	</div>
 </div>
 
