@@ -1,6 +1,6 @@
 <!-- left menu starts -->
 <ul class="nav navbar-nav side-nav">
-    <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_buscar') }}"><i class="fa fa-user fa-fw"></i> Personas</a></li>
+    <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_listar') }}"><i class="fa fa-user fa-fw"></i> Personas</a></li>
     <li><a data-toggle="ajax-link" href="{{ path('indepnet_glpi_ticket_listar') }}"><i class="fa fa-ticket fa-fw"></i> Requerimientos</a></li>
 
     {% if is_expr_granted("hasAnyRole('ROLE_TIC')") %}
@@ -91,7 +91,6 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i> Administración <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
-            <li><a data-toggle="ajax-link" href="{{ path('yacare_base_persona_listar') }}">Personas</a></li>
             <li><a data-toggle="ajax-link" href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
             <li><a data-toggle="ajax-link" href="{{ path('tapir_base_personarol_listar') }}">Roles</a></li>
             <li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_listar') }}">Agentes</a></li>
