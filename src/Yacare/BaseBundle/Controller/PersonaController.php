@@ -24,7 +24,39 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
+        $this->OrderBy = 'r.NombreVisible';
     }
+    
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_grupo = $this->ObtenerVariable($request, 'filtro_grupo');
+    
+        if ($filtro_grupo) {
+            $this->Joins[] = "JOIN r.Grupos g";
+            $this->Where .= " AND g.id=$filtro_grupo";
+        }
+    
+        $res = parent::listarAction($request);
+    
+        // Agrego una lista de grupos al resultado
+        $res['personasgrupos'] = $this->ObtenerGrupos();
+    
+        return $res;
+    }
+    
+    
+    private function ObtenerGrupos()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT r.id, r.Nombre FROM YacareBaseBundle:PersonaGrupo r ORDER BY r.Nombre");
+        return $query->getResult();
+    }
+    
     
     /**
      * Actualizo el servidor de dominio al editar el perfil de usuario.
