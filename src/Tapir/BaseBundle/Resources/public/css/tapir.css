@@ -82,7 +82,7 @@ legend small {
 		/* min-width: 768px; */
 	}
 	
-	body, p, label, span, div, td {
+	body, p, span, div, td {
 		font-size: 9pt;
 	}
 	
@@ -102,8 +102,22 @@ legend small {
 		margin: 0px;
 		padding: 0px !important;
 	}
+
 	a[href]:after {
 		content: none !important;
+	}
+	
+	.label {
+       font-size: 7pt !important;
+       padding: 2px;
+       font-weight: 300;
+       border: 1px solid gray;
+    }
+	
+	abbr:after {
+	   display: none;
+	   visibility: hidden;
+	   text-decoration: none;
 	}
 }
 
