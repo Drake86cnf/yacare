@@ -10,23 +10,29 @@
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">Documento</td>
             <td>{{ entity.documentoNumero }}
-			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'DocumentoNumero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}</a>
+			    {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+			        <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'DocumentoNumero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">CUIL/CUIT</td>
             <td>{{ entity.CuiltFormateado }}
 			    {% if not entity.Cuilt|tapir_cuiltesvalida %}<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>{% endif %}
-			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Cuilt %}Cambiar{% else %}Agregar{% endif %}</a>
+			    {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+    			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Cuilt %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right"><i class="fa fa-home text-muted"></i>&nbsp;Domicilio</td>
             <td>{{ entity.domicilio }}
-			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Domicilio' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Domicilio %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+    			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Domicilio' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Domicilio %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
@@ -34,8 +40,10 @@
             <td>
                 {% if entity.TelefonoNumero %}{{ yacare.verificacion_icono(entity.TelefonoVerificacionNivel) }}{% endif %}
                 {{ entity.TelefonoNumero }}
-                <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'TelefonoNumero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+                    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'TelefonoNumero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
@@ -43,29 +51,37 @@
             <td>
 				{% if entity.Email %}{{ yacare.verificacion_icono(entity.EmailVerificacionNivel)|raw }}{% endif %}
 				{{ entity.Email }}
-                <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Email' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Email %}Cambiar{% else %}Agregar{% endif %}</a>
+				{% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+                    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Email' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Email %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">Nacionalidad</td>
             <td>{{ entity.Pais }}
-			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Pais' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+    			    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Pais' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">Fecha de nacimiento</td>
             <td>{{ entity.FechaNacimiento|tapir_fecha('medium', 'none') }}
-                <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'FechaNacimento' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+                    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'FechaNacimento' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td class="grilladatos-etiqueta text-muted text-right">Género</td>
             <td>{{ entity.GeneroNombre }}
-                <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Genero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-                {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% if is_expr_granted("hasAnyRole('ROLE_PERSONAS')") %}
+                    <a href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'Genero' })) }}" data-toggle="modal" class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+                    {% if entity.Pais %}Cambiar{% else %}Agregar{% endif %}</a>
+                {% endif %}
             </td>
         </tr>
         <tr>
