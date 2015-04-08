@@ -46,6 +46,10 @@ h1, legend {
      */
 }
 
+h1 a {
+    font-weight: 400;
+}
+
 h2 {
 	margin-top: 10px;
 	font-size: 14pt;
