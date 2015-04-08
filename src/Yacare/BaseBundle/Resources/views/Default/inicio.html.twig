@@ -1,32 +1,41 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}{% endblock %} {% block pagina_contenido %}
 
-{% block pagina_titulo %}{% endblock %}
+<div class="jumbotron">
+	<div class="container-fluid">
+		<h1>
+			Bienvenido <img class="pull-right"
+				src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}"
+				style="padding: 32px; transform: scaleX(-1);"
+				alt="{{ tapir_nombreaplicacion }}" />
+		</h1>
 
-{% block pagina_contenido %}
-
-<div class="jumbotron"><div class="container-fluid">
-    <h1>Bienvenido <img class="pull-right" src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}" style="padding: 32px; transform: scaleX(-1);" alt="{{ tapir_nombreaplicacion }}" /></h1>
-    
-    <p>{{ tapir_cliente }}.</p>
-</div></div>
+		<p>{{ tapir_cliente }}.</p>
+	</div>
+</div>
 
 {% if app.user %}
 <div class="container-fluid">
-<div class="row">
-    <div class="col-xs-8 col-sm-8 col-md-8">
-        Usted está conectado como <span class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user }}</a>
-        <ul class="dropdown-menu">
-            <li><a data-toggle="ajax-link" href="{{ path('usuario_editarperfil_actual') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
-            <li><a data-toggle="modal" data-target="#modal" href="{{ path('usuario_cambiarcontrasena_actual') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
-            <li class="divider"></li>
-            <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Desconectarse</a></li>
-        </ul>
-        </span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
-    </div>
-    <div class="col-md-4">
-    </div>
+	<div class="row">
+		<div class="col-xs-8 col-sm-8 col-md-8">
+			Usted está conectado como <span class="dropdown"> <a
+				class="dropdown-toggle" data-toggle="dropdown" href="#"> {% if
+					app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
+				{% else %} {{ app.user }} {% endif %}
+				<ul class="dropdown-menu">
+					<li><a data-toggle="ajax-link"
+						href="{{ path('usuario_editarperfil_actual') }}"><i
+							class="fa fa-user"></i> Mi perfil</a></li>
+					<li><a data-toggle="modal" data-target="#modal"
+						href="{{ path('usuario_cambiarcontrasena_actual') }}"><i
+							class="fa fa-key"></i> Cambiar contraseña</a></li>
+					<li class="divider"></li>
+					<li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i>
+							Desconectarse</a></li>
+				</ul>
+			</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
+		</div>
+		<div class="col-md-4"></div>
+	</div>
 </div>
-</div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
