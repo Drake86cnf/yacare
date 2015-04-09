@@ -3,8 +3,7 @@
 {% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
 
 {% block pagina_contenido %}
-
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -13,14 +12,13 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
             <td>{{ entity.Nombre }}</td>
             <td>{{ entity.NombreOriginal }}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
