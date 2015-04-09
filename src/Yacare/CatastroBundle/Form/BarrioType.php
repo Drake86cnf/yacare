@@ -14,7 +14,7 @@ class BarrioType extends AbstractType
                 'label' => 'Nombre'
             ))
             ->add('NombreOriginal', null, array(
-                'label' => 'Nombre original'
+                'label' => 'Nombre alternativo'
             ))
             ->add('Ordenanza', null, array(
                 'label' => 'Ordenanza'
