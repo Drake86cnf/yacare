@@ -1,0 +1,8 @@
+parameters:
+  tapir_charts.twig_extension.class: Tapir\ChartsBundle\Twig\ChartsExtension
+
+services:
+  tapir_charts.twig.charts_extension:
+    class: %tapir_charts.twig_extension.class%
+    tags:
+        - { name: twig.extension }
