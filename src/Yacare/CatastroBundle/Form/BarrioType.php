@@ -13,7 +13,7 @@ class BarrioType extends AbstractType
         $builder->add('Nombre', null, array(
                 'label' => 'Nombre'
             ))
-            ->add('NombreOriginal', null, array(
+            ->add('NombreAlternativo', null, array(
                 'label' => 'Nombre alternativo'
             ))
             ->add('Ordenanza', null, array(

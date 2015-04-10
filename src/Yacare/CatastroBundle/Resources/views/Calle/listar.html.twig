@@ -4,16 +4,20 @@
 
 {% block pagina_contenido %}
 
-<table class="table table-hover">
+<table class="table table-hoverselect">
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Nombre alternativo</th>
+            <th>Tipo</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
+        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
             <td>{{ entity.Nombre }}</td>
+            <td>{{ entity.NombreAlternativo }}</td>
+            <td>{{ entity.TipoNombre }}</td>
         </tr>
     {% endfor %}
     </tbody>

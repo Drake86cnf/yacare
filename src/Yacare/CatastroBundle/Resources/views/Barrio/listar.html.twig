@@ -14,7 +14,7 @@
     {% for entity in entities %}
         <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
             <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.NombreOriginal }}</td>
+            <td>{{ entity.NombreAlternativo }}</td>
         </tr>
     {% endfor %}
     </tbody>
