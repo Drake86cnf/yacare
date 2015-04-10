@@ -12,7 +12,20 @@ class CalleType extends AbstractType
     {
         $builder->add('Nombre', null, array(
             'label' => 'Nombre'
-        ));
+        ))
+        ->add('NombreAlternativo', null, array(
+            'label' => 'Nombre alternativo'
+        ))
+        ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            'label' => 'Tipo',
+            'choices' => array(
+                0 => 'Calle',
+                1 => 'Avenida',
+                2 => 'Bulevar',
+                3 => 'Pasaje',
+            )
+        ))
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

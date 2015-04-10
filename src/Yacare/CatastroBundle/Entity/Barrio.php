@@ -25,7 +25,7 @@ class Barrio
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $NombreOriginal;
+    private $NombreAlternativo;
 
     /**
      * @var string
@@ -33,14 +33,15 @@ class Barrio
      */
     private $Ordenanza;
 
-    public function getNombreOriginal()
+    
+    public function getNombreAlternativo()
     {
-        return $this->NombreOriginal;
+        return $this->NombreAlternativo;
     }
 
-    public function setNombreOriginal($NombreOriginal)
+    public function setNombreAlternativo($NombreAlternativo)
     {
-        $this->NombreOriginal = $NombreOriginal;
+        $this->NombreAlternativo = $NombreAlternativo;
         return $this;
     }
 
