@@ -109,7 +109,7 @@ class FormatExtension extends \Twig_Extension
             return "No";
         }
     }
-    
+
     public function tapir_abreviar($texto, $largo = 20)
     {
         if(strlen($texto) > $largo + 3) {
@@ -118,12 +118,12 @@ class FormatExtension extends \Twig_Extension
             return $texto;
         }
     }
-    
+
     public function tapir_decodehtml($valor)
     {
         return htmlspecialchars_decode($valor, ENT_QUOTES);
     }
-    
+
     public function tapir_mejorartexto($valor)
     {
         return Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($valor);
@@ -133,6 +133,9 @@ class FormatExtension extends \Twig_Extension
     {
         if ($date == null) {
             return $emptyMessage;
+        } elseif (! ($date instanceof \DateTime)) {
+            $transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
+            $date = $transformer->reverseTransform($date);
         }
 
         $formatValues = array(
@@ -178,29 +181,27 @@ class FormatExtension extends \Twig_Extension
       			break;
         }
 
-        $formatter = \IntlDateFormatter::create('es_AR', $dateFormatValue, $formatValues[$timeFormat], $date->getTimezone()->getName(), \IntlDateFormatter::GREGORIAN, $patrn);
+        $formatter = \IntlDateFormatter::create('es_AR', $dateFormatValue, $formatValues[$timeFormat], $date->getTimezone()->getName(), \IntlDateFormatter::GREGORIAN, $patrn );
 
         return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }
 
-    public function tapir_hacetiempo($value, $format = 'Y-m-d H:s')
+    public function tapir_hacetiempo($value, $format = 'Y-m-d H:i:s')
     {
         if (! $value) {
             return '';
-        }
-        if (! ($value instanceof \DateTime)) {
+        } elseif (! ($value instanceof \DateTime)) {
             $transformer = new DateTimeToStringTransformer(null, null, $format);
             $value = $transformer->reverseTransform($value);
         }
         return $this->distanceOfTimeInWordsFilter($value);
     }
 
-    public function tapir_cantidaddedias($value, $format = 'Y-m-d H:s')
+    public function tapir_cantidaddedias($value, $format = 'Y-m-d H:i:s')
     {
         if (! $value) {
             return '';
-        }
-        if (! ($value instanceof \DateTime)) {
+        } elseif (! ($value instanceof \DateTime)) {
             $transformer = new DateTimeToStringTransformer(null, null, $format);
             $value = $transformer->reverseTransform($value);
         }
