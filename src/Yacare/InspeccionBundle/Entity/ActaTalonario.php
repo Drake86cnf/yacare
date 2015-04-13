@@ -5,18 +5,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Talonario de actas.
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_ActaTalonario")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_ActaTalonario")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class ActaTalonario
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")

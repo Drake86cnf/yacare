@@ -1,8 +1,11 @@
 <div class="form-inline">
-    <input class="form-control input" type="text" size="50" maxlength="50" id="filtro_buscar" name="filtro_buscar" 
-           placeholder="Escriba un criterio de búsqueda" 
-           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }"
+	<input class="form-control input" type="text" size="50" maxlength="50"
+		id="filtro_buscar" name="filtro_buscar"
+		placeholder="Escriba un criterio de búsqueda"
+		onkeydown="if (event.keyCode === 13) {
+		$('#filtro_buscar_buscar').click(); return
+		false; }"
            value="" />
-    <button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
-            class="btn btn-primary btn" id="filtro_buscar_buscar">Buscar</button>
+	<button onclick="buscarTexto($('#filtro_buscar').val()); return false;"
+		type="button" class="btn btn-primary btn" id="filtro_buscar_buscar">Buscar</button>
 </div>

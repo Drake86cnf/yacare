@@ -11,10 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EmpresaConstructora
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Archivable;
-    use\Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Archivable;
+    use \Tapir\BaseBundle\Entity\Versionable;
 
     /**
      * La persona juŕidica asociada.
@@ -23,8 +23,7 @@ class EmpresaConstructora
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Persona;
-    
-    
+
     /**
      * El representante técnico.
      *
@@ -33,16 +32,13 @@ class EmpresaConstructora
      */
     private $RepresentanteTecnico;
 
-
     /**
      * La fecha de vencimiento del pago anual.
      *
-     * @var $FechaVencimiento
-     * @ORM\Column(type="date", nullable=true)
+     * @var $FechaVencimiento @ORM\Column(type="date", nullable=true)
      */
     private $FechaVencimiento;
-    
-    
+
     public function __toString()
     {
         return 'Empresa Constructura Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();

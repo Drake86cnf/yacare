@@ -1,36 +1,24 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}{{ entity }}{% endblock %}
-
-{% block pagina_contenido %}
-
-{% block comprobante_encab %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}{{ entity }}{% endblock %} {% block pagina_contenido %} {% block
+comprobante_encab %}
 <h1>{{ entity }}</h1>
 <p>Fecha: {{ entity.createdAt|tapir_fecha('full', 'none') }}</p>
-{% endblock %}
-
-{% block comprobante_contenido %}
+{% endblock %} {% block comprobante_contenido %}
 
 <div class="row">
-    <div class="col-sm-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">Titular</div>
-            <div class="panel-body">{{ entity.Titular }}</div>
-        </div>
-    </div>
+	<div class="col-sm-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">Titular</div>
+			<div class="panel-body">{{ entity.Titular }}</div>
+		</div>
+	</div>
 
-    <div class="col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">CUIT/UIL</div>
-            <div class="panel-body">{{ entity.Titular.Cuilt }}</div>
-        </div>
-    </div>
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">CUIT/UIL</div>
+			<div class="panel-body">{{ entity.Titular.Cuilt }}</div>
+		</div>
+	</div>
 </div>
 
-{% endblock %}
-
-{% block comprobante_pie %}
-
-{% endblock %}
-
-{% endblock %}
+{% endblock %} {% block comprobante_pie %} {% endblock %} {% endblock %}

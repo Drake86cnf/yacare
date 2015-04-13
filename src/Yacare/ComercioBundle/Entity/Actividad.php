@@ -12,12 +12,12 @@ use Yacare\BaseBundle\Model\Tree;
  */
 class Actividad implements Tree\NodeInterface
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Yacare\BaseBundle\Model\Tree\Node;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Model\Tree\Node;
 
     /**
      * @ORM\ManyToOne(targetEntity="Actividad")
@@ -199,7 +199,7 @@ class Actividad implements Tree\NodeInterface
                     return $codigo;
                 }
     }
-    
+
     /*
      * Devuelve el "bread crumb" de la actividad actual
      */

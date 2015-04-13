@@ -1,7 +1,7 @@
 <?php
 namespace Yacare\BaseBundle\Entity;
 
-    use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Yacare\BaseBundle\Entity\Dispositivo
@@ -11,16 +11,16 @@ namespace Yacare\BaseBundle\Entity;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
- * "Otro"               = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- * "RastreadorGps"      = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
+ * "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
+ * "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
  * })
  */
 abstract class Dispositivo
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConObs;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Versionable;
 
     /**
      * @ORM\Column(type="string", length=255)

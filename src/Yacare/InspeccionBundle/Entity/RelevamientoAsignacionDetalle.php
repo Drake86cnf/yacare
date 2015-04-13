@@ -6,20 +6,20 @@ use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
  * Detalle de asignación.
- * 
- * @see RelevamientoAsignacion
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @see RelevamientoAsignacion
+ *
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoAsignacionDetalle
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="Relevamiento")

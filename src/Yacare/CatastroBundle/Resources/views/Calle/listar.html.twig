@@ -1,33 +1,32 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}{{ entitylabelplural }}{% endblock %} {% block
+pagina_contenido %}
 
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Nombre alternativo</th>
-            <th>Tipo</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
-            <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.NombreAlternativo }}</td>
-            <td>{{ entity.TipoNombre }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Nombre alternativo</th>
+			<th>Tipo</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
+			<td>{{ entity.Nombre }}</td>
+			<td>{{ entity.NombreAlternativo }}</td>
+			<td>{{ entity.TipoNombre }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
-{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
-
-{% block pagina_acciones2 %}
-<a href="{{ path(baseroute ~ '_listarexportar') }}" class="btn btn-default"><i class="fa fa-download"></i> Descargar para Excel</a>
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
+pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
+endblock %} {% block pagina_acciones2 %}
+<a href="{{ path(baseroute ~ '_listarexportar') }}"
+	class="btn btn-default"><i class="fa fa-download"></i> Descargar para
+	Excel</a>
 {% endblock %}

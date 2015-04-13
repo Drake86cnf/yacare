@@ -11,10 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DepositoClase
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * @ORM\Column(type="string")

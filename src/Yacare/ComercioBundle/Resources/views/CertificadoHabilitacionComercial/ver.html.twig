@@ -1,46 +1,43 @@
-{% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %}
+{% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %} {% block
+pagina_titulo %}{{ entity.Nombre }}{% endblock %} {% block
+pagina_contenido %} {% block comprobante_encab %}
 
-{% block pagina_titulo %}{{ entity.Nombre }}{% endblock %}
+<p class="text-right">Río Grande, {{
+	entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
 
-{% block pagina_contenido %}
+{% endblock %} {% block comprobante_contenido %}
 
-{% block comprobante_encab %}
-
-<p class="text-right">Río Grande, {{ entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
-
-{% endblock %}
-
-{% block comprobante_contenido %}
-
-<p>Se extiende el presente Certificado de Habilitación Comercial a {{ entity.Comercio.Titular }},
-    CUIT/CUIL Nº {{ entity.Comercio.Titular.Cuilt }}, para el ejercicio de las actividades
-    comerciales detalladas más abajo,
-    bajo el nombre comercial de <em>&quot;{{ entity.Comercio.Nombre }}&quot;</em>
-    , en el {{ entity.Comercio.Local.Tipo|lower }} con una superficie de {{ entity.Comercio.Local.Superficie }} m²
-    ubicado en {{ entity.Comercio.Local.Partida.Domicilio }} de esta ciudad.</p>
+<p>
+	Se extiende el presente Certificado de Habilitación Comercial a {{
+	entity.Comercio.Titular }}, CUIT/CUIL Nº {{
+	entity.Comercio.Titular.Cuilt }}, para el ejercicio de las actividades
+	comerciales detalladas más abajo, bajo el nombre comercial de <em>&quot;{{
+		entity.Comercio.Nombre }}&quot;</em> , en el {{
+	entity.Comercio.Local.Tipo|lower }} con una superficie de {{
+	entity.Comercio.Local.Superficie }} m² ubicado en {{
+	entity.Comercio.Local.Partida.Domicilio }} de esta ciudad.
+</p>
 
 <h2>Actividades</h2>
 <dl class="dl-horizontal">
-    <dt>{{ entity.Comercio.ActividadPrincipal.Clamae2014 }}</dt>
-    <dd>{{ entity.Comercio.ActividadPrincipal }}</dd>
-{% if entity.Comercio.ActividadSecundaria %}
-    <dt>{{ entity.Comercio.ActividadSecundaria.Clamae2014 }}</dt>
-    <dd>{{ entity.Comercio.ActividadSecundaria }}</dd>
-{% endif %}
-{% if entity.Comercio.ActividadTerciaria %}
-    <dt>{{ entity.Comercio.ActividadTerciaria.Clamae2014 }}</dt>
-    <dd>{{ entity.Comercio.ActividadTerciaria }}</dd>
-{% endif %}
+	<dt>{{ entity.Comercio.ActividadPrincipal.Clamae2014 }}</dt>
+	<dd>{{ entity.Comercio.ActividadPrincipal }}</dd>
+	{% if entity.Comercio.ActividadSecundaria %}
+	<dt>{{ entity.Comercio.ActividadSecundaria.Clamae2014 }}</dt>
+	<dd>{{ entity.Comercio.ActividadSecundaria }}</dd>
+	{% endif %} {% if entity.Comercio.ActividadTerciaria %}
+	<dt>{{ entity.Comercio.ActividadTerciaria.Clamae2014 }}</dt>
+	<dd>{{ entity.Comercio.ActividadTerciaria }}</dd>
+	{% endif %}
 </dl>
 
-<footer>El presente certificado es intransferible, es válido sólo para el ejercicio de las actividades
-    mencionadas, en el local comercial mencionado y es válido hasta el día
-    {{ entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
-{% endblock %}
-
-{% endblock %}
-
-{% block pagina_acciones %}
-    <a class="btn btn-primary print-preview" href="#" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
-    <a class="btn btn-primary" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver al listado</a>
+<footer>El presente certificado es intransferible, es válido sólo para
+	el ejercicio de las actividades mencionadas, en el local comercial
+	mencionado y es válido hasta el día {{
+	entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
+{% endblock %} {% endblock %} {% block pagina_acciones %}
+<a class="btn btn-primary print-preview" href="#"
+	onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
+<a class="btn btn-primary" href="{{ path(baseroute ~ '_listar') }}"><i
+	class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}

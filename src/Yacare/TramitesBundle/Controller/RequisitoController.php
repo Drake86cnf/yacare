@@ -13,9 +13,7 @@ class RequisitoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         
-        $this->ConservarVariables = array(
-            'filtro_buscar'
-        );
+        $this->ConservarVariables = array('filtro_buscar');
         $this->Where = 'r.TramiteTipoEspejo IS NULL';
     }
 }

@@ -1,26 +1,19 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
-
-{% block pagina_titulo %}Partida Nº {{ entity.Numero }}{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% import
+'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %} {% block
+pagina_titulo %}Partida Nº {{ entity.Numero }}{% endblock %} {% block
+pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-8 col-xs-12">
-            {{ bs.grid_label_text('Sección', entity.Seccion) }}
-            {{ bs.grid_label_text('Macizo', entity.Macizo) }}
-            {{ bs.grid_label_text('Parcela', entity.Parcela) }}
-            {{ bs.grid_label_text('Unidad funcional', entity.UnidadFuncional) }}
-            {{ bs.grid_label_text('Domicilio', entity.Domicilio) }}
-            {% if entity.Titular %}
-                {{ bs.grid_label_text('Titular', '<a data-toggle="ajax-link" href="' ~ 
-                    path('yacare_base_persona_ver', { 'id': entity.Titular.id }) ~ '">' ~ entity.Titular ~ '</a>') }}
-            {% endif %}
-            {% if entity.Zona %}
-                {{ bs.grid_label_text('Zona', entity.Zona) }}
-            {% endif %}
-		</div>
+		<div class="col-sm-8 col-xs-12">{{ bs.grid_label_text('Sección',
+			entity.Seccion) }} {{ bs.grid_label_text('Macizo', entity.Macizo) }}
+			{{ bs.grid_label_text('Parcela', entity.Parcela) }} {{
+			bs.grid_label_text('Unidad funcional', entity.UnidadFuncional) }} {{
+			bs.grid_label_text('Domicilio', entity.Domicilio) }} {% if
+			entity.Titular %} {{ bs.grid_label_text('Titular', '<a
+			data-toggle="ajax-link" href="' ~ path('yacare_base_persona_ver', {
+			'id': entity.Titular.id }) ~ '">' ~ entity.Titular ~ '</a>') }} {%
+			endif %} {% if entity.Zona %} {{ bs.grid_label_text('Zona',
+			entity.Zona) }} {% endif %}</div>
 		<div class="col-sm-4 hidden-xs">
 			<i class="fa fa-home fa-5x text-muted pull-right"></i>
 		</div>
@@ -29,11 +22,12 @@
 
 <hr />
 
-<p class="alert alert-info"><i class="fa fa-info-circle"></i> Estos datos fueron importados desde el SiGeMI y sólo
-    pueden ser modificados mediante dicho sistema.</p>
-{% endblock %}
-
-{% block pagina_acciones %}
-    <a data-toggle="ajax-link" class="btn btn-link pull-right"
-        href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
+<p class="alert alert-info">
+	<i class="fa fa-info-circle"></i> Estos datos fueron importados desde
+	el SiGeMI y sólo pueden ser modificados mediante dicho sistema.
+</p>
+{% endblock %} {% block pagina_acciones %}
+<a data-toggle="ajax-link" class="btn btn-link pull-right"
+	href="{{ path(baseroute ~ '_listar', arrastre) }}"><i
+	class="fa fa-reply"></i> Volver</a>
 {% endblock %}

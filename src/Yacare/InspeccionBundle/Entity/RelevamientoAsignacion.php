@@ -5,12 +5,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Asignación de trabajo para un relevamiento.
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\HasLifecycleCallbacks
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\HasLifecycleCallbacks
  */
 class RelevamientoAsignacion
 {
@@ -18,11 +18,11 @@ class RelevamientoAsignacion
      * UPDATE Inspeccion_RelevamientoAsignacionResultado SET Asignacion_id=(SELECT Asignacion_id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id=Inspeccion_RelevamientoAsignacionDetalle.id); UPDATE Inspeccion_RelevamientoAsignacion SET DetallesCantidad=(SELECT COUNT(id) FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Asignacion_id=Inspeccion_RelevamientoAsignacion.id); UPDATE Inspeccion_RelevamientoAsignacion SET DetallesResultadosCantidad=(SELECT COUNT(DISTINCT Detalle_id) FROM Inspeccion_RelevamientoAsignacionResultado WHERE Inspeccion_RelevamientoAsignacionResultado.Detalle_id IN (SELECT id FROM Inspeccion_RelevamientoAsignacionDetalle WHERE Inspeccion_RelevamientoAsignacionDetalle.Asignacion_id=Inspeccion_RelevamientoAsignacion.id));
      */
     
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Archivable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Archivable;
 
     /**
      *

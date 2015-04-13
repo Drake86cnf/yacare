@@ -1,47 +1,47 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Obras Particulares - Profesionales matriculados{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Obras Particulares - Profesionales matriculados{%
+endblock %} {% block pagina_contenido %}
 <table class="table table-condensed table-stripped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Profesión</th>
-            <th>Domicilio</th>
-            <th>Teléfono</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td>{{ entity.id }}</td>
-            <td>{{ entity.Persona }}</td>
-            <td>{{ entity.ProfesionAbreviada }}</td>
-            <td>{{ entity.Persona.Domicilio }}</td>
-            <td>{{ entity.Persona.TelefonoNumero }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Nombre</th>
+			<th>Profesión</th>
+			<th>Domicilio</th>
+			<th>Teléfono</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr>
+			<td>{{ entity.id }}</td>
+			<td>{{ entity.Persona }}</td>
+			<td>{{ entity.ProfesionAbreviada }}</td>
+			<td>{{ entity.Persona.Domicilio }}</td>
+			<td>{{ entity.Persona.TelefonoNumero }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-<p>Los profesionales incluidos en este listado son los únicos habilitados al día {{ fechalistado|tapir_fecha('full', 'none')|lower }}
-para presentar documentación técnica en la Dirección de Obras Particulares de este Municipio.</p>
+<p>Los profesionales incluidos en este listado son los únicos
+	habilitados al día {{ fechalistado|tapir_fecha('full', 'none')|lower }}
+	para presentar documentación técnica en la Dirección de Obras
+	Particulares de este Municipio.</p>
 
 <div>
-    <h3>Referencia</h3>
-    <dl class="dl-horizontal">
-        <dt>Ing. civil</dt>
-        <dd>Ingeniero civil</dd>
-        <dt>Ing. en constr.</dt>
-        <dd>Ingeniero en construcciones</dd>
-        <dt>Arq.</dt>
-        <dd>Arquitecto</dd>
-        <dt>M.M.O.</dt>
-        <dd>Maestro mayor de obras</dd>
-        <dt>Téc. constr.</dt>
-        <dd>Técnico constructor</dd>
-    </dl>
+	<h3>Referencia</h3>
+	<dl class="dl-horizontal">
+		<dt>Ing. civil</dt>
+		<dd>Ingeniero civil</dd>
+		<dt>Ing. en constr.</dt>
+		<dd>Ingeniero en construcciones</dd>
+		<dt>Arq.</dt>
+		<dd>Arquitecto</dd>
+		<dt>M.M.O.</dt>
+		<dd>Maestro mayor de obras</dd>
+		<dt>Téc. constr.</dt>
+		<dd>Técnico constructor</dd>
+	</dl>
 </div>
 {% endblock %}

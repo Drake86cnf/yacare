@@ -5,14 +5,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Agrega a una entidad la capacidad de adjuntar comentarios.
- * 
+ *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait Comentable
 {
+
     /**
      * Los comentarios asociados a esta entidad.
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="\Yacare\BaseBundle\Entity\Comentario", cascade={ "persist" })
      */
     protected $Comentarios;
@@ -23,7 +24,9 @@ trait Comentable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getComentarios()
     {
@@ -31,7 +34,9 @@ trait Comentable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setComentarios($Comentarios)
     {

@@ -1,33 +1,33 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Requisitos{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Requisitos{% endblock %} {% block pagina_contenido %}
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th class="hidden-xs">Tipo</th>
-            <th class="hidden-sm hidden-xs">Detalle</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-            <td>&nbsp;{{ entity.Nombre }}</td>
-            <td class="hidden-xs">{{ entity.TipoNombre }}</td>
-            <td class="hidden-sm hidden-xs">{% for requiere in entity.Requiere %}
-                <span class="label label-info">{{ requiere.Nombre|length > 50 ? requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span>
-            {% endfor %}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th class="hidden-xs">Tipo</th>
+			<th class="hidden-sm hidden-xs">Detalle</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>&nbsp;{{ entity.Nombre }}</td>
+			<td class="hidden-xs">{{ entity.TipoNombre }}</td>
+			<td class="hidden-sm hidden-xs">{% for requiere in entity.Requiere %}
+				<span class="label label-info">{{ requiere.Nombre|length > 50 ?
+					requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span> {% endfor
+				%}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
-{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
+block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig'
+%}{% endblock pagina_buscar %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
 {% endblock %}

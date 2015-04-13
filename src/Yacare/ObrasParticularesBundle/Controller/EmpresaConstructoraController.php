@@ -10,10 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Alejandro Diaz <alediaz.rc@gmail.com>
  *        
- * @Route("empresaconstructora/")
+ *         @Route("empresaconstructora/")
  */
 class EmpresaConstructoraController extends \Tapir\BaseBundle\Controller\AbmController
 {
+
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -23,18 +24,18 @@ class EmpresaConstructoraController extends \Tapir\BaseBundle\Controller\AbmCont
         $this->OrderBy = 'p.NombreVisible';
         $this->BuscarPor = 'p.Nombre , p.DocumentoNumero, m.Nombre';
     }
-    
-    
+
     /**
      * Obtiene el listado de empresas constructoras con pago al día, sin paginar.
      *
      * @Route("listarhabilitadas/")
      * @Template()
      */
-    public function listarhabilitadasAction(Request $request) {
+    public function listarhabilitadasAction(Request $request)
+    {
         $this->Where = 'r.FechaVencimiento>CURRENT_DATE()';
         $this->Paginar = false;
-    
+        
         $res = parent::listarAction($request);
         
         $res['fechalistado'] = new \DateTime();

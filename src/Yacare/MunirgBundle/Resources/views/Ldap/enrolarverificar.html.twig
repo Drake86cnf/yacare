@@ -1,38 +1,60 @@
-{% extends 'TapirBaseBundle::blank.html.twig' %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::blank.html.twig' %} {% block
+pagina_contenido %}
 <br />
 <br />
 <div id="login-wrapper" class="container-fluid">
-    <div id="login-container" class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}" style="padding: 10px 64px;" alt="Municipio de Río Grande" />
-        </div>
-        <div class="col-md-6">
-            <h1>Unificación de cuentas</h1>
-            <form role="form" id="enrolar_form" class="form-horizontal" action="{{ path('yacare_munirg_ldap_enrolarguardar') }}" method="post">
-                <input id="_documento" name="_documento" type="hidden" value="{{ documento }}" />
-                <input id="_username" name="_username" type="hidden" value="{{ usuario }}" />
-                <input id="_password" name="_password" type="hidden" value="{{ contrasena }}" />
-                <p>Por favor verifique los datos a continuación.</p>
-                <div class="panel panel-default"><div class="panel-body">
-                <div class="row"><div class="col-xs-4">Nombre</div><div class="col-xs-8">{{ agente.Persona }}</div></div>
-                <div class="row"><div class="col-xs-4">Documento</div><div class="col-xs-8">{{ agente.Persona.DocumentoNumero }}</div></div>
-                <div class="row"><div class="col-xs-4">Legajo municipal</div><div class="col-xs-8">{{ agente.id }}</div></div>
-                <div class="row"><div class="col-xs-4">Usuario</div><div class="col-xs-8">{{ usuario }}</div></div>
-                </div></div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-thumbs-up"></i> Sí, los datos son correctos</button>
-            </form>
+	<div id="login-container" class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-3 hidden-sm hidden-xs">
+			<img class="img-responsive center-block"
+				src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}"
+				style="padding: 10px 64px;" alt="Municipio de Río Grande" />
+		</div>
+		<div class="col-md-6">
+			<h1>Unificación de cuentas</h1>
+			<form role="form" id="enrolar_form" class="form-horizontal"
+				action="{{ path('yacare_munirg_ldap_enrolarguardar') }}"
+				method="post">
+				<input id="_documento" name="_documento" type="hidden"
+					value="{{ documento }}" /> <input id="_username" name="_username"
+					type="hidden" value="{{ usuario }}" /> <input id="_password"
+					name="_password" type="hidden" value="{{ contrasena }}" />
+				<p>Por favor verifique los datos a continuación.</p>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-4">Nombre</div>
+							<div class="col-xs-8">{{ agente.Persona }}</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">Documento</div>
+							<div class="col-xs-8">{{ agente.Persona.DocumentoNumero }}</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">Legajo municipal</div>
+							<div class="col-xs-8">{{ agente.id }}</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">Usuario</div>
+							<div class="col-xs-8">{{ usuario }}</div>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success">
+					<i class="fa fa-thumbs-up"></i> Sí, los datos son correctos
+				</button>
+			</form>
 
-            <hr />
-            
-            <h2>Más información</h2>
-            <p>Si los datos mostrados arriba no son correctos, por favor póngase en contacto con:</p>
-            <p><strong>Sector de informática</strong>, Área de Innovación<br />
-                Teléfono directo: (02964) 43-6200<br />
-                Interno: 205</p>
-        </div>
-    </div>
+			<hr />
+
+			<h2>Más información</h2>
+			<p>Si los datos mostrados arriba no son correctos, por favor póngase
+				en contacto con:</p>
+			<p>
+				<strong>Sector de informática</strong>, Área de Innovación<br />
+				Teléfono directo: (02964) 43-6200<br /> Interno: 205
+			</p>
+		</div>
+	</div>
 </div>
 {% endblock %}

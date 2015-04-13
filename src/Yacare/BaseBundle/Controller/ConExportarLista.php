@@ -13,14 +13,14 @@ trait ConExportarLista
     public function listarExportarAction(Request $request)
     {
         ini_set('memory_limit', '512M');
-
+        
         $dql = $this->obtenerComandoSelect();
-
+        
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
-
+        
         $entities = $query->getResult();
-
+        
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
         $phpExcelObject->getProperties()
             ->setCreator('Yacaré')
@@ -29,7 +29,7 @@ trait ConExportarLista
             ->setDescription('Archivo exportado desde sistema de gestión Yacaré');
         $phpExcelObject->setActiveSheetIndex(0);
         $phpExcelObject->getActiveSheet()->setTitle($this->obtenerEtiquetaEntidadPlural());
-
+        
         $phpExcelObject->getDefaultStyle()
             ->getFont()
             ->setName('Calibri')
@@ -41,10 +41,10 @@ trait ConExportarLista
             ->getFill()
             ->getStartColor()
             ->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
-
+        
         $this->getExportarListaExcel($entities, $phpExcelObject);
         unset($entities);
-
+        
         $formatoExportar = $this->ObtenerVariable($request, 'fmt');
         switch ($formatoExportar) {
             case 'excel5':
@@ -80,16 +80,17 @@ trait ConExportarLista
                 $ArchivoExtension = 'xlsx';
                 break;
         }
-
+        
         $NombreArchivo = $this->BundleName . '_' . $this->obtenerEtiquetaEntidadPlural();
-
+        
         $writer = $this->get('phpexcel')->createWriter($phpExcelObject, $WriterFormat);
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         $response->headers->set('Content-Type', $MimeType . '; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=' . $NombreArchivo . '.' . $ArchivoExtension);
+        $response->headers->set('Content-Disposition', 
+            'attachment;filename=' . $NombreArchivo . '.' . $ArchivoExtension);
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
-
+        
         return $response;
     }
 
@@ -98,27 +99,27 @@ trait ConExportarLista
         $phpExcelObject->getActiveSheet()
             ->setCellValue('A1', 'Código')
             ->setCellValue('B1', 'Detalle');
-
+        
         $phpExcelObject->getActiveSheet()
             ->getColumnDimension('A')
             ->setWidth(12);
         $phpExcelObject->getActiveSheet()
             ->getColumnDimension('B')
             ->setWidth(70);
-
+        
         $phpExcelObject->getActiveSheet()
             ->getStyle('A1:B1')
             ->getFill()
             ->getStartColor()
             ->setARGB(\PHPExcel_Style_Color::COLOR_YELLOW);
-
+        
         $i = 1;
         foreach ($entities as $entity) {
             $i ++;
             $phpExcelObject->getActiveSheet()->setCellValue('A' . $i, $entity->getId());
             $phpExcelObject->getActiveSheet()->setCellValue('B' . $i, (string) $entity);
         }
-
+        
         return $i;
     }
 }

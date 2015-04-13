@@ -12,23 +12,20 @@ class ComercioType extends ComercioSimpleType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Estado', 'choice', array(
-            'label' => 'Estado',
-            'required' => true,
-            'choices' => array(
-                0 => 'No habilitado',
-                1 => 'Habilitación en trámite',
-                91 => 'Habilitación vencida',
-                100 => 'Habilitado'
-            )
-        ));
+        $builder->add('Estado', 'choice', 
+            array(
+                'label' => 'Estado',
+                'required' => true,
+                'choices' => array(
+                    0 => 'No habilitado',
+                    1 => 'Habilitación en trámite',
+                    91 => 'Habilitación vencida',
+                    100 => 'Habilitado')));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\Comercio'
-        ));
+        $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
     }
 
     public function getName()

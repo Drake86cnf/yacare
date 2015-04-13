@@ -5,19 +5,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Relevamiento.
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table("Inspeccion_Relevamiento")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table("Inspeccion_Relevamiento")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Relevamiento
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     public function __construct()
     {

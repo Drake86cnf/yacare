@@ -1,17 +1,11 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}Buscar actividad{% endblock %}
-
-{% block pagina_contenido %}
-{% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
-
-{% include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Buscar actividad{% endblock %} {% block pagina_contenido %} {% set
+tapir_buscar_destino = app.request.get('tapir_buscar_destino') %} {%
+include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
 
 <hr />
 
-<div id="resultadosbuscar">
-    
-</div>
+<div id="resultadosbuscar"></div>
 
 <script>
     function seleccionarItem(id, detalle) {
@@ -27,7 +21,4 @@
     
     $('#filtro_buscar').focus();
 </script>
-{% endblock %}
-
-{% block pagina_acciones %}
-{% endblock %}
+{% endblock %} {% block pagina_acciones %} {% endblock %}

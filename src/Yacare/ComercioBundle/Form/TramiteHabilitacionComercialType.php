@@ -12,17 +12,16 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Comercio', new ComercioSimpleType(), array(
-            'label' => 'Datos del comercio'
-        ));
+        $builder->add('Comercio', new ComercioSimpleType(), 
+            array('label' => 'Datos del comercio'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial',
-            'cascade_validation' => true
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial',
+                'cascade_validation' => true));
     }
 
     public function getName()

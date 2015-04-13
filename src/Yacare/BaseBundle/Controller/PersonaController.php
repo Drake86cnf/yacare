@@ -147,15 +147,13 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
                     array('label' => 'Domicilio','required' => true));
                 break;
             case 'TelefonoNumero':
-                $editFormBuilder->add($campoNombre, 'text', 
-                    array('label' => 'Teléfono(s)','required' => true));
+                $editFormBuilder->add($campoNombre, 'text', array('label' => 'Teléfono(s)','required' => true));
                 $editFormBuilder->add('TelefonoVerificacionNivel', 
                     new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
                     array('label' => 'Nivel','required' => true));
                 break;
             case 'Email':
-                $editFormBuilder->add($campoNombre, 'text', 
-                    array('label' => 'E-mail','required' => true));
+                $editFormBuilder->add($campoNombre, 'text', array('label' => 'E-mail','required' => true));
                 $editFormBuilder->add($campoNombre . 'VerificacionNivel', 
                     new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
                     array('label' => 'Nivel','required' => true));
@@ -229,7 +227,6 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($ok) {}
         
-        return $this->ArrastrarVariables(
-            array('entity1' => $entity1,'entity2' => $entity2));
+        return $this->ArrastrarVariables(array('entity1' => $entity1,'entity2' => $entity2));
     }
 }

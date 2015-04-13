@@ -1,55 +1,51 @@
-{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %}
-
-{% block pagina_titulo %}Trámites de CAT{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %} {% block
+pagina_titulo %}Trámites de CAT{% endblock %} {% block pagina_contenido
+%}
 
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th class="hidden-sm hidden-xs">Titular</th>
-            <th class="hidden-sm hidden-xs">Actividad</th>
-            <th class="hidden-sm hidden-xs">Local</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
-            <td>{{ entity.id }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal.Nombre|length > 50 ? entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' : entity.ActividadPrincipal.Nombre }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
-            <td>
-                {% if entity.Estado < 10 %}
-                    <span class="label label-danger">
-                {% elseif entity.Estado >= 10 and entity.Estado < 90 %}
-                    <span class="label label-primary">
-                {% elseif entity.Estado == 100 %}
-                    <span class="label label-success">
-                {% else %}
-                    <span class="label label-default">
-                {% endif %}
-                {{ entity.EstadoNombre }}</span>
-                {% if entity.EstaEnCurso %}
-                    {% if entity.RequisitosFaltantesCantidad == 0 %}
-                        <span class="label label-success"><i class="fa fa-thumbs-up"></i> Requisitos completos</span>
-                    {% else %}
-                        <span class="label label-default">Faltan {{ entity.RequisitosFaltantesCantidad }} requisitos</span>
-                    {% endif %}
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th class="hidden-sm hidden-xs">Titular</th>
+			<th class="hidden-sm hidden-xs">Actividad</th>
+			<th class="hidden-sm hidden-xs">Local</th>
+			<th>Estado</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+			<td>{{ entity.id }}</td>
+			<td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
+			<td class="hidden-sm hidden-xs">{{
+				entity.ActividadPrincipal.Nombre|length > 50 ?
+				entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' :
+				entity.ActividadPrincipal.Nombre }}</td>
+			<td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
+			<td>{% if entity.Estado < 10 %} <span class="label label-danger"> {%
+					elseif entity.Estado >= 10 and entity.Estado < 90 %} <span
+					class="label label-primary"> {% elseif entity.Estado == 100 %} <span
+						class="label label-success"> {% else %} <span
+							class="label label-default"> {% endif %} {{ entity.EstadoNombre
+								}}</span> {% if entity.EstaEnCurso %} {% if
+							entity.RequisitosFaltantesCantidad == 0 %} <span
+							class="label label-success"><i class="fa fa-thumbs-up"></i>
+								Requisitos completos</span> {% else %} <span
+							class="label label-default">Faltan {{
+								entity.RequisitosFaltantesCantidad }} requisitos</span> {% endif
+							%} {% endif %} </td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
-{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo trámite de CAT</a>
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
+pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
+endblock %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
+	trámite de CAT</a>
 {% endblock pagina_acciones2 %}

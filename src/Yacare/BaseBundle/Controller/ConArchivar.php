@@ -54,12 +54,13 @@ trait ConArchivar
 
     /**
      * Este método se dispara después de archivar una entidad.
-     * 
+     *
      * @param bool $archivado
      *            Indica si el elemento fue archivado.
      */
     public function afterArchivar($entity, $archivado = false)
     {
-        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
+        return $this->redirect(
+            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
     }
 }

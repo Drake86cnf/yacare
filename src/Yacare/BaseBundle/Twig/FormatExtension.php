@@ -13,20 +13,15 @@ class FormatExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('yacare_verificacionnivel', array(
-                $this,
-                'yacare_verificacionnivel'
-            )),
-        );
+            new \Twig_SimpleFilter('yacare_verificacionnivel', 
+                array($this,'yacare_verificacionnivel')));
     }
-
 
     public function yacare_verificacionnivel($verificacionNivel)
     {
-    	return \Yacare\BaseBundle\Entity\Persona::VerificacionNivelNombre($verificacionNivel);
+        return \Yacare\BaseBundle\Entity\Persona::VerificacionNivelNombre($verificacionNivel);
     }
-    
-    
+
     /**
      * Returns the name of the extension.
      *

@@ -1,8 +1,5 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}{{ entity }}{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}{{ entity }}{% endblock %} {% block pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
@@ -23,17 +20,18 @@
 			</div>
 		</div>
 		<div class="col-sm-4 hidden-xs">
-    		<i class="fa fa-building fa-4x text-muted pull-right"></i>
+			<i class="fa fa-building fa-4x text-muted pull-right"></i>
 		</div>
 	</div>
 </div>
 
-{% endblock %}
-
-{% block pagina_acciones2 %}
-    {{ parent() }}
-    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-    <a data-toggle="ajax-link" class="btn btn-default hidden-print" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
-    {% endif %}
-    <button data-dismiss="modal" class="btn btn-default hidden-print"><i class="fa fa-reply"></i> Volver</button>
+{% endblock %} {% block pagina_acciones2 %} {{ parent() }} {% if
+is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+<a data-toggle="ajax-link" class="btn btn-default hidden-print"
+	href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i
+	class="fa fa-edit"></i> Editar</a>
+{% endif %}
+<button data-dismiss="modal" class="btn btn-default hidden-print">
+	<i class="fa fa-reply"></i> Volver
+</button>
 {% endblock %}

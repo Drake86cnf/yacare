@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait ConDatosComercio
 {
-    use\Yacare\ComercioBundle\Entity\ConActividades;
+    use \Yacare\ComercioBundle\Entity\ConActividades;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")

@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
-    use\Yacare\ExpedientesBundle\Entity\ConExpediente;
-    use\Yacare\ComercioBundle\Entity\ConDatosComercio;
+    use \Yacare\ExpedientesBundle\Entity\ConExpediente;
+    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
 
     /**
      * Valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.

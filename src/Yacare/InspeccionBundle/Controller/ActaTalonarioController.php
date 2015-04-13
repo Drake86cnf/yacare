@@ -27,10 +27,7 @@ class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
         
         $json = array();
         foreach ($members as $member) {
-            $json[] = array(
-                'label' => $member->getNombreVisible(),
-                'value' => $member->getId()
-            );
+            $json[] = array('label' => $member->getNombreVisible(),'value' => $member->getId());
         }
         
         $response = new Response();

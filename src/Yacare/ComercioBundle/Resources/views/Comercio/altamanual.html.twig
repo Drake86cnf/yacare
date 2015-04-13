@@ -1,46 +1,52 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}Alta manual de comercio{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Alta manual de comercio{% endblock %} {% block pagina_contenido %}
 <div class="row">
-    <div class="col-md-2">
-        <i class="text text-danger pull-right fa fa-warning fa-4x"></i>    
-    </div>
-    <div class="col-md-10">
-        <p class="text text-danger">
-            <strong>¡Atención!</strong> Por favor lea la siguiente información atentamente antes de continuar.
-        </p>
+	<div class="col-md-2">
+		<i class="text text-danger pull-right fa fa-warning fa-4x"></i>
+	</div>
+	<div class="col-md-10">
+		<p class="text text-danger">
+			<strong>¡Atención!</strong> Por favor lea la siguiente información
+			atentamente antes de continuar.
+		</p>
 
-        <p>Los comercios deben darse de alta a través de un trámite de habilitación comercial y presentando la documentación
-        correspondiente. La opción de alta manual debe usarse en situaciones excepcionales, como:
-        <ul>
-           <li>Comercios en situación irregular (no habilitados)</li>
-           <li>Carga de datos históricos (como los comercios habilitados antes de la implementación del sistema)</li>
-        </ul>
-        </p>
+		<p>Los comercios deben darse de alta a través de un trámite de
+			habilitación comercial y presentando la documentación
+			correspondiente. La opción de alta manual debe usarse en situaciones
+			excepcionales, como:
+		
+		
+		<ul>
+			<li>Comercios en situación irregular (no habilitados)</li>
+			<li>Carga de datos históricos (como los comercios habilitados antes
+				de la implementación del sistema)</li>
+		</ul>
+		</p>
 
-        <hr />
+		<hr />
 
-        <div class="row">
-            <div class="col-md-6">
-                <p>Si se trata de una habilitación regular, por favor inicie un trámite de habilitación.<br />
-                    &nbsp;<br />
-                    <a data-toggle="ajax-link" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar trámite de habilitación</a>
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p>De lo contrario, si desea realizar un alta irregular, haga clic aquí para continuar:<br />
-                    &nbsp;<br />
-                    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Continuar con el alta manual</a>
-                </p>
-            </div>
-        </div>
-    </div>
+		<div class="row">
+			<div class="col-md-6">
+				<p>
+					Si se trata de una habilitación regular, por favor inicie un
+					trámite de habilitación.<br /> &nbsp;<br /> <a
+						data-toggle="ajax-link"
+						href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}"
+						class="btn btn-success"><i class="fa fa-play"></i> Iniciar trámite
+						de habilitación</a>
+				</p>
+			</div>
+			<div class="col-md-6">
+				<p>
+					De lo contrario, si desea realizar un alta irregular, haga clic
+					aquí para continuar:<br /> &nbsp;<br /> <a data-toggle="ajax-link"
+						href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-warning"><i
+						class="fa fa-plus"></i> Continuar con el alta manual</a>
+				</p>
+			</div>
+		</div>
+	</div>
 
 </div>
 
-{% endblock %}
-
-{% block pagina_acciones2 %}
-{% endblock %}
+{% endblock %} {% block pagina_acciones2 %} {% endblock %}

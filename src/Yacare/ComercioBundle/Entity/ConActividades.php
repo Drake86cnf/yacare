@@ -30,7 +30,8 @@ trait ConActividades
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
         
-        return ($Activ1 != null && $Activ1->getRequiereDeyma()) || ($Activ2 != null && $Activ2->getRequiereDeyma()) || ($Activ3 != null && $Activ3->getRequiereDeyma());
+        return ($Activ1 != null && $Activ1->getRequiereDeyma()) || ($Activ2 != null && $Activ2->getRequiereDeyma()) ||
+             ($Activ3 != null && $Activ3->getRequiereDeyma());
     }
 
     public function getRequiereDbeh()
@@ -39,7 +40,8 @@ trait ConActividades
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
         
-        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) ||
+             ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
 
     public function getRequiereInfEscolar()
@@ -48,7 +50,8 @@ trait ConActividades
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
         
-        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) ||
+             ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
 
     public function getRequiereCamaraGrasa()
@@ -57,7 +60,8 @@ trait ConActividades
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
         
-        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) ||
+             ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
 
     public function getRequiereCamaraBarro()
@@ -66,7 +70,8 @@ trait ConActividades
         $Activ2 = $this->getActividadSecundaria();
         $Activ3 = $this->getActividadTerciaria();
         
-        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) || ($Activ3 != null && $Activ3->getRequiereDbeh());
+        return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) ||
+             ($Activ3 != null && $Activ3->getRequiereDbeh());
     }
 
     public function getActividadPrincipal()

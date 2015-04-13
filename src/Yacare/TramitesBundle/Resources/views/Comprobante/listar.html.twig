@@ -1,30 +1,28 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Comprobantes{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Comprobantes{% endblock %} {% block pagina_contenido %}
 {% include 'TapirBaseBundle::buscar.html.twig' %}
 
 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th></th>
-            <th>#</th>
-            <th>Titular</th>
-            <th>Fecha de emisión</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a class="btn btn-default btn-xs hidden-print showonhover" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Ver</a></td>
-            <td>{{ entity.Numero }}</td>
-            <td>{{ entity.Titular }}</td>
-            <td>{{ entity.createdAt|tapir_fecha('full', 'none') }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th></th>
+			<th>#</th>
+			<th>Titular</th>
+			<th>Fecha de emisión</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr>
+			<td><a class="btn btn-default btn-xs hidden-print showonhover"
+				href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}"><i
+					class="fa fa-edit"></i> Ver</a></td>
+			<td>{{ entity.Numero }}</td>
+			<td>{{ entity.Titular }}</td>
+			<td>{{ entity.createdAt|tapir_fecha('full', 'none') }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% include 'TapirBaseBundle::paginar.html.twig' %}
-{% endblock %}
+{% include 'TapirBaseBundle::paginar.html.twig' %} {% endblock %}

@@ -1,45 +1,42 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Requisitos de &quot;{{ parent }}&quot;{% endblock %}
-
-{% block pagina_contenido %}
-
-{% if entities is empty %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Requisitos de &quot;{{ parent }}&quot;{% endblock %} {%
+block pagina_contenido %} {% if entities is empty %}
 <div>
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong><p>No hay requisitos.</p></strong>
-    <p>Este trámite aun no tiene requisitos asignados. Para asignar requisitos utilice el botón Nuevo requisito.
-    </p>
-</div>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong><p>No hay requisitos.</p></strong>
+		<p>Este trámite aun no tiene requisitos asignados. Para asignar
+			requisitos utilice el botón Nuevo requisito.</p>
+	</div>
 </div>
 {% else %}
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Requisito</th>
-            <th class="hidden-sm hidden-xs">Sólo se requiere si</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-            <td>{% if entity.Opcional %}<span class="label label-info">Opcional</span> {% endif %}{{ entity }}</td>
-            <td class="hidden-sm hidden-xs">{{ entity.Condicion }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Requisito</th>
+			<th class="hidden-sm hidden-xs">Sólo se requiere si</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{% if entity.Opcional %}<span class="label label-info">Opcional</span>
+				{% endif %}{{ entity }}
+			</td>
+			<td class="hidden-sm hidden-xs">{{ entity.Condicion }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
-{% endif %}
-
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
-
-{% block pagina_acciones %}
-<a data-toggle="ajax-link" href="{{ path('yacare_tramites_tramitetipo_ver', { 'id': parent.id }) }}" class="btn btn-link"><i class="fa fa-reply"></i>  Volver al trámite</a>
-{% endblock pagina_acciones %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-default"><i class="fa fa-plus"></i> Nuevo requisito</a>
+{% endif %} {% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
+block pagina_acciones %}
+<a data-toggle="ajax-link"
+	href="{{ path('yacare_tramites_tramitetipo_ver', { 'id': parent.id }) }}"
+	class="btn btn-link"><i class="fa fa-reply"></i> Volver al trámite</a>
+{% endblock pagina_acciones %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-default"><i class="fa fa-plus"></i> Nuevo requisito</a>
 {% endblock pagina_acciones2 %}

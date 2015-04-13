@@ -14,11 +14,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Adjunto
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     public function __construct($Entidad = null, $Archivo = null)
     {
@@ -30,7 +30,8 @@ class Adjunto
             
             // Genero un nombre de carpeta bundle/entidad ('Base/Persona', 'Organizacion/Departamento', etc.)
             $PartesNombreClase = explode('\\', $this->getEntidadTipo());
-            $this->setCarpeta(strtolower(str_replace('Bundle', '', $PartesNombreClase[1]) . '/' . $PartesNombreClase[3]));
+            $this->setCarpeta(
+                strtolower(str_replace('Bundle', '', $PartesNombreClase[1]) . '/' . $PartesNombreClase[3]));
         }
         
         if ($Archivo) {

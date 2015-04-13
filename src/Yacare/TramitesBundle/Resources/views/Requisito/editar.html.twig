@@ -1,9 +1,7 @@
-{% extends 'TapirBaseBundle:Default:editar.html.twig' %}
-
-{% block pagina_titulo %}{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo requisito {% endif %}{% endblock %}
-
-{% block pagina_contenido %}
-{{ parent() }}
+{% extends 'TapirBaseBundle:Default:editar.html.twig' %} {% block
+pagina_titulo %}{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo
+requisito {% endif %}{% endblock %} {% block pagina_contenido %} {{
+parent() }}
 
 <script type="text/javascript">
     function CambioTipo() {
@@ -30,6 +28,6 @@
         CambioTipo();
     }); */
     
-</script>  
+</script>
 
 {% endblock %}

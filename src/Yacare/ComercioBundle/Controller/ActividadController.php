@@ -235,9 +235,8 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($codigoPadre) {
             $em = $this->getDoctrine()->getManager();
-            $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array(
-                'Clamae2014' => $codigoPadre
-            ));
+            $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(
+                array('Clamae2014' => $codigoPadre));
             $entity->setParentNode($parentNode);
         }
         
@@ -256,7 +255,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         $this->Limit = 500;
         return $this->listarAction($request);
         
-        //return parent::buscarresultadosAction($request);
+        // return parent::buscarresultadosAction($request);
     }
 
     /**

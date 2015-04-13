@@ -1,105 +1,316 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Cálculo del valor del pliego{% endblock %} {% block pagina_contenido
+%}
 
-{% block pagina_titulo %}Cálculo del valor del pliego{% endblock %}
+<p>El valor del pliego se calcula como un porcentaje del Presupuesto
+	oficial. El porcentaje varía según la "Complejidad final computada" de
+	la licitación.</p>
 
-{% block pagina_contenido %}
-
-<p>El valor del pliego se calcula como un porcentaje del Presupuesto oficial. El porcentaje varía según la
-    "Complejidad final computada" de la licitación.</p>
-    
 <h2>Cálculo de la complejidad final computada</h2>
-<p>Para cada licitación se calcula una "Complejidad final computada", que puede arrojar uno de los siguientes
-    valores:</p>
-    <ol>
-        <li> Baja
-        <li> Media
-        <li> Alta
-    </ol>
+<p>Para cada licitación se calcula una "Complejidad final computada",
+	que puede arrojar uno de los siguientes valores:</p>
+<ol>
+	<li>Baja
+	
+	<li>Media
+	
+	<li>Alta
 
-<p>Ésta es a su vez el resultado de la evaluación de complejidad en tres áreas diferentes de la licitación.</p>
+</ol>
+
+<p>Ésta es a su vez el resultado de la evaluación de complejidad en tres
+	áreas diferentes de la licitación.</p>
 <dl class="dl-horizontal">
-    <dt>Cantidad de renglones</dd>
-    <dd>de 1 a 20 renglones se computa complejidad 1 (baja), de 21 a 40 se computa comlejidad 2
-        (media) y para más de 40 renglones se computa complejidad 3 (alta).</dd> 
-    <dt class="text-nowrap">Ítem de E.T.</dt>
-    <dd>de 1 a 5 se computa complejidad 1 (baja), de 6 a 10 se computa comlejidad 2 (media)
-        y más de 10 se computa complejidad 3 (alta).</dd>
-    <dt>Presupuesto oficial</dt>
-    <dd>hasta $ 2 000 000,00 se computa complejidad 1 (baja), más de $ 2 000 000,00 y hasta
-        $ 5 000 000,00 se computa comlejidad 2 (media) y más de $ 5 000 000,00 se computa complejidad 3 (alta).</dd>
-</ul>
+	<dt>Cantidad de renglones
+	
+	
+	</dd>
+	<dd>de 1 a 20 renglones se computa complejidad 1 (baja), de 21 a 40 se
+		computa comlejidad 2 (media) y para más de 40 renglones se computa
+		complejidad 3 (alta).</dd>
+	<dt class="text-nowrap">Ítem de E.T.</dt>
+	<dd>de 1 a 5 se computa complejidad 1 (baja), de 6 a 10 se computa
+		comlejidad 2 (media) y más de 10 se computa complejidad 3 (alta).</dd>
+	<dt>Presupuesto oficial</dt>
+	<dd>hasta $ 2 000 000,00 se computa complejidad 1 (baja), más de $ 2
+		000 000,00 y hasta $ 5 000 000,00 se computa comlejidad 2 (media) y
+		más de $ 5 000 000,00 se computa complejidad 3 (alta).</dd>
+	</ul>
 
-<p>De esta forma, cada una de las tres áreas evaluadas puede arrojar tres valores diferentes, con un final de 27
-posibles combinaciones de complejidad de área que dan como resultado tres posibles valores de "Complejidad final
-computada".<p>
+	<p>De esta forma, cada una de las tres áreas evaluadas puede arrojar
+		tres valores diferentes, con un final de 27 posibles combinaciones de
+		complejidad de área que dan como resultado tres posibles valores de
+		"Complejidad final computada".
+	
+	
+	<p>
+	
+	
+	<ul>
+		<li>Las combinaciones de tres iguales (111, 222 y 333) dan como
+			resultado para la "Complejidad final computada" el único valor
+			posible que es el de cualquiera de los valores ponderados.
+		
+		<li>Las combinaciones de tres desiguales (123, 321, 213, 231, etc.)
+			dan como resultado para la "Complejidad final computada" el valor
+			promedio, que es 2.
+		
+		<li>El resto son combinaciones dos valores iguales y uno diferente
+			(122, 313, 332, etc.). Éstas dan como resultado para la "Complejidad
+			final computada" el valor mayoritario (el que se repite 2 veces).
+	
+	</ul>
 
-<ul>
-    <li>Las combinaciones de tres iguales (111, 222 y 333) dan como resultado para la "Complejidad final computada" el
-        único valor posible que es el de cualquiera de los valores ponderados.
-    <li>Las combinaciones de tres desiguales (123, 321, 213, 231, etc.) dan como resultado para la "Complejidad final
-        computada" el valor promedio, que es 2.
-    <li>El resto son combinaciones dos valores iguales y uno diferente (122, 313, 332, etc.). Éstas dan como resultado
-        para la "Complejidad final computada" el valor mayoritario (el que se repite 2 veces).
-</ul>
+	<h2>El coeficiente</h2>
+	<p>Según la "Complejidad final computada", se calcula el valor del
+		pliego como un porcentaje del Presupuesto oficial, con un valor mínimo
+		que actua como piso. Para las licitaciones cuyo valor de pliego
+		calculado como el porcentaje del presupuesto oficial esté por debajo
+		del "Valor mínimo del pliego" se utilizará el valor mínimo como valor
+		del pliego.</p>
 
-<h2>El coeficiente</h2>
-<p>Según la "Complejidad final computada", se calcula el valor del pliego como un porcentaje del Presupuesto oficial,
-con un valor mínimo que actua como piso. Para las licitaciones cuyo valor de pliego calculado como el porcentaje del
-presupuesto oficial esté por debajo del "Valor mínimo del pliego" se utilizará el valor mínimo como valor del pliego.</p>  
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<th>Complejidad<br />computada
+				</th>
+				<th>Porcentaje</th>
+				<th>Valor mínimo<br />del pliego
+				</th>
+			</tr>
+			<tr>
+				<td>1. Baja</td>
+				<td>0.015%</td>
+				<td>$ 1 000.-</td>
+			</tr>
+			<tr>
+				<td>2. Media</td>
+				<td>0.0225%</td>
+				<td>$ 1 500.-</td>
+			</tr>
+			<tr>
+				<td>3. Alta</td>
+				<td>0.03%</td>
+				<td>$ 2 000.-</td>
+			</tr>
+		</tbody>
+	</table>
 
-<table class="table table-striped">
-<tbody>
-<tr><th>Complejidad<br />computada</th><th>Porcentaje</th><th>Valor mínimo<br />del pliego</th></tr>
-<tr><td>1. Baja</td><td>0.015%</td><td>$ 1 000.-</td></tr>
-<tr><td>2. Media</td><td>0.0225%</td><td>$ 1 500.-</td></tr>
-<tr><td>3. Alta</td><td>0.03%</td><td>$ 2 000.-</td></tr>
-</tbody>
-</table>
+	<h2>Anexo I</h2>
 
-<h2>Anexo I</h2>
+	<table class="table table-striped table-condensed">
+		<caption>Tabla de "Complejidad final computada"</caption>
+		<tbody>
+			<tr>
+				<th>Ref.</th>
+				<th>Cantidad<br />de renglones
+				</th>
+				<th>Cantidad <br />de ítem de E.T.
+				</th>
+				<th>Presupuesto<br />oficial
+				</th>
+				<th>Complejidad<br />computada
+				</th>
+			</tr>
+			<tr>
+				<td>111</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>112</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>113</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>121</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>122</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>123</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>131</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>132</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>133</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+			</tr>
 
-<table class="table table-striped table-condensed">
-<caption>Tabla de "Complejidad final computada"</caption>
-<tbody>
-<tr><th>Ref.</th><th>Cantidad<br />de renglones</th><th>Cantidad <br />de ítem de E.T.</th><th>Presupuesto<br />oficial</th><th>Complejidad<br />computada</th></tr>
-<tr><td>111</td><td class="success">Baja </td><td class="success">Baja </td><td class="success">Baja </td><td class="success">Baja </td></tr>
-<tr><td>112</td><td class="success">Baja </td><td class="success">Baja </td><td class="warning">Media</td><td class="success">Baja </td></tr>
-<tr><td>113</td><td class="success">Baja </td><td class="success">Baja </td><td class="danger ">Alta </td><td class="success">Baja </td></tr>
-<tr><td>121</td><td class="success">Baja </td><td class="warning">Media</td><td class="success">Baja </td><td class="success">Baja </td></tr>
-<tr><td>122</td><td class="success">Baja </td><td class="warning">Media</td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>123</td><td class="success">Baja </td><td class="warning">Media</td><td class="danger ">Alta </td><td class="warning">Media</td></tr>
-<tr><td>131</td><td class="success">Baja </td><td class="danger ">Alta </td><td class="success">Baja </td><td class="success">Baja </td></tr>
-<tr><td>132</td><td class="success">Baja </td><td class="danger ">Alta </td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>133</td><td class="success">Baja </td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="danger ">Alta </td></tr>
+			<tr>
+				<td>211</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>212</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>213</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>221</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>222</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>223</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>231</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>232</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>233</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+			</tr>
 
-<tr><td>211</td><td class="warning">Media</td><td class="success">Baja </td><td class="success">Baja </td><td class="success">Baja </td></tr>
-<tr><td>212</td><td class="warning">Media</td><td class="success">Baja </td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>213</td><td class="warning">Media</td><td class="success">Baja </td><td class="danger ">Alta </td><td class="warning">Media</td></tr>
-<tr><td>221</td><td class="warning">Media</td><td class="warning">Media</td><td class="success">Baja </td><td class="warning">Media</td></tr>
-<tr><td>222</td><td class="warning">Media</td><td class="warning">Media</td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>223</td><td class="warning">Media</td><td class="warning">Media</td><td class="danger ">Alta </td><td class="warning">Media</td></tr>
-<tr><td>231</td><td class="warning">Media</td><td class="danger ">Alta </td><td class="success">Baja </td><td class="warning">Media</td></tr>
-<tr><td>232</td><td class="warning">Media</td><td class="danger ">Alta </td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>233</td><td class="warning">Media</td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="danger ">Alta </td></tr>
+			<tr>
+				<td>311</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+				<td class="success">Baja</td>
+			</tr>
+			<tr>
+				<td>312</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>313</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+			</tr>
+			<tr>
+				<td>321</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="success">Baja</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>322</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+				<td class="warning">Media</td>
+			</tr>
+			<tr>
+				<td>323</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+			</tr>
+			<tr>
+				<td>331</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="success">Baja</td>
+				<td class="danger ">Alta</td>
+			</tr>
+			<tr>
+				<td>332</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="warning">Media</td>
+				<td class="danger ">Alta</td>
+			</tr>
+			<tr>
+				<td>333</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+				<td class="danger ">Alta</td>
+			</tr>
+		</tbody>
+	</table>
 
-<tr><td>311</td><td class="danger ">Alta </td><td class="success">Baja </td><td class="success">Baja </td><td class="success">Baja </td></tr>
-<tr><td>312</td><td class="danger ">Alta </td><td class="success">Baja </td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>313</td><td class="danger ">Alta </td><td class="success">Baja </td><td class="danger ">Alta </td><td class="danger ">Alta </td></tr>
-<tr><td>321</td><td class="danger ">Alta </td><td class="warning">Media</td><td class="success">Baja </td><td class="warning">Media</td></tr>
-<tr><td>322</td><td class="danger ">Alta </td><td class="warning">Media</td><td class="warning">Media</td><td class="warning">Media</td></tr>
-<tr><td>323</td><td class="danger ">Alta </td><td class="warning">Media</td><td class="danger ">Alta </td><td class="danger ">Alta </td></tr>
-<tr><td>331</td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="success">Baja </td><td class="danger ">Alta </td></tr>
-<tr><td>332</td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="warning">Media</td><td class="danger ">Alta </td></tr>
-<tr><td>333</td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="danger ">Alta </td><td class="danger ">Alta </td></tr>
-</tbody>
-</table>
 
-
-{% endblock %}
-
-{% block pagina_acciones %}
-    <a class="btn btn-default" href="javascript:tapirImprimir(); return false;"><i class="fa fa-print"></i> Imprimir</a>
-    <a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i> Volver</a>
-{% endblock pagina_acciones %}
-
-{% block pagina_pie %}{% endblock pagina_pie %}
+	{% endblock %} {% block pagina_acciones %}
+	<a class="btn btn-default"
+		href="javascript:tapirImprimir(); return false;"><i
+		class="fa fa-print"></i> Imprimir</a>
+	<a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}"><i
+		class="fa fa-reply"></i> Volver</a> {% endblock pagina_acciones %} {%
+	block pagina_pie %}{% endblock pagina_pie %}

@@ -20,9 +20,10 @@ trait ConAdjuntos
                 if ($Archivo) {
                     $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
                     
-                    $Adjunto->setPersona($this->get('security.context')
-                        ->getToken()
-                        ->getUser());
+                    $Adjunto->setPersona(
+                        $this->get('security.context')
+                            ->getToken()
+                            ->getUser());
                     
                     $entity->getAdjuntos()->add($Adjunto);
                     if ($NombresAdjuntados) {

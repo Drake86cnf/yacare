@@ -11,10 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Matriculado
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Archivable;
-    use\Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Archivable;
+    use \Tapir\BaseBundle\Entity\Versionable;
 
     /**
      * La persona asociada.
@@ -27,36 +27,39 @@ class Matriculado
     /**
      * Indica la profesion del matriculado
      *
-     * @var $Profesion
-     * @ORM\Column(type="string", nullable=false)
+     * @var $Profesion @ORM\Column(type="string", nullable=false)
      */
     private $Profesion;
 
     /**
      * La fecha de vencimiento del pago anual.
      *
-     * @var $FechaVencimiento
-     * @ORM\Column(type="date", nullable=true)
+     * @var $FechaVencimiento @ORM\Column(type="date", nullable=true)
      */
     private $FechaVencimiento;
-    
+
     public function getNombre()
     {
-        return (string)$this;
+        return (string) $this;
     }
-    
-    
-    public function getProfesionAbreviada() {
-        switch($this->Profesion) {
-            case 'Ingeniero civil': return 'Ing. civil';
-            case 'Ingeniero en construcciones': return 'Ing. en constr.';
-            case 'Arquitecto': return 'Arq.';
-            case 'Maestro mayor de obras': return 'M.M.O.';
-            case 'Técnico constructor': return 'Téc. constr.';
-            default: return $this->Profesion;
+
+    public function getProfesionAbreviada()
+    {
+        switch ($this->Profesion) {
+            case 'Ingeniero civil':
+                return 'Ing. civil';
+            case 'Ingeniero en construcciones':
+                return 'Ing. en constr.';
+            case 'Arquitecto':
+                return 'Arq.';
+            case 'Maestro mayor de obras':
+                return 'M.M.O.';
+            case 'Técnico constructor':
+                return 'Téc. constr.';
+            default:
+                return $this->Profesion;
         }
     }
-    
 
     public function __toString()
     {

@@ -1,81 +1,84 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Partidas{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Partidas{% endblock %} {% block pagina_contenido %}
 
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-    		<th>Partida</th>
-        	<th>S</th>
-	        <th>M</th>
-	        <th>P</th>
-	        <th>UF</th>
-	        <th>Zona</th>
-            <th>Detalle</th>
-            <th>Titular</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
-        	<td class="text-muted">{{ entity.Numero }}</td>
-        	<td>{{ entity.Seccion }}</td>
-        	<td>{{ entity.Macizo }}</td>
-        	<td>{{ entity.Parcela }}</td>
-        	<td class="text-muted">{{ entity.UnidadFuncional }}</td>
-        	<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
-            <td class="text-muted">{{ entity.Domicilio }}</td>
-            <td class="text-muted">{{ entity.Titular }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Partida</th>
+			<th>S</th>
+			<th>M</th>
+			<th>P</th>
+			<th>UF</th>
+			<th>Zona</th>
+			<th>Detalle</th>
+			<th>Titular</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+			<td class="text-muted">{{ entity.Numero }}</td>
+			<td>{{ entity.Seccion }}</td>
+			<td>{{ entity.Macizo }}</td>
+			<td>{{ entity.Parcela }}</td>
+			<td class="text-muted">{{ entity.UnidadFuncional }}</td>
+			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{%
+				endif %}</td>
+			<td class="text-muted">{{ entity.Domicilio }}</td>
+			<td class="text-muted">{{ entity.Titular }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% endblock %}
+{% endblock %} {% block pagina_acciones %} {% if secciones %} {% set
+filtro_seccion = app.request.query.get('filtro_seccion') %} {% set
+filtro_macizo = app.request.query.get('filtro_macizo') %} {% set
+filtro_partida = app.request.query.get('filtro_partida') %}
+<div class="input-group">
+	{% if not filtro_seccion %} <label class="sr-only" for="filtro_partida">Número
+		de partida</label> <input class="form-control input-sm" type="text"
+		size="5" maxlength="5" id="filtro_partida" name="filtro_partida"
+		placeholder="partida" value="{{ filtro_partida }}"
+		style="max-width: 64px" /> {% if filtro_partida %}
+	<button class="btn btn-primary btn-sm" type="button"
+		onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': null })) }}');">
+		<i class="fa fa-times-circle"></i>
+	</button>
+	{% endif %} {% endif %} &nbsp; {% if not filtro_partida %}
+	<div class="btn-group">
+		<button type="button" class="btn btn-default btn-sm dropdown-toggle"
+			data-toggle="dropdown">
+			{% if filtro_seccion %}Sec. {{ filtro_seccion }}{% else %}Sección{%
+			endif %} <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			{% if filtro_seccion %}
+			<li><a data-toggle="ajax-link"
+				href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '', 'page': null })) }}">Todas</a>
+			
+			<li class="divider"></li> {% endif %} {% for seccion in secciones %}
+			{% if seccion.Seccion %}
+			<li><a data-toggle="ajax-link"
+				href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'page': null })) }}">Sección
+					{{ seccion.Seccion }}</a> {% endif %} {% endfor %}
+		
+		</ul>
 
-{% block pagina_acciones %}
-{% if secciones %}
-{% set filtro_seccion = app.request.query.get('filtro_seccion') %}
-{% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-{% set filtro_partida = app.request.query.get('filtro_partida') %}
-    <div class="input-group">
-        {% if not filtro_seccion %}
-            <label class="sr-only" for="filtro_partida">Número de partida</label>
-            <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida" name="filtro_partida" placeholder="partida" value="{{ filtro_partida }}" style="max-width: 64px" />
-            {% if filtro_partida %}
-            <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>
-            {% endif %}
-        {% endif %}
-&nbsp;
-        {% if not filtro_partida %}
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                    {% if filtro_seccion %}Sec. {{ filtro_seccion }}{% else %}Sección{% endif %} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                {% if filtro_seccion %}
-                    <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': '', 'page': null })) }}">Todas</a>
-                    <li class="divider"></li>
-                {% endif %}
-                {% for seccion in secciones %}
-                    {% if seccion.Seccion %}
-                        <li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'page': null })) }}">Sección {{ seccion.Seccion }}</a>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            
-                {% if filtro_seccion %}
-                    <label class="sr-only" for="filtro_macizo">Macizo</label>
-                    <input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo" placeholder="macizo" value="{{ filtro_macizo }}" style="max-width: 64px" />
-                    {% if filtro_macizo %}
-                        <button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');"><i class="fa fa-times-circle"></i></button>
-                    {% endif %}
-                {% endif %}
-            </div>
-        {% endif %}
-    </div>
+		{% if filtro_seccion %} <label class="sr-only" for="filtro_macizo">Macizo</label>
+		<input class="form-control input-sm" type="text" size="5"
+			maxlength="5" id="filtro_macizo" name="filtro_macizo"
+			placeholder="macizo" value="{{ filtro_macizo }}"
+			style="max-width: 64px" /> {% if filtro_macizo %}
+		<button class="btn btn-primary btn-sm" type="button"
+			onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');">
+			<i class="fa fa-times-circle"></i>
+		</button>
+		{% endif %} {% endif %}
+	</div>
+	{% endif %}
+</div>
 
 <script>
 $(document).ready(function() {
@@ -93,7 +96,6 @@ $(document).ready(function() {
     });
 });
 </script>
-{% endif %}
-{% endblock pagina_acciones %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% endif %} {% endblock pagina_acciones %} {% block pagina_paginar %}{%
+include 'TapirBaseBundle::paginar.html.twig' %}{% endblock
+pagina_paginar %}

@@ -5,24 +5,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Acta.
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_Acta")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="ActaTipo", type="string")
- * @ORM\DiscriminatorMap({
- * "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
- * "\Yacare\ObrasParticularesBundle\Entity\Acta" = "\Yacare\ObrasParticularesBundle\Entity\Acta"
- * })
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_Acta")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\InheritanceType("JOINED")
+ *         @ORM\DiscriminatorColumn(name="ActaTipo", type="string")
+ *         @ORM\DiscriminatorMap({
+ *         "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
+ *         "\Yacare\ObrasParticularesBundle\Entity\Acta" = "\Yacare\ObrasParticularesBundle\Entity\Acta"
+ *         })
  */
 class Acta
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Yacare\BaseBundle\Entity\ConAdjuntos;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\ConAdjuntos;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")

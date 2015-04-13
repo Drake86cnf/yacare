@@ -12,13 +12,13 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
  * Controlador de grupos de agentes.
  *
  * @Route("agentegrupo/")
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use\Tapir\BaseBundle\Controller\ConEliminar;
-    
+    use \Tapir\BaseBundle\Controller\ConEliminar;
+
     /**
      * @Route("volcar/")
      * @Template("YacareRecursosHumanosBundle:AgenteGrupo:listar.html.twig")
@@ -26,14 +26,14 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
     public function volcarAction(Request $request)
     {
         $this->Paginar = false;
-
+        
         $res = parent::listarAction($request);
         
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
         
         foreach ($res['entities'] as $entity) {
             $nombreLdap = $entity->getNombreLdap();
-            if($nombreLdap) {
+            if ($nombreLdap) {
                 $ldap->AgregarOActualizarGrupo($entity);
             }
         }
@@ -41,15 +41,14 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         $ldap = null;
         return $res;
     }
-    
-    
+
     /**
      * Reflejo los cambios en el servidor LDAP.
      */
     public function guardarActionPostPersist($entity, $editForm)
     {
         $nombreLdap = $entity->getNombreLdap();
-        if($nombreLdap) {
+        if ($nombreLdap) {
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
             $ldap->AgregarOActualizarGrupo($entity);
             $ldap = null;

@@ -33,27 +33,22 @@ class EntityIdType extends AbstractType
             $em = $this->registry->getManager($options['em']);
         }
         
-        $builder->addViewTransformer(new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], $options['multiple']));
+        $builder->addViewTransformer(
+            new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
+                $options['multiple']));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array(
-            'class'
-        ));
+        $resolver->setRequired(array('class'));
         
-        $resolver->setDefaults(array(
-            'em' => null,
-            'property' => 'Nombre',
-            'query_builder' => null,
+        $resolver->setDefaults(
+            array('em' => null,'property' => 'Nombre','query_builder' => null,
             /* 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
             {
                 return $er->createQueryBuilder('i');
             }, */
-            'filters' => null,
-            'hidden' => true,
-            'multiple' => false
-        ));
+            'filters' => null,'hidden' => true,'multiple' => false));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

@@ -111,7 +111,7 @@ interface NodeInterface
 
     /**
      * Tells if this node is a child of another node
-     * 
+     *
      * @param NodeInterface $node
      *            the node to compare with
      *            

@@ -11,16 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comercio
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
     
-    use\Yacare\ComercioBundle\Entity\ConDatosComercio;
+    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
     
-    use\Yacare\TramitesBundle\Entity\ConTitular;
-    use\Yacare\TramitesBundle\Entity\ConApoderado;
+    use \Yacare\TramitesBundle\Entity\ConTitular;
+    use \Yacare\TramitesBundle\Entity\ConApoderado;
 
     /**
      * @ORM\Column(type="integer")

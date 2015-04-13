@@ -13,7 +13,7 @@ class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
     use \Yacare\BaseBundle\Controller\ConImprimir;
     use \Tapir\BaseBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConQr;
-    
+
     /**
      * Intervengo guardar para recalcular complejidad.
      */
@@ -23,8 +23,7 @@ class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
         
         return null;
     }
-    
-    
+
     /**
      * Muestra una pantalla de información sobre el cálculo de la licitación.
      *
@@ -33,6 +32,6 @@ class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function ayudaAction()
     {
-    	return $this->ArrastrarVariables(array());
+        return $this->ArrastrarVariables(array());
     }
 }

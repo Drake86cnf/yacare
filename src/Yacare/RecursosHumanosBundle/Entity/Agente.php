@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\RecursosHumanosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,237 +6,242 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa un agente municipal (empleado).
- * 
+ *
  * Está relacionado a una persona.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
-class Agente {
-	use \Tapir\BaseBundle\Entity\ConId;
-	use \Tapir\BaseBundle\Entity\Versionable;
-	use \Tapir\BaseBundle\Entity\Suprimible;
-	use \Tapir\BaseBundle\Entity\Importable;
-	use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-	
-	/*
-	 * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
-	 * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active, agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '', ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL, CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT ''; UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
-	 */
-	
-	/**
-	 * Los grupos a los cuales pertenece el agente.
-	 *
-	 * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
-	 * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo")
-	 */
-	private $Grupos;
-	
-	/**
-	 * La persona asociada.
-	 *
-	 * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-	 * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-	 */
-	protected $Persona;
-	
-	/**
-	 * La categoría actual.
-	 *
-	 * @var $Categoria
-	 * @ORM\Column(type="integer", nullable=false)
-	 */
-	private $Categoria;
-	
-	/**
-	 * La situación del agente (Normal, baja, etc.).
-	 *
-	 * @var $Situacion
-	 * @ORM\Column(type="integer", nullable=false)
-	 */
-	private $Situacion;
-	
-	/**
-	 * La función que cumple, en formato de texto libre.
-	 *
-	 *
-	 * @var $Funcion
-	 * @ORM\Column(type="string")
-	 */
-	private $Funcion;
-	
-	/**
-	 * La fecha de ingreso.
-	 *
-	 * @ORM\Column(type="date", nullable=true)
-	 * @Assert\Type("\DateTime")
-	 */
-	private $FechaIngreso;
-	
-	/**
-	 * La fecha de baja, o NULL si todavía está activo.
-	 *
-	 * @ORM\Column(type="date", nullable=true)
-	 * @Assert\Type("\DateTime")
-	 */
-	private $FechaBaja;
-	
-	
-	/**
-	 * El motivo de la baja, o 0 si está activo.
-	 *
-	 * @ORM\Column(type="smallint")
-	 */
-	private $MotivoBaja;
-	
-	/**
-	 * Nivel de estudios.
-	 *
-	 * @ORM\Column(type="smallint")
-	 */
-	private $EstudiosNivel;
-	
-	/**
-	 * Título (refiere a los estudios).
-	 *
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	private $EstudiosTitulo;
-	
-	
-	/**
-	 * El departamento en el cual se desempeña.
-	 *
-	 * @var $Departamento
-	 * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-	 * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
-	 */
-	protected $Departamento;
-	public function __toString() {
-		return $this->getPersona ()->getNombreVisible ();
-	}
-	
-	
-	public static function SituacionesNombres($rango) {
-		switch ($rango) {
-			case 0 :
-				return 'Normal';
-			case 1 :
-				return 'Licencia sin goce de haberes';
-			case 2	 :
-				return 'Baja';
-			case 3 :
-				return 'Adscripción a otros organismos';
-			case 4 :
-				return 'Largo tratamiento al 50%';
-			case 5 :
-				return 'Ad-honorem';
-			case 6 :
-				return 'Adscripción de otros organismos';
-			case 7 :
-				return 'Pasantía rentada';
-			case 8 :
-				return 'Pasantía no rentada';
-			case 9 :
-				return 'Largo tratamiento al 100%';
-			case 10 :
-				return 'Largo tratamiento sin goce de haberes';
-			case 11 :
-				return 'Haberes 95% pasividad';
-			case 12 :
-				return 'Gabinete';
-			case 13 :
-				return 'Suspensión';
-			default :
-				return '';
-		}
-	}
-	
-	/**
-	 * Obtiene el nombre de la situación.
-	 * @see $Situacion
-	 */
-	public function getSituacionNombre() {
-		return Agente::SituacionesNombres ( $this->getSituacion () );
-	}
-	
-	
-	public static function MotivosBajasNombres($rango) {
-	    switch ($rango) {
-	        case 0 :
-	            return 'n/a';
-	        case 1 :
-	            return 'Renuncia';
-	        case 2	 :
-	            return 'Cesantía';
-	        case 3 :
-	            return 'Rescinde contrato';
-	        case 4 :
-	            return 'Finalización de contrato';
-	        case 5 :
-	            return 'Jubilación';
-	        case 6 :
-	            return 'Retiro';
-	        case 7 :
-	            return 'Fallecimiento';
-	        default :
-	            return '';
-	    }
-	}
-	
-	/**
-	 * Obtiene el nombre del motivo de baja.
-	 * @see $MotivoBaja
-	 */
-	public function getMotivoBajaNombre() {
-	    return Agente::MotivosBajasNombres ( $this->getMotivoBaja () );
-	}
-	
-	
-	public static function EstudiosNivelesNombres($rango) {
-	    switch ($rango) {
-	    	case 0 :
-	    	    return 'Sin escolaridad';
-	        case 1 :
-	        	return 'Menor de 4 años';
-        	case 2 :
-        	    return 'Primaria';
-    	    case 3 :
-    	        return 'Secundaria';
-	        case 4 :
-	            return 'Discapacitado';
-            case 5 :
+class Agente
+{
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
+    /*
+     * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
+     * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active, agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '', ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL, CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT ''; UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
+     */
+    
+    /**
+     * Los grupos a los cuales pertenece el agente.
+     *
+     * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
+     * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo")
+     */
+    private $Grupos;
+
+    /**
+     * La persona asociada.
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     */
+    protected $Persona;
+
+    /**
+     * La categoría actual.
+     *
+     * @var $Categoria @ORM\Column(type="integer", nullable=false)
+     */
+    private $Categoria;
+
+    /**
+     * La situación del agente (Normal, baja, etc.).
+     *
+     * @var $Situacion @ORM\Column(type="integer", nullable=false)
+     */
+    private $Situacion;
+
+    /**
+     * La función que cumple, en formato de texto libre.
+     *
+     *
+     * @var $Funcion @ORM\Column(type="string")
+     */
+    private $Funcion;
+
+    /**
+     * La fecha de ingreso.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaIngreso;
+
+    /**
+     * La fecha de baja, o NULL si todavía está activo.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaBaja;
+
+    /**
+     * El motivo de la baja, o 0 si está activo.
+     *
+     * @ORM\Column(type="smallint")
+     */
+    private $MotivoBaja;
+
+    /**
+     * Nivel de estudios.
+     *
+     * @ORM\Column(type="smallint")
+     */
+    private $EstudiosNivel;
+
+    /**
+     * Título (refiere a los estudios).
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $EstudiosTitulo;
+
+    /**
+     * El departamento en el cual se desempeña.
+     *
+     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    protected $Departamento;
+
+    public function __toString()
+    {
+        return $this->getPersona()->getNombreVisible();
+    }
+
+    public static function SituacionesNombres($rango)
+    {
+        switch ($rango) {
+            case 0:
+                return 'Normal';
+            case 1:
+                return 'Licencia sin goce de haberes';
+            case 2:
+                return 'Baja';
+            case 3:
+                return 'Adscripción a otros organismos';
+            case 4:
+                return 'Largo tratamiento al 50%';
+            case 5:
+                return 'Ad-honorem';
+            case 6:
+                return 'Adscripción de otros organismos';
+            case 7:
+                return 'Pasantía rentada';
+            case 8:
+                return 'Pasantía no rentada';
+            case 9:
+                return 'Largo tratamiento al 100%';
+            case 10:
+                return 'Largo tratamiento sin goce de haberes';
+            case 11:
+                return 'Haberes 95% pasividad';
+            case 12:
+                return 'Gabinete';
+            case 13:
+                return 'Suspensión';
+            default:
+                return '';
+        }
+    }
+
+    /**
+     * Obtiene el nombre de la situación.
+     * 
+     * @see $Situacion
+     */
+    public function getSituacionNombre()
+    {
+        return Agente::SituacionesNombres($this->getSituacion());
+    }
+
+    public static function MotivosBajasNombres($rango)
+    {
+        switch ($rango) {
+            case 0:
+                return 'n/a';
+            case 1:
+                return 'Renuncia';
+            case 2:
+                return 'Cesantía';
+            case 3:
+                return 'Rescinde contrato';
+            case 4:
+                return 'Finalización de contrato';
+            case 5:
+                return 'Jubilación';
+            case 6:
+                return 'Retiro';
+            case 7:
+                return 'Fallecimiento';
+            default:
+                return '';
+        }
+    }
+
+    /**
+     * Obtiene el nombre del motivo de baja.
+     * 
+     * @see $MotivoBaja
+     */
+    public function getMotivoBajaNombre()
+    {
+        return Agente::MotivosBajasNombres($this->getMotivoBaja());
+    }
+
+    public static function EstudiosNivelesNombres($rango)
+    {
+        switch ($rango) {
+            case 0:
+                return 'Sin escolaridad';
+            case 1:
+                return 'Menor de 4 años';
+            case 2:
+                return 'Primaria';
+            case 3:
+                return 'Secundaria';
+            case 4:
+                return 'Discapacitado';
+            case 5:
                 return 'Primaria / preescolar discapacitado';
-            case 7 :
+            case 7:
                 return 'Secundario discapacitado';
-            case 8 :
+            case 8:
                 return 'Preescolar';
-            case 9 :
+            case 9:
                 return 'Terciario';
-            case 10 :
+            case 10:
                 return 'Universitario';
             /**
-             * TODO: la tabla "titulos" en la base de recursos tiene información sin sentido. La info real está en el
+             * TODO: la tabla "titulos" en la base de recursos tiene información sin sentido.
+             * La info real está en el
              * Oracle de Payroll.
              */
-	        default :
-	            return '';
-	    }
-	}
-	
-	/**
-	 * Obtiene el nombre del nivel de estudios.
-	 * @see $MotivoBaja
-	 */
-	public function getEstudiosNivelNombre() {
-	    return Agente::EstudiosNivelesNombres ( $this->getEstudiosNivel () );
-	}
+            default:
+                return '';
+        }
+    }
 
-	
     /**
+     * Obtiene el nombre del nivel de estudios.
+     * 
+     * @see $MotivoBaja
+     */
+    public function getEstudiosNivelNombre()
+    {
+        return Agente::EstudiosNivelesNombres($this->getEstudiosNivel());
+    }
+
+    /**
+     *
      * @ignore
+     *
      */
     public function getPersona()
     {
@@ -245,7 +249,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setPersona($Persona)
     {
@@ -254,7 +260,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getCategoria()
     {
@@ -262,7 +270,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setCategoria($Categoria)
     {
@@ -271,7 +281,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getSituacion()
     {
@@ -279,7 +291,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setSituacion($Situacion)
     {
@@ -288,7 +302,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getFuncion()
     {
@@ -296,7 +312,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setFuncion($Funcion)
     {
@@ -305,7 +323,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getFechaIngreso()
     {
@@ -313,7 +333,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setFechaIngreso($FechaIngreso)
     {
@@ -322,7 +344,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getFechaBaja()
     {
@@ -330,7 +354,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setFechaBaja($FechaBaja)
     {
@@ -339,7 +365,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getMotivoBaja()
     {
@@ -347,7 +375,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setMotivoBaja($MotivoBaja)
     {
@@ -356,7 +386,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getDepartamento()
     {
@@ -364,7 +396,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setDepartamento($Departamento)
     {
@@ -373,7 +407,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getEstudiosNivel()
     {
@@ -381,7 +417,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setEstudiosNivel($EstudiosNivel)
     {
@@ -390,7 +428,9 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getEstudiosTitulo()
     {
@@ -398,28 +438,33 @@ class Agente {
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setEstudiosTitulo($EstudiosTitulo)
     {
         $this->EstudiosTitulo = $EstudiosTitulo;
         return $this;
     }
- 
+
     /**
+     *
      * @ignore
+     *
      */
     public function getGrupos()
     {
         return $this->Grupos;
     }
-    
+
     /**
+     *
      * @ignore
+     *
      */
     public function setGrupos($Grupos)
     {
         $this->Grupos = $Grupos;
     }
-    
 }

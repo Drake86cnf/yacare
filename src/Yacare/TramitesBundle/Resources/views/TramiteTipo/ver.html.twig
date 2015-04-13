@@ -1,86 +1,86 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}{{ entity }}{% endblock %}
-
-{% macro listar(tramitetipo, nivel) %}
-
-{% if tramitetipo.obs %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}{{ entity }}{% endblock %} {% macro listar(tramitetipo, nivel) %} {%
+if tramitetipo.obs %}
 <p>{{ tramitetipo.obs|raw }}</p>
-{% endif %}
-
-{% if tramitetipo.AsociacionRequisitos|length > 0 %}
-<p>Para iniciar el trámite de &quot;{{ tramitetipo }}&quot; deberá presentar la siguiente documentación:</p>
+{% endif %} {% if tramitetipo.AsociacionRequisitos|length > 0 %}
+<p>Para iniciar el trámite de &quot;{{ tramitetipo }}&quot; deberá
+	presentar la siguiente documentación:</p>
 <ol>
-    {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
-        {% if AsocRequisito.Requisito.Tipo == 'tra' %}
-            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite previo{% if AsocRequisito.Opcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
-            {% if AsocRequisito.Condicion %}
-                <p class="text-muted">Sólo si {{ AsocRequisito.Condicion }}.</p>
-            {% endif %}
-            {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
-            {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
-        {% endif %}
-    {% endfor %}
-    
-    {% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
-        {% if AsocRequisito.Requisito.Tipo != 'tra' %}
-            <li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}{% if AsocRequisito.Opcional %}<small> (opcional)</small>{% endif %}</h{{ nivel }}></li>
-            {% if AsocRequisito.Condicion %}
-                <p class="text-muted">Sólo se requiere si {{ AsocRequisito.Condicion }}.</p>
-            {% endif %}
-            {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
-        {% endif %}
-    {% endfor %}
+	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %} {% if
+	AsocRequisito.Requisito.Tipo == 'tra' %}
+	<li><h {{ nivel }}>
+		<i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite
+			previo{% if AsocRequisito.Opcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
+	{% if AsocRequisito.Condicion %}
+	<p class="text-muted">Sólo si {{ AsocRequisito.Condicion }}.</p>
+	{% endif %} {{ _self.mostrarrequisito(AsocRequisito.Requisito) }} {{
+	_self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
+	{% endif %} {% endfor %} {% for AsocRequisito in
+	tramitetipo.AsociacionRequisitos %} {% if AsocRequisito.Requisito.Tipo
+	!= 'tra' %}
+	<li><h {{ nivel }}>
+		<i class="fa fa-square-o"></i> {{ AsocRequisito }}{% if
+		AsocRequisito.Opcional %}<small> (opcional)</small>{% endif %}</h{{ nivel }}></li>
+	{% if AsocRequisito.Condicion %}
+	<p class="text-muted">Sólo se requiere si {{ AsocRequisito.Condicion
+		}}.</p>
+	{% endif %} {{ _self.mostrarrequisito(AsocRequisito.Requisito) }} {%
+	endif %} {% endfor %}
 </ol>
-{% endif %}
-{% endmacro %}
-
-{% macro mostrarrequisito(requisito) %}
-{% if requisito.obs %}
-    <p>{{ requisito.obs }}</p>
-{% endif %}
-{% if requisito.Lugar or requisito.Url %}<p class="text-info">{% endif %}
-{% if requisito.Lugar %}Se obtiene en <strong>{{ requisito.Lugar }}</strong> {% endif %}
-{% if requisito.Url %}[ {{ requisito.Url }} ]{% endif %}
-{% if requisito.Lugar or requisito.Url %}</p>{% endif %}
-{% endmacro %}
-
-{% block pagina_contenido %}
-
-{{ _self.listar(entity, 2) }}
-
-{% if entity.ComprobanteTipo %}
-<p>Al finalizar el trámite, se emitirá un comprobante tipo <strong>{{ entity.ComprobanteTipo }}</strong>.</p>
-{% endif %}
-{% if entity.Notas %}
-<p>{{ entity.Notas }}</footer>
-{% endif %}
-
-{% if entity.Url %}
+{% endif %} {% endmacro %} {% macro mostrarrequisito(requisito) %} {% if
+requisito.obs %}
+<p>{{ requisito.obs }}</p>
+{% endif %} {% if requisito.Lugar or requisito.Url %}
+<p class="text-info">
+	{% endif %} {% if requisito.Lugar %}Se obtiene en <strong>{{
+		requisito.Lugar }}</strong> {% endif %} {% if requisito.Url %}[ {{
+	requisito.Url }} ]{% endif %} {% if requisito.Lugar or requisito.Url %}
+</p>
+{% endif %} {% endmacro %} {% block pagina_contenido %} {{
+_self.listar(entity, 2) }} {% if entity.ComprobanteTipo %}
+<p>
+	Al finalizar el trámite, se emitirá un comprobante tipo <strong>{{
+		entity.ComprobanteTipo }}</strong>.
+</p>
+{% endif %} {% if entity.Notas %}
+<p>{{ entity.Notas }}
+</footer>
+{% endif %} {% if entity.Url %}
 <p>Puede obtener más información en {{ entity.Url }}</p>
 {% endif %}
 
 <hr />
 <footer>
-<h4>Referencias</h4>
-<dl class="dl-horizontal">
-    <dt>Copia simple</dt><dd>Puede presentar una fotocopia común, que quedará en poder del municipio y será archivada como parte del expediente.</dd>
-    <dt>Original y copia</dt><dd>Deberá presentar original y copia. La copia se certificará en el acto y quedará en poder del municipio, 
-        el original lo conserva el contribuyente. Si no puede mostrar el original, puede entregar copia certificada, que quedará en poder del municipio.</dd>
-    <dt>Copia legalizada</dt><dd>Deberá presentar copia legalizada o apostillada por autoridad competente, que quedará en poder del municipio.</dd>
-    <dt>Original</dt><dd>Deberá entregar el original, que quedará en poder del municipio y será archivado como parte del expediente.</dd>
-</dl>
+	<h4>Referencias</h4>
+	<dl class="dl-horizontal">
+		<dt>Copia simple</dt>
+		<dd>Puede presentar una fotocopia común, que quedará en poder del
+			municipio y será archivada como parte del expediente.</dd>
+		<dt>Original y copia</dt>
+		<dd>Deberá presentar original y copia. La copia se certificará en el
+			acto y quedará en poder del municipio, el original lo conserva el
+			contribuyente. Si no puede mostrar el original, puede entregar copia
+			certificada, que quedará en poder del municipio.</dd>
+		<dt>Copia legalizada</dt>
+		<dd>Deberá presentar copia legalizada o apostillada por autoridad
+			competente, que quedará en poder del municipio.</dd>
+		<dt>Original</dt>
+		<dd>Deberá entregar el original, que quedará en poder del municipio y
+			será archivado como parte del expediente.</dd>
+	</dl>
 </footer>
-{% endblock %}
-
-{% block pagina_acciones %}
-    <a href="#" onclick="window.print(); return false;" class="btn btn-link"><i class="fa fa-print"></i> Imprimir</a>
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i class="fa fa-reply"></i> Volver</a>
-{% endblock pagina_acciones %}
-
-{% block pagina_acciones2 %}
-    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-        <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar trámite</a>
-        <a class="btn btn-default" href="{{ path('yacare_tramites_asociacionrequisito_listar', { 'parent_id': entity.Id }) }}"><i class="fa fa-check"></i> Editar requisitos</a>
-    {% endif %}
-{% endblock pagina_acciones2 %}
+{% endblock %} {% block pagina_acciones %}
+<a href="#" onclick="window.print(); return false;" class="btn btn-link"><i
+	class="fa fa-print"></i> Imprimir</a>
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i
+	class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %} {% block pagina_acciones2 %} {% if
+is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+	class="btn btn-default"><i class="fa fa-edit"></i> Editar trámite</a>
+<a class="btn btn-default"
+	href="{{ path('yacare_tramites_asociacionrequisito_listar', { 'parent_id': entity.Id }) }}"><i
+	class="fa fa-check"></i> Editar requisitos</a>
+{% endif %} {% endblock pagina_acciones2 %}
