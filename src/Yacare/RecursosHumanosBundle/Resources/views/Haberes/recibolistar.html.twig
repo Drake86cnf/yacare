@@ -1,8 +1,6 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}Consulta de liquidación de haberes{% endblock pagina_titulo %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Consulta de liquidación de haberes{% endblock pagina_titulo %} {%
+block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -13,13 +11,12 @@
 	</thead>
 	<tbody>
 		{% for recibo in recibos %}
-		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': agente.id, 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': agente.id, 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
 			<td>{{ recibo.AMES|slice(4, 2) }}/{{ recibo.AMES|slice(0, 4) }}</td>
-			<td>{% if recibo.PERI == '7' %}Mensual
-    			{% elseif recibo.PERI == '5' %}SAC
-    			{% elseif recibo.PERI == '3' %}Prestación dineraria
-    			{% else %}Complementaria
-    			{% endif %}</td>
+			<td>{% if recibo.PERI == '7' %}Mensual {% elseif recibo.PERI == '5'
+				%}SAC {% elseif recibo.PERI == '3' %}Prestación dineraria {% else
+				%}Complementaria {% endif %}</td>
 			<td class="text-right">{{ recibo.NETO|tapir_importe }}</td>
 		</tr>
 		{% endfor %}

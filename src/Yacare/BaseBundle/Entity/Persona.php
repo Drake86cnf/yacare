@@ -14,43 +14,43 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <equistango@gmail.com>
  *        
- * @ORM\Table(name="Base_Persona", uniqueConstraints={
- *  @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})},
- *  indexes={
- *      @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
- *      @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
- *      @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
- *      @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
+ *         @ORM\Table(name="Base_Persona", uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})},
+ *         indexes={
+ *         @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
+ *         @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
+ *         @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
+ *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
  *         })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Persona implements UserInterface, \Serializable
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConImagen;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Importable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Yacare\BaseBundle\Entity\ConDomicilio;
-    use\Yacare\BaseBundle\Entity\ConVerificacion;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConImagen;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\BaseBundle\Entity\ConDomicilio;
+    use \Yacare\BaseBundle\Entity\ConVerificacion;
 
     /**
      * Los grupos a los cuales pertenece la persona.
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo",
-     *  joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
+     * joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
      * )
      */
     private $Grupos;
-    
+
     /**
      * Los roles asignados al usuario.
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol")
      * @ORM\JoinTable(name="Base_Persona_PersonaRol",
-     *  joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
+     * joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)}
      * )
      */
     private $UsuarioRoles;
@@ -67,7 +67,7 @@ class Persona implements UserInterface, \Serializable
      * Los apellidos.
      *
      * @var string $Apellido
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $Apellido;
 
@@ -75,56 +75,55 @@ class Persona implements UserInterface, \Serializable
      * Los nombres de pila.
      *
      * @var string $Nombre
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $Nombre;
 
     /**
      * El nombre que se prefiere para representar a la persona.
-     * 
+     *
      * Suele ser la combinación de apellido y nombre para las personas físicas
      * y la razón social para las personas jurídicas.
      *
      * @var string $NombreVisible
-     * @ORM\Column(type="string", length=255)
+     *      @ORM\Column(type="string", length=255)
      */
     private $NombreVisible;
 
     /**
      * El nombre de usuario.
-     * 
+     *
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
      */
     private $Username;
 
     /**
      * La sal con la cual se hace el extracto de la contraseña.
-     * 
-     * @see $Password
-     * 
-     * @ORM\Column(type="string", length=255)
+     *
+     * @see $Password @ORM\Column(type="string", length=255)
      */
-    private $Salt = '892ddb02bed8aafcddbff7f78f8841d6'; // Sal predeterminada
+    private $Salt = '892ddb02bed8aafcddbff7f78f8841d6';
+ // Sal predeterminada
     
     /**
      * El extracto de la contraseña.
-     * 
-     * @see $Salt
-     * 
-     * @ORM\Column(type="string", length=255)
+     *
+     * @see $Salt @ORM\Column(type="string", length=255)
      */
-    private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d'; // Contraseña predeterminada 123456
+    private $Password = 'ae6786579adda2bfffc032a0693a2f79ec34591d';
+ // Contraseña predeterminada 123456
     
     /**
      * La contraseña codificada.
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
-    private $PasswordEnc = 'MTIzNDU2'; // Contraseña predeterminada 123456, con base64
+    private $PasswordEnc = 'MTIzNDU2';
+ // Contraseña predeterminada 123456, con base64
     
     /**
      * Indica si es persona jurídica (true) o física (false).
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $PersonaJuridica = false;
@@ -138,9 +137,9 @@ class Persona implements UserInterface, \Serializable
 
     /**
      * El tipo de documento.
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @see DocumentoNumero
      * @var integer @ORM\Column(type="integer")
      */
@@ -149,7 +148,7 @@ class Persona implements UserInterface, \Serializable
     /**
      * El número de documento.
      *
-     *@Assert\Length(min = "3", max="10")
+     * @Assert\Length(min = "3", max="10")
      *
      * @see DocumentoTipo
      * @var string @ORM\Column(type="string")
@@ -159,8 +158,7 @@ class Persona implements UserInterface, \Serializable
     /**
      * El CUIL o CUIT.
      *
-     * @var string
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @var string @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Cuilt;
 
@@ -168,36 +166,37 @@ class Persona implements UserInterface, \Serializable
      * El o los números de teléfono en formato de texto libre.
      *
      * @var string $TelefonoNumero
-     * @ORM\Column(type="string", nullable=true)
+     *      @ORM\Column(type="string", nullable=true)
      */
     private $TelefonoNumero;
-    
+
     /**
      * El nivel de verificación del campo TelefonoNumero.
-     * @var integer
-     * @ORM\Column(type="integer", nullable=false)
+     * 
+     * @var integer @ORM\Column(type="integer", nullable=false)
      */
     private $TelefonoVerificacionNivel = 0;
 
     /**
      * La dirección de correo electrónico.
-     * 
+     *
      * @Assert\Email(message = "El mail '{{ value }}' no es una dirección válida.")
+     * 
      * @var string $Email
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *      @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
-    
+
     /**
      * El nivel de verificación del campo Email.
-     * @var integer
-     * @ORM\Column(type="integer", nullable=false)
+     * 
+     * @var integer @ORM\Column(type="integer", nullable=false)
      */
     private $EmailVerificacionNivel = 0;
 
     /**
      * La situación tributaria.
-     * 
+     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $SituacionTributaria;
@@ -212,33 +211,31 @@ class Persona implements UserInterface, \Serializable
      * Género (sólo personas físicas).
      *
      * @var integer $Genero
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      */
     private $Genero = 0;
-    
+
     /**
      * Estado civil (sólo personas físicas).
      *
      * @var integer $EstadoCivil
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      */
     private $EstadoCivil = 0;
-    
 
     /**
      * El país de nacionalidad.
-     * 
-     * @see Pais
-     * 
-     * @ORM\ManyToOne(targetEntity="Pais")
-     * @ORM\JoinColumn(nullable=true)
+     *
+     * @see Pais @ORM\ManyToOne(targetEntity="Pais")
+     *      @ORM\JoinColumn(nullable=true)
      */
     protected $Pais;
-    
+
     /* Columnas de importación del municipio de Río Grande */
     
     /**
-     * El id original en la tabla del SiGeMI. 
+     * El id original en la tabla del SiGeMI.
+     *
      *
      * @ORM\Column(type="string", length=50, nullable=true)
      */
@@ -251,30 +248,29 @@ class Persona implements UserInterface, \Serializable
      */
     private $AgenteId;
 
-
     /**
      * Devuelve el campo Cuilt, formateado con guiones (12-12345678-9).
      */
-    public function CuiltFormateado() {
+    public function CuiltFormateado()
+    {
         return \Tapir\BaseBundle\Helper\Cuilt::FormatearCuilt($this->Cuilt);
     }
-    
-    
+
     /*
      * Devuelve el campo Cuilt si tiene. De lo contrario devuelve el documento.
      */
-    public function CuiltODocumento() {
-        if($this->Cuilt) {
+    public function CuiltODocumento()
+    {
+        if ($this->Cuilt) {
             return $this->CuiltFormateado();
         } else {
             return $this->DocumentoNumero;
         }
     }
 
-
     /**
      * Construye un nombre visible.
-     * 
+     *
      * @see $NombreVisible
      */
     public function getNombreVisible()
@@ -310,43 +306,57 @@ class Persona implements UserInterface, \Serializable
         
         $this->NombreVisible = trim($this->NombreVisible, ',');
     }
-    
-    
-    public static function GenerosNombres($genero) {
-        switch($genero) {
-            case 0: return 'Sin especificar';
-            case 1: return 'Masculino';
-            case 2: return 'Femenino';
-            case 3: return 'Otro';
-            default: return 'n/a';
+
+    public static function GenerosNombres($genero)
+    {
+        switch ($genero) {
+            case 0:
+                return 'Sin especificar';
+            case 1:
+                return 'Masculino';
+            case 2:
+                return 'Femenino';
+            case 3:
+                return 'Otro';
+            default:
+                return 'n/a';
         }
     }
-    
-    public static function EstadosCivilesNombres($genero) {
-        switch($genero) {
-            case 0: return 'Sin especificar';
-            case 1: return 'Soltero/a';
-            case 2: return 'Casado/a';
-            case 3: return 'Divorciado/a';
-            case 4: return 'Viudo/a';
-            case 5: return 'En concubinato';
-            case 6: return 'Separado/a';
-            default: return 'n/a';
+
+    public static function EstadosCivilesNombres($genero)
+    {
+        switch ($genero) {
+            case 0:
+                return 'Sin especificar';
+            case 1:
+                return 'Soltero/a';
+            case 2:
+                return 'Casado/a';
+            case 3:
+                return 'Divorciado/a';
+            case 4:
+                return 'Viudo/a';
+            case 5:
+                return 'En concubinato';
+            case 6:
+                return 'Separado/a';
+            default:
+                return 'n/a';
         }
     }
-    
-    
-    
-    public function getGeneroNombre() {
+
+    public function getGeneroNombre()
+    {
         return Persona::GenerosNombres($this->getGenero());
     }
-    
-    public function getEstadoCivilNombre() {
+
+    public function getEstadoCivilNombre()
+    {
         return Persona::EstadosCivilesNombres($this->getEstadoCivil());
     }
-    
-    
-    public function PuedeAcceder() {
+
+    public function PuedeAcceder()
+    {
         return $this->getUsername() && $this->getPasswordEnc();
     }
 
@@ -363,7 +373,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setUsername($Username)
     {
@@ -380,26 +392,25 @@ class Persona implements UserInterface, \Serializable
         $this->PasswordEnc = base64_encode($PasswordEnc);
         
         // Actualizo la sal y la contraseña con hash
-        /* $this->setSalt(md5(uniqid(null, true)));
-        
-        $factory = $this->get('security.encoder_factory');
-        $encoder = $factory->getEncoder($this);
-        $encoded_password = $encoder->encodePassword($this->getPasswordEnc(), $this->getSalt());
-        $this->setPassword($encoded_password); */
+        /*
+         * $this->setSalt(md5(uniqid(null, true)));
+         *
+         * $factory = $this->get('security.encoder_factory');
+         * $encoder = $factory->getEncoder($this);
+         * $encoded_password = $encoder->encodePassword($this->getPasswordEnc(), $this->getSalt());
+         * $this->setPassword($encoded_password);
+         */
     }
-    
 
     public function setDocumentoNumero($DocumentoNumero)
     {
-        $this->DocumentoNumero = str_replace(array ( '.', ',', ' ' ), '', $DocumentoNumero);
+        $this->DocumentoNumero = str_replace(array('.',',',' '), '', $DocumentoNumero);
     }
-    
+
     public function setCuilt($Cuilt)
     {
         $this->Cuilt = \Tapir\BaseBundle\Helper\Cuilt::FormatearCuilt($Cuilt);
     }
-    
-    
 
     public function __toString()
     {
@@ -415,13 +426,13 @@ class Persona implements UserInterface, \Serializable
      */
     public function serialize()
     {
-        return serialize(array(
-            $this->id
-        ));
+        return serialize(array($this->id));
     }
 
     /**
+     *
      * @ignore
+     *
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
@@ -430,7 +441,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function isEqualTo(UserInterface $user)
     {
@@ -438,7 +451,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getApellido()
     {
@@ -446,7 +461,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setApellido($Apellido)
     {
@@ -455,7 +472,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getNombre()
     {
@@ -463,7 +482,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setNombre($Nombre)
     {
@@ -472,7 +493,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getRazonSocial()
     {
@@ -481,7 +504,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setRazonSocial($RazonSocial)
     {
@@ -489,7 +514,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getDocumentoTipo()
     {
@@ -497,7 +524,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setDocumentoTipo($DocumentoTipo)
     {
@@ -505,7 +534,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getDocumentoNumero()
     {
@@ -513,7 +544,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getCuilt()
     {
@@ -521,7 +554,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getTelefonoNumero()
     {
@@ -529,7 +564,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setTelefonoNumero($TelefonoNumero)
     {
@@ -537,7 +574,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getEmail()
     {
@@ -545,7 +584,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setEmail($Email)
     {
@@ -553,7 +594,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getSituacionTributaria()
     {
@@ -561,7 +604,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setSituacionTributaria($SituacionTributaria)
     {
@@ -569,7 +614,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getFechaNacimiento()
     {
@@ -577,7 +624,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setFechaNacimiento(\DateTime $FechaNacimiento = null)
     {
@@ -585,7 +634,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getGenero()
     {
@@ -593,7 +644,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setGenero($Genero)
     {
@@ -601,7 +654,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getPersonaJuridica()
     {
@@ -609,7 +664,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setPersonaJuridica($PersonaJuridica)
     {
@@ -617,7 +674,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getPais()
     {
@@ -625,7 +684,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setPais($Pais)
     {
@@ -633,7 +694,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getGrupos()
     {
@@ -641,7 +704,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setGrupos($Grupos)
     {
@@ -649,16 +714,19 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getUsername()
     {
         return $this->Username;
     }
 
-
     /**
+     *
      * @ignore
+     *
      */
     public function getSalt()
     {
@@ -666,7 +734,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setSalt($Salt)
     {
@@ -674,7 +744,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getPassword()
     {
@@ -682,7 +754,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setPassword($Password)
     {
@@ -690,7 +764,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getUsuarioRoles()
     {
@@ -698,7 +774,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setUsuarioRoles($UsuarioRoles)
     {
@@ -706,7 +784,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getTg06100Id()
     {
@@ -714,7 +794,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getAgenteId()
     {
@@ -722,7 +804,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setTg06100Id($Tg06100Id)
     {
@@ -730,7 +814,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setAgenteId($AgenteId)
     {
@@ -738,7 +824,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getVerificacionNivel()
     {
@@ -746,7 +834,9 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setVerificacionNivel($VerificacionNivel)
     {
@@ -754,16 +844,20 @@ class Persona implements UserInterface, \Serializable
     }
 
     /**
-    * @ignore
-    */
+     *
+     * @ignore
+     *
+     */
     public function getEstadoCivil()
     {
         return $this->EstadoCivil;
     }
 
     /**
-    * @ignore
-    */
+     *
+     * @ignore
+     *
+     */
     public function setEstadoCivil($EstadoCivil)
     {
         $this->EstadoCivil = $EstadoCivil;
@@ -791,5 +885,4 @@ class Persona implements UserInterface, \Serializable
         $this->EmailVerificacionNivel = $EmailVerificacionNivel;
         return $this;
     }
- 
 }

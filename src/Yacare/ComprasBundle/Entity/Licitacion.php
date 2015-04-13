@@ -21,32 +21,36 @@ class Licitacion
     // use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     
     /**
+     *
      * @var int $Numero
-     * @ORM\Column(type="string", nullable=false)
+     *      @ORM\Column(type="string", nullable=false)
      */
     private $Numero;
 
     /**
-     * Complejidad de ..., (0 = baja, 1 = media, 2 = alta)
-     * 
+     * Complejidad de .
+     * .., (0 = baja, 1 = media, 2 = alta)
+     *
      * @var int $Complejidad1
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad1;
 
     /**
-     * Complejidad de ..., (0 = baja, 1 = media, 2 = alta)
+     * Complejidad de .
+     * .., (0 = baja, 1 = media, 2 = alta)
      *
      * @var int $Complejidad2
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad2;
 
     /**
-     * Complejidad de ..., (0 = baja, 1 = media, 2 = alta)
+     * Complejidad de .
+     * .., (0 = baja, 1 = media, 2 = alta)
      *
      * @var int $Complejidad3
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad3;
 
@@ -54,7 +58,7 @@ class Licitacion
      * Especifica la complejidad final computada en base a Complejidad1, 2 y 3
      *
      * @var int $ComplejidadComputada
-     * @ORM\Column(type="integer", nullable=false)
+     *      @ORM\Column(type="integer", nullable=false)
      *     
      */
     private $ComplejidadComputada;
@@ -68,24 +72,21 @@ class Licitacion
     /**
      * El importe de la licitación
      *
-     * @var $PresupuestoOficial
-     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var $PresupuestoOficial @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PresupuestoOficial;
 
     /**
      * El coeficiente es el porcentaje utilizado para calcular el valor del pliego, según ComplejidadComputada
      *
-     * @var $PliegoCoeficiente
-     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var $PliegoCoeficiente @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PliegoCoeficiente;
 
     /**
      * El valor del pliego
      *
-     * @var $PliegoValor
-     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var $PliegoValor @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PliegoValor;
 
@@ -102,19 +103,22 @@ class Licitacion
         if (($this->Complejidad1 == $this->Complejidad2) && ($this->Complejidad2 == $this->Complejidad3)) {
             // Son 3 iguales
             $this->setComplejidadComputada($this->Complejidad1);
-        } else if ($this->Complejidad1 == $this->Complejidad2) {
-            // 1 y 2 son iguales
-            $this->setComplejidadComputada($this->Complejidad1);
-        } else if ($this->Complejidad2 == $this->Complejidad3) {
-            // 2 y 3 son iguales
-            $this->setComplejidadComputada($this->Complejidad2);
-        } else if ($this->Complejidad1 == $this->Complejidad3) {
-            // 1 y 3 son iguales
-            $this->setComplejidadComputada($this->Complejidad1);
-        } else {
-            // La única que queda es que sean las 3 desiguales
-            $this->setComplejidadComputada(1);
-        }
+        } else 
+            if ($this->Complejidad1 == $this->Complejidad2) {
+                // 1 y 2 son iguales
+                $this->setComplejidadComputada($this->Complejidad1);
+            } else 
+                if ($this->Complejidad2 == $this->Complejidad3) {
+                    // 2 y 3 son iguales
+                    $this->setComplejidadComputada($this->Complejidad2);
+                } else 
+                    if ($this->Complejidad1 == $this->Complejidad3) {
+                        // 1 y 3 son iguales
+                        $this->setComplejidadComputada($this->Complejidad1);
+                    } else {
+                        // La única que queda es que sean las 3 desiguales
+                        $this->setComplejidadComputada(1);
+                    }
         
         switch ($this->getComplejidadComputada()) {
             case 0:
@@ -135,17 +139,17 @@ class Licitacion
          */
         switch ($this->getComplejidadComputada()) {
             case 0:
-                if($this->PliegoValor < 1000) {
+                if ($this->PliegoValor < 1000) {
                     $this->PliegoValor = 1000;
                 }
                 break;
             case 1:
-                if($this->PliegoValor < 1500) {
+                if ($this->PliegoValor < 1500) {
                     $this->PliegoValor = 1500;
                 }
                 break;
             case 2:
-                if($this->PliegoValor < 2000) {
+                if ($this->PliegoValor < 2000) {
                     $this->PliegoValor = 2000;
                 }
                 break;

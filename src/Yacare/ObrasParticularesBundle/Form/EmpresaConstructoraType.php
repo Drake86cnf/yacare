@@ -12,33 +12,33 @@ class EmpresaConstructoraType extends AbstractType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Persona', 'entity_id', array(
+        $builder->add('Persona', 'entity_id', 
+            array(
                 'label' => 'Empresa',
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required' => true
-            ))
-            ->add('RepresentanteTecnico', 'entity_id', array(
+                'required' => true))
+            ->add('RepresentanteTecnico', 'entity_id', 
+            array(
                 'label' => 'Representante técnico',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
-                'required' => true
-            ))
-            ->add('FechaVencimiento', 'date', array(
+                'required' => true))
+            ->add('FechaVencimiento', 'date', 
+            array(
                 'years' => range(2000, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de vencimiento',
-                'required' => false
-            ));
+                'required' => false));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora',
-            'cascade_validation' => true
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora',
+                'cascade_validation' => true));
     }
 
     public function getName()

@@ -8,12 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConUbicacion
 {
+
     /**
      *
      * @var integer @ORM\Column(type="point")
      */
     private $UbicacionPunto = 0;
-
 
     public function getUbicacionPunto()
     {

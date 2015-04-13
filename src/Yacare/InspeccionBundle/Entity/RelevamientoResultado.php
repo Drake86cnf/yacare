@@ -5,21 +5,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Tipos de resultado.
- * 
- * @see RelevamientoAsignacionResultado
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table("Inspeccion_RelevamientoResultado")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @see RelevamientoAsignacionResultado
+ *
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table("Inspeccion_RelevamientoResultado")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoResultado
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      *

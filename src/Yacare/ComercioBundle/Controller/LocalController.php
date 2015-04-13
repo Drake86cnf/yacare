@@ -10,13 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class LocalController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use\Tapir\BaseBundle\Controller\ConEliminar;
-    use\Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\BaseBundle\Controller\ConBuscar;
 
     function IniciarVariables()
     {
         parent::IniciarVariables();
-
+        
         $this->BuscarPor = null;
     }
 
@@ -27,11 +27,11 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-
+        
         if ($filtro_buscar) {
             $this->Joins[] = " JOIN r.Partida p";
             $this->Joins[] = " JOIN p.Titular t";
-
+            
             // Busco por varias palabras
             // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
@@ -43,9 +43,9 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
                     OR t.Cuilt LIKE '%$palabra%')";
             }
         }
-
+        
         $res = parent::listarAction($request);
-
+        
         return $res;
     }
 }

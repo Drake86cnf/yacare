@@ -14,8 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use\Tapir\BaseBundle\Controller\ConBuscar;
-    
+    use \Tapir\BaseBundle\Controller\ConBuscar;
+
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -24,18 +24,18 @@ class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
         $this->OrderBy = 'p.NombreVisible';
         $this->BuscarPor = 'r.id, p.NombreVisible , p.DocumentoNumero';
     }
-    
-    
+
     /**
      * Obtiene el listado de matriculados con pago al día, sin paginar.
      *
      * @Route("listarhabilitados/")
      * @Template()
      */
-    public function listarhabilitadosAction(Request $request) {
+    public function listarhabilitadosAction(Request $request)
+    {
         $this->Where = 'r.FechaVencimiento>CURRENT_DATE()';
         $this->Paginar = false;
-    
+        
         $res = parent::listarAction($request);
         
         $res['fechalistado'] = new \DateTime();

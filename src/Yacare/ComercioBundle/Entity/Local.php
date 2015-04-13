@@ -11,13 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Local
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
     // use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Yacare\CatastroBundle\Entity\ConPartida;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")

@@ -12,16 +12,13 @@ class DispositivoRastreadorGpsType extends DispositivoType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('TelefonoNumero', null, array(
-            'label' => 'Nº de línea'
-        ));
+        $builder->add('TelefonoNumero', null, array('label' => 'Nº de línea'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'
-        ));
+        $resolver->setDefaults(
+            array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));
     }
 
     public function getName()

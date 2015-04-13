@@ -1,36 +1,45 @@
-{% extends 'TapirBaseBundle::blank.html.twig' %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::blank.html.twig' %} {% block
+pagina_contenido %}
 <div id="login-wrapper" class="container-fluid">
-    <div id="login-container" class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4 hidden-sm hidden-xs">
-            <img class="img-responsive center-block" src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}" style="padding: 20px 64px;" alt="Municipio de Río Grande" />
-        </div>
-        <div class="col-md-4">
-            <h1>Importar usuario de LDAP</h1>
-            <form role="form" class="form-horizontal" action="{{ path('yacare_munirg_ldap_importar2') }}" method="post">
-                <p>Si dispone de un nombre de usuario y contraseña LDAP con el cual se conecta a otros sistemas como SIAF, archivos, etcétera, por favor escríbalos a continuación.</p>
-            {% if error is defined and error %}
-                <div class="alert alert-dismissable alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Error: {{ error.message|trans }}
-                </div>
-            {% endif %}
-                <fieldset>
-                    <label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
-                    <div class="form-group">
-                        <input class="input-sm" placeholder="Usuario" id="_username" name="_username" type="text" autofocus />
-                    </div>
-                    <label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
-                    <div class="form-group">
-                        <input class="input-sm" placeholder="Contraseña" id="_password" name="_password" type="password" value="" />
-                    </div>
-                </fieldset>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Cotinuar</button>
-                <a href="{{ path('inicio') }}" class="btn btn-default"><i class="fa fa-reply"></i> Cancelar</a>
-            </form>
-        </div>
-    </div>
+	<div id="login-container" class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-4 hidden-sm hidden-xs">
+			<img class="img-responsive center-block"
+				src="{{ asset('bundles/yacarebase/img/muni_logo240.png') }}"
+				style="padding: 20px 64px;" alt="Municipio de Río Grande" />
+		</div>
+		<div class="col-md-4">
+			<h1>Importar usuario de LDAP</h1>
+			<form role="form" class="form-horizontal"
+				action="{{ path('yacare_munirg_ldap_importar2') }}" method="post">
+				<p>Si dispone de un nombre de usuario y contraseña LDAP con el cual
+					se conecta a otros sistemas como SIAF, archivos, etcétera, por
+					favor escríbalos a continuación.</p>
+				{% if error is defined and error %}
+				<div class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					Error: {{ error.message|trans }}
+				</div>
+				{% endif %}
+				<fieldset>
+					<label for="_username" class="hidden-md hidden-lg hidden-sm">Usuario</label>
+					<div class="form-group">
+						<input class="input-sm" placeholder="Usuario" id="_username"
+							name="_username" type="text" autofocus />
+					</div>
+					<label for="_password" class="hidden-md hidden-lg hidden-sm">Contraseña</label>
+					<div class="form-group">
+						<input class="input-sm" placeholder="Contraseña" id="_password"
+							name="_password" type="password" value="" />
+					</div>
+				</fieldset>
+				<button type="submit" class="btn btn-primary">
+					<i class="fa fa-check"></i> Cotinuar
+				</button>
+				<a href="{{ path('inicio') }}" class="btn btn-default"><i
+					class="fa fa-reply"></i> Cancelar</a>
+			</form>
+		</div>
+	</div>
 </div>
 {% endblock %}

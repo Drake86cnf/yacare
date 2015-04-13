@@ -1,40 +1,40 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Trámites - Asociación de requisitos{% endblock %}
-
-{% block pagina_contenido %}
-
-{% if entities is empty %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Trámites - Asociación de requisitos{% endblock %} {%
+block pagina_contenido %} {% if entities is empty %}
 <div>
-<div class="alert alert-success">
-    <h2>No hay requisitos.</h2>
-    <p>Este trámite aun no tiene requisitos asignados. Para asignar requisitos utilice el botón Nuevo requisito.</p>
-</div>
+	<div class="alert alert-success">
+		<h2>No hay requisitos.</h2>
+		<p>Este trámite aun no tiene requisitos asignados. Para asignar
+			requisitos utilice el botón Nuevo requisito.</p>
+	</div>
 </div>
 {% else %}
 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Requisito</th>
-            <th>Condición</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-            <td>{% if entity.Opcional %}<span class="label label-info">Opcional</span> {% endif %}{{ entity }}</td>
-            <td>{{ entity.Condicion }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Requisito</th>
+			<th>Condición</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{% if entity.Opcional %}<span class="label label-info">Opcional</span>
+				{% endif %}{{ entity }}
+			</td>
+			<td>{{ entity.Condicion }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% include 'TapirBaseBundle::paginar.html.twig' %}
-{% endif %}
-
-{% endblock %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
-<a data-toggle="ajax-link" href="{{ path('yacare_tramites_tramitetipo_listar', arrastre) }}" class="btn btn-primary"> Volver a listado de trámites</a>
+{% include 'TapirBaseBundle::paginar.html.twig' %} {% endif %} {%
+endblock %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
+<a data-toggle="ajax-link"
+	href="{{ path('yacare_tramites_tramitetipo_listar', arrastre) }}"
+	class="btn btn-primary"> Volver a listado de trámites</a>
 {% endblock %}

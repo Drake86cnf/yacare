@@ -32,7 +32,8 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
         $Actividad = $entity->getActividadPrincipal();
         
         // Busco el uso del suelo para esa zona
-        $UsoSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
+        $UsoSuelo = $em->createQuery(
+            'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
             ->setParameter('codigo', $Actividad->getCodigoCpu())
             ->setParameter('sup', $entity->getLocal()
             ->getSuperficie())

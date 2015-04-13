@@ -1,52 +1,52 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Licitaciones{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Licitaciones{% endblock %} {% block pagina_contenido %}
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Nº<br />licitación</th>
-            <th>Nº<br />expediente</th>
-            <th>Nombre</th>
-            <th>Departamento</th>
-            <th class="text-right">Presupuesto<br />oficial</th>
-            <th>Complejidad<br />computada</th>
-            <th class="text-right">Coef.</th>
-            <th class="text-right">Valor del<br />pliego</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
-            <td>{{ entity.Numero }}</td>
-            <td>{{ entity.ExpedienteNumero }}</td>
-            <td>{{ entity.Nombre }}</td>
-            <td>{{ entity.Departamento }}</td>
-            <td class="text-right"><span class="currency">{{ entity.PresupuestoOficial|number_format }}</span></td>
-            <td>
-{% if entity.ComplejidadComputada == 0 %}
-    Baja
-{% elseif entity.ComplejidadComputada == 1 %}
-    Media
-{% elseif entity.ComplejidadComputada == 2 %}
-    Alta
-{% else %}
-    ???
-{% endif %}
-            </td>
-            <td class="text-right">{{ entity.PliegoCoeficiente }}%</td>
-            <td class="text-right"><span class="currency">{{ entity.PliegoValor|number_format }}</span></td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Nº<br />licitación
+			</th>
+			<th>Nº<br />expediente
+			</th>
+			<th>Nombre</th>
+			<th>Departamento</th>
+			<th class="text-right">Presupuesto<br />oficial
+			</th>
+			<th>Complejidad<br />computada
+			</th>
+			<th class="text-right">Coef.</th>
+			<th class="text-right">Valor del<br />pliego
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+			<td>{{ entity.Numero }}</td>
+			<td>{{ entity.ExpedienteNumero }}</td>
+			<td>{{ entity.Nombre }}</td>
+			<td>{{ entity.Departamento }}</td>
+			<td class="text-right"><span class="currency">{{
+					entity.PresupuestoOficial|number_format }}</span></td>
+			<td>{% if entity.ComplejidadComputada == 0 %} Baja {% elseif
+				entity.ComplejidadComputada == 1 %} Media {% elseif
+				entity.ComplejidadComputada == 2 %} Alta {% else %} ??? {% endif %}
+			</td>
+			<td class="text-right">{{ entity.PliegoCoeficiente }}%</td>
+			<td class="text-right"><span class="currency">{{
+					entity.PliegoValor|number_format }}</span></td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
-{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path('yacare_compras_licitacion_editar_1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva licitación</a>
-<a data-toggle="ajax-link" href="{{ path('yacare_compras_licitacion_ayuda') }}" class="btn btn-default"><i class="fa fa-info-circle"></i> Información</a>
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
+pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
+endblock %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path('yacare_compras_licitacion_editar_1') }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva licitación</a>
+<a data-toggle="ajax-link"
+	href="{{ path('yacare_compras_licitacion_ayuda') }}"
+	class="btn btn-default"><i class="fa fa-info-circle"></i> Información</a>
 {% endblock %}

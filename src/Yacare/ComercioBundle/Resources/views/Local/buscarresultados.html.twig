@@ -1,23 +1,24 @@
 {% block pagina_contenido %}
 <h3>Resultados</h3>
 <table class="table table-hoverselect">
-    <tbody>
-    {% for entity in entities %}
-        <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
-            <td><i class="fa fa-angle-right"></i></td>
-            <td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
-            <td><span class="text-muted">{{ entity.Tipo }}</span></td>
-            <td><span class="text-muted">{{ entity.Superficie }} m²</span></td>
-            <td><span class="text-muted">{{ entity.Partida.Titular }}</span></td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<tbody>
+		{% for entity in entities %}
+		<tr
+			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
+			<td><i class="fa fa-angle-right"></i></td>
+			<td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
+			<td><span class="text-muted">{{ entity.Tipo }}</span></td>
+			<td><span class="text-muted">{{ entity.Superficie }} m²</span></td>
+			<td><span class="text-muted">{{ entity.Partida.Titular }}</span></td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
 {% if not entities %}
-    <div class="alert alert-warning">
-        <p><i class="fa fa-warning fa-2x"></i> No se encontraron resultados.</p>
-    </div>
-{% endif %}
-
-{% endblock %}
+<div class="alert alert-warning">
+	<p>
+		<i class="fa fa-warning fa-2x"></i> No se encontraron resultados.
+	</p>
+</div>
+{% endif %} {% endblock %}

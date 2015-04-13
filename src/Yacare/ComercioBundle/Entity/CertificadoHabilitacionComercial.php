@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CertificadoHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Comprobante
 {
-    use\Yacare\TramitesBundle\Entity\ConVencimiento;
+    use \Yacare\TramitesBundle\Entity\ConVencimiento;
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")

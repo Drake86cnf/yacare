@@ -1,150 +1,190 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Consulta de factibilidad de habilitación comercial{% endblock %} {%
+block pagina_inicio %}
+<form class="form-horizontal"
+	action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}"
+	method="post"  {{ form_enctype(edit_form) }}>
+	{% endblock %} {% block pagina_contenido %} {% set porpartida =
+	app.request.query.get('porpartida') %} {% if create %} {{
+	form_widget(edit_form) }} {% else %}
 
-{% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
+	<h2>Sobre el inmueble</h2>
+	<p>
+		{{ tipo }} ubicado en <strong>{{ partida.Domicilio }}</strong> de la
+		ciudad de Río Grande, con una superficie cubierta de {{ superficie }}
+		m². Datos catastrales: partida Nº {{ partida.Numero }}, denominación:
+		{{ partida.Smpu }}.
+	</p>
+	{% if local %}
+	<p>
+		<i class="fa fa-info-circle"></i> El local se encuentra empadronado
+		con el Nº {{ local.id }}.
+	</p>
+	{% endif %} {% if superficie > 0 and superficie < 16 %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>Importante</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left text-warning"></i> Los
+			establecimientos comerciales deben contar con una superficie mínima
+			de 16 m² sin contar sanitarios y cocina, con un lado mínimo de 3 m. y
+			una altura mínima de 2,4 m.
+		</div>
+	</div>
+	{% endif %}
 
-{% block pagina_inicio %}
-    <form class="form-horizontal" action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}" method="post" {{ form_enctype(edit_form) }}>
-{% endblock %}
+	<h2>Sobre el uso del suelo</h2>
+	<p>
+		El inmueble se encuentra en una zona catalogada como &quot;{{
+		zona|lower }}&quot;. El plan de desarrollo territorial dice que el uso
+		del suelo para esta actividad en este sector de la ciudad <strong>{%
+			if usosuelo == 1 %}es predominante <i class="fa fa-check"></i>
+		</strong> ( {% elseif usosuelo == 2 %}está permitido</strong> <i
+			class="fa fa-check"></i> (uso compatible, {% elseif usosuelo == 3
+		%}está permitido en ciertas condiciones</strong><small>*</small> (uso
+		condicional, {% elseif usosuelo == 9 %}está prohibido en todos los
+		casos</strong><small>*</small> ( {% else %}es desconocido (no
+		zonificado, </strong>{% endif %} según el Plan de Desarrollo
+		Territorial, Anexo 4: Localización de usos por zona).
+	</p>
 
-{% block pagina_contenido %}
+	{% if usosuelo == 3 %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			condicionales&quot;, el mencionado anexo 4 dice que &quot;son
+			aquellos que para su posible implantación se requiere la presentación
+			de información adicional en cuanto a alguno de sus aspectos para que
+			analice su viabilidad en función de la incidencia urbanística en su
+			ámbito de localización.<br /> Dicho estudio deberá:<br />
+			&nbsp;&nbsp;a) Tomar en cuenta el área de influencia de la actividad
+			que se propone localizar, cuya delimitación deberá ser debidamente
+			justificada.<br /> &nbsp;&nbsp;b) Evaluar los aspectos cuantitativos
+			o cualitativos del uso pretendido para evitar la colisión con los
+			usos predominantes y compatibles de la zona, área o sector
+			correspondiente y la tergiversación de las condiciones urbanísticas
+			de sus ámbitos de influencia.<br /> &nbsp;&nbsp;c) La condición de
+			uso autorizable es aplicable a los supuestos de nuevos
+			emprendimientos y localizaciones, cambios de uso existente o
+			ampliación de superficies.&quot;
+		</div>
+	</div>
+	{% elseif usosuelo == 9 %}
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			prohibidos&quot;, el mencionado anexo 4 dice que &quot;son usos no
+			admitidos de forma expresa en esta normativa&quot; y por lo tanto el
+			ejercicio de la actividad está prohibido en esta zona de la ciudad.
+		</div>
+	</div>
+	{% endif %}
 
-{% set porpartida = app.request.query.get('porpartida') %}
+	<h2>Sobre la actividad a desarrollar</h2>
+	<p>
+		La actividad principal a desarrollar se declara como &quot;<strong>{{
+			actividad|lower }}</strong>&quot;, tipificada como una actividad de
+		categoría {{ actividad.CategoriaAntigua }} según el Clasificador
+		Municipal de Actividades Económicas 2014 con el código <strong>{{
+			actividad.Clamae2014 }}</strong> (correspondiente con el código {{
+		actividad.Clanae2010 }} del Clasificador Nacional de Actividades
+		Económicas ClaNAE 2010 del Instituto Nacional de Estadística y
+		Censos).
+	</p>
+	{% if actividad.Incluye %}
+	<p>La actividad incluye:
+	
+	
+	<blockquote>{{ actividad.Incluye|nl2br }}</blockquote>
+	</p>
+	{% endif %} {% if actividad.NoIncluye %}
+	<p>
+		<i class="fa fa-warning"></i> La actividad <strong>no incluye</strong>:
+	
+	
+	
+	<blockquote>{{ actividad.NoIncluye|nl2br }}</blockquote>
+	</p>
+	{% endif %} {% if actividad.Exento %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> El ejercicio de esta
+			actividad está exceptuado del requerimiento de habilitación por parte
+			de este municipio. No es necesario contar con una habilitación
+			comercial municipal.
+		</div>
+	</div>
+	{% endif %} {% if actividad.RequiereDeyma %}
+	<p>
+		<i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene
+		requisitos ambientales específicos. Al momento de iniciar el trámite
+		de habilitación comercial se le solicitará documentación especial para
+		la Dirección de Ecología y Medio Ambiente.
+	</p>
+	{% endif %} {% if actividad.RequiereDbeh %}
+	<p>
+		<i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene
+		requisitos bromatológicos y/o de higiene. Al momento de iniciar el
+		trámite de habilitación comercial se le solicitará documentación
+		especial para la Dirección de Bromatología e Higiene.
+	</p>
+	{% endif %}
 
-{% if create %}
-    {{ form_widget(edit_form) }}
-{% else %}
+	<h2>Conclusión</h2>
+	{% if actividad.Exento %}
+	<p>No es necesario tramitar una habilitación comercial para esta
+		actividad.</p>
+	{% elseif (superficie == 0 or superficie >= 16) and (usosuelo <= 3) %}
+	<p>
+		<i class="fa fa-check"></i> La habilitación comercial puede ser
+		viable{% if usosuelo == 3 %} mediante la presentación de información
+		adicional{% endif %}.
+	</p>
+	<a class="btn btn-primary hidden-print" data-toggle="ajax-link"
+		href="{{ path(baseroute ~ '_editar_1') }}"><i class="fa fa-play"></i>
+		Iniciar el trámite</a> {% else %}
+	<p>La habilitación comercial no es viable.</p>
+	{% endif %} <a class="btn btn-default hidden-print"
+		onclick="window.print(); return false;" href="#"><i
+		class="fa fa-print"></i> Imprimir</a>
 
-<h2>Sobre el inmueble</h2>
-<p>{{ tipo }} ubicado en <strong>{{ partida.Domicilio }}</strong> de la ciudad de Río Grande,
-con una superficie cubierta de {{ superficie }} m².
-Datos catastrales: partida Nº {{ partida.Numero }}, denominación: {{ partida.Smpu }}.</p>
-{% if local %}
-<p><i class="fa fa-info-circle"></i> El local se encuentra empadronado con el Nº {{ local.id }}.</p>
-{% endif %}
-{% if superficie > 0 and superficie < 16 %}
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3>Importante</h3>
-    </div>
-    <div class="panel-body"> 
-        <i class="fa fa-warning fa-4x pull-left text-warning"></i> Los establecimientos comerciales deben contar con una superficie
-        mínima de 16 m² sin contar sanitarios y cocina, con un lado mínimo de 3 m. y una altura mínima de 2,4 m.
-    </div>
-</div>
-{% endif %}
+	<h2>Descargo</h2>
+	<p>El presente informe preliminar no es vinculante y está dedicado a
+		orientar sobre las características más importantes del trámite de
+		Habilitación Comercial.</p>
+	<p>Esta información está sujeta a aprobación por las autoridades
+		competentes y puede cambiar sin previo aviso.</p>
 
-<h2>Sobre el uso del suelo</h2>
-<p>El inmueble se encuentra en una zona catalogada como &quot;{{ zona|lower }}&quot;. El plan de desarrollo territorial dice
-    que el uso del suelo para esta actividad en este sector de la ciudad
-    <strong>{% if usosuelo == 1 %}es predominante <i class="fa fa-check"></i></strong> (
-    {% elseif usosuelo == 2 %}está permitido</strong> <i class="fa fa-check"></i> (uso compatible, 
-    {% elseif usosuelo == 3 %}está permitido en ciertas condiciones</strong><small>*</small> (uso condicional, 
-    {% elseif usosuelo == 9 %}está prohibido en todos los casos</strong><small>*</small> (
-    {% else %}es desconocido (no zonificado, </strong>{% endif %} según el Plan de Desarrollo Territorial, Anexo 4: Localización de usos por zona).</p>
-
-{% if usosuelo == 3 %}
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3><small>*</small> Importante</h3>
-    </div>
-    <div class="panel-body"> 
-        <i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos condicionales&quot;, el mencionado anexo 4 dice
-        que &quot;son aquellos que para su posible implantación se requiere la presentación de información adicional
-        en cuanto a alguno de sus aspectos para que analice su viabilidad en función de la incidencia urbanística en
-        su ámbito de localización.<br />
-        Dicho estudio deberá:<br />
-        &nbsp;&nbsp;a) Tomar en cuenta el área de influencia de la actividad que se propone localizar, cuya delimitación deberá ser debidamente justificada.<br />
-        &nbsp;&nbsp;b) Evaluar los aspectos cuantitativos o cualitativos del uso pretendido para evitar la colisión con los usos predominantes y compatibles de la zona, área o sector correspondiente y la tergiversación de las condiciones urbanísticas de sus ámbitos de influencia.<br />
-        &nbsp;&nbsp;c) La condición de uso autorizable es aplicable a los supuestos de nuevos emprendimientos y localizaciones, cambios de uso existente o ampliación de superficies.&quot;
-    </div>
-</div>
-{% elseif usosuelo == 9 %}
-<div class="panel panel-danger">
-    <div class="panel-heading">
-        <h3><small>*</small> Importante</h3>
-    </div>
-    <div class="panel-body">
-        <i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos prohibidos&quot;, el mencionado anexo 4 dice que &quot;son usos no admitidos
-        de forma expresa en esta normativa&quot; y por lo tanto el ejercicio de la actividad está prohibido en esta zona de la ciudad.
-    </div>
-</div>
-{% endif %}
-
-<h2>Sobre la actividad a desarrollar</h2>
-<p>La actividad principal a desarrollar se declara como &quot;<strong>{{ actividad|lower }}</strong>&quot;, tipificada 
-como una actividad de categoría {{ actividad.CategoriaAntigua }} según el Clasificador
-Municipal de Actividades Económicas 2014 con el código <strong>{{ actividad.Clamae2014 }}</strong> 
-(correspondiente con el código {{ actividad.Clanae2010 }} del Clasificador Nacional de Actividades Económicas ClaNAE 2010 
-del Instituto Nacional de Estadística y Censos).</p>
-{% if actividad.Incluye %}
-    <p>La actividad incluye: <blockquote>{{ actividad.Incluye|nl2br }}</blockquote></p>
-{% endif %}
-{% if actividad.NoIncluye %}
-    <p><i class="fa fa-warning"></i> La actividad <strong>no incluye</strong>: <blockquote>{{ actividad.NoIncluye|nl2br }}</blockquote></p>
-{% endif %}
-
-{% if actividad.Exento %}
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3><small>*</small> Importante</h3>
-    </div>
-    <div class="panel-body"> 
-        <i class="fa fa-warning fa-4x pull-left"></i> El ejercicio de esta actividad está exceptuado del requerimiento
-        de habilitación por parte de este municipio. No es necesario contar con una habilitación comercial municipal.
-    </div>
-</div>
-{% endif %}
-
-{% if actividad.RequiereDeyma %}
-<p><i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene requisitos ambientales específicos.
-    Al momento de iniciar el trámite de habilitación comercial se le solicitará documentación especial para
-    la Dirección de Ecología y Medio Ambiente.</p>
-{% endif %}
-{% if actividad.RequiereDbeh %}
-<p><i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene requisitos bromatológicos y/o de higiene.
-    Al momento de iniciar el trámite de habilitación comercial se le solicitará documentación especial para
-    la Dirección de Bromatología e Higiene.</p>
-{% endif %}
-
-<h2>Conclusión</h2>
-{% if actividad.Exento %}
-    <p>No es necesario tramitar una habilitación comercial para esta actividad.</p>
-{% elseif (superficie == 0 or superficie >= 16) and (usosuelo <= 3) %}
-    <p><i class="fa fa-check"></i> La habilitación comercial puede ser viable{% if usosuelo == 3 %} mediante la presentación de información adicional{% endif %}.</p>
-    <a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"><i class="fa fa-play"></i> Iniciar el trámite</a>
-{% else %}
-    <p>La habilitación comercial no es viable.</p>
-{% endif %}
-
-<a class="btn btn-default hidden-print" onclick="window.print(); return false;" href="#"><i class="fa fa-print"></i> Imprimir</a>
-
-<h2>Descargo</h2>
-<p>El presente informe preliminar no es vinculante y está dedicado a orientar sobre las características
-    más importantes del trámite de Habilitación Comercial.</p>
-<p>Esta información está sujeta a aprobación por las autoridades competentes y puede cambiar sin previo aviso.</p>
-    
-{% endif %}
-
-{% endblock %}
-
-{% block pagina_acciones2 %}
-    {% if create %}
-        {% if porpartida %}
-            Si el local está empadronado, utilice la búsqueda <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por local comercial</a>.
-        {% else %}
-            Si el local no está empadronado, puede cambiar a la búsqueda <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por domicilio</a>.
-        {% endif %}
-    {% endif %}
-{% endblock %}
-
-
-{% block pagina_acciones %}
-    {% if create %}
-       <a class="btn btn-default hidden-print" data-togle="ajax-link" href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
-       <button type="submit" class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consultar</button>
-    {% endif %}
-{% endblock %}
-       
-{% block pagina_fin %}
-    </form>
+	{% endif %} {% endblock %} {% block pagina_acciones2 %} {% if create %}
+	{% if porpartida %} Si el local está empadronado, utilice la búsqueda <a
+		data-toggle="ajax-link"
+		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por
+		local comercial</a>. {% else %} Si el local no está empadronado, puede
+	cambiar a la búsqueda <a data-toggle="ajax-link"
+		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por
+		domicilio</a>. {% endif %} {% endif %} {% endblock %} {% block
+	pagina_acciones %} {% if create %} <a
+		class="btn btn-default hidden-print" data-togle="ajax-link"
+		href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+	<button type="submit" class="btn btn-primary hidden-print">
+		<i class="fa fa-info-circle"></i> Consultar
+	</button>
+	{% endif %} {% endblock %} {% block pagina_fin %}
+</form>
 {% endblock %}

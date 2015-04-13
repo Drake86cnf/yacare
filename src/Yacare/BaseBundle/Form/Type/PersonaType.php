@@ -10,10 +10,8 @@ class PersonaType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'read_only' => false,
-            'data_class' => 'Yacare\BaseBundle\Entity\Persona'
-        ));
+        $resolver->setDefaults(
+            array('read_only' => false,'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }
 
     public function getParent()

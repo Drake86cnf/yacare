@@ -8,27 +8,27 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Representa una instancia de un trámite en curso, con su avance y el estado
  * de sus requisitos.
- * 
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Tramites_Tramite")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
- * @ORM\DiscriminatorMap({
- * "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
- * "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat"
- * })
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *        
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Table(name="Tramites_Tramite")
+ *         @ORM\InheritanceType("JOINED")
+ *         @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
+ *         @ORM\DiscriminatorMap({
+ *         "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
+ *         "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat"
+ *         })
  */
 abstract class Tramite
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\ConObs;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-    use\Yacare\TramitesBundle\Entity\ConTitular;
+    use \Yacare\TramitesBundle\Entity\ConTitular;
 
     public function __construct()
     {
@@ -77,7 +77,7 @@ abstract class Tramite
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Comprobante;
-    
+
     /*
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).
      */
@@ -149,7 +149,8 @@ abstract class Tramite
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false && $EstadoRequisito->EstaCumplido() == false) {
+            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false &&
+                 $EstadoRequisito->EstaCumplido() == false) {
                 $res ++;
             }
         }

@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Agrega la capacidad de organizar jerárquicamente las entidades.
- * 
+ *
  * Esta clase está basada en el trabajo de KnpDoctrineBehaviors de KnpLabs <http://knplabs.com/>
- * 
+ *
  * @author Ernesto Carrea <equistango@gmail.com>
  */
 trait Node
@@ -32,7 +32,7 @@ trait Node
      *
      * @var string $MaterializedPath
      *     
-     * @ORM\Column(type="text")
+     *      @ORM\Column(type="text")
      */
     protected $MaterializedPath = '';
 
@@ -57,7 +57,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getRealMaterializedPath()
     {
@@ -65,7 +67,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getMaterializedPath()
     {
@@ -73,7 +77,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setMaterializedPath($path)
     {
@@ -84,7 +90,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getParentMaterializedPath()
     {
@@ -97,7 +105,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setParentMaterializedPath($path)
     {
@@ -105,7 +115,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getRootMaterializedPath()
     {
@@ -115,7 +127,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getNodeLevel()
     {
@@ -124,7 +138,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function isRootNode()
     {
@@ -132,7 +148,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function isLeafNode()
     {
@@ -140,7 +158,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getChildNodes()
     {
@@ -148,7 +168,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function addChildNode(NodeInterface $node)
     {
@@ -156,15 +178,20 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function isIndirectChildNodeOf(NodeInterface $node)
     {
-        return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath() && 0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
+        return $this->getRealMaterializedPath() !== $node->getRealMaterializedPath() &&
+             0 === strpos($this->getRealMaterializedPath(), $node->getRealMaterializedPath());
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function isChildNodeOf(NodeInterface $node)
     {
@@ -172,7 +199,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setChildNodeOf(NodeInterface $node = null)
     {
@@ -213,7 +242,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getParentNode()
     {
@@ -221,7 +252,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setParentNode(NodeInterface $node = null)
     {
@@ -232,7 +265,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getRootNode()
     {
@@ -245,7 +280,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function buildTree(array $results)
     {
@@ -259,7 +296,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      *            
@@ -273,7 +312,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      * @param array $tree
@@ -291,18 +332,11 @@ trait Node
         }
         if (null === $tree) {
             $tree = array(
-                $this->getId() => array(
-                    'node' => $prepare($this),
-                    'children' => array()
-                )
-            );
+                $this->getId() => array('node' => $prepare($this),'children' => array()));
         }
         
         foreach ($this->getChildNodes() as $node) {
-            $tree[$this->getId()]['children'][$node->getId()] = array(
-                'node' => $prepare($node),
-                'children' => array()
-            );
+            $tree[$this->getId()]['children'][$node->getId()] = array('node' => $prepare($node),'children' => array());
             $node->toArray($prepare, $tree[$this->getId()]['children']);
         }
         
@@ -310,7 +344,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      * @param \Closure $prepare
      *            a function to prepare the node before putting into the result
      * @param array $tree
@@ -330,9 +366,7 @@ trait Node
             };
         }
         if (null === $tree) {
-            $tree = array(
-                $this->getId() => $prepare($this)
-            );
+            $tree = array($this->getId() => $prepare($this));
         }
         
         foreach ($this->getChildNodes() as $node) {
@@ -344,7 +378,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function offsetSet($offset, $node)
     {
@@ -354,7 +390,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function offsetExists($offset)
     {
@@ -362,7 +400,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function offsetUnset($offset)
     {
@@ -370,7 +410,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function offsetGet($offset)
     {
@@ -378,7 +420,9 @@ trait Node
     }
 
     /**
+     *
      * @ignore
+     *
      */
     protected function getExplodedPath()
     {

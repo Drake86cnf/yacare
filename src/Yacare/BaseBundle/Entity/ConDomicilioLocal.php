@@ -17,9 +17,8 @@ trait ConDomicilioLocal
     /**
      * Relación con la tabla de calles.
      *
-     * @see \Yacare\CatastroBundle\Entity\Calle
-     * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
-     * @ORM\JoinColumn(nullable=true)
+     * @see \Yacare\CatastroBundle\Entity\Calle @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
+     *      @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
 
@@ -27,7 +26,7 @@ trait ConDomicilioLocal
      * El número, también conocido como "altura".
      *
      * @var integer $DomicilioNumero
-     * @ORM\Column(type="integer", nullable=true)
+     *      @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioNumero;
 
@@ -35,7 +34,7 @@ trait ConDomicilioLocal
      * El piso, si lo hubiera.
      *
      * @var integer $DomicilioPiso
-     * @ORM\Column(type="integer", nullable=true)
+     *      @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPiso;
 
@@ -43,7 +42,7 @@ trait ConDomicilioLocal
      * La puerta, si la hubiera (por ejemplo A, B, etc.)
      *
      * @var integer $DomicilioPuerta
-     * @ORM\Column(type="integer", nullable=true)
+     *      @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPuerta;
 

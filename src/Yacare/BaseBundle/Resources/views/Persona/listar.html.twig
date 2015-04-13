@@ -1,92 +1,111 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
-
-{% set filtro_grupo = app.request.query.get('filtro_grupo') %}
-{% set filtro_grupo_invertir = app.request.query.get('filtro_grupo_invertir') %}
-{% set orden = app.request.query.get('orden') %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}{{ entitylabelplural }}{% endblock %} {% set filtro_grupo =
+app.request.query.get('filtro_grupo') %} {% set filtro_grupo_invertir =
+app.request.query.get('filtro_grupo_invertir') %} {% set orden =
+app.request.query.get('orden') %} {% block pagina_contenido %}
 
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th class="hidden-print hidden-sm hidden-xs">Documento</th>
-            <th>Teléfono</th>
-            <th>Domicilio</th>
-            <th>Grupos</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
-            <td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
-            <td class="hidden-print hidden-sm hidden-xs">{{ entity.DocumentoNumero }}</td>
-            <td>{{ entity.TelefonoNumero }}</td>
-            <td>{{ entity.Domicilio }}</td>
-            <td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th class="hidden-print hidden-sm hidden-xs">Documento</th>
+			<th>Teléfono</th>
+			<th>Domicilio</th>
+			<th>Grupos</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
+			<td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
+			<td class="hidden-print hidden-sm hidden-xs">{{
+				entity.DocumentoNumero }}</td>
+			<td>{{ entity.TelefonoNumero }}</td>
+			<td>{{ entity.Domicilio }}</td>
+			<td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{
+					Nombre }}</span>&nbsp;{% endfor %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
-{% block pagina_buscar %}{% set pagina_buscar_destino = path(baseroute ~ '_buscar', arrastre) %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
-
-{% block pagina_acciones %}
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
+pagina_buscar %}{% set pagina_buscar_destino = path(baseroute ~
+'_buscar', arrastre) %}{% include 'TapirBaseBundle::buscar.html.twig'
+%}{% endblock %} {% block pagina_acciones %}
 <div class="btn-group">
-    <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenuGrupos" data-toggle="dropdown">
-        <i class="fa fa-filter"></i>
-        {% if not filtro_grupo %}
-            Grupos
-        {% else %}
-            {% for grupo in personasgrupos %}
-                {% if grupo.id == filtro_grupo %}{{ grupo.Nombre|tapir_abreviar }}{% endif %}
-            {% endfor %}
-        {% endif %}
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuGrupos">
-        <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': null, 'page': null })) }}">
-            <i class="fa fa-fw{% if not filtro_grupo %} fa-check{% endif %}"></i>
-            Todos</a></li>
-        {% if filtro_grupo %}
-            {% if filtro_grupo_invertir %}
-                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': null, 'page': null })) }}">
-                    <i class="fa fa-fw fa-check"></i> Invertir selección</a></li>
-            {% else %}
-                <li role="presentation" class="dropdown-header">Al invertir la selección, se mostrarán las personas<br /> que <strong>no estén</strong> en el grupo seleccionado más abajo.</li>
-                <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': 1, 'page': null })) }}">
-                    <i class="fa fa-fw"></i> Invertir selección</a></li>
-            {% endif %}
-        {% endif %}
-        <li class="divider"></li>
-        <li role="presentation" class="dropdown-header">Mostrar personas {% if filtro_grupo_invertir %}que no estén {% endif %}en el siguiente grupo:</li>
-        {% for grupo in personasgrupos %}
-            <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': grupo.id, 'page': null })) }}">
-                <i class="fa fa-fw{% if grupo.id == filtro_grupo %} fa-check{% endif %}"></i>
-                {{ grupo.Nombre }}</a></li>
-        {% endfor %}
-    </ul>
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuGrupos" data-toggle="dropdown">
+		<i class="fa fa-filter"></i> {% if not filtro_grupo %} Grupos {% else
+		%} {% for grupo in personasgrupos %} {% if grupo.id == filtro_grupo
+		%}{{ grupo.Nombre|tapir_abreviar }}{% endif %} {% endfor %} {% endif
+		%} <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right"
+		aria-labelledby="dropdownMenuGrupos">
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': null, 'page': null })) }}">
+				<i class="fa fa-fw{% if not filtro_grupo %} fa-check{% endif %}"></i>
+				Todos
+		</a></li> {% if filtro_grupo %} {% if filtro_grupo_invertir %}
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': null, 'page': null })) }}">
+				<i class="fa fa-fw fa-check"></i> Invertir selección
+		</a></li> {% else %}
+		<li role="presentation" class="dropdown-header">Al invertir la
+			selección, se mostrarán las personas<br /> que <strong>no estén</strong>
+			en el grupo seleccionado más abajo.
+		</li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': 1, 'page': null })) }}">
+				<i class="fa fa-fw"></i> Invertir selección
+		</a></li> {% endif %} {% endif %}
+		<li class="divider"></li>
+		<li role="presentation" class="dropdown-header">Mostrar personas {% if
+			filtro_grupo_invertir %}que no estén {% endif %}en el siguiente
+			grupo:</li> {% for grupo in personasgrupos %}
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': grupo.id, 'page': null })) }}">
+				<i
+				class="fa fa-fw{% if grupo.id == filtro_grupo %} fa-check{% endif %}"></i>
+				{{ grupo.Nombre }}
+		</a></li> {% endfor %}
+	</ul>
 </div>
 
 <div class="btn-group">
-    <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenuOrden" data-toggle="dropdown">
-        <i class="fa fa-fw fa-sort-amount-asc"></i> Orden <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuOrden">
-        <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'orden': null })) }}">
-            <i class="fa fa-fw{% if not orden %} fa-check{% endif %}"></i> Apellido y nombre</a></li>
-        <li class="divider"></li>
-        <li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'orden': 'grupos_cantidad' })) }}">
-            <i class="fa fa-fw{% if orden == 'grupos_cantidad' %} fa-check{% endif %}"></i> Cantidad de grupos</a></li>
-    </ul>
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuOrden" data-toggle="dropdown">
+		<i class="fa fa-fw fa-sort-amount-asc"></i> Orden <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right"
+		aria-labelledby="dropdownMenuOrden">
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'orden': null })) }}">
+				<i class="fa fa-fw{% if not orden %} fa-check{% endif %}"></i>
+				Apellido y nombre
+		</a></li>
+		<li class="divider"></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'orden': 'grupos_cantidad' })) }}">
+				<i
+				class="fa fa-fw{% if orden == 'grupos_cantidad' %} fa-check{% endif %}"></i>
+				Cantidad de grupos
+		</a></li>
+	</ul>
 </div>
-{% endblock pagina_acciones %}
-
-{% block pagina_acciones2 %}
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nueva persona</a>
+{% endblock pagina_acciones %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Alta de nueva
+	persona</a>
 {% endblock %}

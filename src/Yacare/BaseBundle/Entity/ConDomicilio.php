@@ -47,7 +47,7 @@ trait ConDomicilio
 
     public function getDomicilio()
     {
-        if($this->DomicilioCalle) {
+        if ($this->DomicilioCalle) {
             $res = $this->DomicilioCalle;
         } else {
             $res = $this->DomicilioCalleNombre;
@@ -56,7 +56,7 @@ trait ConDomicilio
         if ($this->DomicilioNumero) {
             $res .= ' Nº ' . $this->DomicilioNumero;
         } else {
-           $res .= ' S/N';
+            $res .= ' S/N';
         }
         
         if ($this->DomicilioPiso) {

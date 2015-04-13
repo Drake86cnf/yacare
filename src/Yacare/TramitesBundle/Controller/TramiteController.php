@@ -46,9 +46,9 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         // $this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' . \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));
         
-        return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array(
-            'id' => $id
-        ), false)));
+        return $this->redirect(
+            $this->generateUrl($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables(array('id' => $id), false)));
     }
 
     /**
@@ -84,17 +84,14 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         if ($Comprob) {
-            $RutaComprob = \Tapir\BaseBundle\Helper\StringHelper::ObtenerRutaBase($Comprob->getComprobanteTipo()->getClase());
+            $RutaComprob = \Tapir\BaseBundle\Helper\StringHelper::ObtenerRutaBase(
+                $Comprob->getComprobanteTipo()->getClase());
         } else {
             $RutaComprob = null;
         }
         
-        return $this->ArrastrarVariables(array(
-            'entity' => $entity,
-            'mensaje' => $mensaje,
-            'comprob' => $Comprob,
-            'rutacomprob' => $RutaComprob
-        ));
+        return $this->ArrastrarVariables(
+            array('entity' => $entity,'mensaje' => $mensaje,'comprob' => $Comprob,'rutacomprob' => $RutaComprob));
     }
 
     public function EmitirComprobante($tramite)
@@ -126,7 +123,8 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
     public function ObtenerProximoNumeroComprobante($comprob)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT MAX(c.Numero) FROM \Yacare\TramitesBundle\Entity\Comprobante c WHERE c.ComprobanteTipo=?1 AND c.NumeroPrefijo=?2');
+        $query = $em->createQuery(
+            'SELECT MAX(c.Numero) FROM \Yacare\TramitesBundle\Entity\Comprobante c WHERE c.ComprobanteTipo=?1 AND c.NumeroPrefijo=?2');
         $query->setParameter(1, $comprob->getComprobanteTipo());
         $query->setParameter(2, $comprob->getNumeroPrefijo());
         $res = (int) $query->getResult(\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR);
@@ -143,15 +141,15 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getDoctrine()->getManager();
             
             $NombreClase = '\\' . get_class($entity);
-            $TramiteTipo = $em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(array(
-                'Clase' => $NombreClase
-            ));
+            $TramiteTipo = $em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
+                array('Clase' => $NombreClase));
             
             $entity->setTramiteTipo($TramiteTipo);
         }
         
-        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()
-            ->getAsociacionRequisitos());
+        $this->AsociarEstadosRequisitos($entity, null, 
+            $entity->getTramiteTipo()
+                ->getAsociacionRequisitos());
         
         return $res;
     }
@@ -190,7 +188,8 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
                 // Es un trámite... asocio los sub-requisitos
                 $SubTramiteTipo = $AsociacionRequisito->getRequisito()->getTramiteTipoEspejo();
                 if ($SubTramiteTipo) {
-                    $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, $SubTramiteTipo->getAsociacionRequisitos());
+                    $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
+                        $SubTramiteTipo->getAsociacionRequisitos());
                 }
             }
         }

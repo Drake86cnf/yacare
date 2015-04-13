@@ -20,12 +20,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Comprobante
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-    use\Yacare\TramitesBundle\Entity\ConTitular;
+    use \Yacare\TramitesBundle\Entity\ConTitular;
 
     /**
      * El tipo de comprobante.

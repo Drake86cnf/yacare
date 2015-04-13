@@ -5,18 +5,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Tipo de acta (representa una especie).
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_ActaTipo")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_ActaTipo")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class ActaTipo
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * Indica el departamento o dependencia a la cual pertenecen este tipo de actas.

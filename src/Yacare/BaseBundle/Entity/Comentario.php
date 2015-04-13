@@ -11,9 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comentario
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConObs;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      *

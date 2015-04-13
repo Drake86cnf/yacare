@@ -10,16 +10,12 @@ class PersonaGrupoType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Nombre', null, array(
-            'label' => 'Nombre'
-        ));
+        $builder->add('Nombre', null, array('label' => 'Nombre'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BaseBundle\Entity\PersonaGrupo'
-        ));
+        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\PersonaGrupo'));
     }
 
     public function getName()

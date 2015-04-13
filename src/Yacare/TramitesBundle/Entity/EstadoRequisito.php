@@ -24,9 +24,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EstadoRequisito
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConObs;
-    use\Yacare\BaseBundle\Entity\ConAdjuntos;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Yacare\BaseBundle\Entity\ConAdjuntos;
 
     /**
      * El trámite al cual está asociado este requisito.

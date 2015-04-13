@@ -15,15 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Domicilio
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConNombre;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\Suprimible;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
-    use\Yacare\BaseBundle\Entity\ConDomicilio;
-    use\Yacare\BaseBundle\Entity\ConVerificacion;
-    use\Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\BaseBundle\Entity\ConDomicilio;
+    use \Yacare\BaseBundle\Entity\ConVerificacion;
+    use \Yacare\CatastroBundle\Entity\ConPartida;
 
     /**
      * El tipo de domicilio.
@@ -39,8 +39,7 @@ class Domicilio
      *
      * 1 y 2 según Código Civil, Título VI, artículos 89 y 90.
      *
-     * @var integer
-     * @ORM\Column(type="integer", nullable=false)
+     * @var integer @ORM\Column(type="integer", nullable=false)
      */
     protected $Tipo = 0;
 
@@ -64,23 +63,22 @@ class Domicilio
     {
         return Domicilio::TipoNombre($this->getTipo());
     }
-    
-    
+
     public function __toString()
     {
         $res = $this->DomicilioCalle;
-    
+        
         if ($this->DomicilioNumero)
             $res .= ' Nº ' . $this->DomicilioNumero;
         else
             $res .= ' S/N';
-    
+        
         if ($this->DomicilioPiso)
             $res .= ', piso ' . $this->DomicilioPiso;
-    
+        
         if ($this->DomicilioPuerta)
             $res .= ', pta. ' . $this->DomicilioPuerta;
-    
+        
         return $res;
     }
 

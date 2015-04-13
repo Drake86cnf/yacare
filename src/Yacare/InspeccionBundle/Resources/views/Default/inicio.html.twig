@@ -1,25 +1,26 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
-
-{% block pagina_titulo %}Inspección{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Inspección{% endblock %} {% block pagina_contenido %}
 <ul class="breadcrumb">
-    <li><a data-toggle="ajax-link" href="{{ path('yacare_inspeccion_default_inicio') }}">Inspección</a></li>
+	<li><a data-toggle="ajax-link"
+		href="{{ path('yacare_inspeccion_default_inicio') }}">Inspección</a></li>
 </ul>
 
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_inspeccion_relevamiento_listar') }}">
-    <span class="icon32 icon-blue icon-book"></span>
-    <div>Relevamientos</div>
+<a data-rel="tooltip" class="well span3 top-block"
+	href="{{ path('yacare_inspeccion_relevamiento_listar') }}"> <span
+	class="icon32 icon-blue icon-book"></span>
+	<div>Relevamientos</div>
 </a>
 
-<a data-rel="tooltip" class="well span3 top-block" href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}">
-    <span class="icon32 icon-blue icon-book"></span>
-    <div>Tipos de resultado</div>
+<a data-rel="tooltip" class="well span3 top-block"
+	href="{{ path('yacare_inspeccion_relevamientoresultado_listar') }}"> <span
+	class="icon32 icon-blue icon-book"></span>
+	<div>Tipos de resultado</div>
 </a>
 
 <div style="position: absolute; bottom: 0; right: 0;">
-    <div>
-        <img src="{{ asset('bundles/yacarebase/images/yacare_logo320.png') }}" style="padding: 32px; transform: scaleX(-1);" alt="Yacaré" />
-    </div>
+	<div>
+		<img src="{{ asset('bundles/yacarebase/images/yacare_logo320.png') }}"
+			style="padding: 32px; transform: scaleX(-1);" alt="Yacaré" />
+	</div>
 </div>
 {% endblock %}

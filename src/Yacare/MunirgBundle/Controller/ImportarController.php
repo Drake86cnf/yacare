@@ -1137,7 +1137,7 @@ WHERE rnum >" . $desde . "
         $importar_procesados = 0;
         $log = array();
         
-        for ($i = 0; $i < $desde; $i++) {
+        for ($i = 0; $i < $desde; $i ++) {
             fgetcsv($ArchivoCsv);
         }
         
@@ -1234,7 +1234,7 @@ WHERE rnum >" . $desde . "
                 $log[] = $Row[0] . ': ' . (string) $Persona;
             }
             
-            if($importar_procesados >= $cant) {
+            if ($importar_procesados >= $cant) {
                 break;
             }
         }

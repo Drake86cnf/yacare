@@ -20,9 +20,8 @@ class ComprobanteController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getDoctrine()->getManager();
             
             $NombreClase = '\\' . get_class($entity);
-            $ComprobanteTipo = $em->getRepository('YacareTramitesBundle:ComprobanteTipo')->findOneBy(array(
-                'Clase' => $NombreClase
-            ));
+            $ComprobanteTipo = $em->getRepository('YacareTramitesBundle:ComprobanteTipo')->findOneBy(
+                array('Clase' => $NombreClase));
             
             $entity->setComprobanteTipo($ComprobanteTipo);
         }

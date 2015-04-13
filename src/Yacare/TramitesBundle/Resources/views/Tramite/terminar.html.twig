@@ -1,38 +1,35 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Terminar trámite {{ entity }}{% endblock %} {% block pagina_contenido
+%} {% if entity.Estado == 100 %}
+<i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
 
-{% block pagina_titulo %}Terminar trámite {{ entity }}{% endblock %}
+<p>El trámite Nº {{ entity.id }} iniciado el {{
+	entity.createdAt|tapir_fecha('full', 'medium')|lower }} finalizó {% if
+	entity.FechaTerminado %} el {{
+	entity.FechaTerminado|tapir_fecha('full', 'short')|lower }} ({{
+	entity.FechaTerminado|tapir_hacetiempo }}) {% endif %}</p>
 
-{% block pagina_contenido %}
+{% if comprob %}
+<p>
+	<i class="fa fa-info-circle"></i> Como resulado del trámite, se generó
+	el comprobante &quot;<a data-toggle="ajax-link"
+		href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}">{{
+		comprob }}</a>&quot;.
+</p>
+{% endif %} {% else %}
+<p>El trámite Nº {{ entity.id }}, no se pudo finalizar. {{ mensaje }}</p>
+{% endif %}
 
-    {% if entity.Estado == 100 %}
-        <i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
-
-        <p>
-            El trámite Nº {{ entity.id }} iniciado el {{ entity.createdAt|tapir_fecha('full', 'medium')|lower }} finalizó
-            {% if entity.FechaTerminado %}
-                el {{ entity.FechaTerminado|tapir_fecha('full', 'short')|lower }} ({{ entity.FechaTerminado|tapir_hacetiempo }})
-            {% endif %}
-        </p>
-
-        {% if comprob %}
-            <p><i class="fa fa-info-circle"></i> Como resulado del trámite, se generó el comprobante &quot;<a data-toggle="ajax-link" href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}">{{ comprob }}</a>&quot;.</p>
-        {% endif %}
-
-    {% else %}
-        <p>El trámite Nº {{ entity.id }}, no se pudo finalizar. {{ mensaje }}</p>
-    {% endif %}
-
-    <p class="clearfix"> </p>
-{% endblock %}
-    
-    
-{% block pagina_acciones %}
-    {% if comprob %}
-        <a class="btn btn-primary hidden-print" data-toggle="ajax-link" href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}"><i class="fa fa-file-o"></i> Ver el comprobante</a>
-    {% endif %}
-{% endblock %}
-    
-{% block pagina_acciones2 %}
-<a class="btn btn-default hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i class="fa fa-reply"></i> Volver al trámite</a>
-<a class="btn btn-default hidden-print" data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir al listado de trámites</a>
+<p class="clearfix"></p>
+{% endblock %} {% block pagina_acciones %} {% if comprob %}
+<a class="btn btn-primary hidden-print" data-toggle="ajax-link"
+	href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}"><i
+	class="fa fa-file-o"></i> Ver el comprobante</a>
+{% endif %} {% endblock %} {% block pagina_acciones2 %}
+<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i
+	class="fa fa-reply"></i> Volver al trámite</a>
+<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir
+	al listado de trámites</a>
 {% endblock %}

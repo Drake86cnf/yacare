@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- * @Route("agente/")
+ *         @Route("agente/")
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 {
@@ -22,14 +22,13 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         parent::IniciarVariables();
         
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
-        if(in_array('r.Persona p', $this->Joins) == false) {
-        	$this->Joins[] = 'JOIN r.Persona p';
+        if (in_array('r.Persona p', $this->Joins) == false) {
+            $this->Joins[] = 'JOIN r.Persona p';
         }
         
         $this->OrderBy = 'p.NombreVisible';
     }
-    
-    
+
     /**
      * @Route("volcar/")
      * @Route("volcar/{id}")
@@ -38,35 +37,34 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     public function volcarAction(Request $request, $id = null)
     {
         $this->Paginar = false;
-    
-        if($id) {
+        
+        if ($id) {
             $this->Where = 'r.id=' . $id;
         }
         $res = parent::listarAction($request);
-    
+        
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
-    
+        
         $AgentesVolcados = array();
         foreach ($res['entities'] as $Agente) {
-            if($Agente->getPersona()->PuedeAcceder()) {
+            if ($Agente->getPersona()->PuedeAcceder()) {
                 $ldap->AgregarOActualizarAgente($Agente);
                 $AgentesVolcados[] = $Agente;
             }
         }
-    
+        
         $res['entities'] = $AgentesVolcados;
         
         $ldap = null;
         return $res;
     }
-    
-    
+
     /**
      * Actualizo el servidor de dominio al editar el agente.
      */
     public function guardarActionPostPersist($entity, $editForm)
     {
-        if($entity->getId()) {
+        if ($entity->getId()) {
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
             $ldap->AgregarOActualizarAgente($entity);
             $ldap = null;

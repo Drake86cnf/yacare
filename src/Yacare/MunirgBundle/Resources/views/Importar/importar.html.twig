@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>{{ tapir_nombreaplicacion }} - Importar</title>
-    <link rel="icon" href="{{ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
+<meta charset="UTF-8" />
+<title>{{ tapir_nombreaplicacion }} - Importar</title>
+<link rel="icon"
+	href="{{ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
 </head>
 
 <body>
 
-<h1>Se procesaron {{ importar_procesados }} registros, se actualizaron {{importar_actualizados }} y se importaron {{ importar_importados }} nuevos.</h1>
+	<h1>Se procesaron {{ importar_procesados }} registros, se actualizaron
+		{{importar_actualizados }} y se importaron {{ importar_importados }}
+		nuevos.</h1>
 
-<pre>{% for entry in log %}
+	<pre>{% for entry in log %}
 {{ entry }}
 {% endfor %}</pre>
 
-{% if redir_desde is defined and redir_desde > 0%}
-<script>
+	{% if redir_desde is defined and redir_desde > 0%}
+	<script>
         parent.location='?desde={{ redir_desde }}';
 </script>
-{% endif %}
+	{% endif %}
 
 </body>
 </html>

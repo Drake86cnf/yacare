@@ -19,43 +19,38 @@ class Departamento implements Tree\NodeInterface
     use \Tapir\BaseBundle\Entity\Importable;
     use \Yacare\BaseBundle\Model\Tree\Node;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
+
     /**
      * El rango del departamento.
-     * 
+     *
      * Los rangos numéricamente más bajos son departamentos de nivel superior.
-     * 
-     * @see RangosNombres()
-     * 
-     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @see RangosNombres() @ORM\Column(type="integer", nullable=true)
      */
     private $Rango;
 
     /**
      * El código de este departamento (opcional).
-     * 
+     *
      * @ORM\Column(type="string", nullable=true)
      */
     private $Codigo;
-    
+
     /**
-     * Indica si hace parte diario. 
+     * Indica si hace parte diario.
+     *
      *
      * @ORM\Column(type="boolean")
      */
     private $HaceParteDiario = false;
-    
 
     /**
      * El nodo de nivel superior.
-     * 
-     * @see Node
-     * 
-     * @ORM\ManyToOne(targetEntity="Departamento")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     *
+     * @see Node @ORM\ManyToOne(targetEntity="Departamento")
+     *      @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
-    
 
     public static function RangosNombres($rango)
     {
@@ -101,10 +96,10 @@ class Departamento implements Tree\NodeInterface
         return $this->getSangria('        ') . $this->getNombre();
     }
 
-    
-    
     /**
+     *
      * @ignore
+     *
      */
     public function getRango()
     {
@@ -112,7 +107,9 @@ class Departamento implements Tree\NodeInterface
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setRango($Rango)
     {
@@ -121,7 +118,9 @@ class Departamento implements Tree\NodeInterface
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getCodigo()
     {
@@ -129,7 +128,9 @@ class Departamento implements Tree\NodeInterface
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setCodigo($Codigo)
     {
@@ -138,7 +139,9 @@ class Departamento implements Tree\NodeInterface
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getHaceParteDiario()
     {
@@ -146,7 +149,9 @@ class Departamento implements Tree\NodeInterface
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setHaceParteDiario($HaceParteDiario)
     {

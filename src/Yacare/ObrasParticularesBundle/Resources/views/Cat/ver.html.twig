@@ -1,30 +1,28 @@
-{% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %}
+{% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %} {% block
+pagina_titulo %}{{ entity.Nombre }}{% endblock %} {% block
+pagina_contenido %} {% block comprobante_encab %}
+<p class="text-right">Río Grande, {{
+	entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
+{% endblock %} {% block comprobante_contenido %}
 
-{% block pagina_titulo %}{{ entity.Nombre }}{% endblock %}
+<p>
+	Se extiende el presente Certificado de Aptitud Técnica Edilicia a {{
+	entity.Titular }}, CUIT/CUIL Nº {{ entity.Titular.Cuilt }}, para el
+	ejercicio de las actividades comerciales detalladas más abajo, bajo el
+	nombre comercial de <em>&quot;{{ entity.Nombre }}&quot;</em> , en el {{
+	entity.Local.Tipo|lower }} con una superficie de {{
+	entity.Local.Superficie }} m² ubicado en {{
+	entity.Local.Partida.Domicilio }} de esta ciudad.
+</p>
 
-{% block pagina_contenido %}
-
-{% block comprobante_encab %}
-<p class="text-right">Río Grande, {{ entity.createdAt|tapir_fecha('full', 'none')|lower }}</p>
-{% endblock %}
-
-{% block comprobante_contenido %}
-
-<p>Se extiende el presente Certificado de Aptitud Técnica Edilicia a {{ entity.Titular }},
-    CUIT/CUIL Nº {{ entity.Titular.Cuilt }}, para el ejercicio de las actividades
-    comerciales detalladas más abajo,
-    bajo el nombre comercial de <em>&quot;{{ entity.Nombre }}&quot;</em>
-    , en el {{ entity.Local.Tipo|lower }} con una superficie de {{ entity.Local.Superficie }} m²
-    ubicado en {{ entity.Local.Partida.Domicilio }} de esta ciudad.</p>
-
-<footer>El presente certificado es intransferible, es válido sólo para el ejercicio de las actividades
-    mencionadas, en el local comercial mencionado y es válido hasta el día
-    {{ entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
-{% endblock %}
-
-{% endblock %}
-
-{% block pagina_acciones %}
-    <a class="btn btn-primary print-preview" href="#" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
-    <a class="btn btn-primary" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Volver al listado</a>
+<footer>El presente certificado es intransferible, es válido sólo para
+	el ejercicio de las actividades mencionadas, en el local comercial
+	mencionado y es válido hasta el día {{
+	entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
+{% endblock %} {% endblock %} {% block pagina_acciones %}
+<a class="btn btn-primary print-preview" href="#"
+	onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
+<a class="btn btn-primary"
+	href="{{ path(baseroute ~ '_listar', arrastre) }}"><i
+	class="fa fa-reply"></i> Volver al listado</a>
 {% endblock %}

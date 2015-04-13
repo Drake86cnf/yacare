@@ -6,21 +6,21 @@ use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
  * Resultado de una asignación.
- * 
- * @see RelevamientoAsignacion
- * 
- * @author Ernesto Carrea <equistango@gmail.com>
  *
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @see RelevamientoAsignacion
+ *
+ * @author Ernesto Carrea <equistango@gmail.com>
+ *        
+ *         @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoAsignacionResultado
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use\Tapir\BaseBundle\Entity\Versionable;
-    use\Tapir\BaseBundle\Entity\ConImagen;
-    use\Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\ConImagen;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     /**
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")

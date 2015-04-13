@@ -17,10 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AsociacionRequisito
 {
-    use\Tapir\BaseBundle\Entity\ConId;
-    use\Tapir\BaseBundle\Entity\ConObs;
-    use\Tapir\BaseBundle\Entity\ConNotas;
-    use\Tapir\BaseBundle\Entity\Eliminable;
+    use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
+    use \Tapir\BaseBundle\Entity\ConNotas;
+    use \Tapir\BaseBundle\Entity\Eliminable;
 
     /**
      * El tipo de trámite.

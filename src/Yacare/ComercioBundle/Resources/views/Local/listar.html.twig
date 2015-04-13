@@ -1,33 +1,33 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
-
-{% block pagina_titulo %}Locales comerciales{% endblock %}
-
-{% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
+pagina_titulo %}Locales comerciales{% endblock %} {% block
+pagina_contenido %}
 <table class="table table-hoverselect">
-    <thead>
-        <tr>
-            <th>Domicilio</th>
-            <th class="hidden-xs">Tipo</th>
-            <th>Sup.</th>
-            <th class="hidden-sm hidden-xs">Titular</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
-            <td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
-            <td class="hidden-xs">{{ entity.Tipo }}</td>
-            <td>{{ entity.Superficie }} m²</td>
-            <td class="hidden-sm hidden-xs">{% if entity.Partida %}{{ entity.Partida.Titular }}{% endif %}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+	<thead>
+		<tr>
+			<th>Domicilio</th>
+			<th class="hidden-xs">Tipo</th>
+			<th>Sup.</th>
+			<th class="hidden-sm hidden-xs">Titular</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
+			<td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
+			<td class="hidden-xs">{{ entity.Tipo }}</td>
+			<td>{{ entity.Superficie }} m²</td>
+			<td class="hidden-sm hidden-xs">{% if entity.Partida %}{{
+				entity.Partida.Titular }}{% endif %}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
-{% endblock %}
-
-{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
-{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
-
-{% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo local comercial</a>
+{% endblock %} {% block pagina_paginar %}{% include
+'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
+block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig'
+%}{% endblock pagina_buscar %} {% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"
+	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
+	local comercial</a>
 {% endblock %}
