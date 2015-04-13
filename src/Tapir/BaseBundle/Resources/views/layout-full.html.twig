@@ -6,28 +6,40 @@
 <meta name="description" content="{{ tapir_nombreaplicacion }}">
 <meta name="author" content="Ernesto N. Carrea">
 
-{% set tapir_modal = 0 %}
-{% set block_pagina_titulo = block('pagina_titulo') %}
+{% set tapir_modal = 0 %} {% set block_pagina_titulo =
+block('pagina_titulo') %}
 
-<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not empty %}:
-    {{ block_pagina_titulo|striptags|trim|raw }}{% endif %}</title>
-{% image '@tapir_favicon' %}<link rel="icon" href="{{ asset_url }}">{% endimage %}
+<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not
+	empty %}: {{ block_pagina_titulo|striptags|trim|raw }}{% endif %}</title>
+{% image '@tapir_favicon' %}
+<link rel="icon" href="{{ asset_url }}">
+{% endimage %}
 
-<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery-2.1.3.min.js') }}"></script>
+<script type="text/javascript"
+	src="{{ asset('bundles/tapirbase/js/jquery-2.1.3.min.js') }}"></script>
 
-<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir_nav.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir_forms.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/datepicker3.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_nav.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_forms.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/datepicker3.css') }}"
+	rel="stylesheet" />
 </head>
 
 <body>
 	<div id="wrapper">
-        <div class="modal fade" id="modal" role="dialog" aria-hidden="true" tabindex="-1">Cargando...</div>
+		<div class="modal fade" id="modal" role="dialog" aria-hidden="true"
+			tabindex="-1">Cargando...</div>
 
 		<!-- Opción de accesibilidad para saltear el menú de navegación -->
 		<a href="#page-wrapper" class="sr-only">Ir al contenido principal</a>
@@ -41,96 +53,95 @@
 					<span class="sr-only">Mostrar u ocultar el menú de navegación</span>
 					<span class="fa fa-ellipsis-v"></span>
 				</button>
-				<a class="navbar-brand" href="{{ path('inicio') }}">&nbsp;{% image '@tapir_logoaplicacion16' %}<img
-				    src="{{ asset_url }}" alt="{{ tapir_nombreaplicacion }}"
-				    class="pull-left" width="16" />{% endimage %} {{ tapir_nombreaplicacion }}</a>
-				<span class="navbar-slogan">{{ tapir_cliente }}</span>
+				<a class="navbar-brand" href="{{ path('inicio') }}">&nbsp;{% image
+					'@tapir_logoaplicacion16' %}<img src="{{ asset_url }}"
+					alt="{{ tapir_nombreaplicacion }}" class="pull-left" width="16" />{%
+					endimage %} {{ tapir_nombreaplicacion }}
+				</a> <span class="navbar-slogan">{{ tapir_cliente }}</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div role="navigation" id="menuprincipal"
-				class="collapse navbar-collapse">{% include tapir_menu %}
-            </div><!-- /.navbar-collapse -->
+				class="collapse navbar-collapse">{% include tapir_menu %}</div>
+			<!-- /.navbar-collapse -->
 		</nav>
 
 		<div id="page-wrapper">
-{% for type, flashMessages in app.session.flashbag.all() %}
-    {% for flashMessage in flashMessages %}
-        <div class="alert alert-dismissable alert-{{ type }}" role="alert">
-        	<button type="button" class="close" data-dismiss="alert">×</button>
-        	{{ flashMessage|raw }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-{% block pagina_inicio %}{% endblock %}
-
-{% if not app.request.get('sinencab') %}
-    <div id="content-header" class="content-bar-row">
-    {% set block_pagina_titulo = block('pagina_titulo') %}
-    {% if block_pagina_titulo is not empty %}
-        <div class="content-bar-block-first pull-left"><h1 id="page-title"><a href="#" onclick="return tapirAtras();"><i class="fa fa-chevron-left"></i> {{ block_pagina_titulo|raw }}</a></h1></div>
-    {% endif %}
-    
-    {% set block_pagina_buscar = block('pagina_buscar') %}
-    {% if block_pagina_buscar is not empty %}
-        <div class="content-bar-block pull-right hidden-print">
-    	{{ block_pagina_buscar|raw }}
-    	</div>
-    {% endif %}
-    
-    {% set block_pagina_paginar = block('pagina_paginar') %}
-    {% if block_pagina_paginar is not empty %}
-        <div class="content-bar-block pull-right hidden-print">
-    	{{ block_pagina_paginar|raw }}
-    	</div>
-    {% endif %}
-    
-    {% set block_pagina_acciones = block('pagina_acciones') %}
-    {% if block_pagina_acciones is not empty %}
-        <div class="content-bar-block pull-right hidden-print">
-    	{{ block_pagina_acciones|raw }}
-    	</div>
-    {% endif %}
-    </div><div class="clearfix"></div>
-{% endif %}
-    
-{% block pagina_contenido %}{% endblock %}
-
-{% block pagina_pie %}{% endblock %}
-
-{% set block_pagina_acciones2 = block('pagina_acciones2') %}
-{% if block_pagina_acciones2 is not empty %}
-	<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
-{% endif %}
-
-{% set block_pagina_acciones3 = block('pagina_acciones3') %}
-{% if block_pagina_acciones3 is not empty %}
-	<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw }}</div>
-{% endif %}
-
-{% block pagina_fin %}{% endblock %}
+			{% for type, flashMessages in app.session.flashbag.all() %} {% for
+			flashMessage in flashMessages %}
+			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				{{ flashMessage|raw }}
+			</div>
+			{% endfor %} {% endfor %} {% block pagina_inicio %}{% endblock %} {%
+			if not app.request.get('sinencab') %}
+			<div id="content-header" class="content-bar-row">
+				{% set block_pagina_titulo = block('pagina_titulo') %} {% if
+				block_pagina_titulo is not empty %}
+				<div class="content-bar-block-first pull-left">
+					<h1 id="page-title">
+						<a href="#" onclick="return tapirAtras();"><i
+							class="fa fa-chevron-left"></i> {{ block_pagina_titulo|raw }}</a>
+					</h1>
+				</div>
+				{% endif %} {% set block_pagina_buscar = block('pagina_buscar') %}
+				{% if block_pagina_buscar is not empty %}
+				<div class="content-bar-block pull-right hidden-print">{{
+					block_pagina_buscar|raw }}</div>
+				{% endif %} {% set block_pagina_paginar = block('pagina_paginar') %}
+				{% if block_pagina_paginar is not empty %}
+				<div class="content-bar-block pull-right hidden-print">{{
+					block_pagina_paginar|raw }}</div>
+				{% endif %} {% set block_pagina_acciones = block('pagina_acciones')
+				%} {% if block_pagina_acciones is not empty %}
+				<div class="content-bar-block pull-right hidden-print">{{
+					block_pagina_acciones|raw }}</div>
+				{% endif %}
+			</div>
+			<div class="clearfix"></div>
+			{% endif %} {% block pagina_contenido %}{% endblock %} {% block
+			pagina_pie %}{% endblock %} {% set block_pagina_acciones2 =
+			block('pagina_acciones2') %} {% if block_pagina_acciones2 is not
+			empty %}
+			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw
+				}}</div>
+			{% endif %} {% set block_pagina_acciones3 = block('pagina_acciones3')
+			%} {% if block_pagina_acciones3 is not empty %}
+			<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw
+				}}</div>
+			{% endif %} {% block pagina_fin %}{% endblock %}
 
 		</div>
 		<!-- /#page-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
-	<div id="ajax-spinner" class="ajax-spinner text-center" aria-hidden="true"><i class="fa fa-spinner fa-spin"></i> Cargando...</div>
+	<div id="ajax-spinner" class="ajax-spinner text-center"
+		aria-hidden="true">
+		<i class="fa fa-spinner fa-spin"></i> Cargando...
+	</div>
 
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/jquery.form.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
-{% if app.environment != 'test' %}
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
-{% endif %}
-	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirbase/js/bootstrap-datepicker.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/jquery.history.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/jquery.form.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tapir.js') }}"></script>
+	{% if app.environment != 'test' %}
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/tapir-ajax.js') }}"></script>
+	{% endif %}
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirbase/js/bootstrap-datepicker.js') }}"></script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
 
     tinymce.init({
@@ -151,6 +162,6 @@
         jquery_script_url: '{{ asset("bundles/tapirbase/js/jquery-2.1.3.min.js") }}'
      });
 </script>
-{% block pagina_scripts %}{% endblock %}
+	{% block pagina_scripts %}{% endblock %}
 </body>
 </html>

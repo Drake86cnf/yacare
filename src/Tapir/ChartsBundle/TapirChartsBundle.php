@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\ChartsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

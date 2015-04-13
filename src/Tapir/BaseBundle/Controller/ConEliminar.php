@@ -23,9 +23,7 @@ trait ConEliminar
      */
     protected function crearFormEliminar($id)
     {
-        return $this->createFormBuilder(array(
-            'id' => $id
-        ))
+        return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm();
     }
@@ -45,11 +43,8 @@ trait ConEliminar
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        return $this->ArrastrarVariables(array(
-            'entity' => $entity,
-            'create' => $id ? false : true,
-            'delete_form' => $deleteForm->createView()
-        ));
+        return $this->ArrastrarVariables(
+            array('entity' => $entity,'create' => $id ? false : true,'delete_form' => $deleteForm->createView()));
     }
 
     /**
@@ -103,6 +98,7 @@ trait ConEliminar
      */
     public function afterEliminar($entity, $eliminado = false)
     {
-        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
+        return $this->redirect(
+            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
     }
 }

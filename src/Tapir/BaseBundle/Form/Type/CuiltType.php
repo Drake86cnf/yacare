@@ -6,15 +6,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CuiltType extends AbstractType
 {
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'label' => 'CUIL/CUIT',
-            'maxlength' => 13,
-            'attr' => array ( 'class' => 'tapir-input-cuilt', 'data-type' => 'cuilt', 'maxlength' => '13' )
-        ));
+        $resolver->setDefaults(
+            array(
+                'label' => 'CUIL/CUIT',
+                'maxlength' => 13,
+                'attr' => array('class' => 'tapir-input-cuilt','data-type' => 'cuilt','maxlength' => '13')));
     }
-    
+
     public function getParent()
     {
         return 'text';

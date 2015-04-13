@@ -8,29 +8,25 @@ namespace Tapir\BaseBundle\Model\Auditable;
  */
 trait Auditable
 {
+
     /**
+     *
      * @return string some log informations
      */
     public function getUpdateLogMessage(array $changeSets = [])
     {
         $message = [];
         foreach ($changeSets as $property => $changeSet) {
-            for($i = 0 , $s = sizeof($changeSet); $i < $s ; $i++) {
+            for ($i = 0, $s = sizeof($changeSet); $i < $s; $i ++) {
                 if ($changeSet[$i] instanceof \DateTime) {
                     $changeSet[$i] = $changeSet[$i]->format("Y-m-d H:M:S");
                 }
             }
             
-            $message[] = sprintf(
-                '%s #%d : property "%s" changed from "%s" to "%s"',
-                __CLASS__,
-                $this->getId(),
-                $property,
-                $changeSet[0],
-                $changeSet[1]
-            );
+            $message[] = sprintf('%s #%d : property "%s" changed from "%s" to "%s"', __CLASS__, $this->getId(), 
+                $property, $changeSet[0], $changeSet[1]);
         }
-
+        
         return implode("\n", $message);
     }
 

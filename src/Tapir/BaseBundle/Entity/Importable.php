@@ -4,7 +4,7 @@ namespace Tapir\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Agrega los campos (y métodos) para hacer seguimiento de registros importados 
+ * Agrega los campos (y métodos) para hacer seguimiento de registros importados
  * desde otra fuente de datos.
  *
  * @author Ernesto Carrea <equistango@gmail.com>
@@ -45,7 +45,9 @@ trait Importable
     private $ImportedAt;
 
     /**
+     *
      * @ignore
+     *
      */
     public function getImportSrc()
     {
@@ -53,7 +55,9 @@ trait Importable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setImportSrc($importSrc)
     {
@@ -61,7 +65,9 @@ trait Importable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getImportId()
     {
@@ -69,7 +75,9 @@ trait Importable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setImportId($importId)
     {
@@ -77,7 +85,9 @@ trait Importable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getImportedAt()
     {
@@ -85,7 +95,9 @@ trait Importable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setImportedAt(\DateTime $importedAt)
     {

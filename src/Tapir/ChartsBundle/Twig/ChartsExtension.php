@@ -5,11 +5,10 @@ use Tapir\ChartsBundle\Charts\ChartInterface;
 
 class ChartsExtension extends \Twig_Extension
 {
+
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('chart', array($this, 'chart'), array('is_safe' => array('html'))),
-        );
+        return array(new \Twig_SimpleFunction('chart', array($this,'chart'), array('is_safe' => array('html'))));
     }
 
     public function chart(ChartInterface $chart, $engine = 'jquery')

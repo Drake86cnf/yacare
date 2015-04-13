@@ -18,7 +18,7 @@ trait Suprimible
 
     /**
      * Indica si la entidad fue suprimido (soft-delete).
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $Suprimido = 0;
@@ -32,7 +32,9 @@ trait Suprimible
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getSuprimido()
     {
@@ -40,7 +42,9 @@ trait Suprimible
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setSuprimido($Suprimido)
     {
