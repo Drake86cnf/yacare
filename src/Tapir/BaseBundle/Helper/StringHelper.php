@@ -1,12 +1,11 @@
 <?php
-
 namespace Tapir\BaseBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class StringHelper
 {
-    
+
     /*
      * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para
      * \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
@@ -31,8 +30,7 @@ class StringHelper
         
         return $res;
     }
-    
-    
+
     /*
      * Obtiene el nombre la aplicación (vendor) a partir de una clase. Por ejemplo, para
      * \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
@@ -43,8 +41,7 @@ class StringHelper
         
         return $PartesNombreClase[0];
     }
-    
-    
+
     /*
      * Obtiene una ruta base a partir de una clase. Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController"
      * devuelve "tapir_base_persona" Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve
@@ -62,7 +59,6 @@ class StringHelper
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1]);
     }
 
-    
     static public function ObtenerDocumento($text)
     {
         $Partes = preg_split('/[\: ]/', $text);
@@ -91,20 +87,17 @@ class StringHelper
                 }
         }
         
-        return array(
-            $Tipo,
-            ltrim($Numero, '0')
-        );
+        return array($Tipo,ltrim($Numero, '0'));
     }
 
-    
     static public function Desoraclizar($text)
     {
-        return trim(StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
+        return trim(
+            StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
 
-    
-    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), $exceptions = array(
+    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), 
+        $exceptions = array(
                 'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
                 'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
@@ -204,8 +197,7 @@ class StringHelper
             '' => '',
             '' => '',
             '' => '',
-            '' => ''
-        );
+            '' => '');
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
@@ -386,8 +378,7 @@ class StringHelper
             'titulo' => 'título',
             'radicacion' => 'radicación',
             '' => '',
-            '' => ''
-        );
+            '' => '');
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
@@ -395,8 +386,7 @@ class StringHelper
         
         return trim($text);
     }
-    
-    
+
     /*
      * Obtiene el apellido y nombre de la persona por separado.
      * Devuelve un array con dos elementos (apellidos y nombre).
@@ -407,16 +397,15 @@ class StringHelper
         $nombreCompleto = trim(str_replace(array('.'), '', $nombreCompleto));
         $PartesNombre = explode(' ', $nombreCompleto, 2);
         
-        if(count($PartesNombre) == 1) {
+        if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
         
         $PartesNombre[1] = str_replace(array(','), ' ', $PartesNombre[1]);
-    
+        
         return $PartesNombre;
     }
-    
-    
+
     /*
      * Obtiene el nombre de la calle y la altura por separado.
      * Devuelve un array con dos o tres elementos (calle, altura [y departamento]).
@@ -427,11 +416,13 @@ class StringHelper
         $domicilio = StringHelper::Desoraclizar($domicilio);
         $PartesNombre = explode('Nº', $domicilio, 2);
         
-        /* if(count($PartesNombre) == 1) {
-            $PartesNombre = explode(' ', $PartesNombre[0], 2);
-        } */
-    
-        if(count($PartesNombre) == 1) {
+        /*
+         * if(count($PartesNombre) == 1) {
+         * $PartesNombre = explode(' ', $PartesNombre[0], 2);
+         * }
+         */
+        
+        if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
         
@@ -439,11 +430,11 @@ class StringHelper
         $PartesNombre[1] = trim($PartesNombre[1]);
         
         $PartesNumero = explode(' ', $PartesNombre[1], 2);
-        if(count($PartesNumero) == 2) {
+        if (count($PartesNumero) == 2) {
             $PartesNombre[1] = trim($PartesNumero[0]);
             $PartesNombre[2] = trim($PartesNumero[1]);
         }
-
+        
         return $PartesNombre;
     }
 }

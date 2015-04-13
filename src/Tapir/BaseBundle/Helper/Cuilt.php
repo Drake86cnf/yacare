@@ -8,8 +8,7 @@ class Cuilt
 
     static public function EsCuiltValido($Cuilt)
     {
-        $cadena = str_replace(array('.',',',' ','-'
-        ), '', $Cuilt);
+        $cadena = str_replace(array('.',',',' ','-'), '', $Cuilt);
         
         $result = $cadena[0] * 5;
         $result += $cadena[1] * 4;
@@ -46,8 +45,7 @@ class Cuilt
 
     static public function FormatearCuilt($Cuilt)
     {
-        $solonumeros = str_replace(array('.',',',' ','-'
-        ), '', $Cuilt);
+        $solonumeros = str_replace(array('.',',',' ','-'), '', $Cuilt);
         
         if (strlen($solonumeros) == 11) {
             return substr($solonumeros, 0, 2) . '-' . substr($solonumeros, 2, 8) . '-' . substr($solonumeros, 10, 1);

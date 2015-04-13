@@ -6,7 +6,7 @@ use Tapir\BaseBundle\Helper\Damm;
 
 /**
  * Agrega la columna "id" a una entidad.
- * 
+ *
  * Los métodos (getter y setter) están en un trait separado.
  *
  * @see ConIdMetodos
@@ -19,7 +19,7 @@ trait ConId
 
     /**
      * La clave primaria.
-     * 
+     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

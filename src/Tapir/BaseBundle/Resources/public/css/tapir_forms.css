@@ -3,11 +3,10 @@
     Author     : Ernesto Carrea <equistango@gmail.com>
     Description: Estilos para formularios y botones
 */
-
 input, select, textarea {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    border-radius: 0px !important;
-    /* vertical-align: middle;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-radius: 0px !important;
+	/* vertical-align: middle;
     border: 1px solid rgb(204, 204, 204);
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     margin: 0px;
@@ -21,7 +20,6 @@ input, select, textarea {
 	border-radius: 0px !important;
 }
 
-
 .btn {
 	border-radius: 2px;
 	/* font-size: 11pt;
@@ -29,17 +27,17 @@ input, select, textarea {
 }
 
 .form-horizontal .form-group {
-    margin-right: 5px;
-    margin-left: 0px;
+	margin-right: 5px;
+	margin-left: 0px;
 }
 
 .form-inline .form-group {
-    vertical-align: initial;
+	vertical-align: initial;
 }
 
 .required {
-    /* color: #800000; */
-    white-space: nowrap; 
+	/* color: #800000; */
+	white-space: nowrap;
 }
 
 .required:after {
@@ -52,5 +50,5 @@ input, select, textarea {
 }
 
 .tapir-input-documento {
-    max-width: 240px;
+	max-width: 240px;
 }

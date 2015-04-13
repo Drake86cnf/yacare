@@ -10,16 +10,12 @@ class PersonaRolType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Nombre', null, array(
-            'label' => 'Nombre'
-        ));
+        $builder->add('Nombre', null, array('label' => 'Nombre'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Tapir\BaseBundle\Entity\PersonaRol'
-        ));
+        $resolver->setDefaults(array('data_class' => 'Tapir\BaseBundle\Entity\PersonaRol'));
     }
 
     public function getName()

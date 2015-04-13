@@ -1,118 +1,73 @@
-
 textarea {
-    width: 100%;
-    min-width: 240px;
-    min-height: 72px;
-    resize: vertical;
+	width: 100%;
+	min-width: 240px;
+	min-height: 72px;
+	resize: vertical;
 }
 
-.form-group select,
-.form-group textarea,
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="datetime"],
-.form-group input[type="datetime-local"],
-.form-group input[type="date"],
-.form-group input[type="month"],
-.form-group input[type="time"],
-.form-group input[type="week"],
-.form-group input[type="number"],
-.form-group input[type="email"],
-.form-group input[type="url"],
-.form-group input[type="search"],
-.form-group input[type="tel"],
-.form-group input[type="file"],
-.form-group input[type="color"] {
-    border-color: rgb(181, 181, 181);
-    border-radius: 0px 0px 0px 0px !important;
-    color: rgb(10, 10, 10);
-    border: 1px solid rgb(223, 223, 223);
-    padding: 5px 4px;
-    background: none repeat scroll 0% 0% rgb(255, 255, 255);
-    font-family: inherit;
-    box-shadow: none !important;
-    transition-duration: 0.1s;
+.form-group select, .form-group textarea, .form-group input[type="text"],
+	.form-group input[type="password"], .form-group input[type="datetime"],
+	.form-group input[type="datetime-local"], .form-group input[type="date"],
+	.form-group input[type="month"], .form-group input[type="time"],
+	.form-group input[type="week"], .form-group input[type="number"],
+	.form-group input[type="email"], .form-group input[type="url"],
+	.form-group input[type="search"], .form-group input[type="tel"],
+	.form-group input[type="file"], .form-group input[type="color"] {
+	border-color: rgb(181, 181, 181);
+	border-radius: 0px 0px 0px 0px !important;
+	color: rgb(10, 10, 10);
+	border: 1px solid rgb(223, 223, 223);
+	padding: 5px 4px;
+	background: none repeat scroll 0% 0% rgb(255, 255, 255);
+	font-family: inherit;
+	box-shadow: none !important;
+	transition-duration: 0.1s;
 }
 
-textarea:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="file"]:focus,
-input[type="color"]:focus,
-select:focus {
-    box-shadow: none;
-    color: black;
-    border-color: rgb(245, 153, 66);
-    background-color: rgb(255, 255, 255);
-    outline: 0px none;
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
+	input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus,
+	input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus,
+	input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus,
+	input[type="search"]:focus, input[type="tel"]:focus, input[type="file"]:focus,
+	input[type="color"]:focus, select:focus {
+	box-shadow: none;
+	color: black;
+	border-color: rgb(245, 153, 66);
+	background-color: rgb(255, 255, 255);
+	outline: 0px none;
 }
 
 input[type="file"] {
-    border: none !important;
+	border: none !important;
 }
 
-
 .form-control:focus {
-    border-color: rgb(245, 153, 66);
+	border-color: rgb(245, 153, 66);
 }
 
 .btn {
-    color: rgb(255, 255, 255) !important;
-    border-radius: 4px 4px 4px 4px;
-    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25) !important;
-    border: none;
+	color: rgb(255, 255, 255) !important;
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25) !important;
+	border: none;
 }
 
 .btn-link {
-    color: rgb(66, 139, 202) !important;
-    text-shadow: none !important;
+	color: rgb(66, 139, 202) !important;
+	text-shadow: none !important;
 }
 
 .btn-default {
-    background-color: #999999 !important;
+	background-color: #999999 !important;
 }
 
 .btn-default:hover {
-    background-color: #7b919e !important;
+	background-color: #7b919e !important;
 }
 
 label, .label {
-    font-weight: 300;
+	font-weight: 300;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .tree {
 	min-height: 20px;

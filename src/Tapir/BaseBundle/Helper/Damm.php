@@ -5,6 +5,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Damm
 {
+
     static function taq($digits)
     {
         $taq_table = array(
@@ -17,8 +18,7 @@ class Damm
             '5869720134',
             '8945362017',
             '9438617205',
-            '2581436790'
-        );
+            '2581436790');
         $interim = 0;
         
         foreach (str_split($digits) as $digit) {

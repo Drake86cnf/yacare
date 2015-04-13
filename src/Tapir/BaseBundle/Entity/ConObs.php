@@ -14,13 +14,16 @@ trait ConObs
 
     /**
      * El texto de las observaciones.
+     * 
      * @var string $obs
      *      @ORM\Column(type="text", nullable=true)
      */
     private $Obs;
 
     /**
+     *
      * @ignore
+     *
      */
     public function getObs()
     {
@@ -28,7 +31,9 @@ trait ConObs
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setObs($Obs)
     {

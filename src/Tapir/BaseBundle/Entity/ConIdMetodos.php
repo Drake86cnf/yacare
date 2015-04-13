@@ -16,7 +16,9 @@ trait ConIdMetodos
 {
 
     /**
+     *
      * @ignore
+     *
      */
     public function getId()
     {
@@ -24,7 +26,9 @@ trait ConIdMetodos
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setId($id)
     {
@@ -43,7 +47,7 @@ trait ConIdMetodos
 
     /**
      * Obtiene el YRI codificado en base64.
-     * 
+     *
      * @see getYri()
      */
     public function getYri64($incluye_version = true)
@@ -53,11 +57,12 @@ trait ConIdMetodos
 
     /**
      * Obtiene un YRI, que es un identificador único de esta entidad.
-     * 
+     *
      * El YRI es una URL que apunta a una entidad.
-     * 
-     * @param boot $incluye_version Indica si el YRI es a una versión específica de la entidad (true)
-     *                              o en general a cualquier versión disponible (false).
+     *
+     * @param boot $incluye_version
+     *            Indica si el YRI es a una versión específica de la entidad (true)
+     *            o en general a cualquier versión disponible (false).
      */
     public function getYri($incluye_version = true)
     {
@@ -76,7 +81,7 @@ trait ConIdMetodos
 
     /**
      * Obtiene un enlace QR al YRI, en base64.
-     
+     *
      * @return string La representación base64 del gráfico QR del YRI.
      */
     public function getYriQrBase64()

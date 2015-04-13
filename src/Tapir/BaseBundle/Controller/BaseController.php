@@ -18,38 +18,45 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 abstract class BaseController extends Controller
 {
+
     /**
+     *
      * @var string El nombre del EntityManager que se usa en este controlador.
      * @see $EmName
      */
     protected $EmName;
-    
+
     /**
+     *
      * @var string El nombre del vendor al cual pertenece este controlador.
      * @see $BundleName
      */
     protected $VendorName;
 
     /**
+     *
      * @var string El nombre del bundle al cual pertenece este controlador.
      * @see $VendorName
      */
     protected $BundleName;
 
     /**
+     *
      * @var string El nombre de la entidad principal que administra este controlador.
      */
     protected $EntityName;
 
     /**
+     *
      * @var string El nombre completo de la entidad, incluyendo vendor y bundle.
      * @see $EntityName
      */
     protected $CompleteEntityName;
 
     /**
-     * @var string El nombre de la entidad para las rutas generadas.
      *
+     * @var string El nombre de la entidad para las rutas generadas.
+     *     
      *      En la mayoría de los casos se deja en blanco y se asume que es lo mismo
      *      que EntityName. Puede ser diferente del nombre de la entidad en el bundle,
      *      por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
@@ -60,7 +67,7 @@ abstract class BaseController extends Controller
      *
      * @var array Un array con los nombres de las variables que se deben conservar al pasar de
      *      una acción a otra.
-     *
+     *     
      * @see ArrastrarVariables()
      * @see IniciarVariables()
      */
@@ -77,15 +84,13 @@ abstract class BaseController extends Controller
         $this->IniciarVariables();
     }
 
-
     /**
      * Obtiene el Entity Manager de Doctrine.
      */
-    protected function getEm() {
-    	return $this->getDoctrine()->getManager($this->EmName);
+    protected function getEm()
+    {
+        return $this->getDoctrine()->getManager($this->EmName);
     }
-
-
 
     /**
      * Inicia las variables internas del controlador.
@@ -101,37 +106,35 @@ abstract class BaseController extends Controller
         if (! isset($this->VendorName)) {
             $this->VendorName = \Tapir\BaseBundle\Helper\StringHelper::ObtenerAplicacion(get_class($this));
         }
-
+        
         $PartesNombreClase = \Tapir\BaseBundle\Helper\StringHelper::ObtenerBundleYEntidad(get_class($this));
-
+        
         if (! isset($this->BundleName)) {
             $this->BundleName = $PartesNombreClase[0];
         }
-
+        
         if (! isset($this->EntityName)) {
             $this->EntityName = $PartesNombreClase[1];
         }
-
+        
         if (! isset($this->CompleteEntityName)) {
-            $this->CompleteEntityName = '\\' . $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' . $this->EntityName;
+            $this->CompleteEntityName = '\\' . $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Entity\\' .
+                 $this->EntityName;
         }
-
+        
         if (! isset($this->BaseRouteEntityName)) {
             $this->BaseRouteEntityName = $this->EntityName;
         }
-
+        
         if (! isset($this->ConservarVariables)) {
-            $this->ConservarVariables = array(
-                'filtro_buscar'
-            );
+            $this->ConservarVariables = array('filtro_buscar');
         }
     }
 
-
-    public function ObtenerVariable($request, $varName) {
-    	return $request->query->get($varName);
+    public function ObtenerVariable($request, $varName)
+    {
+        return $request->query->get($varName);
     }
-
 
     /**
      * Arrastra variables entre acciones.
@@ -144,8 +147,8 @@ abstract class BaseController extends Controller
      *
      * @see $ConservarVariables
      *
-     * @param string $valorInicial
-     * @param bool $incluirDelSistema
+     * @param string $valorInicial            
+     * @param bool $incluirDelSistema            
      * @return string El array con todas las variables necesarias para pasar a
      *         una acción.
      */
@@ -153,9 +156,9 @@ abstract class BaseController extends Controller
     {
         if (! $valorInicial)
             $valorInicial = array();
-
+        
         $request = $this->getRequest();
-
+        
         if ($incluirDelSistema) {
             $valorInicial['bundlename'] = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);
             $valorInicial['entityname'] = strtolower($this->EntityName);
@@ -167,7 +170,7 @@ abstract class BaseController extends Controller
                 $valorInicial['paginar'] = $this->Paginar;
             }
         }
-
+        
         if ($this->ConservarVariables) {
             foreach ($this->ConservarVariables as $vr) {
                 $val = $request->query->get($vr);
@@ -179,18 +182,18 @@ abstract class BaseController extends Controller
                 }
             }
         }
-
+        
         // Arrastro el valor de la variable page
         $val = $request->query->get('page');
-        if ($val && ((int)($val)) > 1) {
+        if ($val && ((int) ($val)) > 1) {
             $valorInicial['arrastre']['page'] = $val;
             $valorInicial['page'] = $val;
         }
-
+        
         if (! isset($valorInicial['arrastre'])) {
             $valorInicial['arrastre']['d'] = '';
         }
-
+        
         return $valorInicial;
     }
 
@@ -209,9 +212,12 @@ abstract class BaseController extends Controller
     public function obtenerRutaBase($action = null)
     {
         if ($action) {
-            return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' . $action);
+            return strtolower(
+                strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName . '_' .
+                     $action);
         } else {
-            return strtolower(strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
+            return strtolower(
+                strtolower($this->VendorName) . '_' . $this->BundleName . '_' . $this->BaseRouteEntityName);
         }
     }
 
@@ -260,31 +266,34 @@ abstract class BaseController extends Controller
             }
         }
     }
-    
+
     /**
      * Devuelve el nombre del bundle al cual pertenece este controlador.
-     * 
+     *
      * @see $BundleName
      */
-    public function getBundleName() {
+    public function getBundleName()
+    {
         return $this->BundleName;
     }
-    
+
     /**
      * Devuelve el nombre de la entidad principal que administra este controlador.
-     * 
+     *
      * @see $EntityName
      */
-    public function getEntityName() {
+    public function getEntityName()
+    {
         return $this->EntityName;
     }
-    
+
     /**
      * Devuelve el nombre del vendor o aplicación al cual pertenece este controlador.
      *
      * @see $VendorName
      */
-    public function getVendorName() {
+    public function getVendorName()
+    {
         return $this->VendorName;
     }
 }

@@ -16,19 +16,21 @@ trait Versionable
 
     /**
      * La versión del registro.
-     * 
+     *
      * La versión comienza en 1 en la creación del registro y se incrementa
      * en cada modificación.
      *
      * @var integer $Version
      *     
-     * @ORM\Column(name="Version", type="integer")
-     * @ORM\Version
+     *      @ORM\Column(name="Version", type="integer")
+     *      @ORM\Version
      */
     private $Version;
 
     /**
+     *
      * @ignore
+     *
      */
     public function getVersion()
     {
@@ -36,7 +38,9 @@ trait Versionable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setVersion($Version)
     {

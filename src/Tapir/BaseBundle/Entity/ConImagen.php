@@ -17,23 +17,24 @@ trait ConImagen
      * @var $imagen @ORM\Column(name="imagen", type="blob", nullable=true)
      */
     private $imagen;
-    
-    
+
     /**
      * Obtiene un valor que indica si el elemento actual tiene una imagen.
+     * 
      * @return bool True si el campo imagen tiene asignado un valor.
      */
     public function TieneImagen()
     {
-    	if($this->imagen) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+        if ($this->imagen) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Obtiene la imagen en formato base64.
+     * 
      * @return string
      */
     public function getImagenBase64()
@@ -41,9 +42,10 @@ trait ConImagen
         return base64_encode($this->imagen);
     }
 
-
     /**
+     *
      * @ignore
+     *
      */
     public function getImagen()
     {
@@ -51,7 +53,9 @@ trait ConImagen
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setImagen($imagen)
     {

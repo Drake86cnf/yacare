@@ -13,7 +13,7 @@ class Chartjs /* extends AbstractChart */ implements ChartInterface
 	public $RenderTo;
 	public $ChartType = 'Pie';
 
-	private $PresetColors = array(
+	public $PresetColors = array(
 			'#d08770',
 			'#5b90bf',
 			'#ebcb8b',

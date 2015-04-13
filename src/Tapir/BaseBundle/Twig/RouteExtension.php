@@ -12,11 +12,8 @@ class RouteExtension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('tapir_rutaexiste', array(
-                $this,
-                'tapir_rutaexiste'
-            ))
-        );
+            new \Twig_SimpleFilter('tapir_rutaexiste', 
+                array($this,'tapir_rutaexiste')));
     }
 
     function tapir_rutaexiste($name)

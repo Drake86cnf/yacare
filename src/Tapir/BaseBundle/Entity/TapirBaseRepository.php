@@ -19,18 +19,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class TapirBaseRepository extends EntityRepository
 {
+
     public function createQueryBuilder($alias, $indexBy = NULL)
     {
         $res = parent::createQueryBuilder($alias, $indexBy = NULL);
-
+        
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Tapir\BaseBundle\Entity\ConNombre')) {
             $res->addOrderBy($alias . '.Nombre');
         }
-
+        
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Tapir\BaseBundle\Entity\Suprimible')) {
             $res->where($alias . '.Suprimido=0');
         }
-
+        
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->_entityName, 'Tapir\BaseBundle\Entity\Archivable')) {
             $dql = $res->getDql();
             if (strpos($dql, $alias . '.Archivado=1') === false) {
@@ -38,7 +39,7 @@ class TapirBaseRepository extends EntityRepository
                 $res->where($alias . '.Archivado=0');
             }
         }
-
+        
         return $res;
     }
 }

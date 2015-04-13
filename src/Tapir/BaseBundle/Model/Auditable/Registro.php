@@ -9,7 +9,7 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  *
  * @ORM\Table(name="sys_log")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class Registro
@@ -17,75 +17,66 @@ class Registro
     use \Tapir\BaseBundle\Entity\ConIdMetodos;
 
     /**
-     * @var integer
-     * @ORM\Column(name="id_log", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @var integer @ORM\Column(name="id_log", type="integer")
+     *      @ORM\Id
+     *      @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
+
     /**
      * La fecha y hora del evento.
      *
-     * @var \DateTime
-     * @ORM\Column(name="fecha", type="datetime", nullable=true)
+     * @var \DateTime @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
     private $Fecha;
-    
+
     /**
      * El nombre de la estación de trabajo o la IP del cliente.
      *
-     * @var string
-     * @ORM\Column(name="estacion", type="string", length=255, nullable=false)
+     * @var string @ORM\Column(name="estacion", type="string", length=255, nullable=false)
      */
     private $Estacion;
-    
+
     /**
      * La acción ejecutada (editar, eliminar, etc.).
-     * 
-     * @var string
-     * @ORM\Column(name="comando", type="string", length=255, nullable=false)
+     *
+     * @var string @ORM\Column(name="comando", type="string", length=255, nullable=false)
      */
     private $Accion;
-    
+
     /**
      * La tabla o clase sobre la cual se ejecutó la acción.
-     * 
-     * @var string
-     * @ORM\Column(name="tabla", type="string", length=255, nullable=true)
-     * 
+     *
+     * @var string @ORM\Column(name="tabla", type="string", length=255, nullable=true)
+     *     
      * @see ElementoId
      */
     private $ElementoTipo;
-    
+
     /**
      * El id del elemento sobre el cual se ejecutó la acción.
-     * 
-     * @var integer
-     * @ORM\Column(name="item_id", type="integer", nullable=true)
-     * 
+     *
+     * @var integer @ORM\Column(name="item_id", type="integer", nullable=true)
+     *     
      * @see ElementoTipo
      */
     private $ElementoId;
-    
+
     /**
      * Datos adicionales.
      *
-     * @var string
-     * @ORM\Column(name="extra1", type="text", nullable=true)
+     * @var string @ORM\Column(name="extra1", type="text", nullable=true)
      */
     private $Extra;
-    
+
     /**
      * El id del usuario que ejecutó la acción.
-     * 
-     * @var int
-     * @ORM\Column(name="usuario", type="integer", nullable=true)
+     *
+     * @var int @ORM\Column(name="usuario", type="integer", nullable=true)
      */
     private $Usuario;
 
-    
-    
     public function getFecha()
     {
         return $this->Fecha;

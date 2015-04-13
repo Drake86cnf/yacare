@@ -19,7 +19,9 @@ trait ConUrl
     private $Url;
 
     /**
+     *
      * @ignore
+     *
      */
     public function getUrl()
     {
@@ -27,7 +29,9 @@ trait ConUrl
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setUrl($Url)
     {

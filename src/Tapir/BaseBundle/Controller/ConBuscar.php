@@ -17,16 +17,15 @@ trait ConBuscar
     /**
      * Acción de mostrar el buscador.
      *
-     * @see buscarresultadosAction()
-     * @Route("buscar/")
-     * @Template()
+     * @see buscarresultadosAction() @Route("buscar/")
+     *      @Template()
      */
     public function buscarAction(Request $request)
     {
         $this->Paginar = false;
         $this->Limit = 500;
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-        if($filtro_buscar) {
+        if ($filtro_buscar) {
             // Si hay texto de búsqueda, derivo a buscar
             return $this->listarAction($request);
         } else {
@@ -35,15 +34,16 @@ trait ConBuscar
         }
     }
 
-    /**
-     * Acción de mostrar los resultados de la búsqueda.
+/**
+ * Acción de mostrar los resultados de la búsqueda.
+ *
+ * @see buscarAction() @Route("buscarresultados/")
+ *      @Template()
+ */
+    /*
+     * public function buscarresultadosAction(Request $request)
+     * {
      *
-     * @see buscarAction()
-     * @Route("buscarresultados/")
-     * @Template()
+     * }
      */
-    /* public function buscarresultadosAction(Request $request)
-    {
-
-    } */
 }

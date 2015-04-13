@@ -36,7 +36,7 @@ trait ConPerfil
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
         
-        if($entity->getUsername()) {
+        if ($entity->getUsername()) {
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
         } else {
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
@@ -49,7 +49,7 @@ trait ConPerfil
                 if ($entity->getPasswordEnc()) {
                     // Genero una nueva sal
                     $entity->setSalt(md5(uniqid(null, true)));
-                
+                    
                     $factory = $this->get('security.encoder_factory');
                     $encoder = $factory->getEncoder($entity);
                     $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
@@ -75,30 +75,30 @@ trait ConPerfil
             if ($errors) {
                 foreach ($errors as $error) {
                     $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error);
+                        ->getFlashBag()
+                        ->add('danger', $error);
                 }
                 
-                $res = $this->ArrastrarVariables(array(
-                    'entity' => $entity,
-                    'errors' => $errors,
-                    'create' => $id ? false : true,
-                    'edit_form' => $editForm->createView()
-                ));
+                $res = $this->ArrastrarVariables(
+                    array(
+                        'entity' => $entity,
+                        'errors' => $errors,
+                        'create' => $id ? false : true,
+                        'edit_form' => $editForm->createView()));
                 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             } else {
-                if($user) {
+                if ($user) {
                     $em->refresh($user);
                 }
             }
         }
-
-        return $this->ArrastrarVariables(array(
-            'entity' => $entity,
-            'edit_form_action' => 'usuario_editarperfil',
-            'edit_form' => $editForm->createView()
-        ));
+        
+        return $this->ArrastrarVariables(
+            array(
+                'entity' => $entity,
+                'edit_form_action' => 'usuario_editarperfil',
+                'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -111,7 +111,9 @@ trait ConPerfil
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.context')
+            ->getToken()
+            ->getUser();
         
         $em = $this->getDoctrine()->getManager();
         if ($id) {
@@ -120,7 +122,7 @@ trait ConPerfil
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
         
-        if($entity->getId() == $user->getId()) {
+        if ($entity->getId() == $user->getId()) {
             // Es el usuario conectado, muestro "cambiar contraseña"
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
         } else {
@@ -157,14 +159,10 @@ trait ConPerfil
             $em->refresh($user);
         }
         
-        return $this->ArrastrarVariables(array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'terminado' => $terminado
-        ));
+        return $this->ArrastrarVariables(
+            array('entity' => $entity,'edit_form' => $editForm->createView(),'terminado' => $terminado));
     }
-    
-    
+
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de guardar el perfil.
      */
@@ -172,8 +170,7 @@ trait ConPerfil
     {
         return;
     }
-    
-    
+
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de cambiar la contraseña.
      */

@@ -1,24 +1,34 @@
-<!DOCTYPE html>{% set tapir_modal = 0 %}{% set block_pagina_titulo = block('pagina_titulo') %}
+<!DOCTYPE html>
+{% set tapir_modal = 0 %}{% set block_pagina_titulo =
+block('pagina_titulo') %}
 
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ tapir_nombreaplicacion }}">
-    <meta name="author" content="Ernesto N. Carrea">
-    
-    <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title>
-    {% image '@tapir_favicon' %}
-    <link rel="icon" href="{{ asset_url }}" />
-    {% endimage %}
-    
-    <link href="{{ asset('bundles/tapirbase/css/fonts.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/tapir.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/tapirbase/css/tapir_print.css') }}" rel="stylesheet" />
-    <alink href="{{ asset('bundles/tapirbase/css/yacare-print.css') }}" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ tapir_nombreaplicacion }}">
+<meta name="author" content="Ernesto N. Carrea">
+
+<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not
+	empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title> {% image
+'@tapir_favicon' %}
+<link rel="icon" href="{{ asset_url }}" />
+{% endimage %}
+
+<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirbase/css/tapir_print.css') }}"
+	rel="stylesheet" />
+<alink href="{{ asset('bundles/tapirbase/css/yacare-print.css') }}"
+	rel="stylesheet" />
 
 <style type="text/css">
 @page {
@@ -46,69 +56,68 @@ body {
         min-width: 210mm;
     }
 } */
-
 .encabezadooficial {
-    height: 90px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    border-bottom: 1px solid silver;
+	height: 90px;
+	overflow: hidden;
+	margin-bottom: 20px;
+	border-bottom: 1px solid silver;
 }
 
 .encabezadooficial .encabezadooficial-logo {
-    padding-right: 8px;
+	padding-right: 8px;
 }
 
 .encabezadooficial .encabezadooficial-izquierda {
-    padding-top: 4px;
+	padding-top: 4px;
 }
 
 .encabezadooficial h1 {
-    font-weight: 700;
-    color: black;
-    font-size: 14pt;
-    padding-bottom: 0;
+	font-weight: 700;
+	color: black;
+	font-size: 14pt;
+	padding-bottom: 0;
 }
 
 .encabezadooficial h2 {
-    font-weight: 400;
-    color: #404040;
-    font-size: 12pt;
-    margin-top: 2px;
-    margin-bottom: 2px;
+	font-weight: 400;
+	color: #404040;
+	font-size: 12pt;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 .encabezadooficial h3 {
-    font-weight: 400;
-    color: #606060;
-    font-size: 11pt;
-    margin-top: 2px;
+	font-weight: 400;
+	color: #606060;
+	font-size: 11pt;
+	margin-top: 2px;
 }
 
 .encabezadooficial .encabezadooficial-derecha {
-    font-size: 9pt;
+	font-size: 9pt;
 }
 
 .etiquetaqr {
-    border: 1px solid gray;
-    padding: 0;
-    margin: 4px;
-    background-color: #e0e0e0;
-    position: absolute;
-    bottom: 24px;
-    right: 0;
+	border: 1px solid gray;
+	padding: 0;
+	margin: 4px;
+	background-color: #e0e0e0;
+	position: absolute;
+	bottom: 24px;
+	right: 0;
 }
 
 .etiquetaqr .etiquetaqr-info {
-    font-size: 8pt;
-    padding-top: 11px;
-    min-width: 240px;
-    background-color: white;
+	font-size: 8pt;
+	padding-top: 11px;
+	min-width: 240px;
+	background-color: white;
 }
 
 .etiquetaqr-codigo {
-    font-size: 24pt;
-    width: 100%;
-} 
+	font-size: 24pt;
+	width: 100%;
+}
 
 a {
 	color: #4183c4;
@@ -213,14 +222,12 @@ table.listado tr td.label {
 </head>
 
 <body>
-	<div class="content" id="content">
-	   {% block pagina_contenido %}{% endblock %}
-	</div>
-	
-	<div class="pieoficial text-center">
-	   {% block pagina_pie %}{% endblock %}
-	   Las Islas Malvinas, Georgias y Sandwich del Sur son y serán argentinas.
-	</div>
+	<div class="content" id="content">{% block pagina_contenido %}{%
+		endblock %}</div>
+
+	<div class="pieoficial text-center">{% block pagina_pie %}{% endblock
+		%} Las Islas Malvinas, Georgias y Sandwich del Sur son y serán
+		argentinas.</div>
 </body>
 
 </html>

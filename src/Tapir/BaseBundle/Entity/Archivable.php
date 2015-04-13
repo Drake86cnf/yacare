@@ -13,7 +13,7 @@ trait Archivable
 
     /**
      * Indica si la entidad fue archivada.
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $Archivado = 0;
@@ -27,7 +27,9 @@ trait Archivable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function getArchivado()
     {
@@ -35,7 +37,9 @@ trait Archivable
     }
 
     /**
+     *
      * @ignore
+     *
      */
     public function setArchivado($Archivado)
     {
