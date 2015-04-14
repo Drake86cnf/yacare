@@ -56,6 +56,12 @@ class FormatExtension extends \Twig_Extension
 
     public function tapir_porcentaje($number, $decimales = 0, $option = '%')
     {
+        if ($number == null) {
+            return '';
+        } elseif (! is_numeric($number)) {
+            $number = $number + 0;
+        }
+
     	if (strpos($option, '-') !== false && $number == 0) {
     		return '-';
     	} else {
@@ -80,6 +86,12 @@ class FormatExtension extends \Twig_Extension
 
     public function tapir_importe($number, $option = '')
     {
+        if ($number == null) {
+            return '';
+        } elseif (! is_numeric($number)) {
+            $number = $number + 0;
+        }
+
         if (strpos($option, '-') !== false && $number == 0) {
             return '-';
         } else {
