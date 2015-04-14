@@ -63,6 +63,9 @@ doctrine:
         entity_managers:
             default:
                 dql:
+                    string_functions:
+                        MONTH: Tapir\BaseBundle\DQL\Month
+                        YEAR: Tapir\BaseBundle\DQL\Year
                     numeric_functions:
                         st_contains:     CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STContains
                         st_distance:     CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STDistance
