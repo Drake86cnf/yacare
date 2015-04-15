@@ -13,6 +13,8 @@ class Chartjs /* extends AbstractChart */ implements ChartInterface
 	public $RenderTo;
 	public $ChartType = 'Pie';
 
+	private $DatasetNumber = 1;
+
 	public $PresetColors = array(
 			'#d08770',
 			'#5b90bf',
@@ -22,6 +24,40 @@ class Chartjs /* extends AbstractChart */ implements ChartInterface
 			'#bf616a',
 			'#ab7967'
 	);
+
+	public $LinePresetColors = array (
+	        1 => array('fillColor' => 'rgba(220,220,220,0.2)',
+    	        'strokeColor' => 'rgba(220,220,220,1)',
+                'pointColor' => 'rgba(220,220,220,1)',
+                'pointHighlightStroke' => 'rgba(220,220,220,1)'),
+	        2 => array('fillColor' => 'rgba(151,187,205,0.2)',
+	                'strokeColor' => 'rgba(151,187,205,1)',
+	                'pointColor' => 'rgba(151,187,205,1)',
+	                'pointHighlightStroke' => 'rgba(151,187,205,1)')
+	        );
+
+	/**
+	 * Adds a data set to a line chart.
+	 *
+	 * @param array $values
+	 * @param array $labels
+	 */
+	public function AddLineDataSet($values, $labels = null) {
+	    if($labels) {
+            $this->ChartData['labels'] = $labels;
+	    }
+
+	    $dataset = array_merge($this->LinePresetColors[$this->DatasetNumber], array (
+	        'label' => 'dataset' . $this->DatasetNumber,
+            'pointStrokeColor' => '#fff',
+            'pointHighlightFill' => '#fff',
+	        'data' => $values
+	    ));
+
+	    $this->ChartData['datasets'][] = $dataset;
+
+	    $this->DatasetNumber++;
+	}
 
 	public function AddPieValue($label, $value, $color = null) {
 		if(!$this->ChartData) {
@@ -111,8 +147,8 @@ class Chartjs /* extends AbstractChart */ implements ChartInterface
             $chartJS .= "$(function () {\n";
         }
 
-        $chartJS .= "    var chart_data = " . json_encode($this->ChartData) . "\n";
-        $chartJS .= "    var chart_options = " . json_encode($this->ChartOptions) . "\n";
+        $chartJS .= "    var chart_data = " . json_encode($this->ChartData, JSON_PRETTY_PRINT) . "\n";
+        $chartJS .= "    var chart_options = " . json_encode($this->ChartOptions, JSON_PRETTY_PRINT) . "\n";
 
         $chartJS .= "    var chart_context = $(\"#" . $this->RenderTo . "\").get(0).getContext(\"2d\");\n";
         $chartJS .= "    new Chart(chart_context)." . $this->ChartType . "(chart_data, chart_options);\n";

@@ -6,6 +6,24 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class StringHelper
 {
 
+    static public function NombreMes($mes) {
+        switch($mes) {
+            case 1: return 'enero';
+            case 2: return 'febrero';
+            case 3: return 'marzo';
+            case 4: return 'abril';
+            case 5: return 'mayo';
+            case 6: return 'junio';
+            case 7: return 'julio';
+            case 8: return 'agosto';
+            case 9: return 'septiembre';
+            case 10: return 'octubre';
+            case 11: return 'noviembre';
+            case 12: return 'diciembre';
+        }
+    }
+
+
     /*
      * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para
      * \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
@@ -13,21 +31,21 @@ class StringHelper
     static public function ObtenerBundleYEntidad($nombreclase)
     {
         $PartesNombreClase = explode('\\', $nombreclase);
-        
+
         $res = array();
-        
+
         $res[0] = $PartesNombreClase[1];
         if (strlen($res[0]) > 6 && substr($res[0], - 6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $res[0] = substr($res[0], 0, strlen($res[0]) - 6);
         }
-        
+
         $res[1] = $PartesNombreClase[3];
         if (strlen($res[1]) > 10 && substr($res[1], - 10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
         }
-        
+
         return $res;
     }
 
@@ -38,7 +56,7 @@ class StringHelper
     static public function ObtenerAplicacion($nombreclase)
     {
         $PartesNombreClase = explode('\\', $nombreclase);
-        
+
         return $PartesNombreClase[0];
     }
 
@@ -52,7 +70,7 @@ class StringHelper
         // Quito barras iniciales y finales
         $nombreclase = trim($nombreclase, '\\');
         $PartesNombreClase = StringHelper::ObtenerBundleYEntidad($nombreclase);
-        
+
         if ($accion)
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1] . '_' . $accion);
         else
@@ -64,29 +82,29 @@ class StringHelper
         $Partes = preg_split('/[\: ]/', $text);
         $Tipo = '';
         $Numero = '';
-        
+
         foreach ($Partes as $Parte) {
             $v = trim($Parte);
             if ($v == '') {
                 // Ignorar
-            } else 
+            } else
                 if ($v == 'DU') {
                     $Tipo = 'DNI';
-                } else 
+                } else
                     if ($v == 'DU' || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
                         $Tipo = $v;
                     } else {
                         $Numero = $v;
                     }
-            
+
             if (strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            } else 
+            } else
                 if (! $Tipo || $Tipo = 'SC') {
                     $Tipo = 'DNI';
                 }
         }
-        
+
         return array($Tipo,ltrim($Numero, '0'));
     }
 
@@ -96,7 +114,7 @@ class StringHelper
             StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
 
-    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"), 
+    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"),
         $exceptions = array(
                 'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
                 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
@@ -109,7 +127,7 @@ class StringHelper
          * Viii should be King Henry VIII
          */
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
-        
+
         foreach ($delimiters as $dlnr => $delimiter) {
             $words = explode($delimiter, $string);
             $newwords = array();
@@ -120,7 +138,7 @@ class StringHelper
                 } elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtolower($word, 'UTF-8');
-                } 
+                }
 
                 elseif (! in_array($word, $exceptions)) {
                     // convert to uppercase (non-utf8 only)
@@ -130,16 +148,16 @@ class StringHelper
             }
             $string = join($delimiter, $newwords);
         }
-        
+
         return $string;
     }
 
     static public function ArreglarProblemasConocidos($text)
     {
         $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
-        
+
         $remplazos = array(
-            
+
             // Nombres de calles
             'yugoeslavia' => 'yugoslavia',
             'sra.de' => 'sra. de',
@@ -198,20 +216,20 @@ class StringHelper
             '' => '',
             '' => '',
             '' => '');
-        
+
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
         }
-        
+
         return trim(str_replace('  ', ' ', $text));
     }
 
     static public function PonerTildes($text)
     {
         $text = ' ' . $text . ' ';
-        
+
         $remplazos = array(
-            
+
             // Nombres propios
             'saenz pena' => 'sáenz peña',
             'cristobal colon' => 'cristobal colón',
@@ -230,7 +248,7 @@ class StringHelper
             '' => '',
             '' => '',
             '' => '',
-            
+
             // Nombres
             'martin' => 'martín',
             'maria' => 'maría',
@@ -277,7 +295,7 @@ class StringHelper
             '' => '',
             '' => '',
             '' => '',
-            
+
             // Apellidos
             'perez' => 'pérez',
             'hernandez' => 'hernández',
@@ -338,7 +356,7 @@ class StringHelper
             'persico' => 'pérsico',
             '' => '',
             '' => '',
-            
+
             // Otras palabras
             'antartida' => 'antártida',
             'antartica' => 'antártica',
@@ -379,11 +397,11 @@ class StringHelper
             'radicacion' => 'radicación',
             '' => '',
             '' => '');
-        
+
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
         }
-        
+
         return trim($text);
     }
 
@@ -396,13 +414,13 @@ class StringHelper
     {
         $nombreCompleto = trim(str_replace(array('.'), '', $nombreCompleto));
         $PartesNombre = explode(' ', $nombreCompleto, 2);
-        
+
         if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
-        
+
         $PartesNombre[1] = str_replace(array(','), ' ', $PartesNombre[1]);
-        
+
         return $PartesNombre;
     }
 
@@ -415,26 +433,26 @@ class StringHelper
     {
         $domicilio = StringHelper::Desoraclizar($domicilio);
         $PartesNombre = explode('Nº', $domicilio, 2);
-        
+
         /*
          * if(count($PartesNombre) == 1) {
          * $PartesNombre = explode(' ', $PartesNombre[0], 2);
          * }
          */
-        
+
         if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
-        
+
         $PartesNombre[0] = trim($PartesNombre[0]);
         $PartesNombre[1] = trim($PartesNombre[1]);
-        
+
         $PartesNumero = explode(' ', $PartesNombre[1], 2);
         if (count($PartesNumero) == 2) {
             $PartesNombre[1] = trim($PartesNumero[0]);
             $PartesNombre[2] = trim($PartesNumero[1]);
         }
-        
+
         return $PartesNombre;
     }
 }
