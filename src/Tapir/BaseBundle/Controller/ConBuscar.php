@@ -17,8 +17,9 @@ trait ConBuscar
     /**
      * Acción de mostrar el buscador.
      *
-     * @see buscarresultadosAction() @Route("buscar/")
-     *      @Template()
+     * @see buscarresultadosAction()
+     * @Route("buscar/")
+     * @Template()
      */
     public function buscarAction(Request $request)
     {
@@ -33,17 +34,4 @@ trait ConBuscar
             return $this->ArrastrarVariables(array());
         }
     }
-
-/**
- * Acción de mostrar los resultados de la búsqueda.
- *
- * @see buscarAction() @Route("buscarresultados/")
- *      @Template()
- */
-    /*
-     * public function buscarresultadosAction(Request $request)
-     * {
-     *
-     * }
-     */
 }
