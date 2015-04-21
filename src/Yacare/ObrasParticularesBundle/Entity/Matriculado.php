@@ -27,14 +27,16 @@ class Matriculado
     /**
      * Indica la profesion del matriculado
      *
-     * @var $Profesion @ORM\Column(type="string", nullable=false)
+     * @var $Profesion
+     * @ORM\Column(type="string", nullable=false)
      */
     private $Profesion;
 
     /**
      * La fecha de vencimiento del pago anual.
      *
-     * @var $FechaVencimiento @ORM\Column(type="date", nullable=true)
+     * @var $FechaVencimiento
+     * @ORM\Column(type="date", nullable=true)
      */
     private $FechaVencimiento;
 

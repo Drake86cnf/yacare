@@ -10,7 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\BaseBundle\Controller\ConBuscar {
+    	\Tapir\BaseBundle\Controller\ConBuscar::buscarAction as parent_buscarAction;
+    }
 
     function IniciarVariables()
     {
@@ -29,7 +31,7 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function buscarAction(Request $request)
     {
-        $res = parent::buscarAction($request);
+        $res = parent_buscarAction($request);
         $res['calles'] = $this->ObtenerCalles();
         return $res;
     }
