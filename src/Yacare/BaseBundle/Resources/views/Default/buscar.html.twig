@@ -1,0 +1,36 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+{% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
+{% if not tapir_buscar_destino %}
+    {% set tapir_buscar_destino = path(baseroute ~ '_ver', arrastre|merge({ 'buscar': 1 }))|raw %}
+{% endif %}
+
+{% block pagina_fin %}
+<script type="text/javascript">
+    function seleccionarItem(id, detalle) {
+        if('{{ tapir_buscar_destino }}'.charAt(0) == '#') {
+            // Si comienza con #, es un selector
+            tapirEntityIdSeleccionarItem('{{ tapir_buscar_destino }}', id, detalle);
+        } else {
+            // De lo contrario, asumo que es una URL
+            url = tapirAgregarElementoUri('{{ tapir_buscar_destino }}', 'id', id);
+        	tapirNavegarA(url);
+        }
+        $('#modal').modal('hide');
+        $('#modal').html('(re)Cargando...');
+    }
+    
+    function buscarTexto(texto) {
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', texto);
+        if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            tapirCambiarDireccion(url);
+        }
+        url = tapirAgregarElementoUri(url, 'sinencab', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+        tapirCargarUrlEn(url, '#resultadosbuscar');
+    }
+
+    tapirEnfocarControl('#filtro_buscar');
+</script>
+{% endblock %}

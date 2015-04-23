@@ -131,7 +131,7 @@ abstract class AbmController extends BaseController
             $where = "1=1";
         }
         
-        if ($filtro_buscar && $this->BuscarPor) {
+        if ($filtro_buscar && $filtro_buscar != '%' && $this->BuscarPor) {
             // Busco por varias palabras
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
@@ -188,7 +188,7 @@ abstract class AbmController extends BaseController
             $dql .= " ORDER BY " . join(', ', $OrderByCamposConTabla);
         }
         
-        // echo '------------------------------------------------------------------- ' . $dql;
+        //echo '------------------------------------------------------------------- ' . $dql;
         
         return $dql;
     }

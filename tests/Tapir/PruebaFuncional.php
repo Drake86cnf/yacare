@@ -75,7 +75,7 @@ abstract class PruebaFuncional extends WebTestCase
             if ($block->count() == 0) {
                 $block = $crawler->filter('h1');
             }
-            echo substr($this->client->getResponse()->getContent(), 0, 1024);
+          	echo  substr(strip_tags($this->client->getResponse()->getContent()), 0, 4096);
             if ($block->count()) {
                 $error = $block->text();
                 return $error;
