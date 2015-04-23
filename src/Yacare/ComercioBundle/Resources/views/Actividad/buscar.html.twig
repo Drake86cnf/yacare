@@ -1,24 +1,74 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
-%}Buscar actividad{% endblock %} {% block pagina_contenido %} {% set
-tapir_buscar_destino = app.request.get('tapir_buscar_destino') %} {%
-include 'YacareComercioBundle:Actividad:buscarinicio.html.twig' %}
+{% extends 'YacareBaseBundle:Default:buscar.html.twig' %}
 
-<hr />
+{% block pagina_titulo %}Buscar actividad{% endblock %}
 
-<div id="resultadosbuscar"></div>
+{% block pagina_contenido %}
+<div id="resultadosbuscar">
+    <div class="input-group">
+        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus
+           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+           id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o código..." />
+        <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
+            class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
+    </div>
 
-<script>
-    function seleccionarItem(id, detalle) {
-        tapirEntityIdSeleccionarItem('#{{ tapir_buscar_destino }}', id, detalle);
-        $('#modal').modal('hide');
-        $('#modal').html('(re)Cargando...');
-    }
+{% if entities is defined and entities|length > 0 %}
+&nbsp;
+<div class="container-fluid">
+	{% for entity in entities %}
+	<div class="row">
+		<div class="col-md-12"
+			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">
+			<span class="small text-muted">{{ entity.Ruta|raw }}</span><br />
+			<h2>
+				<a href="#"
+					onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{
+					entity.Nombre }}</a>
+			</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<p>
+				Código ClaMAE <span style="white-space: nowrap;">{{
+					entity.Clamae2014|slice(0,5) }}-{{ entity.Clamae2014|slice(4,2) }}</span>
+			</p>
+			<span class="label label-default">Cat. {{ entity.CategoriaAntigua }}</span>
+			{% if entity.Exento %}<span class="label label-info">Exento</span>{%
+			endif %} {% if entity.RequiereDeyma %}<span class="label label-info">Req.
+				<abbr title="Dirección de Ecología y Medio Ambiente"
+				class="initialism">DEyMA</abbr>
+			</span>{% endif %} {% if entity.RequiereDbeh %}<span
+				class="label label-info">Req. <abbr
+				title="Dirección de Bromatología e Higiene" class="initialism">DBeH</abbr></span>{%
+			endif %} {% if entity.RequiereCamaraGrasa %}<span
+				class="label label-info">Req. <abbr title="Camara de Grasa"
+				class="initialism">CamaraGrasa</abbr></span>{% endif %} {% if
+			entity.RequiereCamaraBarro %}<span class="label label-info">Req. <abbr
+				title="Camara de Barro" class="initialism">CamaraBarro</abbr></span>{%
+			endif %} {% if entity.RequiereInfEscolar %}<span
+				class="label label-info">Req. <abbr
+				title="Infraestructura Escolar Provincial" class="initialism">Inf.Escolar</abbr></span>{%
+			endif %}
+
+		</div>
+		<div class="col-md-8">
+			{% if entity.Incluye %} <span class="text-success"><small><strong>Incluye</strong>
+					{{ entity.Incluye }}</small></span> {% endif %} {% if
+			entity.NoIncluye %} <span class="text-danger"><small><strong>No
+						incluye</strong> {{ entity.NoIncluye }}</small></span> {% endif %}
+		</div>
+	</div>
+	<hr />
+	{% endfor %}
+</div>
+{% else %}
+    <p class="lead">Puede buscar actividades por nombre o código.</p>
+{% endif %}
     
-    function buscarTexto(a) {
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
-        tapirCargarUrlEn(url, '#resultadosbuscar');
-    }
-    
-    $('#filtro_buscar').focus();
-</script>
-{% endblock %} {% block pagina_acciones %} {% endblock %}
+{% endblock %}
+
+{% block pagina_fin %}
+	{{ parent() }}
+</div>
+{% endblock pagina_fin %}

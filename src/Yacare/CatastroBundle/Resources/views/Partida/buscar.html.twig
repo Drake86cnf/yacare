@@ -1,34 +1,119 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
-%}Buscar partidas{% endblock %} {% block pagina_contenido %} {% set
-tapir_buscar_destino = app.request.get('tapir_buscar_destino') %} {%
-include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
+{% extends 'YacareBaseBundle:Default:buscar.html.twig' %}
 
-<div id="resultadosbuscar" class="form-inline"></div>
+{% set filtro_seccion = app.request.get('filtro_seccion') %}
+{% set filtro_macizo = app.request.get('filtro_macizo') %}
+{% set filtro_partida = app.request.get('filtro_partida') %}
+{% set filtro_titular = app.request.get('filtro_titular') %}
+{% set filtro_calle = app.request.get('filtro_calle') %}
+{% set filtro_calle_altura = app.request.get('filtro_calle_altura') %}
+
+{% block pagina_titulo %}Buscar partida inmobiliaria{% endblock %}
+
+{% block pagina_contenido %}
+<div id="resultadosbuscar">
+
+	<div class="row">
+		<div class="col-md-8">
+	
+			<h2>Por titular</h2>
+			<div class="form-group form-inline">
+				<input class="form-control" type="text" size="50" maxlength="50"
+					id="filtro_buscar" name="filtro_buscar"
+					placeholder="Escriba algún dato del titular (apellido, razón social, DNI, CUIL o CUIT)"
+					onkeydown="if (event.keyCode === 13) {
+					$('#filtro_titular_buscar').click(); return
+					false; }"
+	               value="{{ filtro_buscar }}" />
+				<button
+					onclick="buscarTexto($('#filtro_buscar').val()); return false;"
+					type="button" class="btn btn-primary btn" id="filtro_titular_buscar">Buscar</button>
+			</div>
+	
+			<h2>Por calle y altura</h2>
+			<div class="form-group form-inline">
+				<select class="form-control" id="filtro_calle" name="filtro_calle"
+					placeholder="Nombre de la calle">
+					<option value="0">Seleccione una calle</option> {% for entity in
+					calles %}
+					<option value="{{ entity.id }}">{{ entity }}</option> {% endfor %}
+				</select> <input class="form-control" type="text" size="5" maxlength="5"
+					id="filtro_calle_altura" name="filtro_calle_altura"
+					placeholder="Altura" onkeydown="if (event.keyCode === 13) {
+					$('#filtro_calle_buscar').click(); return
+					false; }"
+	               value="{{ filtro_calle_altura }}" style="max-width: 100px" />
+				<button type="button"
+					onclick="buscarCalleAltura($('#filtro_calle').val(), $('#filtro_calle_altura').val()); return false;"
+					class="btn btn-primary btn" id="filtro_calle_buscar">Buscar</button>
+			</div>
+	
+		</div>
+	
+		<div class="col-md-4">
+	
+			<h2>Por número de partida</h2>
+			<div class="form-group form-inline">
+				<input class="form-control" type="text" size="8" maxlength="8"
+					id="filtro_partida" name="filtro_partida"
+					placeholder="Nº de partida" onkeydown="if (event.keyCode === 13) {
+					$('#filtro_partida_buscar').click() }"
+	               value="{{ filtro_partida }}"
+					style="max-width: 100px" />
+				<button type="button"
+					onclick="buscarPartida($('#filtro_partida').val()); return false;"
+					class="btn btn-primary btn" id="filtro_partida_buscar">Buscar</button>
+			</div>
+	
+			<h2>Por sección y macizo</h2>
+			<div class="form-group form-inline">
+				<input class="form-control" type="text" size="5" maxlength="5"
+					id="filtro_seccion" name="filtro_seccion" placeholder="Sección"
+					onkeydown="if (event.keyCode === 13) {
+					$('#filtro_seccion_buscar').click() }"
+	               value="{{ filtro_seccion }}"
+					style="max-width: 100px" /> <input class="form-control" type="text"
+					size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo"
+					placeholder="Macizo" onkeydown="if (event.keyCode === 13) {
+					$('#filtro_seccion_buscar').click() }"
+	               value="{{ filtro_macizo }}"
+					style="max-width: 100px" />
+				<button type="button"
+					onclick="buscarSeccionMacizo($('#filtro_seccion').val(), $('#filtro_macizo').val()); return false;"
+					class="btn btn-primary btn" id="filtro_seccion_buscar">Buscar</button>
+			</div>
+	
+		</div>
+	</div>
+
+{% if entities is defined and entities|length > 0 %}
+&nbsp;
+<table class="table table-condensed table-hoverselect">
+	<tbody>
+		{% for entity in entities %}
+		<tr
+			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
+			<td><i class="fa fa-angle-right"></i></td>
+			<td>{{ entity.Numero }}</td>
+			<td>{{ entity.Nombre }}</td>
+			<td><small class="text-muted">{{ entity.Titular }}</small></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+    <p class="lead">Escriba un texto de búsqueda.</p>
+{% endif %}
+    
+{% endblock %}
+
+{% block pagina_fin %}
+	{{ parent() }}
 
 <script>
-    function seleccionarItem(id, detalle) {
-        tapirEntityIdSeleccionarItem('#{{ tapir_buscar_destino }}', id, detalle);
-        $('#modal').modal('hide');
-        $('#modal').html('(re)Cargando...');
-    }
-    
     function buscarNada() {
         $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
         
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=-1&reiniciar=1';
-        $.get(url, function(data) {
-            $('#resultadosbuscar').html(data);
-            $('#filtro_buscar').focus();
-        }).fail(function(a) {
-            // Muestro un error
-            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
-        });
-    }
-    
-    function buscarTitular(a) {
-        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
-        
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_titular=' + a;
+        var url = '{{ path(baseroute ~ '_buscar')|raw }}?filtro_partida=-1&reiniciar=1';
         $.get(url, function(data) {
             $('#resultadosbuscar').html(data);
             $('#filtro_buscar').focus();
@@ -39,53 +124,37 @@ include 'YacareCatastroBundle:Partida:buscarinicio.html.twig' %}
     }
     
     function buscarPartida(a) {
-        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
-        
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_partida=' + a;
-        $.get(url, function(data) {
-            $('#resultadosbuscar').html(data);
-            $('#filtro_buscar').focus();
-        }).fail(function(a) {
-            // Muestro un error
-            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
-        });
-    }
-    
-    function buscarCalleAltura(a, b) {
-        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
-        
-        seccion = a;
-
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_calle=' + a+ '&filtro_calle_altura=' + b;
-        $.get(url, function(data) {
-            $('#resultadosbuscar').html(data);
-            $('#filtro_buscar').focus();
-        }).fail(function(a) {
-            // Muestro un error
-            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
-        });
-    }
-    
-    function buscarSeccionMacizo(a, b) {
-        $('#resultadosbuscar').html('<p><i class="fa fa-spinner fa-spin"></i> Buscando...</p>');
-
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_seccion=' + a + '&filtro_macizo=' + b;
-        $.get(url, function(data) {
-            $('#resultadosbuscar').html(data);
-            $('#filtro_buscar').focus();
-        }).fail(function(a) {
-            // Muestro un error
-            $('#resultadosbuscar').html('<p>Error al cargar el contenido de la ventana desde ' + url + ', el error es: ' + a.status + '</p>');
-        });
-    }
-    
-    $('#filtro_buscar').keyup(function(e) {
-        if(e.keyCode == 13) {
-            e.preventDefault();
-            $('#botonbuscar').trigger('click');
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1, 'filtro_calle': null, 'filtro_calle_altura': null, 'filtro_macizo': null, 'filtro_seccion': null }))|raw }}', 'filtro_partida', a);
+        if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            tapirCambiarDireccion(url);
         }
-    });
-    
-    $('#filtro_titular').focus();
+        url = tapirAgregarElementoUri(url, 'sinencab', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+        tapirCargarUrlEn(url, '#resultadosbuscar');
+    }
+
+    function buscarCalleAltura(a, b) {
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1 }))|raw }}', 'filtro_calle', a);
+        url = tapirAgregarElementoUri(url, 'filtro_calle_altura', b);
+        if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            tapirCambiarDireccion(url);
+        }
+        url = tapirAgregarElementoUri(url, 'sinencab', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+        tapirCargarUrlEn(url, '#resultadosbuscar');
+    }
+
+    function buscarSeccionMacizo(a, b) {
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1 }))|raw }}', 'filtro_seccion', a);
+        url = tapirAgregarElementoUri(url, 'filtro_macizo', b);
+        if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            tapirCambiarDireccion(url);
+        }
+        url = tapirAgregarElementoUri(url, 'sinencab', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+        tapirCargarUrlEn(url, '#resultadosbuscar');
+    }
 </script>
-{% endblock %} {% block pagina_acciones %} {% endblock %}
+	
+</div>
+{% endblock pagina_fin %}

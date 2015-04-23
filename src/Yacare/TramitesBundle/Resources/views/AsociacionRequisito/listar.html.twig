@@ -1,6 +1,9 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
-pagina_titulo %}Requisitos de &quot;{{ parent }}&quot;{% endblock %} {%
-block pagina_contenido %} {% if entities is empty %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
+
+{% block pagina_titulo %}Requisitos {% if parent is defined %}de &quot;{{ parent }}&quot;{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+{% if entities is empty %}
 <div>
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -29,13 +32,23 @@ block pagina_contenido %} {% if entities is empty %}
 		{% endfor %}
 	</tbody>
 </table>
-{% endif %} {% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
-block pagina_acciones %}
+{% endif %}
+
+{% endblock %}
+
+{% block pagina_paginar %}
+{% include 'TapirBaseBundle::paginar.html.twig' %}
+{% endblock pagina_paginar %}
+
+{% block pagina_acciones %}
+{% if parent is defined %}
 <a data-toggle="ajax-link"
 	href="{{ path('yacare_tramites_tramitetipo_ver', { 'id': parent.id }) }}"
 	class="btn btn-link"><i class="fa fa-reply"></i> Volver al trámite</a>
-{% endblock pagina_acciones %} {% block pagina_acciones2 %}
+{% endif %}
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
 	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
 	class="btn btn-default"><i class="fa fa-plus"></i> Nuevo requisito</a>

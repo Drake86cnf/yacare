@@ -1,6 +1,16 @@
-{% extends 'TapirBaseBundle:Default:editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %}{{ entity.Partida.Domicilio }}{% else
-%}Nuevo local{% endif %}{% endblock %} {% block pagina_scripts %}
+{% extends 'TapirBaseBundle:Default:editar.html.twig' %}
+
+{% block pagina_titulo %}{% if entity.id %}
+	{% if entity.Partida %}
+		{{ entity.Partida.Domicilio }}
+	{% else %}
+		{{ entity }}
+	{% endif %}
+{% else %}
+	Nuevo local
+{% endif %}{% endblock %}
+
+{% block pagina_scripts %}
 <script>
     $('#yacare_comerciobundle_localtype_Tipo').change(function() {
         if($('#yacare_comerciobundle_localtype_Tipo').val() === 'Depósito') {

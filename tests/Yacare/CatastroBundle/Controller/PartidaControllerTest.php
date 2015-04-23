@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
-
+/*
 class PartidaControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
 {
 	public function setup()
@@ -29,4 +29,4 @@ class PartidaControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTe
 		$this->assertEquals('yacare_catastro_partida', $this->item->obtenerRutaBase());
 		$this->assertEquals('yacare_catastro_partida_listar', $this->item->obtenerRutaBase('listar'));
 	}
-}
+}*/

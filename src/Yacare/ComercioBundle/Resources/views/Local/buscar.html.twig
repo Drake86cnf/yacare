@@ -1,22 +1,40 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
-%}Buscar local comercial{% endblock %} {% block pagina_contenido %} {%
-set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %} {%
-include 'YacareComercioBundle:Local:buscarinicio.html.twig' %}
+{% extends 'YacareBaseBundle:Default:buscar.html.twig' %}
 
-<div id="resultadosbuscar" class="form-inline"></div>
+{% block pagina_titulo %}Buscar local comercial{% endblock %}
 
-<script>
-    function seleccionarItem(id, detalle) {
-        tapirEntityIdSeleccionarItem('#{{ tapir_buscar_destino }}', id, detalle);
-        $('#modal').modal('hide');
-        $('#modal').html('(re)Cargando...');
-    }
-     
-    function buscarTexto(a) {
-        var url = '{{ path(baseroute ~ '_buscarresultados') }}?filtro_buscar=' + a;
-        tapirCargarUrlEn(url, '#resultadosbuscar');
-    }
+{% block pagina_contenido %}
+<div id="resultadosbuscar">
+    <div class="input-group">
+        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus
+           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+           id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar..." />
+        <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
+            class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
+    </div>
+
+{% if entities is defined and entities|length > 0 %}
+&nbsp;
+<table class="table table-hoverselect">
+	<tbody>
+		{% for entity in entities %}
+		<tr
+			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
+			<td><i class="fa fa-angle-right"></i></td>
+			<td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
+			<td><span class="text-muted">{{ entity.Tipo }}</span></td>
+			<td><span class="text-muted">{{ entity.Superficie }} m²</span></td>
+			<td><span class="text-muted">{{ entity.Partida.Titular }}</span></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+    <p class="lead">Escriba un texto de búsqueda.</p>
+{% endif %}
     
-    $('#filtro_buscar').focus();
-</script>
-{% endblock %} {% block pagina_acciones %} {% endblock %}
+{% endblock %}
+
+{% block pagina_fin %}
+	{{ parent() }}
+</div>
+{% endblock pagina_fin %}

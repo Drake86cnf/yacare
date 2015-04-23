@@ -2,6 +2,10 @@
 
     //require_once 'tests/AutoLoader.php';
     //AutoLoader::registerDirectory('tests');
+    
+	//$_SERVER['KERNEL_DIR'] = __DIR__;
+    
+	require_once 'vendor/autoload.php';
 
     require_once 'tests/Tapir/PruebaUnitaria.php';
     require_once 'tests/Tapir/PruebaFuncional.php';

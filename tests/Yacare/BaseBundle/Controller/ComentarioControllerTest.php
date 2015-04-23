@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
 
-class ComentarioControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+/*class ComentarioControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
 {
 	public function setup()
 	{
@@ -29,4 +29,4 @@ class ComentarioControllerTest extends \Tapir\BaseBundle\Controller\AbmControlle
 		$this->assertEquals('yacare_base_comentario',$this->item->obtenerRutaBase());
 		$this->assertEquals('yacare_base_comentario_listar', $this->item->obtenerRutaBase('listar'));
 	}
-}
+}*/

@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 trait ConBuscar
 {
-
     /**
      * Acción de mostrar el buscador.
      *
@@ -25,10 +24,11 @@ trait ConBuscar
     {
         $this->Paginar = false;
         $this->Limit = 500;
+        $buscar = $this->ObtenerVariable($request, 'buscar');
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-        if ($filtro_buscar) {
-            // Si hay texto de búsqueda, derivo a buscar
-            return $this->listarAction($request);
+        if ($buscar || $filtro_buscar) {
+			// Si hay texto de búsqueda, derivo a buscar
+			return $this->listarAction($request);
         } else {
             // Si no hay texto de búsqueda, devuelvo una respuesta vacía
             return $this->ArrastrarVariables(array());

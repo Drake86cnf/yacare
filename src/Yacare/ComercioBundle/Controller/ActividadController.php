@@ -18,7 +18,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     {
         parent::IniciarVariables();
         
-        $this->BuscarPor = 'nombre,Clamae2014';
+        $this->BuscarPor = 'Nombre,Clamae2014';
         $this->OrderBy = 'MaterializedPath';
         $this->Paginar = false;
     }

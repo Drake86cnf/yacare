@@ -1,10 +1,12 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
-%}{% endblock %} {% block pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
+{% block pagina_titulo%}{% endblock %}
+
+{% block pagina_contenido %}
 <div class="jumbotron">
 	<div class="container-fluid">
 		<h1>
-			Bienvenido {{ app.user.Nombre|split(' ')|first }} <img
+			Bienvenido {% if app.user %}{{ app.user.Nombre|split(' ')|first }}{% endif %} <img
 				class="pull-right"
 				src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}"
 				style="padding: 32px; transform: scaleX(-1);"
@@ -16,10 +18,10 @@
 	</div>
 </div>
 
-{% if app.user %}
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-8 col-sm-8 col-md-8">
+		<div class="col-xs-8 col-sm-8 col-md-8">{% if app.user %}
 			Usted está conectado como <span class="dropdown"> <a
 				class="dropdown-toggle" data-toggle="dropdown" href="#"> {% if
 					app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
@@ -36,8 +38,12 @@
 							Desconectarse</a></li>
 				</ul>
 			</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
+			{% else %}
+			Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
+			{% endif %}
 		</div>
 		<div class="col-md-4"></div>
 	</div>
 </div>
-{% endif %} {% endblock %}
+
+{% endblock %}

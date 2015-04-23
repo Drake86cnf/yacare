@@ -17,41 +17,41 @@ class ActividadType extends AbstractType
                 'attr' => array(
                     'help' => 'No es necesario escribir los guiones. Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Exento', 'choice', 
-            array(
-                'label' => 'Exento',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('RequiereDeyma', 'choice', 
-            array(
-                'label' => 'Requiere DEyMA',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('RequiereDbeh', 'choice', 
-            array(
-                'label' => 'Requiere DBeH',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('RequiereCamaraGrasa', 'choice', 
-            array(
-                'label' => 'Requiere cámara de grasa',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('RequiereCamaraBarro', 'choice', 
-            array(
-                'label' => 'Requiere cámara de barro',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('RequiereInfEscolar', 'choice', 
-            array(
-                'label' => 'Requiere informe de Infraestructura Escolar',
-                'required' => true,
-                'choices' => array('0' => 'No','1' => 'Sí')))
-            ->add('CategoriaAntigua', 'choice', 
-            array(
-                'label' => 'Categoría antigua',
-                'required' => true,
-                'choices' => array('0' => 'n/a','1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6')))
+            ->add('Exento', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Exento',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('RequiereDeyma', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Requiere DEyMA',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('RequiereDbeh', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+            	array(
+	                'label' => 'Requiere DBeH',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('RequiereCamaraGrasa', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Requiere cámara de grasa',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('RequiereCamaraBarro', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Requiere cámara de barro',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('RequiereInfEscolar', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Requiere informe de Infraestructura Escolar',
+	                'required' => true,
+	                'choices' => array('0' => 'No','1' => 'Sí')))
+            ->add('CategoriaAntigua', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
+	            array(
+	                'label' => 'Categoría antigua',
+	                'required' => true,
+	                'choices' => array('0' => 'n/a','1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6')))
             ->add('Incluye', null, array('label' => 'Incluye'))
             ->add('NoIncluye', null, array('label' => 'No incluye'));
     }

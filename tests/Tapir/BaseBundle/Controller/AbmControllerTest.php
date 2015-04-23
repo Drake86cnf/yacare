@@ -35,6 +35,6 @@ abstract class AbmControllerTest extends \Tapir\BaseBundle\Controller\BaseContro
         $this->clientTestResponse($crawler);
         
         $this->assertGreaterThan(0, $crawler->filter('#page-title')
-            ->count());
+            ->count(), 'Probando que la búsqueda tenga un título');
     }
 }
