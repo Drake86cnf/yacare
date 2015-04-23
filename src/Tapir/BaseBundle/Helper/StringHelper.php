@@ -114,24 +114,25 @@ class StringHelper
             StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
     }
 
-    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"),
-        $exceptions = array(
-                'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
-                'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
-                'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
-                ))
+    static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"))
     {
-        /*
-         * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
-         * don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry
-         * Viii should be King Henry VIII
-         */
+    	/*
+    	 * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
+    	 * don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry
+    	 * Viii should be King Henry VIII
+    	 */
+    	$exceptions = array(
+    			'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
+    			'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
+    			'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
+    	);
+    	
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
 
-        foreach ($delimiters as $dlnr => $delimiter) {
+        foreach ($delimiters as $delimiter) {
             $words = explode($delimiter, $string);
             $newwords = array();
-            foreach ($words as $wordnr => $word) {
+            foreach ($words as $word) {
                 if (in_array(mb_strtoupper($word, 'UTF-8'), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtoupper($word, 'UTF-8');
