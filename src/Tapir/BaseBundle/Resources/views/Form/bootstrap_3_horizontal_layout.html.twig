@@ -1,57 +1,74 @@
-{% extends "bootstrap_3_horizontal_layout.html.twig" %} {% block
-date_widget %}{% spaceless %} {% if widget == 'single_text' %} {% set
-attr = attr|merge({ 'format': 'dd/MM/yyyy', 'class': 'datepicker' }) %}
-{{ block('form_widget_simple') }} {% else %}
-<div  {{ block('widget_container_attributes') }}>{{
-	date_pattern|replace({ '{{ year }}': form_widget(form.year), '{{ month
-	}}': form_widget(form.month), '{{ day }}': form_widget(form.day) })|raw
-	}}</div>
-{% endif %} {% endspaceless %}{% endblock date_widget %} {% block
-form_horizontal_widget %} {% set attr = attr|merge({ 'class':
-'form-inline' }) %}
-<div  {{ block('widget_container_attributes') }}>
-	{% for child in form %}
-	<div class="form-group" id="{{ child.vars.id }}_Group">{{
-		form_label(child) }}&nbsp;{{ form_widget(child) }}</div>
-	{% endfor %}
+{% extends "bootstrap_3_horizontal_layout.html.twig" %}
+
+{% block date_widget %}{% spaceless %}
+    {% if widget == 'single_text' %}
+        {% set attr = attr|merge({ 'format': 'dd/MM/yyyy', 'class': 'datepicker' }) %}
+        {{ block('form_widget_simple') }}
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({ '{{ year }}': form_widget(form.year), '{{ month }}': form_widget(form.month),
+            '{{ day }}': form_widget(form.day) })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}{% endblock date_widget %}
+
+{% block form_horizontal_widget %}
+    {% set attr = attr|merge({ 'class': 'form-inline' }) %}
+    <div {{ block('widget_container_attributes') }}>
+	   {% for child in form %}
+	       <div class="form-group" id="{{ child.vars.id }}_Group">
+	           {{ form_label(child) }}&nbsp;{{ form_widget(child) }}
+	       </div>
+	   {% endfor %}
 </div>
-{% endblock %} {% block buttongroup_widget %} {% spaceless %}
-<div class="btn-group" role="group" id="{{ id }}_Group">{% set options =
-	choices -%} {{- block('buttongroup_widget_options') -}}</div>
-<input type="hidden"  {{ block('widget_attributes') }}
-	value="{{ value }}" />
-{% if attr['help'] is defined %}
-<div class="help-block">{{ attr['help']|raw }}</div>
-{% endif %} {% endspaceless %} {% endblock %} {% block
-buttongroup_widget_options -%} {% for group_label, choice in options %}
-<button type="button" onclick="$('#
-	{{ id }}').val('{{ choice.value }}'); $('#{{ id }} _Group
-	:button').removeClass('active'); $('#{{ id }} _Group
-	i').hide(); $(this).addClass('active'); $(this).children('i').show(); return
-	true;" class="btn btn-default {% if choice is selectedchoice(value) %} active{% endif %}"
-	value="{{ choice.value }}"><i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i> {{ choice.label|trans({}, translation_domain) }}</button>
-{% endfor %} {%- endblock buttongroup_widget_options %} {% block
-entity_id_widget %}
+{% endblock %}
+
+
+{% block buttongroup_widget %}
+    {% spaceless %}
+        <div class="btn-group" role="group" id="{{ id }}_Group">
+            {% set options = choices -%}
+            {{- block('buttongroup_widget_options') -}}
+        </div>
+        <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
+        {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block buttongroup_widget_options -%}
+    {% for group_label, choice in options %}
+        <button type="button" onclick="$('#{{ id }}').val('{{ choice.value }}'); $('#{{ id }}_Group :button').removeClass('active'); $('#{{ id }}_Group i').hide(); $(this).addClass('active'); $(this).children('i').show(); return true;" class="btn btn-default {% if choice is selectedchoice(value) %} active{% endif %}" 
+            value="{{ choice.value }}"><i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i> {{ choice.label|trans({}, translation_domain) }}</button>
+    {% endfor %}
+{%- endblock buttongroup_widget_options %}
+
+
+{% block entity_id_widget %}
 <div class="input-group">
-	{% set values = value|split(':', 2) %} <input
-		 {{ block('widget_attributes') }} type="hidden"
-		value="{% if values|length>0 %}{{ values[0] }}{% endif %}" /> {% set
-	old_id = id %} {% set old_full_name = full_name %} {% set id = id ~
-	'_Detalle' %} {% set full_name = 'Detalle_' ~ full_name %} <input
-		readonly="readonly" class="form-control"
-		 {{ block('widget_attributes') }} type="text"
+	{% set values = value|split(':', 2) %}
+	<input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
+	{% set old_id = id %}
+	{% set old_full_name = full_name %}
+	{% set id = id ~ '_Detalle' %}
+	{% set full_name = 'Detalle_' ~ full_name %}
+	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
 		value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
 		data-toggle="modal"
 		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
-		style="cursor: pointer;" /> {% set id = old_id %} {% set full_name =
-	old_full_name %} <span class="input-group-btn">
+		style="cursor: pointer;" />
+    {% set id = old_id %}
+    {% set full_name = old_full_name %}
+    <span class="input-group-btn">
 		<button class="btn btn-default" type="button" data-toggle="modal"
 			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
 			<i class="fa fa-search"></i>
 		</button>
 	</span>
 </div>
-{% endblock %} {% block adjuntos_widget %} {% set aid = 'Adjuntos' %} {%
-set full_name = full_name ~ '[]' %}
-<input  {{ block('widget_attributes') }} type="file" multiple="multiple"></input>
+{% endblock %}
+
+{% block adjuntos_widget %}
+    {% set aid = 'Adjuntos' %}
+    {% set full_name = full_name ~ '[]' %}
+    <input {{ block('widget_attributes') }} type="file"	multiple="multiple"></input>
 {% endblock %}
