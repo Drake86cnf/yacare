@@ -37,7 +37,7 @@ trait ConEliminar
         $deleteForm = $this->crearFormEliminar($id);
         
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
@@ -59,7 +59,7 @@ trait ConEliminar
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
             
             if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
                 // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
