@@ -18,6 +18,7 @@ class AgenteGrupo
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
 
     public function __construct()
     {
