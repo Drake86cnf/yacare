@@ -4,14 +4,16 @@ namespace Yacare\RequerimientosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\RequerimientosBundle\Entity\Requerimiento
+ * Representa un requerimiento, que puede ser un reclamo, una solicitud, una denuncia, etc.
  *
  * @ORM\Table(name="Requerimientos_Requerimiento",
  * indexes={
- * 	@ORM\Index(name="Requerimientos_Requerimiento_Encargado", columns={ "Encargado" }),
- *  @ORM\Index(name="Requerimientos_Requerimiento_Estado", columns={ "Estado" })
+ *      @ORM\Index(name="Requerimientos_Requerimiento_Encargado", columns={ "Encargado_id" }),
+ *      @ORM\Index(name="Requerimientos_Requerimiento_Estado", columns={ "Estado" })
  * })
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class Requerimiento
 {
@@ -20,6 +22,12 @@ class Requerimiento
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    public function __construct()
+    {
+        $this->Novedades = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 
     /**
      * El encargado actual del requerimiento.
@@ -31,12 +39,22 @@ class Requerimiento
     
     
     /**
+     * La categoría del requerimiento.
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\RequerimientosBundle\Entity\Categoria")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    private $Categoria;
+    
+    
+    /**
      * El usuario que inició el requerimiento, o null si es un usuario anónimo.
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $Usuario;
+    
     
     /**
      * El nombre del usuario que inició el requerimiento.
@@ -45,6 +63,7 @@ class Requerimiento
      * @ORM\Column(type="string", nullable=true)
      */
     private $UsuarioNombre;
+
     
     /**
      * El e-mail del usuario que inició el requerimiento.
@@ -64,6 +83,16 @@ class Requerimiento
      */
     private $Estado = 0;
     
+    
+    /**
+     * La prioridad del requerimiento.
+     *
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Prioridad = 0;
+    
+    
     /**
      * La calificación de satisfacción de la resolución del requerimiento, o null si aun no fue calificado.
      *
@@ -71,6 +100,39 @@ class Requerimiento
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Calificacion = null;
+    
+    
+    /**
+     * Las novedades asociadas a este requerimiento.
+     *
+     * @ORM\OneToMany(targetEntity="\Yacare\RequerimientosBundle\Entity\Novedad", mappedBy="Requerimiento", cascade={ "persist" })
+     */
+    protected $Novedades;
+    
+    
+    
+    public function __toString() {
+        return 'Requerimiento Nº ' . $this->getId();
+    }
+    
+    public static function getPrioridadNombres($tipo)
+    {
+        switch ($tipo) {
+            case 0:
+                return 'Baja';
+            case 1:
+                return 'Media';
+            case 2:
+                return 'Alta';
+            default:
+                return '';
+        }
+    }
+    
+    public function getPrioridadNombre()
+    {
+        return Requerimiento::getPrioridadNombres($this->getPrioridad());
+    }
     
 
     public static function getEstadoNombres($tipo)
@@ -90,6 +152,7 @@ class Requerimiento
                 return '';
         }
     }
+
     public function getEstadoNombre()
     {
     	return Requerimiento::getEstadoNombres($this->getEstado());
@@ -162,4 +225,31 @@ class Requerimiento
 		$this->Calificacion = $Calificacion;
 		return $this;
 	}
+    public function getNovedades()
+    {
+        return $this->Novedades;
+    }
+    public function setNovedades($Novedades)
+    {
+        $this->Novedades = $Novedades;
+        return $this;
+    }
+    public function getPrioridad()
+    {
+        return $this->Prioridad;
+    }
+    public function setPrioridad($Prioridad)
+    {
+        $this->Prioridad = $Prioridad;
+        return $this;
+    }
+    public function getCategoria()
+    {
+        return $this->Categoria;
+    }
+    public function setCategoria($Categoria)
+    {
+        $this->Categoria = $Categoria;
+        return $this;
+    }
 }

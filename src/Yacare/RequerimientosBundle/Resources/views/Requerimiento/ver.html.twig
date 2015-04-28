@@ -1,0 +1,101 @@
+{% extends 'TapirBaseBundle:Default:ver.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo requerimiento{% endif %}{% endblock pagina_titulo %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-8">
+		  {% if entity.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
+		  {{ entity.Notas }}
+		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}</span></p>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
+		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría{% endif %}</h3>
+		  
+		  Estado: <span class="pull-right">
+              {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
+			  {% else %}<i class="fa fa-fw"></i>
+			  {% endif %}
+		      
+		      {{ entity.EstadoNombre }}</span><br />
+		  
+		  Encargado: <span class="pull-right">{{ entity.Encargado }}</span><br />
+		  
+		  Prioridad: <span class="pull-right">{{ entity.PrioridadNombre }}</span><br />
+		</div></div></div>
+	</div>
+</div>
+
+<h2>Novedades</h2>
+<div class="container-fluid">
+{% if entity.Novedades|length == 0 %}
+    <p>Aun no hay novedades. Puede ser el primero en agregar una.</p>
+{% else %}
+    
+    {% for novedad in entity.Novedades %}
+        <div class="row">
+            <div class="col-sm-2 text-center"><i class="fa fa-comment fa-2x text-muted"></i><br /><small>{{ novedad.Usuario.Nombre }}</small></div>
+            <div class="col-sm-10">{{ novedad.Notas }}<br />
+                <small class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ novedad.createdAt|tapir_fecha }}">{{ novedad.createdAt|tapir_hacetiempo }}</small></div>
+            </div>
+            <hr />
+    {% endfor %}
+{% endif %}
+
+{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 'attr': { 'id': 'form_novedad'} }) }}
+    <div class="row">
+        <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left text-info"></i><br /><small>{{ app.user }}</small></div>
+        <div class="col-sm-10" id="nuevocomentario">
+            {{ form_errors(form_novedad) }}
+            {{ form_widget(form_novedad._token) }}
+            {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar una novedad...', 'autofocus': 'autofocus' } }) }}
+            {{ form_rest(form_novedad) }}
+            </div></span>
+    </div>
+    <script>
+        $('#yacare_requerimientosbundle_novedadtype_Notas').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $('form#form_novedad').submit();
+                return false;
+            }
+        });
+        
+        $('#form_novedad').submit(function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('yacare_requerimientos_novedad_publicar') }}",
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('#nuevocomentario').html(data);
+                },
+                error: function(data, status) {
+                    $('#nuevocomentario').html(data.responseText);
+                }
+            });
+            return false; 
+        });
+        
+        //$('#container').scroll($('#container').height);
+        //$('#yacare_requerimientosbundle_novedadtype_Notas').focus();
+    </script>
+    {{ form_end(form_novedad) }}
+    &nbsp;
+    </div>
+
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <span onclick="return tapirAtras();" class="btn btn-link"><i class="fa fa-reply"></i> Volver</span>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    <a data-toggle="ajax-link" class="btn btn-default" href="#"><i class="fa fa-comment-o"></i> Agregar novedad</a>
+{% endblock pagina_acciones2 %}

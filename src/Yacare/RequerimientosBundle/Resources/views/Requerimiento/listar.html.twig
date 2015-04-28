@@ -1,0 +1,49 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Requerimientos{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th> </th>
+			<th>Usuario</th>
+			<th class="hidden-sm">Encargado</th>
+			<th>Descripción</th>
+			<th>Estado</th>
+			<th>Antigüedad</th>
+	   </tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>
+			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
+			  {% else %}<i class="fa fa-fw"></i>
+			  {% endif %}
+			  </td>
+			<td>{{ entity.Usuario }}</td>
+			<td class="hidden-sm">{{ entity.Encargado }}</td>
+			<td>{{ entity.Notas|tapir_abreviar(50) }}</td>
+			<td>{{ entity.EstadoNombre }}</td>
+			<td>{{ entity.createdAt|tapir_hacetiempo }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo
+	requerimiento</a>
+{% endblock pagina_acciones2 %}
