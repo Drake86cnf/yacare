@@ -1,0 +1,53 @@
+<?php
+
+namespace Yacare\BaseBundle\Form\Type;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpKernel\Kernel;
+use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
+
+class EntityHiddenType extends AbstractType
+{
+    protected $managerRegistry;
+
+    public function __construct(RegistryInterface $registry)
+    {
+        $this->managerRegistry = $registry;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $em = $this->managerRegistry->getManagerForClass($options['class']);
+        
+        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
+                $options['multiple']);
+        $builder->addModelTransformer($transformer);
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver
+            ->setRequired(array('class'))
+            ->setDefaults(array(
+                'propery' => 'Nombre',
+                'query_builder' => null,
+                'invalid_message' => 'La entidad no existe.',
+            ))
+        ;
+    }
+
+    public function getParent()
+    {
+        return 'hidden';
+    }
+
+    public function getName()
+    {
+        return 'entity_hidden';
+    }
+}

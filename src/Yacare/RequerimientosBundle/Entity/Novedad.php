@@ -4,20 +4,26 @@ namespace Yacare\RequerimientosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\RequerimientosBundle\Entity\RequerimientoNovedad
+ * Una novedad relacionada con un requerimiento.
  *
- * @ORM\Table(name="Requerimientos_Requerimiento",
- * indexes={
- * 	@ORM\Index(name="Requerimientos_Requerimiento_Encargado", columns={ "Encargado" }),
- *  @ORM\Index(name="Requerimientos_Requerimiento_Estado", columns={ "Estado" })
- * })
+ * @ORM\Table(name="Requerimientos_Requerimiento_Novedad")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class RequerimientoNovedad
+class Novedad
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNotas;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    /**
+     * El requerimiento al cual pertenece esta novedad.
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\RequerimientosBundle\Entity\Requerimiento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     */
+    private $Requerimiento;
 
     /**
      * El usuario que inició el requerimiento, o null si es un usuario anónimo.
@@ -53,6 +59,7 @@ class RequerimientoNovedad
      */
     private $NuevoEstado = null;
     
+
     
     /*** Getters, setters */
 	public function getUsuario() {
@@ -83,4 +90,14 @@ class RequerimientoNovedad
 		$this->NuevoEstado = $NuevoEstado;
 		return $this;
 	}
+    public function getRequerimiento()
+    {
+        return $this->Requerimiento;
+    }
+    public function setRequerimiento($Requerimiento)
+    {
+        $this->Requerimiento = $Requerimiento;
+        return $this;
+    }
+
 }

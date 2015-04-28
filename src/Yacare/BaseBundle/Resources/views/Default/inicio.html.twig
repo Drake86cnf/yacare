@@ -21,25 +21,26 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-8 col-sm-8 col-md-8">{% if app.user %}
-			Usted está conectado como <span class="dropdown"> <a
-				class="dropdown-toggle" data-toggle="dropdown" href="#"> {% if
-					app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
+		<div class="col-xs-8 col-sm-8 col-md-8">
+		    {% if app.user %}
+			    Usted está conectado como <span class="dropdown"> <a
+				class="dropdown-toggle" data-toggle="dropdown" href="#">
+				{% if app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
 				{% else %} {{ app.user }} {% endif %}
 				<ul class="dropdown-menu">
 					<li><a data-toggle="ajax-link"
 						href="{{ path('usuario_editarperfil_actual') }}"><i
-							class="fa fa-user"></i> Mi perfil</a></li>
+							class="fa fa-user fa-fw"></i> Mi perfil</a></li>
 					<li><a data-toggle="modal" data-target="#modal"
 						href="{{ path('usuario_cambiarcontrasena_actual') }}"><i
-							class="fa fa-key"></i> Cambiar contraseña</a></li>
+							class="fa fa-key fa-fw"></i> Cambiar contraseña</a></li>
 					<li class="divider"></li>
-					<li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i>
+					<li><a href="{{ path('logout') }}"><i class="fa fa-power-off fa-fw"></i>
 							Desconectarse</a></li>
 				</ul>
 			</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
 			{% else %}
-			Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
+			<i class="fa fa-warning fa-2x text-danger pull-left"></i> Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
 			{% endif %}
 		</div>
 		<div class="col-md-4"></div>

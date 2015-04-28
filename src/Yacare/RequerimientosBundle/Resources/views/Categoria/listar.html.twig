@@ -1,0 +1,35 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Requerimientos: Categorías{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Encargado</th>
+	   </tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{% if entity.PermiteAnonimos %}<i class="fa fa-question fa-fw"></i>
+			{% else %}<i class="fa fa-fw"></i>
+			{% endif %}
+			{{ entity.Nombre }}</td>
+			<td>{{ entity.Encargado }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nueva categoría</a>
+{% endblock pagina_acciones2 %}

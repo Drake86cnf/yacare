@@ -1,6 +1,8 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
-pagina_titulo %}Profesionales matriculados{% endblock %} {% block
-pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
+
+{% block pagina_titulo %}Profesionales matriculados{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -25,10 +27,12 @@ pagina_contenido %}
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
-endblock %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
 	href="{{ path(baseroute ~ '_listarhabilitados', arrastre|merge({ 'filtro_buscar': null })) }}"
 	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista

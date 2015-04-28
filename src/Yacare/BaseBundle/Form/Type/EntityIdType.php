@@ -18,20 +18,16 @@ use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 class EntityIdType extends AbstractType
 {
 
-    protected $registry;
+    protected $managerRegistry;
 
     public function __construct(RegistryInterface $registry)
     {
-        $this->registry = $registry;
+        $this->managerRegistry = $registry;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ('2' == Kernel::MAJOR_VERSION && Kernel::MINOR_VERSION < '1') {
-            $em = $this->registry->getEntityManager($options['em']);
-        } else {
-            $em = $this->registry->getManager($options['em']);
-        }
+        $em = $this->managerRegistry->getManagerForClass($options['class']);
         
         $builder->addViewTransformer(
             new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
@@ -43,12 +39,12 @@ class EntityIdType extends AbstractType
         $resolver->setRequired(array('class'));
         
         $resolver->setDefaults(
-            array('em' => null,'property' => 'Nombre','query_builder' => null,
-            /* 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er)
-            {
-                return $er->createQueryBuilder('i');
-            }, */
-            'filters' => null,'hidden' => true,'multiple' => false));
+            array('em' => null,
+                'property' => 'Nombre',
+                'query_builder' => null,
+                'filters' => null,
+                'hidden' => false,
+                'multiple' => false));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
