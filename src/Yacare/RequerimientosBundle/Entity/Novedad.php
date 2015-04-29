@@ -59,6 +59,14 @@ class Novedad
      */
     private $NuevoEstado = null;
     
+    
+    /**
+     * Si es una novedad privada, sólo puede ser vista por los intervinientes.
+     *
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $Privada = 0;
 
     
     /*** Getters, setters */
@@ -99,5 +107,15 @@ class Novedad
         $this->Requerimiento = $Requerimiento;
         return $this;
     }
+    public function getPrivada()
+    {
+        return $this->Privada;
+    }
+    public function setPrivada(int $Privada)
+    {
+        $this->Privada = $Privada;
+        return $this;
+    }
+ 
 
 }

@@ -112,7 +112,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * Muestra un formulario de consultas para buscar personas y ver sus datos.
+     * Muestra un pequeño formulario para modificar un dato.
      *
      * @Route("modificardato/{id}")
      * @Template()

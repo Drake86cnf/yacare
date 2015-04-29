@@ -33,6 +33,47 @@
 	</div>
 </div>
 
+{% if is_granted('ROLE_REQUERIMIENTOS') %}
+<div class="text-right">
+    {% if entity.Encargado and entity.Encargado == app.user %}
+        <a class="btn btn-default" href="#"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
+    {% elseif entity.Estado < 90 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+        {% if entity.Encargado %}
+            <a class="btn btn-default" href="#"><i class="fa fa-hand-o-left"></i> Reasignar</a>
+        {% else %}
+            <a class="btn btn-default" href="#"><i class="fa fa-hand-o-left"></i> Asignar</a>
+        {% endif %}
+    {% endif %}
+
+   
+    {% if entity.Estado == 0 %}
+        {# Nuevo #}
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'DocumentoNumero' })) }}"
+            data-toggle="modal"><i class="fa fa-play"></i> Iniciar</a>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'DocumentoNumero' })) }}"
+            data-toggle="modal"><i class="fa fa-times"></i> Cancelar</a>
+    {% endif %}
+    {% if entity.Estado == 10 %}
+        {# Iniciado #}
+        <a class="btn btn-default" href="#"><i class="fa fa-pause"></i> Poner en espera</a>
+        <a class="btn btn-default" href="#"><i class="fa fa-check"></i> Terminar</a>
+    {% endif %}
+    {% if entity.Estado == 20 %}
+        {# En espera #}
+        <a class="btn btn-default" href="#"><i class="fa fa-play"></i> Continuar</a>
+        <a class="btn btn-default" href="#"><i class="fa fa-check"></i> Terminar</a>
+    {% endif %}
+    {% if entity.Estado == 90 %}
+        {# Terminado #}
+        <a class="btn btn-success" href="#"><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
+    {% endif %}
+    {% if entity.Estado == 99 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+        {# Cerrado #}
+        <a class="btn btn-default" href="#"><i class="fa fa-refresh"></i> Reabrir</a>
+    {% endif %}
+</div>
+{% endif %}
+
 <h2>Novedades</h2>
 <div class="container-fluid">
 {% if form_novedad is defined %}
