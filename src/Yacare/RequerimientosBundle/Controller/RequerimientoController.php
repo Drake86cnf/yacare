@@ -26,15 +26,14 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     
         //$em = $this->getEm();
         $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
-    
-        $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-        $NuevaNovedad->setRequerimiento($res['entity']);
-        $NuevaNovedad->setUsuario($UsuarioConectado);
-        //$NuevaNovedad->setUsuarioNombre((string)$UsuarioConectado);
-        //$NuevaNovedad->setUsuarioEmail($UsuarioConectado->getEmail());
-
-        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-        $res['form_novedad'] = $editForm->createView();
+        
+        if( !is_string($UsuarioConectado)) {
+            $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+            $NuevaNovedad->setRequerimiento($res['entity']);
+            $NuevaNovedad->setUsuario($UsuarioConectado);
+            $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+            $res['form_novedad'] = $editForm->createView();
+        }
     
         return $res;
     }
