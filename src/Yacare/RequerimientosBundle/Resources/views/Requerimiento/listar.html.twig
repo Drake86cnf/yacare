@@ -42,8 +42,13 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo
-	requerimiento</a>
+    <a data-toggle="ajax-link"
+    	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+    	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo
+    	requerimiento</a>
+    {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+        <a data-toggle="ajax-link"
+        	href="{{ path('yacare_requerimientos_categoria_listar', arrastre) }}"
+        	class="btn btn-default hidden-print"> Categorías</a>
+    {% endif %}
 {% endblock pagina_acciones2 %}
