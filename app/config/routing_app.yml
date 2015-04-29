@@ -3,6 +3,11 @@
 #    type:     annotation
 #    prefix:   /seguridad/
 
+yacare_requerimientos:
+    resource: "@YacareRequerimientosBundle/Controller/"
+    type:     annotation
+    prefix:   /requerimientos/
+
 yacare_obras_particulares:
     resource: "@YacareObrasParticularesBundle/Controller/"
     type:     annotation
