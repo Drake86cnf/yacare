@@ -219,7 +219,7 @@ abstract class AbmController extends BaseController
         if ($this->Paginar) {
             $paginator = $this->get('knp_paginator');
             $entities = $paginator->paginate($query, $request->query->get('page', 1) /* page number */,
-                10 /* limit per page */
+                50 /* limit per page */
             );
         } else {
             $entities = $query->getResult();
@@ -261,8 +261,9 @@ abstract class AbmController extends BaseController
      *
      * Es como editar, pero sólo lectura.
      *
-     * @see editarAction() @Route("ver/{id}")
-     *      @Template()
+     * @see editarAction()
+     * @Route("ver/{id}")
+     * @Template()
      */
     public function verAction(Request $request, $id = null)
     {
@@ -333,10 +334,11 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
-     *            @Route("guardar/{id}")
-     *            @Route("guardar")
-     *            @Method("POST")
-     *            @Template()
+     * 
+     * @Route("guardar/{id}")
+     * @Route("guardar")
+     * @Method("POST")
+     * @Template()
      */
     public function guardarAction(Request $request, $id = null)
     {
@@ -369,9 +371,7 @@ abstract class AbmController extends BaseController
                     $em->flush();
                     $this->guardarActionPostPersist($entity, $editForm);
                     
-                    $this->get('session')
-                        ->getFlashBag()
-                        ->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
+                    $this->addFlash('success', 'Los cambios en "' . $entity . '" fueron guardados.');
                 }
             } else {
                 $validator = $this->get('validator');
@@ -383,9 +383,7 @@ abstract class AbmController extends BaseController
             $deleteForm = $this->crearFormEliminar($id);
             
             foreach ($errors as $error) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error);
+                $this->addFlash('danger', $error);
             }
             
             $res = $this->ArrastrarVariables(
@@ -405,8 +403,7 @@ abstract class AbmController extends BaseController
 
     protected function guardarActionAfterSuccess($entity)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false));
     }
 
     public function guardarActionPreBind($entity)

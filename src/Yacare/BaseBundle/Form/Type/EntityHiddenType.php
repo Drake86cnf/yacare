@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -11,6 +10,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 
+/**
+ * Campo de entidad oculta.
+ *
+ *
+ * @author Ernesto N. Carrea <equistango@gmail.com>
+ */
 class EntityHiddenType extends AbstractType
 {
     protected $managerRegistry;
@@ -24,21 +29,20 @@ class EntityHiddenType extends AbstractType
     {
         $em = $this->managerRegistry->getManagerForClass($options['class']);
         
-        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
-                $options['multiple']);
+        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], $options['multiple']);
         $builder->addModelTransformer($transformer);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver
-            ->setRequired(array('class'))
-            ->setDefaults(array(
-                'propery' => 'Nombre',
-                'query_builder' => null,
-                'invalid_message' => 'La entidad no existe.',
-            ))
-        ;
+        $resolver->setRequired(array('class'));
+        $resolver->setDefaults(array('em' => null,
+            'property' => 'Nombre',
+            'query_builder' => null,
+            'filters' => null,
+            'hidden' => false,
+            'multiple' => false
+        ));
     }
 
     public function getParent()

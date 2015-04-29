@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Requerimiento
 {
     use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\ConNotas;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Importable;
@@ -110,11 +111,16 @@ class Requerimiento
     protected $Novedades;
     
     
-    
-    public function __toString() {
-        return 'Requerimiento Nº ' . $this->getId();
+    public function setNotas($Notas) {
+        $this->Notas = $Notas;
+        if(strlen($Notas) > 53) {
+            $this->setNombre(substr($Notas, 0, 50) . '...');
+        } else {
+            $this->setNombre($Notas);
+        }
+        return $this;
     }
-    
+
     public static function getPrioridadNombres($tipo)
     {
         switch ($tipo) {

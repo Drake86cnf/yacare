@@ -19,13 +19,10 @@ class NovedadType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Descripción',
                 'required' => true))
-            ->add('Usuario', 'entity_id', array(
-                'hidden' => true,
+            ->add('Usuario', 'entity_hidden', array(
                 'class' => 'Yacare\BaseBundle\Entity\Persona'
             ))
-            ->add('Requerimiento', 'entity_id', array(
-                'hidden' => true,
-                'property' => 'id',
+            ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'))
             ;
     }
