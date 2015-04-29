@@ -25,8 +25,11 @@ class AppKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
-            
-            new Yacare\BaseBundle\YacareBaseBundle(),
+        	
+        	new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
+        		
+            new Tapir\BaseBundle\TapirBaseBundle(),
+        	new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
             new Yacare\CatastroBundle\YacareCatastroBundle(),
@@ -40,8 +43,7 @@ class AppKernel extends Kernel
             new Yacare\ExpedientesBundle\YacareExpedientesBundle(),
             new Yacare\ObrasParticularesBundle\YacareObrasParticularesBundle(),
             //new Yacare\SeguridadBundle\YacareSeguridadBundle(),
-            new Tapir\BaseBundle\TapirBaseBundle(),
-            new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
+            new Yacare\RequerimientosBundle\YacareRequerimientosBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
