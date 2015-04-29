@@ -86,6 +86,7 @@ doctrine:
                     YacareOrganizacionBundle: ~
                     YacareRecursosHumanosBundle: ~
                     YacareTramitesBundle: ~
+                    YacareRequerimientosBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
