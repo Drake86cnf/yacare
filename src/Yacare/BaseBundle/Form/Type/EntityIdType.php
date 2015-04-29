@@ -11,13 +11,13 @@ use Symfony\Component\HttpKernel\Kernel;
 use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 
 /**
- * Entity identitifer
+ * Campo de entidad con selcción por buscador.
  *
+ * @author Ernesto N. Carrea <equistango@gmail.com>
  * @author Gregwar <g.passault@gmail.com>
  */
 class EntityIdType extends AbstractType
 {
-
     protected $managerRegistry;
 
     public function __construct(RegistryInterface $registry)
@@ -28,23 +28,21 @@ class EntityIdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $em = $this->managerRegistry->getManagerForClass($options['class']);
-        
-        $builder->addViewTransformer(
-            new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
-                $options['multiple']));
+
+        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], $options['multiple']);
+        $builder->addModelTransformer($transformer);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array('class'));
-        
-        $resolver->setDefaults(
-            array('em' => null,
-                'property' => 'Nombre',
-                'query_builder' => null,
-                'filters' => null,
-                'hidden' => false,
-                'multiple' => false));
+        $resolver->setDefaults(array('em' => null,
+            'property' => 'Nombre',
+            'query_builder' => null,
+            'filters' => null,
+            'hidden' => false,
+            'multiple' => false
+        ));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

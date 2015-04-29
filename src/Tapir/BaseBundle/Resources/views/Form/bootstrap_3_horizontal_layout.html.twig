@@ -12,6 +12,19 @@
     {% endif %}
 {% endspaceless %}{% endblock date_widget %}
 
+{% block form_row -%}
+{% spaceless %}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{ form_label(form) }}
+        <div class="{{ block('form_group_class') }}">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
+        </div>
+    </div>
+{% endspaceless %}
+{%- endblock form_row %}
+
 {% block form_horizontal_widget %}
     {% set attr = attr|merge({ 'class': 'form-inline' }) %}
     <div {{ block('widget_container_attributes') }}>
@@ -31,7 +44,6 @@
             {{- block('buttongroup_widget_options') -}}
         </div>
         <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
-        {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
     {% endspaceless %}
 {% endblock %}
 
@@ -47,23 +59,27 @@
 <div class="input-group">
 	{% set values = value|split(':', 2) %}
 	<input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
-	{% set old_id = id %}
-	{% set old_full_name = full_name %}
-	{% set id = id ~ '_Detalle' %}
-	{% set full_name = 'Detalle_' ~ full_name %}
-	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
-		value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
-		data-toggle="modal"
-		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
-		style="cursor: pointer;" />
-    {% set id = old_id %}
-    {% set full_name = old_full_name %}
-    <span class="input-group-btn">
-		<button class="btn btn-default" type="button" data-toggle="modal"
-			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
-			<i class="fa fa-search"></i>
-		</button>
-	</span>
+	{% if type is defined and type == 'hidden' %}
+	   
+	{% else %}
+    	{% set old_id = id %}
+    	{% set old_full_name = full_name %}
+    	{% set id = id ~ '_Detalle' %}
+    	{% set full_name = 'Detalle_' ~ full_name %}
+    	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
+    		value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
+    		data-toggle="modal"
+    		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
+    		style="cursor: pointer;" />
+        {% set id = old_id %}
+        {% set full_name = old_full_name %}
+        <span class="input-group-btn">
+    		<button class="btn btn-default" type="button" data-toggle="modal"
+    			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
+    			<i class="fa fa-search"></i>
+    		</button>
+    	</span>
+    	{% endif %}
 </div>
 {% endblock %}
 
