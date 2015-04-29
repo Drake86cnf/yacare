@@ -26,7 +26,7 @@ security:
             security: false
 
         cssjs:
-            pattern:  ^%web_root%/bundles/yacarebase/(css|js|fonts|images|img)/
+            pattern:  ^%web_root%/bundles/(yacare|tapir)base/(css|js|fonts|images|img)/
             security: false
             
         formingreso:
@@ -53,9 +53,6 @@ security:
             anonymous: true
 
     access_control:
-        - { path: ^%web_root%/bundles/yacarebase/css/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^%web_root%/bundles/yacarebase/js/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^%web_root%/bundles/yacarebase/images/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/pub, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -66,4 +63,4 @@ security:
         - { path: /compras, roles: ROLE_COMPRAS }
         - { path: /inspeccion, roles: ROLE_INSPECCION }
         - { path: /tramites, roles: ROLE_TRAMITES }
-        
+        - { path: /requerimientos/categoria, roles: ROLE_REQUERIMIENTOS_ADMINISTRADOR }
