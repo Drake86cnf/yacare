@@ -111,7 +111,7 @@ class Novedad
     {
         return $this->Privada;
     }
-    public function setPrivada(int $Privada)
+    public function setPrivada($Privada)
     {
         $this->Privada = $Privada;
         return $this;
