@@ -20,7 +20,7 @@ class Novedad
     /**
      * El requerimiento al cual pertenece esta novedad.
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\RequerimientosBundle\Entity\Requerimiento")
+     * @ORM\ManyToOne(targetEntity="Yacare\RequerimientosBundle\Entity\Requerimiento", inversedBy="Novedades")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Requerimiento;
