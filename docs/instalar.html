@@ -57,12 +57,6 @@
     php composer.phar create-project
     </pre>
 
-    <li>Instalar los assets:
-    <pre>
-    php bin/console assets:install
-    php bin/console assetic:dump
-    </pre>
-
     <li>Crear la base de datos y el usuario de acceso:
     <pre>
     mysql -uroot -p
@@ -74,10 +68,16 @@
     GRANT ALL ON yacatest.* TO 'yacatest'@'%' IDENTIFIED BY '123456';
     EXIT;
     </pre>
-	
+
     <li>Si se dispone de datos de prueba, se los puede incorporar:
     <pre>
     mysql -uyacadev -p123456 --database=yacadev &lt; yacadev.sql
+    </pre>
+    
+	<li>Instalar los assets:
+    <pre>
+    php bin/console assets:install
+    php bin/console assetic:dump
     </pre>
 
     <li>Actualizar las estructuras de datos
