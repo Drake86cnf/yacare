@@ -54,7 +54,8 @@
     <li>Descargar Composer y crear el proyecto (para descargar vendors)
     <pre>
     php -r "readfile('https://getcomposer.org/installer');" | php
-    php composer.phar create-project
+    sudo mv composer.phar /usr/local/bin/composer
+    composer create-project
     </pre>
 
     <li>Crear la base de datos y el usuario de acceso:
