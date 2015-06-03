@@ -1,0 +1,18 @@
+{% extends 'TapirBaseBundle:Default:ver.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo requerimiento{% endif %}{% endblock pagina_titulo %}
+
+{% block pagina_contenido %}
+<h2 align="center"><b> Estado Actualizado Correctamente</h2></b>
+
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <span onclick="location.reload();" class="btn btn-link"><i class="fa fa-reply"></i> Volver</span>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+
+{% endblock pagina_acciones2 %}
