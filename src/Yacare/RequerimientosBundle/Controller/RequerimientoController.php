@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Yacare\RequerimientosBundle\Entity\Requerimiento;
 
 /**
  * @Route("requerimiento/")
@@ -34,14 +35,119 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
             $res['form_novedad'] = $editForm->createView();
         }
-    
-        return $res;
-    }
-    
-    
+        
    
-    
+        return $res ; 
+        
+    }
     /**
+     * @Route("iniciar/{id}")
+     * @Template()
+     */
+    
+   public function iniciarAction(Request $request , $id = null)
+   { $res = parent::verAction($request, $id);
+    
+        //$em = $this->getEm();
+        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+        
+        if( !is_string($UsuarioConectado)) {
+            $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+            $NuevaNovedad->setRequerimiento($res['entity']);
+            $NuevaNovedad->setUsuario($UsuarioConectado);
+            $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+            $res['form_novedad'] = $editForm->createView();
+        }     
+   	$em = $this->getDoctrine()->getManager();
+   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
+   	$entity->setEstado("10");
+   	$em->persist($entity);
+   	$em->flush();
+   	return $res;$entity;
+   }
+   
+   /**
+    * @Route("espera/{id}")
+    * @Template()
+    */
+     
+   public function esperaAction(Request $request , $id = null) 
+   
+   {
+   	$res = parent::verAction($request, $id);
+   	
+   	//$em = $this->getEm();
+   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+   	
+   	if( !is_string($UsuarioConectado)) {
+   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+   		$NuevaNovedad->setRequerimiento($res['entity']);
+   		$NuevaNovedad->setUsuario($UsuarioConectado);
+   		$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+   		$res['form_novedad'] = $editForm->createView();
+   	}
+   	$em = $this->getDoctrine()->getManager();
+   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
+   	$entity->setEstado("20");
+   	$em->persist($entity);
+   	$em->flush();
+   	return $res;$entity;
+   }
+   
+   /**
+    * @Route("terminado/{id}")
+    * @Template()
+    */
+   public function terminadoAction(Request $request, $id=null)
+   {
+   	$res = parent::verAction($request , $id);
+   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+   	
+   	if( !is_string($UsuarioConectado)) {
+   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+   		$NuevaNovedad->setRequerimiento($res['entity']);
+   		$NuevaNovedad->setUsuario($UsuarioConectado);
+   		$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+   		$res['form_novedad'] = $editForm->createView();
+   	}
+   	$em = $this->getDoctrine()->getManager();
+   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
+   	$entity->setEstado("90");
+   	$em->persist($entity);
+   	$em->flush();
+   	return $res;$entity;
+   	 
+   }
+   /**
+    * @Route("cerrar/{id}")
+    * @Template()
+    */
+    
+   public function cerrarAction(Request $request , $id = null)
+    
+   {
+   	$res = parent::verAction($request, $id);
+   
+   	//$em = $this->getEm();
+   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+   
+   	if( !is_string($UsuarioConectado)) {
+   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+   		$NuevaNovedad->setRequerimiento($res['entity']);
+   		$NuevaNovedad->setUsuario($UsuarioConectado);
+   		//$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+   		//$res['form_novedad'] = $editForm->createView();
+   	}
+   	$em = $this->getDoctrine()->getManager();
+   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
+   	$entity->setEstado("99");
+   	$em->persist($entity);
+   	$em->flush();
+   	return $res;$entity;
+   }
+   
+   /**
+     *
      * Intervengo el guardado para asignar el usuario creador y un encargado predeterminado encaso de que no tenga uno.
      */
     public function guardarActionPrePersist($entity, $editForm)
