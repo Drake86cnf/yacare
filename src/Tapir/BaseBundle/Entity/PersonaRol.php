@@ -41,7 +41,7 @@ class PersonaRol implements RoleInterface
     /**
      * Las personas que tienen este rol.
      *
-     * ORM\ManyToMany(targetEntity="Persona", mappedBy="UsuarioRoles", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Persona", mappedBy="UsuarioRoles", cascade={"persist"})
      */
     protected $Personas;
 
