@@ -1,0 +1,31 @@
+{# {% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
+%}Prueba{% endblock %} {% set filtro_grupo =
+app.request.query.get('filtro_grupo') %} {% set filtro_grupo_invertir =
+app.request.query.get('filtro_grupo_invertir') %} {% set orden =
+app.request.query.get('orden') %} #} {% block pagina_contenido %}
+
+
+Hello 
+{%if name is empty %}
+	{% set name = 'Eze' %}
+{% endif %}
+{{ name }}!
+{% if prueba and objeto%}
+	<p>Probando.. {{ prueba }}</p>
+	<p>Probando 2.. {{ objeto.AnnoName }}</p>
+	<p>La cantidad de relaciones que arrojó la sentencia SQL es: {{ contador }} </p>
+{% endif %}
+
+{#}<div class="">
+<table class="table">
+		<tr>
+			<td> TODAS LAS TABLAS DE LA DB </td>
+		</tr>
+	{%  for table in allTables %}
+		<tr>
+			<td>{{ table }}</td>
+		</tr>
+	{% endfor %}
+</table>
+</div> #}
+{% endblock %}
