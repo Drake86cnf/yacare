@@ -4,17 +4,233 @@
 {% block pagina_titulo %}{{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
-{% if ultimorastreo %}
-    {{ google_map_container(map) }}
-    {{ google_map_js(map) }}
-{% endif %}
-
-
+<div class="row">
+	<div class="col-xs-12">
+		{% if dispositivos is defined or ultimorastreo is defined %}
+			{{  google_map_container(map) }}
+		{% endif %}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-xs-4">
+		<button type="button" class="btn btn-default" id="start_btn"> Comenzar Rastreo </button>
+	</div>
+	<div class="col-xs-4">
+		<button type="button" class="btn btn-default" id="stop_btn"> Detener Rastreo </button>
+	</div>
+	{% if not uno %}
+    	<div class="col-xs-1">
+			<label class="control-label">
+				Centrar en:
+			</label>
+		</div>
+		<div class="col-xs-3">
+    		<select id="serie" class="form-control">
+				{% set i = 0 %}
+					<option> Ninguno </option>
+				{% for dispositivo in dispositivos %}
+    				<option value="{{ i | raw }}">{{ dispositivo.getNumeroSerie() }}</option>
+    				{% set i = i + 1 %}
+    			{% endfor %}
+			</select>
+		</div>
+    {% else %}
+    	<div class="col-xs-4">
+    		<button type="button" class="btn btn-default" id="center_btn"> Centrar en Dispositivo </button>
+    	</div>
+    {% endif %}
+    </div>
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
     <span adata-toggle="ajax-link" onclick="return tapirAtras();" class="btn btn-link"><i class="fa fa-reply"></i> Volver</span>
+    
 {% endblock pagina_acciones %}
+
+{% block pagina_scripts %}
+	
+	{{ js | raw }}
+	
+<script>
+$('document').ready(function(){
+	
+	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN DISPOSITIVO #}
+		{% if uno %}
+			function change (toSend, notFirst, polylines){
+				$.ajax({
+					url: '{{ path(baseroute ~ '_coordjson') }}',
+					cache: false,
+					type: 'POST',
+					dataType: 'json',
+					data: toSend,
+					success: function(data){
+							
+							for(var i = 0; i < data['x'].length; i++){
+								$newCoord = new google.maps.LatLng(data['y'][i], data['x'][i]);
+								
+								markers[i].setPosition($newCoord);
+								
+								path = polylines[0].getPath();
+								
+								if(notFirst){
+
+									if(path.length > 100){
+										path.removeAt(0);
+									}
+
+								}else{
+										map.setCenter($newCoord);
+									}
+								path.push($newCoord);
+
+								polylines[0].setPath(path);
+						
+							}
+
+						},
+					error: function( jqXhr, textStatus, errorThrown ){
+			                   console.log( errorThrown );
+							}
+				})
+			}
+
+			function firstGo(callback){
+					change(toSend, false, polylines);
+				}
+
+			function start(map, polylines){
+				var empty = new Array();
+				
+					polylines[0] = new google.maps.Polyline({
+						path: empty,
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.3,
+						map: map
+					});					
+				
+					firstGo();
+				
+					interval = setInterval(function () { change(toSend, true, polylines) }, 4000);
+				}
+
+			function center(markers){
+				
+				window.map.setCenter(markers[0].getPosition());
+			}
+			
+		{% endif %}
+	{# ----> FIN DEL CODIGO PARA SOLO UN DISPOSITIVO #}
+
+	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA MAS DE UN DISPOSITIVO #}
+		{% if not uno %}
+		centerOp = [false, null];
+			function change (toSend, notFirst){
+				$.ajax({
+						url: '{{ path(baseroute ~ '_coordjson') }}',
+						cache: false,
+						type: 'POST',
+						dataType: 'json',
+						data: toSend,
+						success: function(data){
+						
+								for(var i = 0; i < data['x'].length; i++){
+									$newCoord = new google.maps.LatLng(data['y'][i], data['x'][i]);
+
+
+									markers[i].setPosition($newCoord);
+									
+									if(window.centerOp[0] && window.centerOp[1] == i){
+										map.setCenter($newCoord);
+									}
+									
+									
+								}
+
+							},
+						error: function( jqXhr, textStatus, errorThrown ){
+		        	    	       console.log( errorThrown );
+							}
+		
+				});
+			}
+			
+			function firstGo(callback){
+				change(toSend, false);
+			}
+
+			function start(map, window){
+				firstGo();
+				
+				interval = setInterval(function () { change(toSend, true) }, 4000);
+			}
+
+			function center(value, markers){
+
+				var index = value.val();
+				
+				if(index === 'Ninguno'){
+					centerOp[0] = false;
+				}else{
+					centerOp[0] = true;
+					centerOp[1] = index;
+					map.setCenter(markers[index].getPosition());
+					}
+				
+			}
+			
+		{% endif %}
+	{# ----> FIN DEL CODIGO PARA VARIOS DISPOSITIVOS #}
+
+	{# CODIGO JS COMPARTIDO #}
+	
+				function clear(interval){
+					clearInterval(interval);
+				}
+
+				
+				
+			var ids = new Array();
+
+			{# Si la variable id esta definida, indica que fue pasada por slug, por ende que solo
+			 se solicito un dispositivo #}
+			{% if id is defined %}
+				ids.push({{ id | raw }});
+			{% else %}
+				{% for dispositivo in dispositivos %}
+					ids.push({{ dispositivo.getId() | raw }});
+				{% endfor %}
+			{% endif %}
+			
+
+			toSend = {
+					id_ras: ids
+				};
+
+					$('#start_btn').click(function(){
+						start(map, polylines);
+					});
+
+	    			$('#stop_btn').click(function(){
+	    				clear(interval);
+		    		});
+		    		
+	    			{% if dispositivos is defined %}
+	    				$('#serie').change(function(){
+	    					center($(this), markers);
+	    				});
+	    			{% else %}
+	    				$('#center_btn').click(function(){
+	    					center(markers);
+			    		});
+	    			{% endif %}
+
+			//	});
+    	});    	
+	</script>
+	
+	
+{% endblock %}
 
 {% block pagina_acciones2 %}
     <a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>

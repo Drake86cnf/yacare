@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
+use Ivory\GoogleMap\Helper\Extension;
+use Ivory\GoogleMap\Helper\MapHelper;
+use Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper;
 
 /**
  * Controlador de rastreadores GPS.
@@ -69,33 +72,78 @@ class DispositivoRastreadorGpsController extends DispositivoController
             $map->addPolyline($polyline);
         }
         
+        
+        $mapHelper = new MapHelper();
+        
+        $mapHelper->setExtensionHelper('gps_extension_helper', new GpsExtensionHelper());
+        
+        $output = $mapHelper->renderJavascripts($map);
+        
+        
         $res['map'] = $map;
+        $res['js'] = $output;
+        $res['id'] = $id;
+        $res['uno'] = true;
         
         return $res;
     }
 
     /**
-     * @Route ("coordjson/{id}")
+     * @Route ("coordjson/")
      */
-    public function coordjsonAction(Request $request, $id)
+    public function coordjsonAction(Request $request)
     {
-        $em = $this->getEm();
-        $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-            array('Dispositivo' => $id), array('id' => 'DESC'), 1);
+    	
+    	
+        //obtenemos los ids de los marcadores enviados por POST
+    	$rastreadores = $request->request->get('id_ras');
+        	
+    	
+    	
+    	$x = array();
+    	
+    	$y = array();
+    	
+    	$em = $this->getEm();
+    	
+    	
+    	//iteramos por cada marcador en el mapa y buscamos las nuevas coordenadas
+    	foreach ($rastreadores as $rastreador){
+    	
+    		$UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
+    				array('Dispositivo' => $rastreador), array('id' => 'DESC'), 1);
+    		
+    		if (count($UltimoRastreo) == 1) {
+    			// Si es un array de un 1 elemento, lo convierto en un elemento plano.
+    			$UltimoRastreo = $UltimoRastreo[0];
+    		}
+
+
+		//TODO: quitar el rand para produccion    		
+    		$sumX = $UltimoRastreo->getUbicacion()->getX() + (rand(0,10)/100);
+    		
+    		$sumY = $UltimoRastreo->getUbicacion()->getY() + (rand(0,10)/100);
+    		
+    		//asignamos las coordenadas en dos array X e Y
+    		array_push($x, $sumX);
+    		
+    		array_push($y, $sumY);
+    	}
+    	
         
-        if (count($UltimoRastreo) == 1) {
-            // Si es un array de un 1 elemento, lo convierto en un elemento plano.
-            $UltimoRastreo = $UltimoRastreo[0];
-        }
+        $res = array('x' => $x,'y' => $y);
         
-        $res = array('x' => $UltimoRastreo->getUbicacion()->getX(),'y' => $UltimoRastreo->getUbicacion()->getY());
-        
+        /*
+         * En este punto sabemos que al marcador[0] le corresponden las coordenadas x[0] e y[0]
+         * y asi con todos
+        */
+    	
         return new JsonResponse($res);
     }
-
+    
     /**
      * @Route ("vertodos/")
-     * @Template()
+     * @Template("YacareBaseBundle:DispositivoRastreadorGps:ver.html.twig")
      */
     public function vertodosAction(Request $request)
     {
@@ -123,8 +171,17 @@ class DispositivoRastreadorGpsController extends DispositivoController
                 // $map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
             }
         }
+        
+        $mapHelper = new MapHelper();
+        
+        $mapHelper->setExtensionHelper('gps_extension_helper', new GpsExtensionHelper());
+        
+        $output = $mapHelper->renderJavascripts($map);
+        
         $res['dispositivos'] = $Dispositivos;
+        $res['js'] = $output;
         $res['map'] = $map;
+        $res['uno'] = false;
         
         return $res;
     }
@@ -136,7 +193,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
     {
         $map = $this->get('ivory_google_map.map');
         
-        // $map->setMapOption('zoom', 3);
+        
+        $map->setMapOption('zoom', 30);
         $map->setAsync(true);
         $map->setAutoZoom(true);
         
