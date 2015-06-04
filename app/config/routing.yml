@@ -10,6 +10,11 @@ tapir_base:
     type:     annotation
     prefix:   /tapir/base/
 
+tapir_annotation:
+    resource: "@TapirAnnotationBundle/Controller/"
+    type:     annotation
+    prefix:   /tapir/annotation
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 

@@ -75,6 +75,7 @@ doctrine:
                 connection: default
                 mappings:
                     TapirBaseBundle:  ~
+                    TapirAnnotationBundle: ~
                     YacareBaseBundle: ~
                     YacareComprasBundle: ~
                     YacareCatastroBundle: ~
@@ -137,9 +138,33 @@ liip_imagine:
             quality: 60
             filters:
                 thumbnail: { size: [256, 256], mode: outbound }
+                
+# Parámetros de servicios de Metadata
+parameters:
+    tapir_annotation.metadata_factory.class: Metadata\MetadataFactory
+    tapir_annotation.annotation_driver.class: Tapir\AnnotationBundle\Metadata\Driver\AnnotationDriver
 
 services:
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
         - { name: twig.extension }
+        
+    # Servicios de Metadatos        
+    tapir_annotation.anno_reader:
+        class: Tapir\AnnotationBundle\Metadata\AnnoReader
+        public: false
+    
+    tapir_annotation.annotation_driver:
+        class: "%tapir_annotation.annotation_driver.class%"
+        public: false
+        arguments: ["@tapir_annotation.anno_reader"]
+        
+    tapir_annotation.metadata_factory:
+        class: "%tapir_annotation.metadata_factory.class%"
+        public: false
+        arguments: ["@tapir_annotation.annotation_driver"] 
+        
+    tapir_annotation.descripcion_procesador:
+        class: Tapir\AnnotationBundle\Data\DescripcionProcesador
+        arguments: ["@tapir_annotation.metadata_factory"]
