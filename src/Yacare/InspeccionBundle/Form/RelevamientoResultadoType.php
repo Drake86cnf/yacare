@@ -3,7 +3,7 @@ namespace Yacare\InspeccionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RelevamientoResultadoType extends AbstractType
 {
@@ -22,7 +22,7 @@ class RelevamientoResultadoType extends AbstractType
                 'label' => 'Grupo'))->add('Nombre', null, array('label' => 'Nombre'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoResultado'));

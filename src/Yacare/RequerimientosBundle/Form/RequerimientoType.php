@@ -3,7 +3,7 @@ namespace Yacare\RequerimientosBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
@@ -25,7 +25,7 @@ class RequerimientoType extends AbstractType
             ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento','cascade_validation' => true));

@@ -8,9 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Catastro_UsoSuelo",
  * indexes={
- * @ORM\Index(name="Catastro_UsoSuelo_Codigo", columns={"Codigo"})
- * }
- * )
+ *      @ORM\Index(name="Catastro_UsoSuelo_Codigo", columns={"Codigo"})
+ * })
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class UsoSuelo

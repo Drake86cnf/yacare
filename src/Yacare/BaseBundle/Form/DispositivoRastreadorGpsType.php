@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DispositivoRastreadorGpsType extends DispositivoType
 {
@@ -15,7 +15,7 @@ class DispositivoRastreadorGpsType extends DispositivoType
         $builder->add('TelefonoNumero', null, array('label' => 'Nº de línea'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));

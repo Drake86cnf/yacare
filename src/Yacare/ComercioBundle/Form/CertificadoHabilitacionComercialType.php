@@ -3,7 +3,7 @@ namespace Yacare\ComercioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\ComprobanteType
 {
@@ -15,7 +15,7 @@ class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\C
         $builder->add('Comercio', new ComercioType(), array('label' => 'Datos del comercio'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

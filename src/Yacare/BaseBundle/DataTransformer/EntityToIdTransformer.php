@@ -86,7 +86,7 @@ class EntityToIdTransformer implements DataTransformerInterface
         
         if ($this->property) {
             // Devuelve "id: propiedad"
-            $propertyAccessor = PropertyAccess::getPropertyAccessor();
+            $propertyAccessor = PropertyAccess::createPropertyAccessor();
             return current($this->unitOfWork->getEntityIdentifier($data)) . ': ' .
                  $propertyAccessor->getValue($data, $this->property);
         }

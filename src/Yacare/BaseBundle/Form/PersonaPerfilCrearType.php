@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaPerfilCrearType extends AbstractType
 {
@@ -16,7 +16,7 @@ class PersonaPerfilCrearType extends AbstractType
             ->add('PasswordEnc', 'password', array('label' => 'Contraseña','required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }

@@ -3,7 +3,7 @@ namespace Yacare\ComercioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ComercioSimpleType extends AbstractType
 {
@@ -38,7 +38,7 @@ class ComercioSimpleType extends AbstractType
                 'required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
     }

@@ -3,7 +3,7 @@ namespace Yacare\InspeccionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RelevamientoAsignacionCalleType extends AbstractType
 {
@@ -27,7 +27,7 @@ class RelevamientoAsignacionCalleType extends AbstractType
             array('label' => 'Calle','class' => 'YacareCatastroBundle:Calle','required' => true,'placeholder' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));

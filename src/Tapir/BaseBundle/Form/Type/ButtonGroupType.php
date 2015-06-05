@@ -2,7 +2,7 @@
 namespace Tapir\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ButtonGroupType extends AbstractType
 {

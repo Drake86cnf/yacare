@@ -3,7 +3,7 @@ namespace Yacare\TramitesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RequisitoType extends AbstractType
 {
@@ -40,7 +40,7 @@ class RequisitoType extends AbstractType
             ->add('Obs', null, array('label' => 'Obs.','required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\Requisito'));
     }
