@@ -10,13 +10,13 @@ use Yacare\RequerimientosBundle\Entity\Requerimiento;
 
 /**
  * @Route("requerimiento/")
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
-    
+
     /**
      * @Route("ver/{id}")
      * @Template()
@@ -24,11 +24,13 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     public function verAction(Request $request, $id = null)
     {
         $res = parent::verAction($request, $id);
-    
-        //$em = $this->getEm();
-        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
         
-        if( !is_string($UsuarioConectado)) {
+        // $em = $this->getEm();
+        $UsuarioConectado = $this->get('security.context')
+            ->getToken()
+            ->getUser();
+        
+        if (! is_string($UsuarioConectado)) {
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
             $NuevaNovedad->setRequerimiento($res['entity']);
             $NuevaNovedad->setUsuario($UsuarioConectado);
@@ -36,140 +38,105 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $res['form_novedad'] = $editForm->createView();
         }
         
-   
-        return $res ; 
-        
+        return $res;
     }
+
     /**
-     * @Route("iniciar/{id}")
+     * @Route("cambiarestado/{id}")
      * @Template()
      */
-    
-   public function iniciarAction(Request $request , $id = null)
-   { $res = parent::verAction($request, $id);
-    
-        //$em = $this->getEm();
-        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+    public function cambiarestadoAction(Request $request, $id = null)
+    {
+        if (! $id) {
+            $id = $this->ObtenerVariable($request, 'id');
+        }
         
-        if( !is_string($UsuarioConectado)) {
+        if ($id) {
+            $entity = $this->obtenerEntidadPorId($id);
+        }
+        
+        $NuevoEstado = $this->ObtenerVariable($request, 'nuevoestado');
+        
+        $em = $this->getEm();
+        $UsuarioConectado = $this->get('security.context')
+            ->getToken()
+            ->getUser();
+        
+        if (! is_string($UsuarioConectado)) {
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-            $NuevaNovedad->setRequerimiento($res['entity']);
+            $NuevaNovedad->setRequerimiento($entity);
             $NuevaNovedad->setUsuario($UsuarioConectado);
-            $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-            $res['form_novedad'] = $editForm->createView();
-        }     
-   	$em = $this->getDoctrine()->getManager();
-   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
-   	$entity->setEstado("10");
-   	$em->persist($entity);
-   	$em->flush();
-   	return $res;$entity;
-   }
-   
-   /**
-    * @Route("espera/{id}")
-    * @Template()
-    */
-     
-   public function esperaAction(Request $request , $id = null) 
-   
-   {
-   	$res = parent::verAction($request, $id);
-   	
-   	//$em = $this->getEm();
-   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
-   	
-   	if( !is_string($UsuarioConectado)) {
-   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-   		$NuevaNovedad->setRequerimiento($res['entity']);
-   		$NuevaNovedad->setUsuario($UsuarioConectado);
-   		$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-   		$res['form_novedad'] = $editForm->createView();
-   	}
-   	$em = $this->getDoctrine()->getManager();
-   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
-   	$entity->setEstado("20");
-   	$em->persist($entity);
-   	$em->flush();
-   	return $res;$entity;
-   }
-   
-   /**
-    * @Route("terminado/{id}")
-    * @Template()
-    */
-   public function terminadoAction(Request $request, $id=null)
-   {
-   	$res = parent::verAction($request , $id);
-   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
-   	
-   	if( !is_string($UsuarioConectado)) {
-   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-   		$NuevaNovedad->setRequerimiento($res['entity']);
-   		$NuevaNovedad->setUsuario($UsuarioConectado);
-   		$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-   		$res['form_novedad'] = $editForm->createView();
-   	}
-   	$em = $this->getDoctrine()->getManager();
-   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
-   	$entity->setEstado("90");
-   	$em->persist($entity);
-   	$em->flush();
-   	return $res;$entity;
-   	 
-   }
-   /**
-    * @Route("cerrar/{id}")
-    * @Template()
-    */
-    
-   public function cerrarAction(Request $request , $id = null)
-    
-   {
-   	$res = parent::verAction($request, $id);
-   
-   	//$em = $this->getEm();
-   	$UsuarioConectado = $this->get('security.context')->getToken()->getUser();
-   
-   	if( !is_string($UsuarioConectado)) {
-   		$NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-   		$NuevaNovedad->setRequerimiento($res['entity']);
-   		$NuevaNovedad->setUsuario($UsuarioConectado);
-   		//$editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-   		//$res['form_novedad'] = $editForm->createView();
-   	}
-   	$em = $this->getDoctrine()->getManager();
-   	$entity = $em->getRepository("YacareRequerimientosBundle:Requerimiento")->find($id);
-   	$entity->setEstado("99");
-   	$em->persist($entity);
-   	$em->flush();
-   	return $res;$entity;
-   }
-   
-   /**
-     *
+            switch ($NuevoEstado) {
+                case 0:
+                    break;
+                case 10:
+                    if($entity->getEstado() == 0) {
+                        $NuevaNovedad->setNotas("El requerimiento fue iniciado.");
+                    } else {
+                        $NuevaNovedad->setNotas("El requerimiento fue reiniciado.");
+                    }
+                    break;
+                case 20:
+                    $NuevaNovedad->setNotas("El requerimiento fue puesto en espera.");
+                    break;
+                case 80:
+                    $NuevaNovedad->setNotas("El requerimiento fue cancelado.");
+                    break;
+                case 90:
+                    $NuevaNovedad->setNotas("El requerimiento se marcó como terminado.");
+                    break;
+                case 99:
+                    $NuevaNovedad->setNotas("El requerimiento fue cerrado.");
+                    break;
+                default:
+                    $NuevaNovedad->setNotas("El estado del requerimiento ahora es " . \Yacare\RequerimientosBundle\Entity\Requerimiento::getEstadoNombres($NuevoEstado));
+                    break;
+            }
+            $em->persist($NuevaNovedad);
+        }
+        
+        $entity->setEstado($NuevoEstado);
+        $em->persist($entity);
+        $em->flush();
+        
+        return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false));
+    }
+
+
+    /**
      * Intervengo el guardado para asignar el usuario creador y un encargado predeterminado encaso de que no tenga uno.
      */
     public function guardarActionPrePersist($entity, $editForm)
     {
-        if((!$entity->getId())) {
-            if(!$entity->getUsuario()) {
-                $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+        if ((! $entity->getId())) {
+            if (! $entity->getUsuario()) {
+                $UsuarioConectado = $this->get('security.context')
+                    ->getToken()
+                    ->getUser();
                 $entity->setUsuario($UsuarioConectado);
-                $entity->setUsuarioNombre((string)$UsuarioConectado);
+                $entity->setUsuarioNombre((string) $UsuarioConectado);
                 $entity->setUsuarioEmail($UsuarioConectado->getEmail());
             }
-            if($entity->getCategoria() && (!$entity->getEncargado())) {
-                $entity->setEncargado($entity->getCategoria()->getEncargado());
+            if ($entity->getCategoria() && (! $entity->getEncargado())) {
+                $entity->setEncargado($entity->getCategoria()
+                    ->getEncargado());
             }
         }
         
         return parent::guardarActionPrePersist($entity, $editForm);
     }
+
     
+    /**
+     * @Route("asignar/{id}")
+     * @Template()
+     */
+    public function asignarAction(Request $request, $id = null)
+    {
+        return array();
+    }
     
-    
-    
+
     /**
      * Muestra un pequeño formulario para modificar un dato.
      *
@@ -178,100 +145,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function modificardatoAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-    
-        if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
-        }
-    
-        if (! $entity) {
-            throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        }
-    
-        $campoNombre = $this->ObtenerVariable($request, 'campo_nombre');
-    
-        $editFormBuilder = $this->createFormBuilder($entity);
-    
-        switch ($campoNombre) {
-            case 'Estado':
-                $editFormBuilder->add('Notas', null, array(
-                        'label' => 'Descripción',
-                        'required' => true))
-                    ->add('Usuario', 'entity_hidden', array(
-                        'class' => 'Yacare\BaseBundle\Entity\Persona'
-                    ))
-                    ->add('Requerimiento', 'entity_hidden', array(
-                        'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'
-                    ));
-                break;
-            case 'DocumentoNumero':
-                $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DocumentoType(),
-                array('label' => 'Documento'));
-                break;
-            case 'Domicilio':
-                $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DomicilioType(),
-                array('label' => 'Domicilio','required' => true));
-                break;
-            case 'TelefonoNumero':
-                $editFormBuilder->add($campoNombre, 'text', array('label' => 'Teléfono(s)','required' => true));
-                $editFormBuilder->add('TelefonoVerificacionNivel',
-                    new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(),
-                    array('label' => 'Nivel','required' => true));
-                break;
-            case 'Email':
-                $editFormBuilder->add($campoNombre, 'text', array('label' => 'E-mail','required' => true));
-                $editFormBuilder->add($campoNombre . 'VerificacionNivel',
-                    new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(),
-                    array('label' => 'Nivel','required' => true));
-                break;
-            case 'Pais':
-                $editFormBuilder->add('Pais', 'entity',
-                array(
-                'label' => 'Nacionalidad',
-                'placeholder' => 'Sin especificar',
-                'class' => 'YacareBaseBundle:Pais',
-                'required' => false,
-                'preferred_choices' => $em->getRepository($this->CompleteEntityName)
-                ->findById(array(1,2,11,15))));
-                break;
-            case 'Genero':
-                $editFormBuilder->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(),
-                array('label' => 'Género','required' => true));
-                break;
-        }
-    
-        $editForm = $editFormBuilder->getForm();
-        $editForm->handleRequest($request);
-    
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-            return $this->redirect(
-                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false)));
-        } else {
-            $children = $editForm->all();
-            foreach ($children as $child) {
-                $child->getErrorsAsString();
-            }
-    
-            $errors = $editForm->getErrors(true, true);
-        }
-    
-        if ($errors) {
-            foreach ($errors as $error) {
-                $this->get('session')
-                ->getFlashBag()
-                ->add('danger', $error->getMessage());
-            }
-        } else {
-            $errors = null;
-        }
-    
-        return $this->ArrastrarVariables(
-            array(
-                'edit_form' => $editForm->createView(),
-                'campo_nombre' => $campoNombre,
-                'entity' => $entity,
-                'errors' => $errors));
+        // Ver PersonaController->modificardatoAction()
+        return array();
     }
 }
