@@ -3,7 +3,7 @@ namespace Yacare\CatastroBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ZonaType extends AbstractType
 {
@@ -17,7 +17,7 @@ class ZonaType extends AbstractType
             ->add('Obs', null, array('label' => 'Obs.'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\CatastroBundle\Entity\Zona'));
     }

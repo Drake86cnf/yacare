@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ComentarioType extends AbstractType
 {
@@ -16,7 +16,7 @@ class ComentarioType extends AbstractType
             ->add('EntidadId', 'hidden');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Comentario'));
     }

@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InspeccionComercioType extends AbstractType
 {
@@ -29,7 +29,7 @@ class InspeccionComercioType extends AbstractType
                     'Pendiente-ObrasParticulares' => 'Obras Particulares (Pendiente)')));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\InspeccionComercio'));

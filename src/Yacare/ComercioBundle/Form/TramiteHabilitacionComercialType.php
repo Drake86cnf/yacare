@@ -3,7 +3,7 @@ namespace Yacare\ComercioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\TramiteType
 {
@@ -16,7 +16,7 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
             array('label' => 'Datos del comercio'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

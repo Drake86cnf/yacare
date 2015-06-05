@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class DispositivoType extends AbstractType
 {
@@ -20,7 +20,7 @@ abstract class DispositivoType extends AbstractType
             ->add('Obs', null, array('label' => 'Observaciones'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Dispositivo'));
     }

@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
 {
@@ -31,7 +31,7 @@ class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
                 'required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\TramiteCat','cascade_validation' => true));

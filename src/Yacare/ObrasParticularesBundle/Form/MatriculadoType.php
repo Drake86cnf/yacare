@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MatriculadoType extends AbstractType
 {
@@ -38,7 +38,7 @@ class MatriculadoType extends AbstractType
                 'required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado','cascade_validation' => true));

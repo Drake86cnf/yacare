@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocumentoType extends AbstractType
 {
@@ -19,7 +19,7 @@ class DocumentoType extends AbstractType
             ->setAttribute('widget', 'form_horizontal');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('inherit_data' => true,'class' => 'form_horizontal'));

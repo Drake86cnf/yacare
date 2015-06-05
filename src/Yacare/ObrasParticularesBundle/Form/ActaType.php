@@ -3,7 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActaType extends AbstractType
 {
@@ -54,7 +54,7 @@ class ActaType extends AbstractType
             ->add('ResponsableNombre', null, array('label' => 'Responsable'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\BromatologiaBundle\Entity\ActaRutinaComercio'));

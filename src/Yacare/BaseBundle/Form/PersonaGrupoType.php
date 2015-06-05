@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaGrupoType extends AbstractType
 {
@@ -13,7 +13,7 @@ class PersonaGrupoType extends AbstractType
         $builder->add('Nombre', null, array('label' => 'Nombre'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\PersonaGrupo'));
     }

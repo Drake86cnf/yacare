@@ -3,7 +3,7 @@ namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdjuntoType extends AbstractType
 {
@@ -13,7 +13,7 @@ class AdjuntoType extends AbstractType
         return $builder->add('NombreArchivo', 'file', array('label' => 'Archivo adjunto'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

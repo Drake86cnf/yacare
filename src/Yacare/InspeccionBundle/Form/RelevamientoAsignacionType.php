@@ -3,7 +3,7 @@ namespace Yacare\InspeccionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RelevamientoAsignacionType extends AbstractType
 {
@@ -34,7 +34,7 @@ class RelevamientoAsignacionType extends AbstractType
             ->add('Macizo', null, array('label' => 'Macizo'));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array('data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
