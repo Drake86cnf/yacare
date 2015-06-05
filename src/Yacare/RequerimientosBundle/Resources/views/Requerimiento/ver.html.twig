@@ -48,34 +48,34 @@
    
     {% if entity.Estado == 0 %}
         {# Nuevo #}
-        <a class="btn btn-default" href="{{path(baseroute ~ '_iniciar', arrastre|merge({ 'id': entity.id})) }}"
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10 })) }}"
           data-toggle="modal" ><i class="fa fa-play"></i> Iniciar</a>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': 'DocumentoNumero'})) }}"
-            data-toggle="modal"><i class="fa fa-times"></i> Cancelar</a>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 80 })) }}"
+            data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
     {% endif %}
     {% if entity.Estado == 10 %}
         {# Iniciado #}
-        <a class="btn btn-default" href="{{path(baseroute ~ '_espera', arrastre|merge({ 'id': entity.id})) }}" 
-       data-toggle="modal"  ><i class="fa fa-refresh"></i> Poner en espera</a>
-        <a class="btn btn-default" href="{{path(baseroute ~ '_terminado', arrastre|merge({'id': entity.id}))  }}"
-        data-toggle="modal" ><i class="fa fa-check"></i> Terminar</a>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 20 })) }}" 
+       data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({'id': entity.id, 'nuevoestado': 90 }))  }}"
+        data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
     {% endif %}
     {% if entity.Estado == 20 %}
         {# En espera #}
-        <a class="btn btn-default"  href="{{path(baseroute ~ '_iniciar', arrastre|merge({ 'id': entity.id})) }}"
-        data-toggle="modal" ><i class="fa fa-play"></i> Continuar</a>
-        <a class="btn btn-default"  href="{{path(baseroute ~ '_terminado', arrastre|merge({'id': entity.id}))  }}"
-        data-toggle="modal" ><i class="fa fa-check"></i> Terminar</a>
+        <a class="btn btn-default"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10 })) }}"
+        data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
+        <a class="btn btn-default"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({'id': entity.id, 'nuevoestado': 90 })) }}"
+        data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
     {% endif %}
     {% if entity.Estado == 90 %}
         {# Terminado #}
-        <a class="btn btn-success"   href="{{path(baseroute ~ '_cerrar', arrastre|merge({ 'id': entity.id})) }}"
-        data-toggle="modal" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
+        <a class="btn btn-success"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 99 })) }}"
+        data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
     {% endif %}
     {% if entity.Estado == 99 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         {# Cerrado #}
-        <a class="btn btn-default"  href="{{path(baseroute ~ '_iniciar', arrastre|merge({ 'id': entity.id})) }}"
-        data-toggle="modal" ><i class="fa fa-refresh"></i> Reabrir</a>
+        <a class="btn btn-default"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10 })) }}"
+        data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
     {% endif %}
 </div>
 {% endif %}
@@ -143,7 +143,7 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-    <span onclick="return tapirAtras();" class="btn btn-link"><i class="fa fa-reply"></i> Volver</span>
+    <a href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i class="fa fa-list"></i> Listado</a>
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}

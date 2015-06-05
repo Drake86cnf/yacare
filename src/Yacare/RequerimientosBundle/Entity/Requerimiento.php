@@ -150,6 +150,8 @@ class Requerimiento
                 return 'Iniciado';
             case 20:
                 return 'En espera';
+            case 80:
+                return 'Cancelado';
             case 90:
                 return 'Terminado';
             case 99:
