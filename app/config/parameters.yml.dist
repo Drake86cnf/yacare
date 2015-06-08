@@ -21,3 +21,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     tapir.cliente: 'Municipio de Río Grande'
+    munirg_ldap_contrasena: 'password'
+    
