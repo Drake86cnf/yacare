@@ -22,4 +22,4 @@ logout:
     path:      /logout
 
 login_check:
-    pattern:   /login_check
+    path:      /login_check
