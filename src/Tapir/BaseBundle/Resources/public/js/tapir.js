@@ -127,7 +127,7 @@ function tapirNavegarA(url, destino) {
  * Cambiar la URL en la barra de dirección (y en el historial) del navegador.
  */
 function tapirCambiarDireccion(url) {
-	if (url !== window.location) {
+	if (url !== window.location && url.indexOf('hisapi=0') === 0) {
 		//var err = new Error();
 		//alert('Cambiar ' + url + ', Error ' + err.stack);
 		urlfinal = url.replace('&sinencab=1', '');
