@@ -20,10 +20,12 @@ class LdapHelper
 
     public function ObtenerConexion()
     {
-        $this->ConnRg = new AdConnection('192.168.100.41', 'riogrande.local', 'Administrador', 'S1ni3sTr0');
+        $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
+        
+        $this->ConnRg = new AdConnection('192.168.100.41', 'riogrande.local', 'Administrador', $ContrasenaLdap);
         $this->ConnRg->Connect();
         
-        $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', 'S1ni3sTr0');
+        $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', $ContrasenaLdap);
         $this->ConnMuni->DomainAdminsGroupName = 'Admins. del dominio';
         $this->ConnMuni->DomainUsersGroupName = 'Usuarios del dominio';
         $this->ConnMuni->Connect();
@@ -31,6 +33,8 @@ class LdapHelper
 
     public function CambiarContrasena($Agente)
     {
+        $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
+        
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         // setlocale(LC_CTYPE, "en_US.UTF-8");
@@ -40,7 +44,7 @@ class LdapHelper
         // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
         // una sesión del servidor web.
         exec(
-            "ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%S1ni3sTr0 //192.168.100.44 \"net user " .
+            "ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%l" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
                  addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
         // $this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
