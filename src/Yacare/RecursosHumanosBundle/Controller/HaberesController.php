@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("haberes/")
+ * @Route("haberes/")
  */
 class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
 {
@@ -45,7 +45,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         
         $res = array('persona' => $Persona,'agente' => $Agente,'recibos' => $ConsultaRecibos->fetchAll());
         
-        return $this->ArrastrarVariables($res);
+        return $this->ArrastrarVariables($request, $res);
     }
 
     /**
@@ -85,6 +85,6 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
             'peri' => $peri,
             'detalles' => $ConsultaRecibo->fetchAll());
         
-        return $this->ArrastrarVariables($res);
+        return $this->ArrastrarVariables($request, $res);
     }
 }

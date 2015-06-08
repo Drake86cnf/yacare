@@ -35,13 +35,13 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
             $em->persist($NuevaNovedad);
             $em->flush();
     
-            return $this->ArrastrarVariables(array('entity' => $NuevaNovedad));
+            return $this->ArrastrarVariables($request, array('entity' => $NuevaNovedad));
         } else {
             $validator = $this->get('validator');
             $errores = $validator->validate($NuevaNovedad);
             
             var_dump($errores);
-            return $this->ArrastrarVariables(array(
+            return $this->ArrastrarVariables($request, array(
                 'form_novedad' => $editForm->createView(),
                 'errores' => (string)$errores
             ));

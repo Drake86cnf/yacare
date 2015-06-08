@@ -39,7 +39,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $entities = $em->getRepository('YacareBaseBundle:Comentario')->findBy(
             array('EntidadTipo' => $tipo,'EntidadId' => $id));
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('form_comentario' => $editForm->createView(),'entity' => $entity,'entities' => $entities));
     }
 
@@ -65,9 +65,9 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
             $em->persist($NuevoComentario);
             $em->flush();
             
-            return $this->ArrastrarVariables(array('entity' => $NuevoComentario));
+            return $this->ArrastrarVariables($request, array('entity' => $NuevoComentario));
         } else {
-            return $this->ArrastrarVariables(array());
+            return $this->ArrastrarVariables($request, array());
         }
     }
 }

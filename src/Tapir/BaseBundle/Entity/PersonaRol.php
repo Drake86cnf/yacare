@@ -27,14 +27,16 @@ class PersonaRol implements RoleInterface
     /**
      * El nombre del rol.
      *
-     * @var string @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
 
     /**
      * El código de rol.
      *
-     * @var string @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $Codigo;
 

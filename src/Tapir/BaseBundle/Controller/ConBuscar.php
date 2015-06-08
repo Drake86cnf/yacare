@@ -31,7 +31,7 @@ trait ConBuscar
 			return $this->listarAction($request);
         } else {
             // Si no hay texto de búsqueda, devuelvo una respuesta vacía
-            return $this->ArrastrarVariables(array());
+            return $this->ArrastrarVariables($request, array());
         }
     }
 }

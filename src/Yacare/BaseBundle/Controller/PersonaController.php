@@ -181,7 +181,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             return $this->redirect(
-                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false)));
+                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
@@ -201,7 +201,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $errors = null;
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array(
                 'edit_form' => $editForm->createView(),
                 'campo_nombre' => $campoNombre,
@@ -227,6 +227,6 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($ok) {}
         
-        return $this->ArrastrarVariables(array('entity1' => $entity1,'entity2' => $entity2));
+        return $this->ArrastrarVariables($request, array('entity1' => $entity1,'entity2' => $entity2));
     }
 }

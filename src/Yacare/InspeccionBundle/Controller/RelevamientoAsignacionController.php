@@ -77,7 +77,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables(
+                $this->ArrastrarVariables($request, 
                     array('filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
@@ -86,7 +86,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables(
+                $this->ArrastrarVariables($request, 
                     array('filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
@@ -186,7 +186,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         }
         
         // $this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
     }
 
@@ -217,7 +217,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $editForm = $this->createForm(new $typeName(), $entity);
         // $deleteForm = $this->crearFormEliminar($id);
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
     }
 
@@ -251,7 +251,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
     }
 }

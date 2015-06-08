@@ -79,7 +79,7 @@ trait ConPerfil
                         ->add('danger', $error);
                 }
                 
-                $res = $this->ArrastrarVariables(
+                $res = $this->ArrastrarVariables($request, 
                     array(
                         'entity' => $entity,
                         'errors' => $errors,
@@ -94,7 +94,7 @@ trait ConPerfil
             }
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array(
                 'entity' => $entity,
                 'edit_form_action' => 'usuario_editarperfil',
@@ -159,7 +159,7 @@ trait ConPerfil
             $em->refresh($user);
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'edit_form' => $editForm->createView(),'terminado' => $terminado));
     }
 

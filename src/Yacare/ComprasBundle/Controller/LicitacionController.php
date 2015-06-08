@@ -32,6 +32,6 @@ class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function ayudaAction()
     {
-        return $this->ArrastrarVariables(array());
+        return $this->ArrastrarVariables($request, array());
     }
 }
