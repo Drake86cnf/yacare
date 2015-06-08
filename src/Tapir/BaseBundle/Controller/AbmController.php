@@ -225,7 +225,7 @@ abstract class AbmController extends BaseController
             $entities = $query->getResult();
         }
         
-        return $this->ArrastrarVariables(array('entities' => $entities));
+        return $this->ArrastrarVariables($request, array('entities' => $entities));
     }
 
     /**
@@ -253,7 +253,7 @@ abstract class AbmController extends BaseController
      */
     public function inicioAction(Request $request)
     {
-        return $this->ArrastrarVariables(array());
+        return $this->ArrastrarVariables($request, array());
     }
 
     /**
@@ -279,7 +279,7 @@ abstract class AbmController extends BaseController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        return $this->ArrastrarVariables(array('entity' => $entity));
+        return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
 
     /**
@@ -317,7 +317,7 @@ abstract class AbmController extends BaseController
         $editForm = $this->createForm(new $typeName(), $entity);
         $deleteForm = $this->crearFormEliminar($id);
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array(
                 'entity' => $entity,
                 'create' => $id ? false : true,
@@ -386,7 +386,7 @@ abstract class AbmController extends BaseController
                 $this->addFlash('danger', $error);
             }
             
-            $res = $this->ArrastrarVariables(
+            $res = $this->ArrastrarVariables($request, 
                 array(
                     'entity' => $entity,
                     'errors' => $errors,
@@ -403,7 +403,7 @@ abstract class AbmController extends BaseController
 
     protected function guardarActionAfterSuccess($entity)
     {
-        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false));
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
     }
 
     public function guardarActionPreBind($entity)

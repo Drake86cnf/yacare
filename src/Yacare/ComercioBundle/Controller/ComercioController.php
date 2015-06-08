@@ -15,8 +15,8 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
      * @Route("altamanual/")
      * @Template()
      */
-    function altamanualAction()
+    function altamanualAction(Request $request)
     {
-        return $this->ArrastrarVariables();
+        return $this->ArrastrarVariables($request);
     }
 }

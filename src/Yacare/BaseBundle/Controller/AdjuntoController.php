@@ -27,7 +27,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
             array('EntidadTipo' => $tipo,'EntidadId' => $id));
         
-        return $this->ArrastrarVariables(array('entities' => $entities));
+        return $this->ArrastrarVariables($request, array('entities' => $entities));
     }
 
     /**
@@ -175,6 +175,6 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
             throw $this->createNotFoundException('No se puede cargar la entidad.');
         }
         
-        return $this->ArrastrarVariables(array('entity' => $entity));
+        return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
 }

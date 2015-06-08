@@ -43,7 +43,7 @@ trait ConEliminar
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => $id ? false : true,'delete_form' => $deleteForm->createView()));
     }
 
@@ -99,6 +99,6 @@ trait ConEliminar
     public function afterEliminar($entity, $eliminado = false)
     {
         return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables(null, false)));
+            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
     }
 }

@@ -99,7 +99,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $em->persist($entity);
         $em->flush();
         
-        return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables(array('id' => $id), false));
+        return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false));
     }
 
 

@@ -102,7 +102,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 $ValorUsoSuelo = 0;
             }
             
-            return $this->ArrastrarVariables(
+            return $this->ArrastrarVariables($request, 
                 array(
                     'usosuelo' => $ValorUsoSuelo,
                     'usosuelo_nombre' => \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($ValorUsoSuelo),
@@ -118,7 +118,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                     'edit_form' => $editForm->createView()));
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array(
                 'entity' => null,
                 'create' => true,

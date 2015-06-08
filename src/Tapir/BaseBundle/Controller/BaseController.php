@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 abstract class BaseController extends Controller
 {
-
     /**
      *
      * @var string El nombre del EntityManager que se usa en este controlador.
@@ -131,7 +130,7 @@ abstract class BaseController extends Controller
         }
     }
 
-    public function ObtenerVariable($request, $varName)
+    public function ObtenerVariable(Request $request, $varName)
     {
         return $request->query->get($varName);
     }
@@ -152,12 +151,10 @@ abstract class BaseController extends Controller
      * @return string El array con todas las variables necesarias para pasar a
      *         una acción.
      */
-    protected function ArrastrarVariables($valorInicial = null, $incluirDelSistema = true)
+    protected function ArrastrarVariables(Request $request, $valorInicial = null, $incluirDelSistema = true)
     {
         if (! $valorInicial)
             $valorInicial = array();
-        
-        $request = $this->getRequest();
         
         if ($incluirDelSistema) {
             $valorInicial['bundlename'] = strtolower(strtolower($this->VendorName) . '_' . $this->BundleName);

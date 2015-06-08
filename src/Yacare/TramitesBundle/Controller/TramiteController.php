@@ -48,7 +48,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables(array('id' => $id), false)));
+                $this->ArrastrarVariables($request, array('id' => $id), false)));
     }
 
     /**
@@ -90,7 +90,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
             $RutaComprob = null;
         }
         
-        return $this->ArrastrarVariables(
+        return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'mensaje' => $mensaje,'comprob' => $Comprob,'rutacomprob' => $RutaComprob));
     }
 

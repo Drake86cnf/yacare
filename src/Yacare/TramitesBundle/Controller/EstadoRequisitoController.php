@@ -85,7 +85,7 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
         
         return $this->redirect(
             $this->generateUrl('yacare_' . strtolower($BundleName) . '_' . strtolower($EntityName) . '_ver', 
-                $this->ArrastrarVariables(
+                $this->ArrastrarVariables($request, 
                     array('id' => $entity->getTramite()
                         ->getId()), false)));
     }
