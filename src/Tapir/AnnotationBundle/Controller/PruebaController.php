@@ -52,7 +52,7 @@ class PruebaController extends AbmController
     	 * Pequeña rutina que trae el listado de todas las tablas existentes en la DB
     	 * incluyendo aquellas que no son referenciadas desde una Entidad o especificada en los metadatos. 
     	 */
-    	$em = $this->getDoctrine()->getManager();
+    	$em = $this->getEm();
     	$allTables = array();
     	$tables = $em->getConnection()->getSchemaManager()->listTables();
     	foreach ($tables as $table) {
@@ -73,21 +73,17 @@ class PruebaController extends AbmController
     	$allTables = array_values($allTables); //Reestablezco la numeración de la indexación.
     	//----------------------------------------------------------------------------------------
     	
-    	$id= "3";
-    	$em = $this->getEm();
+    	$id= "6";
+    	
     	$entity = $em->getRepository('Yacare\BaseBundle\Entity\Persona')->find($id);
     	
     	//Conexión a la base de datos
     	$conn = $this->conectarDB();
     	
     	//Variables usadas para ir construyendo inteligentemente la sentencia SQL.
-    	$tablaRemitente = 'Base_PersonaGrupo';
-    	//$tablaDestinataria = '';
-    	//$metaDes = '';
-    	//$paramRem = 'Nombre';
-    	//$paramDes = '';
-    	 
-    	$result = $em->getClassMetadata('Yacare\BaseBundle\Entity\PersonaGrupo')->getAssociationMappings();
+    	$tablaRemitente = 'Comercio_Actividad';
+    	
+    	$result = $em->getClassMetadata('Yacare\ComercioBundle\Entity\Actividad')->getAssociationMappings();
     	//var_dump($result);
     	
     	//Llamo a la rutina de búsqueda y el valor devuelto (el contador) se lo asigno a esta variable $contador.
@@ -151,25 +147,36 @@ class PruebaController extends AbmController
      * @param integer $id
      * @return mixed $resultado
      */
-    protected function construirSQL ($tablaRemitente, $tablaDestinataria, $paramDes, $id) 
+    protected function construirSQL ($tablaRemitente, $id, $tablaDestinataria = null, $paramDes = null, $paramRem = null) 
     {
     	$conn = $this->conectarDB();
+    	
     	//Creo un constructor de query y empiezo a construir la sentencia.
     	$queryBuilder = $conn->createQueryBuilder();
+    	if($paramRem == null){
+    		$queryBuilder->select('p.id');
+    	}
+    	else {
+    		$queryBuilder
+    			->select('p.' . $paramRem);
+    	}
+    	$queryBuilder->from($tablaRemitente, 'p');
+    	if ($tablaDestinataria != null){
+    		$queryBuilder->join('p', $tablaDestinataria, 'r', 'r.' .$paramDes);
+    	}
     	$queryBuilder
-    	->select('p.id')
-    	->from($tablaRemitente, 'p')
-    	->join('p', $tablaDestinataria, 'r', 'r.' .$paramDes)
-    	->where('p.id = '. $id)
-    	->andwhere('p.id = r.' . $paramDes);
+    		->where('p.id = '. $id);
+    	if ($tablaDestinataria != null && $paramDes != null){
+    		$queryBuilder->andwhere('p.id = r.' . $paramDes);
+    	}
     		
     	//Preparo la sentencia y luego la mando a ejecutar.
     	$statement = $conn->prepare($queryBuilder);
     	$statement->execute();
+    	//var_dump($statement);
     		
     	//Mando el resultado a un array.
     	$resultado = $statement->fetchAll();
-    	//var_dump($resultado);
     	
     	return $resultado;
     }
@@ -183,8 +190,8 @@ class PruebaController extends AbmController
      * del lado inverso.
      * Por el momento sólo identifica con relaciones bidireccionales ManyToMany.
      * 
-     * @param mixed $result resultado de la consulta a la metadata de ORM.
-     * @param mixed $conn coenxión a la base de datos.
+     * @param array $result resultado de la consulta a la metadata de ORM.
+     * @param mixed $conn conexión a la base de datos.
      * @param integer $id ID de la entidad a analizar.
      * @param string $tablaRemitente contiene la ruta a la clase de la entidad a estudiar.  
      * @return integer $contador variable con la cantidad de relaciones encontradas para esa entidad.
@@ -198,41 +205,105 @@ class PruebaController extends AbmController
     	//Recorro el array de la relación de la entidad a suprimir.
     	foreach ($result as $valorRes) {//Recorro el primer nivel del array devuelto 
     								   //con el mapeado de asociaciones.
-    		$flag = false;
-    		if ($valorRes['type'] == 8) {//Reconozco que es una relación ManyToMany.
-        		foreach ($valorRes as $llave2 => $res) {//Recorro el 2do. nivel del array. De acuerdo al campo que apunte el 'foreach' padre.
+    								   
+    		switch ($valorRes['type']) {
+    			//Reconozco que es una relación OneToOne.
+    			case 1: 
+    				break;
     			
-    				if ($llave2 == 'joinTable' && $res == null) {//Reconozco que se trata del lado INVERSO.
-    					$flag = true;
-    				}
-    				if ($llave2 == 'targetEntity' && $flag) {
-    					$metaDes = (string)$res;
-    				}
-    				if ($llave2 == 'mappedBy' && $flag) {
-    					$nomVarPropietario = (string)$res;
-    				}
-    			}
-    			if ($flag) {//Bandera que me determina si, en el lado inverso de la relación ManyToMany,
-    				       //se encontró el índice que referencia a la tabla intermedia.
-    				$resPropietario = $em->getClassMetadata($metaDes)->getAssociationMappings();
-    			
-    				$contador += $this->rutinaLadoPropietario($id, $resPropietario, $nomVarPropietario, $tablaRemitente);
-    			}
-    			else {
-    				$arraySegundoLvl = $this->esPropietarioOInverso($valorRes);
-    				if ($arraySegundoLvl['ban'] == 1) {
-    					$contador += count($this->construirSQL($tablaRemitente, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes'], $id));
-    				}
-    			}
+    			//Reconozco que es una relación ManyToOne.
+    			case 2:
+    				$contador += $this->rutinaManyToOne($valorRes, $tablaRemitente, $id);
+    				break;
+
+    			//Reconozco que es una relación OneToMany.
+    			case 4: 
+    				break;
+    				
+   				//Reconozco que es una relación ManyToMany.
+    			case 8: 
+    				$contador += $this->rutinaManyToMany($id, $tablaRemitente, $valorRes, $flag = false);
+    				break; 
+    				
+    			default: 
+    				$contador = 'No posee relaciones';
+    				break;
     		}
     	}
     	
-    	
-    	$result2 = $em->getClassMetadata('Yacare\BaseBundle\Entity\Persona')->getAssociationMappings();
+    	$result2 = $em->getClassMetadata('Yacare\ComercioBundle\Entity\Local')->getAssociationMappings();
     	//var_dump($result2);
     	
     	return $contador;
     }
+    /**
+     * Rutina destinada a la consulta de asociaciones para relaciones de ManyToOne.
+     * 
+     * Rutina simple, en la que sólo detecta la entidad objetivo, en el array de asociaciones
+     * y busca concordancia entre la ID de la entidad estudiada, con la entidad objetivo.
+     * 
+     * @param array $valorRes
+     * @param string $tablaRemitente
+     * @param integer $id
+     * @return integer $contador
+     */
+    protected function rutinaManyToOne($valorRes, $tablaRemitente, $id)
+    {
+    	$em = $this->getEm(); 
+    	$contador = 0;
+    	$paramRemitente = $valorRes['targetToSourceKeyColumns']['id'];
+    	$resultado = $this->construirSQL($tablaRemitente, $id, null, null, $paramRemitente);
+    	if($resultado[0][$paramRemitente] != null){
+    		$tablaDestinataria = $valorRes['targetEntity'];
+    		$tablaDestinataria = $em->getMetadataFactory()->getMetadataFor($tablaDestinataria)->getTableName();
+    		$paramRemitente = $resultado[0][$paramRemitente];
+    		$contador = count($this->construirSQL($tablaDestinataria, $paramRemitente));
+    	}
+    	return $contador;
+    }
+    
+    /**
+     * Rutina que se encarga de realizar la consulta para la relación ManyToMany.
+     * 
+     * Comienza a partir del segundo nivel del array de relaciones correspondiente a la entidad estudiada.
+     * Continúa buscando e identificando distintas partes para diferenciar los lados PROPIETARIOS e INVERSOS.
+     * 
+     * @param integer $id
+     * @param string $tablaRemitente
+     * @param array $valorRes
+     * @return integer $contador
+     */
+    protected function rutinaManyToMany($id, $tablaRemitente, $valorRes, $flag) 
+    {
+    	$em = $this->getEm();
+    	$contador = 0; 
+    	foreach ($valorRes as $llave2 => $res) {//Recorro el 2do. nivel del array. De acuerdo al campo que apunte el 'foreach' padre.
+    		 
+    		if ($llave2 == 'joinTable' && $res == null) {//Reconozco que se trata del lado INVERSO.
+    			$flag = true;
+    		}
+    		if ($llave2 == 'targetEntity' && $flag) {
+    			$metaDes = (string)$res;
+    		}
+    		if ($llave2 == 'mappedBy' && $flag) {
+    			$nomVarPropietario = (string)$res;
+    		}
+    	}
+    	if ($flag) {//Bandera que me determina si, en el lado inverso de la relación ManyToMany,
+    		//se encontró el índice que referencia a la tabla intermedia.
+    		$resPropietario = $em->getClassMetadata($metaDes)->getAssociationMappings();
+    		 
+    		$contador += $this->rutinaLadoPropietario($id, $resPropietario, $nomVarPropietario, $tablaRemitente);
+    	}
+    	else {
+    		$arraySegundoLvl = $this->esPropietarioOInverso($valorRes);
+    		if ($arraySegundoLvl['ban'] == 1) {
+    			$contador += count($this->construirSQL($tablaRemitente, $id, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes']));
+    		}
+    	}
+    	return $contador;
+    }
+    
     /**
      * Rutina para recorrer el array, de mapeado de asociacion, del lado Propietario de la relación en ManyToMany.
      * 
@@ -251,14 +322,14 @@ class PruebaController extends AbmController
     			$indice = 1;
     			$arraySegundoLvl= $this->esPropietarioOInverso ($valorRes, $indice);
     			if ($arraySegundoLvl['ban'] == 1) {
-    				$contador += count($this->construirSQL($tablaRemitente, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes'], $id));
+    				$contador += count($this->construirSQL($tablaRemitente, $id, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes']));
     			}
     			break;
     		}
     		else {
     			$arraySegundoLvl= $this->esPropietarioOInverso ($valorRes);
     			if ($arraySegundoLvl['ban'] == 1) {
-    				$contador += count($this->construirSQL($tablaRemitente, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes'], $id));
+    				$contador += count($this->construirSQL($tablaRemitente, $id, $arraySegundoLvl['tablaDes'], $arraySegundoLvl['paramDes']));
     			}
     		}
     	}
@@ -287,8 +358,8 @@ class PruebaController extends AbmController
     			$tablaDestinataria = $res['name'];
     		}
     		if ($llave2 == 'joinTableColumns' && $ban == 1){//Índice que señala las columnas de la tabla intermedia.
-    			$paramDes = $res[$indice]; //El índice es 1 porque siempre el 0 (primer índice) señalará a
-    									  //la columna de la tabla que es propietaria.
+    			$paramDes = $res[$indice]; //El índice es 1 para señañar la columna de la tabla INVERSA. 0 (cero) señalará a
+    									  //la columna de la tabla que es PROPIETARIA.
     		}
     	}
     	return array ('tablaDes' => $tablaDestinataria, 'paramDes' => $paramDes, 'ban' => $ban);
