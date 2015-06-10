@@ -73,7 +73,7 @@ class PruebaController extends AbmController
     	$allTables = array_values($allTables); //Reestablezco la numeración de la indexación.
     	//----------------------------------------------------------------------------------------
     	
-    	$id= "6";
+    	$id= "1";
     	
     	$entity = $em->getRepository('Yacare\BaseBundle\Entity\Persona')->find($id);
     	
@@ -81,9 +81,9 @@ class PruebaController extends AbmController
     	$conn = $this->conectarDB();
     	
     	//Variables usadas para ir construyendo inteligentemente la sentencia SQL.
-    	$tablaRemitente = 'Comercio_Actividad';
+    	$tablaRemitente = 'Base_Persona';
     	
-    	$result = $em->getClassMetadata('Yacare\ComercioBundle\Entity\Actividad')->getAssociationMappings();
+    	$result = $em->getClassMetadata('Yacare\BaseBundle\Entity\Persona')->getAssociationMappings();
     	//var_dump($result);
     	
     	//Llamo a la rutina de búsqueda y el valor devuelto (el contador) se lo asigno a esta variable $contador.
@@ -153,7 +153,7 @@ class PruebaController extends AbmController
     	
     	//Creo un constructor de query y empiezo a construir la sentencia.
     	$queryBuilder = $conn->createQueryBuilder();
-    	if($paramRem == null){
+    	if($paramRem == null) {
     		$queryBuilder->select('p.id');
     	}
     	else {
@@ -161,12 +161,12 @@ class PruebaController extends AbmController
     			->select('p.' . $paramRem);
     	}
     	$queryBuilder->from($tablaRemitente, 'p');
-    	if ($tablaDestinataria != null){
+    	if ($tablaDestinataria != null) {
     		$queryBuilder->join('p', $tablaDestinataria, 'r', 'r.' .$paramDes);
     	}
     	$queryBuilder
     		->where('p.id = '. $id);
-    	if ($tablaDestinataria != null && $paramDes != null){
+    	if ($tablaDestinataria != null && $paramDes != null) {
     		$queryBuilder->andwhere('p.id = r.' . $paramDes);
     	}
     		
@@ -211,16 +211,17 @@ class PruebaController extends AbmController
     			case 1: 
     				break;
     			
-    			//Reconozco que es una relación ManyToOne.
+    			//Reconozco que es una relación ManyToOne. (No modifica el comportamiento si es uni o bidireccional)
     			case 2:
     				$contador += $this->rutinaManyToOne($valorRes, $tablaRemitente, $id);
     				break;
 
-    			//Reconozco que es una relación OneToMany.
-    			case 4: 
+    			//Reconozco que es una relación OneToMany. (Indistinto si se trata de bidireccionales o unidireccionales)
+    			case 4:
+    				$contador += $this->rutinaOneToMany($valorRes, $id);
     				break;
     				
-   				//Reconozco que es una relación ManyToMany.
+   				//Reconozco que es una relación ManyToMany. (bidireccionales)
     			case 8: 
     				$contador += $this->rutinaManyToMany($id, $tablaRemitente, $valorRes, $flag = false);
     				break; 
@@ -231,8 +232,8 @@ class PruebaController extends AbmController
     		}
     	}
     	
-    	$result2 = $em->getClassMetadata('Yacare\ComercioBundle\Entity\Local')->getAssociationMappings();
-    	//var_dump($result2);
+    	$result2 = $em->getClassMetadata('Yacare\BaseBundle\Entity\Persona')->getAssociationMappings();
+    	var_dump($result2);
     	
     	return $contador;
     }
@@ -244,21 +245,43 @@ class PruebaController extends AbmController
      * 
      * @param array $valorRes
      * @param string $tablaRemitente
-     * @param integer $id
-     * @return integer $contador
+     * @param int $id
+     * @return int $contador
      */
     protected function rutinaManyToOne($valorRes, $tablaRemitente, $id)
     {
-    	$em = $this->getEm(); 
+    	$em = $this->getEm();
     	$contador = 0;
     	$paramRemitente = $valorRes['targetToSourceKeyColumns']['id'];
     	$resultado = $this->construirSQL($tablaRemitente, $id, null, null, $paramRemitente);
+    	
     	if($resultado[0][$paramRemitente] != null){
+    		$paramRemitente = $resultado[0][$paramRemitente];
     		$tablaDestinataria = $valorRes['targetEntity'];
     		$tablaDestinataria = $em->getMetadataFactory()->getMetadataFor($tablaDestinataria)->getTableName();
-    		$paramRemitente = $resultado[0][$paramRemitente];
     		$contador = count($this->construirSQL($tablaDestinataria, $paramRemitente));
     	}
+    	return $contador;
+    }
+    
+    /**
+     * Rutina encargada de manejar consulta en relaciones OneTomany.
+     * 
+     * Rutina simple, extrae, la variable y la dirección de la entidad, que refieren al lado inverso de la relación.
+     * Finaliza realizando una búsqueda en la entidad destinataria a partir del nombre de la variable extraída previamente, donde
+     * ésta sea igual (=) a la $id de la entidad estudiada.
+     * 
+     * @param array $valorRes
+     * @param int $id
+     * @return int
+     */
+    protected function rutinaOneToMany($valorRes, $id)
+    {
+    	$em = $this->getEm();
+    	$contador = 0;
+    	$paramDestinatario = $valorRes['mappedBy'];
+    	$tablaDestinataria = $valorRes['targetEntity'];
+    	$contador += count($em->getRepository($tablaDestinataria)->findBy(array($paramDestinatario => $id)));
     	return $contador;
     }
     
@@ -268,10 +291,10 @@ class PruebaController extends AbmController
      * Comienza a partir del segundo nivel del array de relaciones correspondiente a la entidad estudiada.
      * Continúa buscando e identificando distintas partes para diferenciar los lados PROPIETARIOS e INVERSOS.
      * 
-     * @param integer $id
+     * @param int $id
      * @param string $tablaRemitente
      * @param array $valorRes
-     * @return integer $contador
+     * @return int $contador
      */
     protected function rutinaManyToMany($id, $tablaRemitente, $valorRes, $flag) 
     {
@@ -307,7 +330,7 @@ class PruebaController extends AbmController
     /**
      * Rutina para recorrer el array, de mapeado de asociacion, del lado Propietario de la relación en ManyToMany.
      * 
-     * @param integer $id
+     * @param int $id
      * @param array $resultado
      * @param string $clave
      * @param string $nomVarPropietario
