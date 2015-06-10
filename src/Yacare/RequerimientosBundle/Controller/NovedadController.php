@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de novedades de requerimientos.
+ * 
  * @Route("novedad/")
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>

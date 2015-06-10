@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de categorías de requerimientos.
+ * 
  * @Route("categoria/")
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>

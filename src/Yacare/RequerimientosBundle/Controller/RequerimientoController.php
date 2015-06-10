@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yacare\RequerimientosBundle\Entity\Requerimiento;
 
 /**
+ * Controlador de requerimientos.
+ * 
  * @Route("requerimiento/")
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
@@ -42,6 +44,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
+     * Cambia el estado del requerimiento y agrega una novedad informando el nuevo estado.
+     * 
      * @Route("cambiarestado/{id}")
      * @Template()
      */
@@ -128,6 +132,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 
     
     /**
+     * Asignar el requerimiento a un encargado.
+     * 
      * @Route("asignar/{id}")
      * @Template()
      */
