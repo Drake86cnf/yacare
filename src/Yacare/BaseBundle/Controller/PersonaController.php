@@ -110,6 +110,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         }
         return;
     }
+    
 
     /**
      * Muestra un pequeño formulario para modificar un dato.
@@ -119,7 +120,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function modificardatoAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);

@@ -37,10 +37,10 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $entity = $em->getRepository($tipo)->find($id);
         
         $entities = $em->getRepository('YacareBaseBundle:Comentario')->findBy(
-            array('EntidadTipo' => $tipo,'EntidadId' => $id));
+            array('EntidadTipo' => $tipo, 'EntidadId' => $id));
         
         return $this->ArrastrarVariables($request, 
-            array('form_comentario' => $editForm->createView(),'entity' => $entity,'entities' => $entities));
+            array('form_comentario' => $editForm->createView(), 'entity' => $entity, 'entities' => $entities));
     }
 
     /**

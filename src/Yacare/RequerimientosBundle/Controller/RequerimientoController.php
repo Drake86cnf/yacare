@@ -132,15 +132,140 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 
     
     /**
-     * Asignar el requerimiento a un encargado.
-     * 
+     * Rechazar una asignación.
+     *
+     * @Route("rechazar/{id}")
+     * @Template()
+     */
+    public function rechazarAction(Request $request, $id = null)
+    {
+        $em = $this->getEm();
+        
+        if ($id) {
+            $entity = $this->obtenerEntidadPorId($id);
+        }
+        
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+        
+        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+        
+        $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+        $NuevaNovedad->setRequerimiento($entity);
+        $NuevaNovedad->setUsuario($UsuarioConectado);
+        
+        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\RechazarType(), $NuevaNovedad);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isValid()) {
+            // Pongo en blanco el encargado.
+            $entity->setEncargado(null);
+            
+            $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
+
+            $em->persist($NuevaNovedad);
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect(
+                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)));
+        } else {
+            $children = $editForm->all();
+            foreach ($children as $child) {
+                $child->getErrorsAsString();
+            }
+        
+            $errors = $editForm->getErrors(true, true);
+        }
+        
+        if ($errors) {
+            foreach ($errors as $error) {
+                $this->get('session')
+                ->getFlashBag()
+                ->add('danger', $error->getMessage());
+            }
+        } else {
+            $errors = null;
+        }
+        
+        return $this->ArrastrarVariables($request,
+            array(
+                'edit_form' => $editForm->createView(),
+                'edit_form_action' => $this->obtenerRutaBase('rechazar'),
+                'entity' => $entity,
+                'errors' => $errors));
+        return array();
+    }
+    
+    
+    
+    /**
+     * Asginar un requerimiento a un encargado.
+     *
      * @Route("asignar/{id}")
      * @Template()
      */
     public function asignarAction(Request $request, $id = null)
     {
+        $em = $this->getEm();
+    
+        if ($id) {
+            $entity = $this->obtenerEntidadPorId($id);
+        }
+    
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+    
+        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+    
+        $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+        $NuevaNovedad->setRequerimiento($entity);
+        $NuevaNovedad->setUsuario($UsuarioConectado);
+    
+        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\AsignarType(), $NuevaNovedad);
+        $editForm->handleRequest($request);
+    
+        if ($editForm->isValid()) {
+            // Asigno el nuevo encargado.
+            $entity->setEncargado($NuevaNovedad->getUsuario());
+    
+            $NuevaNovedad->setUsuario($UsuarioConectado);
+            $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
+
+            $em->persist($NuevaNovedad);
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect(
+                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)));
+        } else {
+            $children = $editForm->all();
+            foreach ($children as $child) {
+                $child->getErrorsAsString();
+            }
+    
+            $errors = $editForm->getErrors(true, true);
+        }
+    
+        if ($errors) {
+            foreach ($errors as $error) {
+                $this->get('session')
+                ->getFlashBag()
+                ->add('danger', $error->getMessage());
+            }
+        } else {
+            $errors = null;
+        }
+    
+        return $this->ArrastrarVariables($request,
+            array(
+                'edit_form' => $editForm->createView(),
+                'edit_form_action' => $this->obtenerRutaBase('asignar'),
+                'entity' => $entity,
+                'errors' => $errors));
         return array();
     }
+    
     
 
     /**
