@@ -23,7 +23,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
      */
     public function publicarAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
     
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
     

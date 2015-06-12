@@ -18,8 +18,10 @@
 
 {% block pagina_acciones %}
     <a data-toggle="ajax-link" data-dismiss="modal"
-    	class="btn btn-default"
-    	href="{{ path(baseroute ~ '_listar', arrastre) }}">Cancelar</a>
+    	{% if tapir_modal is not defined or tapir_modal == 0 %}
+    		href="{{ path(baseroute ~ '_listar', arrastre) }}"
+    	{% endif %}
+    	class="btn btn-default">Cancelar</a>
     <button type="submit" value="Guardar" class="btn btn-primary">
     	<i class="fa fa-check"></i> Guardar
     </button>
