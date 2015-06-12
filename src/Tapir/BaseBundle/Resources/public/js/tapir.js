@@ -274,6 +274,18 @@ function MejorarElementos(destino) {
 			e.preventDefault();
 			return tapirNavegarA($(this).attr('href'), $(this).attr('data-target'));
 		});
+	
+	
+	$(desintoFinal + '[data-toggle="inplace-edit"]').off('dblclick');
+	$(desintoFinal + '[data-toggle="inplace-edit"]').dblclick(
+		function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			UrlEdicion = $(this).attr('href');
+			UrlEdicion = tapirAgregarElementoUri(UrlEdicion, 'data-control', $(this).attr('data-control'));
+			UrlEdicion = tapirAgregarElementoUri(UrlEdicion, 'hisapi', 0);
+			return tapirNavegarA(UrlEdicion, '#' + $(this).attr('id'));
+		});
 
 	// Activo la función de los enlaces que abren modales
 	$(desintoFinal + '[data-toggle="modal"]').off('click');
