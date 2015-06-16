@@ -118,15 +118,22 @@
 {% if entity.Novedades|length == 0 %}
     <p>Aun no hay novedades. {% if form_novedad is defined %}Puede ser el primero en agregar una.{% endif %}</p>
 {% else %}
+	{% set ultimanovedad = false %}
     {% for novedad in entity.Novedades|reverse %}
+    	{% if ultimanovedad == false or ultimanovedad.Usuario != novedad.Usuario %}
+    	{% if ultimanovedad != false %}</div></div>{% endif %}
         <hr />
         <div class="row">
             <div class="col-xs-2 text-center"><i class="fa fa-comment-o fa-2x text-muted"></i><br /><small title="{{ novedad.Usuario }}">{{ novedad.Usuario.Nombre }}</small></div>
-            <div class="col-xs-10">{{ novedad.Notas }}<br />
-                <small class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ novedad.createdAt|tapir_fecha }}">{{ novedad.createdAt|tapir_hacetiempo }}</small>
-            </div>
-        </div>
+            <div class="col-xs-10">
+        {% endif %}
+        <p>
+            {{ novedad.Notas }}
+            <small class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ novedad.createdAt|tapir_fecha }}"> ({{ novedad.createdAt|tapir_hacetiempo }})</small>
+        </p>
+        {% set ultimanovedad = novedad %}
     {% endfor %}
+    </div></div>
 {% endif %}
 
     &nbsp;
