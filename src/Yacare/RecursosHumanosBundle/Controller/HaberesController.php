@@ -30,7 +30,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         if ($id) {
             $Persona = $em->getRepository('Yacare\BaseBundle\Entity\Persona')->find($id);
         } else {
-            $Persona = $this->get('security.context')
+            $Persona = $this->get('security.token_storage')
                 ->getToken()
                 ->getUser();
         }
@@ -64,7 +64,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         if ($id) {
             $Persona = $em->getRepository('Yacare\BaseBundle\Entity\Persona')->find($id);
         } else {
-            $Persona = $this->get('security.context')
+            $Persona = $this->get('security.token_storage')
                 ->getToken()
                 ->getUser();
         }

@@ -30,7 +30,7 @@ class TicketController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $User = $this->getEm()->getRepository('Indepnet\GlpiBundle\Entity\User')
-            ->findBy(array( 'Name' => $this->get('security.context')->getToken()->getUser()->getUsername() ));
+            ->findBy(array( 'Name' => $this->get('security.token_storage')->getToken()->getUser()->getUsername() ));
         
         if(count($User) == 1) {
             $User = $User[0];

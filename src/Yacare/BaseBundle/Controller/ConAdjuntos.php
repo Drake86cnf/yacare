@@ -21,7 +21,7 @@ trait ConAdjuntos
                     $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
                     
                     $Adjunto->setPersona(
-                        $this->get('security.context')
+                        $this->get('security.token_storage')
                             ->getToken()
                             ->getUser());
                     

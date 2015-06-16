@@ -267,7 +267,7 @@ function MejorarElementos(destino) {
 		desintoFinal = '';
 	}
 	
-	// Activo la función de los enalces AJAX
+	// Activar la función de los enalces AJAX
 	$(desintoFinal + '[data-toggle="ajax-link"]').off('click');
 	$(desintoFinal + '[data-toggle="ajax-link"]').click(
 		function(e) {
@@ -276,6 +276,26 @@ function MejorarElementos(destino) {
 		});
 	
 	
+	// Activar la función de formularios AJAX
+	$(desintoFinal + '[data-toggle="ajax-form"]').off('submit');
+	$(desintoFinal + '[data-toggle="ajax-form"]').submit(function() {
+		destino = $(this).attr('data-target');
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(data) {
+                $(destino).html(data);
+            },
+            error: function(data, status) {
+            	$(destino).html(data.responseText);
+            }
+        });
+        return false; 
+    });
+	
+	
+	// Activar el doble clic para editar en campos con edición in situ
 	$(desintoFinal + '[data-toggle="inplace-edit"]').off('dblclick');
 	$(desintoFinal + '[data-toggle="inplace-edit"]').dblclick(
 		function(e) {
@@ -287,7 +307,7 @@ function MejorarElementos(destino) {
 			return tapirNavegarA(UrlEdicion, '#' + $(this).attr('id'));
 		});
 
-	// Activo la función de los enlaces que abren modales
+	// Activar la función de los enlaces que abren modales
 	$(desintoFinal + '[data-toggle="modal"]').off('click');
 	$(desintoFinal + '[data-toggle="modal"]').click(
 		function(e) {
@@ -295,6 +315,8 @@ function MejorarElementos(destino) {
 			return tapirMostrarModalEn($(this).attr('href'), $(this).attr('data-target'));
 		});
 	
+	
+	// Dar tratamiento especial a los campos de CUIL/CUIT
 	$(desintoFinal + '[data-type="cuilt"]').blur(function() {
 		if(tapirCuiltEsValida(this.value)) {
 			this.value = tapirFormatearCuilt(this.value);
@@ -315,7 +337,8 @@ function MejorarElementos(destino) {
 	
 	$(desintoFinal + '[data-toggle="tooltip"]').tooltip()
 
-	// Valida y formatea una fecha ingresada al perder el foco en el control
+	// Dar tratamiento especial a los campos de fecha
+	// (validar y formatear la fecha ingresada al perder el foco)
 	$(desintoFinal + '.valirdar-fecha').blur(function(e) {
 		var fecha = this.value;
 		if (tapirValidarFecha(fecha)) {

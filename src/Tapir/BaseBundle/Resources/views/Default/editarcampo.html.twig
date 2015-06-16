@@ -1,0 +1,35 @@
+{% extends 'TapirBaseBundle::empty.html.twig' %}
+
+{% block pagina_titulo %}Modificación de campo{% endblock %}
+
+{% block pagina_contenido %}
+	{% if data_control == 'textarea' %}
+    	<textarea style="height: 100%; min-height: 80px;" id="inplace-edit-input" class="inplace-edit-control">{{ valoractual }}</textarea>
+    {% else %}
+    	<input style="height: 100%; min-height: 24px;" id="inplace-edit-input" type="text" class="inplace-edit" lenght="32" value="{{ valoractual }}" />
+    {% endif %}
+    <span><small>Edición rápida </small></span>
+    <span class="text-muted"><small>(pulse Intro para aceptar o Esc para cancelar)</small></span>
+    <script>
+    	$('#inplace-edit-input').focus();
+    	ValorActual = $('#inplace-edit-input').val();
+    	$('#inplace-edit-input').val('').val(ValorActual);
+    	$('#inplace-edit-input').keyup(function(e) {
+    		if (e.keyCode == 27) {
+    			ParentDiv = $(this).closest('div');
+				ValorActual = $('#inplace-edit-input').val();
+				Parent.html("{{ valoractual }}");
+    		} else if (e.keyCode == 13) {
+    			ParentDiv = $(this).closest('div');
+				ValorActual = $('#inplace-edit-input').val();
+				ParentDiv.html('<p>' + ValorActual + '</p>');
+				//tapirCargarUrlEn('', '#' + parentId);
+        	}
+    	});
+    	$('#inplace-edit-input').blur(function(e) {
+			ParentDiv = $(this).closest('div');
+			ValorActual = $('#inplace-edit-input').val();
+			ParentDiv.html('<p>' + ValorActual + '</p>');
+    	});
+    </script>
+{% endblock pagina_contenido %}

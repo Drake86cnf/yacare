@@ -9,7 +9,10 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8">
 		  {% if entity.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
-		  {{ entity.Notas }}
+		  <div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
+		  		href="{{ path(baseroute ~ '_editarcampo', arrastre|merge({ 'id': entity.id, 'nombrecampo': 'Notas' })) }}">
+		  		<p>{{ entity.Notas }}</p>
+		  </div>
 		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}</span></p>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
@@ -36,12 +39,15 @@
 {% if is_granted('ROLE_REQUERIMIENTOS') %}
 <div class="text-right">
     {% if entity.Encargado and entity.Encargado == app.user %}
-        <a class="btn btn-default" href="#"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
+        <a class="btn btn-default" href="{{ path(baseroute ~ '_rechazar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
+        	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
     {% elseif entity.Estado < 90 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         {% if entity.Encargado %}
-            <a class="btn btn-default" href="#"><i class="fa fa-hand-o-left"></i> Reasignar</a>
+            <a class="btn btn-default" href="{{ path(baseroute ~ '_asignar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
+            	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Reasignar</a>
         {% else %}
-            <a class="btn btn-default" href="#"><i class="fa fa-hand-o-left"></i> Asignar</a>
+            <a class="btn btn-default" href="{{ path(baseroute ~ '_asignar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
+            	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Asignar</a>
         {% endif %}
     {% endif %}
 
@@ -49,7 +55,7 @@
     {% if entity.Estado == 0 %}
         {# Nuevo #}
         <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-          data-toggle="modal" ><i class="fa fa-play"></i> Iniciar</a>
+            data-toggle="ajax-link" ><i class="fa fa-play"></i> Iniciar</a>
         <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
             data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
     {% endif %}
@@ -83,7 +89,7 @@
 <h2>Novedades</h2>
 <div class="container-fluid">
 {% if form_novedad is defined %}
-{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 'attr': { 'id': 'form_novedad'} }) }}
+{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
     <div class="row">
         <div class="col-xs-2 text-center"><i class="fa fa-comment fa-2x text-left text-info"></i><br /><small></small></div>
         <div class="col-xs-10" id="nuevocomentario">
@@ -102,22 +108,7 @@
                 return false;
             }
         });
-        
-        $('#form_novedad').submit(function() {
-            $.ajax({
-                type: "POST",
-                url: "{{ path('yacare_requerimientos_novedad_publicar') }}",
-                data: $(this).serialize(),
-                success: function(data) {
-                    $('#nuevocomentario').html(data);
-                },
-                error: function(data, status) {
-                    $('#nuevocomentario').html(data.responseText);
-                }
-            });
-            return false; 
-        });
-        
+
         //$('#container').scroll($('#container').height);
         //$('#yacare_requerimientosbundle_novedadtype_Notas').focus();
     </script>
