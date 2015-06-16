@@ -28,7 +28,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $res = parent::verAction($request, $id);
         
         // $em = $this->getEm();
-        $UsuarioConectado = $this->get('security.context')
+        $UsuarioConectado = $this->get('security.token_storage')
             ->getToken()
             ->getUser();
         
@@ -62,7 +62,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $NuevoEstado = $this->ObtenerVariable($request, 'nuevoestado');
         
         $em = $this->getEm();
-        $UsuarioConectado = $this->get('security.context')
+        $UsuarioConectado = $this->get('security.token_storage')
             ->getToken()
             ->getUser();
         
@@ -114,7 +114,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         if ((! $entity->getId())) {
             if (! $entity->getUsuario()) {
-                $UsuarioConectado = $this->get('security.context')
+                $UsuarioConectado = $this->get('security.token_storage')
                     ->getToken()
                     ->getUser();
                 $entity->setUsuario($UsuarioConectado);
@@ -149,7 +149,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
         $NuevaNovedad->setRequerimiento($entity);
@@ -217,7 +217,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
     
-        $UsuarioConectado = $this->get('security.context')->getToken()->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
     
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
         $NuevaNovedad->setRequerimiento($entity);

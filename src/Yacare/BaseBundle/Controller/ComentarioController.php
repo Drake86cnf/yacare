@@ -58,7 +58,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $NuevoComentario->setPersona(
-                $this->get('security.context')
+                $this->get('security.token_storage')
                     ->getToken()
                     ->getUser());
             

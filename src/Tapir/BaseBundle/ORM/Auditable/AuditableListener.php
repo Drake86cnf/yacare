@@ -22,7 +22,7 @@ class AuditableListener implements EventSubscriber
         $em = $eventArgs->getEntityManager();
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user = $this->container->get('security.context')
+        $user = $this->container->get('security.token_storage')
             ->getToken()
             ->getUser();
         

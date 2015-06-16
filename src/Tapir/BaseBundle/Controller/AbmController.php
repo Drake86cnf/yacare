@@ -281,6 +281,56 @@ abstract class AbmController extends BaseController
         
         return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
+    
+    
+    /**
+     * Permite modificar un campo in situ.
+     * 
+     * Recibe el nombre del campo y el ID de la entidad y muestra un textbox.
+     *
+     * @Route("editarcampo/{nombrecampo}/{id}")
+     * @Template("TapirBaseBundle:Default:editarcampo.html.twig")
+     */
+    public function editarcampoAction(Request $request, $nombrecampo, $id)
+    {
+        $em = $this->getEm();
+    
+        if ($id) {
+            $entity = $this->obtenerEntidadPorId($id);
+        }
+    
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+        
+        $DataControl = $this->ObtenerVariable($request, 'data-control');
+        if(!$DataControl) {
+            $DataControl = 'text';
+        }
+        
+        $NombreGetter = 'get' . $nombrecampo;
+        $ValorActual = $entity->$NombreGetter();
+        $NuevoValor = $this->ObtenerVariable($request, 'nuevoValor');
+        if($NuevoValor) {
+            $NombreSetter = 'set' . $nombrecampo;
+            $entity->$NombreSetter($NuevoValor);
+            $em->persist($entity);
+            $em->flush();
+        } 
+        
+        return $this->ArrastrarVariables($request,
+            array(
+                'entity' => $entity,
+                'errors' => '',
+                'data_control' => $DataControl,
+                'nombrecampo' => $nombrecampo,
+                'valoractual' => $ValorActual,
+                'nuevovalor' => $NuevoValor,
+                'id' => $id
+                ));
+    }
+    
+    
 
     /**
      * Inicia la edición o creación de una entidad.

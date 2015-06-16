@@ -30,7 +30,7 @@ trait ConPerfil
             $entity = $em->getRepository($entidadUsuario)->find($id);
             $user = null;
         } else {
-            $user = $this->get('security.context')
+            $user = $this->get('security.token_storage')
                 ->getToken()
                 ->getUser();
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
@@ -111,7 +111,7 @@ trait ConPerfil
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
-        $user = $this->get('security.context')
+        $user = $this->get('security.token_storage')
             ->getToken()
             ->getUser();
         

@@ -1,4 +1,4 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %}
+{% extends 'TapirBaseBundle::empty.html.twig' %}
 
 {% block pagina_titulo %}{% endblock %}
 
@@ -8,9 +8,9 @@
         <small class="text-muted">{{ entity.createdAt|tapir_hacetiempo }}</small>
     {% else %}
         {{ form_start(form_novedad) }}
-         <div class="alert alert-danger">
-            No se pudo publicar el comentario. {% if errores is defined %}{% for error in errores %}{{ error.message }}{% endfor %}{% endif %}
-         </div>
+        <div class="alert alert-danger">
+        	No se pudo publicar el comentario. {% if errores is defined %}{% for error in errores %}{{ error.message }}{% endfor %}{% endif %}
+        </div>
         {{ form_errors(form_novedad) }}
         {{ form_end(form_novedad) }}
     {% endif %}
