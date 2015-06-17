@@ -52,14 +52,18 @@ trait ConEliminar
     		}
     		
         	$contador = 0;
+        	$ruta = trim($this->CompleteEntityName, '\\');
         	
         	//Recorro el array con todas las entidades de la aplicación.
         	foreach ($entities as $entidad) {
-    			$resultado = $em->getClassMetadata($entidad)->getAssociationMappings();
+        		if ($entidad != $ruta) {
+    				$resultado = $em->getClassMetadata($entidad)->getAssociationMappings();
     		
-    			//Llamo a la rutina de búsqueda y el valor devuelto (el contador) se lo asigno a esta variable $contador.
-    			$contador += $this->rutinaBusqueda ($resultado, $id);
-    		}
+    				//Llamo a la rutina de búsqueda y el valor devuelto (el contador) se lo asigno a esta variable $contador.
+    				$contador += $this->rutinaBusqueda ($resultado, $id);
+    				if ($contador >= 5) break;
+    			}
+        	}
         }
         
         
@@ -89,7 +93,7 @@ trait ConEliminar
                 $this->get('session')
                     ->getFlashBag()
                     ->add('info', 'Se suprimió el elemento "' . $entity . '".');
-                return $this->afterEliminar($entity, true);
+                return $this->afterEliminar($request, $entity, true);
             } else 
                 if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                     // Es eliminable... lo elimino de verdad
@@ -98,7 +102,7 @@ trait ConEliminar
                     $this->get('session')
                         ->getFlashBag()
                         ->add('info', 'Se eliminó el elemento "' . $entity . '".');
-                    return $this->afterEliminar($entity, true);
+                    return $this->afterEliminar($request, $entity, true);
                 } else {
                     // No es eliminable ni suprimible... no se puede borrar
                     $this->get('session')
@@ -137,14 +141,14 @@ trait ConEliminar
     {
     	$em = $this->getEm();
     	$res = $em->createQueryBuilder()
-    	->select('a, b')
-    	->addselect('a.id')
-    	->from($rutaRemitente, 'a')
-    	->leftJoin('a.' . $variableRemitente, 'b')
-    	->where('b.id = :condicion')
-    	->setParameter('condicion', $id);
+    		->select('a, b')
+    		->addselect('a.id')
+    		->from($rutaRemitente, 'a')
+    		->leftJoin('a.' . $variableRemitente, 'b')
+    		->where('b.id = :condicion')
+    		->setParameter('condicion', $id);
     	 
-    	$res = $res->getQuery()->getResult();
+    	$res = $res->getQuery()->setMaxResults(5)->getResult();
     	 
     	return $res;
     }
@@ -172,7 +176,8 @@ trait ConEliminar
     			//con el mapeado de asociaciones.
     			
     			//Me aseguro que la entidad objetivo de $varloRes coincida con la ruta de la entidad del objeto a suprimir.
-    			if ($valorRes['targetEntity'] == trim($this->CompleteEntityName, '\\')) {
+    			if ($valorRes['targetEntity'] == trim($this->CompleteEntityName, '\\') && $valorRes['isOwningSide']) {
+    				
     				switch ($valorRes['type']) {
     					//Reconozco que es una relación OneToOne.
     					case 1:
@@ -197,6 +202,9 @@ trait ConEliminar
     						$contador = 'No posee relaciones';
     						break;
     				}
+    				if (count($arrayAux) == 1 && $arrayAux[0] >= 5) break;
+    				
+    				else foreach ($arrayAux as $aux) if ($aux >= 5) break;
     			}
     		}
     		
@@ -205,16 +213,11 @@ trait ConEliminar
     		 * variable, es decir, posee 2 o más variables que referencian (dentro de una entidad) a la entidad
     		 * del objeto a suprimir.
     		 */
-    		if (count($arrayAux) == 1) {
-    			$contador += $arrayAux[0];
-    		}
+    		if (count($arrayAux) == 1) $contador += $arrayAux[0];
+    		
     		else {
     			$contadorAux = 0;
-    			foreach ($arrayAux as $aux) {
-    				if ($aux > $contadorAux)  {
-    					$contadorAux = $aux;
-    				}
-    			}
+    			foreach ($arrayAux as $aux) if ($aux > $contadorAux) $contadorAux = $aux;
     			$contador += $contadorAux;
     		}
     		$arrayAux[] = array();
