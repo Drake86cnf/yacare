@@ -52,20 +52,16 @@ trait ConEliminar
     		}
     		
         	$contador = 0;
-        	$ruta = trim($this->CompleteEntityName, '\\');
         	
         	//Recorro el array con todas las entidades de la aplicación.
         	foreach ($entities as $entidad) {
-        		if ($entidad != $ruta) {
     				$resultado = $em->getClassMetadata($entidad)->getAssociationMappings();
     		
     				//Llamo a la rutina de búsqueda y el valor devuelto (el contador) se lo asigno a esta variable $contador.
     				$contador += $this->rutinaBusqueda ($resultado, $id);
     				if ($contador >= 5) break;
-    			}
         	}
         }
-        
         
         return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => $id ? false : true,'delete_form' => $deleteForm->createView()));
@@ -115,7 +111,7 @@ trait ConEliminar
     }
 
     /**
-     * Este método se dispara después de eliminar una entidad.
+     * Este método se dispara después de eliminar una entidad.login
      *
      * @param bool $eliminado
      *            Indica si el elemento fue eliminado.
@@ -169,6 +165,7 @@ trait ConEliminar
     {
     	$contador = 0;
     	$arrayAux = array();
+    	
     	if ($resultado != null) {
     		
     		//Recorro el array de la relación de la entidad a suprimir.
@@ -176,7 +173,7 @@ trait ConEliminar
     			//con el mapeado de asociaciones.
     			
     			//Me aseguro que la entidad objetivo de $varloRes coincida con la ruta de la entidad del objeto a suprimir.
-    			if ($valorRes['targetEntity'] == trim($this->CompleteEntityName, '\\') && $valorRes['isOwningSide']) {
+    			if ($valorRes['targetEntity'] == trim($this->CompleteEntityName , '\\') && $valorRes['isOwningSide']) {
     				
     				switch ($valorRes['type']) {
     					//Reconozco que es una relación OneToOne.
@@ -238,9 +235,10 @@ trait ConEliminar
      */
     protected function rutinaManyToOne($valorRes, $id)
     {
+    	$em = $this->getEm();
     	$variableRemitente = $valorRes['fieldName'];
     	$rutaRemitente = $valorRes['sourceEntity'];
-    	$contador = count($this->construirDQL($id, $rutaRemitente, $variableRemitente));
+    	$contador = count($em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), array('id' => 'ASC'), 5));
     	 
     	return $contador;
     }
@@ -255,9 +253,10 @@ trait ConEliminar
      */
     protected function rutinaOneToMany($valorRes, $id)
     {
+    	$em = $this->getEm();
     	$variableRemitente = $valorRes['fieldName'];
     	$rutaRemitente = $valorRes['sourceEntity'];
-    	$contador = count($this->construirDQL($id, $rutaRemitente, $variableRemitente));
+    	$contador = count($em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), array('id' => 'ASC'), 5));
     	 
     	return $contador;
     }
