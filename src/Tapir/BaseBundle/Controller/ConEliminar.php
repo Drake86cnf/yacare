@@ -19,12 +19,14 @@ use Zend\Cache\Pattern\ObjectCache;
  */
 trait ConEliminar
 {
+
     /**
      * Crea el formulario de eliminación.
      */
     protected function crearFormEliminar($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
+        return $this->createFormBuilder(array(
+            'id' => $id))
             ->add('id', 'hidden')
             ->getForm();
     }
@@ -40,16 +42,17 @@ trait ConEliminar
         $em = $this->getEm();
         $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         
-        if (!$entity) {
+        if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        }
-        else {
-            $BuscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($this->getEm());
-            $CantidadRelacionesActivas = $BuscadorDeRelaciones->CantidadRelaciones($entity);
+        } else {
+            $buscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
         }
         
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity,'create' => $id ? false : true,'delete_form' => $deleteForm->createView()));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity,
+            'create' => $id ? false : true,
+            'delete_form' => $deleteForm->createView(),
+            'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
     }
 
     /**
@@ -63,7 +66,7 @@ trait ConEliminar
         $form->handleRequest($request);
         
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEm();
             $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
             
             if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
@@ -103,7 +106,6 @@ trait ConEliminar
      */
     public function afterEliminar(Request $request, $entity, $eliminado = false)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
     }
 }
