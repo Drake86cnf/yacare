@@ -21,6 +21,14 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     use \Tapir\BaseBundle\Controller\ConBuscar;
     
     
+    function __construct() {
+        $this->OrderBy = 'r.createdAt';
+        
+        $this->ConservarVariables[] = 'filtro_encargado';
+        $this->ConservarVariables[] = 'filtro_estado';
+    }
+    
+    
     /**
      * Listar, con filtro por encargado.
      * 
@@ -31,24 +39,52 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
-            // Sin filtros, puede ver todos los requerimientos
+            // Sólo permito filtrar por encargado a los administradores
+            $filtro_encargado = $this->ObtenerVariable($request, 'filtro_encargado');
+            if ($filtro_encargado == -1) {
+                $this->Where .= " AND r.Encargado IS NULL";
+            } elseif ($filtro_encargado > 0) {
+                $this->Where .= " AND r.Encargado=$filtro_encargado";
+            }
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ENCARGADO')) {
-            // Filtra sólo los requerimientos propios y de los cuales es encargado
+            // Los encargados sólo pueden ver los requerimientos que ellos iniciaron o en los que están como encargados
             $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
-            $this->Where .= 'r.Encargado=' . $UsuarioConectado->getId() . " OR r.Usuario=" . $UsuarioConectado->getId();
+            $this->Where .= '(r.Encargado=' . $UsuarioConectado->getId() . " OR r.Usuario=" . $UsuarioConectado->getId() . ')';
         } elseif ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            // Filtra sólo los requerimientos propios
+            // El resto de los usuarios pueden ver sólo los requerimientos que iniciaron ellos
             $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
             $this->Where .= 'r.Usuario=' . $UsuarioConectado->getId();
         } else {
             throw $this->createAccessDeniedException();
         }
         
+        $filtro_estado = (int)$this->ObtenerVariable($request, 'filtro_estado');
+        
+        switch ($filtro_estado) {
+            case 0:
+            case null:
+            case '':
+                // Sin filtro
+                break;
+            case -1:
+                // Pendientes (nuevos, iniciados y en espera)
+                $this->Where .= " AND r.Estado<50";
+                break;
+            default:
+                $this->Where .= " AND r.Estado=" . $filtro_estado;
+                break;
+        }
+        
+        //echo '--------------------------------------------------' . $this->Where;
+        
         $res = parent::listarAction($request);
         
         if ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
             $res['encargados'] = $this->ObtenerEncargados();
         }
+        
+        //echo $this->obtenerComandoSelect();
+        //echo $filtro_estado;
         
         return $res;
     }
@@ -111,6 +147,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
             $NuevaNovedad->setRequerimiento($entity);
             $NuevaNovedad->setUsuario($UsuarioConectado);
+            $NuevaNovedad->setAutomatica(1);
             switch ($NuevoEstado) {
                 case 0:
                     break;
@@ -204,6 +241,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $entity->setEncargado(null);
             
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
+            $NuevaNovedad->setAutomatica(1);
 
             $em->persist($NuevaNovedad);
             $em->persist($entity);
@@ -271,9 +309,10 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             // Asigno el nuevo encargado.
             $entity->setEncargado($NuevaNovedad->getUsuario());
     
-            $NuevaNovedad->setUsuario($UsuarioConectado);
             $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
-
+            $NuevaNovedad->setAutomatica(1);
+            $NuevaNovedad->setUsuario($UsuarioConectado);
+           
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();

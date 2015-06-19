@@ -67,6 +67,14 @@ class Novedad
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Privada = 0;
+    
+    /**
+     * Indica si la novedad es automática, o sea que la generó el sistema. 
+     *
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $Automatica = 0;
 
     
     /*** Getters, setters */
@@ -116,6 +124,14 @@ class Novedad
         $this->Privada = $Privada;
         return $this;
     }
- 
+    public function getAutomatica()
+    {
+        return $this->Automatica;
+    }
+    public function setAutomatica($Automatica)
+    {
+        $this->Automatica = $Automatica;
+        return $this;
+    }
 
 }

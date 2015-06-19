@@ -252,6 +252,10 @@ legend small {
 	
 }
 
+.text-warning {
+	color: #D78F14;
+}
+
 .huge {
     font-size: 40px;
 }
