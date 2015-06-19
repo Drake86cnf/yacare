@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
  *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
  *         })
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Entity(repositoryClass="Yacare\BaseBundle\Entity\PersonaRepository")
  */
 class Persona implements UserInterface, \Serializable
 {

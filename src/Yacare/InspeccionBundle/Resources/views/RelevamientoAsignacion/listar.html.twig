@@ -46,8 +46,9 @@ pagina_contenido %} {% if entities is empty %}
 	</tbody>
 </table>
 {% endif %} {% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_acciones %}
+'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones %}
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuRelevamientos" data-toggle="dropdown">
@@ -79,7 +80,9 @@ pagina_acciones %}
 				archivados</a></li>
 	</ul>
 </div>
-{% endblock pagina_acciones %} {% block pagina_acciones2 %} {% if
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %} {% if
 filtro_relevamiento is not empty %}
 <a class="btn btn-primary"
 	href="{{ path('yacare_inspeccion_relevamientoasignacion_asignarmacizo', arrastre) }}"><i
