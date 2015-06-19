@@ -11,6 +11,12 @@ class BuscadorDeRelaciones
         $this->em = $em;
     }
 
+    /**
+     * Búsqueda de al menos una relación, para el objeto estudiado.
+     *
+     * @param array $entidadASuprimir            
+     * @return boolean
+     */
     public function tieneAsociaciones($entidadASuprimir)
     {
         $nombresEntidades = $this->obtenerNombresDeEntidades();
@@ -62,14 +68,10 @@ class BuscadorDeRelaciones
     /**
      * Rutina de búsqueda de asociaciones, a partir del objeto de una entidad.
      *
-     * Realiza una búsqueda a través de todas aquellas tablas en donde, la entidad del
-     * objeto estudiado, tenga relaciones de asociaciones. Identifica y devuelve un
-     * contador con la cantidad de asociaciones encontradas.
-     *
-     * @param array $resultado
-     *            de la consulta a la metadata de ORM.
-     * @param integer $id
-     *            de la entidad a analizar.
+     * @param array $nombreEntidad
+     *            consulta a la metadata de ORM.
+     * @param array $entidadASuprimir
+     *            entidad a analizar.
      *            
      * @return integer $contador variable con la cantidad de relaciones encontradas para esa entidad.
      */
@@ -152,13 +154,10 @@ class BuscadorDeRelaciones
     /**
      * Rutina destinada a la consulta de asociaciones para relaciones de ManyToOne.
      *
-     * Rutina simple, en la que sólo obtiene la ruta de la entidad remitente (que referencia a la entidad a suprimir),
-     * en el array de asociaciones y busca concordancia entre la ID de la entidad estudiada, con la entidad remitente.
-     *
-     * @param array $valorRes            
+     * @param array $asociacion            
      * @param int $id            
      *
-     * @return int $contador
+     * @return int $totalRelaciones
      */
     protected function rutinaManyToOne($asociacion, $id)
     {
@@ -174,10 +173,10 @@ class BuscadorDeRelaciones
     /**
      * Rutina encargada de manejar consulta en relaciones OneTomany.
      *
-     * @param array $valorRes            
+     * @param array $asociacion            
      * @param int $id            
      *
-     * @return int $contador
+     * @return int $totalRelaciones
      */
     protected function rutinaOneToMany($asociacion, $id)
     {
@@ -194,9 +193,9 @@ class BuscadorDeRelaciones
      * Rutina que se encarga de realizar la consulta para la relación ManyToMany.
      *
      * @param int $id            
-     * @param array $valorRes            
+     * @param array $asociacion            
      *
-     * @return int $contador
+     * @return int $totalRelaciones
      */
     protected function rutinaManyToMany($asociacion, $id)
     {
@@ -207,6 +206,11 @@ class BuscadorDeRelaciones
         return $totalRelaciones;
     }
 
+    /**
+     * Devuelve un array con los nombres de todas las entidades de la aplicación.
+     *
+     * @return array $nombresEntidades
+     */
     protected function obtenerNombresDeEntidades()
     {
         // Para obtener todas las entidades que referencia a las tablas en la DB:
@@ -223,7 +227,7 @@ class BuscadorDeRelaciones
      * Método con sentencia SELECT para asociaciones ManyToMany.
      *
      * @param int $id
-     *            ID de la entidad a suprimir.
+     *            de la entidad a suprimir.
      * @param string $rutaEntidadCandidata
      *            ruta a la entidad que referencia al objeto a suprimir.
      * @param string $propiedadEntidadCandidata
