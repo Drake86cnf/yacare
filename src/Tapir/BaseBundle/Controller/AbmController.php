@@ -447,11 +447,11 @@ abstract class AbmController extends BaseController
             return $this->render(
                 $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
-            return $this->guardarActionAfterSuccess($entity);
+            return $this->guardarActionAfterSuccess($request, $entity);
         }
     }
 
-    protected function guardarActionAfterSuccess($entity)
+    protected function guardarActionAfterSuccess(Request $request, $entity)
     {
         return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
     }
