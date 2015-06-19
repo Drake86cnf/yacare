@@ -24,36 +24,29 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Listar, con filtro por encargado.
      * 
-     * @Security("has_role('ROLE_REQUERIMIENTOS_ENCARGADO')")
-     * 
      * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
      * @Route("listar/")
      * @Template()
      */
     public function listarAction(Request $request)
     {
-        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
-        $this->Where .= 'r.Encargado=' . $UsuarioConectado->getId();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
+            // Sin filtros, puede ver todos los requerimientos
+        } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ENCARGADO')) {
+            // Filtra sólo los requerimientos propios y de los cuales es encargado
+            $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+            $this->Where .= 'r.Encargado=' . $UsuarioConectado->getId() . " OR r.Usuario=" . $UsuarioConectado->getId();
+        } elseif ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            // Filtra sólo los requerimientos propios
+            $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+            $this->Where .= 'r.Usuario=' . $UsuarioConectado->getId();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
         
         return parent::listarAction($request);
     }
-    
-    
-    /**
-     * Listar, sin filtro por encargado.
-     *
-     * @Security("has_role('ROLE_REQUERIMIENTOS_ADMINISTRADOR')")
-     * 
-     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
-     * @Route("administrar/")
-     * @Template()
-     */
-    public function administrarAction(Request $request)
-    {
-        return parent::listarAction($request);
-    }
-    
-    
+   
 
     /**
      * @Route("ver/{id}")

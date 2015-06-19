@@ -17,4 +17,13 @@ class RequerimientoRepository extends \Tapir\BaseBundle\Entity\TapirBaseReposito
         
         return $qb->getQuery()->getResult();
     }
+    
+    
+    public function findPendientesPorUsuario($usuario)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.Usuario = :usuario AND u.Estado<50')->setParameter('usuario', $usuario);
+    
+        return $qb->getQuery()->getResult();
+    }
 }
