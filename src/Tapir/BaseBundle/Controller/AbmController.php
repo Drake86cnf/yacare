@@ -348,9 +348,9 @@ abstract class AbmController extends BaseController
      *            El ID de la entidad a editar, o null si se trata de un
      *            alta.
      *            
-     *            @Route("editar/{id}")
-     *            @Route("crear/")
-     *            @Template()
+     * @Route("editar/{id}")
+     * @Route("crear/")
+     * @Template()
      */
     public function editarAction(Request $request, $id = null)
     {

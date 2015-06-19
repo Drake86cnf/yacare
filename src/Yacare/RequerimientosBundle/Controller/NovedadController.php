@@ -33,6 +33,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
         if ($editForm->isValid()) {
             $NuevaNovedad->setUsuarioNombre((string)$NuevaNovedad->getUsuario());
             $NuevaNovedad->setUsuarioEmail($NuevaNovedad->getUsuario()->getEmail());
+            $NuevaNovedad->setAutomatica(0);
             
             $em->persist($NuevaNovedad);
             $em->flush();
