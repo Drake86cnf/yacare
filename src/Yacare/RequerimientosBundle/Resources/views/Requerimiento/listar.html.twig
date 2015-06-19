@@ -4,6 +4,7 @@
 
 {% set filtro_encargado = app.request.query.get('filtro_encargado') %}
 {% set filtro_estado = app.request.query.get('filtro_estado') %}
+{% set filtro_categoria = app.request.query.get('filtro_categoria') %}
 
 {% block pagina_contenido %}
 {% if entities is empty %}
@@ -13,14 +14,13 @@
     </div>
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
         <p class="lead text text-info">No hay elementos para mostrar.</p>
-        <p>No hay requerimientos para mostrar la en vista actual. Puede utilizar los filtros en la parte
-		superior para cambiar lo que se muestra
-		{% if filtro_estado or filtro_encargado %}
-        o haga <a href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'filtro_encargado': null, 'page': null })) }}">
-        	<i class="fa fa-eraser"></i> clic aquí para mostrar todo
-        </a>
+        <p>No hay requerimientos para mostrar la en vista actual.</p>
+		{% if filtro_estado or filtro_encargado or filtro_categoria %}
+		<p><i class="fa fa-filter text-warning"></i> Hay filtros activos. Puede utilizar los botones
+			en la parte superior para cambiar lo que se muestra o hacer
+			<a href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'filtro_encargado': null, 'filtro_categoria': null, 'page': null })) }}">
+        	<i class="fa fa-eraser"></i> clic aquí para mostrar todo</a></p>
         {% endif %}
-		.</a>
 		<br />
 		<br />
     </div>
@@ -30,12 +30,9 @@
 	<thead>
 		<tr>
 			<th> </th>
-			<th>Usuario</th>
-			<th class="hidden-sm hidden-xs">Encargado</th>
-			<th>Descripción</th>
-			<th class="hidden-md hidden-sm hidden-xs">Estado</th>
-			<th class="hidden-md hidden-sm hidden-xs">Antigüedad</th>
-			<th>Última novedad</th>
+			<th class="hidden-sm hidden-xs">Encargado<br /><span class="text-muted small">Categoría</span></th>
+			<th>Descripción<br /><span class="text-muted small">Creado por</span></th>
+			<th>Última novedad<br /><span class="text-muted small">Fecha creación</span></th>
 	   </tr>
 	</thead>
 	<tbody>
@@ -43,30 +40,41 @@
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td>
-			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-danger"></i>
-			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-success"></i>
-			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 80 %}<i class="fa fa-times fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
-			  {% else %}<i class="fa fa-fw"></i>
+			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-danger" title="{{ entity.EstadoNombre }}"></i>
+			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-success" title="{{ entity.EstadoNombre }}"></i>
+			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted" title="{{ entity.EstadoNombre }}"></i>
+			  {% elseif entity.Estado == 80 %}<i class="fa fa-times fa-fw text-muted" title="{{ entity.EstadoNombre }}"></i>
+			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted" title="{{ entity.EstadoNombre }}"></i>
+			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted" title="{{ entity.EstadoNombre }}"></i>
+			  {% else %}<i class="fa fa-fw" title="{{ entity.EstadoNombre }}"></i>
 			  {% endif %}
 			  {% if entity.Prioridad == 2 %}<i class="fa fa-exclamation-circle fa-fw text-warning" title="Importante"></i>
-			  {% else %}<i class="fa fa-fw"></i>
+			  {% else %}<i class="fa fa-fw"  title="{{ entity.PrioridadNombre }}"></i>
 			  {% endif %}
 			  </td>
-			<td>{{ entity.Usuario }}</td>
 			<td class="hidden-sm hidden-xs">
 				{% if entity.Encargado %}
-			        {{ entity.Encargado }}
+			        {{ entity.Encargado.NombreAmigable }}
 			    {% else %}
 			    	<span class="text-danger"><i class="fa fa-warning"></i> ¡Sin encargado!</span> 
 			    {% endif %}
+			    {% if entity.Categoria %}
+			    	<br />
+			    	<span class="text-muted small">Categoría {{ entity.Categoria|tapir_abreviar(20) }}</span>
+			    {% endif %}
 			</td>
-			<td>{{ entity.Notas|tapir_abreviar(60) }}</td>
-			<td class="hidden-md hidden-sm hidden-xs">{{ entity.EstadoNombre }}</td>
-			<td class="text-nowrap hidden-md hidden-sm hidden-xs">{{ entity.createdAt|tapir_hacetiempo }}</td>
-			<td class="text-nowrap">{{ entity.updatedAt|tapir_hacetiempo }}</td>
+			<td>
+    			{{ entity.Notas|tapir_abreviar(60) }}
+    			{% if entity.Usuario %}
+    			    <br />
+    			    <span class="text-muted small">(creado por {{ entity.Usuario }})</span>
+			    {% endif %}
+			</td>
+			<td class="text-nowrap">
+			    <span title="{{ entity.updatedAt|tapir_fecha }}">{{ entity.updatedAt|tapir_hacetiempo }}</span>
+			    <br />
+				<span class="text-muted small" title="{{ entity.createdAt|tapir_fecha }}">(creado {{ entity.createdAt|tapir_hacetiempo }})</span>
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -78,11 +86,17 @@
 
 {% block pagina_acciones %}
 <div class="btn-group" role="group">
+{% if filtro_estado or filtro_encargado or filtro_categoria %}
+<a class="btn btn-sm btn-default" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'filtro_encargado': null, 'filtro_categoria': null, 'page': null })) }}">
+	<i class="fa fa-fw fa-eraser text-primary"></i>
+</a>
+{% endif %}
+
 {% if encargados is defined %}
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuEncargados" data-toggle="dropdown">
-		<i class="fa fa-fw fa-filter text-{% if filtro_encargado %}primary{% else %}muted{% endif %}"></i>
+		<i class="fa fa-fw fa-filter text-{% if filtro_encargado %}warning{% else %}muted{% endif %}"></i>
 		Encargado <span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEncargados">
@@ -111,7 +125,7 @@
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuEstados" data-toggle="dropdown">
-		<i class="fa fa-fw fa-filter text-{% if filtro_estado %}primary{% else %}muted{% endif %}"></i>
+		<i class="fa fa-fw fa-filter text-{% if filtro_estado %}warning{% else %}muted{% endif %}"></i>
 		Estado <span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEstados">
@@ -143,12 +157,34 @@
 			Cerrados</a></li>
 	</ul>
 </div>
-	
-{% if filtro_estado or filtro_encargado %}
-<a class="btn btn-sm btn-default" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'filtro_encargado': null, 'page': null })) }}">
-	<i class="fa fa-fw fa-eraser text-success"></i>
-</a>
-{% endif %}
+
+<div class="btn-group">
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuCategorias" data-toggle="dropdown">
+		<i class="fa fa-fw fa-filter text-{% if filtro_categoria %}warning{% else %}muted{% endif %}"></i>
+		Categoría <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuCategorias">
+        <li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_categoria': null, 'page': null })) }}">
+			<i class="fa fa-fw{% if not filtro_categoria %} fa-check{% endif %}"></i>
+			Todas</a></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_categoria': -1, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_categoria and filtro_categoria == -1 %} fa-check{% endif %}"></i>
+			Sin categoría</a></li>
+		<li role="separator" class="divider"></li>
+		{% for categoria in categorias %}
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_categoria': categoria.id, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_categoria and filtro_categoria == categoria.id %} fa-check{% endif %}"></i>
+			{{ categoria }}</a></li>
+        {% endfor %}
+	</ul>
+</div>
 
 </div>
 {% endblock pagina_acciones %}
@@ -165,6 +201,6 @@
     {% if app.user and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         <a data-toggle="ajax-link"
         	href="{{ path('yacare_requerimientos_categoria_listar', arrastre) }}"
-        	class="btn btn-default hidden-print"><i class="fa fa-wrench"></i> Categorías</a>
+        	class="btn btn-default hidden-print"><i class="fa fa-wrench"></i> Administrar categorías</a>
     {% endif %}
 {% endblock pagina_acciones2 %}

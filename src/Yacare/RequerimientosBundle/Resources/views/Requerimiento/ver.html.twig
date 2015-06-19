@@ -88,10 +88,14 @@
 
 <h2>Novedades</h2>
 <div class="container-fluid">
-{% if form_novedad is defined %}
+{% if form_novedad is defined and app.user is defined %}
 {{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
     <div class="row">
-        <div class="col-xs-2 text-center"><i class="fa fa-comment fa-2x text-left text-info"></i><br /><small></small></div>
+        <div class="col-xs-2 text-center">
+        	<i class="fa fa-comment fa-2x text-left text-info"></i>
+        	<br />
+        	<small>{{ app.user.NombreAmigableCorto }}</small>
+        </div>
         <div class="col-xs-10" id="nuevocomentario">
             {{ form_errors(form_novedad) }}
             {{ form_widget(form_novedad._token) }}
@@ -126,7 +130,7 @@
         <div class="row">
             <div class="col-xs-2 text-center">
             	<i class="fa fa-comment-o fa-2x text-muted" title="{{ novedad.Usuario }}"></i><br />
-            	<small title="{{ novedad.Usuario }}">{% if novedad.Usuario.Nombre %}{{ novedad.Usuario.Nombre }}{% else %}{{ novedad.Usuario }}{% endif %}</small></div>
+            	<small title="{{ novedad.Usuario }}">{{ novedad.Usuario.NombreAmigableCorto }}</small></div>
             <div class="col-xs-10">
         {% endif %}
         <p>{% if novedad.Automatica == 0%}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i> <strong>{% endif %}
