@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Yacare\RequerimientosBundle\Entity\Requerimiento;
 
 /**
@@ -18,6 +19,41 @@ use Yacare\RequerimientosBundle\Entity\Requerimiento;
 class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
+    
+    
+    /**
+     * Listar, con filtro por encargado.
+     * 
+     * @Security("has_role('ROLE_REQUERIMIENTOS_ENCARGADO')")
+     * 
+     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+        $this->Where .= 'r.Encargado=' . $UsuarioConectado->getId();
+        
+        return parent::listarAction($request);
+    }
+    
+    
+    /**
+     * Listar, sin filtro por encargado.
+     *
+     * @Security("has_role('ROLE_REQUERIMIENTOS_ADMINISTRADOR')")
+     * 
+     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
+     * @Route("administrar/")
+     * @Template()
+     */
+    public function administrarAction(Request $request)
+    {
+        return parent::listarAction($request);
+    }
+    
+    
 
     /**
      * @Route("ver/{id}")

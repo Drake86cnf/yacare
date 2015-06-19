@@ -23,6 +23,13 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
      */
     public function inicioAction()
     {
-        return parent::inicioAction();
+        $res = parent::inicioAction();
+        
+        $em = $this->getEm();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+
+        $res['requerimientos_pendientes'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorEncargado($UsuarioConectado); 
+        
+        return $res;
     }
 }

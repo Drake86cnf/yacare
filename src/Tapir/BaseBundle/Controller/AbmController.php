@@ -199,8 +199,9 @@ abstract class AbmController extends BaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      *
-     * @see obtenerComandoSelect() @Route("listar/")
-     *      @Template()
+     * @see obtenerComandoSelect()
+     * @Route("listar/")
+     * @Template()
      */
     public function listarAction(Request $request)
     {

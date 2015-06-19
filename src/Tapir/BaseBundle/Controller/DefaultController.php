@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
 
     /**
