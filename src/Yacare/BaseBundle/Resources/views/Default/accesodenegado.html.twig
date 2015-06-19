@@ -1,0 +1,17 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo%}Acceso denegado{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid"><div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+        <i class="text text-danger fa fa-warning fa-4x"></i>    
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <p class="lead text text-danger">No tiene permiso para realizar la operación solicitada.</p>
+        <p>Si cree que esto es un error, por favor reporte el problema al administrador del sistema.</p>
+
+        <a data-dismiss="modal" href="#" onClick="return tapirAtras();" class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+    </div>
+</div></div>
+{% endblock %}

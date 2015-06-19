@@ -32,4 +32,14 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         
         return $res;
     }
+    
+    
+    /**
+     * @Route("/accesodenegado")
+     * @Template
+     */
+    public function accesodenegadoAction()
+    {
+        return array();
+    }
 }
