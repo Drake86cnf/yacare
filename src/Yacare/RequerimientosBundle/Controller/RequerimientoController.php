@@ -44,7 +44,19 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createAccessDeniedException();
         }
         
-        return parent::listarAction($request);
+        $res = parent::listarAction($request);
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
+            $res['encargados'] = $this->ObtenerEncargados();
+        }
+        
+        return $res;
+    }
+    
+    
+    private function ObtenerEncargados()
+    {
+        return $this->getEm()->getRepository('\Yacare\BaseBundle\Entity\Persona')->ObtenerPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
     }
    
 
