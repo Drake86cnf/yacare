@@ -63,7 +63,7 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
            */
     }
 
-    protected function guardarActionAfterSuccess($entity)
+    protected function guardarActionAfterSuccess(Request $request, $entity)
     {
         // Redirecciono al trámite original en el bundle al cual corresponde el trámite
         
