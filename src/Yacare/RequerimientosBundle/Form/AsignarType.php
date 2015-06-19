@@ -20,10 +20,13 @@ class AsignarType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Notas',
                 'required' => false))
-            ->add('Usuario', 'entity_id', array(
+            ->add('Usuario', 'entity', array(
                 'label' => 'Encargado',
                 'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona'
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'query_builder' => function(\Yacare\BaseBundle\Entity\PersonaRepository $er) {
+                    return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
+                }
             ))
             ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'))
