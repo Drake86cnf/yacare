@@ -18,33 +18,55 @@
 	</div>
 </div>
 
+<div class="container-fluid"><div class="row">
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-xs-8 col-sm-8 col-md-8">
-		    {% if app.user %}
-			    Usted está conectado como <span class="dropdown"> <a
-				class="dropdown-toggle" data-toggle="dropdown" href="#">
-				{% if app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
-				{% else %} {{ app.user }} {% endif %}
-				<ul class="dropdown-menu">
-					<li><a data-toggle="ajax-link"
-						href="{{ path('usuario_editarperfil_actual') }}"><i
-							class="fa fa-user fa-fw"></i> Mi perfil</a></li>
-					<li><a data-toggle="modal" data-target="#modal"
-						href="{{ path('usuario_cambiarcontrasena_actual') }}"><i
-							class="fa fa-key fa-fw"></i> Cambiar contraseña</a></li>
-					<li class="divider"></li>
-					<li><a href="{{ path('logout') }}"><i class="fa fa-power-off fa-fw"></i>
-							Desconectarse</a></li>
-				</ul>
-			</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
-			{% else %}
-			<i class="fa fa-warning fa-2x text-danger pull-left"></i> Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
-			{% endif %}
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+{% if requerimientos_pendientes|length > 0 %}
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-red">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-3">
+                <i class="fa fa-ticket fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+                <div class="huge">{{ requerimientos_pendientes|length }}</div>
+                <div>Requerimientos</div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('yacare_requerimientos_requerimiento_listar') }}">
+        <div class="panel-footer link">
+            <span class="pull-left">Ver todos</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+            <div class="clearfix"></div>
+        </div>
+    </a>
+</div></div>
+{% endif %}
+</div></div>
+
+<hr />
+
+<div>
+    {% if app.user %}
+	    Usted está conectado como <span class="dropdown"> <a
+		class="dropdown-toggle" data-toggle="dropdown" href="#">
+		{% if app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
+		{% else %} {{ app.user }} {% endif %}
+		<ul class="dropdown-menu">
+			<li><a data-toggle="ajax-link"
+				href="{{ path('usuario_editarperfil_actual') }}"><i
+					class="fa fa-user fa-fw"></i> Mi perfil</a></li>
+			<li><a data-toggle="modal" data-target="#modal"
+				href="{{ path('usuario_cambiarcontrasena_actual') }}"><i
+					class="fa fa-key fa-fw"></i> Cambiar contraseña</a></li>
+			<li class="divider"></li>
+			<li><a href="{{ path('logout') }}"><i class="fa fa-power-off fa-fw"></i>
+					Desconectarse</a></li>
+		</ul>
+		</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
+	{% else %}
+		<i class="fa fa-warning fa-2x text-danger pull-left"></i> Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
+	{% endif %}
 </div>
 
 {% endblock %}

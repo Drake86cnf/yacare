@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(name="Requerimientos_Requerimiento_Encargado", columns={ "Encargado_id" }),
  *      @ORM\Index(name="Requerimientos_Requerimiento_Estado", columns={ "Estado" })
  * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Entity(repositoryClass="Yacare\RequerimientosBundle\Entity\RequerimientoRepository")
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
