@@ -256,7 +256,7 @@ class Persona implements UserInterface, \Serializable
         return \Tapir\BaseBundle\Helper\Cuilt::FormatearCuilt($this->Cuilt);
     }
 
-    /*
+    /**
      * Devuelve el campo Cuilt si tiene. De lo contrario devuelve el documento.
      */
     public function CuiltODocumento()
@@ -267,6 +267,44 @@ class Persona implements UserInterface, \Serializable
             return $this->DocumentoNumero;
         }
     }
+    
+    /**
+     * Devuelve un nombre amigable como "Juan Pérez" en lugar de "Pérez, Juan".
+     */
+    public function NombreAmigable()
+    {
+    if ($this->RazonSocial) {
+            return $this->RazonSocial;
+        } else {
+            if ($this->Apellido && $this->Nombre) {
+                return $this->Nombre . ' ' . $this->Apellido;
+            } else { 
+                if ($this->Nombre) {
+                    return $this->Nombre;
+                } else {
+                    return $this->Apellido;
+                }
+            }
+        }
+        return $this->getNombreVisible();
+    }
+    
+    
+    /**
+     * Devuelve un nombre amigable como "Juan" en lugar de "Pérez, Juan".
+     */
+    public function NombreAmigableCorto()
+    {
+        if ($this->RazonSocial) {
+            return $this->RazonSocial;
+        } else {
+            if ($this->Nombre) {
+                return $this->Nombre;
+            }
+        }
+        return $this->NombreAmigable();
+    }
+    
 
     /**
      * Construye un nombre visible.
@@ -277,15 +315,17 @@ class Persona implements UserInterface, \Serializable
     {
         if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
-        } else 
+        } else {
             if ($this->Apellido && $this->Nombre) {
                 $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-            } else 
+            } else { 
                 if ($this->Nombre) {
                     $this->NombreVisible = $this->Nombre;
                 } else {
                     $this->NombreVisible = $this->Apellido;
                 }
+            }
+        }
         
         return trim($this->NombreVisible, ',');
     }

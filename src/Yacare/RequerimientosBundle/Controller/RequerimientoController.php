@@ -26,6 +26,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         $this->ConservarVariables[] = 'filtro_encargado';
         $this->ConservarVariables[] = 'filtro_estado';
+        $this->ConservarVariables[] = 'filtro_categoria';
     }
     
     
@@ -59,7 +60,6 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         $filtro_estado = (int)$this->ObtenerVariable($request, 'filtro_estado');
-        
         switch ($filtro_estado) {
             case 0:
             case null:
@@ -75,13 +75,20 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 break;
         }
         
-        //echo '--------------------------------------------------' . $this->Where;
+        $filtro_categoria = (int)$this->ObtenerVariable($request, 'filtro_categoria');
+        if($filtro_categoria == -1) {
+            $this->Where .= " AND r.Categoria IS NULL";
+        } elseif($filtro_categoria) {
+            $this->Where .= " AND r.Categoria=" . $filtro_categoria;
+        }
         
         $res = parent::listarAction($request);
         
         if ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
             $res['encargados'] = $this->ObtenerEncargados();
         }
+        
+        $res['categorias'] = $this->ObtenerCategorias();
         
         //echo $this->obtenerComandoSelect();
         //echo $filtro_estado;
@@ -94,6 +101,13 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         return $this->getEm()->getRepository('\Yacare\BaseBundle\Entity\Persona')->ObtenerPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
     }
+    
+    
+    private function ObtenerCategorias()
+    {
+        return $this->getEm()->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')->findAll();
+    }
+    
    
 
     /**
