@@ -19,11 +19,15 @@
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td>
-			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
+			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-danger"></i>
+			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-success"></i>
 			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
+			  {% elseif entity.Estado == 80 %}<i class="fa fa-times fa-fw text-muted"></i>
 			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
 			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
+			  {% else %}<i class="fa fa-fw"></i>
+			  {% endif %}
+			  {% if entity.Prioridad == 2 %}<i class="fa fa-exclamation-circle fa-fw text-danger" title="Importante"></i>
 			  {% else %}<i class="fa fa-fw"></i>
 			  {% endif %}
 			  </td>
