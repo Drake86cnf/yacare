@@ -38,6 +38,6 @@ trait ConNotas
      */
     public function setNotas($Notas)
     {
-        $this->Notas = $Notas;
+        $this->Notas = trim($Notas);
     }
 }

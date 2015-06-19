@@ -241,7 +241,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $entity->setEncargado(null);
             
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
-            $NuevaNovedad->setAutomatica(1);
+            $NuevaNovedad->setAutomatica(0);
 
             $em->persist($NuevaNovedad);
             $em->persist($entity);
@@ -309,8 +309,12 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             // Asigno el nuevo encargado.
             $entity->setEncargado($NuevaNovedad->getUsuario());
     
+            if($NuevaNovedad->getNotas()) {
+                $NuevaNovedad->setAutomatica(0);
+            } else {
+                $NuevaNovedad->setAutomatica(1);
+            }
             $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
-            $NuevaNovedad->setAutomatica(1);
             $NuevaNovedad->setUsuario($UsuarioConectado);
            
             $em->persist($NuevaNovedad);

@@ -38,7 +38,7 @@
 
 {% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
 <div class="text-right">
-    {% if entity.Encargado and entity.Encargado == app.user %}
+    {% if entity.Encargado and entity.Encargado == app.user and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         <a class="btn btn-default" href="{{ path(baseroute ~ '_rechazar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
         	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
     {% elseif entity.Estado < 90 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
@@ -124,7 +124,9 @@
     	{% if ultimanovedad != false %}</div></div>{% endif %}
         <hr />
         <div class="row">
-            <div class="col-xs-2 text-center"><i class="fa fa-comment-o fa-2x text-muted"></i><br /><small title="{{ novedad.Usuario }}">{{ novedad.Usuario.Nombre }}</small></div>
+            <div class="col-xs-2 text-center">
+            	<i class="fa fa-comment-o fa-2x text-muted" title="{{ novedad.Usuario }}"></i><br />
+            	<small title="{{ novedad.Usuario }}">{% if novedad.Usuario.Nombre %}{{ novedad.Usuario.Nombre }}{% else %}{{ novedad.Usuario }}{% endif %}</small></div>
             <div class="col-xs-10">
         {% endif %}
         <p>{% if novedad.Automatica == 0%}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i> <strong>{% endif %}
