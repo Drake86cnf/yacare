@@ -62,14 +62,42 @@
     		id="dropdownMenuRelevamientos" data-toggle="dropdown">Encargado <span class="caret"></span>
     	</button>
     	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuRelevamientos">
+            <li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+    			tabindex="-1"
+    			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_encargado': null, 'page': null })) }}">
+    			Todos</a></li>
+    		<li role="separator" class="divider"></li>
     		{% for encargado in encargados %}
     		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
     			tabindex="-1"
     			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_encargado': encargado.id, 'page': null })) }}">
-    			{{ encargado }}</a></li> {% endfor %}
+    			{{ encargado }}</a></li>
+            {% endfor %}
     	</ul>
     </div>
 {% endif %}
+
+<div class="btn-group">
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuRelevamientos" data-toggle="dropdown">Estado <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuRelevamientos">
+        <li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'page': null })) }}">
+			Todos</a></li>
+		<li role="separator" class="divider"></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': -1, 'page': null })) }}">
+			Pendientes</a></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': -2, 'page': null })) }}">
+			Terminados</a></li>
+	</ul>
+</div>
+
 {% endblock pagina_acciones %}
 
 
