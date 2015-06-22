@@ -67,7 +67,7 @@ $('document').ready(function(){
 					success: function(data){
 							
 							for(var i = 0; i < data['x'].length; i++){
-								$newCoord = new google.maps.LatLng(data['y'][i], data['x'][i]);
+								$newCoord = new google.maps.LatLng(data['x'][i], data['y'][i]);
 								
 								markers[i].setPosition($newCoord);
 								
@@ -135,7 +135,7 @@ $('document').ready(function(){
 						success: function(data){
 						
 								for(var i = 0; i < data['x'].length; i++){
-									$newCoord = new google.maps.LatLng(data['y'][i], data['x'][i]);
+									$newCoord = new google.maps.LatLng(data['x'][i], data['y'][i]);
 
 
 									markers[i].setPosition($newCoord);
