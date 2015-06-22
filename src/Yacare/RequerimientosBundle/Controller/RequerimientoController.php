@@ -31,6 +31,18 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     
     
     /**
+     * Crear un reclamo sin estar autenticado.
+     *
+     * @Route("/pub/reclamos/crearanonimo/")
+     * @Template()
+     */
+    public function crearanonimoAction() {
+        
+    }
+    
+    
+    
+    /**
      * Listar, con filtro por encargado.
      * 
      * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
@@ -64,11 +76,11 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             case 0:
             case null:
             case '':
-                // Sin filtro
+                // Filtro predeterminado (nuevos, iniciados y en espera)
+                $this->Where .= " AND r.Estado<50";
                 break;
             case -1:
-                // Pendientes (nuevos, iniciados y en espera)
-                $this->Where .= " AND r.Estado<50";
+                // Sin filtro. Mostrar todos
                 break;
             default:
                 $this->Where .= " AND r.Estado=" . $filtro_estado;
