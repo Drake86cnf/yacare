@@ -242,7 +242,6 @@ class BuscadorDeRelaciones
             ->leftJoin('a.' . $propiedadEntidadCandidata, 'b')
             ->where('b.id = :id_candidato');
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($rutaEntidadCandidata, 'Tapir\BaseBundle\Entity\Suprimible')) {
-            var_dump('si usa suprimible');
             $hayRelacion->andwhere('a.Suprimido = :no_es_suprimido')->setParameters(array(
                 'id_candidato' => $entidadASuprimir->getId(),
                 'no_es_suprimido' => 0));
@@ -252,7 +251,7 @@ class BuscadorDeRelaciones
         }
         
         $hayRelacion = $hayRelacion->getQuery()
-            ->setMaxResults(5)
+            ->setMaxResults(1)
             ->getResult();
         
         return $hayRelacion;
