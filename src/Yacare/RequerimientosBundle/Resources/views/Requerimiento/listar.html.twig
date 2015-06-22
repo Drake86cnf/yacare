@@ -92,6 +92,42 @@
 </a>
 {% endif %}
 
+<div class="btn-group">
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuEstados" data-toggle="dropdown">
+		<i class="fa fa-fw fa-filter text-{% if filtro_estado %}warning{% else %}muted{% endif %}"></i>
+		Estado <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEstados">
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'page': null })) }}">
+			<i class="fa fa-fw{% if not filtro_estado %} fa-check{% endif %}"></i>
+			Pendientes</a></li>
+        <li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': -1, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_estado == -1 %} fa-check{% endif %}"></i>
+			Todos</a></li>
+		<li role="separator" class="divider"></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 80, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_estado == 80 %} fa-check{% endif %}"></i>
+			Cancelados</a></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 90, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_estado == 90 %} fa-check{% endif %}"></i>
+			Terminados sin cerrar</a></li>
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 99, 'page': null })) }}">
+			<i class="fa fa-fw{% if filtro_estado == 99 %} fa-check{% endif %}"></i>
+			Cerrados</a></li>
+	</ul>
+</div>
+
 {% if encargados is defined %}
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
@@ -121,42 +157,6 @@
 	</ul>
 </div>
 {% endif %}
-
-<div class="btn-group">
-	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
-		id="dropdownMenuEstados" data-toggle="dropdown">
-		<i class="fa fa-fw fa-filter text-{% if filtro_estado %}warning{% else %}muted{% endif %}"></i>
-		Estado <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEstados">
-        <li role="presentation"><a data-toggle="ajax-link" role="menuitem"
-			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': null, 'page': null })) }}">
-			<i class="fa fa-fw{% if not filtro_estado %} fa-check{% endif %}"></i>
-			Todos</a></li>
-		<li role="separator" class="divider"></li>
-		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
-			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': -1, 'page': null })) }}">
-			<i class="fa fa-fw{% if filtro_estado == -1 %} fa-check{% endif %}"></i>
-			Pendientes</a></li>
-		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
-			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 80, 'page': null })) }}">
-			<i class="fa fa-fw{% if filtro_estado == 80 %} fa-check{% endif %}"></i>
-			Cancelados</a></li>
-		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
-			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 90, 'page': null })) }}">
-			<i class="fa fa-fw{% if filtro_estado == 90 %} fa-check{% endif %}"></i>
-			Terminados sin cerrar</a></li>
-		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
-			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_estado': 99, 'page': null })) }}">
-			<i class="fa fa-fw{% if filtro_estado == 99 %} fa-check{% endif %}"></i>
-			Cerrados</a></li>
-	</ul>
-</div>
 
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
