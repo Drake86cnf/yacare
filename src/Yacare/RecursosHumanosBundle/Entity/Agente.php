@@ -22,6 +22,11 @@ class Agente
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
+    public function __construct()
+    {
+    	$this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /*
      * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
      * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso, agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active, agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '', ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL, CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT ''; UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
@@ -31,7 +36,9 @@ class Agente
      * Los grupos a los cuales pertenece el agente.
      *
      * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
-     * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo")
+     * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo",
+     * 		joinColumns={@ORM\JoinColumn(name="agente_id", referencedColumnName="id", nullable=true)}
+     * )
      */
     private $Grupos;
 
