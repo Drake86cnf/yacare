@@ -16,8 +16,8 @@
 		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}</span></p>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
-		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría{% endif %}</h3>
-		  
+		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría{% endif %} <a class="btn btn-link showonhover" href="#">cambiar</a></h3>
+
 		  Estado: <span class="pull-right">
               {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
 			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
@@ -26,11 +26,10 @@
 			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
 			  {% else %}<i class="fa fa-fw"></i>
 			  {% endif %}
-		      
+
 		      {{ entity.EstadoNombre }}</span><br />
-		  
+
 		  Encargado: <span class="pull-right">{{ entity.Encargado }}</span><br />
-		  
 		  Prioridad: <span class="pull-right">{{ entity.PrioridadNombre }}</span><br />
 		</div></div></div>
 	</div>
@@ -51,7 +50,7 @@
         {% endif %}
     {% endif %}
 
-   
+
     {% if entity.Estado == 0 %}
         {# Nuevo #}
         <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
