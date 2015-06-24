@@ -35,6 +35,8 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
     -ms-user-select: none;
     -khtml-user-select: none;
     -webkit-touch-callout: none;
+    border-bottom: 1px dashed #EEE;
+    text-decoration: none;
 }
 
 body, p, label, span, div, td {
@@ -312,4 +314,12 @@ legend small {
 
 .panel-yellow a:hover {
     color: #df8a13;
+}
+
+div > *.showonhover {
+    opacity: 0;
+}
+
+div:hover > *.showonhover {
+    opacity: 1;
 }

@@ -28,22 +28,22 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $this->ConservarVariables[] = 'filtro_estado';
         $this->ConservarVariables[] = 'filtro_categoria';
     }
-    
-    
+
+
     /**
      * Crear un reclamo sin estar autenticado.
      *
-     * @Route("/pub/reclamos/crearanonimo/")
+     * @Route("../../pub/requerimiento/anonimo")
      * @Template()
      */
     public function crearanonimoAction() {
-        
+        return array();
     }
     
     
     
     /**
-     * Listar, con filtro por encargado.
+     * Listar, con filtros.
      * 
      * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
      * @Route("listar/")
