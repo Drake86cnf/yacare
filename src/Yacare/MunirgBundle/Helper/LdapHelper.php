@@ -47,8 +47,8 @@ class LdapHelper
         //         escapeshellarg($Contrasena) . "'");
         // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
         // una sesión del servidor web.
-        exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
-                 addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
+        //exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
+        //         addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
         // $this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
 
