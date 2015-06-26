@@ -146,7 +146,7 @@ class LdapController extends Controller
         if ($UsrBind) {
             $Persona = $Agente->getPersona();
             
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $GruposAnteriores = $ldap->ObtenerGruposAnteriores($Agente);
             $GruposActuales = $Agente->getGrupos();
             
