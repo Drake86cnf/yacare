@@ -22,7 +22,9 @@ class LdapHelper
     {
         $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
         
-        $this->ConnRg = new AdConnection('192.168.100.41', 'riogrande.local', 'Administrador', $ContrasenaLdap);
+        $this->ConnRg = new AdConnection('192.168.130.105', 'dir.riogrande.gob.ar', 'Administrador', $ContrasenaLdap);
+        $this->ConnRg->DomainAdminsGroupName = 'Admins. del dominio';
+        $this->ConnRg->DomainUsersGroupName = 'Usuarios del dominio';
         $this->ConnRg->Connect();
         
         $this->ConnMuni = new AdConnection('192.168.100.44', 'municipiorg.gob.ar', 'Administrador', $ContrasenaLdap);
@@ -38,13 +40,13 @@ class LdapHelper
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         // setlocale(LC_CTYPE, "en_US.UTF-8");
-        exec(
-            "ssh -n root@pegasus 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " .
-                 escapeshellarg($Contrasena) . "'");
+        exec("ssh -n apache@antares 'winexe --interactive=0 -U DIR/Administrador%" . $ContrasenaLdap . " //192.168.130.105 \"net user " .
+            addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
+        //exec("ssh -n root@pegasus 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " .
+        //         escapeshellarg($Contrasena) . "'");
         // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
         // una sesión del servidor web.
-        exec(
-            "ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%l" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
+        exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
                  addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
         // $this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
@@ -83,7 +85,7 @@ class LdapHelper
         );
         
         $AttrRg = array_merge($AtributosGenerales, 
-            array('userPrincipalName' => $NombreUsuario . '@RIOGRANDE.LOCAL'));
+            array('userPrincipalName' => $NombreUsuario . '@DIR.RIOGRANDE.GOB.AR'));
         
         if ($usuarionuevo) {
             // Actualizar usuario en el dominio nuevo
