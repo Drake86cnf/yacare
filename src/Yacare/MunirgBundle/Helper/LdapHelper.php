@@ -20,7 +20,7 @@ class LdapHelper
 
     public function ObtenerConexion()
     {
-        $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
+        $ContrasenaLdap = $this->getParameter('munirg_ldap_contrasena');
         
         $this->ConnRg = new AdConnection('192.168.130.105', 'dir.riogrande.gob.ar', 'Administrador', $ContrasenaLdap);
         $this->ConnRg->DomainAdminsGroupName = 'Admins. del dominio';
@@ -35,7 +35,7 @@ class LdapHelper
 
     public function CambiarContrasena($Agente)
     {
-        $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
+        $ContrasenaLdap = $this->getParameter('munirg_ldap_contrasena');
         
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
