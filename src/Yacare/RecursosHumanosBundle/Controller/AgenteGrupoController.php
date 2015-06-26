@@ -29,7 +29,7 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         
         $res = parent::listarAction($request);
         
-        $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+        $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
         
         foreach ($res['entities'] as $entity) {
             $nombreLdap = $entity->getNombreLdap();
@@ -49,7 +49,7 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         $nombreLdap = $entity->getNombreLdap();
         if ($nombreLdap) {
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $ldap->AgregarOActualizarGrupo($entity);
             $ldap = null;
         }

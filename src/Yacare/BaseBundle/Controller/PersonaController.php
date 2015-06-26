@@ -87,7 +87,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getDoctrine()->getManager();
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
             
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $ldap->AgregarOActualizarAgente($Agente);
             $ldap = null;
         }
@@ -104,7 +104,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getDoctrine()->getManager();
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
             
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $ldap->CambiarContrasena($Agente);
             $ldap = null;
         }
