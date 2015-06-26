@@ -43,7 +43,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         $res = parent::listarAction($request);
         
-        $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+        $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
         
         $AgentesVolcados = array();
         foreach ($res['entities'] as $Agente) {
@@ -65,7 +65,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     public function guardarActionPostPersist($entity, $editForm)
     {
         if ($entity->getId()) {
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper();
+            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $ldap->AgregarOActualizarAgente($entity);
             $ldap = null;
         }
