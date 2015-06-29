@@ -13,10 +13,17 @@
 		  		href="{{ path(baseroute ~ '_editarcampo', arrastre|merge({ 'id': entity.id, 'nombrecampo': 'Notas' })) }}">
 		  		<p>{{ entity.Notas }}</p>
 		  </div>
-		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}</span></p>
+		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}
+		  </span></p>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
-		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría{% endif %} <a class="btn btn-link showonhover" href="#">cambiar</a></h3>
+		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}
+		      {% else %}Sin categoría <a class="btn btn-link btn-xs showonhover"
+		      href="{{ path(baseroute ~ '_modificardato', arrastre|merge({'id': entity.id, 'campo_nombre': 'Categoria'})) }}"
+		      data-toggle="modal" >
+		      <i class="fa fa-edit"></i> Asignar </a>
+		      {% endif %}
+		  </h3>
 
 		  Estado: <span class="pull-right">
               {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
@@ -88,7 +95,8 @@
 <h2>Novedades</h2>
 <div class="container-fluid">
 {% if form_novedad is defined and app.user is defined %}
-{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
+{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 
+    'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
     <div class="row">
         <div class="col-xs-2 text-center">
         	<i class="fa fa-comment fa-2x text-left text-info"></i>
