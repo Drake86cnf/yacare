@@ -426,7 +426,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 case 'Categoria':
                     if ($entity->getCategoria() != $CategoriaAnterior) {
                         if ($entity->getCategoria()) {
-                            if (! $entity->getEncargado()) {
+                            if (! $entity->getEncargado() && $entity->getCategoria()->getEncargado()) {
                                 $entity->setEncargado($entity->getCategoria()
                                     ->getEncargado());
                                 $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . 
