@@ -281,7 +281,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
-                (string)$child->getErrors();
+                (string) $child->getErrors();
             }
             
             $errors = $editForm->getErrors(true, true);
@@ -354,7 +354,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
-                (string)$child->getErrors();
+                (string) $child->getErrors();
             }
             
             $errors = $editForm->getErrors(true, true);
@@ -425,14 +425,17 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             switch ($campoNombre) {
                 case 'Categoria':
                     if ($entity->getCategoria() != $CategoriaAnterior) {
-                        if($entity->getCategoria()) {
-                            $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
+                        if ($entity->getCategoria()) {
+                            if (! $entity->getEncargado()) {
+                                $entity->setEncargado($entity->getCategoria()
+                                    ->getEncargado());
+                                $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . 
+                                    '. El encargado es ' . $entity->getEncargado());
+                            } else {
+                                $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
+                            }
                         } else {
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
-                        }
-                        if ($entity->getCategoria() && (! $entity->getEncargado())) {
-                            $entity->setEncargado($entity->getCategoria()
-                                ->getEncargado());
                         }
                         $em->persist($NuevaNovedad);
                         $em->persist($entity);
@@ -445,7 +448,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
-                (string)$child->getErrors();
+                (string) $child->getErrors();
             }
             
             $errors = $editForm->getErrors(true, true);
