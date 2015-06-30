@@ -88,6 +88,12 @@ class LdapController extends Controller
                 'contrasena' => $Contrasena,
                 'documento' => $Documento);
         } else {
+            $extended_error = '';
+            if (ldap_get_option($ServidorAd, LDAP_OPT_ERROR_STRING, $extended_error)) {
+                echo "Error Binding to LDAP: $extended_error";
+            } else {
+                echo "Error Binding to LDAP: No additional information is available.";
+            }
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 

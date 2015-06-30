@@ -34,6 +34,7 @@ class LdapHelper
         $this->ConnMuni->Connect();
     }
 
+
     public function CambiarContrasena($Agente)
     {
         $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
@@ -56,6 +57,7 @@ class LdapHelper
     {
         return addcslashes($s, '\\"');
     }
+
 
     public function AgregarOActualizarAgente($Agente)
     {
@@ -111,6 +113,7 @@ class LdapHelper
         // $this->AjustarGrupos($this->ConnMuni, $Agente);
     }
 
+
     public function ObtenerGruposAnteriores($Agente)
     {
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
@@ -121,6 +124,7 @@ class LdapHelper
         }
         return $GruposUsuario;
     }
+
 
     /*
      * Agrega o quita al usuario de los grupos que corresponda
