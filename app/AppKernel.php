@@ -29,6 +29,7 @@ class AppKernel extends Kernel
         	new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
         		
             new Tapir\BaseBundle\TapirBaseBundle(),
+            new Tapir\ChartsBundle\TapirChartsBundle(),
         	new Tapir\AnnotationBundle\TapirAnnotationBundle(),
             new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
