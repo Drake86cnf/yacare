@@ -395,6 +395,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
+        $CategoriaAnterior = $entity->getCategoria();
+        
         $campoNombre = $this->ObtenerVariable($request, 'campo_nombre');
         $editFormBuilder = $this->createFormBuilder($entity);
         
@@ -420,12 +422,19 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {
-            if($entity->getCategoria() != '') {
-                $NuevaNovedad->setNotas('El requerimiento fue delegado a: ' . $entity->getCategoria() . '.');
-                $em->persist($NuevaNovedad);
-                $em->persist($entity);
-                $em->flush();
-                $this->addFlash('success', 'Los cambios fueron guardados.');
+            switch ($campoNombre) {
+                case 'Categoria':
+                    if ($entity->getCategoria() != $CategoriaAnterior) {
+                        if($entity->getCategoria()) {
+                            $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
+                        } else {
+                            $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
+                        }
+                        $em->persist($NuevaNovedad);
+                        $em->persist($entity);
+                        $em->flush();
+                    }
+                    break;
             }
             return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
                 'id' => $id), false)));
