@@ -411,7 +411,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             case 'Categoria':
                 $editFormBuilder->add($campoNombre, 'entity', array(
                     'label' => 'Categoría',
-                    'placeholder' => '',
+                    'placeholder' => 'Sin categoría',
                     'class' => 'YacareRequerimientosBundle:Categoria',
                     'required' => false));
                 $NuevaNovedad->setAutomatica(1);
@@ -429,6 +429,10 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                             $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
                         } else {
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
+                        }
+                        if ($entity->getCategoria() && (! $entity->getEncargado())) {
+                            $entity->setEncargado($entity->getCategoria()
+                                ->getEncargado());
                         }
                         $em->persist($NuevaNovedad);
                         $em->persist($entity);
