@@ -17,10 +17,10 @@
 		  </span></p>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
-		  <h3>{% if entity.Categoria %}{{ entity.Categoria }}
-		      {% else %}Sin categoría {% endif %} <a class="btn btn-link btn-xs showonhover"
+		  <h3><span class="mostrar">{% if entity.Categoria %}{{ entity.Categoria }}
+		      {% else %}Sin categoría {% endif %}</span> <a class="visto btn btn-link btn-xs"
 		      href="{{ path(baseroute ~ '_modificardato', arrastre|merge({'id': entity.id, 'campo_nombre': 'Categoria'})) }}"
-		      data-toggle="modal" >
+		      data-toggle="modal">
 		      <i class="fa fa-edit"></i> Asignar </a>
 		  </h3>
 
