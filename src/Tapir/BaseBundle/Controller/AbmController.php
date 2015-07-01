@@ -445,8 +445,7 @@ abstract class AbmController extends BaseController
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm ? $deleteForm->createView() : null));
             
-            return $this->render(
-                $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
+            return $this->render($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
             return $this->guardarActionAfterSuccess($request, $entity);
         }

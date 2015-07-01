@@ -1,0 +1,65 @@
+{% extends 'TapirBaseBundle::blank.html.twig' %}
+
+{% block pagina_titulo %}Requerimiento anónimo{% endblock %}
+
+{% block pagina_contenido %}
+<style>
+    .wr {
+        padding: 40px !important;
+    }
+    textarea {
+    	min-height: 80px;
+    }
+</style>
+<div class="wr">
+
+
+{% if (edit_form_action is defined) == false %}
+    {% set edit_form_action = baseroute ~ '_anonimocrear' %}
+{% endif %}
+{{ form_start(edit_form, {
+        'action': path(edit_form_action, arrastre|merge({ 'id': entity.id })),
+        'method': 'POST',
+        'attr': { 'id': edit_form.vars.id }
+    }) }}
+
+<h1>Sus comentarios, reclamos, denuncias, consultas o solicitudes son bienvenidos</h1>
+
+{{ form_errors(edit_form) }}
+
+<p class="small">
+	En caso de reclamos o denuncias, por favor sea claro sobre el problema, la ubicación exacta y otros
+	datos que puedan ser de utilidad para identificar y solucionar el problema. 
+</p>
+<p class="text-primary">Por favor describa su consulta o reclamo. Puede ser tan breve o extenso como considere necesario.</p>
+{{ form_widget(edit_form.Notas) }}
+
+&nbsp;<br />
+
+<p class="text-primary">
+	Seleccione la categoría del reclamo.
+	Si no sabe qué categoría seleccionar, puede dejar este campo en blanco.
+</p>
+{{ form_widget(edit_form.Categoria) }}
+
+&nbsp;<br />
+
+<p class="text-primary">
+	Si quiere que nos pongamos en contacto con Usted por favor escriba su nombre y dirección de correo electrónico.
+	Si prefiere hacer un reclamo anónimo, puede dejar estos campos en blanco.
+</p>
+{{ form_widget(edit_form.UsuarioNombre) }}
+{{ form_widget(edit_form.UsuarioEmail) }}
+
+&nbsp;<br />
+
+<button type="submit" value="Guardar" class="btn btn-lg btn-success">
+	<i class="fa fa-check"></i> Enviar
+</button>
+
+{{ form_rest(edit_form) }}
+
+</form>
+
+</div>
+{% endblock %}

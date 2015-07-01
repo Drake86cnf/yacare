@@ -31,16 +31,81 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $this->ConservarVariables[] = 'filtro_categoria';
     }
 
+    
     /**
      * Crear un reclamo sin estar autenticado.
      *
-     * @Route("../../pub/requerimiento/anonimo")
+     * @Route("anonimo/crear/")
      * @Template()
      */
-    public function crearanonimoAction()
+    public function anonimocrearAction(Request $request)
     {
-        return array();
+        $entity = new \Yacare\RequerimientosBundle\Entity\Requerimiento();
+        
+        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\RequerimientoAnonimoType(), $entity);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isValid()) {
+            if ($entity->getCategoria() && (! $entity->getEncargado())) {
+                $entity->setEncargado($entity->getCategoria()->getEncargado());
+            }
+            
+            $em = $this->getEm();
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
+                'id' => $entity->getId(),
+                'token' => $entity->getToken(),
+            ), false));
+        } else {
+            $validator = $this->get('validator');
+            $errors = $validator->validate($entity);
+        }
+        
+        return $this->ArrastrarVariables($request, 
+            array(
+                'entity' => $entity,
+                'errors' => $errors,
+                'edit_form' => $editForm->createView()));
     }
+    
+    
+    /**
+     * Crear un reclamo sin estar autenticado.
+     *
+     * @Route("anonimo/ver/")
+     * @Route("anonimo/ver/{seg}")
+     * @Template()
+     */
+    public function anonimoverAction(Request $request, $seg = null)
+    {
+        if(!$seg) {
+            $seg = $this->ObtenerVariable($request, 'seg');
+        }
+        
+        if($seg) {
+            list($id, $token) = explode('-', $seg, 2);
+        } else {
+            $id = null;
+        }
+        
+        if($id) {
+            $entity = $this->ObtenerEntidadPorId($id);
+            if($entity->getToken() != $token) {
+                $entity = null;
+            }
+        } else {
+            $entity = null;
+        }
+        
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity,
+            'seg' => $seg
+        ));
+    }
+    
+    
+
 
     /**
      * Listar, con filtros.

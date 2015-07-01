@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class RequerimientoType extends AbstractType
+class RequerimientoAnonimoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,11 +17,19 @@ class RequerimientoType extends AbstractType
         $builder
             ->add('Notas', null, array(
                 'label' => 'Asunto',
-                'attr' => array ('placeholder' => 'Asunto'),
+                'attr' => array ('placeholder' => ''),
                 'required' => true))
             ->add('Categoria', null, array(
                 'label' => 'Categoría',
                 'attr' => array ('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
+                'required' => false))
+            ->add('UsuarioNombre', null, array(
+                'label' => 'Nombre',
+                'attr' => array ('placeholder' => 'Su nombre'),
+                'required' => false))
+            ->add('UsuarioEmail', null, array(
+                'label' => 'E-mail',
+                'attr' => array ('placeholder' => 'Su dirección de correo electrónico.'),
                 'required' => false))
             ;
     }
@@ -34,6 +42,6 @@ class RequerimientoType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_requerimientosbundle_requerimientotype';
+        return 'yacare_requerimientosbundle_requerimientoanonimotype';
     }
 }

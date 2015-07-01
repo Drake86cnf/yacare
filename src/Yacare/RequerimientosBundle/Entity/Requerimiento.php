@@ -27,6 +27,7 @@ class Requerimiento
     public function __construct()
     {
         $this->Novedades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Token = rand(1000, 9999); 
     }
 
 
@@ -95,6 +96,15 @@ class Requerimiento
     
     
     /**
+     * El token necesario para acceder al reclamo.
+     *
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $Token;
+    
+    
+    /**
      * La calificación de satisfacción de la resolución del requerimiento, o null si aun no fue calificado.
      *
      * @var int
@@ -109,6 +119,11 @@ class Requerimiento
      * @ORM\OneToMany(targetEntity="\Yacare\RequerimientosBundle\Entity\Novedad", mappedBy="Requerimiento", cascade={ "persist" })
      */
     protected $Novedades;
+    
+    
+    public function getSeguimientoNumero() {
+        return $this->id . '-' . $this->Token;
+    }
     
     
     public function setNotas($Notas) {
@@ -258,6 +273,15 @@ class Requerimiento
     public function setCategoria($Categoria)
     {
         $this->Categoria = $Categoria;
+        return $this;
+    }
+    public function getToken()
+    {
+        return $this->Token;
+    }
+    public function setToken(int $Token)
+    {
+        $this->Token = $Token;
         return $this;
     }
 }
