@@ -39,7 +39,11 @@
 
 {% block buttongroup_widget %}
     {% spaceless %}
-        <div class="btn-group" role="group" id="{{ id }}_Group">
+        <div class="btn-group" role="group" id="{{ id }}_Group"
+        {% if attr['help'] is defined %}
+        data-toggle="tooltip" data-placement="bottom" title="{{ attr['help'] }}"
+        {% endif %}
+        	>
             {% set options = choices -%}
             {{- block('buttongroup_widget_options') -}}
         </div>
@@ -49,8 +53,18 @@
 
 {% block buttongroup_widget_options -%}
     {% for group_label, choice in options %}
-        <button type="button" onclick="$('#{{ id }}').val('{{ choice.value }}'); $('#{{ id }}_Group :button').removeClass('active'); $('#{{ id }}_Group i').hide(); $(this).addClass('active'); $(this).children('i').show(); return true;" class="btn btn-default {% if choice is selectedchoice(value) %} active{% endif %}" 
-            value="{{ choice.value }}"><i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i> {{ choice.label|trans({}, translation_domain) }}</button>
+        <button type="button" onclick="$('#{{ id }}').val('{{ choice.value }}');
+        	$('#{{ id }}_Group :button').removeClass('active'); $('#{{ id }}_Group i').hide();
+        	$(this).addClass('active'); $(this).children('i').show(); return true;"
+        	class="btn
+        	{% if attr['class'] is defined %}
+        	    {% set bgclass = attr['class']|split(' ') %}
+                {% if 'btn-xs' in bgclass %}btn-xs{% endif %}{% if 'btn-sm' in bgclass %}btn-sm{% endif %}
+            {% endif %} 
+        	btn-default {% if choice is selectedchoice(value) %} active{% endif %}" 
+            value="{{ choice.value }}">
+            <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
+            {{ choice.label|trans({}, translation_domain) }}</button>
     {% endfor %}
 {%- endblock buttongroup_widget_options %}
 

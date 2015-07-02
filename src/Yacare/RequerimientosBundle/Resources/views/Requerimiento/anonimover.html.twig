@@ -18,25 +18,104 @@
 
     <h1><i class="fa fa-ticket"></i> Estado del requerimiento</h1>
     
-    <p class="lead text-primary">
+    <p class="lead">Descripción de la solicitud: <e class="text-info">{{ entity.Notas }}</e></p>
     
-    </p>
-    
+    <p>
     {% if entity.Estado == 0 %}{# Nuevo #}
 
-        <p>Su solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área correspondiente.
-        	Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud: <strong>{{ entity.id }}-{{ entity.Token }}</strong>.</p>
-
-	{% elseif entity.Estado == 10 %}{# Iniciado #}
+        <strong>Su solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
+        correspondiente.</strong>
 	
-		<p>Su solicitud está siendo evaluado.</p>
+    {% elseif entity.Estado == 10 %}{# Iniciado #}
+	
+		<strong>Su solicitud está siendo atendida.</strong> El último movimiento al respecto
+			fue {{ entity.updatedAt|tapir_hacetiempo }}.
+		
+	{% elseif entity.Estado == 20 %}{# En espera #}
+	
+		<strong>Su solicitud fue puesta en espera.</strong>
+		
+	{% elseif entity.Estado == 80 %}{# Cancelado #}
+	
+		<strong>Su solicitud fue cancelada.</strong>
+	
+	{% elseif entity.Estado == 90 %}{# Terminado #}
+	
+		<strong>Su solicitud fue cursada y llegó a una solución exitosa.</strong>
 
     {% endif %}
     
-    <p>La solicitud fue ingresada {{ entity.createdAt|tapir_hacetiempo }}.</p>
+    Por favor vea el registro a continuación para más información y si lo considera necesario puede agregar comentarios.
+    
+    Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud:
+        	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
+    
+    </p>
+    
+    {% if entity.Encargado %}<p>En encargado de atender su solicitud es {{ entity.Encargado.NombreAmigable }}.{% endif %}
+    
+    <hr />
+    
+    {% if entity.Novedades|length > 0 %}
+    	<div class="container-fluid"><div class="row">
+			<div class="col-sm-2 col-xs-12">
+				<h2 class="text-primary">Registro de novedades y comentarios</h2>
+			</div>
+			<div class="col-sm-10 col-xs-12">
+    	{% for novedad in entity.Novedades|reverse %}
+    		{% if novedad.Privada == 0 %}<p>
+    			    {% if novedad.Automatica == 0 %}<i class="fa fa-comment-o text-muted"></i><strong>{% endif %}
+    			    {{ novedad.Notas }}
+    			    {% if novedad.Automatica == 0 %}</strong>{% endif %}
+    			    <span class="small text-muted">({{ novedad.createdAt|tapir_hacetiempo }}, por
+    			    {% if novedad.Usuario %}
+    			        {{ novedad.Usuario.NombreAmigable }}
+    			    {% elseif entity.UsuarioNombre %}
+    			    	{{ entity.UsuarioNombre }}
+    			    {% else %}
+    			    	usuario anónimo vía web
+    			    {% endif %})</span></p>
+    		{% endif %}
+    	{% endfor %}
+   			</div>
+    	</div></div>
+    	<p>Esta solicitud fue ingresada {{ entity.createdAt|tapir_hacetiempo }}. El último movimiento fue
+    	    {{ entity.updatedAt|tapir_hacetiempo }}.</p>
+    {% endif %}
+
+    
+{% if form_novedad is defined %}
+<hr />
+<div class="container-fluid"><div class="row">
+	<div class="col-sm-2 col-xs-12">
+		<h2 class="text-primary">Publicar un comentario</h2>
+	</div>
+	<div class="col-sm-10 col-xs-12">
+        {{ form_start(form_novedad, { 'method': 'POST',
+        	'attr': { 'id': 'form_novedad', 'adata-toggle': 'ajax-form', 'adata-target': '#nuevocomentario' } }) }}
+        {{ form_errors(form_novedad) }}
+        {{ form_widget(form_novedad._token) }}
+        {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
+        {{ form_rest(form_novedad) }}
+        {{ form_end(form_novedad) }}
+        <script>
+            $('#yacare_requerimientosbundle_novedadanonimatype_Notas').keypress(function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    $('form#form_novedad').submit();
+                    return false;
+                }
+            });
+        </script>
+    </div>
+</div></div>
+{% endif %}
+
+    <hr />
     
     <p>La dirección de la página para consultas es la siguiente: 
-    	<a href="http://www.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/{{ entity.id }}-{{ entity.Token }}">http://www.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/{{ entity.id }}-{{ entity.Token }}</a>.
+    	<a href="http://www.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/{{ entity.id }}-{{ entity.Token }}"
+    		>http://www.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/{{ entity.id }}-{{ entity.Token }}</a>.
         {% if entity.UsuarioEmail %}
         	Además, se envia copia de las novedades a la dirección de correo electrónico proporcionada.
         {% endif %}	

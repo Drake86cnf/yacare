@@ -66,7 +66,7 @@ class Novedad
      * @var int
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $Privada = 0;
+    private $Privada = 1;
     
     /**
      * Indica si la novedad es automática, o sea que la generó el sistema. 

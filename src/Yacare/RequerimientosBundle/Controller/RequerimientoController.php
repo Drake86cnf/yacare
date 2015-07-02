@@ -88,19 +88,32 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $id = null;
         }
         
+        $res = array('seg' => $seg);
+        
         if($id) {
             $entity = $this->ObtenerEntidadPorId($id);
-            if($entity->getToken() != $token) {
-                $entity = null;
+            if($entity->getToken() == $token) {
+                $res['entity'] = $entity;
+                
+                $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+                $NuevaNovedad->setAutomatica(0);
+                $NuevaNovedad->setPrivada(0);
+                $NuevaNovedad->setRequerimiento($entity);
+                $NuevaNovedad->setUsuario(null);
+                $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(), $NuevaNovedad);
+                $editForm->handleRequest($request);
+                if ($editForm->isValid()) {
+                    $em = $this->getEm();
+                    $em->persist($NuevaNovedad);
+                    $em->flush();
+                } else {
+                    $res['form_novedad'] = $editForm->createView();
+                }
+                
             }
-        } else {
-            $entity = null;
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'seg' => $seg
-        ));
+        return $this->ArrastrarVariables($request, $res);
     }
     
     
@@ -204,6 +217,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if (! is_string($UsuarioConectado)) {
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+            $NuevaNovedad->setPrivada(1);
             $NuevaNovedad->setRequerimiento($res['entity']);
             $NuevaNovedad->setUsuario($UsuarioConectado);
             $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
@@ -240,6 +254,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
             $NuevaNovedad->setRequerimiento($entity);
             $NuevaNovedad->setUsuario($UsuarioConectado);
+            $NuevaNovedad->setPrivada(0);
             $NuevaNovedad->setAutomatica(1);
             switch ($NuevoEstado) {
                 case 0:
@@ -324,6 +339,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             ->getUser();
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+        $NuevaNovedad->setPrivada(1);
         $NuevaNovedad->setRequerimiento($entity);
         $NuevaNovedad->setUsuario($UsuarioConectado);
         
@@ -392,6 +408,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             ->getUser();
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+        $NuevaNovedad->setPrivada(1);
         $NuevaNovedad->setRequerimiento($entity);
         $NuevaNovedad->setUsuario($UsuarioConectado);
         
@@ -468,6 +485,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             ->getToken()
             ->getUser();
         $NuevaNovedad = new Novedad();
+        $NuevaNovedad->setPrivada(1);
         $NuevaNovedad->setRequerimiento($entity);
         $NuevaNovedad->setUsuario($UsuarioConectado);
         
