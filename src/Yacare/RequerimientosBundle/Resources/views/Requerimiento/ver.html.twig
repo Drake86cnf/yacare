@@ -104,7 +104,8 @@
         <div class="col-xs-10" id="nuevocomentario">
             {{ form_errors(form_novedad) }}
             {{ form_widget(form_novedad._token) }}
-            {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar una novedad...', 'autofocus': 'autofocus' } }) }}
+            {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
+            {{ form_widget(form_novedad.Privada, { 'attr': { 'class': 'btn-xs' } }) }}
             {{ form_rest(form_novedad) }}
             <button type="submit" data-toggle="ajax-link" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
         </div>
@@ -134,13 +135,23 @@
         <hr />
         <div class="row">
             <div class="col-xs-2 text-center">
-            	<i class="fa fa-comment-o fa-2x text-muted" title="{{ novedad.Usuario }}"></i><br />
-            	<small title="{{ novedad.Usuario }}">{{ novedad.Usuario.NombreAmigableCorto }}</small></div>
+            	<i class="fa fa-comment-o fa-2x text-muted"
+            		title="{% if novedad.Usuario %}{{ novedad.Usuario }}{% endif %}"></i><br />
+            	<small title="{% if novedad.Usuario %}{{ novedad.Usuario }}{% endif %}">{% if novedad.Usuario %}
+    			        {{ novedad.Usuario.NombreAmigableCorto }}
+    			    {% elseif entity.UsuarioNombre %}
+    			    	{{ entity.UsuarioNombre }}
+    			    {% else %}
+    			    	Usuario anónimo vía web
+    			    {% endif %}</small></div>
             <div class="col-xs-10">
         {% endif %}
-        <p>{% if novedad.Automatica == 0%}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i> <strong>{% endif %}
+        <p>{% if novedad.Automatica == 0 %}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i>
+        	<strong>{% endif %}
+            {% if novedad.Privada %}<i class="fa fa-eye-slash text-info"></i> <strong>{% endif %}
             {{ novedad.Notas }}
-            <small class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ novedad.createdAt|tapir_fecha }}"> ({{ novedad.createdAt|tapir_hacetiempo }})</small>
+            <small class="text-muted" data-toggle="tooltip" data-placement="bottom"
+            	title="{{ novedad.createdAt|tapir_fecha }}"> ({{ novedad.createdAt|tapir_hacetiempo }})</small>
         {% if novedad.Automatica == 0%}</strong>{% endif %}</p>
         {% set ultimanovedad = novedad %}
     {% endfor %}

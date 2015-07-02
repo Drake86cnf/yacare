@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class NovedadType extends AbstractType
+class NovedadAnonimaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,14 +19,6 @@ class NovedadType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Descripción',
                 'required' => true))
-            ->add('Privada', new \Tapir\BaseBundle\Form\Type\PrivadoType(), array(
-                'label' => 'Visibilidad',
-                'attr' => array ('help' => 'Los comentarios públicos se muestran a todos los usuarios, incluso los 
-                anónimos. Los comentarios privados los ven sólo los usuarios que intervienen en el requerimiento.'),
-                'required' => true))
-            ->add('Usuario', 'entity_hidden', array(
-                'class' => 'Yacare\BaseBundle\Entity\Persona'
-            ))
             ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'))
             ;
@@ -40,6 +32,6 @@ class NovedadType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_requerimientosbundle_novedadtype';
+        return 'yacare_requerimientosbundle_novedadanonimatype';
     }
 }
