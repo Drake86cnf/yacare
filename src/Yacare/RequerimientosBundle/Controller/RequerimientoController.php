@@ -54,8 +54,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
-                'id' => $entity->getId(),
-                'token' => $entity->getToken(),
+                'seg' => $entity->getId() . '-' . $entity->getToken(),
             ), false));
         } else {
             $validator = $this->get('validator');

@@ -22,10 +22,14 @@
     
     </p>
     
-    {% if entity.Estado == 0 %}
+    {% if entity.Estado == 0 %}{# Nuevo #}
 
         <p>Su solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área correspondiente.
         	Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud: <strong>{{ entity.id }}-{{ entity.Token }}</strong>.</p>
+
+	{% elseif entity.Estado == 10 %}{# Iniciado #}
+	
+		<p>Su solicitud está siendo evaluado.</p>
 
     {% endif %}
     
