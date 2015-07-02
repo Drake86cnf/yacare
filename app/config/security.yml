@@ -60,9 +60,10 @@ security:
 
     access_control:
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/munirg/ldap/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/requerimientos/requerimiento/anonimo/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/pub, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/munirg/ldap/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: ROLE_USUARIO }
         - { path: /base, roles: ROLE_ADMINISTRADOR }
         - { path: /comercio, roles: ROLE_COMERCIO }
