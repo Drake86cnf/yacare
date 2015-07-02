@@ -10,31 +10,6 @@ body {
 	margin-top: 0;
 }
 
-/*
-	Bloque de estilo para hacer hover 
-*/
-
-.visto {
-    opacity: 0.0;
-    -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -ms-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
-    transition: all 500ms ease-in-out;
-}
-
-.mostrar {
-    
-}
-
-.mostrar:hover + .visto {
-    opacity: 1.0;
-}
-
-/*
-	Fin del bloqueo añadido
-*/
-
 a.btn-link:hover, a:hover {
 	text-decoration: none !important;
 }
@@ -341,10 +316,21 @@ legend small {
     color: #df8a13;
 }
 
-div > *.showonhover {
-    opacity: 0;
+
+.showonhover {
+    opacity: 0.0;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
 }
 
-div:hover > *.showonhover {
-    opacity: 1;
+.mostrar {
+    
 }
+
+div:hover > .showonhover {
+    opacity: 1.0 !important;
+}
+
