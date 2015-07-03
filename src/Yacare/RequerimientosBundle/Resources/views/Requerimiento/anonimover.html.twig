@@ -44,14 +44,25 @@
 
     {% endif %}
     
-    Por favor vea el registro a continuación para más información y si lo considera necesario puede agregar comentarios.
+    Por favor vea el registro a continuación para más información
+    {% if form_novedad is defined %} 
+    	y si lo considera necesario puede agregar comentarios
+    {% endif %}.
     
     Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud:
         	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
     
     </p>
     
-    {% if entity.Encargado %}<p>En encargado de atender su solicitud es {{ entity.Encargado.NombreAmigable }}.{% endif %}
+    {% if entity.Encargado %}
+    	<p>En encargado de atender su solicitud
+    	{% if entity.EstaPendiente %} 
+    	es
+    	{% else %}
+    	fue
+    	{% endif %}
+        {{ entity.Encargado.NombreAmigable }}.
+    {% endif %}
     
     <hr />
     

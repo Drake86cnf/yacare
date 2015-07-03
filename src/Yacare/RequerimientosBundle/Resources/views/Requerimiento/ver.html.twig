@@ -136,16 +136,16 @@
         //$('#yacare_requerimientosbundle_novedadtype_Notas').focus();
     </script>
     {{ form_end(form_novedad) }}
+    <hr />
 {% endif %}
 
 {% if entity.Novedades|length == 0 %}
-    <p>Aun no hay novedades. {% if form_novedad is defined %}Puede ser el primero en agregar una.{% endif %}</p>
+    <p>No hay novedades ni comentarios. {% if form_novedad is defined %}Puede ser el primero en agregar una.{% endif %}</p>
 {% else %}
 	{% set ultimanovedad = false %}
     {% for novedad in entity.Novedades|reverse %}
     	{% if ultimanovedad == false or ultimanovedad.Usuario != novedad.Usuario %}
     	{% if ultimanovedad != false %}</div></div>{% endif %}
-        <hr />
         <div class="row">
             <div class="col-xs-2 text-center">
             	<i class="fa fa-comment-o fa-2x text-muted"

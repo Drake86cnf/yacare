@@ -133,6 +133,10 @@ class Requerimiento
     protected $Novedades;
     
     
+    public function getEstaPendiente() {
+        return $this->getEstado() < 50;
+    }
+    
     public function getSeguimientoNumero() {
         return $this->id . '-' . $this->Token;
     }
