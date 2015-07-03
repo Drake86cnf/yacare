@@ -22,6 +22,9 @@ class Categoria
     
     /**
      * El encargado predeterminado de la categoría.
+     * 
+     * Si la categoría tiene un encargado predeterminado, todos los requerimientos que se hagan en esta categoría
+     * se asignan automáticamente al encargado.
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
@@ -30,6 +33,9 @@ class Categoria
     
     /**
      * Indica si permite reportes anónimos en esta categoría.
+     * 
+     * Las categorías que admiten requerimientos anónimos son aquellas que se publican en la web para
+     * realizar reclamos a consultas anónimas desde el sitio del Municipio.
      *
      * @var int
      * @ORM\Column(type="integer", nullable=false)

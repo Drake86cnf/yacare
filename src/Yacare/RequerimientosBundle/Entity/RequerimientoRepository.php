@@ -10,6 +10,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class RequerimientoRepository extends \Tapir\BaseBundle\Entity\TapirBaseRepository
 {
+    /**
+     * Consulta todos los requerimientos pendientes (no terminados ni cancelados) para un encargado en particular.
+     * 
+     * @param unknown $encargado
+     */
     public function findPendientesPorEncargado($encargado)
     {
         $qb = $this->createQueryBuilder('u');
@@ -18,7 +23,12 @@ class RequerimientoRepository extends \Tapir\BaseBundle\Entity\TapirBaseReposito
         return $qb->getQuery()->getResult();
     }
     
-    
+    /**
+     * Consulta todos los requerimientos pendientes (no terminados ni cancelados) iniciados por un usuario en
+     * particular.
+     * 
+     * @param unknown $usuario
+     */
     public function findPendientesPorUsuario($usuario)
     {
         $qb = $this->createQueryBuilder('u');
