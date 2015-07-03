@@ -4,7 +4,7 @@ namespace Yacare\RequerimientosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Representa un requerimiento, que puede ser un reclamo, una solicitud, una denuncia, etc.
+ * Representa un requerimiento, que puede ser un reclamo, una solicitud, una consulta, etc.
  *
  * @ORM\Table(name="Requerimientos_Requerimiento",
  * indexes={
@@ -33,6 +33,8 @@ class Requerimiento
 
     /**
      * El encargado actual del requerimiento.
+     * 
+     * El encargado puede ver el requerimiento y cambiar su estado o hacer comentarios.
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
@@ -60,6 +62,8 @@ class Requerimiento
     
     /**
      * El nombre del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -69,6 +73,8 @@ class Requerimiento
     
     /**
      * El e-mail del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -89,6 +95,8 @@ class Requerimiento
     /**
      * La prioridad del requerimiento.
      *
+     * @see getPrioridadNombres()
+     *
      * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -97,6 +105,9 @@ class Requerimiento
     
     /**
      * El token necesario para acceder al reclamo.
+     * 
+     * El token es un número (normalmente de 4 dígitos) que funciona como verficación de acceso a un reclamo para evitar
+     * identificadores previsibles.
      *
      * @var int
      * @ORM\Column(type="integer")
@@ -107,6 +118,7 @@ class Requerimiento
     /**
      * La calificación de satisfacción de la resolución del requerimiento, o null si aun no fue calificado.
      *
+     * @see getCalificacionNombres()
      * @var int
      * @ORM\Column(type="integer", nullable=true)
      */

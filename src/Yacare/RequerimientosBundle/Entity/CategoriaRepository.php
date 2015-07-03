@@ -10,6 +10,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoriaRepository extends \Tapir\BaseBundle\Entity\TapirBaseRepository
 {
+    /**
+     * Consulta sólo las categorias que admiten anónimos.
+     * 
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function ObtenerQueryBuilderPublicas()
     {
         $qb = $this->createQueryBuilder('u');

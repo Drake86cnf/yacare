@@ -4,7 +4,10 @@ namespace Yacare\RequerimientosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Una novedad relacionada con un requerimiento.
+ * Representa una novedad relacionada con un requerimiento.
+ * 
+ * Básicamente puede tratarse de un comentario de un usuario o de un mensaje generado automáticamente por el
+ * sistema para indicar avances o cambios de estado. 
  *
  * @ORM\Table(name="Requerimientos_Requerimiento_Novedad")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
@@ -35,6 +38,8 @@ class Novedad
     
     /**
      * El nombre del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -43,6 +48,8 @@ class Novedad
     
     /**
      * El e-mail del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -62,6 +69,9 @@ class Novedad
     
     /**
      * Si es una novedad privada, sólo puede ser vista por los intervinientes.
+     * 
+     * Si es una novedad pública (Privada=0) puede ser vista por los usuarios anónimos que tengan acceso
+     * al requerimiento.
      *
      * @var int
      * @ORM\Column(type="integer", nullable=false)
@@ -69,7 +79,9 @@ class Novedad
     private $Privada = 1;
     
     /**
-     * Indica si la novedad es automática, o sea que la generó el sistema. 
+     * Indica si la novedad es automática.
+     * 
+     * Las novedades automáticas son las que genera el sistema para registrar avances o cambios de estado.
      *
      * @var int
      * @ORM\Column(type="integer", nullable=false)
