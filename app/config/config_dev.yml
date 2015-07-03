@@ -32,8 +32,12 @@ monolog:
 assetic:
     use_controller: %use_assetic_controller%
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    transport: sendmail
+    #username: reclamosriograndetdf@gmail.com
+    #password: r3cl4m0s
+    #sender_address: reclamosriograndetdf@gmail.com  
+    #delivery_address: me@example.com
 
 doctrine:
     dbal:
