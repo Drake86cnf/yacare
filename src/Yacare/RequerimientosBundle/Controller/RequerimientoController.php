@@ -83,7 +83,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         if($seg && strpos($seg, '-') !== false) {
-            list($id, $token) = explode('-', $seg, 2);
+            list($id, $token) = explode('-', str_replace(array(' ', '.', ',', '/'), array(), $seg), 2);
         } else {
             $id = null;
         }
