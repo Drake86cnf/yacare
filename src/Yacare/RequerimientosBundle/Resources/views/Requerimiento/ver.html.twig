@@ -13,7 +13,13 @@
 		  		href="{{ path(baseroute ~ '_editarcampo', arrastre|merge({ 'id': entity.id, 'nombrecampo': 'Notas' })) }}">
 		  		<p>{{ entity.Notas }}</p>
 		  </div>
-		  <p class="help-block text-right"><span class="small">Creado por {{ entity.UsuarioNombre }} el {{ entity.createdAt|tapir_fecha|lower }}
+		  <p class="help-block text-right"><span class="small">Creado por {% if entity.Usuario %}
+    			        {{ entity.Usuario.NombreAmigable }}
+    			    {% elseif entity.UsuarioNombre %}
+    			    	usuario web identificado como {{ entity.UsuarioNombre }}
+    			    {% else %}
+    			    	un usuario anónimo vía web
+    			    {% endif %} el {{ entity.createdAt|tapir_fecha|lower }}
 		  </span></p>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
@@ -36,9 +42,13 @@
 
 		  Encargado: <span class="pull-right">{{ entity.Encargado }}</span><br />
 		  Prioridad: <span class="pull-right">{{ entity.PrioridadNombre }}</span><br />
-		  Seguimiento: <span class="pull-right">
+		  {% if entity.Usuario is null %}
+		  	Seguimiento web: <span class="pull-right">
 		  	<a href="http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ entity.id }}-{{ entity.Token }}">
 		  	    {{ entity.id }}-{{ entity.Token }}</a></span><br />
+		  {% else %}
+		    <span class="small">Este requerimiento no tiene seguimiento web porque fue iniciado de forma interna.</span>
+		  {% endif %}
 		</div></div></div>
 	</div>
 </div>
@@ -110,7 +120,7 @@
             {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
             {{ form_widget(form_novedad.Privada, { 'attr': { 'class': 'btn-xs' } }) }}
             {{ form_rest(form_novedad) }}
-            <button type="submit" data-toggle="ajax-link" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
+            <button type="submit" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
         </div>
     </div>
     <script>

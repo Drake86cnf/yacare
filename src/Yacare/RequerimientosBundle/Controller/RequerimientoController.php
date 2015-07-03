@@ -82,7 +82,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $seg = $this->ObtenerVariable($request, 'seg');
         }
         
-        if($seg) {
+        if($seg && strpos($seg, '-') !== false) {
             list($id, $token) = explode('-', $seg, 2);
         } else {
             $id = null;
@@ -92,7 +92,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if($id) {
             $entity = $this->ObtenerEntidadPorId($id);
-            if($entity->getToken() == $token) {
+            if($entity->getUsuario() == null && $entity->getToken() == $token) {
+                // Sólo se pueden ver requerimientos de forma anónima si fueron reportados de forma anónima 
+                // (o sea, si no tienen un usuario asociado) y si proporcionan el token correspondiente.
                 $res['entity'] = $entity;
                 
                 $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
@@ -109,7 +111,6 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 } else {
                     $res['form_novedad'] = $editForm->createView();
                 }
-                
             }
         }
         

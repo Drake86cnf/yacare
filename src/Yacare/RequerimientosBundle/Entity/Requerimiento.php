@@ -135,6 +135,7 @@ class Requerimiento
         }
         return $this;
     }
+    
 
     public static function getPrioridadNombres($tipo)
     {
@@ -149,7 +150,6 @@ class Requerimiento
                 return '';
         }
     }
-    
     public function getPrioridadNombre()
     {
         return Requerimiento::getPrioridadNombres($this->getPrioridad());
