@@ -67,18 +67,23 @@ class PruebaController extends AbmController
         $result2 = $em->getClassMetadata('Yacare\BaseBundle\Entity\Persona')->getFieldNames();
         foreach ($result2 as $res) {
             if ($res == 'Suprimido')
-                print_r('lo encontree');
+                //print_r('lo encontree')
+                ;
         }
-        var_dump($result2);
+        //var_dump($result2);
         
         $contenido = $this->renderView('TapirAnnotationBundle:Default:email.html.twig');
         
+        $transport = \Swift_SendmailTransport::newInstance('/usr/sbin/exim -t');
+        $mailer = \Swift_Mailer::newInstance($transport);
+        
         $mensaje = \Swift_Message::newInstance()
-            ->setSubject('Envío de mail desde Yacare')
-            //->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
+            ->setSubject('Envío de mail desde Yacaré')
+            ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
             ->setTo('rezequiel.tdf@gmail.com')
             ->setBody($contenido, 'text/html');
-        $this->get('mailer')->send($mensaje);
+        $mailer->send($mensaje);
+        //$this->get('mailer')->send($mensaje);
         
         return array(
             'name' => $name,
