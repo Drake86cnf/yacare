@@ -19,9 +19,13 @@ class RequerimientoAnonimoType extends AbstractType
                 'label' => 'Asunto',
                 'attr' => array ('placeholder' => ''),
                 'required' => true))
-            ->add('Categoria', null, array(
+            ->add('Categoria', 'entity', array(
                 'label' => 'Categoría',
                 'attr' => array ('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
+                'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
+                'query_builder' => function(\Yacare\RequerimientosBundle\Entity\CategoriaRepository $er) {
+                    return $er->ObtenerQueryBuilderPublicas();
+                },
                 'required' => false))
             ->add('UsuarioNombre', null, array(
                 'label' => 'Nombre',

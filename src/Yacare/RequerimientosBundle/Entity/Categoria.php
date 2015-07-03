@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Requerimientos_Requerimiento_Categoria")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * 
+ * @ORM\Entity(repositoryClass="Yacare\RequerimientosBundle\Entity\CategoriaRepository")
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class Categoria
