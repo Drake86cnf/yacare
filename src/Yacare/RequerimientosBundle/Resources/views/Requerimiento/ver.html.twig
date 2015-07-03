@@ -36,7 +36,9 @@
 
 		  Encargado: <span class="pull-right">{{ entity.Encargado }}</span><br />
 		  Prioridad: <span class="pull-right">{{ entity.PrioridadNombre }}</span><br />
-		  Seguimiento: <span class="pull-right">{{ entity.id }}-{{ entity.Token }}</span><br />
+		  Seguimiento: <span class="pull-right">
+		  	<a href="http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ entity.id }}-{{ entity.Token }}">
+		  	    {{ entity.id }}-{{ entity.Token }}</a></span><br />
 		</div></div></div>
 	</div>
 </div>
