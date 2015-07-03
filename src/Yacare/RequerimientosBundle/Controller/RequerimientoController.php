@@ -104,20 +104,27 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 // (o sea, si no tienen un usuario asociado) y si proporcionan el token correspondiente.
                 $res['entity'] = $entity;
                 
-                $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-                $NuevaNovedad->setAutomatica(0);
-                $NuevaNovedad->setPrivada(0);
-                $NuevaNovedad->setRequerimiento($entity);
-                $NuevaNovedad->setUsuario(null);
-                $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(),
-                    $NuevaNovedad);
-                $editForm->handleRequest($request);
-                if ($editForm->isValid()) {
-                    $em = $this->getEm();
-                    $em->persist($NuevaNovedad);
-                    $em->flush();
-                } else {
-                    $res['form_novedad'] = $editForm->createView();
+                $AntiguedadEnDias = $entity->getUpdatedAt()->diff(new \DateTime());
+                if($entity->getEstado() < 50 || $AntiguedadEnDias->days < 10) {
+                    // Sólo se permite publicar novedades si el requerimiento todavía no fue cerrado
+                    // o si tuvo actividad en los últimos 10 días.
+                    // O sea, los requerimientos cerrados siguen siendo comentables durante 10 días.
+                    $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+                    $NuevaNovedad->setAutomatica(0);
+                    $NuevaNovedad->setPrivada(0);
+                    $NuevaNovedad->setRequerimiento($entity);
+                    $NuevaNovedad->setUsuario(null);
+                    $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(),
+                        $NuevaNovedad);
+                    $editForm->handleRequest($request);
+                
+                    if ($editForm->isValid()) {
+                        $em = $this->getEm();
+                        $em->persist($NuevaNovedad);
+                        $em->flush();
+                    } else {
+                        $res['form_novedad'] = $editForm->createView();
+                    }
                 }
             }
         }
@@ -238,12 +245,18 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             ->getUser();
         
         if (! is_string($UsuarioConectado)) {
-            $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-            $NuevaNovedad->setPrivada(1);
-            $NuevaNovedad->setRequerimiento($res['entity']);
-            $NuevaNovedad->setUsuario($UsuarioConectado);
-            $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
-            $res['form_novedad'] = $editForm->createView();
+            $AntiguedadEnDias = $res['entity']->getUpdatedAt()->diff(new \DateTime());
+            if($res['entity']->getEstado() < 50 || $AntiguedadEnDias->days < 30) {
+                // Sólo se permite publicar novedades si el requerimiento todavía no fue cerrado
+                // o si tuvo actividad en los últimos 30 días.
+                // O sea, los requerimientos cerrados siguen siendo comentables durante 30 días.
+                $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
+                $NuevaNovedad->setPrivada(1);
+                $NuevaNovedad->setRequerimiento($res['entity']);
+                $NuevaNovedad->setUsuario($UsuarioConectado);
+                $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+                $res['form_novedad'] = $editForm->createView();
+            }
         }
         
         return $res;
