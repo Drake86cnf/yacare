@@ -74,16 +74,22 @@ class PruebaController extends AbmController
         
         $contenido = $this->renderView('TapirAnnotationBundle:Default:email.html.twig');
         
-        $transport = \Swift_SendmailTransport::newInstance('/usr/sbin/exim -t');
+        $transport = \Swift_SendmailTransport::newInstance('/usr/sbin/exim -bs');
         $mailer = \Swift_Mailer::newInstance($transport);
+        
+        $documento = $this->container->getParameter('kernel.root_dir') . '/../docs/instalar.html';
+        $documento = preg_replace("/app..../i", "", $documento);
         
         $mensaje = \Swift_Message::newInstance()
             ->setSubject('Envío de mail desde Yacaré')
             ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
-            ->setTo('rezequiel.tdf@gmail.com')
-            ->setBody($contenido, 'text/html');
+            ->setTo(array('rezequiel.tdf@gmail.com', 'elclubxeneize_10@hotmail.com.ar'))
+            ->setBody($contenido, 'text/html')
+            ->attach(\Swift_Attachment::fromPath($documento));
         $mailer->send($mensaje);
         //$this->get('mailer')->send($mensaje);
+        
+        
         
         return array(
             'name' => $name,
