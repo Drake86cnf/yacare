@@ -4,15 +4,14 @@
 
 {% block pagina_contenido %}
 <style>
-    .wr {
+    .wra {
         padding: 40px !important;
     }
     textarea {
-    	min-height: 80px;
+    	min-height: 96px;
     }
 </style>
 <div class="wr">
-
 
 {% if (edit_form_action is defined) == false %}
     {% set edit_form_action = baseroute ~ '_anonimocrear' %}
@@ -28,7 +27,7 @@
 {{ form_errors(edit_form) }}
 
 <p class="small">
-	En caso de reclamos o denuncias, por favor sea claro sobre el problema, la ubicación exacta y otros
+	En caso de reclamos o solicitudes, por favor sea claro sobre el problema, la ubicación exacta y otros
 	datos que puedan ser de utilidad para identificar y solucionar el problema.
 </p>
 <p class="text-primary">Por favor describa su consulta o reclamo. Puede ser tan breve o extenso como considere necesario.</p>

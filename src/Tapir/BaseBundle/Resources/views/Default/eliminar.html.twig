@@ -9,7 +9,25 @@
 {% block pagina_contenido %}
     {% form_theme delete_form 'TapirBaseBundle:Form:form_div_layout.html.twig' %}
 
-    {% if entity %}
+    {% if tiene_asociaciones %}
+    
+<div class="container-fluid"><div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+        <i class="text text-danger fa fa-ban fa-4x"></i>    
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <p class="text text-danger"><strong>¡Atención!</strong> No se puede eliminar &quot;{{ entity }}&quot;.</p>
+        <p>El registro no se puede eliminar porque está asociado a otros registros en la base de datos.</p>
+        <p class="lead text-primary">{{ entity }}</p>
+        <p>Si quiere eliminar este elemento de todos modos, debe eliminar antes los elementos asociados.</p>
+
+        <a data-dismiss="modal" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+        	class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+    </div>
+</div></div>	
+    
+    {% elseif entity is defined and delete_form is defined %}
+    
         {{ form_widget(delete_form) }}
 <div class="container-fluid"><div class="row">
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
@@ -26,7 +44,8 @@
         <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> Si, quiero eliminarlo</button>
     </div>
 </div></div>
-    {% endif %}
+    
+        {% endif %}
 {% endblock %}
 
 {% block pagina_fin %}
