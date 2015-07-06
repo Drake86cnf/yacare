@@ -32,8 +32,8 @@ trait ConEliminar
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar/{id}")
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template("YacareBaseBundle:Default:eliminar.html.twig")
+     * @Route("eliminar/{id}")
+     * @Template("TapirBaseBundle:Default:eliminar.html.twig")
      */
     public function eliminarAction(Request $request, $id)
     {
@@ -56,9 +56,9 @@ trait ConEliminar
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("eliminar2/{id}")
+     * @Route("eliminar2/{id}")
+     * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template("YacareBaseBundle:Default:eliminar2.html.twig")
      */
     public function eliminar2Action(Request $request, $id)
     {

@@ -175,7 +175,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             case null:
             case '':
                 // Filtro predeterminado (nuevos, iniciados y en espera)
-                $this->Where .= " AND r.Estado<50";
+                $this->Where .= " AND r.Estado NOT IN (80, 99)";
                 break;
             case - 1:
                 // Sin filtro. Mostrar todos

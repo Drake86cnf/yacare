@@ -17,4 +17,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConEliminar;
+    
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        $this->EntityLabel = 'Rol (personas)';
+    }
 }
