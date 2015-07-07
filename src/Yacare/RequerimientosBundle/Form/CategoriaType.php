@@ -19,6 +19,9 @@ class CategoriaType extends AbstractType
             ->add('Nombre', null, array(
                 'label' => 'Nombre',
                 'required' => true))
+            ->add('Obs', null, array(
+                'label' => 'Obs.',
+                'required' => false))
             ->add('Encargado', 'entity', array(
                 'label' => 'Encargado predet.',
                 'property' => 'NombreVisible',
@@ -26,7 +29,7 @@ class CategoriaType extends AbstractType
                 'query_builder' => function(\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
                 },
-                'required' => true))
+                'required' => false))
             ->add('PermiteAnonimos', new \Tapir\BaseBundle\Form\Type\SiNoType(), array(
                 'label' => 'Admite anónimos',
                 'required' => true))

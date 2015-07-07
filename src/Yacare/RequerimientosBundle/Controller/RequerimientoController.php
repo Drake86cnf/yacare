@@ -133,6 +133,57 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     }
     
     
+    
+    /**
+     * Crear un reclamo mediante un asistente.
+     *
+     * Muestra un asistente que facilita iniciar un requerimiento.
+     *
+     * @Route("asistente/crear/")
+     * @Template()
+     */
+    public function asistentecrearAction(Request $request)
+    {
+        $em = $this->getEm();
+        $entity = new \Yacare\RequerimientosBundle\Entity\Requerimiento();
+        
+        $CategoriaId = $this->ObtenerVariable($request, 'cat');
+        if($CategoriaId > 0) {
+            $Categoria = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')->find($CategoriaId);
+            if($Categoria) {
+                $entity->setCategoria($Categoria);
+            }
+        }
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+        $entity->setUsuario($UsuarioConectado);
+    
+        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\RequerimientoType(), $entity);
+        $editForm->handleRequest($request);
+    
+        if ($editForm->isValid()) {
+            if ($entity->getCategoria() && (! $entity->getEncargado())) {
+                $entity->setEncargado($entity->getCategoria()->getEncargado());
+            }
+    
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request,
+                array('id' => $entity->getId(),), false));
+        } else {
+            $validator = $this->get('validator');
+            $errors = $validator->validate($entity);
+        }
+    
+        return $this->ArrastrarVariables($request,
+            array(
+                'cat' => $CategoriaId,
+                'categorias' => $this->ObtenerCategorias(),
+                'entity' => $entity,
+                'errors' => $errors,
+                'edit_form' => $editForm->createView()));
+    }
+    
+    
 
 
     /**

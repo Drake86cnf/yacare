@@ -195,7 +195,7 @@
 
 {% block pagina_acciones2 %}
     <a data-toggle="ajax-link"
-    	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+    	href="{{ path(baseroute ~ '_asistentecrear', arrastre) }}"
     	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo
     	requerimiento</a>
     {% if app.user and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
