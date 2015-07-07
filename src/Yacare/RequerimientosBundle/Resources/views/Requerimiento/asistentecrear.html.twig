@@ -1,0 +1,81 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Iniciar requerimiento{% endblock %}
+
+{% block pagina_contenido %}
+<style>
+    .wra {
+        padding: 40px !important;
+    }
+    textarea {
+    	min-height: 96px;
+    }
+</style>
+
+{% if cat is null %}
+
+    <p>Bienvenido, le agradecemos que se tome el tiempo para ponerse en contacto. Aquí se reciben
+		solicitudes y reclamos para ser derivadas y atendidas por el área correpondiente.
+    	Antes que nada, por favor seleccione el tipo de solicitud que quiere realizar:</p>
+    
+    <div class="container-fluid"><div class="row"><div class="col-xs-12 col-md-10 col-md-offset-1">
+    <div class="list-group">
+    {% for categoria in categorias %}
+        <a href="{{ path(baseroute ~ '_asistentecrear', arrastre|merge({ 'cat': categoria.id })) }}" class="list-group-item">
+        	<i class="fa fa-fw fa-chevron-right fa-2x text-primary pull-right"></i>
+        	<h2 class="list-group-item-heading"><strong>{{ categoria.Nombre }}</strong></h2>
+        	<p class="list-group-item-text">{{ categoria.Obs }}
+            	{% if categoria.Encargado %}
+            	El encargado de atender su reclamo será {{ categoria.Encargado.NombreAmigable }}.
+            	{% endif %}
+        	</p>
+        </a>
+    {% endfor %}
+    <a href="{{ path(baseroute ~ '_asistentecrear', arrastre|merge({ 'cat': 0 })) }}" class="list-group-item">
+    	<i class="fa fa-fw fa-question fa-2x text-warning pull-right"></i>
+    	<h2 class="list-group-item-heading"><strong>Sin categoría</strong></h2>
+    	<p class="list-group-item-text">Si no es ninguna de las anteriores o no sabe qué categoría elegir, puede dejar
+    		el requerimiento sin categoría y continuar. El administrador seleccionará una categoría por usted.</p>
+    </a>
+    </div></div></div></div>
+
+{% else %}
+
+    {% if (edit_form_action is defined) == false %}
+        {% set edit_form_action = baseroute ~ '_asistentecrear' %}
+    {% endif %}
+    {{ form_start(edit_form, {
+            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id })),
+            'method': 'POST',
+            'attr': { 'id': edit_form.vars.id }
+        }) }}
+    
+    {{ form_errors(edit_form) }}
+    
+    <p>Por favor describa su solicitud. Puede ser tan breve o extenso como considere necesario.
+    	En caso de reclamos, por favor sea claro sobre el problema, la ubicación exacta y otros
+    	datos que puedan ser de utilidad para identificar y solucionar el problema.
+    </p>
+    {{ form_widget(edit_form.Notas) }}
+    
+    &nbsp;<br />
+    
+    <p>
+    	Si aun no lo hizo, puede seleccionar una categoría para su requerimiento.
+    	Si no sabe qué categoría seleccionar, puede dejar este campo en blanco y el administrador le asignará una.
+    </p>
+    {{ form_widget(edit_form.Categoria) }}
+    
+    
+    &nbsp;<br />
+    
+    <button type="submit" value="Guardar" class="btn btn-lg btn-success">
+    	<i class="fa fa-check"></i> Enviar
+    </button>
+    
+    {{ form_rest(edit_form) }}
+    
+    </form>
+
+{% endif %}
+{% endblock %}

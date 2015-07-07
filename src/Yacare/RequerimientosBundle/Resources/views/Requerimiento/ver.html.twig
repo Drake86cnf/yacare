@@ -8,22 +8,33 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8">
-		  {% if entity.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
-		  <div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
+		    {% if entity.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
+		    <div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
 		  		href="{{ path(baseroute ~ '_editarcampo', arrastre|merge({ 'id': entity.id, 'nombrecampo': 'Notas' })) }}">
 		  		<p>{{ entity.Notas }}</p>
-		  </div>
-		  <p class="help-block text-right"><span class="small">Creado por {% if entity.Usuario %}
-    			        {{ entity.Usuario.NombreAmigable }}
-    			    {% elseif entity.UsuarioNombre %}
-    			    	usuario web identificado como {{ entity.UsuarioNombre }}
-    			    {% else %}
-    			    	un usuario anónimo vía web
-    			    {% endif %} el {{ entity.createdAt|tapir_fecha|lower }}
-		  </span></p>
+		    </div>
+
+		    <p class="help-block text-right"><span class="small">Creado por {% if entity.Usuario %}
+			        {{ entity.Usuario.NombreAmigable }}
+			    {% elseif entity.UsuarioNombre %}
+			    	usuario web identificado como {{ entity.UsuarioNombre }}
+			    {% else %}
+			    	un usuario anónimo vía web
+			    {% endif %} el {{ entity.createdAt|tapir_fecha|lower }}
+		  	</span></p>
+		  
+            <p>{% if entity.Estado == 0 %}El requerimiento aun no fue iniciado.
+                {% elseif entity.Estado == 10 %}El requerimiento está en curso y está pendiente de resolución.
+                {% elseif entity.Estado == 20 %}El requerimiento está en espera. Vea los comentarios para más
+                información.
+                {% elseif entity.Estado == 90 %}El requerimiento fue terminado y la resolución está pendiente de
+                aprobación. Vea los comentarios para más información.
+                {% elseif entity.Estado == 99 %}El requerimiento fue cerrado y archivado.
+                {% endif %}</p>
 		</div>
+		
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
-		  <div>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría {% endif %}
+		  <div class="text-success"><strong>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría {% endif %}</strong>
 		  	  <a class="btn btn-link btn-xs showonhover"
 		      href="{{ path(baseroute ~ '_modificardato', arrastre|merge({'id': entity.id, 'campo_nombre': 'Categoria'})) }}"
 		      data-toggle="modal">
