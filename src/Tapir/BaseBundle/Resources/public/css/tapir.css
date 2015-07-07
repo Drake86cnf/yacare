@@ -3,22 +3,27 @@
     Author     : Ernesto Carrea <equistango@gmail.com>
 */
 html {
+	cursor: default;
 	overflow-y: scroll;
 }
 
 body {
+	cursor: default;
 	margin-top: 0;
 }
 
-a.btn-link:hover, a:hover {
-	text-decoration: none !important;
-}
-
 body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
-	cursor: default;
 	font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica,
 		Arial, sans-serif;
 	font-weight: 300;
+}
+
+a.btn-link, ar {
+    cursor: pointer !important;
+}
+
+a.btn-link:hover, a:hover {
+    text-decoration: none !important;
 }
 
 .inplace-edit-control {
