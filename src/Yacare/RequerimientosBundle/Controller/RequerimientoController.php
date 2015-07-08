@@ -443,6 +443,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setAutomatica(0);
             
+            InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -519,6 +520,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 $NuevaNovedad->getNotas());
             $NuevaNovedad->setUsuario($UsuarioConectado);
             
+            InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -612,7 +614,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                             }
                         } else {
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
+
                         }
+                        InformarNovedad($NuevaNovedad);
                         $em->persist($NuevaNovedad);
                         $em->persist($entity);
                         $em->flush();
@@ -645,5 +649,25 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             'campo_nombre' => $campoNombre,
             'entity' => $entity,
             'errors' => $errors));
+    }
+    
+    
+    /**
+     * Enviar un e-mail después de guardar.
+     */
+    public function guardarActionPostPersist($entity, $editForm)
+    {
+        // mandar el mail...   
+        
+        return parent::guardarActionPostPersist($entity, $editForm);
+    }
+    
+    /**
+     * Agrega una novedad a un requerimiento y envía un mail al usuario si corresponde.
+     */
+    public function InformarNovedad($entity, $novedad) {
+        if($novedad->getPrivada() == 0) {
+            // Enviar un mail... con $novedad->getNotas()
+        }
     }
 }
