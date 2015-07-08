@@ -616,7 +616,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
 
                         }
-                        InformarNovedad($NuevaNovedad);
+                        $this->InformarNovedad($NuevaNovedad);
                         $em->persist($NuevaNovedad);
                         $em->persist($entity);
                         $em->flush();
@@ -667,6 +667,24 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function InformarNovedad($entity, $novedad) {
         if($novedad->getPrivada() == 0) {
+            $mailUsuario = $entity->getUsuario()->getEmail();
+            
+            $contenido = $this->renderView('TapirAnnotationBundle:Default:email.html.twig');
+            
+            //$documento = $this->container->getParameter('kernel.root_dir') . '/../docs/instalar.html';
+            //$documento = preg_replace("/app..../i", "", $documento);
+            
+            $mensaje = \Swift_Message::newInstance()
+                ->setSubject('Seguimiento de Requerimiento')
+                ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
+                ->setTo($mailUsuario)
+                //->setBody($contenido, 'text/html')
+                ->setBody($entity->getNovedad()->getNotas());
+                //->attach(\Swift_Attachment::fromPath($documento))
+                ;
+            
+            $this->get('mailer')->send($mensaje);
+            
             // Enviar un mail... con $novedad->getNotas()
         }
     }
