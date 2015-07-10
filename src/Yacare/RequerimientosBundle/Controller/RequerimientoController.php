@@ -192,8 +192,10 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Listar, con filtros.
      *
-     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction() @Route("listar/")
-     *      @Template()
+     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
+     * 
+     * @Route("listar/")
+     * @Template()
      */
     public function listarAction(Request $request)
     {
