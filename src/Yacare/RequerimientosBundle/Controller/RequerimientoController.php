@@ -361,7 +361,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     break;
             }
             $em->persist($NuevaNovedad);
-            $this->InformarNovedad($NuevaNovedad);
+            //$this->InformarNovedad($NuevaNovedad);
         }
         
         $entity->setEstado($NuevoEstado);
@@ -432,7 +432,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setAutomatica(0);
             
-            $this->InformarNovedad($NuevaNovedad);
+            //$this->InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -507,7 +507,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setUsuario($UsuarioConectado);
             
-            $this->InformarNovedad($NuevaNovedad);
+            //$this->InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
