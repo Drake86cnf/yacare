@@ -52,5 +52,7 @@ trait ConMailer
         ->setBody($contenido, 'text/html');
     
         $this->get('mailer')->send($mensaje);
+        
+        return array();
     }
 }
