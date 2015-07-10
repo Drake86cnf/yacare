@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Agente
 {
     use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Importable;
@@ -117,6 +118,7 @@ class Agente
      */
     protected $Departamento;
 
+    
     public function __toString()
     {
         return $this->getPersona()->getNombreVisible();

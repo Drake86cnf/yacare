@@ -1,0 +1,29 @@
+{% extends 'TapirBaseBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Cargos{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in entities %}
+		<tr data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{{ entity.Nombre }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo gremio</a>
+{% endblock pagina_acciones2 %}
