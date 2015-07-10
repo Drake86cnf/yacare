@@ -21,7 +21,10 @@ use Yacare\RequerimientosBundle\Form\CategoriaType;
 class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
-
+    use \Yacare\RequerimientosBundle\Controller\ConMailer;
+    
+    private $vistaMailNuevoRequerimiento = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_nuevo.html.twig';
+    
     function __construct()
     {
         $this->OrderBy = 'r.createdAt';
@@ -56,8 +59,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getEm();
             $em->persist($entity);
             $em->flush();
-            
-            // TODO: mandar mail
+            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento);
             
             return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
                 'seg' => $entity->getId() . '-' . $entity->getToken()), false));
@@ -170,8 +172,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             
             $em->persist($entity);
             $em->flush();
-            
-            // TODO: mandar mail
+            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento);
             
             return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
                 'id' => $entity->getId()), false));
@@ -367,7 +368,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     break;
             }
             $em->persist($NuevaNovedad);
-            //$this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($NuevaNovedad);
         }
         
         $entity->setEstado($NuevoEstado);
@@ -438,7 +439,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setAutomatica(0);
             
-            //$this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -513,7 +514,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setUsuario($UsuarioConectado);
             
-            //$this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -639,48 +640,5 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             'campo_nombre' => $campoNombre,
             'entity' => $entity,
             'errors' => $errors));
-    }
-
-    /**
-     * Enviar un e-mail después de guardar.
-     */
-    public function guardarActionPostPersist($entity, $editForm)
-    {
-        if ($entity->getUsuario()->getEmail()) {
-            $mailUsuario = $entity->getUsuario()->getEmail();
-        
-            $contenido = $this->renderView('YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig', array(
-                'notas' => $entity->setNotas('Su requerimiento fue iniciado.')));
-        
-            $mensaje = \Swift_Message::newInstance()->setSubject('Seguimiento de Requerimiento')
-                ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
-                ->setTo($mailUsuario)
-                ->setBody($contenido, 'text/html');
-        
-            $this->get('mailer')->send($mensaje);
-        }
-        return parent::guardarActionPostPersist($entity, $editForm);
-    }
-
-    /**
-     * Agrega una novedad a un requerimiento y envía un mail al usuario si corresponde.
-     */
-    public function InformarNovedad($NuevaNovedad)
-    {
-            $mailUsuario = $NuevaNovedad->getUsuario()->getEmail();
-            
-            $contenido = $this->renderView('YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig', array(
-                'notas' => $NuevaNovedad->getNotas()));
-            
-            $documento = $this->container->getParameter('kernel.root_dir') . '/../docs/instalar.html';
-            $documento = preg_replace("/app..../i", "", $documento);
-            
-            $mensaje = \Swift_Message::newInstance()->setSubject('Seguimiento de Requerimiento')
-                ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
-                ->setTo($mailUsuario)
-                ->setBody($contenido, 'text/html')
-                ->attach(\Swift_Attachment::fromPath($documento));
-            
-            $this->get('mailer')->send($mensaje);
     }
 }

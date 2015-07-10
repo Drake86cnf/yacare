@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
 {
+    use \Yacare\RequerimientosBundle\Controller\ConMailer;
+    
     /**
      * @Route("publicar")
      * @Method("POST")
@@ -52,24 +54,5 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
                 'errores' => (string)$errores
             ));
         }
-    }
-    
-    public function InformarNovedad($NuevaNovedad)
-    {
-        $mailUsuario = $NuevaNovedad->getUsuario()->getEmail();
-    
-        $contenido = $this->renderView('YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig', array(
-            'notas' => $NuevaNovedad->getNotas()));
-    
-        $documento = $this->container->getParameter('kernel.root_dir') . '/../docs/instalar.html';
-        $documento = preg_replace("/app..../i", "", $documento);
-    
-        $mensaje = \Swift_Message::newInstance()->setSubject('Seguimiento de Requerimiento')
-        ->setFrom(array('reclamosriograndetdf@gmail.com' => 'Yacaré - Desarrollo'))
-        ->setTo($mailUsuario)
-        ->setBody($contenido, 'text/html')
-        ->attach(\Swift_Attachment::fromPath($documento));
-    
-        $this->get('mailer')->send($mensaje);
     }
 }
