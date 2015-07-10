@@ -3,4 +3,8 @@
 
 <h2>Se ha creado satisfactoriamente su reclamo en la base de datos.</h2>
 <p>{{ novedad_notas }}</p>
+{%  if numero_seguimiento %}
+    <p>Este es su numero de seguimiento, guárdelo en un lugar seguro.</p>
+    {{ numero_seguimiento }}
+    {% endif %}
 {% endblock %}
