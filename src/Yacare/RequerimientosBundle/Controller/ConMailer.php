@@ -10,12 +10,10 @@ trait ConMailer
     {
         if ($NuevaNovedad->getUsuario()) {
             if ($NuevaNovedad->getUsuario()->getEmail()) {
-                $EmailUsuario = $NuevaNovedad->getUsuario()->getEmail();
-                $this->EnviarNovedad($EmailUsuario, $NuevaNovedad->getNotas(), $VistaEmail);
+                $this->EnviarNovedad($NuevaNovedad->getUsuario()->getEmail(), $NuevaNovedad->getNotas(), $VistaEmail);
             }
         } elseif ($NuevaNovedad->getUsuarioEmail()) {
-            $EmailUsuario = $NuevaNovedad->getUsuarioEmail();
-            $this->EnviarNovedad($EmailUsuario, $NuevaNovedad->getNotas(), $VistaEmail);
+            $this->EnviarNovedad($NuevaNovedad->getUsuarioEmail(), $NuevaNovedad->getNotas(), $VistaEmail);
         }
     }
 
