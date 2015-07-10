@@ -56,6 +56,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getEm();
             $em->persist($entity);
             $em->flush();
+            
+            // TODO: mandar mail
+            
             return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
                 'seg' => $entity->getId() . '-' . $entity->getToken()), false));
         } else {
@@ -167,6 +170,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             
             $em->persist($entity);
             $em->flush();
+            
+            // TODO: mandar mail
+            
             return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
                 'id' => $entity->getId()), false));
         } else {
