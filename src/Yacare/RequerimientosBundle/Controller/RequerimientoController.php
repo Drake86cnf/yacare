@@ -59,7 +59,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $em = $this->getEm();
             $em->persist($entity);
             $em->flush();
-            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento);
+            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento, $entity->getId() . '-' . $entity->getToken());
             
             return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
                 'seg' => $entity->getId() . '-' . $entity->getToken()), false));
