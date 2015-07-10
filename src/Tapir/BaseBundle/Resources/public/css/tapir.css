@@ -321,7 +321,6 @@ legend small {
     color: #df8a13;
 }
 
-
 .showonhover {
     opacity: 0.0;
     -webkit-transition: all 200ms ease-in-out;
@@ -329,10 +328,6 @@ legend small {
     -ms-transition: all 200ms ease-in-out;
     -o-transition: all 200ms ease-in-out;
     transition: all 200ms ease-in-out;
-}
-
-.mostrar {
-    
 }
 
 div:hover > .showonhover {
