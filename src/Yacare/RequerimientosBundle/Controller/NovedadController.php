@@ -37,7 +37,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
             
             $em->persist($NuevaNovedad);
             $em->flush();
-            if ($NuevaNovedad->getPrivada() == 1) {
+            if ($NuevaNovedad->getPrivada() == 0) {
                 $this->InformarNovedad($NuevaNovedad);
             }
             
