@@ -41,9 +41,8 @@
 		"liip/imagine-bundle" : "~1",
 		"liuggio/excelbundle" : "~2",
 		"vich/uploader-bundle" : "~0.10",
-		"mopa/bootstrap-bundle" : "dev-master",
 		"creof/doctrine2-spatial" : "dev-master",
-		"egeloen/google-map-bundle": "~2.1"
+		"egeloen/google-map-bundle" : "~2.1"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "~2",
