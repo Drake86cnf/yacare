@@ -1,6 +1,10 @@
 <?php
 namespace Yacare\RequerimientosBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 trait ConMailer
 {
     /**
@@ -25,23 +29,20 @@ trait ConMailer
         $contenido = $this->renderView($VistaEmail, array(
             'numero_seguimiento' => $NumeroSeguimiento,
             'novedad_notas' => $NovedadNotas));
-        //$documento = $this->getParameter('kernel.root_dir') . '/../docs/instalar.html';
-        //$documento = preg_replace("/app..../i", "", $documento);
-        
+
         $mensaje = \Swift_Message::newInstance()->setSubject('Novedades de su solicitud')
             ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
             ->setTo($EmailUsuario)
             ->setBody($contenido, 'text/html');
-        //->attach(\Swift_Attachment::fromPath($documento))
 
         $this->get('mailer')->send($mensaje);
     }
     
     /**
      * @Route("prueba/")
-     * @Template()
+     * @Template
      */
-    protected function pruebaAction()
+    public function pruebaAction(Request $request)
     {
         $contenido = $this->renderView('YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig',
             array('numero_seguimiento' => '1-4800',
@@ -54,6 +55,7 @@ trait ConMailer
     
         $this->get('mailer')->send($mensaje);
         
-        return array();
+        return $this->render('YacareRequerimientosBundle:Requerimiento:prueba.html.twig', array());
+        //return $this->ArrastrarVariables($request, array());
     }
 }
