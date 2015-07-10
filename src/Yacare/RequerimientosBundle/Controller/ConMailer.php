@@ -38,7 +38,8 @@ trait ConMailer
     }
     
     /**
-     * @Route("prueba/") 
+     * @Route("prueba/")
+     * @Template()
      */
     protected function pruebaAction()
     {
@@ -47,9 +48,9 @@ trait ConMailer
             'novedad_notas' => 'Esta es una novedad'));
     
         $mensaje = \Swift_Message::newInstance()->setSubject('Novedades de su solicitud')
-        ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
-        ->setTo('ecarrea@riogrande.gob.ar')
-        ->setBody($contenido, 'text/html');
+            ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
+            ->setTo('ecarrea@riogrande.gob.ar')
+            ->setBody($contenido, 'text/html');
     
         $this->get('mailer')->send($mensaje);
         
