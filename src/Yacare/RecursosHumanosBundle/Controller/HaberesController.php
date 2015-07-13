@@ -47,6 +47,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         
         return $this->ArrastrarVariables($request, $res);
     }
+    
 
     /**
      * @Route("recibo/ver")
@@ -71,18 +72,29 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         
         $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($Persona->getAgenteId());
         
-        $sql = "SELECT TIPO, MONTO, COHADE, DESCITM, VO FROM RLIQUID
+        $ConsultaResumen = $connHaberes->prepare("SELECT * FROM RESUMEN WHERE CODIGO LIKE '% " . 
+            $Agente->getId() . "/%' AND AMES='$ames' AND PERI='$peri'");
+        $ConsultaResumen->execute();
+        $Resumen = $ConsultaResumen->fetchAll()[0];
+        
+        $ConsultaRecibo = $connHaberes->prepare("SELECT TIPO, MONTO, COHADE, DESCITM, VO FROM RLIQUID
                     WHERE CODIGO LIKE '% " .
              $Agente->getId() . "/%' AND AMES='$ames' AND PERI='$peri'
-                        AND TIPO>0 AND INFORM='N' ORDER BY TIPO, ORDEN";
-        $ConsultaRecibo = $connHaberes->prepare($sql);
+                        AND TIPO>0 AND INFORM='N' ORDER BY TIPO, ORDEN");
         $ConsultaRecibo->execute();
+        
+        $ConsultaPersona = $connHaberes->prepare("SELECT * FROM REMPLES WHERE CODIGO LIKE '% " . 
+            $Agente->getId() . "/%'");
+        $ConsultaPersona->execute();
+        $PersonaHaberes = $ConsultaPersona->fetchAll()[0];
         
         $res = array(
             'persona' => $Persona,
             'agente' => $Agente,
             'ames' => $ames,
             'peri' => $peri,
+            'resumen' => $Resumen,
+            'personahab' => $PersonaHaberes,
             'detalles' => $ConsultaRecibo->fetchAll());
         
         return $this->ArrastrarVariables($request, $res);
