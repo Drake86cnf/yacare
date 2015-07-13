@@ -1,9 +1,67 @@
-{% extends 'TapirBaseBundle::layout.html.twig' %} {% block pagina_titulo
-%}Recibo de remuneraciones del período {{ ames|slice(4, 2) }}/{{
-ames|slice(0, 4) }}{% endblock pagina_titulo %} {% block
-pagina_contenido %}
+{% extends 'TapirBaseBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}Recibo de remuneraciones del período
+    {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}{% endblock pagina_titulo %}
 
+{% block pagina_contenido %}
+<div class="panel panel-default center-block" style="max-width: 18cm">
+
+<div class="panel-heading">
+	<span class="pull-right text-center"><h1 class="text-primary"><strong>RECIBO DE REMUNERACIONES</strong></h1></span>
+    <img src="{{ asset('bundles/yacarebase/img/escudo.svg') }}" width="64" alt="Escudo del Municipio"
+    	class="img-responsive pull-left" style="margin-right: 10px;" />
+    <h2><strong>Municipio de Río Grande</strong></h2>
+    <p>Sebastián Elcano 203<br />
+      (9420) Río Grande<br />
+      Tierra del Fuego</p>
+</div>
+
+<div class="panel-body">
+	<div class="container-fluid">
+		<div class="row">
+    		<div class="col-xs-4 text-muted">Apellido y nombre</div>
+    		<div class="col-xs-2 text-muted">CUIL</div>
+    		<div class="col-xs-2 text-muted">Legajo</div>
+    		<div class="col-xs-2 text-muted">Planta</div>
+    		<div class="col-xs-2 text-muted">Cat.</div>
+		</div>
+		<div class="row">
+    		<div class="col-xs-4"><strong>{{ personahab.NOMBRE|tapir_mejorartexto }}</strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.RUT }}</strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.CODIGO }}</strong></div>
+    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.CATEGO }}</strong></div>
+		</div>
+		<hr />
+		
+		<div class="row">
+    		<div class="col-xs-4 text-muted">Secretaría</div>
+    		<div class="col-xs-2 text-muted">Antig.</div>
+    		<div class="col-xs-2 text-muted">Último ascenso</div>
+    		<div class="col-xs-2 text-muted">Fecha alta</div>
+    		<div class="col-xs-2 text-muted">Fecha baja</div>
+		</div>
+		<div class="row">
+    		<div class="col-xs-4"><strong></strong></div>
+    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.FECHA_ING|lower }}</strong></div>
+    		<div class="col-xs-2"><strong></strong></div>
+		</div>
+		<hr />
+
+        <div class="row">
+        	<div class="col-xs-6">{% if resumen.PERI == '7' %}Haberes mensuales
+                {% elseif resumen.PERI == '5' %}SAC
+                {% elseif resumen.PERI == '3' %}Prestación dineraria
+                {% else %}Complementaria
+                {% endif %}
+                {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}</div>
+        	<div class="col-xs-6 text-right">Fecha de pago: {{ resumen.FECHA_PAG|lower }}</div>
+        </div>
+
+	</div>
+</div>
 
 <table class="table table-hover table-condensed">
 	<thead>
@@ -17,41 +75,55 @@ pagina_contenido %}
 		</tr>
 	</thead>
 	<tbody>
-		{% set total_rem = 0 %} {% set total_norem = 0 %} {% set total_desc =
-		0 %} {% for detalle in detalles %} {% set imp_rem = 0 %} {% set
-		imp_norem = 0 %} {% set imp_desc = 0 %} {% if detalle.TIPO == 1 %}{%
-		set imp_rem = detalle.MONTO %}{% endif %} {% if detalle.TIPO == 2 %}{%
-		set imp_norem = detalle.MONTO %}{% endif %} {% if detalle.TIPO == 6
-		%}{% set imp_norem = detalle.MONTO %}{% endif %} {% if detalle.TIPO ==
-		3 %}{% set imp_desc = detalle.MONTO %}{% endif %} {% set total_rem =
-		total_rem + imp_rem %} {% set total_norem = total_norem + imp_norem %}
-		{% set total_desc = total_desc + imp_desc %}
+		{% set total_rem = 0 %}
+		{% set total_norem = 0 %}
+		{% set total_desc = 0 %}
+		{% for detalle in detalles %}
+		    {% set imp_rem = 0 %}
+		    {% set imp_norem = 0 %}
+		    {% set imp_desc = 0 %}
+		    {% if detalle.TIPO == 1 %}
+		        {% set imp_rem = detalle.MONTO %}
+		    {% endif %}
+		    {% if detalle.TIPO == 2 %}
+		        {% set imp_norem = detalle.MONTO %}
+		    {% endif %}
+		    {% if detalle.TIPO == 6 %}
+		        {% set imp_norem = detalle.MONTO %}
+		    {% endif %}
+		    {% if detalle.TIPO == 3 %}
+		        {% set imp_desc = detalle.MONTO %}
+		    {% endif %}
+		    {% set total_rem = total_rem + imp_rem %}
+		    {% set total_norem = total_norem + imp_norem %}
+		    {% set total_desc = total_desc + imp_desc %}
 		<tr>
 			<td>{% if detalle.VO %}{{ detalle.VO }}{% endif %}</td>
 			<td class="text-muted">{{ detalle.COHADE }}</td>
 			<td>{{ detalle.DESCITM|tapir_mejorartexto }}</td>
-			<td class="text-right">{% if imp_rem %}{{ imp_rem|tapir_importe }}{%
-				endif %}</td>
-			<td class="text-right">{% if imp_norem %}{{ imp_norem|tapir_importe
-				}}{% endif %}</td>
-			<td class="text-right">{% if imp_desc %}{{ imp_desc|tapir_importe
-				}}{% endif %}</td>
+			<td class="text-right">{% if imp_rem %}{{ imp_rem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if imp_norem %}{{ imp_norem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if imp_desc %}{{ imp_desc|tapir_importe }}{% endif %}</td>
 		</tr>
 		{% endfor %}
 
 		<tr class="info">
-			<td colspan="3"><strong>NETO A PERCIBIR: {{
-					(total_rem+total_norem-total_desc)|tapir_importe }}</strong></td>
-			<td class="text-right">{% if total_rem %}{{ total_rem|tapir_importe
-				}}{% endif %}</td>
-			<td class="text-right">{% if total_norem %}{{
-				total_norem|tapir_importe }}{% endif %}</td>
-			<td class="text-right">{% if total_desc %}{{ total_desc|tapir_importe
-				}}{% endif %}</td>
+			<td colspan="3"><strong>Neto a percibir:&nbsp;&nbsp;&nbsp;&nbsp;
+			    {{ (total_rem+total_norem-total_desc)|tapir_importe }}</strong></td>
+			<td class="text-right">{% if total_rem %}{{ total_rem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if total_norem %}{{ total_norem|tapir_importe }}{% endif %}</td>
+			<td class="text-right">{% if total_desc %}{{ total_desc|tapir_importe }}{% endif %}</td>
 		</tr>
 	</tbody>
 </table>
-{% endblock pagina_contenido %} {% block pagina_acciones %}
+    
+    <div class="panel-footer">
+    Son {{ (total_rem+total_norem-total_desc)|tapir_numerosaletras }} pesos.
+    </div>
+</div>
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
 <a data-toggle="ajax-link" class="btn btn-link pull-right"
 	href="{{ path(baseroute ~ '_recibolistar', arrastre) }}"><i
 	class="fa fa-reply"></i> Volver</a>
