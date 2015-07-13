@@ -18,7 +18,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
 {
 
     /**
-     * @Route("recibo/listar")
+     * @Route("recibo/listar/")
      * @Route("recibo/listar/{id}")
      * @Template()
      */
@@ -50,7 +50,7 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
     
 
     /**
-     * @Route("recibo/ver")
+     * @Route("recibo/ver/")
      * @Route("recibo/ver/{id}")
      * @Template()
      */
