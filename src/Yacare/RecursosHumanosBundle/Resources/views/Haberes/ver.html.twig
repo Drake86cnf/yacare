@@ -32,6 +32,7 @@
     		<div class="col-xs-2"><strong></strong></div>
     		<div class="col-xs-2"><strong>{{ personahab.CATEGO }}</strong></div>
 		</div>
+		
 		<hr />
 		
 		<div class="row">
@@ -45,9 +46,10 @@
     		<div class="col-xs-4"><strong></strong></div>
     		<div class="col-xs-2"><strong></strong></div>
     		<div class="col-xs-2"><strong></strong></div>
-    		<div class="col-xs-2"><strong>{{ personahab.FECHA_ING|lower }}</strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.FECHA_ING|tapir_fecha('medium', 'none') }}</strong></div>
     		<div class="col-xs-2"><strong></strong></div>
 		</div>
+		
 		<hr />
 
         <div class="row">
@@ -55,9 +57,9 @@
                 {% elseif resumen.PERI == '5' %}SAC
                 {% elseif resumen.PERI == '3' %}Prestación dineraria
                 {% else %}Complementaria
-                {% endif %}
-                {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}</div>
-        	<div class="col-xs-6 text-right">Fecha de pago: {{ resumen.FECHA_PAG|lower }}</div>
+                {% endif %} de 
+                {{ (ames|slice(4, 2) ~ '-' ~ ames|slice(0, 4))|tapir_fecha('fullmonth', 'none')|lower }}</div>
+        	<div class="col-xs-6 text-right">Fecha de pago: {{ resumen.FECHA_PAG|tapir_fecha('medium', 'none') }}</div>
         </div>
 
 	</div>

@@ -162,8 +162,22 @@ class FormatExtension extends \Twig_Extension
         if ($date == null) {
             return $emptyMessage;
         } elseif (! ($date instanceof \DateTime)) {
-            $transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
-            $date = $transformer->reverseTransform($date);
+            $date = str_replace(
+                [ 'ene', 'abr', 'ago', 'dic' ],
+                [ 'jan', 'apr', 'aug', 'dec' ],
+                strtolower($date)
+            );
+            
+            if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/", $date)) {
+                $transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
+                $date = $transformer->reverseTransform($date);
+            } elseif (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-[0-9]{2}$/", $date)) {
+                $transformer = new DateTimeToStringTransformer(null, null, 'd-M-y');
+                $date = $transformer->reverseTransform($date);
+            } elseif (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])-[0-9]{4}$/", $date)) {
+                $transformer = new DateTimeToStringTransformer(null, null, 'm-Y');
+                $date = $transformer->reverseTransform($date);
+            }
         }
 
         $formatValues = array(
@@ -195,11 +209,11 @@ class FormatExtension extends \Twig_Extension
         	    break;
        		case 'short':
        			$dateFormatValue = \IntlDateFormatter::SHORT;
-       			//$patrn = 'dd/MM/yy';
+       			$patrn = 'dd/MM/yy';
        			break;
        		case 'medium':
        			$dateFormatValue = \IntlDateFormatter::MEDIUM;
-       			//$patrn = 'dd/MM/yyyy';
+       			$patrn = 'dd/MM/yyyy';
        			break;
        		case 'long':
       			$dateFormatValue = \IntlDateFormatter::LONG;
@@ -226,6 +240,7 @@ class FormatExtension extends \Twig_Extension
         return $this->distanceOfTimeInWordsFilter($value);
     }
 
+    
     public function tapir_cantidaddedias($value, $format = 'Y-m-d H:i:s')
     {
         if (! $value) {
@@ -237,6 +252,7 @@ class FormatExtension extends \Twig_Extension
         return $this->distanceOfTimeInNumber($value);
     }
 
+    
     public function distanceOfTimeInNumber($from_time, $to_time = null, $include_seconds = false)
     {
         $datetime_transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
