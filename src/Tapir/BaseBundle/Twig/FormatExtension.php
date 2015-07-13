@@ -26,6 +26,10 @@ class FormatExtension extends \Twig_Extension
                 $this,
                 'tapir_sino'
             )),
+            new \Twig_SimpleFilter('tapir_numerosaletras', array(
+                $this,
+                'tapir_numerosaletras'
+            )),
             new \Twig_SimpleFilter('tapir_mejorartexto', array(
                 $this,
                 'tapir_mejorartexto'
@@ -112,6 +116,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
     }
+    
 
     public function tapir_sino($valor)
     {
@@ -121,6 +126,14 @@ class FormatExtension extends \Twig_Extension
             return "No";
         }
     }
+    
+    
+    public function tapir_numerosaletras($valor)
+    {
+        $Conversor = new NumerosALetras();
+        return $Conversor->Convertir($valor);
+    }
+    
 
     public function tapir_abreviar($texto, $largo = 20)
     {
@@ -130,16 +143,19 @@ class FormatExtension extends \Twig_Extension
             return $texto;
         }
     }
+    
 
     public function tapir_decodehtml($valor)
     {
         return htmlspecialchars_decode($valor, ENT_QUOTES);
     }
+    
 
     public function tapir_mejorartexto($valor)
     {
         return Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($valor);
     }
+    
 
     public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium', $emptyMessage = '')
     {
@@ -197,6 +213,7 @@ class FormatExtension extends \Twig_Extension
 
         return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }
+    
 
     public function tapir_hacetiempo($value, $format = 'Y-m-d H:i:s')
     {
@@ -370,6 +387,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
     }
+    
 
     /**
      * Returns the name of the extension.
