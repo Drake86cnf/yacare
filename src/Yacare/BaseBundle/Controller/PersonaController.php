@@ -82,7 +82,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function editarperfilActionPostPersist($entity, $editForm)
     {
-        if ($entity->getAgenteId()) {
+        /* if ($entity->getAgenteId()) {
             // Es un agente municipal, lo actualizo en el LDAP
             $em = $this->getDoctrine()->getManager();
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
@@ -91,7 +91,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $ldap->AgregarOActualizarAgente($Agente);
             $ldap = null;
         }
-        return;
+        return; */
     }
 
     /**
@@ -99,7 +99,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function cambiarcontrasenaActionPostPersist($entity, $editForm)
     {
-        if ($entity->getAgenteId()) {
+        /* if ($entity->getAgenteId()) {
             // Es un agente municipal, lo actualizo en el LDAP
             $em = $this->getDoctrine()->getManager();
             $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
@@ -108,7 +108,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $ldap->CambiarContrasena($Agente);
             $ldap = null;
         }
-        return;
+        return; */
     }
     
 
