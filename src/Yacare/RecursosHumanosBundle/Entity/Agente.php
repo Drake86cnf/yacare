@@ -210,7 +210,7 @@ class Agente
      * El cargo del agente.
      *
      * @ORM\ManyToOne(targetEntity="AgenteCargo", inversedBy="Agentes", cascade={"persist"})
-     * @ORM\JoinColumn(name="cargo_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $Cargo;
 
