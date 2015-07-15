@@ -183,12 +183,36 @@ class Agente
     private $FechaPsicofisico;
 
     /**
-     * Fechas de certificados varios.
+     * La fecha de certificado de buena conducta.
      *
-     * @ORM\OneToOne(targetEntity="FechasCertificados")
-     * @JoinColumn(name="certificados_id", referencedColumnName="id")
+     * @ORM\Column(type="date", nullable=false)
+     * @Assert\Type("\DateTime")
      */
-    private $FechasCertificados;
+    private $CertificadoBuenaConducta;
+
+    /**
+     * La fecha de certificado de antecedentes penales.
+     *
+     * @ORM\Column(type="date", nullable=false)
+     * @Assert\Type("\DateTime")
+     */
+    private $CertificadoAntecedentesPenales;
+
+    /**
+     * La fecha de certificado de domicilio.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $CertificadoDomicilio;
+
+    /**
+     * El cargo del agente.
+     *
+     * @ORM\ManyToOne(targetEntity="AgenteCargo", inversedBy="Agentes", cascade={"persist"})
+     * @ORM\JoinColumn(name="cargo_id", referencedColumnName="id", nullable=true)
+     */
+    private $Cargo;
 
     public function __toString()
     {
@@ -546,5 +570,85 @@ class Agente
     public function setGrupos($Grupos)
     {
         $this->Grupos = $Grupos;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCertificadoBuenaConducta($CertificadoBuenaConducta)
+    {
+        return $this->CertificadoBuenaConducta = $CertificadoBuenaConducta;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCertificadoBuenaConducta()
+    {
+        return $this->CertificadoBuenaConducta;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCertificadoAntecedentesPenales($CertificadoAntecedentesPenales)
+    {
+        return $this->CertificadoAntecedentesPenales = $CertificadoAntecedentesPenales;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCertificadoAntecedentesPenales()
+    {
+        return $this->CertificadoAntecedentesPenales;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCertificadoDomicilio($CertificadoDomicilio)
+    {
+        return $this->CertificadoDomicilio = $CertificadoDomicilio;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCertificadoDomicilio()
+    {
+        return $this->CertificadoDomicilio;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCargo($Cargo)
+    {
+        return $this->Cargo = $Cargo;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCargo()
+    {
+        return $this->Cargo;
     }
 }
