@@ -3,6 +3,7 @@ namespace Yacare\RecursosHumanosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Representa un agente municipal (empleado).
@@ -11,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
- *  @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ *         })
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Agente
 {
@@ -27,21 +28,21 @@ class Agente
 
     public function __construct()
     {
-    	$this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /*
      * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
      * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso,
-     *  agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active,
-     *  agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes; 
+     * agentes.nombre AS NombreVisible, agentes.username, agentes.salt, agentes.password, agentes.is_active,
+     * agentes.NombreSolo as Nombre, agentes.Apellido, agentes.email FROM rr_hh.agentes;
      * ALTER TABLE rr_hh.agentes ADD username VARCHAR(25) NOT NULL DEFAULT '', ADD salt VARCHAR(32) NOT NULL
-     *  DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '',
-     *  ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL,
-     *  CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT '';
-     * UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET 
-     *  Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes 
-     *  SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
+     * DEFAULT '', ADD password VARCHAR(40) NOT NULL DEFAULT '', ADD NombreSolo VARCHAR(255) NOT NULL DEFAULT '',
+     * ADD Apellido VARCHAR(255) NOT NULL DEFAULT '', CHANGE fechaingre fechaingre DATE NOT NULL,
+     * CHANGE nombre nombre VARCHAR(255) NOT NULL DEFAULT '', CHANGE email email VARCHAR(255) NOT NULL DEFAULT '';
+     * UPDATE yacare.Rrhh_Agente SET salt=MD5(RAND()) WHERE salt=''; UPDATE rr_hh.agentes SET
+     * Apellido=TRIM(SUBSTRING_INDEX(nombre, ' ', 1)) WHERE NombreSolo=''; UPDATE rr_hh.agentes
+     * SET NombreSolo=TRIM(TRIM(LEADING Apellido FROM nombre)) WHERE NombreSolo='';
      */
     
     /**
@@ -49,7 +50,7 @@ class Agente
      *
      * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
      * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo",
-     * 		joinColumns={@ORM\JoinColumn(name="agente_id", referencedColumnName="id", nullable=true)}
+     * joinColumns={@ORM\JoinColumn(name="agente_id", referencedColumnName="id", nullable=true)}
      * )
      */
     private $Grupos;
@@ -124,26 +125,25 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento
-     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
-    
+
     /**
      * Indica si es ex-combatiente.
      *
      * @ORM\Column(type="boolean")
      */
     private $ExCombatiente;
-    
+
     /**
      * Indica si es discapacitado.
      *
      * @ORM\Column(type="boolean")
      */
     private $Discapacitado;
-    
+
     /**
      * Indica cuál es la mano habil (0 = derecha, 1 = izquierda).
      *
@@ -151,7 +151,45 @@ class Agente
      */
     private $ManoHabil;
 
-    
+    /**
+     * La fecha de nacionalización.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaNacionalizacion;
+
+    /**
+     * La última actualización de domicilio.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $UltimaActualizacionDomicilio;
+
+    /**
+     * El lugar de nacimiento.
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $LugarNacimiento;
+
+    /**
+     * La fecha de psicofísico.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaPsicofisico;
+
+    /**
+     * Fechas de certificados varios.
+     *
+     * @ORM\OneToOne(targetEntity="FechasCertificados")
+     * @JoinColumn(name="certificados_id", referencedColumnName="id")
+     */
+    private $FechasCertificados;
+
     public function __toString()
     {
         return $this->getPersona()->getNombreVisible();
@@ -195,7 +233,7 @@ class Agente
 
     /**
      * Obtiene el nombre de la situación.
-     * 
+     *
      * @see $Situacion
      */
     public function getSituacionNombre()
@@ -229,7 +267,7 @@ class Agente
 
     /**
      * Obtiene el nombre del motivo de baja.
-     * 
+     *
      * @see $MotivoBaja
      */
     public function getMotivoBajaNombre()
@@ -272,7 +310,7 @@ class Agente
 
     /**
      * Obtiene el nombre del nivel de estudios.
-     * 
+     *
      * @see $MotivoBaja
      */
     public function getEstudiosNivelNombre()
