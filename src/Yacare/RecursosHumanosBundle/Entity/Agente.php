@@ -213,6 +213,27 @@ class Agente
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $Cargo;
+    
+
+    /**
+     * El sector en el cual se hace el parte diario de cada agente.
+     *
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\Column(nullable=true)
+     */
+    private $SectorParteDiario;
+    
+    
+    /**
+     * Indica si el agente aparece en el parte diario.
+     *
+     * @ORM\Column(Type="boolean",nulleable=true)
+     *
+     */
+    private $DentroParte;
+    
+    
+    
 
     public function __toString()
     {
@@ -651,4 +672,19 @@ class Agente
     {
         return $this->Cargo;
     }
+	public function getSectorParteDiario() {
+		return $this->SectorParteDiario;
+	}
+	public function setSectorParteDiario($SectorParteDiario) {
+		$this->SectorParteDiario = $SectorParteDiario;
+		return $this;
+	}
+	public function getDentroParte() {
+		return $this->DentroParte;
+	}
+	public function setDentroParte($DentroParte) {
+		$this->DentroParte = $DentroParte;
+		return $this;
+	}
+	
 }
