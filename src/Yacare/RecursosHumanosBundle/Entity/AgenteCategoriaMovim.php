@@ -3,16 +3,17 @@ namespace Yacare\RecursosHumanosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\Column;
 
 /**
- * Representa una novedad o movimiento en un cargo de un agente.
+ * Representa una novedad o movimiento en una categoría de un agente.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *        
- * @ORM\Table(name="Rrhh_AgenteCargoMovim")
+ * @ORM\Table(name="Rrhh_AgenteCategoriaMovim")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
-class AgenteCargoMovim
+class AgenteCategoriaMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -28,10 +29,23 @@ class AgenteCargoMovim
     /**
      * El cargo.
      *
-     * @ORM\ManyToOne(targetEntity="Cargo", cascade={"persist"})
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private $Cargo;
+    private $Categoria;
+
+    /**
+     * El decreto.
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Decreto;
+
+    /**
+     * La categoría anterior.
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $CategoriaAnterior;
 
     /**
      * La fecha de la novedad.
@@ -66,9 +80,9 @@ class AgenteCargoMovim
      * @ignore
      *
      */
-    public function setCargo($Cargo)
+    public function setCategoria($Categoria)
     {
-        return $this->Cargo = $Cargo;
+        return $this->Categoria = $Categoria;
     }
 
     /**
@@ -76,9 +90,49 @@ class AgenteCargoMovim
      * @ignore
      *
      */
-    public function getCargo()
+    public function getCategoria()
     {
-        return $this->Cargo;
+        return $this->Categoria;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setDecreto($Decreto)
+    {
+        return $this->Decreto = $Decreto;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getDecreto()
+    {
+        return $this->Decreto;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCategoriaAnterior($CategoriaAnterior)
+    {
+        return $this->CategoriaAnterior = $CategoriaAnterior;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCategoriaAnterior()
+    {
+        return $this->CategoriaAnterior;
     }
 
     /**
