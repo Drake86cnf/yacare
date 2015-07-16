@@ -2,6 +2,7 @@
 namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Agrega una columna de nombre a una entidad y sus métodos (getter y setter).
@@ -20,6 +21,7 @@ trait ConNombre
      * entidad, por ejemplo "Comprobante Nº 32".
      *
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
     private $Nombre;
 

@@ -15,7 +15,7 @@ trait ConDecreto
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Assert\Regex(
-     *     pattern="/^\s*(DM|RM)\-(\d{1,5})\/(\d{4}\s*)?$/",
+     *     pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR)\-(\d{1,5})\/(\d{4})\s*$/i",
      *     message="Debe escribir el número de decreto en el formato DM-1234/2015."
      * )
      */
@@ -29,7 +29,7 @@ trait ConDecreto
 
     public function setDecretoNumero($DecretoNumero)
     {
-        $this->DecretoNumero = $DecretoNumero;
+        $this->DecretoNumero = strtoupper($DecretoNumero);
         return $this;
     }
 }

@@ -2,6 +2,7 @@
 namespace Yacare\RequerimientosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa una novedad relacionada con un requerimiento.
@@ -53,6 +54,7 @@ class Novedad
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email()
      */
     private $UsuarioEmail;
     
