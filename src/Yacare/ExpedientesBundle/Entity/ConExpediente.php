@@ -3,6 +3,11 @@ namespace Yacare\ExpedientesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Agrega la capcidad de estar vinculado a un expediente.
+ * 
+ * @author Ernesto Carrea <equistango@gmail.com>
+ */
 trait ConExpediente
 {
 
@@ -11,14 +16,6 @@ trait ConExpediente
      */
     protected $ExpedienteNumero;
 
-    /**
-     * ORM\ManyToOne(targetEntity="Yacare\ExpedientesBundle\Entity\Expediente")
-     */
-    // protected $Expediente;
-    
-    /*
-     * public function getExpediente() { return $this->Expediente; } public function setExpediente($Expediente) { $this->Expediente = $Expediente; }
-     */
     public function getExpedienteNumero()
     {
         return $this->ExpedienteNumero;
