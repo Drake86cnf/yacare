@@ -125,8 +125,7 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento") @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
 
@@ -218,16 +217,59 @@ class Agente
      * El sector en el cual se hace el parte diario de cada agente.
      *
      * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     * @ORM\Column(nullable=true)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $SectorParteDiario;
 
     /**
      * Indica si el agente aparece en el parte diario.
      *
-     * @ORM\Column(Type="boolean",nulleable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $DentroParte;
+    private $ApareceEnParte;
+    
+    
+    /**
+     * Controla el horario del agente.
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $ControlaHorario;
+    
+
+    /**
+     * Indica si el agente marca en el reloj de control.
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $MarcaEnReloj;
+
+    /**
+     * Indica el banco al cual pertenece el agente.
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Banco", cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    private $Banco;
+
+    /**
+     * Indica el numero de cuenta asociado al agente.
+     * @ORM\Column(type="integer",nullable=true)
+     */
+    private $NumeroCuentaBanco;
+
+    /**
+     * Indica el CBU de la cuenta del agente.
+     * @ORM\Column(type="integer", length=22 , nullable=true)
+     */
+    private $CBUCuentaAgente;
+           
+    /**
+     * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
+     * @ORM\Column(type="dater", nullable=true)
+     * @Assert\Type("\DateTime")
+     */
+    private $FechaBajaContrato;
 
     public function __toString()
     {
@@ -686,6 +728,61 @@ class Agente
     public function setDentroParte($DentroParte)
     {
         $this->DentroParte = $DentroParte;
+        return $this;
+    }
+
+    public function getApareceEnParte()
+    {
+        return $this->ApareceEnParte;
+    }
+
+    public function setApareceEnParte($ApareceEnParte)
+    {
+        $this->ApareceEnParte = $ApareceEnParte;
+        return $this;
+    }
+
+    public function getMarcaEnReloj()
+    {
+        return $this->MarcaEnReloj;
+    }
+
+    public function setMarcaEnReloj($MarcaEnReloj)
+    {
+        $this->MarcaEnReloj = $MarcaEnReloj;
+        return $this;
+    }
+
+    public function getBanco()
+    {
+        return $this->Banco;
+    }
+
+    public function setBanco($Banco)
+    {
+        $this->Banco = $Banco;
+        return $this;
+    }
+
+    public function getNumeroCuentaBanco()
+    {
+        return $this->NumeroCuentaBanco;
+    }
+
+    public function setNumeroCuentaBanco($NumeroCuentaBanco)
+    {
+        $this->NumeroCuentaBanco = $NumeroCuentaBanco;
+        return $this;
+    }
+
+    public function getCBUCuentaAgente()
+    {
+        return $this->CBUCuentaAgente;
+    }
+
+    public function setCBUCuentaAgente($CBUCuentaAgente)
+    {
+        $this->CBUCuentaAgente = $CBUCuentaAgente;
         return $this;
     }
 }
