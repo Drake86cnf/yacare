@@ -2,6 +2,7 @@
 namespace Yacare\RequerimientosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa un requerimiento, que puede ser un reclamo, una solicitud, una consulta, etc.
@@ -78,6 +79,7 @@ class Requerimiento
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email()
      */
     private $UsuarioEmail;
     

@@ -2,6 +2,7 @@
 namespace Yacare\RequerimientosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa una categoria en la que puede haber requerimientos.
