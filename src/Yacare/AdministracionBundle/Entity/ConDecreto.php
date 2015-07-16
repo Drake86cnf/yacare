@@ -15,7 +15,7 @@ trait ConDecreto
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Assert\Regex(
-     *     pattern="(^/(DM|RM)\-(\d{1,5})\/(\d{4})/$)?",
+     *     pattern="/^\s*(DM|RM)\-(\d{1,5})\/(\d{4}\s*)?$/",
      *     message="Debe escribir el número de decreto en el formato DM-1234/2015."
      * )
      */

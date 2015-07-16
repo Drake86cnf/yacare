@@ -45,7 +45,7 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Reflejo los cambios en el servidor LDAP.
      */
-    public function guardarActionPostPersist($entity, $editForm)
+    /* public function guardarActionPostPersist($entity, $editForm)
     {
         $nombreLdap = $entity->getNombreLdap();
         if ($nombreLdap) {
@@ -55,5 +55,5 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         return;
-    }
+    } */
 }
