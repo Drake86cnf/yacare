@@ -266,7 +266,7 @@ class Agente
            
     /**
      * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
-     * @ORM\Column(type="dater", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaBajaContrato;
