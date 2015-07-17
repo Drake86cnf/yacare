@@ -5,6 +5,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Agrega la capacidad de informar una novedad vía e-mail.
+ * 
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ */
 trait ConMailer
 {
     /**
