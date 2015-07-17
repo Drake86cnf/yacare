@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * Está relacionado a una persona.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ * @author Alejandro Díaz <adiaz.rc@gmail.com>
  *        
  *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
  *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
@@ -125,7 +127,10 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento") @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento 
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento") 
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
 
@@ -227,15 +232,13 @@ class Agente
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ApareceEnParte;
-    
-    
+
     /**
      * Controla el horario del agente.
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ControlaHorario;
-    
 
     /**
      * Indica si el agente marca en el reloj de control.
@@ -263,7 +266,7 @@ class Agente
      * @ORM\Column(type="integer", length=22 , nullable=true)
      */
     private $CBUCuentaAgente;
-           
+
     /**
      * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
      * @ORM\Column(type="date", nullable=true)
@@ -709,80 +712,297 @@ class Agente
         return $this->Cargo;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getSectorParteDiario()
     {
         return $this->SectorParteDiario;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setSectorParteDiario($SectorParteDiario)
     {
         $this->SectorParteDiario = $SectorParteDiario;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getDentroParte()
     {
         return $this->DentroParte;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setDentroParte($DentroParte)
     {
         $this->DentroParte = $DentroParte;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getApareceEnParte()
     {
         return $this->ApareceEnParte;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setApareceEnParte($ApareceEnParte)
     {
         $this->ApareceEnParte = $ApareceEnParte;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getMarcaEnReloj()
     {
         return $this->MarcaEnReloj;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setMarcaEnReloj($MarcaEnReloj)
     {
         $this->MarcaEnReloj = $MarcaEnReloj;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getBanco()
     {
         return $this->Banco;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setBanco($Banco)
     {
         $this->Banco = $Banco;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getNumeroCuentaBanco()
     {
         return $this->NumeroCuentaBanco;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setNumeroCuentaBanco($NumeroCuentaBanco)
     {
         $this->NumeroCuentaBanco = $NumeroCuentaBanco;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getCBUCuentaAgente()
     {
         return $this->CBUCuentaAgente;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setCBUCuentaAgente($CBUCuentaAgente)
     {
         $this->CBUCuentaAgente = $CBUCuentaAgente;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getExCombatiente()
+    {
+        return $this->ExCombatiente;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setExCombatiente($ExCombatiente)
+    {
+        $this->ExCombatiente = $ExCombatiente;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getDiscapacitado()
+    {
+        return $this->Discapacitado;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setDiscapacitado($Discapacitado)
+    {
+        $this->Discapacitado = $Discapacitado;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getManoHabil()
+    {
+        return $this->ManoHabil;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setManoHabil($ManoHabil)
+    {
+        $this->ManoHabil = $ManoHabil;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getFechaNacionalizacion()
+    {
+        return $this->FechaNacionalizacion;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFechaNacionalizacion($FechaNacionalizacion)
+    {
+        $this->FechaNacionalizacion = $FechaNacionalizacion;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getUltimaActualizacionDomicilio()
+    {
+        return $this->UltimaActualizacionDomicilio;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setUltimaActualizacionDomicilio($UltimaActualizacionDomicilio)
+    {
+        $this->UltimaActualizacionDomicilio = $UltimaActualizacionDomicilio;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getLugarNacimiento()
+    {
+        return $this->LugarNacimiento;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setLugarNacimiento($LugarNacimiento)
+    {
+        $this->LugarNacimiento = $LugarNacimiento;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getFechaPsicofisico()
+    {
+        return $this->FechaPsicofisico;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFechaPsicofisico($FechaPsicofisico)
+    {
+        $this->FechaPsicofisico = $FechaPsicofisico;
         return $this;
     }
 }
