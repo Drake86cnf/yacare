@@ -351,11 +351,7 @@ class Familiar
      */
     public function setDocumentoNumero($DocumentoNumero)
     {
-        $this->DocumentoNumero = str_replace(array(
-            ',',
-            '.',
-            ' ',
-            '-'), '', $DocumentoNumero);
+        $this->DocumentoNumero = str_replace(array(',', '.', ' ', '-'), '', $DocumentoNumero);
         return $this;
     }
 }
