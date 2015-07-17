@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Un fammiliar de un agente en particular.
+ * Un familiar de un agente en particular.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *        
