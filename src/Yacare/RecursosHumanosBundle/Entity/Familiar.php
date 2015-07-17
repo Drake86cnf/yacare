@@ -74,7 +74,7 @@ class Familiar
     /**
      * La residencia.
      *
-     * @var unknown
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $Residencia;
 
@@ -92,6 +92,16 @@ class Familiar
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $MotivoBaja = 0;
+
+    /**
+     * Devuelve el nombre del parentesco.
+     *
+     * @see $Parentesco
+     */
+    public function getParentescoNombre()
+    {
+        return Familiar::setParentescosNombres($this->getParentesco());
+    }
 
     public static function setParentescosNombres($rango)
     {
