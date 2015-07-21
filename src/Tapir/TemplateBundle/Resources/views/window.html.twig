@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ tapir_nombreaplicacion }}: {% block pagina_titulo %}{%	endblock %}</title>
+{% image '@tapir_favicon' %}
+<link rel="icon" href="{{ asset_url }}">
+{% endimage %}
+</head>
+
+<body>{% block pagina_contenido %} {% endblock %}
+</body>
+</html>

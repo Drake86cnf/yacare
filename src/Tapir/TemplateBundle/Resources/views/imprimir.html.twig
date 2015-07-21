@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% set tapir_modal = 0 %}{% set block_pagina_titulo =
-block('pagina_titulo') %}
+{% set tapir_modal = 0 %}{% set block_pagina_titulo = block('pagina_titulo') %}
 
 <html lang="es">
 <head>
@@ -9,25 +8,25 @@ block('pagina_titulo') %}
 <meta name="description" content="{{ tapir_nombreaplicacion }}">
 <meta name="author" content="Ernesto N. Carrea">
 
-<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not
-	empty %} - {{ block_pagina_titulo|raw }}{% endif %}</title> {% image
-'@tapir_favicon' %}
+<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not	empty %}:
+    {{ block_pagina_titulo|raw }}{% endif %}</title>
+{% image '@tapir_favicon' %}
 <link rel="icon" href="{{ asset_url }}" />
 {% endimage %}
 
-<link href="{{ asset('bundles/tapirbase/css/fonts.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}"
 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/font-awesome.min.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}"
 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/bootstrap.min.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/bootstrap.min.css') }}"
 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/tapir.css') }}"
 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir_tables.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}"
 	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirbase/css/tapir_print.css') }}"
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_print.css') }}"
 	rel="stylesheet" />
-<alink href="{{ asset('bundles/tapirbase/css/yacare-print.css') }}"
+<alink href="{{ asset('bundles/tapirtemplate/css/yacare-print.css') }}"
 	rel="stylesheet" />
 
 <style type="text/css">
@@ -222,12 +221,10 @@ table.listado tr td.label {
 </head>
 
 <body>
-	<div class="content" id="content">{% block pagina_contenido %}{%
-		endblock %}</div>
+	<div class="content" id="content">{% block pagina_contenido %}{% endblock %}</div>
 
-	<div class="pieoficial text-center">{% block pagina_pie %}{% endblock
-		%} Las Islas Malvinas, Georgias y Sandwich del Sur son y serán
-		argentinas.</div>
+	<div class="pieoficial text-center">{% block pagina_pie %}{% endblock %} Las Islas Malvinas, Georgias y Sandwich
+		del Sur son y serán argentinas.</div>
 </body>
 
 </html>

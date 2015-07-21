@@ -1,5 +1,7 @@
-{% set tapir_modal = 0 %} {% block pagina_inicio %}{% endblock %} {% if
-not app.request.get('sinencab') %}
+{% set tapir_modal = 0 %}
+
+{% block pagina_inicio %}{% endblock %}
+{% if not app.request.get('sinencab') %}
 <div id="content-header" class="content-bar-row">
 	{% set block_pagina_titulo = block('pagina_titulo') %} {% if
 	block_pagina_titulo is not empty %}
