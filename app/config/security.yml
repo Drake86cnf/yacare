@@ -27,7 +27,7 @@ security:
             security: false
 
         cssjs:
-            pattern:  ^%web_root%/bundles/(yacare|tapir)base/(css|js|fonts|images|img)/
+            pattern:  ^%web_root%/bundles/(yacare|tapir)base|tapirtemplate/(css|js|fonts|images|img)/
             security: false
             
         formingreso:

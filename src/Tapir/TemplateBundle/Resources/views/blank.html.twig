@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% set tapir_modal = 0 %}
+{% set block_pagina_titulo = block('pagina_titulo') %}
+
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ tapir_nombreaplicacion }}">
+<meta name="author" content="Ernesto N. Carrea">
+
+<title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not	empty %}:
+    {{ block_pagina_titulo|raw }}{% endif %}</title>
+{% image '@tapir_favicon' %}
+<link rel="icon" href="{{ asset_url }}" />
+{% endimage %}
+
+<script type="text/javascript"
+	src="{{ asset('bundles/tapirtemplate/js/jquery-2.1.4.min.js') }}"></script>
+
+<link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/bootstrap.min.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_nav.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_forms.css') }}"
+	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}"
+	rel="stylesheet" />
+</head>
+
+<body>
+
+	{% block pagina_contenido %}{% endblock %}
+
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
+	{% if app.environment != 'test' %}
+	<script type="text/javascript"
+		src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
+	{% endif %}
+</body>
+</html>

@@ -31,7 +31,7 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form_themes: [ 'TapirBaseBundle:Form:bootstrap_3_horizontal_layout.html.twig' ]
+    form_themes: [ 'TapirTemplateBundle:Form:bootstrap_3_horizontal_layout.html.twig' ]
 
 # Doctrine Configuration
 doctrine:
@@ -138,32 +138,8 @@ liip_imagine:
             filters:
                 thumbnail: { size: [256, 256], mode: outbound }
                 
-# Parámetros de servicios de Metadata
-parameters:
-    tapir_annotation.metadata_factory.class: Metadata\MetadataFactory
-    tapir_annotation.annotation_driver.class: Tapir\AnnotationBundle\Metadata\Driver\AnnotationDriver
-
 services:
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
         - { name: twig.extension }
-        
-    # Servicios de Metadatos        
-    tapir_annotation.anno_reader:
-        class: Tapir\AnnotationBundle\Metadata\AnnoReader
-        public: false
-    
-    tapir_annotation.annotation_driver:
-        class: "%tapir_annotation.annotation_driver.class%"
-        public: false
-        arguments: ["@tapir_annotation.anno_reader"]
-        
-    tapir_annotation.metadata_factory:
-        class: "%tapir_annotation.metadata_factory.class%"
-        public: false
-        arguments: ["@tapir_annotation.annotation_driver"] 
-        
-    tapir_annotation.descripcion_procesador:
-        class: Tapir\AnnotationBundle\Data\DescripcionProcesador
-        arguments: ["@tapir_annotation.metadata_factory"]

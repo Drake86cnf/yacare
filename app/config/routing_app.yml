@@ -23,6 +23,11 @@ yacare_munirg:
     type:     annotation
     prefix:   /munirg/
 
+yacare_administracion:
+    resource: "@YacareAdministracionBundle/Controller/"
+    type:     annotation
+    prefix:   /admin/
+
 #yacare_bromatologia:
 #    resource: "@YacareBromatologiaBundle/Controller/"
 #    type:     annotation

@@ -1,9 +1,7 @@
-app:
-    resource: "routing_app.yml"
-
-login:
-    path:      /login
-    defaults:  { _controller: "TapirBaseBundle:Security:login" }
+tapir_template:
+    resource: "@TapirTemplateBundle/Controller/"
+    type:     annotation
+    prefix:   /tapir/template
 
 tapir_base:
     resource: "@TapirBaseBundle/Controller/"
@@ -14,6 +12,13 @@ tapir_annotation:
     resource: "@TapirAnnotationBundle/Controller/"
     type:     annotation
     prefix:   /tapir/annotation
+
+app:
+    resource: "routing_app.yml"
+
+login:
+    path:      /login
+    defaults:  { _controller: "TapirBaseBundle:Security:login" }
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
