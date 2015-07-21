@@ -64,6 +64,11 @@
     {% endif %}
 </div></div>
 
+<p>&nbsp;</p>
+
+{{ tabset(pestanias) }}
+
+
 <hr />
 
 <div>
@@ -88,5 +93,6 @@
 		<i class="fa fa-warning fa-2x text-danger pull-left"></i> Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
 	{% endif %}
 </div>
+
 
 {% endblock %}

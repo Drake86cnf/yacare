@@ -18,7 +18,7 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
 	font-weight: 300;
 }
 
-a.btn-link, ar {
+a.btn-link {
     cursor: pointer !important;
 }
 
@@ -61,6 +61,10 @@ a, button {
 	font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica,
 		Arial, sans-serif;
 	font-weight: 300;
+}
+
+a.disabled {
+    cursor: not-allowed !important;
 }
 
 h1, legend {
