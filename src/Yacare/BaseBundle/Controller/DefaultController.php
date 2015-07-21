@@ -31,7 +31,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $res['requerimientos_pendientes'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorEncargado($UsuarioConectado);
         $res['requerimientos_propios'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorUsuario($UsuarioConectado);
         
-        $res['pestanias'] = ObtenerPestanias();
+        $res['pestanias'] = $this->ObtenerPestanias();
         
         return $res;
     }
@@ -40,10 +40,10 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
     public function ObtenerPestanias() {
         return new \Tapir\TemplateBundle\Tabs\TabSet(
             array(
-                new \Tapir\TemplateBundle\Tabs\Tab('General', '#1', true),
-                new \Tapir\TemplateBundle\Tabs\Tab('Datos personales', '#2'),
-                new \Tapir\TemplateBundle\Tabs\Tab('Cargos', '#3'),
-                new \Tapir\TemplateBundle\Tabs\Tab('Familiares', '#4', false, true),
+                new \Tapir\TemplateBundle\Tabs\Tab('General', 'http://www.riogrande.gob.ar', true),
+                new \Tapir\TemplateBundle\Tabs\Tab('Datos personales', 'http://www.tierradelfuego.gob.ar'),
+                new \Tapir\TemplateBundle\Tabs\Tab('Cargos', 'http://www.google.com.ar'),
+                new \Tapir\TemplateBundle\Tabs\Tab('Familiares', 'http://www.yahoo.com.ar', false, true),
             ));
     }
     
