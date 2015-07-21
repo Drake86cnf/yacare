@@ -14,10 +14,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * @author Alejandro Díaz <adiaz.rc@gmail.com>
  *        
- *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
- *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- *         })
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
+ *  @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ * })
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Agente
 {
