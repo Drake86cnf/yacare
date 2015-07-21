@@ -31,7 +31,20 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $res['requerimientos_pendientes'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorEncargado($UsuarioConectado);
         $res['requerimientos_propios'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorUsuario($UsuarioConectado);
         
+        $res['pestanias'] = ObtenerPestanias();
+        
         return $res;
+    }
+    
+    
+    public function ObtenerPestanias() {
+        return new \Tapir\TemplateBundle\Tabs\TabSet(
+            array(
+                new \Tapir\TemplateBundle\Tabs\Tab('General', '#1', true),
+                new \Tapir\TemplateBundle\Tabs\Tab('Datos personales', '#2'),
+                new \Tapir\TemplateBundle\Tabs\Tab('Cargos', '#3'),
+                new \Tapir\TemplateBundle\Tabs\Tab('Familiares', '#4', false, true),
+            ));
     }
     
     

@@ -3,6 +3,6 @@ parameters:
 
 services:
   tapir_charts.twig.charts_extension:
-    class: %tapir_charts.twig_extension.class%
+    class: '%tapir_charts.twig_extension.class%'
     tags:
         - { name: twig.extension }
