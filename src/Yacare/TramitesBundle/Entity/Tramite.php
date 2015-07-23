@@ -34,6 +34,7 @@ abstract class Tramite
     public function __construct()
     {
         $this->EstadosRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Nombre = 'Trámite nuevo';
     }
 
     /**
@@ -66,7 +67,8 @@ abstract class Tramite
      * Indica la fecha en la que terminó el trámite o null si aun está en curso
      * o nunca terminó (cancelado).
      *
-     * @var \DateTime @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $FechaTerminado;
 

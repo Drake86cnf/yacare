@@ -23,6 +23,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         $this->ConservarVariables[] = 'parent_id';
         $this->Where = 'r.Estado<90';
     }
+    
 
     /**
      * @Route("cambiarestado/{id}/{reqid}/{estado}")
@@ -46,10 +47,10 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         // $this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' . \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));
         
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('ver'), 
+        return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
                 $this->ArrastrarVariables($request, array('id' => $id), false)));
     }
+    
 
     /**
      * @Route("terminar/{id}")
@@ -93,6 +94,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'mensaje' => $mensaje,'comprob' => $Comprob,'rutacomprob' => $RutaComprob));
     }
+    
 
     public function EmitirComprobante($tramite)
     {
@@ -119,6 +121,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $Comprob;
     }
+    
 
     public function ObtenerProximoNumeroComprobante($comprob)
     {
@@ -130,6 +133,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         $res = (int) $query->getResult(\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR);
         return ++ $res;
     }
+    
 
     public function guardarActionPrePersist($entity, $editForm)
     {
@@ -153,6 +157,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $res;
     }
+    
 
     protected function AsociarEstadosRequisitos($entity, $EstadoRequisitoPadre, $Asociaciones)
     {
