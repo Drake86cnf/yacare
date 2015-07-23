@@ -13,7 +13,7 @@ trait ConAdjuntos
         parent::guardarActionSubirArchivos($entity, $editForm);
         
         $Archivos = $editForm->get('Adjuntos')->getData();
-        
+        print_r($Archivos);
         if (count($Archivos) == 1) {
             $Archivos = $Archivos[0];
         }

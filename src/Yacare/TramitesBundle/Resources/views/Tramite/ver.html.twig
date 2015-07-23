@@ -1,8 +1,8 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Trámite Nº {{ entity.id }}
-<small> {{ entity }}</small>
-{% endblock %} {% block tramite_encab %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}Trámite Nº {{ entity.id }} <small> {{ entity }}</small>{% endblock %}
+
+{% block tramite_encab %}
 <div class="row">
 	<div class="col-lg-8">
 		<p>
@@ -64,10 +64,14 @@
 		{% endif %}
 	</div>
 </div>
-{% endblock %} {% block tramite_requisitos %}
+{% endblock %}
+
+
+{% block tramite_requisitos %}
 <table class="table table-hover">
 	<thead>
 		<tr>
+			<th> </th>
 			<th>Requisito</th>
 			<th>Estado</th>
 			<th class="hidden-sm hidden-xs">Fecha aprobado</th>
@@ -75,13 +79,21 @@
 	</thead>
 	<tbody>
 		{% for EstadoRequisito in entity.EstadosRequisitos %}
-		<tr {% if EstadoRequisito.EsNecesario == 0 %}
-			data-toggle="requisitos_ocultables" {% endif %}>
+		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" {% endif %}>
+			<td>
+				{% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %} <i class="fa fa-clipboard fa-fw"></i>
+				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cos' %} <i class="fa fa-file-text-o fa-fw"></i>
+				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %} <i class="fa fa-file-text fa-fw"></i>
+				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'col' or EstadoRequisito.AsociacionRequisito.Instancia == 'coc' %} <i class="fa fa-legal fa-fw"></i>
+				{% else %} <i class="fa fa-circle-o fa-fw"></i>
+				{% endif %}
+				{% if EstadoRequisito.Adjuntos|length > 0 %}<i class="fa fa-paperclip fa-fw"></i>{% endif %}
+			</td>
 			<td>{% if entity.Estado < 90 %}
-				<div class="btn-group hidden-print">
+				<div class="btn-group hidden-print pull-right">
 					<a class="btn btn-default btn-sm dropdown-toggle"
 						data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i>
-						Editar &nbsp;<span class="caret"></span></a>
+						Opciones &nbsp;<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a data-toggle="modal" data-target="#modal"
 							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i
@@ -93,82 +105,82 @@
 								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
 						{% endif %}
 						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i
-								class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li> {%
-						if EstadoRequisito.Estado != 100 %}
+							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}">
+							<i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
+					    {% if EstadoRequisito.Estado != 100 %}
 						<li><a data-toggle="ajax-link"
 							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
-								class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li> {%
-						endif %}{% if EstadoRequisito.Estado != 15 %}
+								class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
+						{% endif %}
+						{% if EstadoRequisito.Estado != 15 %}
 						<li><a data-toggle="ajax-link"
 							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i
-								class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li> {%
-						endif %}{% if EstadoRequisito.Estado != 0 %}
+								class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
+						{% endif %}
+						{% if EstadoRequisito.Estado != 0 %}
 						<li><a data-toggle="ajax-link"
 							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i
 								class="fa fa-question fa-fw"></i> Marcar como faltante</a></li>
 						{% endif %}
 					</ul>
-				</div> {% endif %} {% if
-				EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %} <i
-				class="fa fa-clipboard fa-fw"></i> {% elseif
-				EstadoRequisito.AsociacionRequisito.Instancia == 'cos' %} <i
-				class="fa fa-file-text-o fa-fw"></i> {% elseif
-				EstadoRequisito.AsociacionRequisito.Instancia == 'ori' %} <i
-				class="fa fa-file-text fa-fw"></i> {% elseif
-				EstadoRequisito.AsociacionRequisito.Instancia == 'col' or
-				EstadoRequisito.AsociacionRequisito.Instancia == 'coc' %} <i
-				class="fa fa-legal fa-fw"></i> {% else %} <i
-				class="fa fa-circle-o fa-fw"></i> {% endif %} {% if
-				EstadoRequisito.EsNecesario == 0 %}<span
-				style="text-decoration: line-through;">{% endif %} {{
-					EstadoRequisito.AsociacionRequisito }} {% if
-					EstadoRequisito.EsNecesario == 0 %} </span><br />
-			<small class="text text-muted">No corresponde.{% if
-					EstadoRequisito.AsociacionRequisito.Condicion %} Sólo se requiere
-					si &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion
-					}}&quot;{% endif %}</small> {% endif %} {% if
-				EstadoRequisito.EstadoRequisitoPadre %} <br />
-			<small class="text text-muted">Requerido para {{
-					EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito
-					}}.</small> {% endif %}
+				</div>
+			    {% endif %}
+			    
+				{% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
+				{{ EstadoRequisito.AsociacionRequisito }}
+				{% if EstadoRequisito.EsNecesario == 0 %} </span><br />
+					<small class="text text-muted">No corresponde.
+					{% if EstadoRequisito.AsociacionRequisito.Condicion %} Sólo se requiere
+						si &quot;{{ EstadoRequisito.AsociacionRequisito.Condicion }}&quot;
+					{% endif %}</small>
+				{% endif %}
+				{% if EstadoRequisito.EstadoRequisitoPadre %} <br />
+					<small class="text text-muted">Requerido para
+					    {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}.</small>
+				{% endif %}
 			</td>
-			<td>{% if EstadoRequisito.EsNecesario %} {% if
-				EstadoRequisito.AsociacionRequisito.Opcional %}<span
-				class="label label-info">Opcional</span> {% endif %} {% if
-				EstadoRequisito.Estado == 0 %} {% if
-				EstadoRequisito.AsociacionRequisito.Opcional %} <span
-				class="label label-default"> {% else %} <span
-					class="label label-warning"> {% endif %} {% elseif
-						EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %} <span
-						class="label label-danger"> {% elseif EstadoRequisito.Estado ==
-							100 %} <span class="label label-success"><i class="fa fa-check"></i>
-								{% else %} <span class="label label-default"> {% endif %} {{
-									EstadoRequisito.EstadoNombre }}</span> {% else %} <span
-								class="text text-muted">N/A</span> {% endif %} 
+			<td>{% if EstadoRequisito.EsNecesario %}
+			        {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+			        {% if EstadoRequisito.Estado == 0 %}
+			            {% if EstadoRequisito.AsociacionRequisito.Opcional %} <span class="label label-default">
+			            {% else %} <span class="label label-warning">
+			            {% endif %}
+			        {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %} <span class="label label-danger">
+			        {% elseif EstadoRequisito.Estado == 100 %} <span class="label label-success"><i class="fa fa-check"></i>
+					{% else %} <span class="label label-default">
+					{% endif %}
+					{{ EstadoRequisito.EstadoNombreCorto }}</span>
+				{% else %}
+					<span class="text text-muted">N/A</span>
+				{% endif %} 
 			
 			</td>
-			<td class="hidden-sm hidden-xs">{{
-				EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
+			<td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_acciones %}
+{% endblock %}
+
+{% block pagina_acciones %}
 <a class="btn btn-primary hidden-print"
 	href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i>
 	Volver</a>
-{% endblock %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_acciones2 %}
 <script>
-        $(document).ready(function(){
-            $('[data-toggle="requisitos_ocultables"]').hide();
-        });
-    </script>
+    $(document).ready(function(){
+        $('[data-toggle="requisitos_ocultables"]').hide();
+    });
+</script>
 
 <a class="btn btn-default hidden-print"
 	onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i
 	class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</a>
-{% endblock %} {% block pagina_acciones3 %} {{ parent() }}
+{% endblock %}
+
+{% block pagina_acciones3 %}{{ parent() }}
 <a data-toggle="modal" data-target="#modal"
 	class="btn btn-sm btn-default"
 	href="{{ path('yacare_base_comentario_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.id }) }}"><i

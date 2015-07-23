@@ -186,11 +186,10 @@ class EstadoRequisito
     /**
      * Devuelve un cadena con el nombre del estado del requisito asociado.
      *
-     * @param int $estado
-     *            El estado del cual solicita el nombre.
+     * @param int $estado El estado del cual solicita el nombre.
      * @return string El nombre del estado.
      */
-    public static function NombreEstado($estado)
+    public static function EstadoNombres($estado)
     {
         switch ($estado) {
             case 0:
@@ -211,10 +210,45 @@ class EstadoRequisito
                 return '???';
         }
     }
+    
+    
+    /**
+     * Devuelve un cadena con el nombre corto del estado del requisito asociado.
+     *
+     * @param int $estado El estado del cual solicita el nombre.
+     * @return string El nombre corto del estado.
+     */
+    public static function EstadoNombresCortos($estado)
+    {
+        switch ($estado) {
+            case 0:
+                return 'Faltante';
+            case 10:
+                return 'Observado';
+            case 15:
+                return 'Rechazado';
+            case 90:
+                return 'Desestimado';
+            case 95:
+                return 'Aprob. pend.';
+            case 99:
+                return 'No necesario';
+            case 100:
+                return 'Aprobado';
+            default:
+                return '???';
+        }
+    }
+    
 
     public function getEstadoNombre()
     {
-        return EstadoRequisito::NombreEstado($this->Estado);
+        return EstadoRequisito::EstadoNombres($this->Estado);
+    }
+    
+    public function getEstadoNombreCorto()
+    {
+        return EstadoRequisito::EstadoNombresCortos($this->Estado);
     }
 
     public function getEstado()

@@ -36,13 +36,17 @@ block pagina_inicio %}
 
 	<h2>Sobre el uso del suelo</h2>
 	<p>
-		El inmueble se encuentra en una zona catalogada como &quot;{{
-		zona|lower }}&quot;. El plan de desarrollo territorial dice que el uso
-		del suelo para esta actividad en este sector de la ciudad <strong>{%
-			if usosuelo == 1 %}es predominante <i class="fa fa-check"></i>
-		</strong> ( {% elseif usosuelo == 2 %}está permitido</strong> <i
-			class="fa fa-check"></i> (uso compatible, {% elseif usosuelo == 3
-		%}está permitido en ciertas condiciones</strong><small>*</small> (uso
+		El inmueble se encuentra en una zona
+		{% if zona %} 
+			catalogada como &quot;{{ zona|lower }}&quot;.
+		{% else %}
+			sin catalogar.
+		{% endif %}
+		El plan de desarrollo territorial dice que el uso del suelo para esta actividad en este sector de la ciudad
+		<strong>{% if usosuelo == 1 %}es predominante <i class="fa fa-check"></i> </strong>
+		({% elseif usosuelo == 2 %}está permitido</strong>
+		<i class="fa fa-check"></i> (uso compatible, {% elseif usosuelo == 3 %}está permitido en ciertas
+		condiciones</strong><small>*</small> (uso
 		condicional, {% elseif usosuelo == 9 %}está prohibido en todos los
 		casos</strong><small>*</small> ( {% else %}es desconocido (no
 		zonificado, </strong>{% endif %} según el Plan de Desarrollo
