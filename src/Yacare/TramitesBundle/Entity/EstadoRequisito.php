@@ -136,12 +136,12 @@ class EstadoRequisito
         /*
          * Busco recursivamente las propiedades. Por ejemplo, "Titular.NumeroDocumento" se convierte en "$this->getTramite()->getTitular()->getNumeroDocumento()"
          */
-        $Propiedades = explode('.', $Asoc->getCondicionQue());
+        
         $Objeto = $this->getTramite();
+        $Propiedades = explode('.', $Asoc->getCondicionQue());
         $ValorQue = null;
         foreach ($Propiedades as $Propiedad) {
             $NombreMetodo = 'get' . $Propiedad;
-            // echo $NombreMetodo . '; ';
             if (method_exists($Objeto, $NombreMetodo)) {
                 $ValorQue = $Objeto->$NombreMetodo();
                 $Objeto = $ValorQue;
@@ -149,6 +149,7 @@ class EstadoRequisito
                 $ValorQue = null;
                 break;
             }
+            //echo $NombreMetodo . '()=' . $ValorQue . '; ';
         }
         
         $ValorCuanto = $Asoc->getCondicionCuanto();
