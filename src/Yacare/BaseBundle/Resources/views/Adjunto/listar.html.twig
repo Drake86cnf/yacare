@@ -5,18 +5,17 @@
 {% block pagina_contenido %}
 
 {% if entities %}
-<div class="container-fluid">
-<div class="row">
+<div class="container-fluid"><div class="row">
     {% for entity in entities %}
-    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" style="min-height: 256px; max-height: 256px;">
-        <div class="dropdown" astyle="max-width: 100%; overflow-x: hidden">
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2" style="min-height: 256px; max-height: 256px; padding-bottom: 20px;">
+        <div class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><div class="img-thumbnail text-center center" target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}" style="overflow: hidden; min-height: 200px; max-height: 200px;">
             {% if entity.TieneMiniatura %}
             	<img src="{{ entity.NombreArchivoRelativo | imagine_filter('thumb256') }}" alt="{{ entity.Nombre }}" class="img-responsive" />
             {% else %}
             	<img src="{{ entity.Icono }}" alt="{{ entity.Nombre }}" class="img-responsive" />
             {% endif %}
-        </div></a>
+        	</div></a>
             <ul class="dropdown-menu">
                 <li><a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}"><i class="fa fa-folder-open-o fa-fw"></i> Abrir</a></li>
                 <li><a data-toggle="ajax-link" href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
@@ -29,8 +28,7 @@
             </small></div>
     </div>
     {% endfor %}
-</div>
-</div>
+</div></div>
 
 {% else %}
 
