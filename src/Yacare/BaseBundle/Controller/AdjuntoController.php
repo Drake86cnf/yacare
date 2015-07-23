@@ -7,8 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador para gestionar adjuntos asociados a otras entidades.
+ * Controlador para gestionar archivos adjuntos asociados a otras entidades.
  *
+ * Nota: los adjuntos se identifican por token y no por id para evitar nombres predecibles.
+ * 
  * @Route("adjunto/")
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
@@ -16,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
     /**
+     * Muestra una galería de adjuntos.
+     * 
      * @Route("listar/{tipo}/{id}")
      * @Template()
      */
@@ -30,7 +34,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 
     /**
      * @Route("miniatura/{token}")
-     */
+     *
     public function miniaturaAction(Request $request, $token, $ancho = null)
     {
         $em = $this->getDoctrine()->getManager();
@@ -48,10 +52,6 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
             case 'image/png':
             case 'image/gif':
             case 'image/svg':
-                /* $imagemanagerResponse = $this->container->get('liip_imagine.controller')->filterAction($request, $entity->getRutaRelativa() . $entity->getToken(),                 // original image you want to apply a filter to
-                'thumb256')                // filter defined in config.yml
-                ; */
-                
                 // string to put directly in the "src" of the tag <img>
                 $cacheManager = $this->container->get('liip_imagine.cache.manager');
                 $ArchivoImagen = $cacheManager->getBrowserPath($entity->getRutaRelativa() . $entity->getToken(), 
@@ -130,9 +130,12 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
                 'Content-Disposition' => 'filename="' . $entity->getNombre() . '"'));
         
         return $response;
-    }
+    }*/
+
 
     /**
+     * Descargar el archivo adjunto.
+     * 
      * @Route("descargar/{token}")
      */
     public function descargarAction($token)
@@ -157,7 +160,10 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         return $response;
     }
 
+    
     /**
+     * Ver el adjunto.
+     * 
      * @Route("ver/{token}")
      * @Template()
      */
