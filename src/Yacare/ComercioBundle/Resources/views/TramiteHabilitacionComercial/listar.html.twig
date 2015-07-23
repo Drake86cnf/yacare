@@ -26,18 +26,18 @@ block pagina_contenido %}
 			<td class="hidden-sm hidden-xs">{% if entity.Comercio.Local and
 				entity.Comercio.Local.Partida %}{{
 				entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
-			<td>{% if entity.Estado < 10 %} <span class="label label-danger"> {%
-					elseif entity.Estado >= 10 and entity.Estado < 90 %} <span
-					class="label label-primary"> {% elseif entity.Estado == 100 %} <span
-						class="label label-success"> {% else %} <span
-							class="label label-default"> {% endif %} {{ entity.EstadoNombre
-								}}</span> {% if entity.EstaEnCurso %} {% if
-							entity.RequisitosFaltantesCantidad == 0 %} <span
-							class="label label-success"><i class="fa fa-thumbs-up"></i>
-								Requisitos completos</span> {% else %} <span
-							class="label label-default">Faltan {{
-								entity.RequisitosFaltantesCantidad }} requisitos</span> {% endif
-							%} {% endif %} </td>
+			<td>{% if entity.Estado < 10 %}<span class="label label-danger">
+			    {% elseif entity.Estado >= 10 and entity.Estado < 90 %}<span class="label label-primary">
+			    {% elseif entity.Estado == 100 %}<span class="label label-success">
+			    {% else %}<span class="label label-default">
+			    {% endif %}{{ entity.EstadoNombre }}</span>
+				{% if entity.EstaEnCurso %}
+					{% if entity.RequisitosFaltantesCantidad == 0 %}
+						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
+					{% else %}
+						<span class="badge">{{ entity.RequisitosFaltantesCantidad }} de {{ entity.RequisitosObligatoriosCantidad }}</span>
+					{% endif %}
+				{% endif %} </td>
 		</tr>
 		{% endfor %}
 	</tbody>
