@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Yacare\BaseBundle\Model\Tree;
 
 /**
- * Yacare\ComercioBundle\Entity\Actividad
+ * Representa una actividad económica, según ClaMAE 2014.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Actividad")
