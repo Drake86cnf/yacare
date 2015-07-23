@@ -11,20 +11,24 @@
         <div class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><div class="img-thumbnail text-center center" target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}" style="overflow: hidden; min-height: 200px; max-height: 200px;">
             {% if entity.TieneMiniatura %}
-            	<img src="{{ entity.NombreArchivoRelativo | imagine_filter('thumb256') }}" alt="{{ entity.Nombre }}" class="img-responsive" />
+            	<img src="{{ entity.NombreArchivoRelativo | imagine_filter('thumb256') }}" class="img-responsive"
+            		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
+            		alt="Miniatura de {{ entity.Nombre }}" />
             {% else %}
-            	<img src="{{ entity.Icono }}" alt="{{ entity.Nombre }}" class="img-responsive" />
+            	<img src="{{ entity.Icono }}" alt="{{ entity.Nombre }}" class="img-responsive"
+            		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
+            		alt="Miniatura de {{ entity.Nombre }}" />
             {% endif %}
         	</div></a>
             <ul class="dropdown-menu">
                 <li><a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}"><i class="fa fa-folder-open-o fa-fw"></i> Abrir</a></li>
-                <li><a data-toggle="ajax-link" href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
+                <li><a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
             </ul>
         </div>
         <div class="text-muted"><small>Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
             {% if entity.Persona %}
                 por {{ entity.Persona }}.
-            {% endif %} {{ entity.TipoMime }}
+            {% endif %}
             </small></div>
     </div>
     {% endfor %}
