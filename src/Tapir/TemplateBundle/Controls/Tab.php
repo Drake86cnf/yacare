@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\TemplateBundle\Tabs;
+namespace Tapir\TemplateBundle\Controls;
 
 class Tab
 {

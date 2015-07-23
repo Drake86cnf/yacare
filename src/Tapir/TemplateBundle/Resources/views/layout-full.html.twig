@@ -14,7 +14,7 @@
 <link rel="icon" href="{{ asset_url }}">
 {% endimage %}
 
-<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery-2.1.4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.min.js') }}"></script>
 
 <link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}" rel="stylesheet" />
@@ -57,50 +57,57 @@
 		</nav>
 
 		<div id="page-wrapper">
-			{% for type, flashMessages in app.session.flashbag.all() %} {% for
-			flashMessage in flashMessages %}
-			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
-				<button type="button" class="close" data-dismiss="alert">×</button>
-				{{ flashMessage|raw }}
-			</div>
-			{% endfor %} {% endfor %} {% block pagina_inicio %}{% endblock %} {%
-			if not app.request.get('sinencab') %}
+			{% for type, flashMessages in app.session.flashbag.all() %}
+    			{% for flashMessage in flashMessages %}
+    			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
+    				<button type="button" class="close" data-dismiss="alert">×</button>
+    				{{ flashMessage|raw }}
+    			</div>
+    			{% endfor %}
+			{% endfor %}
+			
+			{% block pagina_inicio %}{% endblock %}
+			{% if not app.request.get('sinencab') %}
 			<div id="content-header" class="content-bar-row">
-				{% set block_pagina_titulo = block('pagina_titulo') %} {% if
-				block_pagina_titulo is not empty %}
+				{% set block_pagina_titulo = block('pagina_titulo') %}
+				{% if block_pagina_titulo is not empty %}
 				<div class="content-bar-block-first pull-left">
 					<h1 id="page-title">
 						<a href="#" onclick="return tapirAtras();"><i
 							class="fa fa-chevron-left hidden-print"></i> {{ block_pagina_titulo|raw }}</a>
 					</h1>
 				</div>
-				{% endif %} {% set block_pagina_buscar = block('pagina_buscar') %}
+				{% endif %}
+				{% set block_pagina_buscar = block('pagina_buscar') %}
 				{% if block_pagina_buscar is not empty %}
-				<div class="content-bar-block pull-right hidden-print">{{
-					block_pagina_buscar|raw }}</div>
-				{% endif %} {% set block_pagina_paginar = block('pagina_paginar') %}
+				<div class="content-bar-block pull-right hidden-print">{{ block_pagina_buscar|raw }}</div>
+				{% endif %}
+				{% set block_pagina_paginar = block('pagina_paginar') %}
 				{% if block_pagina_paginar is not empty %}
-				<div class="content-bar-block pull-right hidden-print">{{
-					block_pagina_paginar|raw }}</div>
-				{% endif %} {% set block_pagina_acciones = block('pagina_acciones')
-				%} {% if block_pagina_acciones is not empty %}
-				<div class="content-bar-block pull-right hidden-print">{{
-					block_pagina_acciones|raw }}</div>
+				<div class="content-bar-block pull-right hidden-print">{{ block_pagina_paginar|raw }}</div>
+				{% endif %}
+				{% set block_pagina_acciones = block('pagina_acciones') %}
+				{% if block_pagina_acciones is not empty %}
+				<div class="content-bar-block pull-right hidden-print">{{ block_pagina_acciones|raw }}</div>
 				{% endif %}
 			</div>
 			<div class="clearfix"></div>
-			{% endif %} {% block pagina_contenido %}{% endblock %} {% block
-			pagina_pie %}{% endblock %} {% set block_pagina_acciones2 =
-			block('pagina_acciones2') %} {% if block_pagina_acciones2 is not
-			empty %}
+			{% endif %}
+			
+			{% block pagina_contenido %}{% endblock %}
+			{% block pagina_pie %}{% endblock %}
+			
+			{% set block_pagina_acciones2 = block('pagina_acciones2') %}
+			{% if block_pagina_acciones2 is not empty %}
 			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw
 				}}</div>
-			{% endif %} {% set block_pagina_acciones3 = block('pagina_acciones3')
-			%} {% if block_pagina_acciones3 is not empty %}
+			{% endif %}
+			{% set block_pagina_acciones3 = block('pagina_acciones3') %}
+			{% if block_pagina_acciones3 is not empty %}
 			<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw
 				}}</div>
-			{% endif %} {% block pagina_fin %}{% endblock %}
-
+			{% endif %}
+			{% block pagina_fin %}{% endblock %}
 		</div>
 		<!-- /#page-wrapper -->
 
@@ -112,26 +119,18 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/bootstrap.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
 	{% if app.environment != 'test' %}
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
 	{% endif %}
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
 
     tinymce.init({
@@ -149,9 +148,9 @@
         statusbar: false,
         paste_auto_cleanup_on_paste: true,
         use_callback_tinymce_init: false,
-        jquery_script_url: '{{ asset("bundles/tapirtemplate/js/jquery-2.1.4.min.js") }}'
+        jquery_script_url: '{{ asset("bundles/tapirtemplate/js/jquery.min.js") }}'
      });
 </script>
-	{% block pagina_scripts %}{% endblock %}
+{% block pagina_scripts %}{% endblock %}
 </body>
 </html>

@@ -1,22 +1,43 @@
 <?php
-namespace Tapir\TemplateBundle\Tabs;
+namespace Tapir\TemplateBundle\Controls;
 
+/**
+ * Representa un conjunto de pestañas.
+ */
 class TabSet
 {
+    /**
+     * Un arreglo (array) con Tab().
+     * @var unknown
+     */
     public $Tabs;
+    
+    /**
+     * El estilo, puede ser 'tabs' o 'pills'
+     * @var unknown
+     */
+    public $Style = 'tabs';
+    
     
     public function __construct($Tabs = array()) {
         $this->Tabs = $Tabs;
     }
+
     
-    
-    public function setActive($tabnum, $active) {
-        $this->Tabs[$tabnum]->Active = $active;
+    /**
+     * Establece una pestaña como activa y el resto como inactivas.
+     * 
+     * @param int $tabnum El número de pestaña.
+     */
+    public function setActive($tabnum) {
+        for($i = 0; $i < count($this->Tabs); $i++) {
+            $this->Tabs[$tabnum]->Active = $i == $tabnum;
+        }
     }
     
     
     public function render() {
-        $res = '<ul class="nav nav-pills" role="tablist">';
+        $res = '<ul class="nav nav-' . $this->Style . '" role="tablist">';
         
         foreach($this->Tabs as $tab) {
             $res .= '<li role="presentation" class="' . ($tab->Active ? ' active' : '') . 

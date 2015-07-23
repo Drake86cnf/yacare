@@ -1,8 +1,8 @@
 parameters:
-  tapir_tabset.twig_extension.class: Tapir\TemplateBundle\Twig\TabsExtension
+  tapir_controls.twig_extension.class: Tapir\TemplateBundle\Twig\ControlsExtension
 
 services:
-  tapir_tabset.twig.tabs_extension:
-    class: '%tapir_tabset.twig_extension.class%'
+  tapir_controls.twig.tabs_extension:
+    class: '%tapir_controls.twig_extension.class%'
     tags:
         - { name: twig.extension }

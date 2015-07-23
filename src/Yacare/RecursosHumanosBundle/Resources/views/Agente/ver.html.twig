@@ -1,19 +1,23 @@
-{% extends 'TapirBaseBundle:Default:ver.html.twig' %} {% import
-'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %} {% block
-pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{%
-endif %}{% endblock pagina_titulo %} {% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:ver.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{%endif %}{% endblock pagina_titulo %}
+
+{% block pagina_contenido %}
+{{ bs_tabset(tabs) }}
+&nbsp;
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-8 col-xs-12">{{ bs.grid_label_text('Legajo',
-			'<strong>' ~ entity.id ~ '</strong>') }} {{
-			bs.grid_label_text('Documento', entity.Persona.DocumentoNumero) }} {{
-			bs.grid_label_text('CUIL', entity.Persona.CuiltFormateado) }} {{
-			bs.grid_label_text('Domicilio <i class="fa fa-home fa-fw"></i>',
-			entity.Persona.Domicilio) }} {{ bs.grid_label_text('Teléfono <i
-			class="fa fa-phone fa-fw"></i>', entity.Persona.TelefonoNumero) }} {{
-			bs.grid_label_text('E-mail <i class="fa fa-envelope fa-fw"></i>',
-			entity.Persona.Email) }} {{ bs.grid_label_text('Fecha de nacimiento',
-			entity.Persona.FechaNacimiento|tapir_fecha('medium', 'none')) }}</div>
+		<div class="col-sm-8 col-xs-12">
+		    {{ bs.grid_label_text('Legajo', '<strong>' ~ entity.id ~ '</strong>') }}
+		    {{ bs.grid_label_text('Documento', entity.Persona.DocumentoNumero) }}
+		    {{ bs.grid_label_text('CUIL', entity.Persona.CuiltFormateado) }}
+		    {{ bs.grid_label_text('Domicilio <i class="fa fa-home fa-fw"></i>', entity.Persona.Domicilio) }}
+		    {{ bs.grid_label_text('Teléfono <i class="fa fa-phone fa-fw"></i>', entity.Persona.TelefonoNumero) }}
+		    {{ bs.grid_label_text('E-mail <i class="fa fa-envelope fa-fw"></i>', entity.Persona.Email) }}
+		    {{ bs.grid_label_text('Fecha de nacimiento', entity.Persona.FechaNacimiento|tapir_fecha('medium', 'none')) }}
+		</div>
 		<div class="col-sm-4 hidden-xs">
 			<i class="fa fa-user fa-5x text-muted pull-right"></i>
 		</div>
@@ -21,60 +25,71 @@ endif %}{% endblock pagina_titulo %} {% block pagina_contenido %}
 
 	<hr />
 
-	{{ bs.grid_row() }} {{ bs.grid_col_12() }} {% set depname =
-	entity.Departamento %} {% if entity.Departamento and
-	entity.Departamento.ParentNode %} {% set depname = depname ~ ' <br />'
-	~ entity.Departamento.ParentNode %} {% if
-	entity.Departamento.ParentNode.ParentNode %} {% set depname = depname ~
-	' <br />' ~ entity.Departamento.ParentNode.ParentNode %} {% endif %} {%
-	endif %} {{ bs.grid_label_text('Departamento <i class="fa fa-building
-	fa-fw"></i>', depname) }} {{ bs.grid_label_text('Función',
-	entity.Funcion) }} {{ bs.grid_label_text('Estudios',
-	entity.EstudiosNivelNombre) }} {{ bs.grid_col_12_end() }} {{
-	bs.grid_col_12() }} {% set a='text-danger' %} {{
-	bs.grid_label_text('Categoría', entity.Categoria) }} {{
-	bs.grid_label_text('Situación', entity.SituacionNombre) }} {{
-	bs.grid_label_text('Fecha de ingreso',
-	entity.FechaIngreso|tapir_fecha('medium', 'none')) }} {% if
-	entity.MotivoBaja > 0 %} {{ bs.grid_label_text('Fecha de baja',
-	entity.FechaBaja|tapir_fecha('medium', 'none')) }} {{
-	bs.grid_label_text('Motivo de baja', entity.MotivoBajaNombre) }} {%
-	endif %} {% for Grupo in entity.Grupos %}<span class="label label-info">{{
-		Grupo }}</span> {% endfor %} {{ bs.grid_col_12_end() }} {{
-	bs.grid_row_end() }}
+	{{ bs.grid_row() }}
+	{{ bs.grid_col_12() }}
+	
+	{% set depname = entity.Departamento %}
+	{% if entity.Departamento and entity.Departamento.ParentNode %}
+    	{% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode %}
+    	{% if entity.Departamento.ParentNode.ParentNode %}
+    	    {% set depname = depname ~ ' <br />' ~ entity.Departamento.ParentNode.ParentNode %}
+    	{% endif %}
+	{% endif %}
+	{{ bs.grid_label_text('Departamento <i class="fa fa-building fa-fw"></i>', depname) }}
+	{{ bs.grid_label_text('Función', entity.Funcion) }}
+	{{ bs.grid_label_text('Estudios', entity.EstudiosNivelNombre) }}
+	{{ bs.grid_col_12_end() }}
+	{{ bs.grid_col_12() }}
+	{% set a='text-danger' %}
+	{{ bs.grid_label_text('Categoría', entity.Categoria) }}
+	{{ bs.grid_label_text('Situación', entity.SituacionNombre) }}
+	{{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
+	{% if entity.MotivoBaja > 0 %}
+	    {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
+	    {{ bs.grid_label_text('Motivo de baja', entity.MotivoBajaNombre) }}
+	{% endif %}
+	{% for Grupo in entity.Grupos %}<span class="label label-info">{{ Grupo }}</span> {% endfor %}
+	{{ bs.grid_col_12_end() }}
+	{{ bs.grid_row_end() }}
 </div>
 
 <hr />
+{% endblock pagina_contenido %}
 
-{% endblock pagina_contenido %} {% block pagina_acciones %} {% if
-app.request.get('tapir_modal') %}
-<a data-toggle="ajax-link" class="btn btn-link"
-	href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}"><i
-	class="fa fa-print"></i> Versión para imprimir</a>
-<button data-dismiss="modal" class="btn btn-link pull-right">
-	<i class="fa fa-reply"></i> Volver
-</button>
-{% else %}
-<a data-toggle="ajax-link" class="btn btn-link pull-right"
-	href="{{ path(baseroute ~ '_listar', arrastre) }}"><i
-	class="fa fa-reply"></i> Volver</a>
-{% endif %} {% endblock pagina_acciones %} {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" class="btn btn-primary"
-	href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i
-	class="fa fa-edit"></i> Editar agente</a>
-<a data-toggle="ajax-link" class="btn btn-primary"
-	href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
-	class="fa fa-edit"></i> Editar persona</a>
-{% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %} {% if
-entity.Persona.Username %}
-<a data-toggle="ajax-link" class="btn btn-primary"
-	href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
-	class="fa fa-user"></i> Editar perfil</a>
-<a data-toggle="modal" class="btn btn-default"
-	href="{{ path('usuario_cambiarcontrasena', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
-	class="fa fa-key"></i> Cambiar contraseña</a>
-{% else %}
-<a data-toggle="ajax-link" class="btn btn-primary"
-	href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
-	class="fa fa-user"></i> Crear perfil</a>
-{% endif %} {% endif %} {% endblock pagina_acciones2 %}
+{% block pagina_acciones %}
+    {% if app.request.get('tapir_modal') %}
+        <a data-toggle="ajax-link" class="btn btn-link"
+        	href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}"><i
+        	class="fa fa-print"></i> Versión para imprimir</a>
+        <button data-dismiss="modal" class="btn btn-link pull-right">
+        	<i class="fa fa-reply"></i> Volver
+        </button>
+    {% else %}
+        <a data-toggle="ajax-link" class="btn btn-link pull-right"
+        	href="{{ path(baseroute ~ '_listar', arrastre) }}"><i
+        	class="fa fa-reply"></i> Volver</a>
+    {% endif %}
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    <a data-toggle="ajax-link" class="btn btn-primary"
+    	href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i
+    	class="fa fa-edit"></i> Editar agente</a>
+    <a data-toggle="ajax-link" class="btn btn-primary"
+    	href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
+    	class="fa fa-edit"></i> Editar persona</a>
+    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+        {% if entity.Persona.Username %}
+            <a data-toggle="ajax-link" class="btn btn-primary"
+            	href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
+            	class="fa fa-user"></i> Editar perfil</a>
+            <a data-toggle="modal" class="btn btn-default"
+            	href="{{ path('usuario_cambiarcontrasena', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
+            	class="fa fa-key"></i> Cambiar contraseña</a>
+        {% else %}
+            <a data-toggle="ajax-link" class="btn btn-primary"
+            	href="{{ path('usuario_editarperfil', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
+            	class="fa fa-user"></i> Crear perfil</a>
+        {% endif %}
+    {% endif %}
+{% endblock pagina_acciones2 %}

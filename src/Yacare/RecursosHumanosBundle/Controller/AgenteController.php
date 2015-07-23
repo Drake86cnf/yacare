@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("agente/")
+ * @Route("agente/")
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 {
@@ -28,6 +28,35 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         
         $this->OrderBy = 'p.NombreVisible';
     }
+    
+    
+    /**
+     * @Route("ver/{id}")
+     * @Template()
+     */
+    public function verAction(Request $request, $id = null)
+    {
+        $res = parent::verAction($request, $id);
+        
+        $res['tabs'] = $this->ObtenerPestanias($request, 'ver', $id);
+        
+        return $res;
+    }
+    
+    
+    /**
+     * @Route("editar/{id}")
+     * @Template()
+     */
+    public function editarAction(Request $request, $id = null)
+    {
+        $res = parent::editarAction($request, $id);
+    
+        $res['tabs'] = $this->ObtenerPestanias($request, 'editar', $id);
+    
+        return $res;
+    }
+    
 
     /**
      * @Route("volcar/")
@@ -58,6 +87,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         $ldap = null;
         return $res;
     }
+    
 
     /**
      * Actualizo el servidor de dominio al editar el agente.
@@ -71,4 +101,15 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         return;
     }
+    
+    
+
+    public function ObtenerPestanias($request, $actual, $id) {
+        return new \Tapir\TemplateBundle\Controls\TabSet(
+            array(
+                new \Tapir\TemplateBundle\Controls\Tab('General', $this->generateUrl($this->ObtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'),
+                new \Tapir\TemplateBundle\Controls\Tab('Editar', $this->generateUrl($this->ObtenerRutaBase('editar'), $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'editar')
+            ));
+    }
+
 }
