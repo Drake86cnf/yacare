@@ -14,52 +14,34 @@ trait ConAdjuntos
         
         $Archivos = $editForm->get('Adjuntos')->getData();
         
+        if (count($Archivos) == 1) {
+            $Archivos = $Archivos[0];
+        }
+        
         if ($Archivos && count($Archivos) > 0) {
-            $NombresAdjuntados = null;
+            $NombresAdjuntados = array();
             foreach ($Archivos as $Archivo) {
                 if ($Archivo) {
-                    if(count($Archivo) > 0) {
-                        foreach($Archivo as $Subarchivo) {
-                            $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Subarchivo);
-                            
-                            $Adjunto->setPersona(
-                                $this->get('security.token_storage')
-                                ->getToken()
-                                ->getUser());
-                            
-                            $entity->getAdjuntos()->add($Adjunto);
-                            if ($NombresAdjuntados) {
-                                $NombresAdjuntados .= ', "' . (string) $Adjunto . '"';
-                            } else {
-                                $NombresAdjuntados = '"' . (string) $Adjunto . '"';
-                            }
-                        }
-                    } else {
-                        $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
-                        
-                        $Adjunto->setPersona(
-                            $this->get('security.token_storage')
-                                ->getToken()
-                                ->getUser());
-                        
-                        $entity->getAdjuntos()->add($Adjunto);
-                        if ($NombresAdjuntados) {
-                            $NombresAdjuntados .= ', "' . (string) $Adjunto . '"';
-                        } else {
-                            $NombresAdjuntados = '"' . (string) $Adjunto . '"';
-                        }
-                    }
+                    $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
+                    
+                    $Adjunto->setPersona(
+                        $this->get('security.token_storage')
+                            ->getToken()
+                            ->getUser());
+                    
+                    $entity->getAdjuntos()->add($Adjunto);
+                    $NombresAdjuntados[] = '"' . (string) $Adjunto . '"';
                 }
             }
             
-            if (count($Archivos) == 1 && $NombresAdjuntados) {
+            if (count($NombresAdjuntados) == 1) {
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('success', 'Se adjuntó el archivo ' . $NombresAdjuntados . '.');
-            } elseif (count($Archivos) > 1) {
+                    ->add('success', 'Se adjuntó el archivo ' . implode(',', $NombresAdjuntados) . '.');
+            } elseif (count($NombresAdjuntados) > 1) {
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('success', 'Se adjuntaron los archivos ' . $NombresAdjuntados . '.');
+                    ->add('success', 'Se adjuntaron los archivos ' . implode(',', $NombresAdjuntados) . '.');
             }
         }
     }

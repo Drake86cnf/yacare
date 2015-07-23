@@ -15,14 +15,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
-
     /**
      * @Route("listar/{tipo}/{id}")
      * @Template()
      */
     public function listarAction(Request $request, $tipo, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         
         $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(array('EntidadTipo' => $tipo,'EntidadId' => $id));
         
@@ -36,8 +35,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(
-            array('Token' => $token));
+        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede cargar la entidad.');
