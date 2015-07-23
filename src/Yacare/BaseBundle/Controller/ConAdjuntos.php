@@ -18,18 +18,36 @@ trait ConAdjuntos
             $NombresAdjuntados = null;
             foreach ($Archivos as $Archivo) {
                 if ($Archivo) {
-                    $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
-                    
-                    $Adjunto->setPersona(
-                        $this->get('security.token_storage')
-                            ->getToken()
-                            ->getUser());
-                    
-                    $entity->getAdjuntos()->add($Adjunto);
-                    if ($NombresAdjuntados) {
-                        $NombresAdjuntados .= ', "' . (string) $Adjunto . '"';
+                    if(count($Archivo) > 0) {
+                        foreach($Archivo as $Subarchivo) {
+                            $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Subarchivo);
+                            
+                            $Adjunto->setPersona(
+                                $this->get('security.token_storage')
+                                ->getToken()
+                                ->getUser());
+                            
+                            $entity->getAdjuntos()->add($Adjunto);
+                            if ($NombresAdjuntados) {
+                                $NombresAdjuntados .= ', "' . (string) $Adjunto . '"';
+                            } else {
+                                $NombresAdjuntados = '"' . (string) $Adjunto . '"';
+                            }
+                        }
                     } else {
-                        $NombresAdjuntados = '"' . (string) $Adjunto . '"';
+                        $Adjunto = new \Yacare\BaseBundle\Entity\Adjunto($entity, $Archivo);
+                        
+                        $Adjunto->setPersona(
+                            $this->get('security.token_storage')
+                                ->getToken()
+                                ->getUser());
+                        
+                        $entity->getAdjuntos()->add($Adjunto);
+                        if ($NombresAdjuntados) {
+                            $NombresAdjuntados .= ', "' . (string) $Adjunto . '"';
+                        } else {
+                            $NombresAdjuntados = '"' . (string) $Adjunto . '"';
+                        }
                     }
                 }
             }
