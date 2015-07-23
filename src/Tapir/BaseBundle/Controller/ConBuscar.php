@@ -16,7 +16,6 @@ trait ConBuscar
     /**
      * Acción de mostrar el buscador.
      *
-     * @see buscarresultadosAction()
      * @Route("buscar/")
      * @Template()
      */
