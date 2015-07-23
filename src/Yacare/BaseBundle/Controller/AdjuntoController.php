@@ -20,12 +20,11 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      * @Route("listar/{tipo}/{id}")
      * @Template()
      */
-    public function listarAction($tipo, $id)
+    public function listarAction(Request $request, $tipo, $id)
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
-            array('EntidadTipo' => $tipo,'EntidadId' => $id));
+        $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(array('EntidadTipo' => $tipo,'EntidadId' => $id));
         
         return $this->ArrastrarVariables($request, array('entities' => $entities));
     }
