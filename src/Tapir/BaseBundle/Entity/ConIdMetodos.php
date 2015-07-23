@@ -10,7 +10,7 @@ use Tapir\BaseBundle\Helper\Damm;
  *
  * @see ConId
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConIdMetodos
 {

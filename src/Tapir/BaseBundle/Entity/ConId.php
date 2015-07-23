@@ -11,7 +11,7 @@ use Tapir\BaseBundle\Helper\Damm;
  *
  * @see ConIdMetodos
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConId
 {

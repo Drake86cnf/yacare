@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Repositorio de requerimientos.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class RequerimientoRepository extends \Tapir\BaseBundle\Entity\TapirBaseRepository
 {

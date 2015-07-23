@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Acta.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
  *         @ORM\Table(name="Inspeccion_Acta")
  *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

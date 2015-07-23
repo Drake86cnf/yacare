@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Agrega la capacidad de tener un número de decreto asociado.
  * 
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConDecreto
 {

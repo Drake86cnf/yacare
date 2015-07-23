@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Agrega una columna de nombre a una entidad y sus métodos (getter y setter).
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConNombre
 {

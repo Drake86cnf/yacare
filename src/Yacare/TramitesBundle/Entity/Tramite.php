@@ -11,14 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- *         @ORM\Table(name="Tramites_Tramite")
- *         @ORM\InheritanceType("JOINED")
- *         @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
- *         @ORM\DiscriminatorMap({
- *         "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
- *         "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat"
- *         })
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Tramites_Tramite")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
+ * @ORM\DiscriminatorMap({
+ *   "\Yacare\TramitesBundle\Entity\TramiteSimple" = "\Yacare\TramitesBundle\Entity\TramiteSimple",
+ *   "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
+ *   "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat"
+ * })
  */
 abstract class Tramite
 {

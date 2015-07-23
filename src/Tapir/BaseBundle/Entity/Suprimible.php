@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @see Eliminable
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait Suprimible
 {

@@ -15,7 +15,7 @@ use Zend\Cache\Pattern\ObjectCache;
  * @see \Tapir\BaseBundle\Entity\Eliminable
  * @see \Tapir\BaseBundle\Entity\Suprimible
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConEliminar
 {

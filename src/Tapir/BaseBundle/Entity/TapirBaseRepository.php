@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
  * @see Archivable
  * @see ConNombre
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class TapirBaseRepository extends EntityRepository
 {

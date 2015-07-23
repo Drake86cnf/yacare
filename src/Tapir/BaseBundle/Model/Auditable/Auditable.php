@@ -4,7 +4,7 @@ namespace Tapir\BaseBundle\Model\Auditable;
 /**
  * Agrega a una entidad la capacidad de registrar modificaciones en una tabla de auditoria.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait Auditable
 {

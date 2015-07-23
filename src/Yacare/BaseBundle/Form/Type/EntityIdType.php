@@ -13,7 +13,7 @@ use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 /**
  * Campo de entidad con selcción por buscador.
  *
- * @author Ernesto N. Carrea <equistango@gmail.com>
+ * @author Ernesto N. Carrea <ernestocarrea@gmail.com>
  * @author Gregwar <g.passault@gmail.com>
  */
 class EntityIdType extends AbstractType

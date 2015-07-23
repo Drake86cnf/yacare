@@ -10,13 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
  * resultado de un trámite.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Tramites_Comprobantes")
+ * @ORM\Table(name="Tramites_Comprobante")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ComprobanteTipo", type="string")
  * @ORM\DiscriminatorMap({
- * "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial",
- * "\Yacare\ObrasParticularesBundle\Entity\Cat" = "\Yacare\ObrasParticularesBundle\Entity\Cat"
+ *   "\Yacare\TramitesBundle\Entity\ComprobanteSimple" = "\Yacare\TramitesBundle\Entity\ComprobanteSimple",
+ *   "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial",
+ *   "\Yacare\ObrasParticularesBundle\Entity\Cat" = "\Yacare\ObrasParticularesBundle\Entity\Cat"
  * })
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 abstract class Comprobante
 {

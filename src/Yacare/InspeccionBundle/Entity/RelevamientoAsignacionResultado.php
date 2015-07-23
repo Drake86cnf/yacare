@@ -9,7 +9,7 @@ use Knp\DoctrineBehaviors\DBAL\Types;
  *
  * @see RelevamientoAsignacion
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
  *         @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
  *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

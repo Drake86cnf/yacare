@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * Esta clase está basada en el trabajo de KnpDoctrineBehaviors de KnpLabs <http://knplabs.com/>
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait Node
 {

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * personas, que todas las entidades que representan personas (por ejemplo
  * Usuario, Agente, Proveedor, etc.) deben encapsular.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
  *         @ORM\Table(name="Base_Persona", uniqueConstraints={
  *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})},

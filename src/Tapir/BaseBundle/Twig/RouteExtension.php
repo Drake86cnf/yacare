@@ -4,7 +4,7 @@ namespace Tapir\BaseBundle\Twig;
 /**
  * Extensión de Twig que implementa una función para saber si una ruta existe.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class RouteExtension
 {

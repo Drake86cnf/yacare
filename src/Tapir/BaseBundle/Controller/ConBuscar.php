@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Para ello se deben implementar las vistas "buscar" y "buscarresultados"
  * para la entidad que este controlador controla.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConBuscar
 {
