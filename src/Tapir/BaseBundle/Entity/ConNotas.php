@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Las notas son similares a las observaciones.
  *
  * @see ConObs
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConNotas
 {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Agrega una columna de observaciones y sus métodos (getter y setter) a una entidad.
  *
  * @see ConNotas
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConObs
 {

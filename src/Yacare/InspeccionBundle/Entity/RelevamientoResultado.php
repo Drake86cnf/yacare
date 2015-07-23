@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @see RelevamientoAsignacionResultado
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
  *         @ORM\Table("Inspeccion_RelevamientoResultado")
  *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

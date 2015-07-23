@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Agrega un campo "Version" y que se inicia en 1 durante la creación de la
  * entidad y se incrementa en uno en cada actualización.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait Versionable
 {

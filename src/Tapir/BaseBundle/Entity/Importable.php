@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Agrega los campos (y métodos) para hacer seguimiento de registros importados
  * desde otra fuente de datos.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait Importable
 {

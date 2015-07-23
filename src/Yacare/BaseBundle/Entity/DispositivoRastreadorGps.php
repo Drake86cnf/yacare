@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Yacare\BaseBundle\Entity\DispositivoRastreadorGps
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
  *         @ORM\Table(name="Base_DispositivoRastreadorGps")
  *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

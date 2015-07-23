@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Los domicilios locales, a diferencia de los comunes, están asociados a una
  * calle por su ID y no por su nombre.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConDomicilioLocal
 {

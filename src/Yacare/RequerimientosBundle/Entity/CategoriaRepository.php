@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Repositorio de categorías.
  *
- * @author Ernesto Carrea <equistango@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class CategoriaRepository extends \Tapir\BaseBundle\Entity\TapirBaseRepository
 {
