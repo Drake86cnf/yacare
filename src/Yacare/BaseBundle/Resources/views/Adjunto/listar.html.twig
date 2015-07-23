@@ -24,7 +24,7 @@
         <div class="text-muted"><small>Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
             {% if entity.Persona %}
                 por {{ entity.Persona }}.
-            {% endif %}
+            {% endif %} {{ entity.TipoMime }}
             </small></div>
     </div>
     {% endfor %}

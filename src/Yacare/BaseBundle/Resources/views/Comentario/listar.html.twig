@@ -7,10 +7,11 @@
 
 {% block pagina_contenido %}
 
-<div class="container">
+<div class="container-fluid">
     {% for entity in entities %}
         <div class="row">
-            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ entity.Persona }}</small></div>
+            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br />
+            	<small>{{ entity.Persona.NombreAmigable }}</small></div>
             <div class="col-sm-10">{{ entity.Obs }}<br />
                 <small><abbr title="{{ entity.createdAt|tapir_fecha() }}" class="text-muted">{{ entity.createdAt|tapir_hacetiempo }}</abbr></small></div>
         </div>
@@ -18,7 +19,8 @@
     {% endfor %}
     {{ form_start(form_comentario, {'attr':{'class': 'form-horizontal', 'id': 'form_comentario'}}) }}
         <div class="row">
-            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br /><small>{{ app.user }}</small></div>
+            <div class="col-sm-2 text-center"><i class="fa fa-user fa-2x text-left"></i><br />
+            	<small>{{ app.user.NombreAmigable }}</small></div>
             <div class="col-sm-10" id="nuevocomentario">{{ form_widget(form_comentario.Obs, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}</div></span>
         </div>
         <script>
