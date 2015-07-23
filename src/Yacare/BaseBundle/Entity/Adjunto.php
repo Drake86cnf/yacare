@@ -55,6 +55,105 @@ class Adjunto
     {
         return 'adjuntos/' . $this->getCarpeta() . '/';
     }
+    
+    public function getNombreArchivoRelativo()
+    {
+        if($this->TieneMiniatura()) {
+            return $this->getRutaRelativa() . $this->getToken();
+        } else {
+            return $this->getIcono();
+        }
+    }
+    
+    public function getIcono() {
+        switch ($this->getTipoMime()) {
+            case 'image/jpg':
+            case 'image/jpeg':
+            case 'image/png':
+            case 'image/gif':
+            case 'image/svg':
+                return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-jpg.png';
+                break;
+            case 'application/pdf':
+                return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-pdf.png';
+                break;
+            case 'text/plain':
+                return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-plain.png';
+                break;
+            default:
+                $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
+                switch ($Extension) {
+                    case 'pdf':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-pdf.png';
+                        break;
+                    case 'txt':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-plain.png';
+                        break;
+                    case 'doc':
+                    case 'docx':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-msword.png';
+                        break;
+                    case 'rtf':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-rtf.png';
+                        break;
+                    case 'zip':
+                    case 'rar':
+                    case '7z':
+                    case 'tgz':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-x-archive.png';
+                        break;
+                    case 'xml':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-xml.png';
+                        break;
+                    case 'wav':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/audio-x-wav.png';
+                        break;
+                    case 'csv':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-csv.png';
+                        break;
+                    case 'htm':
+                    case 'html':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-html.png';
+                        break;
+                    case 'rtf':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-rtf.png';
+                        break;
+                    case 'xls':
+                    case 'xlsx':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.ms-excel.png';
+                        break;
+                    case 'ods':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/x-office-spreadsheet.png';
+                        break;
+                    case 'odt':
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png';
+                        break;
+                    default:
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/unknown.png';
+                        break;
+                }
+                break;
+        }
+    }
+    
+    
+    public function EsImagen() {
+        switch ($this->getTipoMime()) {
+            case 'image/jpg':
+            case 'image/jpeg':
+            case 'image/png':
+            case 'image/gif':
+            case 'image/svg':
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    public function TieneMiniatura() {
+        return $this->EsImagen();
+    }
+    
 
     public function SubirArchivo($Archivo)
     {
