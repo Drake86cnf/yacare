@@ -1,3 +1,9 @@
-{% extends 'TapirBaseBundle:Default:editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %}Agente{{ entity }}{% else %}Nuevo
-agente{% endif %}{% endblock %}
+{% extends 'TapirBaseBundle:Default:editar.html.twig' %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo agente{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+    {{ bs_tabset(tabs) }}
+	&nbsp;
+    {{ parent() }}
+{% endblock %}
