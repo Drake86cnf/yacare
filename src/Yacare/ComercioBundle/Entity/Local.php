@@ -43,6 +43,7 @@ class Local
      */
     protected $DepositoClase;
 
+
     public function setPartida($Partida)
     {
         $this->Partida = $Partida;
