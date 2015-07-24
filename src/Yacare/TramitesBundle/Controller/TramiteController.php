@@ -41,6 +41,10 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
         
         $EstadoRequisito = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\EstadoRequisito')->find($reqid);
         $EstadoRequisito->setEstado($estado);
+        
+        if ($EstadoRequisito->getEstado() == 100) {
+            $EstadoRequisito->setFechaAprobado(new \DateTime());
+        }
         $em->persist($EstadoRequisito);
         
         $em->flush();

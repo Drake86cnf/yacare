@@ -47,7 +47,7 @@ class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmControll
 
     public function guardarActionPrePersist($entity, $editForm)
     {
-        if ($entity->getEstado() == 100 && ! $entity->getFechaAprobado()) {
+        if ($entity->getEstado() == 100) {
             // Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
             $entity->setFechaAprobado(new \DateTime());
         }
