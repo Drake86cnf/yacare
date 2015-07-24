@@ -52,19 +52,13 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div role="navigation" id="menuprincipal"
-				class="collapse navbar-collapse">{% include tapir_menu %}</div>
+				class="collapse navbar-collapse">
+				{% include tapir_menu %}
+			</div>
 			<!-- /.navbar-collapse -->
 		</nav>
 
 		<div id="page-wrapper">
-			{% for type, flashMessages in app.session.flashbag.all() %}
-    			{% for flashMessage in flashMessages %}
-    			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
-    				<button type="button" class="close" data-dismiss="alert">×</button>
-    				{{ flashMessage|raw }}
-    			</div>
-    			{% endfor %}
-			{% endfor %}
 			
 			{% block pagina_inicio %}{% endblock %}
 			{% if not app.request.get('sinencab') %}
@@ -96,6 +90,15 @@
 			
 			{% block pagina_contenido %}{% endblock %}
 			{% block pagina_pie %}{% endblock %}
+			
+			{% for type, flashMessages in app.session.flashbag.all() %}
+    			{% for flashMessage in flashMessages %}
+    			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
+    				<button type="button" class="close" data-dismiss="alert">×</button>
+    				{{ flashMessage|raw }}
+    			</div>
+    			{% endfor %}
+			{% endfor %}
 			
 			{% set block_pagina_acciones2 = block('pagina_acciones2') %}
 			{% if block_pagina_acciones2 is not empty %}
