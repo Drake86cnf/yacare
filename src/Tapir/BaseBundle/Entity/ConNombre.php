@@ -21,7 +21,7 @@ trait ConNombre
      * entidad, por ejemplo "Comprobante Nº 32".
      *
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Debe proporcionar un nombre.")
+     * Assert\NotBlank(message="Debe proporcionar un nombre.")
      */
     private $Nombre;
 
