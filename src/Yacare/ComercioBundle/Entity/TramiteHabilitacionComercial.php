@@ -14,6 +14,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
     use \Yacare\TramitesBundle\Entity\ConApoderado;
     
     public function __construct() {
+        parent::__construct();
         $this->Nombre = 'Habilitación comercial';
     }
 
