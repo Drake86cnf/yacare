@@ -366,7 +366,11 @@ abstract class AbmController extends BaseController
         
         $typeName = $this->obtenerFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
-        $deleteForm = $this->crearFormEliminar($id);
+        if($id) {
+            $deleteForm = $this->crearFormEliminar($id);
+        } else {
+            $deleteForm = null;
+        }
         
         return $this->ArrastrarVariables($request, 
             array(
@@ -408,7 +412,12 @@ abstract class AbmController extends BaseController
         $typeName = $this->obtenerFormType();
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->handleRequest($request);
-        
+        if($id) {
+            $deleteForm = $this->crearFormEliminar($id);
+        } else {
+            $deleteForm = null;
+        }
+
         $errors = $this->guardarActionPreBind($entity);
         
         if (! $errors) {
@@ -429,7 +438,7 @@ abstract class AbmController extends BaseController
                 $errors = $validator->validate($entity);
             }
         }
-        
+
         if ($errors) {
             $deleteForm = $this->crearFormEliminar($id);
             
