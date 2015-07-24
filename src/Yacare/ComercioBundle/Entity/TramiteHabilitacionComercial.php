@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
+    
+    public function __construct() {
+        $this->Nombre = 'Habilitación comercial';
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
@@ -20,12 +24,14 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
     protected $Comercio;
 
     /**
+     * Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad
+     * seleccionada.
      *
-     * @var string @ORM\Column(type="integer", nullable=true)
-     *     
-     *      Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
+     * @var string
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $UsoSuelo;
+    
 
     public function getInmueble()
     {
