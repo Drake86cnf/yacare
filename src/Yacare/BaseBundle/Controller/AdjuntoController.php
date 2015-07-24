@@ -167,7 +167,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      * @Route("ver/{token}")
      * @Template()
      */
-    public function verAction($token)
+    public function verAction(Request $request, $token)
     {
         $em = $this->getDoctrine()->getManager();
         
