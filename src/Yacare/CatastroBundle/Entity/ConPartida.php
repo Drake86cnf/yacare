@@ -4,11 +4,10 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ConPartida
+ * Agrega la capacidad de estar asociado a una partida inmobiliaria.
  */
 trait ConPartida
 {
-
     /**
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Partida")
      * @ORM\JoinColumn(nullable=true)
