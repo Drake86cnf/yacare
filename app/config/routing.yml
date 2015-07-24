@@ -8,11 +8,6 @@ tapir_base:
     type:     annotation
     prefix:   /tapir/base/
 
-tapir_annotation:
-    resource: "@TapirAnnotationBundle/Controller/"
-    type:     annotation
-    prefix:   /tapir/annotation
-
 app:
     resource: "routing_app.yml"
 
