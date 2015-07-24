@@ -5,5 +5,4 @@ use Doctrine\Common\Annotations\AnnotationReader;
 
 class AnnoReader extends AnnotationReader
 {
-	
 }
