@@ -782,7 +782,7 @@ WHERE rnum >" . $desde . "
             $entity->setCategoria($Row['categoria']);
             $entity->setSituacion($Row['situacion']);
             $entity->setFuncion(StringHelper::Desoraclizar($Row['funcion']));
-            $entity->setMotivoBaja($Row['motivo']);
+            $entity->setBajaMotivo($Row['motivo']);
             
             $entity->setEstudiosNivel($Row['estudios']);
             if ($Row['titulo'] == 999) {
@@ -809,12 +809,14 @@ WHERE rnum >" . $desde . "
             }
             
             if (is_null($Row['fechabaja']) || $Row['fechabaja'] === '0000-00-00') {
-                $entity->setFechaBaja(null);
-                $entity->setSuprimido(false);
+                $entity->setBajaFecha(null);
+                $entity->setArchivado(false);
             } else {
-                $entity->setFechaBaja(new \DateTime($Row['fechabaja']));
-                $entity->setSuprimido(true);
+                $entity->setBajaFecha(new \DateTime($Row['fechabaja']));
+                $entity->setArchivado(true);
             }
+            
+            $entity->setSuprimido(false);
             
             $em->persist($entity);
             $em->flush();

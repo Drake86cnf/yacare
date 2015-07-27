@@ -25,6 +25,7 @@ class Agente
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Archivable;
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -101,12 +102,12 @@ class Agente
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
-    private $FechaBaja;
+    private $BajaFecha;
 
     /**
      * El motivo de la baja, o 0 si está activo.
      *
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $BajaMotivo;
 
@@ -127,8 +128,9 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
 
@@ -137,21 +139,21 @@ class Agente
      *
      * @ORM\Column(type="boolean")
      */
-    private $ExCombatiente;
+    private $ExCombatiente = 0;
 
     /**
      * Indica si es discapacitado.
      *
      * @ORM\Column(type="boolean")
      */
-    private $Discapacitado;
+    private $Discapacitado = 0;
 
     /**
      * Indica cuál es la mano habil (0 = derecha, 1 = izquierda).
      *
      * @ORM\Column(type="smallint")
      */
-    private $ManoHabil;
+    private $ManoHabil = 0;
 
     /**
      * La fecha de nacionalización.
@@ -187,18 +189,18 @@ class Agente
     /**
      * La fecha de certificado de buena conducta.
      *
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
-    private $CertificadoBuenaConducta;
+    private $FechaCertificadoBuenaConducta;
 
     /**
      * La fecha de certificado de antecedentes penales.
      *
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
-    private $CertificadoAntecedentesPenales;
+    private $FechaCertificadoAntecedentesPenales;
 
     /**
      * La fecha de certificado de domicilio.
@@ -206,7 +208,7 @@ class Agente
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
-    private $CertificadoDomicilio;
+    private $FechaCertificadoDomicilio;
 
     /**
      * El cargo del agente.
@@ -295,7 +297,7 @@ class Agente
     /**
      * El horario de ingreso.
      * 
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $HorarioIngreso;
@@ -303,7 +305,7 @@ class Agente
     /**
      * El horario de salida.
      *
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $HorarioSalida;
@@ -311,18 +313,18 @@ class Agente
     /**
      * El horario de ingreso del segundo tramo.
      *
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
-    private $SegundoHorarioIngreso;
+    private $Horario2Ingreso;
     
     /**
      * El horario de salida del segundo tramo.
      *
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
-    private $SegundoHorarioSalida;
+    private $Horario2Salida;
 
     public function __toString()
     {
@@ -451,608 +453,83 @@ class Agente
     {
         return Agente::EstudiosNivelesNombres($this->getEstudiosNivel());
     }
+    
+    // *** Getters y setters
 
-    /**
-     *
-     * @ignore
-     *
-     */
+    public function getGrupos()
+    {
+        return $this->Grupos;
+    }
+
+    public function setGrupos($Grupos)
+    {
+        $this->Grupos = $Grupos;
+        return $this;
+    }
+
     public function getPersona()
     {
         return $this->Persona;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function setPersona($Persona)
     {
         $this->Persona = $Persona;
         return $this;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function getCategoria()
     {
         return $this->Categoria;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function setCategoria($Categoria)
     {
         $this->Categoria = $Categoria;
         return $this;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function getSituacion()
     {
         return $this->Situacion;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function setSituacion($Situacion)
     {
         $this->Situacion = $Situacion;
         return $this;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function getFuncion()
     {
         return $this->Funcion;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function setFuncion($Funcion)
     {
         $this->Funcion = $Funcion;
         return $this;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function getFechaIngreso()
     {
         return $this->FechaIngreso;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
     public function setFechaIngreso($FechaIngreso)
     {
         $this->FechaIngreso = $FechaIngreso;
         return $this;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getFechaBaja()
+    public function getBajaFecha()
     {
-        return $this->FechaBaja;
+        return $this->BajaFecha;
     }
 
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setFechaBaja($FechaBaja)
+    public function setBajaFecha($BajaFecha)
     {
-        $this->FechaBaja = $FechaBaja;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getMotivoBaja()
-    {
-        return $this->MotivoBaja;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setMotivoBaja($MotivoBaja)
-    {
-        $this->MotivoBaja = $MotivoBaja;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDepartamento()
-    {
-        return $this->Departamento;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDepartamento($Departamento)
-    {
-        $this->Departamento = $Departamento;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getEstudiosNivel()
-    {
-        return $this->EstudiosNivel;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setEstudiosNivel($EstudiosNivel)
-    {
-        $this->EstudiosNivel = $EstudiosNivel;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getEstudiosTitulo()
-    {
-        return $this->EstudiosTitulo;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setEstudiosTitulo($EstudiosTitulo)
-    {
-        $this->EstudiosTitulo = $EstudiosTitulo;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getGrupos()
-    {
-        return $this->Grupos;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setGrupos($Grupos)
-    {
-        $this->Grupos = $Grupos;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCertificadoBuenaConducta($CertificadoBuenaConducta)
-    {
-        return $this->CertificadoBuenaConducta = $CertificadoBuenaConducta;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCertificadoBuenaConducta()
-    {
-        return $this->CertificadoBuenaConducta;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCertificadoAntecedentesPenales($CertificadoAntecedentesPenales)
-    {
-        return $this->CertificadoAntecedentesPenales = $CertificadoAntecedentesPenales;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCertificadoAntecedentesPenales()
-    {
-        return $this->CertificadoAntecedentesPenales;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCertificadoDomicilio($CertificadoDomicilio)
-    {
-        return $this->CertificadoDomicilio = $CertificadoDomicilio;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCertificadoDomicilio()
-    {
-        return $this->CertificadoDomicilio;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCargo($Cargo)
-    {
-        return $this->Cargo = $Cargo;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCargo()
-    {
-        return $this->Cargo;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getSectorParteDiario()
-    {
-        return $this->SectorParteDiario;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setSectorParteDiario($SectorParteDiario)
-    {
-        $this->SectorParteDiario = $SectorParteDiario;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDentroParte()
-    {
-        return $this->DentroParte;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDentroParte($DentroParte)
-    {
-        $this->DentroParte = $DentroParte;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getApareceEnParte()
-    {
-        return $this->ApareceEnParte;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setApareceEnParte($ApareceEnParte)
-    {
-        $this->ApareceEnParte = $ApareceEnParte;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getMarcaEnReloj()
-    {
-        return $this->MarcaEnReloj;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setMarcaEnReloj($MarcaEnReloj)
-    {
-        $this->MarcaEnReloj = $MarcaEnReloj;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getBanco()
-    {
-        return $this->Banco;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setBanco($Banco)
-    {
-        $this->Banco = $Banco;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getNumeroCuentaBanco()
-    {
-        return $this->NumeroCuentaBanco;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setNumeroCuentaBanco($NumeroCuentaBanco)
-    {
-        $this->NumeroCuentaBanco = $NumeroCuentaBanco;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCBUCuentaAgente()
-    {
-        return $this->CBUCuentaAgente;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCBUCuentaAgente($CBUCuentaAgente)
-    {
-        $this->CBUCuentaAgente = $CBUCuentaAgente;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getExCombatiente()
-    {
-        return $this->ExCombatiente;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setExCombatiente($ExCombatiente)
-    {
-        $this->ExCombatiente = $ExCombatiente;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDiscapacitado()
-    {
-        return $this->Discapacitado;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDiscapacitado($Discapacitado)
-    {
-        $this->Discapacitado = $Discapacitado;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getManoHabil()
-    {
-        return $this->ManoHabil;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setManoHabil($ManoHabil)
-    {
-        $this->ManoHabil = $ManoHabil;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getFechaNacionalizacion()
-    {
-        return $this->FechaNacionalizacion;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setFechaNacionalizacion($FechaNacionalizacion)
-    {
-        $this->FechaNacionalizacion = $FechaNacionalizacion;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getUltimaActualizacionDomicilio()
-    {
-        return $this->UltimaActualizacionDomicilio;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setUltimaActualizacionDomicilio($UltimaActualizacionDomicilio)
-    {
-        $this->UltimaActualizacionDomicilio = $UltimaActualizacionDomicilio;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getLugarNacimiento()
-    {
-        return $this->LugarNacimiento;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setLugarNacimiento($LugarNacimiento)
-    {
-        $this->LugarNacimiento = $LugarNacimiento;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getFechaPsicofisico()
-    {
-        return $this->FechaPsicofisico;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setFechaPsicofisico($FechaPsicofisico)
-    {
-        $this->FechaPsicofisico = $FechaPsicofisico;
+        $this->BajaFecha = $BajaFecha;
         return $this;
     }
 
@@ -1067,6 +544,182 @@ class Agente
         return $this;
     }
 
+    public function getEstudiosNivel()
+    {
+        return $this->EstudiosNivel;
+    }
+
+    public function setEstudiosNivel($EstudiosNivel)
+    {
+        $this->EstudiosNivel = $EstudiosNivel;
+        return $this;
+    }
+
+    public function getEstudiosTitulo()
+    {
+        return $this->EstudiosTitulo;
+    }
+
+    public function setEstudiosTitulo($EstudiosTitulo)
+    {
+        $this->EstudiosTitulo = $EstudiosTitulo;
+        return $this;
+    }
+
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
+    }
+
+    public function getExCombatiente()
+    {
+        return $this->ExCombatiente;
+    }
+
+    public function setExCombatiente($ExCombatiente)
+    {
+        $this->ExCombatiente = $ExCombatiente;
+        return $this;
+    }
+
+    public function getDiscapacitado()
+    {
+        return $this->Discapacitado;
+    }
+
+    public function setDiscapacitado($Discapacitado)
+    {
+        $this->Discapacitado = $Discapacitado;
+        return $this;
+    }
+
+    public function getManoHabil()
+    {
+        return $this->ManoHabil;
+    }
+
+    public function setManoHabil($ManoHabil)
+    {
+        $this->ManoHabil = $ManoHabil;
+        return $this;
+    }
+
+    public function getFechaNacionalizacion()
+    {
+        return $this->FechaNacionalizacion;
+    }
+
+    public function setFechaNacionalizacion($FechaNacionalizacion)
+    {
+        $this->FechaNacionalizacion = $FechaNacionalizacion;
+        return $this;
+    }
+
+    public function getUltimaActualizacionDomicilio()
+    {
+        return $this->UltimaActualizacionDomicilio;
+    }
+
+    public function setUltimaActualizacionDomicilio($UltimaActualizacionDomicilio)
+    {
+        $this->UltimaActualizacionDomicilio = $UltimaActualizacionDomicilio;
+        return $this;
+    }
+
+    public function getLugarNacimiento()
+    {
+        return $this->LugarNacimiento;
+    }
+
+    public function setLugarNacimiento($LugarNacimiento)
+    {
+        $this->LugarNacimiento = $LugarNacimiento;
+        return $this;
+    }
+
+    public function getFechaPsicofisico()
+    {
+        return $this->FechaPsicofisico;
+    }
+
+    public function setFechaPsicofisico($FechaPsicofisico)
+    {
+        $this->FechaPsicofisico = $FechaPsicofisico;
+        return $this;
+    }
+
+    public function getFechaCertificadoBuenaConducta()
+    {
+        return $this->FechaCertificadoBuenaConducta;
+    }
+
+    public function setFechaCertificadoBuenaConducta($FechaCertificadoBuenaConducta)
+    {
+        $this->FechaCertificadoBuenaConducta = $FechaCertificadoBuenaConducta;
+        return $this;
+    }
+
+    public function getFechaCertificadoAntecedentesPenales()
+    {
+        return $this->FechaCertificadoAntecedentesPenales;
+    }
+
+    public function setFechaCertificadoAntecedentesPenales($FechaCertificadoAntecedentesPenales)
+    {
+        $this->FechaCertificadoAntecedentesPenales = $FechaCertificadoAntecedentesPenales;
+        return $this;
+    }
+
+    public function getFechaCertificadoDomicilio()
+    {
+        return $this->FechaCertificadoDomicilio;
+    }
+
+    public function setFechaCertificadoDomicilio($FechaCertificadoDomicilio)
+    {
+        $this->FechaCertificadoDomicilio = $FechaCertificadoDomicilio;
+        return $this;
+    }
+
+    public function getCargo()
+    {
+        return $this->Cargo;
+    }
+
+    public function setCargo($Cargo)
+    {
+        $this->Cargo = $Cargo;
+        return $this;
+    }
+
+    public function getSectorParteDiario()
+    {
+        return $this->SectorParteDiario;
+    }
+
+    public function setSectorParteDiario($SectorParteDiario)
+    {
+        $this->SectorParteDiario = $SectorParteDiario;
+        return $this;
+    }
+
+    public function getApareceEnParte()
+    {
+        return $this->ApareceEnParte;
+    }
+
+    public function setApareceEnParte($ApareceEnParte)
+    {
+        $this->ApareceEnParte = $ApareceEnParte;
+        return $this;
+    }
+
     public function getControlaHorario()
     {
         return $this->ControlaHorario;
@@ -1075,6 +728,50 @@ class Agente
     public function setControlaHorario($ControlaHorario)
     {
         $this->ControlaHorario = $ControlaHorario;
+        return $this;
+    }
+
+    public function getMarcaEnReloj()
+    {
+        return $this->MarcaEnReloj;
+    }
+
+    public function setMarcaEnReloj($MarcaEnReloj)
+    {
+        $this->MarcaEnReloj = $MarcaEnReloj;
+        return $this;
+    }
+
+    public function getBanco()
+    {
+        return $this->Banco;
+    }
+
+    public function setBanco($Banco)
+    {
+        $this->Banco = $Banco;
+        return $this;
+    }
+
+    public function getNumeroCuentaBanco()
+    {
+        return $this->NumeroCuentaBanco;
+    }
+
+    public function setNumeroCuentaBanco($NumeroCuentaBanco)
+    {
+        $this->NumeroCuentaBanco = $NumeroCuentaBanco;
+        return $this;
+    }
+
+    public function getCBUCuentaAgente()
+    {
+        return $this->CBUCuentaAgente;
+    }
+
+    public function setCBUCuentaAgente($CBUCuentaAgente)
+    {
+        $this->CBUCuentaAgente = $CBUCuentaAgente;
         return $this;
     }
 
@@ -1133,26 +830,25 @@ class Agente
         return $this;
     }
 
-    public function getSegundoHorarioIngreso()
+    public function getHorario2Ingreso()
     {
-        return $this->SegundoHorarioIngreso;
+        return $this->Horario2Ingreso;
     }
 
-    public function setSegundoHorarioIngreso($SegundoHorarioIngreso)
+    public function setHorario2Ingreso($Horario2Ingreso)
     {
-        $this->SegundoHorarioIngreso = $SegundoHorarioIngreso;
+        $this->Horario2Ingreso = $Horario2Ingreso;
         return $this;
     }
 
-    public function getSegundoHorarioSalida()
+    public function getHorario2Salida()
     {
-        return $this->SegundoHorarioSalida;
+        return $this->Horario2Salida;
     }
 
-    public function setSegundoHorarioSalida($SegundoHorarioSalida)
+    public function setHorario2Salida($Horario2Salida)
     {
-        $this->SegundoHorarioSalida = $SegundoHorarioSalida;
+        $this->Horario2Salida = $Horario2Salida;
         return $this;
     }
- 
 }
