@@ -1055,4 +1055,104 @@ class Agente
         $this->FechaPsicofisico = $FechaPsicofisico;
         return $this;
     }
+
+    public function getBajaMotivo()
+    {
+        return $this->BajaMotivo;
+    }
+
+    public function setBajaMotivo($BajaMotivo)
+    {
+        $this->BajaMotivo = $BajaMotivo;
+        return $this;
+    }
+
+    public function getControlaHorario()
+    {
+        return $this->ControlaHorario;
+    }
+
+    public function setControlaHorario($ControlaHorario)
+    {
+        $this->ControlaHorario = $ControlaHorario;
+        return $this;
+    }
+
+    public function getBajaFechaContrato()
+    {
+        return $this->BajaFechaContrato;
+    }
+
+    public function setBajaFechaContrato($BajaFechaContrato)
+    {
+        $this->BajaFechaContrato = $BajaFechaContrato;
+        return $this;
+    }
+
+    public function getBajaDecreto()
+    {
+        return $this->BajaDecreto;
+    }
+
+    public function setBajaDecreto($BajaDecreto)
+    {
+        $this->BajaDecreto = $BajaDecreto;
+        return $this;
+    }
+
+    public function getCategoriaACargo()
+    {
+        return $this->CategoriaACargo;
+    }
+
+    public function setCategoriaACargo($CategoriaACargo)
+    {
+        $this->CategoriaACargo = $CategoriaACargo;
+        return $this;
+    }
+
+    public function getHorarioIngreso()
+    {
+        return $this->HorarioIngreso;
+    }
+
+    public function setHorarioIngreso($HorarioIngreso)
+    {
+        $this->HorarioIngreso = $HorarioIngreso;
+        return $this;
+    }
+
+    public function getHorarioSalida()
+    {
+        return $this->HorarioSalida;
+    }
+
+    public function setHorarioSalida($HorarioSalida)
+    {
+        $this->HorarioSalida = $HorarioSalida;
+        return $this;
+    }
+
+    public function getSegundoHorarioIngreso()
+    {
+        return $this->SegundoHorarioIngreso;
+    }
+
+    public function setSegundoHorarioIngreso($SegundoHorarioIngreso)
+    {
+        $this->SegundoHorarioIngreso = $SegundoHorarioIngreso;
+        return $this;
+    }
+
+    public function getSegundoHorarioSalida()
+    {
+        return $this->SegundoHorarioSalida;
+    }
+
+    public function setSegundoHorarioSalida($SegundoHorarioSalida)
+    {
+        $this->SegundoHorarioSalida = $SegundoHorarioSalida;
+        return $this;
+    }
+ 
 }
