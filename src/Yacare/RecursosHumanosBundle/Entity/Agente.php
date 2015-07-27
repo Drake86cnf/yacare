@@ -14,10 +14,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * @author Alejandro Díaz <adiaz.rc@gmail.com>
  *        
- * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
- *  @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ *         })
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Agente
 {
@@ -108,7 +108,7 @@ class Agente
      *
      * @ORM\Column(type="smallint")
      */
-    private $MotivoBaja;
+    private $BajaMotivo;
 
     /**
      * Nivel de estudios.
@@ -127,10 +127,8 @@ class Agente
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento 
-     * 
-     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento") 
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
 
@@ -257,22 +255,74 @@ class Agente
 
     /**
      * Indica el numero de cuenta asociado al agente.
+     *
      * @ORM\Column(type="integer",nullable=true)
      */
     private $NumeroCuentaBanco;
 
     /**
      * Indica el CBU de la cuenta del agente.
+     *
      * @ORM\Column(type="integer", length=22 , nullable=true)
      */
     private $CBUCuentaAgente;
 
     /**
      * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
+     *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
-    private $FechaBajaContrato;
+    private $BajaFechaContrato;
+
+    /**
+     * El decreto asociado a la baja.
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR)\-(\d{1,5})\/(\d{4})\s*$/i",
+     * message="Debe escribir el número de decreto en el formato DM-1234/2015."
+     * )
+     */
+    private $BajaDecreto;
+
+    /**
+     * Indica si la categoría es a cargo.
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $CategoriaACargo;
+    
+    /**
+     * El horario de ingreso.
+     * 
+     * @ORM\Column(type="time")
+     * @Assert\Time()
+     */
+    private $HorarioIngreso;
+    
+    /**
+     * El horario de salida.
+     *
+     * @ORM\Column(type="time")
+     * @Assert\Time()
+     */
+    private $HorarioSalida;
+    
+    /**
+     * El horario de ingreso del segundo tramo.
+     *
+     * @ORM\Column(type="time")
+     * @Assert\Time()
+     */
+    private $SegundoHorarioIngreso;
+    
+    /**
+     * El horario de salida del segundo tramo.
+     *
+     * @ORM\Column(type="time")
+     * @Assert\Time()
+     */
+    private $SegundoHorarioSalida;
 
     public function __toString()
     {

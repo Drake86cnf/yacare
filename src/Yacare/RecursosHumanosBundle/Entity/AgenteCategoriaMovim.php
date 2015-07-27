@@ -10,13 +10,14 @@ use Doctrine\ORM\Mapping\Column;
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *        
- * @ORM\Table(name="Rrhh_AgenteCategoriaMovim")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ *         @ORM\Table(name="Rrhh_AgenteCategoriaMovim")
+ *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class AgenteCategoriaMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    use \Yacare\AdministracionBundle\Entity\ConDecreto;
 
     /**
      * El agente.
@@ -32,13 +33,6 @@ class AgenteCategoriaMovim
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Categoria;
-
-    /**
-     * El decreto.
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Decreto;
 
     /**
      * La categoría anterior.
@@ -93,26 +87,6 @@ class AgenteCategoriaMovim
     public function getCategoria()
     {
         return $this->Categoria;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDecreto($Decreto)
-    {
-        return $this->Decreto = $Decreto;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDecreto()
-    {
-        return $this->Decreto;
     }
 
     /**
