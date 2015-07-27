@@ -10,8 +10,8 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
  * @ORM\Table(name="Base_PersonaRol")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * 
- * @Tapir\Abm\Nombre("rol de personas")
- * @Tapir\Abm\NombrePlural("roles de personas")
+ * //@Tapir\Abm\Nombre("rol de personas")
+ * //@Tapir\Abm\NombrePlural("roles de personas")
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */

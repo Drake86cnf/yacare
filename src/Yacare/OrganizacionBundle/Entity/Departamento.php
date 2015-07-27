@@ -5,9 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Yacare\BaseBundle\Model\Tree;
 
 /**
- * Un departamento representa a cualquiera de las partes en las que se divide la administración pública como ministerios, secretarías, subsecretarías, etc.
+ * Un departamento representa a cualquiera de las partes en las que se divide la administración pública como
+ * ministerios, secretarías, subsecretarías, etc.
  *
- * @ORM\Table(name="Organizacion_Departamento", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})})
+ * @ORM\Table(name="Organizacion_Departamento", uniqueConstraints={@ORM\UniqueConstraint(name="ImportSrcId",
+ * columns={"ImportSrc", "ImportId"})})
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Departamento implements Tree\NodeInterface
@@ -43,6 +45,13 @@ class Departamento implements Tree\NodeInterface
      * @ORM\Column(type="boolean")
      */
     private $HaceParteDiario = false;
+
+    /**
+     * Código que identifica al departamento en el Payroll.
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $CodigoPayroll = 0;
 
     /**
      * El nodo de nivel superior.
