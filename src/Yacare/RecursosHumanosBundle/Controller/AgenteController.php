@@ -31,6 +31,31 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     
     
     /**
+     * @Route("ver_datospersonales/{id}")
+     * @Template()
+     */
+    public function ver_datospersonalesAction(Request $request, $id = null) {
+        return $this->verAction($request, $id = null);
+    }
+    
+    /**
+     * @Route("ver_lugardetrabajo/{id}")
+     * @Template()
+     */
+    public function ver_lugardetrabajoAction(Request $request, $id = null) {
+        return $this->verAction($request, $id = null);
+    }
+    
+    /**
+     * @Route("ver_familiares/{id}")
+     * @Template()
+     */
+    public function ver_familiaresAction(Request $request, $id = null) {
+        return $this->verAction($request, $id = null);
+    }
+    
+    
+    /**
      * @Route("ver/{id}")
      * @Template()
      */
