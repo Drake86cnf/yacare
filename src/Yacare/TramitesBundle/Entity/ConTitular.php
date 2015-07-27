@@ -16,7 +16,7 @@ trait ConTitular
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      * 
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="Debe seleccionar el titular del trámite")
      */
     protected $Titular;
 

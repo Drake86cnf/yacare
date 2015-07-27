@@ -20,6 +20,10 @@ class DescripcionProcesador
         }
         
         $classMetadata = $this->metadataFactory->getMetadataForClass(get_class($objeto));
+        //if (isset($classMetadata->descripcion)) {
+        //    $classMetadata->setValue($objeto, $classMetadata->descripcion);
+        //}
+        
         /*
          * @var $classMetadata Clase donde se usa la annotation pesonalizada,
          * ya sea una Entidad u otra clase que sea usada dentro de la aplicación.
