@@ -82,11 +82,21 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
              $Agente->getId() . "/%' AND AMES='$ames' AND PERI='$peri'
                         AND TIPO>0 AND INFORM='N' ORDER BY TIPO, ORDEN");
         $ConsultaRecibo->execute();
-        
+
+        // Busco datos de la persona en REMPLESH
+        // Si no está ahí, lo busco en REMPLES
         $ConsultaPersona = $connHaberes->prepare("SELECT * FROM REMPLESH WHERE CODIGO LIKE '% " . 
             $Agente->getId() . "/%' AND AMES='$ames'");
         $ConsultaPersona->execute();
-        $PersonaHaberes = $ConsultaPersona->fetchAll()[0];
+        $PersonaHaberes = $ConsultaPersona->fetchAll();
+        if(count($PersonaHaberes) == 1) {
+            $PersonaHaberes = $PersonaHaberes[0];
+        } else {
+            $ConsultaPersona = $connHaberes->prepare("SELECT * FROM REMPLES WHERE CODIGO LIKE '% " .
+                $Agente->getId() . "/%'");
+            $ConsultaPersona->execute();
+            $PersonaHaberes = $ConsultaPersona->fetchAll()[0];
+        }
         
         $res = array(
             'persona' => $Persona,
