@@ -44,9 +44,9 @@
 	{{ bs.grid_label_text('Categoría', entity.Categoria) }}
 	{{ bs.grid_label_text('Situación', entity.SituacionNombre) }}
 	{{ bs.grid_label_text('Fecha de ingreso', entity.FechaIngreso|tapir_fecha('medium', 'none')) }}
-	{% if entity.MotivoBaja > 0 %}
+	{% if entity.BajaMotivo > 0 %}
 	    {{ bs.grid_label_text('Fecha de baja', entity.FechaBaja|tapir_fecha('medium', 'none')) }}
-	    {{ bs.grid_label_text('Motivo de baja', entity.MotivoBajaNombre) }}
+	    {{ bs.grid_label_text('Motivo de baja', entity.BajaMotivoNombre) }}
 	{% endif %}
 	{% for Grupo in entity.Grupos %}<span class="label label-info">{{ Grupo }}</span> {% endfor %}
 	{{ bs.grid_col_12_end() }}
