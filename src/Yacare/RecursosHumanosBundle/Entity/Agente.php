@@ -377,7 +377,7 @@ class Agente
         return Agente::SituacionesNombres($this->getSituacion());
     }
 
-    public static function MotivosBajasNombres($rango)
+    public static function BajasMotivosNombres($rango)
     {
         switch ($rango) {
             case 0:
@@ -406,9 +406,9 @@ class Agente
      *
      * @see $MotivoBaja
      */
-    public function getMotivoBajaNombre()
+    public function getBajaMotivoNombre()
     {
-        return Agente::MotivosBajasNombres($this->getMotivoBaja());
+        return Agente::BajasMotivosNombres($this->getBajaMotivo());
     }
 
     public static function EstudiosNivelesNombres($rango)
