@@ -202,7 +202,7 @@ class StringHelper
             'Srl' => 'S.R.L.',
             'Esc. N 8' => 'Esc. Nº 8',
             'y Cia. Sa' => 'y Cía. S.A.',
-            '' => '',
+            
             'Administracion' => 'Administración',
             'Direccion' => 'Dirección',
             'Coordinacion' => 'Coordinación',
@@ -396,6 +396,10 @@ class StringHelper
             'categoria' => 'categoría',
             'titulo' => 'título',
             'radicacion' => 'radicación',
+            'area' => 'área',
+            'innovacion' => 'innovación',
+            'planificacion' => 'planificación',
+            '' => '',
             '' => '',
             '' => '');
 
