@@ -327,6 +327,18 @@ function MejorarElementos(destino) {
 			$(this).parent().removeClass('has-success').removeClass('has-error');
 		}
 	});
+	
+	// Dar tratamiento especial a los campos de CBU
+	$(desintoFinal + '[data-type="cbu"]').blur(function() {
+		if(tapirCbuEsValida(this.value)) {
+			this.value = tapirFormatearCbu(this.value);
+			$(this).parent().removeClass('has-error').addClass('has-success');
+		} else if(this.value) {
+			$(this).parent().removeClass('has-success').addClass('has-error');
+		} else {
+			$(this).parent().removeClass('has-success').removeClass('has-error');
+		}
+	});
 
 	/* $(desintoFinal + '.input-daterange').datepicker({
 		todayBtn : "linked",
@@ -377,14 +389,77 @@ function tapirCuiltEsValida(cuilt) {
 	return false;
 }
 
+
+function tapirCbuEsValida(cbu) {
+	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
+	if (cbuLimpia.length == 22) {
+	    var digitoVerificador2 = cbuLimpia[7];
+	     
+	    var suma = cbuLimpia[0] * 7 + cbuLimpia[1] * 1 + cbuLimpia[2] * 3
+	    	+ cbuLimpia[3] * 9 + cbuLimpia[4] * 7 + cbuLimpia[5] * 1 + cbuLimpia[6] * 3;
+	     
+	    var diferencia = 10 - (suma % 10);
+	     
+	    if(diferencia != digitoVerificador2) {
+	    	return false;
+	    }
+	    
+	    var digitoVerificador = cbuLimpia[21];
+	    var suma = cbuLimpia[8] * 3 + cbuLimpia[9] * 9 + cbuLimpia[10] * 7  + cbuLimpia[11] * 1
+	    	+ cbuLimpia[12] * 3 + cbuLimpia[13] * 9 + cbuLimpia[14] * 7 + cbuLimpia[15] * 1
+	    	+ cbuLimpia[16] * 3 + cbuLimpia[17] * 9 + cbuLimpia[18] * 7 + cbuLimpia[19] * 1 + cbuLimpia[20] * 3;
+	    var diferencia = 10 - (suma % 10);
+	    return diferencia == digitoVerificador;
+	}
+	return false;
+}
+
 function tapirFormatearCuilt(cuilt) {
 	cuiltLimpia = cuilt.toString().replace(/-/g, '').trim();
 	if (cuiltLimpia.length == 11) {
 		return cuiltLimpia.substr(0, 2) + '-' + cuiltLimpia.substr(2, 8) + '-' + cuiltLimpia.substr(10, 1);  
 	} else {
-		return cuiltLimpia;
+		return cuilt;
 	}
 }
+
+function tapirCbuEsValida(cbu) {
+	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
+	if (cbuLimpia.length == 22) {
+	    var digitoVerificador = cbuLimpia[7];
+	    var suma = cbuLimpia[0] * 7 + cbuLimpia[1] * 1 + cbuLimpia[2] * 3
+	    	+ cbuLimpia[3] * 9 + cbuLimpia[4] * 7 + cbuLimpia[5] * 1 + cbuLimpia[6] * 3;
+	    var diferencia = 10 - (suma % 10);
+	     
+	    if(diferencia != digitoVerificador) {
+	    	return false;
+	    }
+	    
+	    var digitoVerificador2 = cbuLimpia[21];
+	    var suma = cbuLimpia[8] * 3 + cbuLimpia[9] * 9 + cbuLimpia[10] * 7  + cbuLimpia[11] * 1
+	    	+ cbuLimpia[12] * 3 + cbuLimpia[13] * 9 + cbuLimpia[14] * 7 + cbuLimpia[15] * 1
+	    	+ cbuLimpia[16] * 3 + cbuLimpia[17] * 9 + cbuLimpia[18] * 7 + cbuLimpia[19] * 1
+	    	+ cbuLimpia[20] * 3;
+	    var diferencia = 10 - (suma % 10);
+	    
+   	    if(diferencia != digitoVerificador2) {
+	    	return false;
+	    }
+
+	    return true;
+	}
+	return false;
+}
+
+function tapirFormatearCbu(cbu) {
+	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
+	if (cbuLimpia.length == 22) {
+		return cuiltLimpia.substr(0, 8) + '-' + cuiltLimpia.substr(8, 14);  
+	} else {
+		return cbu;
+	}
+}
+
 
 $(document).ready(function() {
     // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
