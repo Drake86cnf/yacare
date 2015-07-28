@@ -59,6 +59,8 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
         $em = $this->getDoctrine()->getManager();
         $connHaberes = $this->get('doctrine')->getConnection('haberes');
         
+        $connHaberes->exec("ALTER SESSION SET NLS_TIME_FORMAT='HH24:MI:SS' NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_FORMAT='YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD HH24:MI:SS TZH:TZM'");
+        
         $ames = $this->ObtenerVariable($request, 'ames');
         $peri = $this->ObtenerVariable($request, 'peri');
         
@@ -98,9 +100,34 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
             $PersonaHaberes = $ConsultaPersona->fetchAll()[0];
         }
         
+        if(substr($PersonaHaberes['FECHA_RET'], 0, 5) == '3000-') {
+            // Fechas de baja en el año 3000 significa sin baja
+            $PersonaHaberes['FECHA_RET'] = null;
+        }
+        
+        $PlantaId = $PersonaHaberes['CLASIF'];
+        if($PlantaId) {
+            $Consulta = $connHaberes->prepare("SELECT DESCRIP FROM RTABLAS WHERE COTAB=11 AND CODIGO=" . $PlantaId);
+            $Consulta->execute();
+            $PlantaNombre = \Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($Consulta->fetchAll()[0]['DESCRIP']);
+        } else {
+            $PlantaNombre = '';
+        }
+        
+        $SecretariaId = $PersonaHaberes['UNIDAD'];
+        if($SecretariaId) {
+            $Consulta = $connHaberes->prepare("SELECT DESCRIP FROM RTABLAS WHERE COTAB=40 AND CODIGO=" . $SecretariaId);
+            $Consulta->execute();
+            $SecretariaNombre = \Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($Consulta->fetchAll()[0]['DESCRIP']);
+        } else {
+            $SecretariaNombre = '';
+        }
+        
         $res = array(
             'persona' => $Persona,
             'agente' => $Agente,
+            'agente_planta' => $PlantaNombre,
+            'agente_secretaria' => $SecretariaNombre,
             'ames' => $ames,
             'peri' => $peri,
             'resumen' => $Resumen,

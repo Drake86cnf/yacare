@@ -29,7 +29,7 @@
     		<div class="col-xs-4"><strong>{{ personahab.NOMBRE|tapir_mejorartexto }}</strong></div>
     		<div class="col-xs-2"><strong>{{ personahab.RUT }}</strong></div>
     		<div class="col-xs-2"><strong>{{ personahab.CODIGO }}</strong></div>
-    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong>{{ agente_planta }}</strong></div>
     		<div class="col-xs-2"><strong>{{ personahab.CATEGO }}</strong></div>
 		</div>
 		
@@ -43,13 +43,13 @@
     		<div class="col-xs-2 text-muted">Fecha baja</div>
 		</div>
 		<div class="row">
-    		<div class="col-xs-4"><strong></strong></div>
+    		<div class="col-xs-4"><strong>{{ agente_secretaria }}</strong></div>
     		<div class="col-xs-2"><strong></strong></div>
-    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.FECHASJOV|tapir_fecha('medium', 'none') }}</strong></div>
     		<div class="col-xs-2"><strong>{{ personahab.FECHA_ING|tapir_fecha('medium', 'none') }}</strong></div>
-    		<div class="col-xs-2"><strong></strong></div>
+    		<div class="col-xs-2"><strong>{{ personahab.FECHA_RET|tapir_fecha('medium', 'none') }}</strong></div>
 		</div>
-		
+
 		<hr />
 
         <div class="row">
