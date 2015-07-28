@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class Cuilt
 {
 
-    static public function EsCuiltValido($Cuilt)
+    static public function EsCuiltValida($Cuilt)
     {
         $cadena = str_replace(array('.',',',' ','-'), '', $Cuilt);
         
@@ -50,7 +50,7 @@ class Cuilt
         if (strlen($solonumeros) == 11) {
             return substr($solonumeros, 0, 2) . '-' . substr($solonumeros, 2, 8) . '-' . substr($solonumeros, 10, 1);
         } else {
-            return $solonumeros;
+            return $Cuilt;
         }
     }
 }

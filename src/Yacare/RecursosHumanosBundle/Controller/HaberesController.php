@@ -83,8 +83,8 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
                         AND TIPO>0 AND INFORM='N' ORDER BY TIPO, ORDEN");
         $ConsultaRecibo->execute();
         
-        $ConsultaPersona = $connHaberes->prepare("SELECT * FROM REMPLES WHERE CODIGO LIKE '% " . 
-            $Agente->getId() . "/%'");
+        $ConsultaPersona = $connHaberes->prepare("SELECT * FROM REMPLESH WHERE CODIGO LIKE '% " . 
+            $Agente->getId() . "/%' AND AMES='$ames'");
         $ConsultaPersona->execute();
         $PersonaHaberes = $ConsultaPersona->fetchAll()[0];
         
