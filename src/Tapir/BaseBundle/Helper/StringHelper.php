@@ -327,8 +327,8 @@ class StringHelper
         $PartesDecreto = array();
         
         $PartesDecreto[0] = substr($Decreto, 0, 
-            \Tapir\BaseBundle\Helper\StringHelper::IdentiicarSiglasDecreto($Decreto));
-        $PartesDecreto[1] = substr($Decreto, \Tapir\BaseBundle\Helper\StringHelper::IdentiicarSiglasDecreto($Decreto));
+            \Tapir\BaseBundle\Helper\StringHelper::IdentificarSiglasDecreto($Decreto));
+        $PartesDecreto[1] = substr($Decreto, \Tapir\BaseBundle\Helper\StringHelper::IdentificarSiglasDecreto($Decreto));
         
         switch ($PartesDecreto[0]) {
             case 'RESOLUCION':
@@ -370,7 +370,7 @@ class StringHelper
         return $Decreto = $PartesDecreto[0] . $PartesDecreto[1];
     }
 
-    static public function IdentiicarSiglasDecreto($Decreto)
+    static public function IdentificarSiglasDecreto($Decreto)
     {
         $Numeros = array('0','1','2','3','4','5','6','7','8','9');
         
