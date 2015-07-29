@@ -6,23 +6,35 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class StringHelper
 {
 
-    static public function NombreMes($mes) {
-        switch($mes) {
-            case 1: return 'enero';
-            case 2: return 'febrero';
-            case 3: return 'marzo';
-            case 4: return 'abril';
-            case 5: return 'mayo';
-            case 6: return 'junio';
-            case 7: return 'julio';
-            case 8: return 'agosto';
-            case 9: return 'septiembre';
-            case 10: return 'octubre';
-            case 11: return 'noviembre';
-            case 12: return 'diciembre';
+    static public function NombreMes($mes)
+    {
+        switch ($mes) {
+            case 1:
+                return 'enero';
+            case 2:
+                return 'febrero';
+            case 3:
+                return 'marzo';
+            case 4:
+                return 'abril';
+            case 5:
+                return 'mayo';
+            case 6:
+                return 'junio';
+            case 7:
+                return 'julio';
+            case 8:
+                return 'agosto';
+            case 9:
+                return 'septiembre';
+            case 10:
+                return 'octubre';
+            case 11:
+                return 'noviembre';
+            case 12:
+                return 'diciembre';
         }
     }
-
 
     /*
      * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para
@@ -31,21 +43,21 @@ class StringHelper
     static public function ObtenerBundleYEntidad($nombreclase)
     {
         $PartesNombreClase = explode('\\', $nombreclase);
-
+        
         $res = array();
-
+        
         $res[0] = $PartesNombreClase[1];
         if (strlen($res[0]) > 6 && substr($res[0], - 6) == 'Bundle') {
             // Quitar la palabra 'Bundle' del nombre del bundle
             $res[0] = substr($res[0], 0, strlen($res[0]) - 6);
         }
-
+        
         $res[1] = $PartesNombreClase[3];
         if (strlen($res[1]) > 10 && substr($res[1], - 10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
         }
-
+        
         return $res;
     }
 
@@ -56,7 +68,7 @@ class StringHelper
     static public function ObtenerAplicacion($nombreclase)
     {
         $PartesNombreClase = explode('\\', $nombreclase);
-
+        
         return $PartesNombreClase[0];
     }
 
@@ -70,7 +82,7 @@ class StringHelper
         // Quito barras iniciales y finales
         $nombreclase = trim($nombreclase, '\\');
         $PartesNombreClase = StringHelper::ObtenerBundleYEntidad($nombreclase);
-
+        
         if ($accion)
             return strtolower('yacare_' . $PartesNombreClase[0] . '_' . $PartesNombreClase[1] . '_' . $accion);
         else
@@ -82,29 +94,29 @@ class StringHelper
         $Partes = preg_split('/[\: ]/', $text);
         $Tipo = '';
         $Numero = '';
-
+        
         foreach ($Partes as $Parte) {
             $v = trim($Parte);
             if ($v == '') {
                 // Ignorar
-            } else
+            } else 
                 if ($v == 'DU') {
                     $Tipo = 'DNI';
-                } else
+                } else 
                     if ($v == 'DU' || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
                         $Tipo = $v;
                     } else {
                         $Numero = $v;
                     }
-
+            
             if (strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            } else
+            } else 
                 if (! $Tipo || $Tipo = 'SC') {
                     $Tipo = 'DNI';
                 }
         }
-
+        
         return array($Tipo,ltrim($Numero, '0'));
     }
 
@@ -116,19 +128,17 @@ class StringHelper
 
     static public function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"))
     {
-    	/*
-    	 * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
-    	 * don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry
-    	 * Viii should be King Henry VIII
-    	 */
-    	$exceptions = array(
-    			'de', 'y', 'en', 'con', 'e', 'o', 'u', '1ro.', '1ra.', '2do.', '2da.', 'del',
-    			'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXX',
-    			'DVD', 'ARA', 'AGP', 'YPF', 'IPV', 'CAP'
-    	);
-    	
+        /*
+         * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
+         * don't want converted to title case but should be converted to upper case, e.g.: king henry viii or king henry
+         * Viii should be King Henry VIII
+         */
+        $exceptions = array('de','y','en','con','e','o','u','1ro.','1ra.','2do.','2da.','del','I','II','III','IV','V',
+            'VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXX','DVD',
+            'ARA','AGP','YPF','IPV','CAP');
+        
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
-
+        
         foreach ($delimiters as $delimiter) {
             $words = explode($delimiter, $string);
             $newwords = array();
@@ -139,7 +149,7 @@ class StringHelper
                 } elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtolower($word, 'UTF-8');
-                }
+                } 
 
                 elseif (! in_array($word, $exceptions)) {
                     // convert to uppercase (non-utf8 only)
@@ -149,264 +159,107 @@ class StringHelper
             }
             $string = join($delimiter, $newwords);
         }
-
+        
         return $string;
     }
 
     static public function ArreglarProblemasConocidos($text)
     {
         $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
-
+        
         $remplazos = array(
-
+            
             // Nombres de calles
-            'yugoeslavia' => 'yugoslavia',
-            'sra.de' => 'sra. de',
-            "ernesto l'offler" => 'ernesto löffler',
+            'yugoeslavia' => 'yugoslavia','sra.de' => 'sra. de',"ernesto l'offler" => 'ernesto löffler',
             'Bernardo O¿higgins' => 'bernardo o\'higgins',
             'A. R. A. R. Rompehielos Almirante Irizar' => 'Rompehielos ARA Almirante Irízar',
             'A.R.A.R. Rompehielos Almirante Irizar' => 'Rompehielos ARA Almirante Irízar',
-            'B. Frigorif.Cap Casa' => 'Barrio Frigorífico CAP Casa',
-            'Cabo 1ro. J. E. Gómez' => 'Cabo 1º J. E. Gómez',
-            'B. Aeroposta Casa' => 'Barrio Aeroposta Casa',
-            'Doctor Ricardo Balbín' => 'Dr. Ricardo Balbín',
-            'Doctor René Favaloro' => 'Dr. René Favaloro',
-            'Doctor Roberto Koch' => 'Dr. Roberto Koch',
-            'Doctor Rodolfo Rivarola' => 'Dr. Rodolfo Rivarola',
-            'Doctor Alejandro Fleming' => 'Dr. Alejandro Fleming',
-            'Doctor Raúl Chifflet' => 'Dr. Raúl Chifflet',
-            'Doctor Leandro N. Alem' => 'Dr. Leandro N. Alem',
+            'B. Frigorif.Cap Casa' => 'Barrio Frigorífico CAP Casa','Cabo 1ro. J. E. Gómez' => 'Cabo 1º J. E. Gómez',
+            'B. Aeroposta Casa' => 'Barrio Aeroposta Casa','Doctor Ricardo Balbín' => 'Dr. Ricardo Balbín',
+            'Doctor René Favaloro' => 'Dr. René Favaloro','Doctor Roberto Koch' => 'Dr. Roberto Koch',
+            'Doctor Rodolfo Rivarola' => 'Dr. Rodolfo Rivarola','Doctor Alejandro Fleming' => 'Dr. Alejandro Fleming',
+            'Doctor Raúl Chifflet' => 'Dr. Raúl Chifflet','Doctor Leandro N. Alem' => 'Dr. Leandro N. Alem',
             'Doctor Carlos Alfredo Pacheco' => 'Dr. Carlos Alfredo Pacheco',
             'Juan Bautistade La Salle' => 'Juan Bautista de La Salle',
             'Willian Alfredo Bishop' => 'William Alfredo Bishop',
-            'María Agdalena Macacha Guemez' => 'María Magdalena "Macacha" Güemes',
-            'Womska' => 'Wonska',
+            'María Agdalena Macacha Guemez' => 'María Magdalena "Macacha" Güemes','Womska' => 'Wonska',
             'TELEFONICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.',
-            'TELEFÓNICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.',
-            '.' => '. ',
-            'Nro.' => 'Nº',
-            'N º' => 'Nº',
-            'N°' => 'Nº',
-            'S. A. G. C.' => 'S.A.G.C.',
-            'S. A.' => 'S.A.',
-            'S. R. L.' => 'S.R.L.',
-            'A. F. I. P.' => 'A.F.I.P.',
-            'U. O. C. R. A.' => 'U.O.C.R.A.',
-            'I. N. T. A.' => 'I.N.T.A.',
-            'Q. R. U.' => 'Q.R.U.',
-            'I. P. V.' => 'I.P.V.',
-            'R. Gde.' => 'Río Grande',
-            'O. S. N.' => 'O.S.N.',
-            'I. S. S. T.' => 'I.S.S.T.',
-            'A. S. I. M. R. A.' => 'A.S.I.M.R.A.',
-            'Srl' => 'S.R.L.',
-            'Esc. N 8' => 'Esc. Nº 8',
-            'y Cia. Sa' => 'y Cía. S.A.',
-            
-            'Administracion' => 'Administración',
-            'Direccion' => 'Dirección',
-            'Coordinacion' => 'Coordinación',
-            'Funcion Publica' => 'Función Pública',
-            'Medico' => 'Médico',
-            'Medica' => 'Médica',
-            'Informatica' => 'Informática',
-            'Programadoe' => 'Programador',
-            'Tecnologia' => 'Tecnología',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '',
-            '' => '');
+            'TELEFÓNICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.','.' => '. ','Nro.' => 'Nº','N º' => 'Nº',
+            'N°' => 'Nº','S. A. G. C.' => 'S.A.G.C.','S. A.' => 'S.A.','S. R. L.' => 'S.R.L.',
+            'A. F. I. P.' => 'A.F.I.P.','U. O. C. R. A.' => 'U.O.C.R.A.','I. N. T. A.' => 'I.N.T.A.',
+            'Q. R. U.' => 'Q.R.U.','I. P. V.' => 'I.P.V.','R. Gde.' => 'Río Grande','O. S. N.' => 'O.S.N.',
+            'I. S. S. T.' => 'I.S.S.T.','A. S. I. M. R. A.' => 'A.S.I.M.R.A.','Srl' => 'S.R.L.',
+            'Esc. N 8' => 'Esc. Nº 8','y Cia. Sa' => 'y Cía. S.A.',
 
+            'Administracion' => 'Administración','Direccion' => 'Dirección','Coordinacion' => 'Coordinación',
+            'Funcion Publica' => 'Función Pública','Medico' => 'Médico','Medica' => 'Médica',
+            'Informatica' => 'Informática','Programadoe' => 'Programador','Tecnologia' => 'Tecnología','' => '','' => '',
+            '' => '','' => '','' => '');
+        
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
         }
-
+        
         return trim(str_replace('  ', ' ', $text));
     }
 
     static public function PonerTildes($text)
     {
         $text = ' ' . $text . ' ';
-
+        
         $remplazos = array(
-
+            
             // Nombres propios
-            'saenz pena' => 'sáenz peña',
-            'cristobal colon' => 'cristobal colón',
-            'tucuman' => 'tucumán',
-            'general guemes' => 'general güemes',
-            'mamerto esquiu' => 'mamerto esquiú',
-            'maipu' => 'maipú',
-            'ceferino namuncura' => 'ceferino namuncurá',
-            'neuquen' => 'neuquén',
-            'panama' => 'panamá',
-            'peru' => 'perú',
-            'lujan' => 'luján',
-            'cordoba' => 'córdoba',
-            '.' => '',
-            'angeles' => 'ángeles',
-            '' => '',
-            '' => '',
-            '' => '',
-
+            'saenz pena' => 'sáenz peña','cristobal colon' => 'cristobal colón','tucuman' => 'tucumán',
+            'general guemes' => 'general güemes','mamerto esquiu' => 'mamerto esquiú','maipu' => 'maipú',
+            'ceferino namuncura' => 'ceferino namuncurá','neuquen' => 'neuquén','panama' => 'panamá','peru' => 'perú',
+            'lujan' => 'luján','cordoba' => 'córdoba','.' => '','angeles' => 'ángeles','' => '','' => '','' => '',
+            
             // Nombres
-            'martin' => 'martín',
-            'maria' => 'maría',
-            'jose' => 'josé',
-            'nicolas' => 'nicolás',
-            'angel' => 'ángel',
-            'angela' => 'ángela',
-            'teofilo' => 'teófilo',
-            'felix' => 'félix',
-            'hector' => 'héctor',
-            'sebastian' => 'sebastián',
-            'ines' => 'inés',
-            'ramon' => 'ramón',
-            'agustin' => 'agustín',
-            'nestor' => 'néstor',
-            'victor' => 'víctor',
-            'itati' => 'itatí',
-            'rene' => 'rené',
-            'raul' => 'raúl',
-            'hipolito' => 'hipólito',
-            'simon' => 'simón',
-            'jeronimo' => 'jerónimo',
-            'maximo' => 'máximo',
-            'joaquin' => 'joaquín',
-            'jesus' => 'jesús',
-            'cesar' => 'césar',
-            'adrian' => 'adrián',
-            'jesica' => 'jésica',
-            'andres' => 'andrés',
-            'veronica' => 'verónica',
-            'nelida' => 'nélida',
-            'noemi' => 'noemí',
-            'matias' => 'matías',
-            'fabian' => 'fabián',
-            'belen' => 'belén',
-            'barbara' => 'bárbara',
-            'estefania' => 'estefanía',
-            'lucia' => 'lucía',
-            'debora' => 'débora',
-            'gaston' => 'gastón',
-            'hernan' => 'hernán',
-            'jeremias' => 'jeremías',
-            'tomas' => 'tomás',
+            'martin' => 'martín','maria' => 'maría','jose' => 'josé','nicolas' => 'nicolás','angel' => 'ángel',
+            'angela' => 'ángela','teofilo' => 'teófilo','felix' => 'félix','hector' => 'héctor',
+            'sebastian' => 'sebastián','ines' => 'inés','ramon' => 'ramón','agustin' => 'agustín','nestor' => 'néstor',
+            'victor' => 'víctor','itati' => 'itatí','rene' => 'rené','raul' => 'raúl','hipolito' => 'hipólito',
+            'simon' => 'simón','jeronimo' => 'jerónimo','maximo' => 'máximo','joaquin' => 'joaquín','jesus' => 'jesús',
+            'cesar' => 'césar','adrian' => 'adrián','jesica' => 'jésica','andres' => 'andrés','veronica' => 'verónica',
+            'nelida' => 'nélida','noemi' => 'noemí','matias' => 'matías','fabian' => 'fabián','belen' => 'belén',
+            'barbara' => 'bárbara','estefania' => 'estefanía','lucia' => 'lucía','debora' => 'débora',
+            'gaston' => 'gastón','hernan' => 'hernán','jeremias' => 'jeremías','tomas' => 'tomás','' => '','' => '',
             '' => '',
-            '' => '',
-            '' => '',
-
+            
             // Apellidos
-            'perez' => 'pérez',
-            'hernandez' => 'hernández',
-            'fernandez' => 'fernández',
-            'vazques' => 'vázques',
-            'vazquez' => 'vázquez',
-            'vasquez' => 'vásquez',
-            'martinez' => 'martínez',
-            'saenz' => 'sáenz',
-            'albarracin' => 'albarracín',
-            'balbin' => 'balbín',
-            'rodriguez' => 'rodríguez',
-            'ramirez' => 'ramírez',
-            'gonzalez' => 'gonzález',
-            'gomez' => 'gómez',
-            'saldias' => 'saldías',
-            'santome' => 'santomé',
-            'lopez' => 'lópez',
-            'bolivar' => 'bolívar',
-            'chavez' => 'chávez',
-            'chaves' => 'cháves',
-            'sanchez' => 'sánchez',
-            'benitez' => 'benítez',
-            'echeverria' => 'echeverría',
-            'peron' => 'perón',
-            'garcia' => 'garcía',
-            'anadon' => 'anadón',
-            'juarez' => 'juárez',
-            'cortazar' => 'cortázar',
-            'galvez' => 'gálvez',
-            'azcuenaga' => 'azcuénaga',
-            'barria' => 'barría',
-            'chacon' => 'chacón',
-            'alvarez' => 'álvarez',
-            'carcamo' => 'cárcamo',
-            'loffler' => 'löffler',
-            'monaco' => 'mónaco',
-            'mu;oz' => 'muñoz',
-            'avila' => 'ávila',
-            'oyarzun' => 'oyarzún',
-            'marquez' => 'márquez',
-            'velez' => 'vélez',
-            'almiron' => 'almirón',
-            'gimenez' => 'giménez',
-            'jimenez' => 'jiménez',
-            'suarez' => 'suárez',
-            'roldan' => 'roldán',
-            'monzon' => 'monzón',
-            'cardenas' => 'cárdenas',
-            'mejias' => 'mejías',
-            'diaz' => 'díaz',
-            'dias' => 'días',
-            'rios' => 'ríos',
-            'paez' => 'páez',
-            'mendez' => 'méndez',
-            'nuñez' => 'núñez',
-            'narvaez' => 'narváez',
-            'persico' => 'pérsico',
-            '' => '',
-            '' => '',
-
+            'perez' => 'pérez','hernandez' => 'hernández','fernandez' => 'fernández','vazques' => 'vázques',
+            'vazquez' => 'vázquez','vasquez' => 'vásquez','martinez' => 'martínez','saenz' => 'sáenz',
+            'albarracin' => 'albarracín','balbin' => 'balbín','rodriguez' => 'rodríguez','ramirez' => 'ramírez',
+            'gonzalez' => 'gonzález','gomez' => 'gómez','saldias' => 'saldías','santome' => 'santomé','lopez' => 'lópez',
+            'bolivar' => 'bolívar','chavez' => 'chávez','chaves' => 'cháves','sanchez' => 'sánchez',
+            'benitez' => 'benítez','echeverria' => 'echeverría','peron' => 'perón','garcia' => 'garcía',
+            'anadon' => 'anadón','juarez' => 'juárez','cortazar' => 'cortázar','galvez' => 'gálvez',
+            'azcuenaga' => 'azcuénaga','barria' => 'barría','chacon' => 'chacón','alvarez' => 'álvarez',
+            'carcamo' => 'cárcamo','loffler' => 'löffler','monaco' => 'mónaco','mu;oz' => 'muñoz','avila' => 'ávila',
+            'oyarzun' => 'oyarzún','marquez' => 'márquez','velez' => 'vélez','almiron' => 'almirón',
+            'gimenez' => 'giménez','jimenez' => 'jiménez','suarez' => 'suárez','roldan' => 'roldán','monzon' => 'monzón',
+            'cardenas' => 'cárdenas','mejias' => 'mejías','diaz' => 'díaz','dias' => 'días','rios' => 'ríos',
+            'paez' => 'páez','mendez' => 'méndez','nuñez' => 'núñez','narvaez' => 'narváez','persico' => 'pérsico',
+            '' => '','' => '',
+            
             // Otras palabras
-            'antartida' => 'antártida',
-            'antartica' => 'antártica',
-            'antartico' => 'antártico',
-            'artica' => 'ártica',
-            'artico' => 'ártico',
-            'patagonico' => 'patagónico',
-            'patagonica' => 'patagónica',
-            'gaviotin' => 'gaviotín',
-            'condor' => 'cóndor',
-            'aguila' => 'águila',
-            'halcon' => 'halcón',
-            'rio' => 'río',
-            'mision' => 'misión',
-            'espiritu' => 'espíritu',
-            'paramo' => 'páramo',
-            'maiten' => 'maitén',
-            'guarani' => 'guaraní',
-            'alferez' => 'alférez',
-            'policia' => 'policía',
-            'educacion' => 'educación',
-            'peninsula' => 'península',
-            'heroes' => 'héroes',
-            'comun' => 'común',
-            'cauquen' => 'cauquén',
-            'asociacion' => 'asociación',
-            'telefonica' => 'telefónica',
-            'juridica' => 'jurídica',
-            'juridicas' => 'jurídicas',
-            'juridico' => 'jurídico',
-            'juridicos' => 'jurídicos',
-            'informatica' => 'informática',
-            'tecnologia' => 'tecnología',
-            'antiguedad' => 'antigüedad',
-            'asignacion' => 'asignación',
-            'categoria' => 'categoría',
-            'titulo' => 'título',
-            'radicacion' => 'radicación',
-            'area' => 'área',
-            'innovacion' => 'innovación',
-            'planificacion' => 'planificación',
-            '' => '',
-            '' => '',
-            '' => '');
-
+            'antartida' => 'antártida','antartica' => 'antártica','antartico' => 'antártico','artica' => 'ártica',
+            'artico' => 'ártico','patagonico' => 'patagónico','patagonica' => 'patagónica','gaviotin' => 'gaviotín',
+            'condor' => 'cóndor','aguila' => 'águila','halcon' => 'halcón','rio' => 'río','mision' => 'misión',
+            'espiritu' => 'espíritu','paramo' => 'páramo','maiten' => 'maitén','guarani' => 'guaraní',
+            'alferez' => 'alférez','policia' => 'policía','educacion' => 'educación','peninsula' => 'península',
+            'heroes' => 'héroes','comun' => 'común','cauquen' => 'cauquén','asociacion' => 'asociación',
+            'telefonica' => 'telefónica','juridica' => 'jurídica','juridicas' => 'jurídicas','juridico' => 'jurídico',
+            'juridicos' => 'jurídicos','informatica' => 'informática','tecnologia' => 'tecnología',
+            'antiguedad' => 'antigüedad','asignacion' => 'asignación','categoria' => 'categoría','titulo' => 'título',
+            'radicacion' => 'radicación','area' => 'área','innovacion' => 'innovación',
+            'planificacion' => 'planificación','' => '','' => '','' => '');
+        
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
         }
-
+        
         return trim($text);
     }
 
@@ -419,13 +272,13 @@ class StringHelper
     {
         $nombreCompleto = trim(str_replace(array('.'), '', $nombreCompleto));
         $PartesNombre = explode(' ', $nombreCompleto, 2);
-
+        
         if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
-
+        
         $PartesNombre[1] = str_replace(array(','), ' ', $PartesNombre[1]);
-
+        
         return $PartesNombre;
     }
 
@@ -438,27 +291,95 @@ class StringHelper
     {
         $domicilio = StringHelper::Desoraclizar($domicilio);
         $PartesNombre = explode('Nº', $domicilio, 2);
-
+        
         /*
          * if(count($PartesNombre) == 1) {
          * $PartesNombre = explode(' ', $PartesNombre[0], 2);
          * }
          */
-
+        
         if (count($PartesNombre) == 1) {
             $PartesNombre[] = '';
         }
-
+        
         $PartesNombre[0] = trim($PartesNombre[0]);
         $PartesNombre[1] = trim($PartesNombre[1]);
-
+        
         $PartesNumero = explode(' ', $PartesNombre[1], 2);
         if (count($PartesNumero) == 2) {
             $PartesNombre[1] = trim($PartesNumero[0]);
             $PartesNombre[2] = trim($PartesNumero[1]);
         }
-
+        
         return $PartesNombre;
     }
-}
 
+    static public function ArreglarDecretos($Decreto)
+    {
+        $Decreto = str_replace(array('.',',','-',' ','Nº','N','Y'), '', trim($Decreto));
+        $Decreto = str_replace('//', '/', $Decreto);
+        
+        return StringHelper::SustituirPrefijos($Decreto);
+    }
+
+    static public function SustituirPrefijos($Decreto)
+    {
+        $PartesDecreto = array();
+        
+        $PartesDecreto[0] = substr($Decreto, 0, 
+            \Tapir\BaseBundle\Helper\StringHelper::IdentiicarSiglasDecreto($Decreto));
+        $PartesDecreto[1] = substr($Decreto, \Tapir\BaseBundle\Helper\StringHelper::IdentiicarSiglasDecreto($Decreto));
+        
+        switch ($PartesDecreto[0]) {
+            case 'RESOLUCION':
+            case 'RESOLUSION':
+            case 'RES EMT':
+            case 'R':
+            case null:
+                $PartesDecreto[0] = 'RM';
+                break;
+            case 'RCD':
+            case 'REOLCD':
+                $PartesDecreto[0] = 'RC';
+                break;
+            case 'DCD':
+                $PartesDecreto[0] = 'DC';
+                break;
+            case 'D':
+                $PartesDecreto[0] = 'DM';
+                break;
+            case 'A':
+                $PartesDecreto[0] = 'AD';
+                break;
+            case 'O':
+                $PartesDecreto[0] = 'OR';
+                break;
+        }
+        
+        $SubPartesDecreto = explode('/', $PartesDecreto[1]);
+        
+        if (strlen($SubPartesDecreto[1]) != 4) {
+            if ($SubPartesDecreto[1] >= 20 && $SubPartesDecreto[1] < 100) {
+                $SubPartesDecreto[1] = '19' . $SubPartesDecreto[1];
+            } else {
+                $SubPartesDecreto[1] = '20' . $SubPartesDecreto[1];
+            }
+        }
+        $PartesDecreto[1] = $SubPartesDecreto[0] . '/' . $SubPartesDecreto[1];
+        
+        return $Decreto = $PartesDecreto[0] . $PartesDecreto[1];
+    }
+
+    static public function IdentiicarSiglasDecreto($Decreto)
+    {
+        $Numeros = array('0','1','2','3','4','5','6','7','8','9');
+        
+        for ($i = 0; $i < strlen($Decreto); $i ++) {
+            foreach ($Numeros as $Numero) {
+                if ($Decreto{$i} == $Numero) {
+                    return $i;
+                }
+            }
+        }
+    }
+}
