@@ -35,30 +35,23 @@ class AgenteCategoriaMovim
     private $Categoria;
 
     /**
-     * La categoría anterior.
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $CategoriaAnterior;
-
-    /**
      * La fecha de la novedad.
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date()
      */
     private $Fecha;
 
     /**
+     * La fecha de la novedad.
      *
-     * @ignore
-     *
+     * @ORM\Column(type="boolean")
      */
-    public function setAgente($Agente)
-    {
-        return $this->Agente = $Agente;
-    }
+    private $ACargo;
+    
 
+    // *** Getters y setters
+    
     /**
      *
      * @ignore
@@ -74,9 +67,10 @@ class AgenteCategoriaMovim
      * @ignore
      *
      */
-    public function setCategoria($Categoria)
+    public function setAgente($Agente)
     {
-        return $this->Categoria = $Categoria;
+        $this->Agente = $Agente;
+        return $this;
     }
 
     /**
@@ -94,29 +88,10 @@ class AgenteCategoriaMovim
      * @ignore
      *
      */
-    public function setCategoriaAnterior($CategoriaAnterior)
+    public function setCategoria($Categoria)
     {
-        return $this->CategoriaAnterior = $CategoriaAnterior;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getCategoriaAnterior()
-    {
-        return $this->CategoriaAnterior;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setFecha($Fecha)
-    {
-        return $this->Fecha = $Fecha;
+        $this->Categoria = $Categoria;
+        return $this;
     }
 
     /**
@@ -127,5 +102,37 @@ class AgenteCategoriaMovim
     public function getFecha()
     {
         return $this->Fecha;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setFecha($Fecha)
+    {
+        $this->Fecha = $Fecha;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getACargo()
+    {
+        return $this->ACargo;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setACargo($ACargo)
+    {
+        $this->ACargo = $ACargo;
+        return $this;
     }
 }
