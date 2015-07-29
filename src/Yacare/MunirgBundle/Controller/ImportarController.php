@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Tapir\BaseBundle\TapirBaseBundle;
 
 /**
  * @Route("importar/")
@@ -20,7 +21,8 @@ class ImportarController extends Controller
      */
     public function importarPartidasAction(Request $request)
     {
-        // DELETE FROM Catastro_Partida WHERE id NOT IN (SELECT DISTINCT Partida_id FROM Inspeccion_RelevamientoAsignacionDetalle);
+        // DELETE FROM Catastro_Partida WHERE id NOT IN (SELECT DISTINCT Partida_id FROM
+        // Inspeccion_RelevamientoAsignacionDetalle);
         $desde = (int) ($request->query->get('desde'));
         $cant = 500;
         
@@ -29,35 +31,15 @@ class ImportarController extends Controller
         set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
-        $Zonas = array(
-            'ZC' => 2,
-            'ZCB' => 7,
-            'ZCM' => 4,
-            'ZCP' => 5,
-            'CRT1' => 3,
-            'ZCRT1' => 3,
-            'ZCS' => 6,
-            'ZMC' => 1,
-            'ZC-MC' => 1,
-            'ZPE' => 15,
-            'ZR1' => 8,
-            'ZR2' => 9,
-            'ZR3' => 10,
-            'ZR4' => 11,
-            'ZR5' => 12,
-            'ZR6' => 13,
-            'ZREU' => 16,
-            'ZRM' => 14,
-            'ZSEU' => 18,
+        $Zonas = array('ZC' => 2,'ZCB' => 7,'ZCM' => 4,'ZCP' => 5,'CRT1' => 3,'ZCRT1' => 3,'ZCS' => 6,'ZMC' => 1,
+            'ZC-MC' => 1,'ZPE' => 15,'ZR1' => 8,'ZR2' => 9,'ZR3' => 10,'ZR4' => 11,'ZR5' => 12,'ZR6' => 13,'ZREU' => 16,
+            'ZRM' => 14,'ZSEU' => 18,
             
             // Estos no existen en el SIGEMI
-            'Z extra urb. zona costera' => 19,
-            'Z residencial extraurbano 2' => 17,
+            'Z extra urb. zona costera' => 19,'Z residencial extraurbano 2' => 17,
             
             // Estos no existen en el anexo 6 de planificación territorial
-            'ZEIA' => null,
-            'ZEIS' => null,
-            'ZEIU' => null);
+            'ZEIA' => null,'ZEIS' => null,'ZEIU' => null);
         
         $Dbmunirg = $this->ConectarOracle();
         
@@ -126,15 +108,13 @@ WHERE rnum >" . $desde . "
             
             $entity = null;
             /*
-             * $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' => 'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
+             * $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
+             * 'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
              */
             
             if (! $entity) {
                 $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
-                    array(
-                        'Seccion' => $Seccion,
-                        'Macizo' => $Macizo,
-                        'Parcela' => $Parcela,
+                    array('Seccion' => $Seccion,'Macizo' => $Macizo,'Parcela' => $Parcela,
                         'UnidadFuncional' => $UnidadFuncional));
             }
             
@@ -224,7 +204,8 @@ WHERE rnum >" . $desde . "
                 
                 $em->persist($entity);
                 $em->flush();
-                // $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion-$Macizo-$Parcela-$UnidadFuncional) ${Row['CALLE']} #${Row['NUMERO']} --- " . $entity->getTitular();
+                // $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion-$Macizo-$Parcela-$UnidadFuncional) ${Row['CALLE']}
+                // #${Row['NUMERO']} --- " . $entity->getTitular();
             }
             
             $importar_procesados ++;
@@ -232,12 +213,9 @@ WHERE rnum >" . $desde . "
         
         $em->getConnection()->commit();
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
     }
 
     /**
@@ -478,12 +456,9 @@ WHERE rnum >" . $desde . "
         
         $em->getConnection()->commit();
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
     }
 
     /**
@@ -517,7 +492,8 @@ WHERE rnum >" . $desde . "
             if (! $entity) {
                 $entity = new \Yacare\CatastroBundle\Entity\Calle();
                 /*
-                 * $entity->setId($Row['ID']); $metadata = $em->getClassMetaData(get_class($entity)); $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+                 * $entity->setId($Row['ID']); $metadata = $em->getClassMetaData(get_class($entity));
+                 * $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
                  */
                 $importar_importados ++;
             } else {
@@ -536,11 +512,8 @@ WHERE rnum >" . $desde . "
         }
         $em->flush();
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
-            'importar_procesados' => $importar_procesados,
-            'log' => $log);
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,'log' => $log);
     }
 
     /**
@@ -638,8 +611,7 @@ WHERE rnum >" . $desde . "
         foreach ($DbRecursos->query('SELECT * FROM sectores') as $Row) {
             $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
             $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array(
-                    'ImportSrc' => 'rr_hh.sectores',
+                array('ImportSrc' => 'rr_hh.sectores',
                     'ImportId' => $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector']));
             
             if (! $entity) {
@@ -684,11 +656,8 @@ WHERE rnum >" . $desde . "
                  $nombreBueno;
         }
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
-            'importar_procesados' => $importar_procesados,
-            'log' => $log);
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,'log' => $log);
     }
 
     /**
@@ -716,38 +685,38 @@ WHERE rnum >" . $desde . "
         
         $GrupoAgentes = $em->getRepository('YacareBaseBundle:PersonaGrupo')->find(1);
         
-        foreach ($DbRecursos->query("SELECT * FROM agentes WHERE nrodoc>0 LIMIT $desde, $cant") as $Row) {
+        foreach ($DbRecursos->query("SELECT * FROM agentes WHERE nrodoc>0 LIMIT $desde, $cant") as $Agente) {
             $entity = $em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(
-                array('ImportSrc' => 'rr_hh.agentes','ImportId' => $Row['legajo']));
+                array('ImportSrc' => 'rr_hh.agentes','ImportId' => $Agente['legajo']));
             
             if (! $entity) {
                 $entity = new \Yacare\RecursosHumanosBundle\Entity\Agente();
                 
                 // Asigno manualmente el ID
-                $entity->setId((int) ($Row['legajo']));
+                $entity->setId((int) ($Agente['legajo']));
                 $metadata = $em->getClassMetaData(get_class($entity));
                 $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
                 
                 $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array('DocumentoNumero' => trim($Row['nrodoc'])));
+                    array('DocumentoNumero' => trim($Agente['nrodoc'])));
                 
                 if (! $Persona) {
                     $Persona = new \Yacare\BaseBundle\Entity\Persona();
-                    $Persona->setDocumentoNumero($Row['nrodoc']);
-                    $Persona->setDocumentoTipo((int) $Row['tipodoc']);
+                    $Persona->setDocumentoNumero($Agente['nrodoc']);
+                    $Persona->setDocumentoTipo((int) $Agente['tipodoc']);
                 }
-                $Persona->setNombre(StringHelper::Desoraclizar($Row['name']));
-                $Persona->setApellido(StringHelper::Desoraclizar($Row['lastname']));
-                if ($Row['fechanacim']) {
-                    $Persona->setFechaNacimiento(new \DateTime($Row['fechanacim']));
+                $Persona->setNombre(StringHelper::Desoraclizar($Agente['name']));
+                $Persona->setApellido(StringHelper::Desoraclizar($Agente['lastname']));
+                if ($Agente['fechanacim']) {
+                    $Persona->setFechaNacimiento(new \DateTime($Agente['fechanacim']));
                 }
                 $Persona->setTelefonoNumero(
                     trim(
-                        str_ireplace('NO DECLARA', '', $Row['telefono']) . ' ' .
-                             str_ireplace('NO DECLARA', '', $Row['celular'])));
-                $Persona->setGenero($Row['sexo'] == 1 ? 1 : 0);
-                $Persona->setEmail(str_ireplace('NO DECLARA', '', strtolower($Row['email'])));
-                $Persona->setCuilt(trim($Row['cuil']));
+                        str_ireplace('NO DECLARA', '', $Agente['telefono']) . ' ' .
+                             str_ireplace('NO DECLARA', '', $Agente['celular'])));
+                $Persona->setGenero($Agente['sexo'] == 1 ? 1 : 0);
+                $Persona->setEmail(str_ireplace('NO DECLARA', '', strtolower($Agente['email'])));
+                $Persona->setCuilt(trim($Agente['cuil']));
                 
                 $em->persist($Persona);
                 $em->flush();
@@ -755,7 +724,7 @@ WHERE rnum >" . $desde . "
                 $entity->setPersona($Persona);
                 
                 $entity->setImportSrc('rr_hh.agentes');
-                $entity->setImportId($Row['legajo']);
+                $entity->setImportId($Agente['legajo']);
                 
                 $importar_importados ++;
             } else {
@@ -764,31 +733,43 @@ WHERE rnum >" . $desde . "
             }
             
             $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array(
-                    'ImportSrc' => 'rr_hh.sectores',
-                    'ImportId' => $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector']));
+                array('ImportSrc' => 'rr_hh.sectores',
+                    'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion'] . '.' . $Agente['sector']));
             
             if (! $Departamento) {
                 $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                    array('ImportSrc' => 'rr_hh.direcciones','ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
+                    array('ImportSrc' => 'rr_hh.direcciones',
+                        'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion']));
             }
             
             if (! $Departamento) {
                 $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                    array('ImportSrc' => 'rr_hh.secretarias','ImportId' => $Row['secretaria']));
+                    array('ImportSrc' => 'rr_hh.secretarias','ImportId' => $Agente['secretaria']));
             }
             
             $entity->setDepartamento($Departamento);
-            $entity->setCategoria($Row['categoria']);
-            $entity->setSituacion($Row['situacion']);
-            $entity->setFuncion(StringHelper::Desoraclizar($Row['funcion']));
-            $entity->setBajaMotivo($Row['motivo']);
+            $entity->setCategoria($Agente['categoria']);
+            $entity->setSituacion($Agente['situacion']);
+            $entity->setFuncion(StringHelper::Desoraclizar($Agente['funcion']));
+            $entity->setBajaMotivo($Agente['motivo']);
             
-            $entity->setEstudiosNivel($Row['estudios']);
-            if ($Row['titulo'] == 999) {
+            if ($Agente['excombatie'] == 'S') {
+                $entity->setExCombatiente(1);
+            }
+            
+            if ($Agente['discapacit'] == 'S') {
+                $entity->setDiscapacitado(1);
+            }
+            
+            if ($Agente['manohabil'] == 'I') {
+                $entity->setManoHabil(1);
+            }
+            
+            $entity->setEstudiosNivel($Agente['estudios']);
+            if ($Agente['titulo'] == 999) {
                 $entity->setEstudiosTitulo(null);
             } else {
-                $entity->setEstudiosTitulo($Row['titulo']);
+                $entity->setEstudiosTitulo($Agente['titulo']);
             }
             
             // Si no está en el grupo agentes, lo agrego
@@ -802,19 +783,78 @@ WHERE rnum >" . $desde . "
                 $Persona->setAgenteId($entity->getId());
             }
             
-            if ($Row['fechaingre']) {
-                $entity->setFechaIngreso(new \DateTime($Row['fechaingre']));
+            if ($Agente['fechaingre']) {
+                $entity->setFechaIngreso(new \DateTime($Agente['fechaingre']));
             } else {
                 $entity->setFechaIngreso(null);
             }
             
-            if (is_null($Row['fechabaja']) || $Row['fechabaja'] === '0000-00-00') {
+            if (is_null($Agente['fechabaja']) || $Agente['fechabaja'] === '0000-00-00') {
                 $entity->setBajaFecha(null);
                 $entity->setArchivado(false);
             } else {
-                $entity->setBajaFecha(new \DateTime($Row['fechabaja']));
+                $entity->setBajaFecha(new \DateTime($Agente['fechabaja']));
                 $entity->setArchivado(true);
             }
+            
+            if (is_null($Agente['fechanacion'] || $Agente['fechanacion'] === '0000-00-00')) {
+                $entity->setFechaNacionalizacion(null);
+            } else {
+                $entity->setFechaNacionalizacion(new \DateTime($Agente['fechanacion']));
+            }
+            
+            if (is_null($Agente['ult_act_d'] || $Agente['ult_act_d'] === '0000-00-00')) {
+                $entity->setUltimaActualizacionDomicilio(null);
+            } else {
+                $entity->setUltimaActualizacionDomicilio(new \DateTime($Agente['ult_act_d']));
+            }
+            
+            if (is_null($Agente['fecha_psico'] || $Agente['fecha_psico'] === '0000-00-00')) {
+                $entity->setFechaPsicofisico(null);
+            } else {
+                $entity->setFechaPsicofisico(new \DateTime($Agente['ult_act_d']));
+            }
+            
+            if (is_null($Agente['fecha_CBC'] || $Agente['fecha_CBC'] === '0000-00-00')) {
+                $entity->setFechaCertificadoBuenaConducta(null);
+            } else {
+                $entity->setFechaCertificadoBuenaConducta(new \DateTime($Agente['fecha_CBC']));
+            }
+            
+            if (is_null($Agente['fecha_CAP'] || $Agente['fecha_CAP'] === '0000-00-00')) {
+                $entity->setFechaCertificadoAntecedentesPenales(null);
+            } else {
+                $entity->setFechaCertificadoAntecedentesPenales(new \DateTime($Agente['fecha_CAP']));
+            }
+            
+            if (is_null($Agente['fecha_CD'] || $Agente['fecha_CD'] === '0000-00-00')) {
+                $entity->setFechaCertificadoDomicilio(null);
+            } else {
+                $entity->setFechaCertificadoDomicilio(new \DateTime($Agente['fecha_CD']));
+            }
+            
+            if (\Tapir\BaseBundle\Helper\Cbu::EsCbuValida($Agente['cbu'])) {
+                $entity->setCBUCuentaAgente($Agente['cbu']);
+            }
+            
+            if (is_null($Agente['finalcontr'] || $Agente['finalcontr'] === '0000-00-00')) {
+                $entity->setBajaFechaContrato(null);
+            } else {
+                $entity->setBajaFechaContrato(new \DateTime($Agente['finalcontr']));
+            }
+            
+            if ($Agente['decreto2']) {
+                $Decreto = $Agente['decreto2'];
+                $entity->setBajaDecreto(\Tapir\BaseBundle\Helper\StringHelper::ArreglarDecretos($Decreto));
+            }
+            
+            /*
+             * if ($Agente['lugarnacim']) {
+             * $entity->setLugarNacimiento($Agente['lugarnacim']);
+             * } else {
+             * $entity->setLugarNacimiento(null);
+             * }
+             */
             
             $entity->setSuprimido(false);
             
@@ -822,16 +862,13 @@ WHERE rnum >" . $desde . "
             $em->flush();
             
             $importar_procesados ++;
-            $log[] = $Row['legajo'] . ': ' . (string) $entity . ($entity->getSuprimido() ? '*' : '') . ' -- ' .
+            $log[] = $Agente['legajo'] . ': ' . (string) $entity . ($entity->getSuprimido() ? '*' : '') . ' -- ' .
                  (string) $entity->getDepartamento();
         }
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
     }
 
     protected function ConectarOracle()
@@ -1108,12 +1145,9 @@ WHERE rnum >" . $desde . "
         
         fclose($ArchivoMatriculados);
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
     }
 
     /**
@@ -1243,11 +1277,8 @@ WHERE rnum >" . $desde . "
         
         fclose($ArchivoCsv);
         
-        return array(
-            'importar_importados' => $importar_importados,
-            'importar_actualizados' => $importar_actualizados,
+        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
     }
 }
