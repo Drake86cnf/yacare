@@ -55,8 +55,10 @@
 	
 	{% if entity.CertificadoHabilitacion %}
 	<div class="row"><h2 class="row-header">Certificado de habilitación
-		<a class="btn btn-sm btn-default pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
-		    { 'id': entity.CertificadoHabilitacion.Id }) }}" href=""><i class="fa fa-print"></i> Ver</a>
+		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
+		    { 'id': entity.CertificadoHabilitacion.Id }) }}" href=""><i class="fa fa-file-o"></i> Ver</a>
+		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
+		    { 'id': entity.CertificadoHabilitacion.Id, 'imprimir': true }) }}" href=""><i class="fa fa-print"></i> Imprimir</a>
 		</h2></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
