@@ -338,3 +338,8 @@ div:hover > .showonhover {
     opacity: 1.0 !important;
 }
 
+.row h2.row-header {
+    font-weight: 400;
+	padding: 4px;
+	border-bottom: 1px dotted silver;
+}

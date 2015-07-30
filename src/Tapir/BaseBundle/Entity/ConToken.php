@@ -84,7 +84,7 @@ trait ConToken
     /**
      * @ignore
      */
-    public function setToken(int $Token)
+    public function setToken($Token)
     {
         $this->Token = $Token;
         return $this;

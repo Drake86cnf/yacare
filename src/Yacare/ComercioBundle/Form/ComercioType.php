@@ -12,8 +12,13 @@ class ComercioType extends ComercioSimpleType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Estado', 'choice', 
-            array(
+        $builder
+            ->add('Titular', 'entity_id', array(
+                'label' => 'Titular',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
+            ->add('Estado', 'choice', array(
                 'label' => 'Estado',
                 'required' => true,
                 'choices' => array(

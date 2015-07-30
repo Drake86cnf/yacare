@@ -17,6 +17,7 @@ class Comercio
     use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
+    use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
     
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Versionable;

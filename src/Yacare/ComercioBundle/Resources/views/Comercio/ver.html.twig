@@ -1,0 +1,81 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text('Nombre de fantasía', entity.Nombre) }}
+			{{ bs.grid_label_text('Titular', entity.Titular) }}
+			{{ bs.grid_label_text('Apoderado', entity.Apoderado) }}
+			{{ bs.grid_label_text('Local comercial', entity.Local) }}
+		</div>
+		<div class="col-sm-4 col-xs-12">
+			{{ bs.grid_label_text('Expediente', '<strong>' ~ entity.ExpedienteNumero ~ '</strong>') }}
+			{{ bs.grid_label_text('Resolución', entity.ActoAdministrativoNumero) }}
+			{{ bs.grid_label_text('Estado', entity.EstadoNombre) }}
+		</div>
+	</div>
+	
+	<div class="row"><h2 class="row-header">Actividades</h2></div>
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text(entity.ActividadPrincipal.Clamae2014, entity.ActividadPrincipal) }}
+			{% if entity.ActividadSecundaria %}
+                {{ bs.grid_label_text(entity.ActividadSecundaria.Clamae2014, entity.ActividadSecundaria) }}
+            {% endif %}
+            {% if entity.ActividadTerciaria %}
+                {{ bs.grid_label_text(entity.ActividadTerciaria.Clamae2014, entity.ActividadTerciaria) }}
+            {% endif %}
+		</div>
+	</div>
+
+	<div class="row"><h2 class="row-header">Local comercial</h2></div>
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+		    {% if entity.Local %}
+		        {{ bs.grid_label_text('Tipo', entity.Local.Tipo) }}
+		        {{ bs.grid_label_text('Clase', entity.Local.DepositoClase) }}
+		        {{ bs.grid_label_text('Superficie', entity.Local.Superficie ~ ' m²') }}
+		        
+		        {% if entity.Local.Partida %}
+		            </div>
+		            <div class="col-sm-6 col-xs-12">
+		            {{ bs.grid_label_text('Propietario', entity.Local.Partida.Titular) }}
+    		        {{ bs.grid_label_text('Domicilio', entity.Local.Partida.Domicilio) }}
+    		    	{{ bs.grid_label_text('Partida', entity.Local.Partida.Smpu) }}
+    		        {{ bs.grid_label_text('Zonificación', entity.Local.Partida.Zona) }}
+		        {% endif %}
+		    {% endif %}
+		</div>
+	</div>
+	
+	{% if entity.CertificadoHabilitacion %}
+	<div class="row"><h2 class="row-header">Certificado de habilitación
+		<a class="btn btn-sm btn-default pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
+		    { 'id': entity.CertificadoHabilitacion.Id }) }}" href=""><i class="fa fa-print"></i> Ver</a>
+		</h2></div>
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+	        {{ bs.grid_label_text('Número', entity.CertificadoHabilitacion.Numero) }}
+	        {{ bs.grid_label_text('Fecha de emisión', entity.CertificadoHabilitacion.createdAt|tapir_fecha('medium', 'none')) }}
+	        {{ bs.grid_label_text('Vencimiento', entity.CertificadoHabilitacion.Vencimiento|tapir_fecha('medium', 'none')) }}
+	        
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+
+{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+<a data-toggle="ajax-link" class="btn btn-default hidden-print"
+	href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"><i
+	class="fa fa-edit"></i> Editar</a>
+{% endif %}
+{% endblock %}
