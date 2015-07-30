@@ -17,7 +17,7 @@ class AgenteCategoriaMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\AdministracionBundle\Entity\ConDecreto;
+    use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
 
     /**
      * El agente.

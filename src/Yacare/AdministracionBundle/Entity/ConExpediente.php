@@ -18,7 +18,7 @@ trait ConExpediente
      * 
      * @Assert\Regex(
      *     pattern="/^\s*(\d{1,6})\/(19|20)(\d{2})\s*$/i",
-     *     message="Debe escribir el número de decreto en el formato DM-1234/2015."
+     *     message="Debe escribir el número de expediente en el formato 1234/2015."
      * )
      */
     protected $ExpedienteNumero;
