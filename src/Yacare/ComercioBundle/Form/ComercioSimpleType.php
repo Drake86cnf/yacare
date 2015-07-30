@@ -16,11 +16,6 @@ class ComercioSimpleType extends AbstractType
             ->add('Nombre', null, array('label' => 'Nombre de fantasía'))
             ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), 
                 array('label' => 'Expediente', 'required' => false))
-            ->add('Titular', 'entity_id', array(
-                'label' => 'Titular',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'required' => true))
             ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
                 'property' => 'NombreVisible',

@@ -1,13 +1,18 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Consulta de factibilidad de habilitación comercial{% endblock %} {%
-block pagina_inicio %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
+
+{% block pagina_inicio %}
 <form class="form-horizontal"
 	action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}"
 	method="post"  {{ form_enctype(edit_form) }}>
-	{% endblock %} {% block pagina_contenido %} {% set porpartida =
-	app.request.query.get('porpartida') %} {% if create %} {{
-	form_widget(edit_form) }} {% else %}
+{% endblock %}
 
+{% block pagina_contenido %}
+    {% set porpartida = app.request.query.get('porpartida') %}
+    {% if create %}
+        {{ form_widget(edit_form) }}
+    {% else %}
 	<h2>Sobre el inmueble</h2>
 	<p>
 		{{ tipo }} ubicado en <strong>{{ partida.Domicilio }}</strong> de la
@@ -174,21 +179,32 @@ block pagina_inicio %}
 		Habilitación Comercial.</p>
 	<p>Esta información está sujeta a aprobación por las autoridades
 		competentes y puede cambiar sin previo aviso.</p>
+	{% endif %}
+{% endblock %}
 
-	{% endif %} {% endblock %} {% block pagina_acciones2 %} {% if create %}
+{% block pagina_acciones2 %}
+{% if create %}
 	{% if porpartida %} Si el local está empadronado, utilice la búsqueda <a
 		data-toggle="ajax-link"
 		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por
 		local comercial</a>. {% else %} Si el local no está empadronado, puede
 	cambiar a la búsqueda <a data-toggle="ajax-link"
 		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por
-		domicilio</a>. {% endif %} {% endif %} {% endblock %} {% block
-	pagina_acciones %} {% if create %} <a
-		class="btn btn-default hidden-print" data-togle="ajax-link"
+		domicilio</a>.
+	{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block pagina_acciones %}
+    {% if create %}
+    <a class="btn btn-default hidden-print" data-togle="ajax-link"
 		href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
 	<button type="submit" class="btn btn-primary hidden-print">
 		<i class="fa fa-info-circle"></i> Consultar
 	</button>
-	{% endif %} {% endblock %} {% block pagina_fin %}
+	{% endif %}
+{% endblock %}
+
+{% block pagina_fin %}
 </form>
 {% endblock %}
