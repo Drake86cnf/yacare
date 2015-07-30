@@ -1,5 +1,8 @@
-{% extends 'TapirBaseBundle:Default:listar.html.twig' %} {% block
-pagina_titulo %}Comercios{% endblock %} {% block pagina_contenido %}
+{% extends 'TapirBaseBundle:Default:listar.html.twig' %}
+
+{% block pagina_titulo %}Comercios{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -16,12 +19,12 @@ pagina_titulo %}Comercios{% endblock %} {% block pagina_contenido %}
 			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
 			<td>{{ entity.id }}</td>
 			<td>{{ entity.ExpedienteNumero }}</td>
-			<td>{{ entity.Nombre }} {% if entity.Estado == 1 %} <span
-				class="label label-warning">{{ entity.EstadoNombre }}</span> {%
-				elseif entity.Estado == 0 or entity.Estado == 91 %} <span
-				class="label label-danger">{{ entity.EstadoNombre }}</span> {%
-				elseif entity.Estado != 100 %} <span class="label label-default">{{
-					entity.EstadoNombre }}</span> {% endif %}
+			<td>{{ entity.Nombre }}
+			    {% if entity.Estado == 1 %} <span class="label label-warning">{{ entity.EstadoNombre }}</span>
+			    {% elseif entity.Estado == 0 or entity.Estado == 91 %} <span
+			    	class="label label-danger">{{ entity.EstadoNombre }}</span>
+			    {% elseif entity.Estado != 100 %} <span class="label label-default">{{ entity.EstadoNombre }}</span>
+			    {% endif %}
 			</td>
 			<td class="hidden-xs">{{ entity.Local }}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal }}</td>
@@ -29,10 +32,12 @@ pagina_titulo %}Comercios{% endblock %} {% block pagina_contenido %}
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
-block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig'
-%}{% endblock pagina_buscar %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
 	href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}"
 	class="btn btn-primary"><i class="fa fa-play"></i> Iniciar trámite de

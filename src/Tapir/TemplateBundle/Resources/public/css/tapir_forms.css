@@ -16,6 +16,22 @@ input, select, textarea {
     line-height: 1.42857; */
 }
 
+.tapir-input-120 {
+    max-width: 120px;
+}
+
+.tapir-input-240 {
+	max-width: 240px;
+}
+
+.tapir-input-320 {
+    max-width: 320px;
+}
+
+.tapir-input-480 {
+    max-width: 480px;
+}
+
 .input-group-addon {
 	border-radius: 0px !important;
 }
