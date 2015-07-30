@@ -4,6 +4,12 @@ namespace Tapir\BaseBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Campo de formulario para ingreso de CUIT/CUIL.
+ *
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
+
 class CuiltType extends AbstractType
 {
 

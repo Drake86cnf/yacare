@@ -4,6 +4,7 @@ pagina_titulo %}Comercios{% endblock %} {% block pagina_contenido %}
 	<thead>
 		<tr>
 			<th>#</th>
+			<th>Exped.</th>
 			<th>Nombre</th>
 			<th class="hidden-xs">Local</th>
 			<th class="hidden-sm hidden-xs">Actividad</th>
@@ -14,6 +15,7 @@ pagina_titulo %}Comercios{% endblock %} {% block pagina_contenido %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
 			<td>{{ entity.id }}</td>
+			<td>{{ entity.ExpedienteNumero }}</td>
 			<td>{{ entity.Nombre }} {% if entity.Estado == 1 %} <span
 				class="label label-warning">{{ entity.EstadoNombre }}</span> {%
 				elseif entity.Estado == 0 or entity.Estado == 91 %} <span

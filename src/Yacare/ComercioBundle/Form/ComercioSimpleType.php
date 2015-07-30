@@ -12,7 +12,10 @@ class ComercioSimpleType extends AbstractType
     {
         parent::buildForm($builder, $options);
         
-        $builder->add('Nombre', null, array('label' => 'Nombre de fantasía'))
+        $builder
+            ->add('Nombre', null, array('label' => 'Nombre de fantasía'))
+            ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), 
+                array('label' => 'Expediente', 'required' => false))
             ->add('Titular', 'entity_id', array(
                 'label' => 'Titular',
                 'property' => 'NombreVisible',
