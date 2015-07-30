@@ -1,20 +1,15 @@
 <?php
-namespace Yacare\ExpedientesBundle\Entity;
+namespace Yacare\AdministracionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Agrega la capcidad de estar vinculado a un expediente.
- * 
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
- */
-trait ConExpediente
+trait ConSeguimiento
 {
-
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(nullable=true)
      */
-    protected $ExpedienteNumero;
+    protected $EnPoderDe;
 
     public function getExpedienteNumero()
     {

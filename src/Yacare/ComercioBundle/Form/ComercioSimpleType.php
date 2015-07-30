@@ -13,26 +13,27 @@ class ComercioSimpleType extends AbstractType
         parent::buildForm($builder, $options);
         
         $builder->add('Nombre', null, array('label' => 'Nombre de fantasía'))
-            ->add('Apoderado', 'entity_id', 
-            array(
+            ->add('Titular', 'entity_id', array(
+                'label' => 'Titular',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
+            ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => false))
             ->add('Local', 'entity_id', 
-            array('label' => 'Local','class' => 'Yacare\ComercioBundle\Entity\Local','required' => true))
-            ->add('ActividadPrincipal', 'entity_id', 
-            array(
+                array('label' => 'Local','class' => 'Yacare\ComercioBundle\Entity\Local','required' => false))
+            ->add('ActividadPrincipal', 'entity_id', array(
                 'label' => 'Actividad principal',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('ActividadSecundaria', 'entity_id', 
-            array(
+            ->add('ActividadSecundaria', 'entity_id', array(
                 'label' => 'Actividad secundaria',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('ActividadTerciaria', 'entity_id', 
-            array(
+            ->add('ActividadTerciaria', 'entity_id', array(
                 'label' => 'Actividad terciaria',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false));

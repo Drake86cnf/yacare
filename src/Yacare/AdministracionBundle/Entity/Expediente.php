@@ -1,10 +1,10 @@
 <?php
-namespace Yacare\ExpedientesBundle\Entity;
+namespace Yacare\AdministracionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ExpedientesBundle\Entity\Expediente
+ * Yacare\AdministracionBundle\Entity\Expediente
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Expedientes_Expediente")

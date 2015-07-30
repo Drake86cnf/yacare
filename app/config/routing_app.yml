@@ -13,11 +13,6 @@ yacare_obras_particulares:
     type:     annotation
     prefix:   /obrasparticulares/
 
-yacare_expedientes:
-    resource: "@YacareExpedientesBundle/Controller/"
-    type:     annotation
-    prefix:   /expedientes/
-
 yacare_munirg:
     resource: "@YacareMunirgBundle/Controller/"
     type:     annotation

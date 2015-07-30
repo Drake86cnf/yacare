@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
-    use \Yacare\ExpedientesBundle\Entity\ConExpediente;
+    use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Yacare\ComercioBundle\Entity\ConDatosComercio;
 
     /**

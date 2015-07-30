@@ -1,10 +1,10 @@
 <?php
-namespace Yacare\ExpedientesBundle\Entity;
+namespace Yacare\AdministracionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ExpedientesBundle\Entity\SeguimientoExpediente
+ * Yacare\AdministracionBundle\Entity\SeguimientoExpediente
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Expedientes_SeguimientoExpediente")
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SeguimientoExpediente
 {
     use \Tapir\BaseBundle\Entity\ConId;
-    use \Yacare\ExpedientesBundle\Entity\ConExpediente;
+    use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 }

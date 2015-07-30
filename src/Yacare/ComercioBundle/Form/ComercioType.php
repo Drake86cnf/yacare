@@ -19,6 +19,7 @@ class ComercioType extends ComercioSimpleType
                 'choices' => array(
                     0 => 'No habilitado',
                     1 => 'Habilitación en trámite',
+                    90 => 'Cerrado',
                     91 => 'Habilitación vencida',
                     100 => 'Habilitado')));
     }
