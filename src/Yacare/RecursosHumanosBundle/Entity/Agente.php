@@ -324,6 +324,11 @@ class Agente
      * @Assert\Time()
      */
     private $Horario2Salida;
+    
+    
+    public function AntiguedadLiquidacionHaberes($hastafecha = null) {
+        return \Yacare\RecursosHumanosBundle\Helper\Antiguedades::CalcularAntiguedadHaberes($this->getFechaIngreso(), $hastafecha);
+    }
 
     public function __toString()
     {
@@ -376,7 +381,7 @@ class Agente
         return Agente::SituacionesNombres($this->getSituacion());
     }
 
-    public static function BajasMotivosNombres($rango)
+    public static function BajaMotivoNombres($rango)
     {
         switch ($rango) {
             case 0:
@@ -407,7 +412,7 @@ class Agente
      */
     public function getBajaMotivoNombre()
     {
-        return Agente::BajasMotivosNombres($this->getBajaMotivo());
+        return Agente::BajaMotivoNombres($this->getBajaMotivo());
     }
 
     public static function EstudiosNivelesNombres($rango)
