@@ -79,7 +79,7 @@ doctrine:
                     YacareComprasBundle: ~
                     YacareCatastroBundle: ~
                     YacareComercioBundle: ~
-                    YacareExpedientesBundle: ~
+                    YacareAdministracionBundle: ~
                     YacareInspeccionBundle: ~
                     YacareMunirgBundle: ~
                     YacareObrasParticularesBundle: ~

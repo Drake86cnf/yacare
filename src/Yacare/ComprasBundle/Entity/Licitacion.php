@@ -15,7 +15,7 @@ class Licitacion
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Importable;
-    use \Yacare\ExpedientesBundle\Entity\ConExpediente;
+    use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     // use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;

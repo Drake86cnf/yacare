@@ -5,38 +5,38 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Agrega la capacidad de estar vinculado a un decreto.
+ * Agrega la capacidad de estar vinculado a un expediente.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-trait ConDecreto
+trait ConExpediente
 {
     /**
-     * El número de decreto asociado, en el formato DM-1234/2015.
+     * El número de expediente asociado.
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Assert\Regex(
-     *     pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR)\-(\d{1,5})\/(19|20)(\d{2})\s*$/i",
+     *     pattern="/^\s*(\d{1,6})\/(19|20)(\d{2})\s*$/i",
      *     message="Debe escribir el número de decreto en el formato DM-1234/2015."
      * )
      */
-    protected $DecretoNumero;
+    protected $ExpedienteNumero;
 
     /**
      * @ignore
      */
-    public function getDecretoNumero()
+    public function getExpedienteNumero()
     {
-        return $this->DecretoNumero;
+        return $this->ExpedienteNumero;
     }
 
     /**
      * @ignore
      */
-    public function setDecretoNumero($DecretoNumero)
+    public function setExpedienteNumero($ExpedienteNumero)
     {
-        $this->DecretoNumero = $DecretoNumero;
+        $this->ExpedienteNumero = $ExpedienteNumero;
         return $this;
     }
 }

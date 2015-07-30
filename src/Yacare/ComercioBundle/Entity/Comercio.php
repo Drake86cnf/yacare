@@ -40,6 +40,8 @@ class Comercio
                 return 'No habilitado';
             case 1:
                 return 'En trámite';
+            case 90:
+                return 'Cerrado';
             case 91:
                 return 'Hab. vencida';
             case 100:

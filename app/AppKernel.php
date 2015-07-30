@@ -42,7 +42,6 @@ class AppKernel extends Kernel
             //new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
             //new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
             new Yacare\MunirgBundle\YacareMunirgBundle(),
-            new Yacare\ExpedientesBundle\YacareExpedientesBundle(),
             new Yacare\ObrasParticularesBundle\YacareObrasParticularesBundle(),
             //new Yacare\SeguridadBundle\YacareSeguridadBundle(),
             new Yacare\RequerimientosBundle\YacareRequerimientosBundle(),
