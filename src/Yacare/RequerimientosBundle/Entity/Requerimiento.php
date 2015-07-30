@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Requerimiento
 {
     use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConTokenSimple;
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\ConNotas;
     use \Tapir\BaseBundle\Entity\Versionable;
@@ -28,7 +29,7 @@ class Requerimiento
     public function __construct()
     {
         $this->Novedades = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Token = rand(1000, 9999); 
+        $this->GenerarToken(1000, 9999); 
     }
 
 
@@ -103,18 +104,6 @@ class Requerimiento
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Prioridad = 0;
-    
-    
-    /**
-     * El token necesario para acceder al reclamo.
-     * 
-     * El token es un número (normalmente de 4 dígitos) que funciona como verficación de acceso a un reclamo para evitar
-     * identificadores previsibles.
-     *
-     * @var int
-     * @ORM\Column(type="integer")
-     */
-    private $Token;
     
     
     /**
@@ -291,15 +280,6 @@ class Requerimiento
     public function setCategoria($Categoria)
     {
         $this->Categoria = $Categoria;
-        return $this;
-    }
-    public function getToken()
-    {
-        return $this->Token;
-    }
-    public function setToken($Token)
-    {
-        $this->Token = $Token;
         return $this;
     }
 }

@@ -24,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class Comprobante
 {
     use \Tapir\BaseBundle\Entity\ConId;
+    use \Tapir\BaseBundle\Entity\ConToken;
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -33,16 +34,18 @@ abstract class Comprobante
     /**
      * El tipo de comprobante.
      *
-     * @see ComprobanteTipo @ORM\ManyToOne(targetEntity="ComprobanteTipo")
-     *      @ORM\JoinColumn(nullable=false)
+     * @see ComprobanteTipo
+     * @ORM\ManyToOne(targetEntity="ComprobanteTipo")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $ComprobanteTipo;
 
     /**
      * El trámite que dió origen a este comprobante.
      *
-     * @see Tramite @ORM\ManyToOne(targetEntity="Tramite")
-     *      @ORM\JoinColumn(nullable=false)
+     * @see Tramite
+     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteOrigen;
 
@@ -53,7 +56,8 @@ abstract class Comprobante
      * varias numeraciones para un mismo tipo de comprobante.
      * Por ejemplo 0001-NNNNNNN, 0002-NNNNNNN, 0003-NNNNNNN, etc.
      *
-     * @see $Numero @ORM\Column(type="integer")
+     * @see $Numero
+     * @ORM\Column(type="integer")
      */
     private $NumeroPrefijo = 0;
 
@@ -62,7 +66,8 @@ abstract class Comprobante
      *
      * Es secuencial, iniciando en 1 para cada prefijo y tipo de comprobante.
      *
-     * @see $NumeroPrefijo @ORM\Column(type="integer")
+     * @see $NumeroPrefijo
+     * @ORM\Column(type="integer")
      */
     private $Numero;
 
