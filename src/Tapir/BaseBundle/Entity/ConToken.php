@@ -33,7 +33,43 @@ trait ConToken
      * Generar un token pseudoaleatorio.
      */
     protected function GenerarToken() {
-        $this->Token = base64_encode(openssl_random_pseudo_bytes(30));
+        $this->Token = toupper(substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32));
+    }
+    
+    /**
+     * Obtiene un YRI, que es un identificador único de esta entidad.
+     *
+     * El YRI es una URL que apunta a una entidad.
+     *
+     * @param boot $incluye_version
+     * Indica si el YRI es a una versión específica de la entidad (true)
+     * o en general a cualquier versión disponible (false).
+     */
+    public function getYriConToken($incluye_version = true)
+    {
+        $res = $this->getYri();
+        $res .= "&tk=" . $this->getToken();
+    
+        return $res;
+    }
+    
+    /**
+     * Obtiene un enlace QR al YRI con token, en base64.
+     *
+     * @return string La representación base64 del gráfico QR del YRI.
+     */
+    public function getYriConTokenQrBase64()
+    {
+        $ContenidoQr = $this->getYriConToken(true);
+    
+        ob_start();
+        \PHPQRCode\QRcode::png($ContenidoQr);
+        $imagen_contenido = ob_get_contents();
+        ob_end_clean();
+    
+        // PHPQRCode cambia el content-type a image/png... lo volvemos a html
+        header("Content-type: text/html");
+        return base64_encode($imagen_contenido);
     }
 
     

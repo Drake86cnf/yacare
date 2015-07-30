@@ -61,8 +61,8 @@ trait ConIdMetodos
      * El YRI es una URL que apunta a una entidad.
      *
      * @param boot $incluye_version
-     *            Indica si el YRI es a una versión específica de la entidad (true)
-     *            o en general a cualquier versión disponible (false).
+     * Indica si el YRI es a una versión específica de la entidad (true)
+     * o en general a cualquier versión disponible (false).
      */
     public function getYri($incluye_version = true)
     {
@@ -73,8 +73,9 @@ trait ConIdMetodos
         $ClassName = $PartesNombreClase[3];
         $Res = "http://yacare.riogrande.gob.ar/cp/?en=$BundleName+$ClassName&id=" . $this->getId();
         
-        if ($incluye_version && in_array('Tapir\BaseBundle\Entity\Versionable', class_uses($this)))
+        if ($incluye_version && in_array('Tapir\BaseBundle\Entity\Versionable', class_uses($this))) {
             $Res .= "&ver=" . $this->getVersion();
+        }
         
         return $Res;
     }
@@ -98,3 +99,4 @@ trait ConIdMetodos
         return base64_encode($imagen_contenido);
     }
 }
+
