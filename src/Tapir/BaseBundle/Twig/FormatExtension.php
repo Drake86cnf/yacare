@@ -18,6 +18,10 @@ class FormatExtension extends \Twig_Extension
                 $this,
                 'tapir_hacetiempo'
             )),
+            new \Twig_SimpleFilter('tapir_diferenciafechas', array(
+                $this,
+                'tapir_diferenciafechas'
+            )),
             new \Twig_SimpleFilter('tapir_cantidaddedias', array(
                 $this,
                 'tapir_cantidaddedias'
@@ -55,6 +59,29 @@ class FormatExtension extends \Twig_Extension
                 'tapir_abreviar'
             ))
         );
+    }
+    
+    public function tapir_diferenciafechas($diff) {
+        $partes = array();
+        if($diff->y == 1) {
+                $partes[] = $diff->y . ' año'; 
+        } elseif($diff->y > 1) {
+                $partes[] = $diff->y . ' años'; 
+        }
+        
+        if($diff->m == 1) {
+            $partes[] = $diff->m . ' mes';
+        } elseif($diff->m > 1) {
+            $partes[] = $diff->m . ' meses';
+        }
+        
+        if($diff->d == 1) {
+            $partes[] = $diff->d . ' día';
+        } elseif($diff->d > 1) {
+            $partes[] = $diff->d . ' días';
+        }
+        
+        return implode($partes, ', ');
     }
 
 

@@ -9,10 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *        
- *         @ORM\Table(name="Rrhh_Antiguedad")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Antiguedad")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
-class Antiguedades
+class AgenteAntiguedad
 {
     use \Tapir\BaseBundle\Entity\ConId;
 
@@ -42,13 +42,6 @@ class Antiguedades
     /**
      * ???
      *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Codigo;
-
-    /**
-     * ???
-     *
      * @ORM\Column(type="boolean")
      */
     private $Reparticion;
@@ -74,7 +67,7 @@ class Antiguedades
      */
     public function getTipoNombre()
     {
-        return Antiguedades::setTiposNombres($this->getTipoNombre());
+        return AgenteAntiguedad::setTiposNombres($this->getTipoNombre());
     }
 
     public static function setTiposNombres($rango)
