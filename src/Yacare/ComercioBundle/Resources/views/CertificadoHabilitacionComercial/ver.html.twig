@@ -13,7 +13,7 @@
 	
 	<div class="panel-body">
 	
-		<img src="data:image/jpeg;base64,{{ entity.YriQrBase64 }}" class="pull-right" alt="QR" />
+		<img src="data:image/jpeg;base64,{{ entity.YriConTokenQrBase64 }}" class="pull-right" alt="QR" />
     	<p>Se extiende el presente Certificado de Habilitación Comercial a
     	{{ entity.Comercio.Titular }}, CUIT/CUIL {{ entity.Comercio.Titular.Cuilt }},
     	para el ejercicio de las actividades comerciales detalladas más abajo,
@@ -78,7 +78,6 @@
     	El presente certificado es intransferible, es válido solamente para
     	el ejercicio de las actividades mencionadas, solamente en el local comercial
     	mencionado y es válido hasta el día {{ entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.
-    	<a href="{{ entity.Yri }}">{{ entity.Yri }}</a>
     </div>
 	
 </div>
