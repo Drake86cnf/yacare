@@ -6,7 +6,8 @@
 <meta name="description" content="{{ tapir_nombreaplicacion }}">
 <meta name="author" content="Ernesto N. Carrea">
 
-{% set tapir_modal = 0 %} {% set block_pagina_titulo = block('pagina_titulo') %}
+{% set tapir_modal = 0 %}
+{% set block_pagina_titulo = block('pagina_titulo') %}
 
 <title>{{ tapir_nombreaplicacion }}{% if block_pagina_titulo is not	empty %}:
     {{ block_pagina_titulo|striptags|trim|raw }}{% endif %}</title>

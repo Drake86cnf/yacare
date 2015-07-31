@@ -8,6 +8,7 @@
 		<tr>
 			<th>#</th>
 			<th>Exped.</th>
+			<th> </th>
 			<th>Nombre</th>
 			<th class="hidden-xs">Local</th>
 			<th class="hidden-sm hidden-xs">Actividad</th>
@@ -18,19 +19,34 @@
 		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
 			<td>{{ entity.id }}</td>
 			<td>{{ entity.ExpedienteNumero }}</td>
-			<td>{{ entity.Nombre }}
-			    {% if entity.Estado == 1 %} <span class="label label-warning">{{ entity.EstadoNombre }}</span>
-			    {% elseif entity.Estado == 0 or entity.Estado == 91 %} <span
-			    	class="label label-danger">{{ entity.EstadoNombre }}</span>
-			    {% elseif entity.Estado != 100 %} <span class="label label-default">{{ entity.EstadoNombre }}</span>
+			<td class="text-center">
+			    {% if entity.Estado == 1 %}<span class="label label-warning" title="En trámite">ET</span>
+			    {% elseif entity.Estado == 0 %}<span class="label label-danger">NH</span>
+			    {% elseif entity.Estado == 90 %}<span class="label label-danger">C</span>
+			    {% elseif entity.Estado == 91 %}<span class="label label-danger">V</span>
+			    {% elseif entity.Estado == 100 %}<span class="label label-success">H</span>
 			    {% endif %}
 			</td>
-			<td class="hidden-xs">{{ entity.Local }}</td>
+			<td>{{ entity.Nombre }}</td>
+			<td class="hidden-xs">
+			    {% if entity.Local %}
+			        {{ entity.Local }}
+			    {% else %}
+			    	(ambulante)
+			    {% endif %}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.ActividadPrincipal }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+
+<p class="text-center small">
+	<span class="label label-success">H</span> Habilitado &nbsp;&nbsp;&nbsp;
+	<span class="label label-warning">ET</span> En trámite &nbsp;&nbsp;&nbsp;
+	<span class="label label-danger">NH</span> No habilitado &nbsp;&nbsp;&nbsp;
+	<span class="label label-danger">C</span> Cerrado &nbsp;&nbsp;&nbsp;
+	<span class="label label-danger">V</span> Habilitación vencida
+</p>
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}

@@ -11,7 +11,11 @@
 			{{ bs.grid_label_text('Nombre de fantasía', entity.Nombre) }}
 			{{ bs.grid_label_text('Titular', entity.Titular) }}
 			{{ bs.grid_label_text('Apoderado', entity.Apoderado) }}
-			{{ bs.grid_label_text('Local comercial', entity.Local) }}
+			{% if entity.Local %}
+			    {{ bs.grid_label_text('Local comercial', entity.Local) }}
+			{% else %}
+				{{ bs.grid_label_text('Local comercial', 'Ambulante') }}
+			{% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12">
 			{{ bs.grid_label_text('Expediente', '<strong>' ~ entity.ExpedienteNumero ~ '</strong>') }}
@@ -20,7 +24,10 @@
 		</div>
 	</div>
 	
-	<div class="row"><h2 class="row-header">Actividades</h2></div>
+	<div class="row"><h2 class="row-header">Actividades
+		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar',
+		    { 'id': entity.Id }) }}" href=""><i class="fa fa-edit"></i> Cambiar datos de comercio</a>	
+	</h2></div>
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
 			{{ bs.grid_label_text(entity.ActividadPrincipal.Clamae2014, entity.ActividadPrincipal) }}
@@ -33,44 +40,67 @@
 		</div>
 	</div>
 
-	<div class="row"><h2 class="row-header">Local comercial</h2></div>
+	{% if entity.local %}
+	<div class="row"><h2 class="row-header">Local comercial
+		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_local_editar',
+		    { 'id': entity.Local.Id }) }}" href=""><i class="fa fa-edit"></i> Cambiar datos del local</a>
+	</h2></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
-		    {% if entity.Local %}
-		        {{ bs.grid_label_text('Tipo', entity.Local.Tipo) }}
-		        {{ bs.grid_label_text('Clase', entity.Local.DepositoClase) }}
-		        {{ bs.grid_label_text('Superficie', entity.Local.Superficie ~ ' m²') }}
-		        
-		        {% if entity.Local.Partida %}
-		            </div>
-		            <div class="col-sm-6 col-xs-12">
-		            {{ bs.grid_label_text('Propietario', entity.Local.Partida.Titular) }}
-    		        {{ bs.grid_label_text('Domicilio', entity.Local.Partida.Domicilio) }}
-    		    	{{ bs.grid_label_text('Partida', entity.Local.Partida.Smpu) }}
-    		        {{ bs.grid_label_text('Zonificación', entity.Local.Partida.Zona) }}
-		        {% endif %}
-		    {% endif %}
+	        {{ bs.grid_label_text('Tipo', entity.Local.Tipo) }}
+	        {{ bs.grid_label_text('Clase', entity.Local.DepositoClase) }}
+	        {{ bs.grid_label_text('Superficie', entity.Local.Superficie ~ ' m²') }}
+	        
+	        {% if entity.Local.Partida %}
+	            </div>
+	            <div class="col-sm-6 col-xs-12">
+	            {{ bs.grid_label_text('Propietario', entity.Local.Partida.Titular) }}
+		        {{ bs.grid_label_text('Domicilio', entity.Local.Partida.Domicilio) }}
+		    	{{ bs.grid_label_text('Partida', entity.Local.Partida.Smpu) }}
+		        {{ bs.grid_label_text('Zonificación', entity.Local.Partida.Zona) }}
+	        {% endif %}
 		</div>
+	{% endif %}
 	</div>
 	
 	{% if entity.CertificadoHabilitacion %}
 	<div class="row"><h2 class="row-header">Certificado de habilitación
-		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
-		    { 'id': entity.CertificadoHabilitacion.Id }) }}" href=""><i class="fa fa-file-o"></i> Ver</a>
-		<a class="btn btn-xs btn-link pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
-		    { 'id': entity.CertificadoHabilitacion.Id, 'imprimir': true }) }}" href=""><i class="fa fa-print"></i> Imprimir</a>
-		</h2></div>
+		<a class="btn btn-xs btn- pull-right" data-toggle="modal" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_ver',
+		    { 'id': entity.CertificadoHabilitacion.Id }) }}" href=""><i class="fa fa-file-o"></i> Ver certificado de habilitación</a>
+	</h2></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
 	        {{ bs.grid_label_text('Número', entity.CertificadoHabilitacion.Numero) }}
 	        {{ bs.grid_label_text('Fecha de emisión', entity.CertificadoHabilitacion.createdAt|tapir_fecha('medium', 'none')) }}
 	        {{ bs.grid_label_text('Vencimiento', entity.CertificadoHabilitacion.Vencimiento|tapir_fecha('medium', 'none')) }}
-	        
+		</div>
+		<div class="col-sm-6 col-xs-12">
+    		
 		</div>
 	</div>
 	{% endif %}
+	
+	<hr />
+	<div class="row"><div class="col-xs-12">
+    	<p>
+    	{% if entity.Estado == 100 %}La habilitación está vigente.
+        {% elseif entity.Estado == 91 %}La habilitación está vencida.
+        {% elseif entity.Estado == 90 %}Fue observado como cerrado y sin actividad.
+        {% elseif entity.Estado == 1 %}La habilitación está en trámite.
+        {% elseif entity.Estado == 0 %}No está habilitado para operar.
+        {% endif %}
+    	
+    	El comercio
+        {% if entity.CertificadoHabilitacion %}cuenta con un certificado de habilitación con vencimiento el día
+            {{ entity.CertificadoHabilitacion.Vencimiento|tapir_fecha('full', 'none')|lower }}
+        {% elseif entity.Estado == 100 %}fue dado de alta de oficio y no cuenta con un certificado de habilitación
+        {% else %}no cuenta con un certificado de habilitación
+        {% endif %}
+        emitido en el sistema actual.
+        
+        
+	</div></div>
 </div>
-
 
 {% endblock %}
 

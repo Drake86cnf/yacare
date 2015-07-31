@@ -233,8 +233,7 @@ function tapirFormatoFecha(fecha) {
 /**
  * Valida una fecha mediante una expresion regular
  * 
- * Dicha expresion toma en cuenta los dias bisiestos para la fecha 29 de febrero
- * los separadores que acepta son "/","." y "-"
+ * Los separadores aceptados son "/", "." y "-".
  * 
  * @param fecha
  * @returns {Boolean}
@@ -255,8 +254,7 @@ function tapirValidarFecha(fecha) {
 }
 
 /**
- * 
- * Incorporo funciones mejoradas como calendario, chosen, etc.
+ * Incorporar funciones mejoradas como calendario, chosen, etc.
  */
 function MejorarElementos(destino) {
 	//alert('Mejorar ' + destino);

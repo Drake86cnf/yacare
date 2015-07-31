@@ -19,41 +19,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 abstract class BaseController extends Controller
 {
     /**
-     *
      * @var string El nombre del EntityManager que se usa en este controlador.
-     * @see $EmName
      */
     protected $EmName;
 
     /**
-     *
      * @var string El nombre del vendor al cual pertenece este controlador.
      * @see $BundleName
      */
     protected $VendorName;
 
     /**
-     *
      * @var string El nombre del bundle al cual pertenece este controlador.
      * @see $VendorName
      */
     protected $BundleName;
 
     /**
-     *
      * @var string El nombre de la entidad principal que administra este controlador.
      */
     protected $EntityName;
 
     /**
-     *
      * @var string El nombre completo de la entidad, incluyendo vendor y bundle.
      * @see $EntityName
      */
     protected $CompleteEntityName;
 
     /**
-     *
      * @var string El nombre de la entidad para las rutas generadas.
      *     
      *      En la mayoría de los casos se deja en blanco y se asume que es lo mismo
