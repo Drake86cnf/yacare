@@ -35,7 +35,7 @@
 		
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
 		  <div class="text-success"><strong>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría {% endif %}</strong>
-		      {% if entity.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+		      {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
     		  	  <a class="btn btn-link btn-xs showonhover"
     		      href="{{ path(baseroute ~ '_modificardato', arrastre|merge({'id': entity.id, 'campo_nombre': 'Categoria'})) }}"
     		      data-toggle="modal">
@@ -72,7 +72,7 @@
     {% if entity.Encargado and entity.Encargado == app.user and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         <a class="btn btn-default" href="{{ path(baseroute ~ '_rechazar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
         	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
-    {% elseif entity.Estado < 90 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+    {% elseif entity.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         {% if entity.Encargado %}
             <a class="btn btn-default" href="{{ path(baseroute ~ '_asignar', arrastre|merge({ 'id': entity.id })) }}"
             	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Reasignar</a>
