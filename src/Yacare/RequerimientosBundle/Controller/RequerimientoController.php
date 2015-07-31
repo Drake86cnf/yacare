@@ -79,9 +79,11 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      *
      * Se requiere el número de seguimiento. El número de seguimiento está conformado por el ID, un guión y el token.
      *
-     * @see Requerimiento::$Token @Route("anonimo/ver/")
-     *      @Route("anonimo/ver/{seg}")
-     *      @Template()
+     * @see Requerimiento::$Token
+     * 
+     * @Route("anonimo/ver/")
+     * @Route("anonimo/ver/{seg}")
+     * @Template()
      */
     public function anonimoverAction(Request $request, $seg = null)
     {
