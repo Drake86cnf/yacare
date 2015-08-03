@@ -1,7 +1,10 @@
-/* 
-    Created on : 03/07/2014, 20:08
-    Author     : Ernesto Carrea <ernestocarrea@gmail.com>
-*/
+/** 
+ * Archivo principal de estilos de Tapir.
+ *
+ * Requiere Bootstrap 3.3.5.
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GNU Public License, version 3
+ */
 html {
 	cursor: default;
 	overflow-y: scroll;
@@ -173,13 +176,13 @@ legend small {
 .form-actions3 {
 	position: fixed;
 	left: 12px;
-	max-width: 200px;
+	a-max-width: 200px;
 	bottom: 18px;
 	z-index: 99999;
-	padding: 8px;
-	background-color: rgba(255, 255, 255, 0.1);
-	overflow: auto;
-	overflow-y: hidden;
+	a-padding: 8px;
+	a-background-color: rgba(255, 255, 255, 0.1);
+	a-overflow: auto;
+	a-overflow-y: hidden;
 }
 
 .pagina-pie {

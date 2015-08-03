@@ -13,8 +13,8 @@ class ControlsExtension extends \Twig_Extension
     }
     
     
-    public function bs_button() {
-        return '<button class="btn"></button>';        
+    public function bs_button($label, $url, $attr) {
+        return '<button href="' . $url . '" class="btn btn-default">' . $label . '</button>';        
     }
 
     
@@ -27,10 +27,5 @@ class ControlsExtension extends \Twig_Extension
     public function getName()
     {
         return 'controls_extension';
-    }
-    
-    
-    public function Button() {
-        
     }
 }
