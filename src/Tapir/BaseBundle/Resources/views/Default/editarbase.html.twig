@@ -5,18 +5,20 @@
         {% set edit_form_action = baseroute ~ '_guardar' %}
     {% endif %}
     {{ form_start(edit_form, {
-            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id })),
+            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id, 'hisapi': 0 })),
             'method': 'POST',
             'attr': { 'id': edit_form.vars.id }
         }) }}
 {% endblock %}
 
 {% block pagina_acciones %}
-    <a data-toggle="ajax-link" data-dismiss="modal"
+    <button 
     	{% if tapir_modal is not defined or tapir_modal == 0 %}
-    		href="{{ path(baseroute ~ '_listar', arrastre) }}"
+    		onclick="return tapirAtras();"
+    	{% else %}
+    	    data-dismiss="modal"
     	{% endif %}
-    	class="btn btn-default">Cancelar</a>
+    	class="btn btn-default">Cancelar</button>
     <button type="submit" value="Guardar" class="btn btn-primary">
     	<i class="fa fa-check"></i> Guardar
     </button>
