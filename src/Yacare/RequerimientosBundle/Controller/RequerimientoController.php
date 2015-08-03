@@ -22,9 +22,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConBuscar;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
-    
+
     private $vistaMailNuevoRequerimiento = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_nuevo.html.twig';
-    
+
     function __construct()
     {
         $this->OrderBy = 'r.createdAt';
@@ -52,26 +52,24 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($editForm->isValid()) {
             if ($entity->getCategoria() && (! $entity->getEncargado())) {
-                $entity->setEncargado($entity->getCategoria()
-                    ->getEncargado());
+                $entity->setEncargado($entity->getCategoria()->getEncargado());
             }
             
             $em = $this->getEm();
             $em->persist($entity);
             $em->flush();
-            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento, $entity->getId() . '-' . $entity->getToken());
+            $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento, 
+                $entity->getId() . '-' . $entity->getToken());
             
-            return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), $this->ArrastrarVariables($request, array(
-                'seg' => $entity->getId() . '-' . $entity->getToken()), false));
+            return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), 
+                $this->ArrastrarVariables($request, array('seg' => $entity->getId() . '-' . $entity->getToken()), false));
         } else {
             $validator = $this->get('validator');
             $errors = $validator->validate($entity);
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'errors' => $errors,
-            'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, 
+            array('entity' => $entity,'errors' => $errors,'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -79,11 +77,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      *
      * Se requiere el número de seguimiento. El número de seguimiento está conformado por el ID, un guión y el token.
      *
-     * @see Requerimiento::$Token
-     * 
-     * @Route("anonimo/ver/")
-     * @Route("anonimo/ver/{seg}")
-     * @Template()
+     * @see Requerimiento::$Token @Route("anonimo/ver/")
+     *      @Route("anonimo/ver/{seg}")
+     *      @Template()
      */
     public function anonimoverAction(Request $request, $seg = null)
     {
@@ -92,17 +88,12 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         if ($seg && strpos($seg, '-') !== false) {
-            list ($id, $token) = explode('-', str_replace(array(
-                ' ',
-                '.',
-                ',',
-                '/'), array(), $seg), 2);
+            list ($id, $token) = explode('-', str_replace(array(' ','.',',','/'), array(), $seg), 2);
         } else {
             $id = null;
         }
         
-        $res = array(
-            'seg' => $seg);
+        $res = array('seg' => $seg);
         
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
@@ -121,7 +112,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     $NuevaNovedad->setPrivada(0);
                     $NuevaNovedad->setRequerimiento($entity);
                     $NuevaNovedad->setUsuario(null);
-                    $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(), $NuevaNovedad);
+                    $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(), 
+                        $NuevaNovedad);
                     $editForm->handleRequest($request);
                     
                     if ($editForm->isValid()) {
@@ -158,9 +150,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                 $entity->setCategoria($Categoria);
             }
         }
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         $entity->setUsuario($UsuarioConectado);
         
         $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\RequerimientoType(), $entity);
@@ -168,36 +158,30 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($editForm->isValid()) {
             if ($entity->getCategoria() && (! $entity->getEncargado())) {
-                $entity->setEncargado($entity->getCategoria()
-                    ->getEncargado());
+                $entity->setEncargado($entity->getCategoria()->getEncargado());
             }
             
             $em->persist($entity);
             $em->flush();
             $this->InformarNovedad($entity, $this->vistaMailNuevoRequerimiento);
             
-            return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
-                'id' => $entity->getId()), false));
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables($request, array('id' => $entity->getId()), false));
         } else {
             $validator = $this->get('validator');
             $errors = $validator->validate($entity);
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'cat' => $CategoriaId,
-            'categorias' => $this->ObtenerCategorias(),
-            'entity' => $entity,
-            'errors' => $errors,
-            'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, 
+            array('cat' => $CategoriaId,'categorias' => $this->ObtenerCategorias(),'entity' => $entity,
+                'errors' => $errors,'edit_form' => $editForm->createView()));
     }
 
     /**
      * Listar, con filtros.
      *
-     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
-     * 
-     * @Route("listar/")
-     * @Template()
+     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction() @Route("listar/")
+     *      @Template()
      */
     public function listarAction(Request $request)
     {
@@ -211,15 +195,12 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             }
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ENCARGADO')) {
             // Los encargados sólo pueden ver los requerimientos que ellos iniciaron o en los que están como encargados
-            $UsuarioConectado = $this->get('security.token_storage')
-                ->getToken()
-                ->getUser();
-            $this->Where .= '(r.Encargado=' . $UsuarioConectado->getId() . " OR r.Usuario=" . $UsuarioConectado->getId() . ')';
+            $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+            $this->Where .= '(r.Encargado=' . $UsuarioConectado->getId() . " OR r.Usuario=" . $UsuarioConectado->getId() .
+                 ')';
         } elseif ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             // El resto de los usuarios pueden ver sólo los requerimientos que iniciaron ellos
-            $UsuarioConectado = $this->get('security.token_storage')
-                ->getToken()
-                ->getUser();
+            $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
             $this->Where .= 'r.Usuario=' . $UsuarioConectado->getId();
         } else {
             throw $this->createAccessDeniedException();
@@ -267,9 +248,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      */
     private function ObtenerEncargados()
     {
-        return $this->getEm()
-            ->getRepository('\Yacare\BaseBundle\Entity\Persona')
-            ->ObtenerPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
+        return $this->getEm()->getRepository('\Yacare\BaseBundle\Entity\Persona')->ObtenerPorRol(
+            'ROLE_REQUERIMIENTOS_ENCARGADO');
     }
 
     /**
@@ -277,9 +257,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
      */
     private function ObtenerCategorias()
     {
-        return $this->getEm()
-            ->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')
-            ->findAll();
+        return $this->getEm()->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')->findAll();
     }
 
     /**
@@ -293,9 +271,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $res = parent::verAction($request, $id);
         
         // $em = $this->getEm();
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         if (! is_string($UsuarioConectado)) {
             $AntiguedadEnDias = $res['entity']->getUpdatedAt()->diff(new \DateTime());
@@ -334,9 +310,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $NuevoEstado = $this->ObtenerVariable($request, 'nuevoestado');
         
         $em = $this->getEm();
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         if (! is_string($UsuarioConectado)) {
             $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
@@ -367,8 +341,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     $NuevaNovedad->setNotas("El requerimiento fue cerrado.");
                     break;
                 default:
-                    $NuevaNovedad->setNotas("El estado del requerimiento ahora es " . 
-                    \Yacare\RequerimientosBundle\Entity\Requerimiento::getEstadoNombres($NuevoEstado));
+                    $NuevaNovedad->setNotas(
+                        "El estado del requerimiento ahora es " .
+                             \Yacare\RequerimientosBundle\Entity\Requerimiento::getEstadoNombres($NuevoEstado));
                     break;
             }
             $em->persist($NuevaNovedad);
@@ -379,8 +354,8 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $em->persist($entity);
         $em->flush();
         
-        return $this->redirectToRoute($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
-            'id' => $id), false));
+        return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+            $this->ArrastrarVariables($request, array('id' => $id), false));
     }
 
     /**
@@ -390,16 +365,13 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         if ((! $entity->getId())) {
             if (! $entity->getUsuario()) {
-                $UsuarioConectado = $this->get('security.token_storage')
-                    ->getToken()
-                    ->getUser();
+                $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
                 $entity->setUsuario($UsuarioConectado);
                 $entity->setUsuarioNombre((string) $UsuarioConectado);
                 $entity->setUsuarioEmail($UsuarioConectado->getEmail());
             }
             if ($entity->getCategoria() && (! $entity->getEncargado())) {
-                $entity->setEncargado($entity->getCategoria()
-                    ->getEncargado());
+                $entity->setEncargado($entity->getCategoria()->getEncargado());
             }
         }
         
@@ -424,9 +396,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
         $NuevaNovedad->setPrivada(1);
@@ -447,8 +417,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
-                'id' => $id), false)));
+            return $this->redirect(
+                $this->generateUrl($this->obtenerRutaBase('ver'), 
+                    $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
@@ -460,19 +431,15 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($errors) {
             foreach ($errors as $error) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error->getMessage());
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
             }
         } else {
             $errors = null;
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'edit_form' => $editForm->createView(),
-            'edit_form_action' => $this->obtenerRutaBase('rechazar'),
-            'entity' => $entity,
-            'errors' => $errors));
+        return $this->ArrastrarVariables($request, 
+            array('edit_form' => $editForm->createView(),'edit_form_action' => $this->obtenerRutaBase('rechazar'),
+                'entity' => $entity,'errors' => $errors));
         return array();
     }
 
@@ -494,9 +461,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
         $NuevaNovedad->setPrivada(1);
@@ -515,15 +480,17 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
             } else {
                 $NuevaNovedad->setAutomatica(1);
             }
-            $NuevaNovedad->setNotas('El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
+            $NuevaNovedad->setNotas(
+                'El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setUsuario($UsuarioConectado);
             
             $this->InformarNovedad($NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
-                'id' => $id), false)));
+            return $this->redirect(
+                $this->generateUrl($this->obtenerRutaBase('ver'), 
+                    $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
@@ -535,19 +502,15 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($errors) {
             foreach ($errors as $error) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error->getMessage());
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
             }
         } else {
             $errors = null;
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'edit_form' => $editForm->createView(),
-            'edit_form_action' => $this->obtenerRutaBase('asignar'),
-            'entity' => $entity,
-            'errors' => $errors));
+        return $this->ArrastrarVariables($request, 
+            array('edit_form' => $editForm->createView(),'edit_form_action' => $this->obtenerRutaBase('asignar'),
+                'entity' => $entity,'errors' => $errors));
         return array();
     }
 
@@ -573,9 +536,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $campoNombre = $this->ObtenerVariable($request, 'campo_nombre');
         $editFormBuilder = $this->createFormBuilder($entity);
         
-        $UsuarioConectado = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         $NuevaNovedad = new Novedad();
         $NuevaNovedad->setPrivada(1);
         $NuevaNovedad->setRequerimiento($entity);
@@ -583,11 +544,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         switch ($campoNombre) {
             case 'Categoria':
-                $editFormBuilder->add($campoNombre, 'entity', array(
-                    'label' => 'Categoría',
-                    'placeholder' => 'Sin categoría',
-                    'class' => 'YacareRequerimientosBundle:Categoria',
-                    'required' => false));
+                $editFormBuilder->add($campoNombre, 'entity', 
+                    array('label' => 'Categoría','placeholder' => 'Sin categoría',
+                        'class' => 'YacareRequerimientosBundle:Categoria','required' => false));
                 $NuevaNovedad->setAutomatica(1);
                 break;
         }
@@ -601,12 +560,13 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     if ($entity->getCategoria() != $CategoriaAnterior) {
                         if ($entity->getCategoria()) {
                             if (! $entity->getEncargado() && $entity->getCategoria()->getEncargado()) {
-                                $entity->setEncargado($entity->getCategoria()
-                                    ->getEncargado());
-                                $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . 
-                                    '. El encargado es ' . $entity->getEncargado());
+                                $entity->setEncargado($entity->getCategoria()->getEncargado());
+                                $NuevaNovedad->setNotas(
+                                    'El requerimiento fue movido a la categoría ' . $entity->getCategoria() .
+                                         '. El encargado es ' . $entity->getEncargado());
                             } else {
-                                $NuevaNovedad->setNotas('El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
+                                $NuevaNovedad->setNotas(
+                                    'El requerimiento fue movido a la categoría ' . $entity->getCategoria() . '.');
                             }
                         } else {
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
@@ -618,8 +578,9 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
                     }
                     break;
             }
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array(
-                'id' => $id), false)));
+            return $this->redirect(
+                $this->generateUrl($this->obtenerRutaBase('ver'), 
+                    $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
@@ -631,18 +592,14 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($errors) {
             foreach ($errors as $error) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error->getMessage());
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
             }
         } else {
             $errors = null;
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'edit_form' => $editForm->createView(),
-            'campo_nombre' => $campoNombre,
-            'entity' => $entity,
-            'errors' => $errors));
+        return $this->ArrastrarVariables($request, 
+            array('edit_form' => $editForm->createView(),'campo_nombre' => $campoNombre,'entity' => $entity,
+                'errors' => $errors));
     }
 }
