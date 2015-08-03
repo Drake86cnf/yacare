@@ -3,7 +3,9 @@
     <h2>¡Le agradecemos que se tome el tiempo para ponerse en contacto con su Municipio!</h2>
     
     <p>Recibimos sus comentarios, consultas y sugerencias con entusiasmo.</h2>
-    <p>{{ novedad_notas }}</p>
+    {% if novedad_notas %}
+    	<p>{{ novedad_notas }}</p> 
+    {% endif %}
     {% if numero_seguimiento %}
         <p>El número de seguimiento de su solicitud es {{ numero_seguimiento }}.</p>p>
         <p>Puede consultar el estado de su solicitud en cualquier momento visitando la siguiente página:

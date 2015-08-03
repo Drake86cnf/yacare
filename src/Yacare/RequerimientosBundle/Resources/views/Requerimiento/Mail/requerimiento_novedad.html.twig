@@ -1,7 +1,9 @@
 {% extends 'YacareBaseBundle::email.html.twig' %}
 {% block pagina_contenido %}
-    <h2>Tenemos novedades sobre su solicitud</h2>
-    <p>{{ novedad_notas }}</p>
+    {% if novedad_notas %}
+    	<h2>Tenemos novedades sobre su solicitud</h2>
+    	<p>{{ novedad_notas }}</p> 
+    {% endif %}
     <hr />
     <p>Este es un mensaje generado de forma automática. Por favor no responda a este mensaje. Si desea consultar
     	el estado de su solicitud utilice la página provista.</p>
