@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Tapir\BaseBundle\TapirBaseBundle;
+use Yacare\RecursosHumanosBundle\Entity\AgenteCargoMovim;
 
 /**
  * @Route("importar/")
@@ -31,15 +32,35 @@ class ImportarController extends Controller
         set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
-        $Zonas = array('ZC' => 2,'ZCB' => 7,'ZCM' => 4,'ZCP' => 5,'CRT1' => 3,'ZCRT1' => 3,'ZCS' => 6,'ZMC' => 1,
-            'ZC-MC' => 1,'ZPE' => 15,'ZR1' => 8,'ZR2' => 9,'ZR3' => 10,'ZR4' => 11,'ZR5' => 12,'ZR6' => 13,'ZREU' => 16,
-            'ZRM' => 14,'ZSEU' => 18,
+        $Zonas = array(
+            'ZC' => 2,
+            'ZCB' => 7,
+            'ZCM' => 4,
+            'ZCP' => 5,
+            'CRT1' => 3,
+            'ZCRT1' => 3,
+            'ZCS' => 6,
+            'ZMC' => 1,
+            'ZC-MC' => 1,
+            'ZPE' => 15,
+            'ZR1' => 8,
+            'ZR2' => 9,
+            'ZR3' => 10,
+            'ZR4' => 11,
+            'ZR5' => 12,
+            'ZR6' => 13,
+            'ZREU' => 16,
+            'ZRM' => 14,
+            'ZSEU' => 18,
             
             // Estos no existen en el SIGEMI
-            'Z extra urb. zona costera' => 19,'Z residencial extraurbano 2' => 17,
+            'Z extra urb. zona costera' => 19,
+            'Z residencial extraurbano 2' => 17,
             
             // Estos no existen en el anexo 6 de planificación territorial
-            'ZEIA' => null,'ZEIS' => null,'ZEIU' => null);
+            'ZEIA' => null,
+            'ZEIS' => null,
+            'ZEIU' => null);
         
         $Dbmunirg = $this->ConectarOracle();
         
@@ -113,14 +134,16 @@ WHERE rnum >" . $desde . "
              */
             
             if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
-                    array('Seccion' => $Seccion,'Macizo' => $Macizo,'Parcela' => $Parcela,
-                        'UnidadFuncional' => $UnidadFuncional));
+                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                    'Seccion' => $Seccion,
+                    'Macizo' => $Macizo,
+                    'Parcela' => $Parcela,
+                    'UnidadFuncional' => $UnidadFuncional));
             }
             
             if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
-                    array('Numero' => (int) ($Row['CATASTRO_ID'])));
+                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array(
+                    'Numero' => (int) ($Row['CATASTRO_ID'])));
             }
             
             if (! $entity) {
@@ -158,35 +181,39 @@ WHERE rnum >" . $desde . "
                     $entity->setZona(null);
                 }
                 
-                $Row['DOCUMENTO_NRO'] = str_replace(array(' ','-','.'), '', $Row['DOCUMENTO_NRO']);
-                $Row['IDENTIFICACION_TRIBUTARIA'] = str_replace(array(' ','-','.'), '', 
-                    $Row['IDENTIFICACION_TRIBUTARIA']);
+                $Row['DOCUMENTO_NRO'] = str_replace(array(
+                    ' ',
+                    '-',
+                    '.'), '', $Row['DOCUMENTO_NRO']);
+                $Row['IDENTIFICACION_TRIBUTARIA'] = str_replace(array(
+                    ' ',
+                    '-',
+                    '.'), '', $Row['IDENTIFICACION_TRIBUTARIA']);
                 
                 if ($Row['TIT_TG06100_ID'] || $Row['DOCUMENTO_NRO'] || $Row['IDENTIFICACION_TRIBUTARIA']) {
-                    $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                        array('Tg06100Id' => $Row['TIT_TG06100_ID']));
+                    $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                        'Tg06100Id' => $Row['TIT_TG06100_ID']));
                     if (! $titular && $Row['DOCUMENTO_NRO']) {
-                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('DocumentoNumero' => $Row['DOCUMENTO_NRO']));
+                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                            'DocumentoNumero' => $Row['DOCUMENTO_NRO']));
                         if (! $titular) {
-                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                                array('Cuilt' => $Row['DOCUMENTO_NRO']));
+                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                                'Cuilt' => $Row['DOCUMENTO_NRO']));
                         }
                     }
                     if (! $titular && $Row['IDENTIFICACION_TRIBUTARIA']) {
-                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
+                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                            'Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
                         if (! $titular) {
-                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                                array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
+                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                                'Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
                         }
                     }
                     $entity->setTitular($titular);
                     if ($titular)
                         $log[] = "titular encontrado " . $Row['TIT_TG06100_ID'] . ': ' . $titular;
                     else
-                        $log[] = "titular NO encontrado " . $Row['TIT_TG06100_ID'] . ', doc ' . $Row['DOCUMENTO_NRO'] .
-                             ', it ' . $Row['IDENTIFICACION_TRIBUTARIA'];
+                        $log[] = "titular NO encontrado " . $Row['TIT_TG06100_ID'] . ', doc ' . $Row['DOCUMENTO_NRO'] . ', it ' . $Row['IDENTIFICACION_TRIBUTARIA'];
                 } else {
                     $log[] = "*** Sin titular " . $Row['TIT_TG06100_ID'];
                     $entity->setTitular(null);
@@ -213,9 +240,12 @@ WHERE rnum >" . $desde . "
         
         $em->getConnection()->commit();
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
     }
 
     /**
@@ -232,7 +262,15 @@ WHERE rnum >" . $desde . "
         ini_set('display_errors', 1);
         ini_set('memory_limit', '1024M');
         
-        $TipoDocs = array('DNI' => 1,'CF' => 1,'LE' => 2,'LC' => 3,'CI' => 4,'PAS' => 5,'CUIL' => 98,'CUIT' => 99);
+        $TipoDocs = array(
+            'DNI' => 1,
+            'CF' => 1,
+            'LE' => 2,
+            'LC' => 3,
+            'CI' => 4,
+            'PAS' => 5,
+            'CUIL' => 98,
+            'CUIT' => 99);
         
         $Dbmunirg = $this->ConectarOracle();
         
@@ -376,19 +414,22 @@ WHERE rnum >" . $desde . "
             $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
             
             if (! $Cuilt) {
-                $Cuilt = str_replace(array(' ','-','.'), '', $Row['J_IDENTIFICACION_TRIBUTARIA']);
+                $Cuilt = str_replace(array(
+                    ' ',
+                    '-',
+                    '.'), '', $Row['J_IDENTIFICACION_TRIBUTARIA']);
             }
             
-            $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                array('Tg06100Id' => $Row['TG06100_ID']));
+            $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                'Tg06100Id' => $Row['TG06100_ID']));
             
             if ($entity == null && $Cuilt) {
-                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array('Cuilt' => $Cuilt));
+                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                    'Cuilt' => $Cuilt));
             }
             
             if ($entity == null) {
-                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array(
+                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
                     /* 'DocumentoTipo' => $TipoDocs[$Documento[0]], */
                     'DocumentoNumero' => $Documento[1]));
             }
@@ -456,9 +497,12 @@ WHERE rnum >" . $desde . "
         
         $em->getConnection()->commit();
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
     }
 
     /**
@@ -478,15 +522,16 @@ WHERE rnum >" . $desde . "
         $importar_actualizados = 0;
         $importar_procesados = 0;
         $log = array();
-        foreach ($Dbmunirg->query(
-            'SELECT CODIGO_CALLE AS id, CALLE AS Nombre FROM TG06405 WHERE TG06403_TG06403_ID=410') as $Row) {
+        foreach ($Dbmunirg->query('SELECT CODIGO_CALLE AS id, CALLE AS Nombre FROM TG06405 WHERE TG06403_TG06403_ID=410') as $Row) {
             $nombreBueno = StringHelper::Desoraclizar($Row['NOMBRE']);
             
-            $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(
-                array('ImportSrc' => 'dbmunirg.TG06405','ImportId' => $Row['ID']));
+            $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(array(
+                'ImportSrc' => 'dbmunirg.TG06405',
+                'ImportId' => $Row['ID']));
             
             if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(array('Nombre' => $nombreBueno));
+                $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(array(
+                    'Nombre' => $nombreBueno));
             }
             
             if (! $entity) {
@@ -512,8 +557,11 @@ WHERE rnum >" . $desde . "
         }
         $em->flush();
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
-            'importar_procesados' => $importar_procesados,'log' => $log);
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,
+            'log' => $log);
     }
 
     /**
@@ -538,8 +586,9 @@ WHERE rnum >" . $desde . "
         
         foreach ($DbRecursos->query('SELECT * FROM secretarias WHERE codigo<>999') as $Row) {
             $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
-            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.secretarias','ImportId' => $Row['codigo']));
+            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.secretarias',
+                'ImportId' => $Row['codigo']));
             
             if (! $entity) {
                 $nuevoId = $this->getDoctrine()
@@ -573,8 +622,9 @@ WHERE rnum >" . $desde . "
         
         foreach ($DbRecursos->query('SELECT * FROM direcciones WHERE secretaria<>999') as $Row) {
             $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
-            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.direcciones','ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
+            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.direcciones',
+                'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
             
             if (! $entity) {
                 $nuevoId = $this->getDoctrine()
@@ -597,8 +647,9 @@ WHERE rnum >" . $desde . "
                 $entity->setSuprimido(true);
             }
             
-            $Secre = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.secretarias','ImportId' => $Row['secretaria']));
+            $Secre = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.secretarias',
+                'ImportId' => $Row['secretaria']));
             $entity->setParentNode($Secre);
             
             $em->persist($entity);
@@ -610,9 +661,9 @@ WHERE rnum >" . $desde . "
         
         foreach ($DbRecursos->query('SELECT * FROM sectores') as $Row) {
             $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
-            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.sectores',
-                    'ImportId' => $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector']));
+            $entity = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.sectores',
+                'ImportId' => $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector']));
             
             if (! $entity) {
                 $nuevoId = $this->getDoctrine()
@@ -644,20 +695,23 @@ WHERE rnum >" . $desde . "
                 $entity->setHaceParteDiario(false);
             }
             
-            $Dire = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.direcciones','ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
+            $Dire = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.direcciones',
+                'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
             $entity->setParentNode($Dire);
             
             $em->persist($entity);
             $em->flush();
             
             $importar_procesados ++;
-            $log[] = 'Sector ' . $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector'] . " \t" .
-                 $nombreBueno;
+            $log[] = 'Sector ' . $Row['secretaria'] . '.' . $Row['direccion'] . '.' . $Row['sector'] . " \t" . $nombreBueno;
         }
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
-            'importar_procesados' => $importar_procesados,'log' => $log);
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,
+            'log' => $log);
     }
 
     /**
@@ -685,9 +739,10 @@ WHERE rnum >" . $desde . "
         
         $GrupoAgentes = $em->getRepository('YacareBaseBundle:PersonaGrupo')->find(1);
         
-        foreach ($DbRecursos->query("SELECT * FROM agentes WHERE nrodoc>0 LIMIT $desde, $cant") as $Agente) {
-            $entity = $em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(
-                array('ImportSrc' => 'rr_hh.agentes','ImportId' => $Agente['legajo']));
+        foreach ($DbRecursos->query("SELECT * FROM agentes WHERE legajo= 3236") as $Agente) {
+            $entity = $em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.agentes',
+                'ImportId' => $Agente['legajo']));
             
             if (! $entity) {
                 $entity = new \Yacare\RecursosHumanosBundle\Entity\Agente();
@@ -697,8 +752,8 @@ WHERE rnum >" . $desde . "
                 $metadata = $em->getClassMetaData(get_class($entity));
                 $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
                 
-                $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array('DocumentoNumero' => trim($Agente['nrodoc'])));
+                $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                    'DocumentoNumero' => trim($Agente['nrodoc'])));
                 
                 if (! $Persona) {
                     $Persona = new \Yacare\BaseBundle\Entity\Persona();
@@ -710,10 +765,7 @@ WHERE rnum >" . $desde . "
                 if ($Agente['fechanacim']) {
                     $Persona->setFechaNacimiento(new \DateTime($Agente['fechanacim']));
                 }
-                $Persona->setTelefonoNumero(
-                    trim(
-                        str_ireplace('NO DECLARA', '', $Agente['telefono']) . ' ' .
-                             str_ireplace('NO DECLARA', '', $Agente['celular'])));
+                $Persona->setTelefonoNumero(trim(str_ireplace('NO DECLARA', '', $Agente['telefono']) . ' ' . str_ireplace('NO DECLARA', '', $Agente['celular'])));
                 $Persona->setGenero($Agente['sexo'] == 1 ? 1 : 0);
                 $Persona->setEmail(str_ireplace('NO DECLARA', '', strtolower($Agente['email'])));
                 $Persona->setCuilt(trim($Agente['cuil']));
@@ -732,19 +784,20 @@ WHERE rnum >" . $desde . "
                 $importar_actualizados ++;
             }
             
-            $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                array('ImportSrc' => 'rr_hh.sectores',
-                    'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion'] . '.' . $Agente['sector']));
+            $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                'ImportSrc' => 'rr_hh.sectores',
+                'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion'] . '.' . $Agente['sector']));
             
             if (! $Departamento) {
-                $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                    array('ImportSrc' => 'rr_hh.direcciones',
-                        'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion']));
+                $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                    'ImportSrc' => 'rr_hh.direcciones',
+                    'ImportId' => $Agente['secretaria'] . '.' . $Agente['direccion']));
             }
             
             if (! $Departamento) {
-                $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-                    array('ImportSrc' => 'rr_hh.secretarias','ImportId' => $Agente['secretaria']));
+                $Departamento = $em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(array(
+                    'ImportSrc' => 'rr_hh.secretarias',
+                    'ImportId' => $Agente['secretaria']));
             }
             
             $entity->setDepartamento($Departamento);
@@ -862,13 +915,81 @@ WHERE rnum >" . $desde . "
             $em->flush();
             
             $importar_procesados ++;
-            $log[] = $Agente['legajo'] . ': ' . (string) $entity . ($entity->getSuprimido() ? '*' : '') . ' -- ' .
-                 (string) $entity->getDepartamento();
+            $log[] = $Agente['legajo'] . ': ' . (string) $entity . ($entity->getSuprimido() ? '*' : '') . ' -- ' . (string) $entity->getDepartamento();
         }
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
+    }
+
+    /**
+     * @Route("categoriamovimiento/")
+     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
+     */
+    public function importarHistorialCategorias(Request $request)
+    {
+        $desde = (int) ($request->query->get('desde'));
+        $cant = 100;
+        
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        set_time_limit(600);
+        ini_set('memory_limit', '2048M');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $DbRecursos = $this->ConectarRrhh();
+        $importar_importados = 0;
+        $importar_actualizados = 0;
+        $importar_procesados = 0;
+        $log = array();
+        foreach ($DbRecursos->query("SELECT * FROM movcategorias WHERE legajo= 3236") as $MovimAgente) {
+            $entity = $em->getRepository('YacareRecursosHumanosBundle:AgenteCategoriaMovim')->findOneBy(array(
+                //'ImportSrc' => 'rr_hh.movcategorias',
+                //'ImportId' => $MovimAgente['legajo']
+                ));
+            if (! $entity) {
+                $entity = new \Yacare\RecursosHumanosBundle\Entity\AgenteCategoriaMovim();
+                $this->Categorias($entity, $MovimAgente);
+               $importar_importados ++;
+            } else {
+                $this->Categorias($entity, $MovimAgente);
+                $importar_actualizados ++;
+            }
+        }
+        log($MovimAgente['legajo']);
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
+            'importar_procesados' => $importar_procesados,
+            //'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
+        
+    }
+
+    protected function Categorias($entity, $MovimAgente)
+    {
+        $entity->setAgente($MovimAgente['legajo']);
+        if (is_null($MovimAgente['fecha'] || $MovimAgente['fecha'] === '0000-00-00')) {
+            $entity->setFecha(null);
+        } else {
+            $entity->setFecha(new \DateTime($MovimAgente['fecha']));
+        }
+        $entity->setCategoria($MovimAgente['categoria']);
+        $Resultado = \Tapir\BaseBundle\Helper\StringHelper::DecifrarCategoriasAcargo($MovimAgente['tipo'], $MovimAgente['categoria']);
+        if ($Resultado[0] == true) {
+            $entity->setCategoria($Resultado['categoria_nueva']);
+            $entity->setFecha(new \DateTime($MovimAgente['fecha']));
+            $entity->setAcargo(true);
+            $entity->setObs($MovimAgente['tipo']);
+        } else {
+            $entity->setAcargo(false);
+            $entity->setObs($MovimAgente['tipo']);
+        }
     }
 
     protected function ConectarOracle()
@@ -1031,8 +1152,8 @@ WHERE rnum >" . $desde . "
                     $metadata = $em->getClassMetaData(get_class($entity));
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
                     
-                    $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                        array('DocumentoNumero' => trim($Row[1])));
+                    $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                        'DocumentoNumero' => trim($Row[1])));
                     
                     if (! $Persona) {
                         $Persona = new \Yacare\BaseBundle\Entity\Persona();
@@ -1145,9 +1266,12 @@ WHERE rnum >" . $desde . "
         
         fclose($ArchivoMatriculados);
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
     }
 
     /**
@@ -1181,8 +1305,8 @@ WHERE rnum >" . $desde . "
             $Row = fgetcsv($ArchivoCsv);
             
             if ($Row && count($Row) > 1 && $Row[0]) {
-                $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array('DocumentoNumero' => trim($Row[0])));
+                $Persona = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array(
+                    'DocumentoNumero' => trim($Row[0])));
                 
                 if (! $Persona) {
                     $Persona = new \Yacare\BaseBundle\Entity\Persona();
@@ -1277,8 +1401,11 @@ WHERE rnum >" . $desde . "
         
         fclose($ArchivoCsv);
         
-        return array('importar_importados' => $importar_importados,'importar_actualizados' => $importar_actualizados,
+        return array(
+            'importar_importados' => $importar_importados,
+            'importar_actualizados' => $importar_actualizados,
             'importar_procesados' => $importar_procesados,
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),'log' => $log);
+            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
+            'log' => $log);
     }
 }
