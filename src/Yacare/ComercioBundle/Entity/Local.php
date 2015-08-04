@@ -19,21 +19,18 @@ class Local
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
-     */
-    protected $Propietario;
 
     /**
      *
-     * @var string @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $Tipo;
 
     /**
      *
-     * @var float @ORM\Column(type="float")
+     * @var float
+     * @ORM\Column(type="float")
      */
     private $Superficie;
 
@@ -47,7 +44,7 @@ class Local
     public function setPartida($Partida)
     {
         $this->Partida = $Partida;
-        $this->setPropietario($Partida->getTitular());
+        $this->ConstruirNombre();
     }
 
     public function __toString()
@@ -69,17 +66,6 @@ class Local
         $this->setNombre($res);
         
         return $res;
-    }
-
-    public function getPropietario()
-    {
-        return $this->Propietario;
-    }
-
-    public function setPropietario($Propietario)
-    {
-        $this->Propietario = $Propietario;
-        $this->ConstruirNombre();
     }
 
     public function getTipo()
