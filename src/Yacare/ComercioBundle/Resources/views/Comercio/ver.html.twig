@@ -27,9 +27,9 @@
 	
 	<div class="row"><h2 class="row-header">Actividades
 		<div class="pull-right hidden-print">
-    		<a class="btn btn-sm btn-info" data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar',
+    		<a class="btn btn-sm btn-info" data-toggle="modal" href="{{ path(baseroute ~ '_editar',
     		    { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Cambiar datos de comercio</a>
-    		&nbsp;<a class="btn btn-sm btn-info" data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar',
+    		&nbsp;<a class="btn btn-sm btn-info" data-toggle="modal" href="{{ path(baseroute ~ '_editar',
     		    { 'id': entity.Id }) }}"><i class="fa fa-edit"></i> Cambiar actividades</a>
 		</div></h2></div>
 	<div class="row">
@@ -47,7 +47,7 @@
 	{% if entity.local %}
 	<div class="row"><h2 class="row-header">Local comercial
 		<div class="pull-right hidden-print">
-    		<a class="btn btn-sm btn-info pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_local_editar',
+    		<a class="btn btn-sm btn-info pull-right" data-toggle="modal" href="{{ path('yacare_comercio_local_editar',
     		    { 'id': entity.Local.Id }) }}"><i class="fa fa-edit"></i> Cambiar datos del local</a>
 		</div></h2></div>
 	<div class="row">
