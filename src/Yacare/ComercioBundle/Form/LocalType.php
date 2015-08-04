@@ -1,42 +1,63 @@
 <?php
+
 namespace Yacare\ComercioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LocalType extends AbstractType
-{
+class LocalType extends AbstractType {
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder->add ( 'Partida', 'entity_id', array (
+				'label' => 'Partida',
+				'class' => 'Yacare\CatastroBundle\Entity\Partida',
+				'required' => true 
+		) )->add ( 'Tipo', 'choice', array (
+				'label' => 'Tipo',
+				'required' => true,
+				'choices' => array (
+						'Local de ventas' => 'Local de ventas',
+						'Oficina' => 'Oficina',
+						'Galpón' => 'Galpón',
+						'Depósito' => 'Depósito',
+						'Otro' => 'Otro' 
+				) 
+		) )->add ( 'DepositoClase', 'entity', array (
+				'label' => 'Tipo de depósito',
+				'placeholder' => '(sólo para depósitos)',
+				'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
+				'required' => false 
+		) )->add ( 'Superficie', null, array (
+				'label' => 'Superficie (m²)' 
+		) )->
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('Partida', 'entity_id', array('label' => 'Partida',
-                'class' => 'Yacare\CatastroBundle\Entity\Partida',
-                'required' => true))
-            ->add('Tipo', 'choice',  array(
-                'label' => 'Tipo',
-                'required' => true,
-                'choices' => array(
-                    'Local de ventas' => 'Local de ventas',
-                    'Oficina' => 'Oficina',
-                    'Galpón' => 'Galpón',
-                    'Depósito' => 'Depósito',
-                    'Otro' => 'Otro')))
-            ->add('DepositoClase', 'entity', array(
-                'label' => 'Tipo de depósito',
-                'placeholder' => '(sólo para depósitos)',
-                'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
-                'required' => false))
-            ->add('Superficie', null, array('label' => 'Superficie (m²)'));
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Local'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_localtype';
-    }
+		add ( 'CestoBasura', 'choice', array (
+				'label' => 'Cesto de Basura',
+				'required' => false,
+				'choices' => array (
+						'0' => 'No',
+						'1' => 'Sí' 
+				) 
+		) )->add ( 'Canaletas', 'choice', array (
+				'required' => false,
+				'choices' => array (
+						'0' => 'No',
+						'1' => 'Sí' 
+				) 
+		) )->add ( 'VeredaMunicipal', 'choice', array (
+				'required' => false,
+				'choices' => array (
+						'0' => 'No',
+						'1' => 'Sí' 
+				) 
+		) );
+	}
+	public function configureOptions(OptionsResolver $resolver) {
+		$resolver->setDefaults ( array (
+				'data_class' => 'Yacare\ComercioBundle\Entity\Local' 
+		) );
+	}
+	public function getName() {
+		return 'yacare_comerciobundle_localtype';
+	}
 }
