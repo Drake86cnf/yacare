@@ -235,12 +235,30 @@ abstract class AbmController extends BaseController
      *
      * @return string El nombre del tipo de formulario.
      */
-    protected function obtenerFormType()
+    protected function obtenerFormType(Request $request)
     {
-        if (isset($this->FormTypeName)) {
-            return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
+        $Form = $this->ObtenerVariable($request, 'form');
+        if($Form) {
+            // Persona
+            // Base\Persona
+            // Tapir\Base\Persona
+            $Partes = split($Form, '\\');
+            if(count($Partes == 1)) {
+                // Sólo nombre del form
+                return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $Partes[0] . 'Type';
+            } elseif(count($Partes == 2)) {
+                // Nombre del bundle y del form
+                return $this->VendorName . '\\' . $Partes[0] . 'Bundle\\Form\\' . $Partes[1] . 'Type';
+            } else {
+                // Nombre del vendor, bundle y form
+                return $Partes[0] . '\\' . $Partes[1] . 'Bundle\\Form\\' . $Partes[2] . 'Type';
+            }
         } else {
-            return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+            if (isset($this->FormTypeName)) {
+                return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->FormTypeName . 'Type';
+            } else {
+                return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
+            }
         }
     }
 
@@ -364,7 +382,7 @@ abstract class AbmController extends BaseController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $typeName = $this->obtenerFormType();
+        $typeName = $this->obtenerFormType($request);
         $editForm = $this->createForm(new $typeName(), $entity);
         if($id) {
             $deleteForm = $this->crearFormEliminar($id);
@@ -409,7 +427,7 @@ abstract class AbmController extends BaseController
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $typeName = $this->obtenerFormType();
+        $typeName = $this->obtenerFormType($request);
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->handleRequest($request);
         if($id) {
