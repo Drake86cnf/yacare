@@ -7,6 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\TramiteType
 {
+	use \Yacare\TramitesBundle\Entity\ConTitular;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

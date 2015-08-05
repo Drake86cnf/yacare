@@ -6,7 +6,7 @@
 
 {% block tramite_encab %}{{ parent() }}
 
-<p>El uso del suelo para la actividad <strong>{{ entity.Comercio.ActividadPrincipal|lower }}</strong> en la zona es
+<p>El uso del suelo para la actividad <strong>{{ entity.Comercio.Actividad1|lower }}</strong> en la zona es
     {% if entity.UsoSuelo > 3 %} <i class="fa fa-warning text-danger"></i> {% endif %}
     <strong>{{ entity.UsoSueloNombre|lower }}</strong>.
 </p>

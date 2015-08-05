@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
+ 
     
     public function __construct() {
         parent::__construct();
@@ -34,6 +35,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
     private $UsoSuelo;
     
 
+    
     public function getInmueble()
     {
         return $this->getComercio()->getInmueble();

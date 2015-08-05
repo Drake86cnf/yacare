@@ -32,7 +32,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     {
         $porpartida = $this->ObtenerVariable($request, 'porpartida');
         
-        $editFormBuilder = $this->createFormBuilder()->add('ActividadPrincipal', 'entity_id', 
+        $editFormBuilder = $this->createFormBuilder()->add('Actividad1', 'entity_id', 
             array(
                 'label' => 'Actividad principal',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
