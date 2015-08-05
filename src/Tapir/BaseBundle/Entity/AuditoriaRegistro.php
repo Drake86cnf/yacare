@@ -1,54 +1,59 @@
 <?php
-namespace Tapir\BaseBundle\Model\Auditable;
+namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
- * Una entrada en el registro de auditoría (log)
+ * Una entrada en el registro de auditoría (log).
  *
- * @ORM\Table(name="sys_log")
+ * @ORM\Table(name="Base_Auditoria")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class Registro
+class AuditoriaRegistro
 {
-    use \Tapir\BaseBundle\Entity\ConIdMetodos;
-
-    /**
-     *
-     * @var integer @ORM\Column(name="id_log", type="integer")
-     *      @ORM\Id
-     *      @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    use \Tapir\BaseBundle\Entity\ConId;
+    
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * La fecha y hora del evento.
      *
-     * @var \DateTime @ORM\Column(name="fecha", type="datetime", nullable=true)
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    private $Fecha;
+    private $createdAt;
 
     /**
      * El nombre de la estación de trabajo o la IP del cliente.
      *
-     * @var string @ORM\Column(name="estacion", type="string", length=255, nullable=false)
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Estacion;
 
     /**
      * La acción ejecutada (editar, eliminar, etc.).
      *
-     * @var string @ORM\Column(name="comando", type="string", length=255, nullable=false)
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Accion;
 
     /**
      * La tabla o clase sobre la cual se ejecutó la acción.
      *
-     * @var string @ORM\Column(name="tabla", type="string", length=255, nullable=true)
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      *     
      * @see ElementoId
      */
@@ -57,100 +62,177 @@ class Registro
     /**
      * El id del elemento sobre el cual se ejecutó la acción.
      *
-     * @var integer @ORM\Column(name="item_id", type="integer", nullable=true)
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      *     
      * @see ElementoTipo
      */
     private $ElementoId;
 
     /**
-     * Datos adicionales.
+     * Una descripción del conjunto de cambios en formato JSON.
      *
-     * @var string @ORM\Column(name="extra1", type="text", nullable=true)
+     * @var string
+     * 
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $Extra;
+    private $Cambios = null;
 
     /**
      * El id del usuario que ejecutó la acción.
      *
-     * @var int @ORM\Column(name="usuario", type="integer", nullable=true)
+     * @var int
+     * 
+     * @ORM\Column(name="usuario", type="integer", nullable=true)
      */
     private $Usuario;
 
-    public function getFecha()
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCreatedAt()
     {
-        return $this->Fecha;
+        return $this->createdAt;
     }
 
-    public function setFecha($Fecha)
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCreatedAt($createdAt)
     {
-        $this->Fecha = $Fecha;
+        $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getEstacion()
     {
         return $this->Estacion;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setEstacion($Estacion)
     {
         $this->Estacion = $Estacion;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getAccion()
     {
         return $this->Accion;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setAccion($Accion)
     {
         $this->Accion = $Accion;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getElementoTipo()
     {
         return $this->ElementoTipo;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setElementoTipo($ElementoTipo)
     {
         $this->ElementoTipo = $ElementoTipo;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getElementoId()
     {
         return $this->ElementoId;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setElementoId($ElementoId)
     {
         $this->ElementoId = $ElementoId;
         return $this;
     }
 
-    public function getExtra()
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getCambios()
     {
-        return $this->Extra;
+        return $this->Cambios;
     }
 
-    public function setExtra($Extra)
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setCambios($Cambios)
     {
-        $this->Extra = $Extra;
+        $this->Cambios = $Cambios;
         return $this;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function getUsuario()
     {
         return $this->Usuario;
     }
 
+    /**
+     *
+     * @ignore
+     *
+     */
     public function setUsuario($Usuario)
     {
         $this->Usuario = $Usuario;
         return $this;
     }
+
 }

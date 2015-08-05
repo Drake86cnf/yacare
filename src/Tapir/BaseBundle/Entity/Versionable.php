@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Versionable
 {
+    use \Tapir\BaseBundle\Entity\Auditable;
 
     /**
      * La versión del registro.
@@ -22,8 +23,8 @@ trait Versionable
      *
      * @var integer $Version
      *     
-     *      @ORM\Column(name="Version", type="integer")
-     *      @ORM\Version
+     * @ORM\Column(name="Version", type="integer")
+     * @ORM\Version
      */
     private $Version;
 

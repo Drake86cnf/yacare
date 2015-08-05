@@ -7,7 +7,7 @@
  */
 html {
 	cursor: default;
-	overflow-y: scroll;
+	overflow-y: visible;
 }
 
 body {

@@ -1,23 +1,22 @@
 services:
+    tapir.base_bundle.auditable_listener:
+        class: Tapir\BaseBundle\ORM\Auditable\AuditableListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+          - { name: doctrine.event_subscriber }
+            
     tapirbasebundle.twig.tapir_extension:
         class: Tapir\BaseBundle\Twig\TapirExtension
         tags:
-        -  { name: twig.extension }
+          - { name: twig.extension }
         
     tapirbasebundle.twig.tapir_formatextension:
         class: Tapir\BaseBundle\Twig\FormatExtension
         tags:
-        -  { name: twig.extension }
+          - { name: twig.extension }
         
-    tapir.base_bundle.auditable_listener:
-        class: "Tapir\\BaseBundle\\ORM\\Auditable\\AuditableListener"
-        arguments: [ '@service_container' ]
-        public:  false
-        tags:
-            - { name: doctrine.event_subscriber }
-
     app.form.type.buttongroup:
         class: Tapir\BaseBundle\Form\Type\ButtonGroupType
         tags:
-            - { name: form.type, alias: buttongroup }
-           
+          - { name: form.type, alias: buttongroup }
