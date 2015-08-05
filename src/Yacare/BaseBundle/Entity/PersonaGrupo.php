@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Base_PersonaGrupo")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_PersonaGrupo")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class PersonaGrupo
 {
