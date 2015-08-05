@@ -22,11 +22,11 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("editar/{id}")
-     * @Route("crear/")
-     * @Template()
+     * @Route("editar2/{id}")
+     * @Route("crear2/")
+     * @Template("YacareComercioBundle:Comercio:editar.html.twig")
      */
-    public function editarAction(Request $request, $id = null)
+    public function editar2Action(Request $request, $id = null)
     {
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
