@@ -50,6 +50,13 @@ class LocalType extends AbstractType {
 						'0' => 'No',
 						'1' => 'Sí' 
 				) 
+		) )
+		->add ( 'PuertaEmergencia', 'choice', array (
+				'required' => false,
+				'choices' => array (
+						'0' => 'No',
+						'1' => 'Sí' 
+				) 
 		) );
 	}
 	public function configureOptions(OptionsResolver $resolver) {

@@ -34,12 +34,21 @@
 		</div></h2></div>
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
-			{{ bs.grid_label_text(entity.ActividadPrincipal.Clamae2014, entity.ActividadPrincipal) }}
-			{% if entity.ActividadSecundaria %}
-                {{ bs.grid_label_text(entity.ActividadSecundaria.Clamae2014, entity.ActividadSecundaria) }}
+			{{ bs.grid_label_text(entity.Actividad1.Clamae2014, entity.Actividad1) }}
+			{% if entity.Actividad2 %}
+                {{ bs.grid_label_text(entity.Actividad2.Clamae2014, entity.Actividad2) }}
             {% endif %}
-            {% if entity.ActividadTerciaria %}
-                {{ bs.grid_label_text(entity.ActividadTerciaria.Clamae2014, entity.ActividadTerciaria) }}
+            {% if entity.Actividad3 %}
+                {{ bs.grid_label_text(entity.Actividad3.Clamae2014, entity.Actividad3) }}
+            {% endif %}
+            {% if entity.Actividad4 %}
+                {{ bs.grid_label_text(entity.Actividad4.Clamae2014, entity.Actividad4) }}
+            {% endif %}
+            {% if entity.Actividad5 %}
+                {{ bs.grid_label_text(entity.Actividad5.Clamae2014, entity.Actividad5) }}
+            {% endif %}
+            {% if entity.Actividad6 %}
+                {{ bs.grid_label_text(entity.Actividad6.Clamae2014, entity.Actividad6) }}
             {% endif %}
 		</div>
 	</div>
