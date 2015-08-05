@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActividadComercioType extends AbstractType
+class ComercioActividadType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -31,6 +31,6 @@ class ActividadComercioType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_comerciobundle_actividadcomerciotype';
+        return 'yacare_comerciobundle_comercioactividadtype';
     }
 }
