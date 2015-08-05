@@ -12,15 +12,22 @@ class ComercioActividadType extends AbstractType
     {
         parent::buildForm($builder, $options);
         
-        $builder
-            ->add('ActividadPrincipal', 'entity_id', 
-                array('label' => 'Actividad 1', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
-                    'required' => true))
-            ->add('ActividadSecundaria', 'entity_id', 
+        $builder->add('Actividad1', 'entity_id', 
+                array('label' => 'Actividad 1', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 'required' => true))
+            ->add('Actividad2', 'entity_id', 
                 array('label' => 'Actividad 2', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                     'required' => false))
-            ->add('ActividadTerciaria', 'entity_id', 
+            ->add('Actividad3', 'entity_id', 
                 array('label' => 'Actividad 3', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
+                    'required' => false))
+            ->add('Actividad4', 'entity_id', 
+                array('label' => 'Actividad 4', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
+                    'required' => false))
+            ->add('Actividad5', 'entity_id', 
+                array('label' => 'Actividad 5', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
+                    'required' => false))
+            ->add('Actividad6', 'entity_id', 
+                array('label' => 'Actividad 6', 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                     'required' => false));
     }
 
