@@ -20,9 +20,9 @@ block pagina_contenido %}
 			<td>{{ entity.Comercio.Nombre }}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
 			<td class="hidden-sm hidden-xs">{{
-				entity.Comercio.ActividadPrincipal.Nombre|length > 50 ?
-				entity.Comercio.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' :
-				entity.Comercio.ActividadPrincipal.Nombre }}</td>
+				entity.Comercio.Actividad1.Nombre|length > 50 ?
+				entity.Comercio.Actividad1.Nombre|slice(0, 50) ~ '...' :
+				entity.Comercio.ActividadP1.Nombre }}</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Comercio.Local and
 				entity.Comercio.Local.Partida %}{{
 				entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
