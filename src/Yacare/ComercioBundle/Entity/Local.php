@@ -4,13 +4,10 @@ namespace Yacare\ComercioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Representa un local comercial.
- * Esta relacionado a una habilitacion comercial.
+ * Representa un local donde puede habilitarse un comercio.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @author Alejandro Díaz <adiaz.rc@gmail.com>
- *
- * Yacare\ComercioBundle\Entity\Local
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Local")
@@ -26,21 +23,26 @@ class Local
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
-     * Indica el tipo de local que se va a habilitar.
+     * El tipo de local (local, oficina, depósito, etc.).
      *
      * @var string @ORM\Column(type="string", length=255)
      */
     private $Tipo;
 
     /**
-     * Indica la superficie a habilitar del local comercial.
+     * La superficie en metros cuadrados.
      *
      * @var float @ORM\Column(type="float")
      */
     private $Superficie;
 
     /**
-     * Indica el tipo de deposito que se va a habilitar en caso que corresponda.
+     * La clase de depósito.
+     * 
+     * Sólo aplica si Tipo es "Depósito".
+     * 
+     * @see $Tipo
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
@@ -48,30 +50,35 @@ class Local
 
     /**
      * Indica si el local comercial posee vereda municipal reglamentaria.
+     * 
      * @ORM\Column(type="integer",nullable=true)
      */
     private $VeredaMunicipal;
 
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
+     * 
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $Canaletas;
 
     /**
      * Indica si el local comercial posee cesto de basura.
+     * 
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $CestoBasura;
 
     /**
      * Indica si el local comercial tiene salidas de emergencia.
+     * 
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $PuertaEmergencia;
 
     /**
      * Indica la cantidad de anchos de salidas que tiene un local comercial.
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AnchoSalida;
@@ -102,6 +109,15 @@ class Local
         
         return $res;
     }
+    
+    public function setTipo($Tipo)
+    {
+        $this->Tipo = $Tipo;
+        $this->ConstruirNombre();
+    }
+    
+
+    // *** Getters y setters
 
     /**
      *
@@ -118,10 +134,62 @@ class Local
      * @ignore
      *
      */
-    public function setTipo($Tipo)
+    public function getSuperficie()
     {
-        $this->Tipo = $Tipo;
-        $this->ConstruirNombre();
+        return $this->Superficie;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setSuperficie(float $Superficie)
+    {
+        $this->Superficie = $Superficie;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getDepositoClase()
+    {
+        return $this->DepositoClase;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setDepositoClase($DepositoClase)
+    {
+        $this->DepositoClase = $DepositoClase;
+        return $this;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function getVeredaMunicipal()
+    {
+        return $this->VeredaMunicipal;
+    }
+
+    /**
+     *
+     * @ignore
+     *
+     */
+    public function setVeredaMunicipal($VeredaMunicipal)
+    {
+        $this->VeredaMunicipal = $VeredaMunicipal;
+        return $this;
     }
 
     /**
@@ -205,69 +273,6 @@ class Local
     public function setAnchoSalida($AnchoSalida)
     {
         $this->AnchoSalida = $AnchoSalida;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getSuperficie()
-    {
-        return $this->Superficie;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setSuperficie($Superficie)
-    {
-        $this->Superficie = $Superficie;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDepositoClase()
-    {
-        return $this->DepositoClase;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDepositoClase($DepositoClase)
-    {
-        $this->DepositoClase = $DepositoClase;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getVeredaMunicipal()
-    {
-        return $this->VeredaMunicipal;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setVeredaMunicipal($VeredaMunicipal)
-    {
-        $this->VeredaMunicipal = $VeredaMunicipal;
         return $this;
     }
 }
