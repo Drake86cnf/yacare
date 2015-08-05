@@ -6,10 +6,10 @@ use \Tests\Tapir\PruebaUnitaria;
 class CuiltTest extends PruebaUnitaria
 {
 
-    public function testEsCuiltValido()
+    public function testEsCuiltValida()
     {
-        $this->assertTrue(Cuilt::EsCuiltValido('20-25248532-6'), 'La CUIT 20-25248532-7 debería ser válida.');
-        $this->assertFalse(Cuilt::EsCuiltValido('20-25248532-7'), 'La CUIT 20-25248532-7 no debería ser válida.');
+        $this->assertTrue(Cuilt::EsCuiltValida('20-25248532-6'), 'La CUIT 20-25248532-7 debería ser válida.');
+        $this->assertFalse(Cuilt::EsCuiltValida('20-25248532-7'), 'La CUIT 20-25248532-7 no debería ser válida.');
     }
 
     public function testFormatearCuilt()
