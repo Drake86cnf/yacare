@@ -78,7 +78,7 @@ class Local
 
     /**
      * Indica la cantidad de anchos de salidas que tiene un local comercial.
-     * 
+     * La unidad de ancho de salida se establece en 0.55m.
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AnchoSalida;
