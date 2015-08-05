@@ -144,7 +144,7 @@ class Local
      * @ignore
      *
      */
-    public function setSuperficie(float $Superficie)
+    public function setSuperficie($Superficie)
     {
         $this->Superficie = $Superficie;
         return $this;
