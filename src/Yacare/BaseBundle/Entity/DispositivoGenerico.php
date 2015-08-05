@@ -4,7 +4,7 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BaseBundle\Entity\DispositivoGenerico
+ * Un dispositivo genérico.
  *
  * @ORM\Table(name="Base_DispositivoGenerico")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")

@@ -4,15 +4,15 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\BaseBundle\Entity\Dispositivo
+ * Clase base para dispositivos.
  *
  * @ORM\Table(name="Base_Dispositivo")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
- * "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- * "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
+ *  "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
+ *  "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
  * })
  */
 abstract class Dispositivo
@@ -23,34 +23,47 @@ abstract class Dispositivo
     use \Tapir\BaseBundle\Entity\Versionable;
 
     /**
+     * La marca del dispositivo.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $Marca;
 
     /**
+     * El modelo del dispositivo.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $Modelo;
 
     /**
+     * El número de serie.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $NumeroSerie;
 
     /**
+     * Un identificador único (por ejemplo dirección MAC).
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $IdentificadorUnico;
 
     /**
+     * La persona encargada del dispositivo.
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $Encargado;
 
     /**
+     * La versión de firmware.
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Firmware;
+    
 
     public function getDispositivoTipo()
     {
@@ -61,6 +74,8 @@ abstract class Dispositivo
     {
         return trim($this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
     }
+    
+    // **** Getters y setters
 
     public function getNumeroSerie()
     {
