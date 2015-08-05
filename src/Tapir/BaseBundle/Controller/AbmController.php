@@ -31,7 +31,7 @@ abstract class AbmController extends BaseController
         
         if (! isset($this->OrderBy)) {
             if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
-                'Tapir\BaseBundle\Entity\ConNombre')) {
+                    'Tapir\BaseBundle\Entity\ConNombre')) {
                 $this->OrderBy = 'Nombre';
             } else {
                 $this->OrderBy = null;
@@ -65,7 +65,7 @@ abstract class AbmController extends BaseController
 
     /**
      * Obtiene la cantidad de registros del listado.
-     * 
+     *
      * @see listarAction()
      * @see obtenerComandoSelect()
      * @return int Cantidad de registros.
@@ -99,7 +99,7 @@ abstract class AbmController extends BaseController
      * @see $Paginar
      *
      * @param string $filtro_buscar
-     *            El filtro a aplicar en formato DQL.
+     * El filtro a aplicar en formato DQL.
      * @return string Una comando DQL SELECT para obtener el listado.
      */
     protected function obtenerComandoSelect($filtro_buscar = null, $soloContar = false, $whereAdicional = null)
@@ -125,7 +125,7 @@ abstract class AbmController extends BaseController
         $where = "";
         
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
-            'Tapir\BaseBundle\Entity\Suprimible')) {
+                'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
@@ -188,7 +188,7 @@ abstract class AbmController extends BaseController
             $dql .= " ORDER BY " . join(', ', $OrderByCamposConTabla);
         }
         
-        //echo '------------------------------------------------------------------- ' . $dql;
+        // echo '------------------------------------------------------------------- ' . $dql;
         
         return $dql;
     }
@@ -199,8 +199,7 @@ abstract class AbmController extends BaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      *
-     * @see obtenerComandoSelect()
-     * @Route("listar/")
+     * @see obtenerComandoSelect() @Route("listar/")
      * @Template()
      */
     public function listarAction(Request $request)
@@ -238,15 +237,16 @@ abstract class AbmController extends BaseController
     protected function obtenerFormType(Request $request)
     {
         $Form = $this->ObtenerVariable($request, 'form');
-        if($Form) {
+        
+        if ($Form) {
             // Persona
             // Base\Persona
             // Tapir\Base\Persona
-            $Partes = split($Form, '\\');
-            if(count($Partes == 1)) {
+            $Partes = explode('\\', $Form);
+            if (count($Partes == 1)) {
                 // Sólo nombre del form
                 return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $Partes[0] . 'Type';
-            } elseif(count($Partes == 2)) {
+            } elseif (count($Partes == 2)) {
                 // Nombre del bundle y del form
                 return $this->VendorName . '\\' . $Partes[0] . 'Bundle\\Form\\' . $Partes[1] . 'Type';
             } else {
@@ -280,8 +280,7 @@ abstract class AbmController extends BaseController
      *
      * Es como editar, pero sólo lectura.
      *
-     * @see editarAction()
-     * @Route("ver/{id}")
+     * @see editarAction() @Route("ver/{id}")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -300,11 +299,10 @@ abstract class AbmController extends BaseController
         
         return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
-    
-    
+
     /**
      * Permite modificar un campo in situ.
-     * 
+     *
      * Recibe el nombre del campo y el ID de la entidad y muestra un textbox.
      *
      * @Route("editarcampo/{nombrecampo}/{id}")
@@ -313,43 +311,35 @@ abstract class AbmController extends BaseController
     public function editarcampoAction(Request $request, $nombrecampo, $id)
     {
         $em = $this->getEm();
-    
+        
         if ($id) {
             $entity = $this->obtenerEntidadPorId($id);
         }
-    
+        
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
         $DataControl = $this->ObtenerVariable($request, 'data-control');
-        if(!$DataControl) {
+        if (! $DataControl) {
             $DataControl = 'text';
         }
         
         $NombreGetter = 'get' . $nombrecampo;
         $ValorActual = $entity->$NombreGetter();
         $NuevoValor = $this->ObtenerVariable($request, 'nuevoValor');
-        if($NuevoValor) {
+        if ($NuevoValor) {
             $NombreSetter = 'set' . $nombrecampo;
             $entity->$NombreSetter($NuevoValor);
             $em->persist($entity);
             $em->flush();
-        } 
+        }
         
-        return $this->ArrastrarVariables($request,
-            array(
-                'entity' => $entity,
-                'errors' => '',
-                'data_control' => $DataControl,
-                'nombrecampo' => $nombrecampo,
-                'valoractual' => $ValorActual,
-                'nuevovalor' => $NuevoValor,
-                'id' => $id
-                ));
+        return $this->ArrastrarVariables($request, 
+                array('entity' => $entity, 'errors' => '', 'data_control' => $DataControl, 
+                    'nombrecampo' => $nombrecampo, 'valoractual' => $ValorActual, 'nuevovalor' => $NuevoValor, 
+                    'id' => $id));
     }
-    
-    
 
     /**
      * Inicia la edición o creación de una entidad.
@@ -361,11 +351,11 @@ abstract class AbmController extends BaseController
      * @see crearNuevaEntidad()
      * @see guardarAction()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            
+     * @param \Symfony\Component\HttpFoundation\Request $request 
      * @param int $id
-     *            El ID de la entidad a editar, o null si se trata de un
-     *            alta.
-     *            
+     * El ID de la entidad a editar, o null si se trata de un
+     * alta.
+     * 
      * @Route("editar/{id}")
      * @Route("crear/")
      * @Template()
@@ -384,19 +374,16 @@ abstract class AbmController extends BaseController
         
         $typeName = $this->obtenerFormType($request);
         $editForm = $this->createForm(new $typeName(), $entity);
-        if($id) {
+        if ($id) {
             $deleteForm = $this->crearFormEliminar($id);
         } else {
             $deleteForm = null;
         }
         
         return $this->ArrastrarVariables($request, 
-            array(
-                'entity' => $entity,
-                'create' => $id ? false : true,
-                'errors' => '',
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm ? $deleteForm->createView() : null));
+                array('entity' => $entity, 'create' => $id ? false : true, 'errors' => '', 
+                    'edit_form' => $editForm->createView(), 
+                    'delete_form' => $deleteForm ? $deleteForm->createView() : null));
     }
 
     /**
@@ -407,7 +394,6 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * 
      * @Route("guardar/{id}")
      * @Route("guardar")
      * @Method("POST")
@@ -430,12 +416,12 @@ abstract class AbmController extends BaseController
         $typeName = $this->obtenerFormType($request);
         $editForm = $this->createForm(new $typeName(), $entity);
         $editForm->handleRequest($request);
-        if($id) {
+        if ($id) {
             $deleteForm = $this->crearFormEliminar($id);
         } else {
             $deleteForm = null;
         }
-
+        
         $errors = $this->guardarActionPreBind($entity);
         
         if (! $errors) {
@@ -456,7 +442,7 @@ abstract class AbmController extends BaseController
                 $errors = $validator->validate($entity);
             }
         }
-
+        
         if ($errors) {
             $deleteForm = $this->crearFormEliminar($id);
             
@@ -465,14 +451,12 @@ abstract class AbmController extends BaseController
             }
             
             $res = $this->ArrastrarVariables($request, 
-                array(
-                    'entity' => $entity,
-                    'errors' => $errors,
-                    'create' => $id ? false : true,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm ? $deleteForm->createView() : null));
+                    array('entity' => $entity, 'errors' => $errors, 'create' => $id ? false : true, 
+                        'edit_form' => $editForm->createView(), 
+                        'delete_form' => $deleteForm ? $deleteForm->createView() : null));
             
-            return $this->render($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
+            return $this->render(
+                    $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
             return $this->guardarActionAfterSuccess($request, $entity);
         }
@@ -480,7 +464,8 @@ abstract class AbmController extends BaseController
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
+                $this->ArrastrarVariables($request, null, false));
     }
 
     public function guardarActionPreBind($entity)
@@ -534,7 +519,7 @@ abstract class AbmController extends BaseController
      * Crea una entidad nueva. Permite a los controladores derivados intervenir
      * la creación de las entidades durante el procedo de alta.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            
+     * @param \Symfony\Component\HttpFoundation\Request $request 
      * @return object La entidad nueva.
      */
     protected function crearNuevaEntidad(Request $request)
@@ -551,7 +536,7 @@ abstract class AbmController extends BaseController
      * entidades durante los procesos de edición, eliminación, archivado, etc.
      *
      * @param
-     *            integer
+     * integer
      * @return object La entidad.
      */
     protected function obtenerEntidadPorId($id)

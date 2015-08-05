@@ -20,35 +20,4 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
     {
         return $this->ArrastrarVariables($request);
     }
-
-    /**
-     * @Route("editar2/{id}")
-     * @Route("crear2/")
-     * @Template("YacareComercioBundle:Comercio:editar.html.twig")
-     */
-    public function editar2Action(Request $request, $id = null)
-    {
-        if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
-        } else {
-            $entity = $this->crearNuevaEntidad($request);
-        }
-        
-        if (! $entity) {
-            throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        }
-        
-        // $typeName = $this->obtenerFormType();
-        $editForm = $this->createForm(new \Yacare\ComercioBundle\Form\ActividadComercioType(), $entity);
-        if ($id) {
-            $deleteForm = $this->crearFormEliminar($id);
-        } else {
-            $deleteForm = null;
-        }
-        
-        return $this->ArrastrarVariables($request, 
-                array('entity' => $entity, 'create' => $id ? false : true, 'errors' => '', 
-                    'edit_form' => $editForm->createView(), 
-                    'delete_form' => $deleteForm ? $deleteForm->createView() : null));
-    }
 }
