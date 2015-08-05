@@ -19,16 +19,42 @@ class AuditableListener implements EventSubscriber
         $this->container = $container;
     }
 
+    /**
+     * Interviene la creación de una entidad para generar un registro de auditoría.
+     * 
+     * @param LifecycleEventArgs $eventArgs
+     */
     public function postPersist(LifecycleEventArgs $eventArgs)
+    {
+        return $this->logChangeSet($eventArgs, 'crear');
+    }
+
+    /**
+     * Interviene la modificación de una entidad para generar un registro de auditoría.
+     * 
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function postUpdate(LifecycleEventArgs $eventArgs)
+    {
+        return $this->logChangeSet($eventArgs, 'editar');
+    }
+    
+    
+    /**
+     * Interviene la eliminación de una entidad para generar un registro de auditoría.
+     * 
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function preRemove(LifecycleEventArgs $eventArgs)
     {
         $em = $eventArgs->getEntityManager();
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        
+        $user = $this->container->get('security.context')->getToken()->getUser();
+    
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-            $Registro->setAccion('crear');
+            $Registro->setAccion('eliminar');
             $Registro->setElementoTipo($classMetadata->reflClass->getName());
             $Registro->setElementoId($entity->getId());
             $Registro->setEstacion($this->container->get('request')->getClientIp());
@@ -36,21 +62,15 @@ class AuditableListener implements EventSubscriber
             $em->persist($Registro);
             $em->flush();
         }
-        
-        return $this->logChangeSet($eventArgs);
     }
-
-    public function postUpdate(LifecycleEventArgs $eventArgs)
-    {
-        return $this->logChangeSet($eventArgs);
-    }
+    
 
     /**
-     * Logs entity changeset
+     * Genera un registro de auditoría con un detalle de los cambios realizados a la entidad.
      *
      * @param LifecycleEventArgs $eventArgs            
      */
-    public function logChangeSet(LifecycleEventArgs $eventArgs)
+    public function logChangeSet(LifecycleEventArgs $eventArgs, $action)
     {
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
@@ -63,7 +83,7 @@ class AuditableListener implements EventSubscriber
             $changeSet = $uow->getEntityChangeSet($entity);
             
             $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-            $Registro->setAccion('editar');
+            $Registro->setAccion($action);
             $Registro->setElementoTipo($classMetadata->reflClass->getName());
             $Registro->setElementoId($entity->getId());
             $Registro->setEstacion($this->container->get('request')->getClientIp());
@@ -74,27 +94,8 @@ class AuditableListener implements EventSubscriber
         }
     }
 
-    public function preRemove(LifecycleEventArgs $eventArgs)
-    {
-        $em = $eventArgs->getEntityManager();
-        $entity = $eventArgs->getEntity();
-        $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        
-        if ($this->isEntitySupported($classMetadata->reflClass)) {
-            $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-            $Registro->setAccion('eliminar');
-            $Registro->setElementoTipo($classMetadata->reflClass->getName());
-            $Registro->setElementoId($entity->getId());
-            $Registro->setEstacion($this->container->get('request')->getClientIp());
-            $Registro->setUsuario($user->getId());
-            $em->persist($Registro);
-            $em->flush();
-        }
-    }
-
     /**
-     * Verifica si la clase es auditable.
+     * Devuelve true si la clase es auditable.
      *
      * @param ReflectionClass $reflClass            
      * @return boolean
@@ -104,9 +105,10 @@ class AuditableListener implements EventSubscriber
         return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(), 'Tapir\BaseBundle\Entity\Auditable');
     }
 
+    
     public function getSubscribedEvents()
     {
-        $events = [Events::postPersist,Events::postUpdate,Events::preRemove];
+        $events = [Events::postPersist, Events::postUpdate, Events::preRemove];
         
         return $events;
     }
