@@ -68,7 +68,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         if ($editForm->isValid()) {
             $data = $editForm->getData();
             
-            $Actividad = $data['ActividadPrincipal'];
+            $Actividad = $data['Actividad1'];
             
             if (array_key_exists('Local', $data)) {
                 $Local = $data['Local'];
@@ -149,7 +149,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $Local = $Comercio->getLocal();
         if ($Local) {
             // $Superficie = $Local->getSuperficie();
-            $Actividad = $Comercio->getActividadPrincipal();
+            $Actividad = $Comercio->getActividad1();
             
             // Busco el uso del suelo para esa zona
             $UsoSuelo = $em->createQuery(

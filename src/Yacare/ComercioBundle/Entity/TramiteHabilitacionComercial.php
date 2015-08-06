@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
-    
  
     
     public function __construct() {
