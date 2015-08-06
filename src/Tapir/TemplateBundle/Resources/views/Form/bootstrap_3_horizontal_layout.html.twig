@@ -93,7 +93,7 @@
     			<i class="fa fa-search"></i>
     		</button>
     	</span>
-    	{% endif %}
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -103,6 +103,14 @@
     <input {{ block('widget_attributes') }} type="file"	multiple="multiple"></input>
 {% endblock %}
 
-{% block tabset_widget %}
-	
-{% endblock %}
+
+{%- block form_widget_compound -%}
+	{# Remplazo widget_compound para que no muestre errores que serán mostrados por sus hijos #}
+    <div {{ block('widget_container_attributes') }}>
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
+        {%- if form.parent is empty -%}
+            {# form_errors(form) #}
+        {%- endif -%}
+    </div>
+{%- endblock form_widget_compound -%}
