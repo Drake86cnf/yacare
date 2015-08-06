@@ -242,7 +242,7 @@ abstract class AbmController extends BaseController
             // Persona
             // Base\Persona
             // Tapir\Base\Persona
-            $Partes = explode('\\', $Form);
+            $Partes = split('/[\\]', $Form);
             if (count($Partes == 1)) {
                 // Sólo nombre del form
                 return $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\' . $Partes[0] . 'Type';
@@ -373,8 +373,11 @@ abstract class AbmController extends BaseController
         }
         
         $typeName = $this->obtenerFormType($request);
+        $TieneDeleteForm = $this->ObtenerVariable($request, 'SinDelete');
         $editForm = $this->createForm(new $typeName(), $entity);
-        if ($id) {
+        if ($TieneDeleteForm) {
+            $deleteForm = null;
+        } elseif ($id) {
             $deleteForm = $this->crearFormEliminar($id);
         } else {
             $deleteForm = null;
