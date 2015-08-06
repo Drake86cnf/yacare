@@ -23,7 +23,7 @@ trait ConEliminar
     /**
      * Crea el formulario de eliminación.
      */
-    protected function crearFormEliminar($id)
+    protected function CrearFormEliminar($id)
     {
         return $this->createFormBuilder(array(
             'id' => $id))
@@ -37,7 +37,7 @@ trait ConEliminar
      */
     public function eliminarAction(Request $request, $id)
     {
-        $deleteForm = $this->crearFormEliminar($id);
+        $deleteForm = $this->CrearFormEliminar($id);
         
         $em = $this->getEm();
         $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
@@ -62,7 +62,7 @@ trait ConEliminar
      */
     public function eliminar2Action(Request $request, $id)
     {
-        $form = $this->crearFormEliminar($id);
+        $form = $this->CrearFormEliminar($id);
         $form->handleRequest($request);
         
         if ($form->isValid()) {

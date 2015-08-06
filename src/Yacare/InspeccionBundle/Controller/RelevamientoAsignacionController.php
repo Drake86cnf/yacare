@@ -199,7 +199,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $filtro_relevamiento = $this->ObtenerVariable($request, 'filtro_relevamiento');
         $em = $this->getDoctrine()->getManager();
         
-        $entity = $this->crearNuevaEntidad($request);
+        $entity = $this->CrearNuevaEntidad($request);
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede crear la entidad.');
@@ -215,7 +215,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'CalleType';
         $editForm = $this->createForm(new $typeName(), $entity);
-        // $deleteForm = $this->crearFormEliminar($id);
+        // $deleteForm = $this->CrearFormEliminar($id);
         
         return $this->ArrastrarVariables($request, 
             array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
@@ -230,7 +230,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $filtro_relevamiento = $this->ObtenerVariable($request, 'filtro_relevamiento');
         $em = $this->getDoctrine()->getManager();
         
-        $entity = $this->crearNuevaEntidad($request);
+        $entity = $this->CrearNuevaEntidad($request);
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede crear la entidad.');

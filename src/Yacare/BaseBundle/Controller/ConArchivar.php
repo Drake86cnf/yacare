@@ -14,7 +14,7 @@ trait ConArchivar
     public function desarchivarAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $this->obtenerEntidadPorId($id);
+        $entity = $this->ObtenerEntidadPorId($id);
         
         if (in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
             // Es archivable
@@ -36,7 +36,7 @@ trait ConArchivar
     public function archivarAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $this->obtenerEntidadPorId($id);
+        $entity = $this->ObtenerEntidadPorId($id);
         
         if (in_array('Tapir\BaseBundle\Entity\Archivable', class_uses($entity))) {
             // Es archivable
