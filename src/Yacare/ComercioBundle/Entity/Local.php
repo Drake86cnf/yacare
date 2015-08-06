@@ -38,40 +38,38 @@ class Local
 
     /**
      * La clase de depósito.
-     * 
+     *
      * Sólo aplica si Tipo es "Depósito".
-     * 
-     * @see $Tipo
-     * 
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
+     *
+     * @see $Tipo @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $DepositoClase;
 
     /**
      * Indica si el local comercial posee vereda municipal reglamentaria.
-     * 
+     *
      * @ORM\Column(type="integer",nullable=true)
      */
     private $VeredaMunicipal;
 
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
-     * 
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $Canaletas;
 
     /**
      * Indica si el local comercial posee cesto de basura.
-     * 
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $CestoBasura;
 
     /**
      * Indica si el local comercial tiene salidas de emergencia.
-     * 
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $PuertaEmergencia;
@@ -82,12 +80,6 @@ class Local
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AnchoSalida;
-
-    public function setPartida($Partida)
-    {
-        $this->Partida = $Partida;
-        $this->setPropietario($Partida->getTitular());
-    }
 
     public function __toString()
     {
@@ -109,16 +101,15 @@ class Local
         
         return $res;
     }
-    
+
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;
         $this->ConstruirNombre();
     }
     
-
     // *** Getters y setters
-
+    
     /**
      *
      * @ignore
