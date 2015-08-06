@@ -98,8 +98,7 @@ abstract class AbmController extends BaseController
      * @see $Limit
      * @see $Paginar
      *
-     * @param string $filtro_buscar
-     * El filtro a aplicar en formato DQL.
+     * @param string $filtro_buscar El filtro a aplicar en formato DQL.
      * @return string Una comando DQL SELECT para obtener el listado.
      */
     protected function obtenerComandoSelect($filtro_buscar = null, $soloContar = false, $whereAdicional = null)
@@ -199,7 +198,8 @@ abstract class AbmController extends BaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      *
-     * @see obtenerComandoSelect() @Route("listar/")
+     * @see obtenerComandoSelect()
+     * @Route("listar/")
      * @Template()
      */
     public function listarAction(Request $request)
@@ -229,12 +229,15 @@ abstract class AbmController extends BaseController
     }
 
     /**
-     * Obtiene el nombre del tipo de formulario (FormType) que corresponde a la entidad
-     * administrada por este controlador.
+     * Obtiene el nombre del tipo de formulario (FormType) que corresponde a la entidad administrada por este
+     * controlador.
+     * 
+     * El FormType puede ser especificado mediante la variable form del query string o si no se especifica se
+     * asume que es {Vendor}\{Bundle}\Form\{Entidad}Type.
      *
      * @return string El nombre del tipo de formulario.
      */
-    protected function obtenerFormType(Request $request)
+    protected function ObtenerFormType(Request $request)
     {
         $Form = $this->ObtenerVariable($request, 'form');
         
@@ -290,7 +293,7 @@ abstract class AbmController extends BaseController
         }
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         if (! $entity) {
@@ -313,7 +316,7 @@ abstract class AbmController extends BaseController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         if (! $entity) {
@@ -346,15 +349,13 @@ abstract class AbmController extends BaseController
      *
      * Recibe el ID de la entidad a editar o null en caso de crear una nueva
      * (alta). Devuelve la entidad actual (desde la base de datos) o la entidad
-     * nueva (creada con el método crearNuevaEntidad) y el formulario de edición
+     * nueva (creada con el método CrearNuevaEntidad) y el formulario de edición
      *
-     * @see crearNuevaEntidad()
+     * @see CrearNuevaEntidad()
      * @see guardarAction()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request 
-     * @param int $id
-     * El ID de la entidad a editar, o null si se trata de un
-     * alta.
+     * @param int $id El ID de la entidad a editar, o null si se trata de un alta.
      * 
      * @Route("editar/{id}")
      * @Route("crear/")
@@ -363,30 +364,31 @@ abstract class AbmController extends BaseController
     public function editarAction(Request $request, $id = null)
     {
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         } else {
-            $entity = $this->crearNuevaEntidad($request);
+            $entity = $this->CrearNuevaEntidad($request);
         }
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $typeName = $this->obtenerFormType($request);
-        $TieneDeleteForm = $this->ObtenerVariable($request, 'SinDelete');
-        $editForm = $this->createForm(new $typeName(), $entity);
-        if ($TieneDeleteForm) {
-            $deleteForm = null;
+        $NombreFormType = $this->ObtenerFormType($request);
+        $SinFormEliminar = $this->ObtenerVariable($request, 'noeliminar');
+        $FormEditar = $this->createForm(new $NombreFormType(), $entity);
+        if ($SinFormEliminar) {
+            $FormEliminar = null;
         } elseif ($id) {
-            $deleteForm = $this->crearFormEliminar($id);
+            $FormEliminar = $this->CrearFormEliminar($id);
         } else {
-            $deleteForm = null;
+            $FormEliminar = null;
         }
         
         return $this->ArrastrarVariables($request, 
-                array('entity' => $entity, 'create' => $id ? false : true, 'errors' => '', 
-                    'edit_form' => $editForm->createView(), 
-                    'delete_form' => $deleteForm ? $deleteForm->createView() : null));
+                array('entity' => $entity, 'create' => $id ? false : true,
+                    'errors' => '', 
+                    'edit_form' => $FormEditar->createView(), 
+                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
     }
 
     /**
@@ -397,6 +399,7 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * 
      * @Route("guardar/{id}")
      * @Route("guardar")
      * @Method("POST")
@@ -407,56 +410,56 @@ abstract class AbmController extends BaseController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         } else {
-            $entity = $this->crearNuevaEntidad($request);
+            $entity = $this->CrearNuevaEntidad($request);
         }
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $typeName = $this->obtenerFormType($request);
-        $editForm = $this->createForm(new $typeName(), $entity);
-        $editForm->handleRequest($request);
+        $NombreFormType = $this->ObtenerFormType($request);
+        $FormEditar = $this->createForm(new $NombreFormType(), $entity);
+        $FormEditar->handleRequest($request);
         if ($id) {
-            $deleteForm = $this->crearFormEliminar($id);
+            $FormEliminar = $this->CrearFormEliminar($id);
         } else {
-            $deleteForm = null;
+            $FormEliminar = null;
         }
         
-        $errors = $this->guardarActionPreBind($entity);
+        $Errores = $this->guardarActionPreBind($entity);
         
-        if (! $errors) {
-            if ($editForm->isValid()) {
-                $errors = $this->guardarActionPrePersist($entity, $editForm);
-                if (! $errors) {
-                    $errors = $this->guardarActionSubirArchivos($entity, $editForm);
+        if (! $Errores) {
+            if ($FormEditar->isValid()) {
+                $Errores = $this->guardarActionPrePersist($entity, $FormEditar);
+                if (! $Errores) {
+                    $Errores = $this->guardarActionSubirArchivos($entity, $FormEditar);
                 }
-                if (! $errors) {
+                if (! $Errores) {
                     $em->persist($entity);
                     $em->flush();
-                    $this->guardarActionPostPersist($entity, $editForm);
-                    
+                    $this->guardarActionPostPersist($entity, $FormEditar);
                     $this->addFlash('success', 'Los cambios en "' . $entity . '" fueron guardados.');
                 }
             } else {
                 $validator = $this->get('validator');
-                $errors = $validator->validate($entity);
+                $Errores = $validator->validate($entity);
             }
         }
         
-        if ($errors) {
-            $deleteForm = $this->crearFormEliminar($id);
+        if ($Errores) {
+            $FormEliminar = $this->CrearFormEliminar($id);
             
-            foreach ($errors as $error) {
+            foreach ($Errores as $error) {
                 $this->addFlash('danger', $error);
             }
             
             $res = $this->ArrastrarVariables($request, 
-                    array('entity' => $entity, 'errors' => $errors, 'create' => $id ? false : true, 
-                        'edit_form' => $editForm->createView(), 
-                        'delete_form' => $deleteForm ? $deleteForm->createView() : null));
+                    array('entity' => $entity, 'errors' => $Errores,
+                        'create' => $id ? false : true, 
+                        'edit_form' => $FormEditar->createView(), 
+                        'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
             
             return $this->render(
                     $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
@@ -511,7 +514,7 @@ abstract class AbmController extends BaseController
      *
      * @see ConEliminar
      */
-    protected function crearFormEliminar($id)
+    protected function CrearFormEliminar($id)
     {
         return null;
     }
@@ -525,7 +528,7 @@ abstract class AbmController extends BaseController
      * @param \Symfony\Component\HttpFoundation\Request $request 
      * @return object La entidad nueva.
      */
-    protected function crearNuevaEntidad(Request $request)
+    protected function CrearNuevaEntidad(Request $request)
     {
         $entityName = $this->CompleteEntityName;
         $entity = new $entityName();
@@ -542,7 +545,7 @@ abstract class AbmController extends BaseController
      * integer
      * @return object La entidad.
      */
-    protected function obtenerEntidadPorId($id)
+    protected function ObtenerEntidadPorId($id)
     {
         $em = $this->getEm();
         return $em->getRepository($this->CompleteEntityName)->find($id);

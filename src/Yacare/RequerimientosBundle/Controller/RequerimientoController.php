@@ -304,7 +304,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         $NuevoEstado = $this->ObtenerVariable($request, 'nuevoestado');
@@ -389,7 +389,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         if (! $entity) {
@@ -454,7 +454,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         if (! $entity) {
@@ -525,7 +525,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');

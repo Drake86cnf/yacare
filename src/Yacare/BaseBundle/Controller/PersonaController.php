@@ -123,7 +123,7 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         $em = $this->getEm();
         
         if ($id) {
-            $entity = $this->obtenerEntidadPorId($id);
+            $entity = $this->ObtenerEntidadPorId($id);
         }
         
         if (! $entity) {
@@ -219,11 +219,11 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     public function desduplicarAction(Request $request, $id1, $id2, $ok = 0)
     {
         if ($id1) {
-            $entity1 = $this->obtenerEntidadPorId($id1);
+            $entity1 = $this->ObtenerEntidadPorId($id1);
         }
         
         if ($id2) {
-            $entity2 = $this->obtenerEntidadPorId($id2);
+            $entity2 = $this->ObtenerEntidadPorId($id2);
         }
         
         if ($ok) {}

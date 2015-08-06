@@ -45,9 +45,9 @@ class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmCont
         return $res;
     }
 
-    public function crearNuevaEntidad(Request $request)
+    public function CrearNuevaEntidad(Request $request)
     {
-        $entity = parent::crearNuevaEntidad($request);
+        $entity = parent::CrearNuevaEntidad($request);
         
         // En caso de crear uno nuevo, le asigno el parent predeterminado
         $em = $this->getDoctrine()->getManager();
