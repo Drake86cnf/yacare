@@ -39,11 +39,7 @@
 
 {% block buttongroup_widget %}
     {% spaceless %}
-        <div class="btn-group" role="group" id="{{ id }}_Group"
-        {% if attr['help'] is defined %}
-        data-toggle="tooltip" data-placement="bottom" title="{{ attr['help'] }}"
-        {% endif %}
-        	>
+        <div class="btn-group" role="group" id="{{ id }}_Group">
             {% set options = choices -%}
             {{- block('buttongroup_widget_options') -}}
         </div>
@@ -64,7 +60,7 @@
         	btn-default {% if choice is selectedchoice(value) %} active{% endif %}" 
             value="{{ choice.value }}">
             <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
-            {{ choice.label|trans({}, translation_domain) }}</button>
+            {{ choice.label }}</button>
     {% endfor %}
 {%- endblock buttongroup_widget_options %}
 
@@ -107,10 +103,10 @@
 {%- block form_widget_compound -%}
 	{# Remplazo widget_compound para que no muestre errores que serán mostrados por sus hijos #}
     <div {{ block('widget_container_attributes') }}>
-        {{- block('form_rows') -}}
-        {{- form_rest(form) -}}
-        {%- if form.parent is empty -%}
+    	{%- if form.parent is empty -%}
             {# form_errors(form) #}
         {%- endif -%}
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
     </div>
 {%- endblock form_widget_compound -%}
