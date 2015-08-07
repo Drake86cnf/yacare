@@ -12,6 +12,7 @@
 
 {% block pagina_scripts %}
 <script>
+$(function() {
     $('#yacare_comerciobundle_localtype_Tipo').change(function() {
         if($('#yacare_comerciobundle_localtype_Tipo').val() === 'Depósito') {
             $('#yacare_comerciobundle_localtype_DepositoClase').prop('disabled', false);
@@ -21,5 +22,6 @@
         }
     });
     $('#yacare_comerciobundle_localtype_Tipo').trigger('change');
+});
 </script>
 {% endblock %}
