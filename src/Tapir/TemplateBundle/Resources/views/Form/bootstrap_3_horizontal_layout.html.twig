@@ -17,7 +17,15 @@
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
         {{ form_label(form) }}
         <div class="{{ block('form_group_class') }}">
+			{% if attr['prefix'] is defined or attr['suffix'] is defined %}<div class="input-group">{% endif %}        
+            {% if attr['prefix'] is defined %}
+            	<div class="input-group-addon">{{ attr['prefix']|raw }}</div>
+            {% endif %}
             {{ form_widget(form) }}
+            {% if attr['suffix'] is defined %}
+            	<div class="input-group-addon">{{ attr['suffix']|raw }}</div>
+            {% endif %}
+            {% if attr['prefix'] is defined or attr['suffix'] is defined %}</div>{% endif %}
             {{ form_errors(form) }}
             {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
         </div>
@@ -112,3 +120,5 @@
         {{- form_rest(form) -}}
     </div>
 {%- endblock form_widget_compound -%}
+
+
