@@ -2,7 +2,6 @@
 namespace Yacare\TramitesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Agrega la propiedad de Titular a una entidad.
@@ -16,7 +15,7 @@ trait ConTitular
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      * 
-     * @Assert\NotNull(message="Debe seleccionar el titular del trámite")
+     * @Symfony\Component\Validator\Constraints\NotNull(message="Debe seleccionar el titular.")
      */
     protected $Titular;
 
