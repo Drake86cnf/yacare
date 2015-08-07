@@ -12,7 +12,7 @@ class LocalType extends AbstractType {
 				'label' => 'Partida',
 				'class' => 'Yacare\CatastroBundle\Entity\Partida',
 				'required' => true 
-		) )->add ( 'Tipo', 'choice', array (
+		) )->add ( 'Tipo',new \Tapir\BaseBundle\Form\Type\ButtonGroupType() , array (
 				'label' => 'Tipo',
 				'required' => true,
 				'choices' => array (
@@ -29,35 +29,45 @@ class LocalType extends AbstractType {
 				'required' => false 
 		) )->add ( 'Superficie', null, array (
 				'label' => 'Superficie (m²)' 
-		) )->
-
-		add ( 'CestoBasura', 'choice', array (
-				'label' => 'Cesto de Basura',
+		) )->add ( 'CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array (
+				'label' => 'Cesto de basura',
 				'required' => false,
 				'choices' => array (
-						'0' => 'No',
-						'1' => 'Sí' 
-				) 
-		) )->add ( 'Canaletas', 'choice', array (
+						null=>'NS/NC',
+						 0=>'No',
+						 1=>'Si'
+				)
+		) )->add ( 'Canaletas', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array (
 				'required' => false,
 				'choices' => array (
-						'0' => 'No',
-						'1' => 'Sí' 
-				) 
-		) )->add ( 'VeredaMunicipal', 'choice', array (
+						null=>'NS/NC',
+						 0=>'No',
+						 1=>'Si')
+		) )->add ( 'VeredaMunicipal',new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array (
 				'required' => false,
 				'choices' => array (
-						'0' => 'No',
-						'1' => 'Sí' 
-				) 
+						null=>'NS/NC',
+						 0=>'No',
+						 1=>'Si')
+				
 		) )
-		->add ( 'PuertaEmergencia', 'choice', array (
+		->add ( 'AnchoSalida', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array (
+				'label'=>'Salida de emergencia',
 				'required' => false,
+				'attr' => array('help'=>"El valor corresponde a la cantidad de anchos de salida (0,55m)"),
 				'choices' => array (
-						'0' => 'No',
-						'1' => 'Sí' 
+						 null=>'NS/NC',
+						 0 => 'No',
+						 1 => '1' ,
+						 2 => '2' ,
+						 3 => '3' ,
+						 4 => '4' ,
+						 5 => '5' ,
+						 6 => '6' ,
+						 99=> '+',
 				) 
-		) );
+		) );	
+		
 	}
 	public function configureOptions(OptionsResolver $resolver) {
 		$resolver->setDefaults ( array (
