@@ -6,3 +6,9 @@ services:
     class: '%tapir_controls.twig_extension.class%'
     tags:
         - { name: twig.extension }
+    
+  # email type
+  email.type:
+      class: Tapir\TemplateBundle\Form\Type\EmailType
+      tags:
+          - { name: form.type, alias: email }
