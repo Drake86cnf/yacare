@@ -451,12 +451,13 @@ abstract class AbmController extends BaseController
         if ($Errores) {
             $FormEliminar = $this->CrearFormEliminar($id);
             
-            foreach ($Errores as $error) {
+            /* foreach ($Errores as $error) {
                 $this->addFlash('danger', $error);
-            }
+            } */
             
             $res = $this->ArrastrarVariables($request, 
-                    array('entity' => $entity, 'errors' => $Errores,
+                    array('entity' => $entity,
+                        'errors' => $Errores,
                         'create' => $id ? false : true, 
                         'edit_form' => $FormEditar->createView(), 
                         'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
