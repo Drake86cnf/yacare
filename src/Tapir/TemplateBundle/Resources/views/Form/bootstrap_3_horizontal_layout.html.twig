@@ -51,7 +51,9 @@
     {% for group_label, choice in options %}
         <button type="button" onclick="$('#{{ id }}').val('{{ choice.value }}');
         	$('#{{ id }}_Group :button').removeClass('active'); $('#{{ id }}_Group i').hide();
-        	$(this).addClass('active'); $(this).children('i').show(); return true;"
+        	$(this).addClass('active'); $(this).children('i').show();
+        	$('#{{ id }}').trigger('change');
+        	return true;"
         	class="btn
         	{% if attr['class'] is defined %}
         	    {% set bgclass = attr['class']|split(' ') %}
