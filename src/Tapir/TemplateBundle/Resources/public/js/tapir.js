@@ -347,7 +347,14 @@ function MejorarElementos(destino) {
 		autoclose : true
 	}); */
 	
+	// Tooltips de Bootstrap
 	$(desintoFinal + '[data-toggle="tooltip"]').tooltip()
+	
+	// Popovers de Bootstrap
+	$(desintoFinal + '[data-toggle="popover"]').popover()
+	
+	// Select2
+	$(desintoFinal + 'select').select2({ language: "es" });
 
 	// Dar tratamiento especial a los campos de fecha
 	// (validar y formatear la fecha ingresada al perder el foco)
