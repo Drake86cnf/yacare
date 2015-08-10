@@ -3,6 +3,8 @@ namespace Tapir\TemplateBundle\Controls;
 
 /**
  * Representa un conjunto de pestañas.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class TabSet
 {

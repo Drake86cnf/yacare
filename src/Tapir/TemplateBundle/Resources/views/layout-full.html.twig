@@ -20,16 +20,17 @@
 <link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/bootstrap.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/datepicker3.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/select2.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/tapir.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/tapir_nav.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/tapir_forms.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}" rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/datepicker3.css') }}" rel="stylesheet" />
 </head>
 
 <body>
 	<div id="wrapper">
-		<div class="modal fade" id="modal" role="dialog" aria-hidden="true"
+		<div class="modal" id="modal" role="dialog" aria-hidden="true"
 			tabindex="-1">Cargando...</div>
 
 		<!-- Opción de accesibilidad para saltear el menú de navegación -->
@@ -103,13 +104,27 @@
 			
 			{% set block_pagina_acciones2 = block('pagina_acciones2') %}
 			{% if block_pagina_acciones2 is not empty %}
-			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw
-				}}</div>
+			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
 			{% endif %}
 			{% set block_pagina_acciones3 = block('pagina_acciones3') %}
-			{% if block_pagina_acciones3 is not empty %}
-			<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw
-				}}</div>
+			{% if block_pagina_acciones3 is not empty or 1 %}
+				<div class="form-actions3 hidden-print">
+    				<span class="dropup">
+                      <button class="btn btn-primary btn-lg btn-circle dropdown-toggle" type="button" id="dropdownMenu2"
+                      		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      	<i class="fa fa-lightbulb-o"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a href="#" data-toggle="modal"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
+                        <li><a href="#" data-toggle="modal"><i class="fa fa-smile-o fa-fw"></i> Me gusta</a></li>
+                        <li><a href="#" data-toggle="modal"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
+                        {% if block_pagina_acciones3 is not empty %}
+                            <li><a href="#"><li role="separator" class="divider"></li></a></li>
+                            {{ block_pagina_acciones3|raw }}
+                        {% endif %}
+                      </ul>
+    			    </span>
+    			</div>
 			{% endif %}
 			{% block pagina_fin %}{% endblock %}
 		</div>
@@ -133,6 +148,7 @@
 	{% endif %}
 	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/select2.min.js') }}"></script>
 
 <script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
