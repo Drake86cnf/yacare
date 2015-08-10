@@ -23,42 +23,46 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
         return $this->ArrastrarVariables($request);
     }
 
+
     /**
-     * Interviene las actividades antes de persistirlas en un comercio.
+     * Reordena las actividades antes de persistirlas en un comercio para que estén consolidadas (sin espacios
+     * intermedios en blanco).
      * 
      * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist()
      */
-    public function guardarActionPrePersist($entity, $flag)
+    public function guardarActionPrePersist($entity, $editForm)
     {
-        $flag = false;
+        $Reordenado = false;
         
         if ($entity->getActividad6() && ! $entity->getActividad5()) {
             $entity->setActividad5($entity->getActividad6());
             $entity->setActividad6(null);
-            $flag = true;
+            $Reordenado = true;
         }
         
         if ($entity->getActividad5() && ! $entity->getActividad4()) {
             $entity->setActividad4($entity->getActividad5());
             $entity->setActividad5(null);
-            $flag = true;
+            $Reordenado = true;
         }
         
         if ($entity->getActividad4() && ! $entity->getActividad3()) {
             $entity->setActividad3($entity->getActividad4());
             $entity->setActividad4(null);
-            $flag = true;
+            $Reordenado = true;
         }
         
         if ($entity->getActividad3() && ! $entity->getActividad2()) {
             $entity->setActividad2($entity->getActividad3());
             $entity->setActividad3(null);
-            $flag = true;
+            $Reordenado = true;
         }
         
-        if ($flag) {
-            return $this->guardarActionPrePersist($entity, $flag);
+        if ($Reordenado) {
+            // Si hice cambios, uso recursión para hacer una pasada más, que puede ser necesaria.
+            return $this->guardarActionPrePersist($entity, $editForm);
         } else {
+            // No hice cambios. La lista está ordenada.
             return array();
         }
     }
