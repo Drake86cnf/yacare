@@ -15,23 +15,17 @@
 <link rel="icon" href="{{ asset_url }}" />
 {% endimage %}
 
-<script type="text/javascript"
-	src="{{ asset('bundles/tapirtemplate/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.min.js') }}"></script>
 
-<link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/bootstrap.min.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/tapir.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/tapir_nav.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/tapir_forms.css') }}"
-	rel="stylesheet" />
-<link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}"
-	rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/fonts.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/font-awesome.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/bootstrap.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/datepicker3.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_nav.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_forms.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}" rel="stylesheet" />
 </head>
 
 <body>
@@ -39,19 +33,16 @@
 	{% block pagina_contenido %}{% endblock %}
 
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/bootstrap.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
 	{% if app.environment != 'test' %}
-	<script type="text/javascript"
-		src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
 	{% endif %}
 </body>
 </html>

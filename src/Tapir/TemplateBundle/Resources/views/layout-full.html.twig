@@ -132,8 +132,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-	<div id="ajax-spinner" class="ajax-spinner text-center"
-		aria-hidden="true">
+	<div id="ajax-spinner" class="ajax-spinner text-center" aria-hidden="true">
 		<i class="fa fa-spinner fa-spin"></i> Cargando...
 	</div>
 
@@ -142,13 +141,13 @@
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.history.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.form.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tinymce/tinymce.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
 	{% if app.environment != 'test' %}
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>
 	{% endif %}
-	<script type="text/javascript" src="{{ asset('bundles/tapircharts/js/Chart.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/select2.min.js') }}"></script>
 
 <script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
