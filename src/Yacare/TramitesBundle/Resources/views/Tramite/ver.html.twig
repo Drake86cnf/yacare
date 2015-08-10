@@ -88,6 +88,8 @@
 				{% else %} <i class="fa fa-circle-o fa-fw"></i>
 				{% endif %}
 				{% if EstadoRequisito.Adjuntos|length > 0 %}<i class="fa fa-paperclip fa-fw"></i>{% endif %}
+				{% if EstadoRequisito.Obs %}<i class="fa fa-edit fa-fw" role="button" data-trigger="hover" data-container="body" data-toggle="popover" title="Observaciones"  data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
+				{% endif %}
 			</td>
 			<td>{% if entity.Estado < 90 %}
 				<div class="btn-group hidden-print pull-right">
