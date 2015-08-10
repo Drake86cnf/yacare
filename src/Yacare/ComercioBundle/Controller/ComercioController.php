@@ -23,14 +23,21 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
         return $this->ArrastrarVariables($request);
     }
 
+    /**
+     * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist()
+     */
+    public function guardarActionPrePersist($entity, $editForm)
+    {
+        \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($entity);
+        
+        parent::guardarActionPrePersist($entity, $editForm);
+    }
 
     /**
      * Reordena las actividades antes de persistirlas en un comercio para que estén consolidadas (sin espacios
      * intermedios en blanco).
-     * 
-     * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist()
      */
-    public function guardarActionPrePersist($entity, $editForm)
+    public static function ReordenarActividades($entity)
     {
         $Reordenado = false;
         
@@ -60,7 +67,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($Reordenado) {
             // Si hice cambios, uso recursión para hacer una pasada más, que puede ser necesaria.
-            return $this->guardarActionPrePersist($entity, $editForm);
+            return \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($entity);
         } else {
             // No hice cambios. La lista está ordenada.
             return array();
