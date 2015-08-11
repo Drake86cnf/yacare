@@ -31,11 +31,13 @@
 	
 			<h2>Por calle y altura</h2>
 			<div class="form-group form-inline">
-				<select class="form-control" id="filtro_calle" name="filtro_calle"
+				<select class="form-control tapir-input-320" id="filtro_calle" name="filtro_calle"
 					placeholder="Nombre de la calle">
 					<option value="0">Seleccione una calle</option> {% for entity in
 					calles %}
-					<option value="{{ entity.id }}">{{ entity }}</option> {% endfor %}
+					<option value="{{ entity.id }}"
+						{% if entity.id == filtro_calle %}selected{% endif %}>
+						{{ entity }}</option> {% endfor %}
 				</select> <input class="form-control" type="text" size="5" maxlength="5"
 					id="filtro_calle_altura" name="filtro_calle_altura"
 					placeholder="Altura" onkeydown="if (event.keyCode === 13) {

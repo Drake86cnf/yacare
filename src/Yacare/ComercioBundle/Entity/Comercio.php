@@ -2,6 +2,7 @@
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Yacare\ComercioBundle\Entity\Comercio

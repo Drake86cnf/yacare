@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
 {
+    use \Tapir\BaseBundle\Controller\ConAcciones;
 
     function IniciarVariables()
     {
