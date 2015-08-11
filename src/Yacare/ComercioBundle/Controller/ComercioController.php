@@ -28,7 +28,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function guardarActionPrePersist($entity, $editForm)
     {
-        \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($entity);
+        self::ReordenarActividades($entity);
         
         parent::guardarActionPrePersist($entity, $editForm);
     }
@@ -67,7 +67,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($Reordenado) {
             // Si hice cambios, uso recursión para hacer una pasada más, que puede ser necesaria.
-            return \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($entity);
+            return self::ReordenarActividades($entity);
         } else {
             // No hice cambios. La lista está ordenada.
             return array();
