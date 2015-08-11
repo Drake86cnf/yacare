@@ -12,6 +12,9 @@ class PersonaType extends AbstractType
     {
         
         $builder
+            ->add('PersonaJuridica', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                'choices' => array('0' => 'Física','1' => 'Jurídica'),
+                'label' => 'Persona'))
             ->add('Apellido', null, array('label' => 'Apellido'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
@@ -25,28 +28,22 @@ class PersonaType extends AbstractType
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), 
                 array('label' => 'Domicilio'))
             ->add('TelefonoNumero', null, array('label' => 'Teléfono(s)'))
-            ->add('Email', null, array('label' => 'Correo electrónico'))
-            ->add('PersonaJuridica', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
-                array(
-                    'choices' => array('0' => 'Física','1' => 'Jurídica'),
-                    'label' => 'Persona'))
-            ->add('FechaNacimiento', 'date', 
-                array(
-                    'years' => range(1900, 2099),
-                    'input' => 'datetime',
-                    'required' => false,
-                    'widget' => 'single_text',
-                    'attr' => array('class' => 'datepicker'),
-                    'format' => 'dd/MM/yyyy',
-                    'label' => 'Fecha de nacimiento'))
+            ->add('Email', 'email', array('label' => 'Correo electrónico', 'required' => false))
+            ->add('FechaNacimiento', 'date', array(
+                'years' => range(1900, 2099),
+                'input' => 'datetime',
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => array('class' => 'datepicker'),
+                'format' => 'dd/MM/yyyy',
+                'label' => 'Fecha de nacimiento'))
             ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), 
                 array('label' => 'Género','required' => true))
-            ->add('Pais', 'entity', 
-                array(
-                    'label' => 'Nacionalidad',
-                    'placeholder' => 'Sin especificar',
-                    'class' => 'YacareBaseBundle:Pais',
-                    'required' => false))
+            ->add('Pais', 'entity', array(
+                'label' => 'Nacionalidad',
+                'placeholder' => 'Sin especificar',
+                'class' => 'YacareBaseBundle:Pais',
+                'required' => false))
             ;
     }
 

@@ -27,7 +27,7 @@ class LocalType extends AbstractType {
 				'placeholder' => '(sólo para depósitos)',
 				'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
 				'required' => false 
-		) )->add ( 'Superficie', null, array (
+		) )->add ( 'Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array (
 				'label' => 'Superficie (m²)' 
 		) )->add ( 'CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array (
 				'label' => 'Cesto de basura',

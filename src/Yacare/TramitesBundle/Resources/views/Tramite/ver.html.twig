@@ -183,8 +183,7 @@
 {% endblock %}
 
 {% block pagina_acciones3 %}{{ parent() }}
-<a data-toggle="modal" data-target="#modal"
-	class="btn btn-sm btn-default"
+<li><a data-toggle="modal" data-target="#modal"
 	href="{{ path('yacare_base_comentario_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.id }) }}"><i
-	class="fa fa-comments-o fa-2x"></i></a>
+	class="fa fa-comments-o"></i> Comentarios</a></li>
 {% endblock %}

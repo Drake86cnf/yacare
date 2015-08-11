@@ -17,19 +17,27 @@ input, select, textarea {
 }
 
 .tapir-input-120 {
+	min-width: 120px;
     max-width: 120px;
+    width: 120px !important;
 }
 
 .tapir-input-240 {
+	min-width: 240px;
 	max-width: 240px;
+	width: 240px !important;
 }
 
 .tapir-input-320 {
+    min-width: 320px;
     max-width: 320px;
+    width: 320px !important;
 }
 
 .tapir-input-480 {
+    min-width: 480px;
     max-width: 480px;
+    width: 480px !important;
 }
 
 .input-group-addon {
