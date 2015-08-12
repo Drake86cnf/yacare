@@ -24,17 +24,17 @@ class LocalType extends AbstractType
                 array('label' => 'Superficie (m²)'))
             ->add('CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
                 array('label' => 'Cesto de basura', 'required' => false, 
-                    'choices' => array(null => 'NS/NC', 0 => 'No', 1 => 'Si')))
+                    'choices' => array(null => 'Sin información', 0 => 'No', 1 => 'Si')))
             ->add('Canaletas', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
-                array('required' => false, 'choices' => array(null => 'NS/NC', 0 => 'No', 1 => 'Si')))
+                array('required' => false, 'choices' => array(null => 'Sin información', 0 => 'No', 1 => 'Si')))
             ->add('VeredaMunicipal', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
-                array('required' => false, 'choices' => array(null => 'NS/NC', 0 => 'No', 1 => 'Si'))
+                array('required' => false, 'choices' => array(null => 'Sin información', 0 => 'No', 1 => 'Si'))
 
                 )
             ->add('AnchoSalida', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), 
                 array('label' => 'Salida de emergencia', 'required' => false, 
                     'attr' => array('help' => "El valor corresponde a la cantidad de anchos de salida (0,55m)"), 
-                    'choices' => array(null => 'NS/NC', 0 => 'No', 1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5', 
+                    'choices' => array(null => 'Sin información', 0 => 'No', 1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5', 
                         6 => '6', 99 => '+')));
     }
 
