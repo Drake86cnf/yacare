@@ -511,6 +511,4 @@ class StringHelper
         
         return $PartesNombre;
     }
-
-   
 }
