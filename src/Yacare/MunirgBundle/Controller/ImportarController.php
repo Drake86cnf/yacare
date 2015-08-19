@@ -898,7 +898,7 @@ WHERE rnum >" . $desde . "
             
             if ($Agente['decreto2']) {
                 $Decreto = $Agente['decreto2'];
-                $entity->setBajaDecreto(\Tapir\BaseBundle\Helper\StringHelper::ArreglarDecretos($Decreto));
+                $entity->setBajaDecreto(\Yacare\MunirgBundle\StringHelper::ArreglarDecretos($Decreto));
             }
             
             /*
@@ -980,7 +980,7 @@ WHERE rnum >" . $desde . "
             $entity->setFecha(new \DateTime($MovimAgente['fecha']));
         }
         $entity->setCategoria($MovimAgente['categoria']);
-        $Resultado = \Tapir\BaseBundle\Helper\StringHelper::DecifrarCategoriasAcargo($MovimAgente['tipo'], $MovimAgente['categoria']);
+        $Resultado = \Yacare\MunirgBundle\Helper\StringHelper::DecifrarCategoriasAcargo($MovimAgente['tipo'], $MovimAgente['categoria']);
         if ($Resultado[0] == true) {
             $entity->setCategoria($Resultado['categoria_nueva']);
             $entity->setFecha(new \DateTime($MovimAgente['fecha']));
