@@ -30,34 +30,34 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
 
-    public function getActividadPrincipal()
+    public function getActividad1()
     {
-        return $this->ActividadPrincipal;
+        return $this->Actividad1;
     }
 
-    public function setActividadPrincipal($ActividadPrincipal)
+    public function setActividad1($Actividad1)
     {
-        $this->ActividadPrincipal = $ActividadPrincipal;
+        $this->Actividad1 = $Actividad1;
     }
 
-    public function getActividadSecundaria()
+    public function getActividad2()
     {
-        return $this->ActividadSecundaria;
+        return $this->Actividad2;
     }
 
-    public function setActividadSecundaria($ActividadSecundaria)
+    public function setActividad2($Actividad2)
     {
-        $this->ActividadSecundaria = $ActividadSecundaria;
+        $this->Actividad2 = $Actividad2;
     }
 
-    public function getActividadTerciaria()
+    public function getActividad3()
     {
-        return $this->ActividadTerciaria;
+        return $this->Actividad3;
     }
 
-    public function setActividadTerciaria($ActividadTerciaria)
+    public function setActividad3($Actividad3)
     {
-        $this->ActividadTerciaria = $ActividadTerciaria;
+        $this->Actividad3 = $Actividad3;
     }
 
     public function getUsoSuelo()
