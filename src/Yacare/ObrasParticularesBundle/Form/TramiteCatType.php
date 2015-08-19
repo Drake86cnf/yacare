@@ -14,17 +14,17 @@ class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
         
         $builder->add('Local', 'entity_id', 
             array('label' => 'Local','class' => 'Yacare\ComercioBundle\Entity\Local','required' => true))
-            ->add('ActividadPrincipal', 'entity_id', 
+            ->add('Actividad1', 'entity_id', 
             array(
                 'label' => 'Actividad principal',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('ActividadSecundaria', 'entity_id', 
+            ->add('Actividad2', 'entity_id', 
             array(
                 'label' => 'Actividad secundaria',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('ActividadTerciaria', 'entity_id', 
+            ->add('Actividad3', 'entity_id', 
             array(
                 'label' => 'Actividad terciaria',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',

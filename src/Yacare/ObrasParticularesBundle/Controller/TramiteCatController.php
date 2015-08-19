@@ -29,7 +29,7 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
         
         // $entity->setTitular($this->getPartida()->getTitular());
         
-        $Actividad = $entity->getActividadPrincipal();
+        $Actividad = $entity->getActividad1();
         
         // Busco el uso del suelo para esa zona
         $UsoSuelo = $em->createQuery(
