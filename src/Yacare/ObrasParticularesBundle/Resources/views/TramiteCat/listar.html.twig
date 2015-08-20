@@ -19,9 +19,9 @@ pagina_titulo %}Trámites de CAT{% endblock %} {% block pagina_contenido
 			<td>{{ entity.id }}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
 			<td class="hidden-sm hidden-xs">{{
-				entity.ActividadPrincipal.Nombre|length > 50 ?
-				entity.ActividadPrincipal.Nombre|slice(0, 50) ~ '...' :
-				entity.ActividadPrincipal.Nombre }}</td>
+				entity.Actividad1.Nombre|length > 50 ?
+				entity.Actividad1.Nombre|slice(0, 50) ~ '...' :
+				entity.Actividad1.Nombre }}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
 			<td>{% if entity.Estado < 10 %} <span class="label label-danger"> {%
 					elseif entity.Estado >= 10 and entity.Estado < 90 %} <span

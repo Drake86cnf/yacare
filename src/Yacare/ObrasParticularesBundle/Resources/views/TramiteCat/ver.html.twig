@@ -5,7 +5,7 @@ pagina_titulo %}{{ entity }}{% endblock %} {% block pagina_contenido %}
 
 <p>
 	El uso del suelo para la actividad <strong>{{
-		entity.ActividadPrincipal|lower }}</strong> en la zona es {% if
+		entity.Actividad1|lower }}</strong> en la zona es {% if
 	entity.UsoSuelo > 3 %} <i class="fa fa-warning text-danger"></i> {%
 	endif %} <strong>{{ entity.UsoSueloNombre|lower }}</strong>.
 </p>
