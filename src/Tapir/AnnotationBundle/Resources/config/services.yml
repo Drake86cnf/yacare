@@ -1,8 +1,6 @@
 parameters:
     tapir_annotation.metadata_factory.class: Metadata\MetadataFactory
     tapir_annotation.annotation_driver.class: Tapir\AnnotationBundle\Metadata\Driver\AnnotationDriver
-    
-    tapir.annotationbundle.resolver.annotation_prueba_resolver.class: Tapir\AnnotationBundle\Resolver\AnnotationPruebaResolver
 
 services:
     tapir_annotation.anno_reader:
@@ -22,8 +20,3 @@ services:
     tapir_annotation.descripcion_procesador:
         class: Tapir\AnnotationBundle\Data\DescripcionProcesador
         arguments: ["@tapir_annotation.metadata_factory"]
-        
-    tapir.annotationbundle.resolver.annotation_prueba_resolver:
-        class: %tapir.annotationbundle.resolver.annotation_prueba_resolver.class%
-        tags: 
-            - { name: controller_extra.annotation } 
