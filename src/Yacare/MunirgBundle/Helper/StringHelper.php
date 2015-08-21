@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\MunirgBundle\Helper\StringHelper;
+namespace Yacare\MunirgBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
@@ -9,7 +9,7 @@ class StringHelper
     {
         $Decreto = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
         $Decreto = strtoupper(str_replace('//', '/', $Decreto));
-        $BuscarNumeros = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto($Decreto);
+        $BuscarNumeros = self::SepararSiglasYNumerosDecreto($Decreto);
         
         if ($BuscarNumeros == strlen($Decreto) || $Decreto{$BuscarNumeros} == '/') {
             return false;
@@ -36,8 +36,7 @@ class StringHelper
         } elseif (strlen($DescomponerDecreto3Nvl[0]) == 1) {
             return false;
         } else {
-            $BuscarNumeros = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto(
-                $DescomponerDecreto3Nvl[1]);
+            $BuscarNumeros = self::SepararSiglasYNumerosDecreto($DescomponerDecreto3Nvl[1]);
             
             $DescomponerDecreto4Nvl = array();
             $DescomponerDecreto4Nvl[0] = substr($DescomponerDecreto3Nvl[1], 0, $BuscarNumeros);
@@ -77,7 +76,7 @@ class StringHelper
     public static function SustituirPrefijo($Decreto)
     {
         $PartesDecreto = array();
-        $Evaluo = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto($Decreto);
+        $Evaluo = self::SepararSiglasYNumerosDecreto($Decreto);
         
         $PartesDecreto[0] = substr($Decreto, 0, $Evaluo);
         $PartesDecreto[1] = ltrim(substr($Decreto, $Evaluo), '0');
