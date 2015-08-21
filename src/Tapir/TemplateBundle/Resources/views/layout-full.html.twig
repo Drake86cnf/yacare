@@ -55,13 +55,13 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div role="navigation" id="menuprincipal"
 				class="collapse navbar-collapse">
-				{% include tapir_menu %}
+				{% include '@TapirTemplateBundle/Resources/views/menu.html.twig' %}
 			</div>
 			<!-- /.navbar-collapse -->
 		</nav>
 
 		<div id="page-wrapper">
-			
+
 			{% block pagina_inicio %}{% endblock %}
 			{% if not app.request.get('sinencab') %}
 			<div id="content-header" class="content-bar-row">
@@ -89,10 +89,10 @@
 			</div>
 			<div class="clearfix"></div>
 			{% endif %}
-			
+
 			{% block pagina_contenido %}{% endblock %}
 			{% block pagina_pie %}{% endblock %}
-			
+
 			{% for type, flashMessages in app.session.flashbag.all() %}
     			{% for flashMessage in flashMessages %}
     			<div class="alert alert-dismissable alert-{{ type }}" role="alert">
@@ -101,7 +101,7 @@
     			</div>
     			{% endfor %}
 			{% endfor %}
-			
+
 			{% set block_pagina_acciones2 = block('pagina_acciones2') %}
 			{% if block_pagina_acciones2 is not empty %}
 			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>

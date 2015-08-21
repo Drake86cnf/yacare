@@ -3,22 +3,20 @@
 {% block pagina_titulo%}{% endblock %}
 
 {% block pagina_contenido %}
-<div class="jumbotron">
-	<div class="container-fluid">
-		<h1>
-			Bienvenido {% if app.user %}{{ app.user.Nombre|split(' ')|first }}{% endif %} <img
-				class="pull-right"
-				src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}"
-				style="padding: 32px; transform: scaleX(-1);"
-				alt="{{ tapir_nombreaplicacion }}" />
-		</h1>
+<div class="container-fluid">
 
-		<h2>{{ tapir_cliente }}.</h2>
-		<small><a href="http://www.riogrande.gob.ar" target="_blank">www.riogrande.gob.ar</a></small>
-	</div>
+<div class="row">
+	<h1>Bienvenido {% if app.user %}{{ app.user.Nombre|split(' ')|first }}{% endif %}</h1>
+	<img class="pull-right"
+			src="{{ asset('bundles/yacarebase/img/yacare_logo240.png') }}"
+			style="padding: 20px; transform: scaleX(-1) scaleY(1); opacity: .1;"
+			alt="{{ tapir_nombreaplicacion }}" />
+
+	<h2>{{ tapir_cliente }}.</h2>
+	<p><a href="http://www.riogrande.gob.ar" target="_blank">www.riogrande.gob.ar</a></p>
 </div>
 
-<div class="container-fluid"><div class="row">
+<div class="row">
     {% if requerimientos_pendientes|length > 0 %}
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-red">
         <div class="panel-heading">
@@ -69,7 +67,7 @@
 
 <div>
     {% if app.user %}
-	    Usted está conectado como <span class="dropdown"> <a
+	    Está conectado como <span class="dropdown"> <a
 		class="dropdown-toggle" data-toggle="dropdown" href="#">
 		{% if app.user.Nombre %} {{ app.user.Nombre }} {{ app.user.Apellido }}</a>
 		{% else %} {{ app.user }} {% endif %}
@@ -86,7 +84,7 @@
 		</ul>
 		</span> (nombre de usuario <strong>{{ app.user.Username }}</strong>).
 	{% else %}
-		<i class="fa fa-warning fa-2x text-danger pull-left"></i> Usted está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
+		<i class="fa fa-warning fa-2x text-danger pull-left"></i> Está conectado como usuario anónimo. Si tiene una contraseña, <a href="{{ path('login') }}">conéctese</a>. 
 	{% endif %}
 </div>
 

@@ -5,7 +5,6 @@ twig:
     globals:
         tapir_nombreaplicacion: "Yacaré"
         tapir_cliente: "%tapir.cliente%"
-        tapir_menu: 'YacareBaseBundle:Default:menu.html.twig'
 
 assetic:
     bundles:        [ 'YacareBaseBundle' ]
