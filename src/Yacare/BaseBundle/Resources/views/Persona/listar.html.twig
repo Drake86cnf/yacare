@@ -1,9 +1,12 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}{{ entitylabelplural }}{% endblock %} {% set filtro_grupo =
-app.request.query.get('filtro_grupo') %} {% set filtro_grupo_invertir =
-app.request.query.get('filtro_grupo_invertir') %} {% set orden =
-app.request.query.get('orden') %} {% block pagina_contenido %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
+
+{% set filtro_grupo = app.request.query.get('filtro_grupo') %}
+{% set filtro_grupo_invertir = app.request.query.get('filtro_grupo_invertir') %}
+{% set orden = app.request.query.get('orden') %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -31,18 +34,23 @@ app.request.query.get('orden') %} {% block pagina_contenido %}
 	</tbody>
 </table>
 
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_buscar %}{% set pagina_buscar_destino = path(baseroute ~
-'_buscar', arrastre) %}{% include 'TapirBaseBundle::buscar.html.twig'
-%}{% endblock %} {% block pagina_acciones %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% set pagina_buscar_destino = path(baseroute ~ '_buscar', arrastre) %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones %}
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuGrupos" data-toggle="dropdown">
-		<i class="fa fa-filter"></i> {% if not filtro_grupo %} Grupos {% else
-		%} {% for grupo in personasgrupos %} {% if grupo.id == filtro_grupo
-		%}{{ grupo.Nombre|tapir_abreviar }}{% endif %} {% endfor %} {% endif
-		%} <span class="caret"></span>
+		<i class="fa fa-filter"></i>
+		{% if not filtro_grupo %}
+			Grupos
+		{% else %}
+    		{% for grupo in personasgrupos %}
+    		    {% if grupo.id == filtro_grupo %}{{ grupo.Nombre|tapir_abreviar }}{% endif %}
+    		{% endfor %}
+		{% endif %} <span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu dropdown-menu-right"
 		aria-labelledby="dropdownMenuGrupos">
