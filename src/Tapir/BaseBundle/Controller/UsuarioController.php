@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class UsuarioController extends AbmController
 {
-
     private $PassOriginal = '';
 
     function IniciarVariables()

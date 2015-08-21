@@ -18,7 +18,8 @@ use Tapir\BaseBundle\Helper\Damm;
  */
 trait ConTokenSimple
 {
-    public function __constructor() {
+    public function __constructor()
+    {
         $this->GenerarToken();
     }
     
@@ -29,15 +30,15 @@ trait ConTokenSimple
      * @ORM\Column(type="integer")
      */
     protected $Token;
-    
+
     /**
      * Generar un token pseudoaleatorio de 8 dígitos.
      */
-    protected function GenerarToken() {
+    protected function GenerarToken()
+    {
         $this->Token = rand(10000000, 99999999);
     }
 
-    
     /**
      * @ignore
      */
@@ -55,4 +56,3 @@ trait ConTokenSimple
         return $this;
     }
 }
-

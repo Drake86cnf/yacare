@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Importable
 {
-
     /**
      * La fuente desde la cual fue importado el registro.
      *
@@ -25,7 +24,7 @@ trait Importable
      *      @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ImportSrc;
-
+    
     /**
      * El id o valor de clave primaria original de este registro en su origen.
      *
@@ -35,7 +34,7 @@ trait Importable
      *      @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ImportId;
-
+    
     /**
      * La fecha y hora de la última importación.
      *

@@ -26,7 +26,7 @@ class PersonaRol implements RoleInterface
     {
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * El nombre del rol.
      *
@@ -34,7 +34,7 @@ class PersonaRol implements RoleInterface
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
-
+    
     /**
      * El código de rol.
      *
@@ -42,7 +42,7 @@ class PersonaRol implements RoleInterface
      * @ORM\Column(type="string", length=255)
      */
     private $Codigo;
-
+    
     /**
      * Las personas que tienen este rol.
      *
@@ -58,26 +58,27 @@ class PersonaRol implements RoleInterface
     public function setNombre($nombre)
     {
         $this->Nombre = $nombre;
-        $codigo = "ROLE_" . strtr(mb_strtoupper($nombre, 'utf-8'), 
+        $codigo = "ROLE_" . strtr(
+            mb_strtoupper($nombre, 'utf-8'), 
             array(
-                'Á' => 'A',
-                'É' => 'E',
-                'Í' => 'I',
-                'Ó' => 'O',
-                'Ú' => 'U',
-                'À' => 'A',
-                'È' => 'E',
-                'Ì' => 'I',
-                'Ò' => 'O',
-                'Ù' => 'U',
-                'Ä' => 'A',
-                'Ë' => 'E',
-                'Ï' => 'I',
-                'Ö' => 'O',
-                'Ü' => 'U',
-                'Ñ' => 'n',
-                'Ç' => 'C',
-                ' ' => '_',
+                'Á' => 'A', 
+                'É' => 'E', 
+                'Í' => 'I', 
+                'Ó' => 'O', 
+                'Ú' => 'U', 
+                'À' => 'A', 
+                'È' => 'E', 
+                'Ì' => 'I', 
+                'Ò' => 'O', 
+                'Ù' => 'U', 
+                'Ä' => 'A', 
+                'Ë' => 'E', 
+                'Ï' => 'I', 
+                'Ö' => 'O', 
+                'Ü' => 'U', 
+                'Ñ' => 'n', 
+                'Ç' => 'C', 
+                ' ' => '_', 
                 ':' => '_'));
         $this->Codigo = str_replace('__', '_', $codigo);
     }

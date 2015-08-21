@@ -8,7 +8,6 @@ use Tapir\AnnotationBundle\Metadata\PropertyMetadata;
 
 class AnnotationDriver implements DriverInterface
 {
-
     protected $reader;
 
     public function __construct(AnnotationReader $reader)
@@ -23,7 +22,8 @@ class AnnotationDriver implements DriverInterface
         foreach ($class->getProperties() as $reflectionProperty) {
             $propertyMetadata = new PropertyMetadata($class->getName(), $reflectionProperty->getName());
             
-            $annotation = $this->reader->getPropertyAnnotation($reflectionProperty, 
+            $annotation = $this->reader->getPropertyAnnotation(
+                $reflectionProperty, 
                 'Tapir\\AnnotationBundle\\Annotation\\Descripcion');
             
             if (null !== $annotation) {

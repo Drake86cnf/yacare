@@ -7,7 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaRolType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('Nombre', null, array('label' => 'Nombre'));

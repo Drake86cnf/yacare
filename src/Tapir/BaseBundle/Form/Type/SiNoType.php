@@ -9,15 +9,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class SiNoType extends ButtonGroupType
 {
-
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'choices' => array('0' => 'No', '1' => 'Sí')));
+        $resolver->setDefaults(array('choices' => array('0' => 'No', '1' => 'Sí')));
     }
 
     public function getParent()

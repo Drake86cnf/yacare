@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class ButtonGroupType extends AbstractType
 {
     public function getParent()

@@ -18,7 +18,8 @@ use Tapir\BaseBundle\Helper\Damm;
  */
 trait ConToken
 {
-    public function __constructor() {
+    public function __constructor()
+    {
         $this->GenerarToken();
     }
     
@@ -28,14 +29,15 @@ trait ConToken
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $Token;
-    
+
     /**
      * Generar un token pseudoaleatorio.
      */
-    protected function GenerarToken() {
+    protected function GenerarToken()
+    {
         $this->Token = toupper(substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32));
     }
-    
+
     /**
      * Obtiene un YRI, que es un identificador único de esta entidad.
      *
@@ -49,10 +51,10 @@ trait ConToken
     {
         $res = $this->getYri();
         $res .= "&tk=" . $this->getToken();
-    
+        
         return $res;
     }
-    
+
     /**
      * Obtiene un enlace QR al YRI con token, en base64.
      *
@@ -61,18 +63,17 @@ trait ConToken
     public function getYriConTokenQrBase64()
     {
         $ContenidoQr = $this->getYriConToken(true);
-    
+        
         ob_start();
         \PHPQRCode\QRcode::png($ContenidoQr);
         $imagen_contenido = ob_get_contents();
         ob_end_clean();
-    
+        
         // PHPQRCode cambia el content-type a image/png... lo volvemos a html
         header("Content-type: text/html");
         return base64_encode($imagen_contenido);
     }
 
-    
     /**
      * @ignore
      */

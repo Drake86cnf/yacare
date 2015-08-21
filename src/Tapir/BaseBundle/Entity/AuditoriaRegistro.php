@@ -15,12 +15,12 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
 class AuditoriaRegistro
 {
     use \Tapir\BaseBundle\Entity\ConId;
-    
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
     }
-
+    
     /**
      * La fecha y hora del evento.
      *
@@ -29,7 +29,7 @@ class AuditoriaRegistro
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $createdAt;
-
+    
     /**
      * El nombre de la estación de trabajo o la IP del cliente.
      *
@@ -38,7 +38,7 @@ class AuditoriaRegistro
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Estacion;
-
+    
     /**
      * La acción ejecutada (editar, eliminar, etc.).
      *
@@ -47,7 +47,7 @@ class AuditoriaRegistro
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Accion;
-
+    
     /**
      * La tabla o clase sobre la cual se ejecutó la acción.
      *
@@ -58,7 +58,7 @@ class AuditoriaRegistro
      * @see ElementoId
      */
     private $ElementoTipo;
-
+    
     /**
      * El id del elemento sobre el cual se ejecutó la acción.
      *
@@ -69,7 +69,7 @@ class AuditoriaRegistro
      * @see ElementoTipo
      */
     private $ElementoId;
-
+    
     /**
      * Una descripción del conjunto de cambios en formato JSON.
      *
@@ -78,7 +78,7 @@ class AuditoriaRegistro
      * @ORM\Column(type="text", nullable=true)
      */
     private $Cambios = null;
-
+    
     /**
      * El id del usuario que ejecutó la acción.
      *
@@ -234,5 +234,4 @@ class AuditoriaRegistro
         $this->Usuario = $Usuario;
         return $this;
     }
-
 }

@@ -5,19 +5,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Damm
 {
-
-    static function taq($digits)
+    public static function taq($digits)
     {
         $taq_table = array(
-            '0317598642',
-            '7092154863',
-            '4206871359',
-            '1750983426',
-            '6123045978',
-            '3674209581',
-            '5869720134',
-            '8945362017',
-            '9438617205',
+            '0317598642', 
+            '7092154863', 
+            '4206871359', 
+            '1750983426', 
+            '6123045978', 
+            '3674209581', 
+            '5869720134', 
+            '8945362017', 
+            '9438617205', 
             '2581436790');
         $interim = 0;
         
@@ -30,12 +29,12 @@ class Damm
         return $interim;
     }
 
-    static public function CalcCheckDigit($digits)
+    public static function CalcCheckDigit($digits)
     {
         return $digits . '-' . Damm::taq($digits);
     }
 
-    static public function IsCheckDigitValid($digits)
+    public static function IsCheckDigitValid($digits)
     {
         return Damm::taq($digits) == 0;
     }

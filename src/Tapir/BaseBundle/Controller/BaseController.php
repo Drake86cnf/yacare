@@ -22,30 +22,30 @@ abstract class BaseController extends Controller
      * @var string El nombre del EntityManager que se usa en este controlador.
      */
     protected $EmName;
-
+    
     /**
      * @var string El nombre del vendor al cual pertenece este controlador.
      * @see $BundleName
      */
     protected $VendorName;
-
+    
     /**
      * @var string El nombre del bundle al cual pertenece este controlador.
      * @see $VendorName
      */
     protected $BundleName;
-
+    
     /**
      * @var string El nombre de la entidad principal que administra este controlador.
      */
     protected $EntityName;
-
+    
     /**
      * @var string El nombre completo de la entidad, incluyendo vendor y bundle.
      * @see $EntityName
      */
     protected $CompleteEntityName;
-
+    
     /**
      * @var string El nombre de la entidad para las rutas generadas.
      *     
@@ -54,7 +54,7 @@ abstract class BaseController extends Controller
      *      por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
      */
     protected $BaseRouteEntityName;
-
+    
     /**
      *
      * @var array Un array con los nombres de las variables que se deben conservar al pasar de

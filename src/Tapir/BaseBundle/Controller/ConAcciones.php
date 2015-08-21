@@ -11,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 trait ConAcciones
 {
     protected $Actions = array();
-    
-    public function ObtenerAcciones($conjunto = '1') {
-        if(array_key_exists($conjunto, $this->Actions)) {
+
+    public function ObtenerAcciones($conjunto = '1')
+    {
+        if (array_key_exists($conjunto, $this->Actions)) {
             return $this->Actions[$conjunto];
         } else {
             $NuevoConjunto = new \Tapir\TemplateBundle\Controls\ActionSet();

@@ -26,8 +26,8 @@ trait ConBuscar
         $buscar = $this->ObtenerVariable($request, 'buscar');
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         if ($buscar || $filtro_buscar) {
-			// Si hay texto de búsqueda, derivo a buscar
-			return $this->listarAction($request);
+            // Si hay texto de búsqueda, derivo a buscar
+            return $this->listarAction($request);
         } else {
             // Si no hay texto de búsqueda, devuelvo una respuesta vacía
             return $this->ArrastrarVariables($request, array());

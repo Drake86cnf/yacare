@@ -6,7 +6,6 @@ namespace Tapir\AnnotationBundle\Annotation;
  */
 class Descripcion
 {
-
     public $value;
 
     public function __construct(array $data)

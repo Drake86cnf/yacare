@@ -30,8 +30,9 @@ abstract class AbmController extends BaseController
         }
         
         if (! isset($this->OrderBy)) {
-            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
-                    'Tapir\BaseBundle\Entity\ConNombre')) {
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait(
+                $this->CompleteEntityName, 
+                'Tapir\BaseBundle\Entity\ConNombre')) {
                 $this->OrderBy = 'Nombre';
             } else {
                 $this->OrderBy = null;
@@ -123,8 +124,9 @@ abstract class AbmController extends BaseController
         
         $where = "";
         
-        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
-                'Tapir\BaseBundle\Entity\Suprimible')) {
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait(
+            $this->CompleteEntityName, 
+            'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
@@ -140,8 +142,9 @@ abstract class AbmController extends BaseController
                 $this->Where .= ' AND (';
                 // Busco en varios campos
                 foreach ($BuscarPorCampos as $BuscarPorCampo) {
-                    if (strpos($BuscarPorCampo, '.') === false)
+                    if (strpos($BuscarPorCampo, '.') === false) {
                         $BuscarPorCampo = 'r.' . $BuscarPorCampo;
+                    }
                     $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$palabra%'";
                     $BuscarPorNexo = ' OR ';
                 }
@@ -338,10 +341,16 @@ abstract class AbmController extends BaseController
             $em->flush();
         }
         
-        return $this->ArrastrarVariables($request, 
-                array('entity' => $entity, 'errors' => '', 'data_control' => $DataControl, 
-                    'nombrecampo' => $nombrecampo, 'valoractual' => $ValorActual, 'nuevovalor' => $NuevoValor, 
-                    'id' => $id));
+        return $this->ArrastrarVariables(
+            $request, 
+            array(
+                'entity' => $entity, 
+                'errors' => '', 
+                'data_control' => $DataControl, 
+                'nombrecampo' => $nombrecampo, 
+                'valoractual' => $ValorActual, 
+                'nuevovalor' => $NuevoValor, 
+                'id' => $id));
     }
 
     /**
@@ -384,11 +393,14 @@ abstract class AbmController extends BaseController
             $FormEliminar = null;
         }
         
-        return $this->ArrastrarVariables($request, 
-                array('entity' => $entity, 'create' => $id ? false : true,
-                    'errors' => '', 
-                    'edit_form' => $FormEditar->createView(), 
-                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+        return $this->ArrastrarVariables(
+            $request, 
+            array(
+                'entity' => $entity, 
+                'create' => $id ? false : true, 
+                'errors' => '', 
+                'edit_form' => $FormEditar->createView(), 
+                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
     }
 
     /**
@@ -451,19 +463,24 @@ abstract class AbmController extends BaseController
         if ($Errores) {
             $FormEliminar = $this->CrearFormEliminar($id);
             
-            /* foreach ($Errores as $error) {
-                $this->addFlash('danger', $error);
-            } */
+            /*
+             * foreach ($Errores as $error) {
+             * $this->addFlash('danger', $error);
+             * }
+             */
             
-            $res = $this->ArrastrarVariables($request, 
-                    array('entity' => $entity,
-                        'errors' => $Errores,
-                        'create' => $id ? false : true, 
-                        'edit_form' => $FormEditar->createView(), 
-                        'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+            $res = $this->ArrastrarVariables(
+                $request, 
+                array(
+                    'entity' => $entity, 
+                    'errors' => $Errores, 
+                    'create' => $id ? false : true, 
+                    'edit_form' => $FormEditar->createView(), 
+                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
             
             return $this->render(
-                    $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
+                $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', 
+                $res);
         } else {
             return $this->guardarActionAfterSuccess($request, $entity);
         }
@@ -471,8 +488,9 @@ abstract class AbmController extends BaseController
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables($request, null, false));
+        return $this->redirectToRoute(
+            $this->obtenerRutaBase('listar'), 
+            $this->ArrastrarVariables($request, null, false));
     }
 
     public function guardarActionPreBind($entity)

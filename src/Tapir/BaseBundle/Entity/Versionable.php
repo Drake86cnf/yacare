@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait Versionable
 {
     use \Tapir\BaseBundle\Entity\Auditable;
-
+    
     /**
      * La versión del registro.
      *

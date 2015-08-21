@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Suprimible
 {
-
     /**
      * Indica si la entidad fue suprimido (soft-delete).
      *

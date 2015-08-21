@@ -9,8 +9,9 @@ namespace Tapir\TemplateBundle\Controls;
 class Action
 {
     public $Label, $Href, $Type, $Icon, $Disabled = 0;
-    
-    public function __construct($Label, $Href, $Type = 'default', $Icon = null, $Disabled = 0) {
+
+    public function __construct($Label, $Href, $Type = 'default', $Icon = null, $Disabled = 0)
+    {
         $this->Label = $Label;
         $this->Href = $Href;
         $this->Type = $Type;

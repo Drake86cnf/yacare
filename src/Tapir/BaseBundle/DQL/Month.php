@@ -20,9 +20,9 @@ class Month extends FunctionNode
     {
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
-
+        
         $this->date = $parser->ArithmeticPrimary();
-
+        
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 }

@@ -5,7 +5,6 @@ use Metadata\MetadataFactoryInterface;
 
 class DescripcionProcesador
 {
-
     private $metadataFactory;
 
     public function __construct(MetadataFactoryInterface $metadataFactory)
@@ -20,9 +19,9 @@ class DescripcionProcesador
         }
         
         $classMetadata = $this->metadataFactory->getMetadataForClass(get_class($objeto));
-        //if (isset($classMetadata->descripcion)) {
-        //    $classMetadata->setValue($objeto, $classMetadata->descripcion);
-        //}
+        // if (isset($classMetadata->descripcion)) {
+        // $classMetadata->setValue($objeto, $classMetadata->descripcion);
+        // }
         
         /*
          * @var $classMetadata Clase donde se usa la annotation pesonalizada,

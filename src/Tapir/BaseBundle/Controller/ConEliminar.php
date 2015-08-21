@@ -19,18 +19,14 @@ use Zend\Cache\Pattern\ObjectCache;
  */
 trait ConEliminar
 {
-
     /**
      * Crea el formulario de eliminación.
      */
     protected function CrearFormEliminar($id)
     {
-        return $this->createFormBuilder(array(
-            'id' => $id))
-            ->add('id', 'hidden')
-            ->getForm();
+        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
     }
-
+    
     /**
      * @Route("eliminar/{id}")
      * @Template("TapirBaseBundle:Default:eliminar.html.twig")
@@ -48,13 +44,15 @@ trait ConEliminar
             $buscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
         }
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'create' => $id ? false : true,
-            'delete_form' => $deleteForm->createView(),
-            'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
+        return $this->ArrastrarVariables(
+            $request, 
+            array(
+                'entity' => $entity, 
+                'create' => $id ? false : true, 
+                'delete_form' => $deleteForm->createView(), 
+                'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
     }
-
+    
     /**
      * @Route("eliminar2/{id}")
      * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
@@ -67,37 +65,34 @@ trait ConEliminar
         
         if ($form->isValid()) {
             $em = $this->getEm();
-            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+            $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find(
+                $id);
             
             if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
                 // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
                 $entity->Suprimir();
                 $em->persist($entity);
                 $em->flush();
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'Se suprimió el elemento "' . $entity . '".');
+                $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
                 return $this->afterEliminar($request, $entity, true);
             } else 
                 if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                     // Es eliminable... lo elimino de verdad
                     $em->remove($entity);
                     $em->flush();
-                    $this->get('session')
-                        ->getFlashBag()
-                        ->add('info', 'Se eliminó el elemento "' . $entity . '".');
+                    $this->get('session')->getFlashBag()->add('info', 'Se eliminó el elemento "' . $entity . '".');
                     return $this->afterEliminar($request, $entity, true);
                 } else {
                     // No es eliminable ni suprimible... no se puede borrar
-                    $this->get('session')
-                        ->getFlashBag()
-                        ->add('info', 'No se puede eliminar el elemento "' . $entity . '".');
+                    $this->get('session')->getFlashBag()->add(
+                        'info', 
+                        'No se puede eliminar el elemento "' . $entity . '".');
                 }
         }
         
         return $this->afterEliminar($request, $entity);
     }
-
+    
     /**
      * Este método se dispara después de eliminar una entidad.login
      *
@@ -106,6 +101,7 @@ trait ConEliminar
      */
     public function afterEliminar(Request $request, $entity, $eliminado = false)
     {
-        return $this->redirect($this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
+        return $this->redirect(
+            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
     }
 }

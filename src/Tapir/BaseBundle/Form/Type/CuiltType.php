@@ -9,17 +9,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class CuiltType extends AbstractType
 {
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'label' => 'CUIL/CUIT',
-                'maxlength' => 13,
-                'attr' => array('class' => 'tapir-input-cuilt','data-type' => 'cuilt','maxlength' => '13')));
+                'label' => 'CUIL/CUIT', 
+                'maxlength' => 13, 
+                'attr' => array('class' => 'tapir-input-cuilt', 'data-type' => 'cuilt', 'maxlength' => '13')));
     }
 
     public function getParent()

@@ -14,7 +14,6 @@ use Tapir\BaseBundle\Helper\Damm;
  */
 trait ConIdMetodos
 {
-
     /**
      *
      * @ignore
@@ -99,4 +98,3 @@ trait ConIdMetodos
         return base64_encode($imagen_contenido);
     }
 }
-
