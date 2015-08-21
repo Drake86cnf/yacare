@@ -494,25 +494,10 @@ $(document).ready(function() {
 					$(this).attr('data-target'));
 		});
 
-	// Pongo a las notificaciones un temporizador para que desaparezcan
-	// automáticamente
+	// Pongo a las notificaciones un temporizador para que desaparezcan automáticamente
 	window.setTimeout(function() {
 		$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
 			$(this).remove();
 		});
 	}, 15000);
-
-	// Evitar que algunos dropdown se cierren automáticamente
-	// (especial para el menú lateral, se utiliza la clase keep-open)
-	$('.dropdown.keep-open').on({
-		'shown.bs.dropdown' : function() {
-			$(this).data('closable', false);
-		},
-		'click' : function() {
-			$(this).data('closable', true);
-		},
-		'hide.bs.dropdown' : function() {
-			return $(this).data('closable');
-		}
-	});
 });
