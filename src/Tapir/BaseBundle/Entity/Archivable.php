@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Archivable
 {
-
     /**
      * Indica si la entidad fue archivada.
      *

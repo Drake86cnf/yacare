@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConUrl
 {
-
     /**
      * La URL asociada a la entidad.
      *

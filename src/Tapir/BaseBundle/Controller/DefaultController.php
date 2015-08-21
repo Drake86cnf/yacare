@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DefaultController extends BaseController
 {
-
     /**
      * @Route("inicio/")
      * @Template

@@ -9,14 +9,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class SuperficieType extends \Tapir\TemplateBundle\Form\Type\IntegerType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'maxlength' => 6,
-            'attr' => array('class' => 'tapir-input-120', 'data-type' => 'number', 'maxlength' => '6', 'suffix' => 'm²')));
+        $resolver->setDefaults(
+            array(
+                'maxlength' => 6, 
+                'attr' => array(
+                    'class' => 'tapir-input-120', 
+                    'data-type' => 'number', 
+                    'maxlength' => '6', 
+                    'suffix' => 'm²')));
     }
 
     public function getParent()

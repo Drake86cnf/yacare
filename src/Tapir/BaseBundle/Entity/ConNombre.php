@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 trait ConNombre
 {
-
     /**
      * El nombre de la entidad.
      *

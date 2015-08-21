@@ -16,7 +16,7 @@ use Tapir\BaseBundle\Helper\Damm;
 trait ConId
 {
     use \Tapir\BaseBundle\Entity\ConIdMetodos;
-
+    
     /**
      * La clave primaria.
      *
@@ -26,4 +26,3 @@ trait ConId
      */
     private $id;
 }
-

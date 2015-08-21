@@ -19,7 +19,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class TapirBaseRepository extends EntityRepository
 {
-
     public function createQueryBuilder($alias, $indexBy = NULL)
     {
         $res = parent::createQueryBuilder($alias, $indexBy = NULL);

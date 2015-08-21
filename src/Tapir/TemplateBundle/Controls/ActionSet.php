@@ -13,18 +13,18 @@ class ActionSet
      * @var unknown
      */
     public $Actions;
-    
-    
-    public function __construct($Actions = array()) {
+
+    public function __construct($Actions = array())
+    {
         $this->Actions = $Actions;
     }
 
-
-    public function render($style = 'buttons') {
+    public function render($style = 'buttons')
+    {
         $res = '';
-        foreach($this->Actions as $action) {
-            $res .= '<a class="btn btn-' . $action->Type  . ($action->Disabled ? ' disabled' : '') .'" href="' 
-                . $action->Href . '" data-toggle="ajax-link">' . $action->Label . '</a>';
+        foreach ($this->Actions as $action) {
+            $res .= '<a class="btn btn-' . $action->Type . ($action->Disabled ? ' disabled' : '') . '" href="' .
+                 $action->Href . '" data-toggle="ajax-link">' . $action->Label . '</a>';
         }
         
         return $res;

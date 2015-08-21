@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConImagen
 {
-
     /**
      * La imagen, en formato binario.
      *

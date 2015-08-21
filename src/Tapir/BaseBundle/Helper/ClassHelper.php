@@ -5,7 +5,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class ClassHelper
 {
-
     /*
      * Obtiene los traits usados por una clase,
      */

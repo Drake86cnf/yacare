@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConObs
 {
-
     /**
      * El texto de las observaciones.
      * 

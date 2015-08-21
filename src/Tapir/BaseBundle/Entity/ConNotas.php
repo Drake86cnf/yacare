@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConNotas
 {
-
     /**
      * El texto de las notas.
      *

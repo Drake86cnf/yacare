@@ -9,18 +9,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class VerificacionNivelType extends ButtonGroupType
 {
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'choices' => array('0' => 'Sin confirmar','10' => 'Confirmado','20' => 'Cotejado','30' => 'Certificado'),
-                'label' => 'Nivel de confirmación',
+                'choices' => array(
+                    '0' => 'Sin confirmar', 
+                    '10' => 'Confirmado', 
+                    '20' => 'Cotejado', 
+                    '30' => 'Certificado'), 
+                'label' => 'Nivel de confirmación', 
                 'attr' => array(
-                    'help' => '<a href="#" class="text-warning" data-toggle="collapse" data-target="#VerificacionNivelType_MasInfo"><i class="fa fa-info-circle"></i> Más información sobre los niveles de confirmación</a>
+                    'help' => '<a href="#" class="text-warning" data-toggle="collapse" 
+                        data-target="#VerificacionNivelType_MasInfo"><i class="fa fa-info-circle">
+                        </i> Más información sobre los niveles de confirmación</a>
             <div id="VerificacionNivelType_MasInfo" class="collapse">
                 <small><dl class="dl-horizontal">
                     <dt>Sin confirmar</dt>

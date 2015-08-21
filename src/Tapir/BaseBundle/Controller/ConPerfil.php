@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 trait ConPerfil
 {
-
     /**
      * @Route("editarperfil/{id}", name="usuario_editarperfil", defaults={"id" = null})
      * @Route("editarperfil/", name="usuario_editarperfil_actual", defaults={"id" = null})
@@ -30,9 +29,7 @@ trait ConPerfil
             $entity = $em->getRepository($entidadUsuario)->find($id);
             $user = null;
         } else {
-            $user = $this->get('security.token_storage')
-                ->getToken()
-                ->getUser();
+            $user = $this->get('security.token_storage')->getToken()->getUser();
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
         
@@ -63,9 +60,9 @@ trait ConPerfil
                 
                 $this->editarperfilActionPostPersist($entity, $editForm);
                 
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('success', 'Los cambios en "' . $entity . '" fueron guardados.');
+                $this->get('session')->getFlashBag()->add(
+                    'success', 
+                    'Los cambios en "' . $entity . '" fueron guardados.');
                 $errors = null;
             } else {
                 $validator = $this->get('validator');
@@ -74,16 +71,15 @@ trait ConPerfil
             
             if ($errors) {
                 foreach ($errors as $error) {
-                    $this->get('session')
-                        ->getFlashBag()
-                        ->add('danger', $error);
+                    $this->get('session')->getFlashBag()->add('danger', $error);
                 }
                 
-                $res = $this->ArrastrarVariables($request, 
+                $res = $this->ArrastrarVariables(
+                    $request, 
                     array(
-                        'entity' => $entity,
-                        'errors' => $errors,
-                        'create' => $id ? false : true,
+                        'entity' => $entity, 
+                        'errors' => $errors, 
+                        'create' => $id ? false : true, 
                         'edit_form' => $editForm->createView()));
                 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
@@ -94,13 +90,14 @@ trait ConPerfil
             }
         }
         
-        return $this->ArrastrarVariables($request, 
+        return $this->ArrastrarVariables(
+            $request, 
             array(
-                'entity' => $entity,
-                'edit_form_action' => 'usuario_editarperfil',
+                'entity' => $entity, 
+                'edit_form_action' => 'usuario_editarperfil', 
                 'edit_form' => $editForm->createView()));
     }
-
+    
     /**
      * @Route("cambiarcontrasena/{id}", name="usuario_cambiarcontrasena", defaults={"id" = null})
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
@@ -111,9 +108,7 @@ trait ConPerfil
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
         
-        $user = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         
         $em = $this->getDoctrine()->getManager();
         if ($id) {
@@ -159,10 +154,11 @@ trait ConPerfil
             $em->refresh($user);
         }
         
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity,'edit_form' => $editForm->createView(),'terminado' => $terminado));
+        return $this->ArrastrarVariables(
+            $request, 
+            array('entity' => $entity, 'edit_form' => $editForm->createView(), 'terminado' => $terminado));
     }
-
+    
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de guardar el perfil.
      */
@@ -170,7 +166,7 @@ trait ConPerfil
     {
         return;
     }
-
+    
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de cambiar la contraseña.
      */
@@ -179,3 +175,4 @@ trait ConPerfil
         return;
     }
 }
+
