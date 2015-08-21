@@ -1,49 +1,110 @@
 <?php
-namespace Yacare\MunirgBundle\StringHelper;
+namespace Yacare\MunirgBundle\Helper\StringHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class StringHelper
 {
-
-    
-    static public function ArreglarDecretos($Decreto)
+    public static function EsDecretoValido($Decreto)
     {
-        $Decreto = str_replace(array(
-            '.',
-            ',',
-            '-',
-            ' ',
-            'Nº',
-            'N',
-            'Y'), '', trim($Decreto));
-        $Decreto = str_replace('//', '/', $Decreto);
+        $Decreto = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
+        $Decreto = strtoupper(str_replace('//', '/', $Decreto));
+        $BuscarNumeros = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto($Decreto);
         
-        return StringHelper::SustituirPrefijos($Decreto);
+        if ($BuscarNumeros == strlen($Decreto) || $Decreto{$BuscarNumeros} == '/') {
+            return false;
+        }
+        
+        $DescomponerDecreto1Nvl = array();
+        $DescomponerDecreto1Nvl[0] = substr($Decreto, 0, $BuscarNumeros);
+        $DescomponerDecreto1Nvl[1] = ltrim(substr($Decreto, $BuscarNumeros), '0');
+        
+        if ($DescomponerDecreto1Nvl[1]{0} == '/') {
+            return false;
+        }
+        $DescomponerDecreto2Nvl = explode('/', $DescomponerDecreto1Nvl[1]);
+        
+        if (! $DescomponerDecreto2Nvl[1]) {
+            return false;
+        }
+        $DescomponerDecreto3Nvl = preg_split("/[A-Z]/", $DescomponerDecreto2Nvl[1], 2);
+        
+        if (count($DescomponerDecreto3Nvl) == 1) {
+            if (strlen($DescomponerDecreto2Nvl[1]) == 1) {
+                return false;
+            }
+        } elseif (strlen($DescomponerDecreto3Nvl[0]) == 1) {
+            return false;
+        } else {
+            $BuscarNumeros = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto(
+                $DescomponerDecreto3Nvl[1]);
+            
+            $DescomponerDecreto4Nvl = array();
+            $DescomponerDecreto4Nvl[0] = substr($DescomponerDecreto3Nvl[1], 0, $BuscarNumeros);
+            $DescomponerDecreto4Nvl[1] = ltrim(substr($DescomponerDecreto3Nvl[1], $BuscarNumeros), '0');
+            
+            if ($DescomponerDecreto4Nvl[0] && ! $DescomponerDecreto4Nvl[1]) {
+                return false;
+            }
+            /*
+             * case 'M':
+             * case 'MOD':
+             * case 'MODIF':
+             * case 'MODIFIC':
+             * case 'MODIFICACION':
+             * case 'MODIFICASION':
+             * $DescomponerDecreto4Nvl[0] = '';
+             * break;
+             * }
+             */
+            
+            if (strlen($DescomponerDecreto4Nvl[1]) == 1) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
-    static public function SustituirPrefijos($Decreto)
+    public static function FormatearDecreto($Decreto)
+    {
+        $Decreto = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
+        $Decreto = strtoupper(str_replace('//', '/', $Decreto));
+        
+        return StringHelper::SustituirPrefijo($Decreto);
+    }
+
+    public static function SustituirPrefijo($Decreto)
     {
         $PartesDecreto = array();
+        $Evaluo = \Tapir\BaseBundle\Helper\StringHelper::SepararSiglasYNumerosDecreto($Decreto);
         
-        $PartesDecreto[0] = substr($Decreto, 0, \Tapir\BaseBundle\Helper\StringHelper::IdentificarSiglasDecreto($Decreto));
-        $PartesDecreto[1] = substr($Decreto, \Tapir\BaseBundle\Helper\StringHelper::IdentificarSiglasDecreto($Decreto));
+        $PartesDecreto[0] = substr($Decreto, 0, $Evaluo);
+        $PartesDecreto[1] = ltrim(substr($Decreto, $Evaluo), '0');
         
         switch ($PartesDecreto[0]) {
             case 'RESOLUCION':
+            // no break
             case 'RESOLUSION':
-            case 'RES EMT':
+            case 'RESEMT':
             case 'R':
             case null:
                 $PartesDecreto[0] = 'RM';
                 break;
+            case 'RSG':
+                $PartesDecreto[0] = 'RG';
+                break;
             case 'RCD':
+            // no break
             case 'REOLCD':
                 $PartesDecreto[0] = 'RC';
                 break;
             case 'DCD':
                 $PartesDecreto[0] = 'DC';
                 break;
+            case 'DJF':
+            // no break
+            case 'DTAJF':
             case 'D':
                 $PartesDecreto[0] = 'DM';
                 break;
@@ -69,63 +130,47 @@ class StringHelper
         return $Decreto = $PartesDecreto[0] . $PartesDecreto[1];
     }
 
-    static public function DecifrarCategoriasAcargo($Acargo, $Categoria)
+    public static function SepararSiglasYNumerosDecreto($Decreto)
+    {
+        $TieneNumeros = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        
+        for ($i = 0; $i < strlen($Decreto) && $Decreto{$i} != '/'; $i ++) {
+            foreach ($TieneNumeros as $Numero) {
+                if ($Decreto{$i} == $Numero) {
+                    return $i;
+                }
+            }
+        }
+        return $i;
+    }
+
+    public static function DescifrarCategoriasAcargo($Acargo, $Categoria)
     {
         $Aguja = 'A/C';
         $CategoriaN = null;
-        $EncontreDosDigitos=true;
-        $Devolver=array('Bandera'=>$EncontreDosDigitos,'categoria_nueva'=>$CategoriaN);
+        $flag = true;
+        $Devolver = array('Bandera' => $flag, 'categoria_nueva' => $CategoriaN);
         if (strlen($Acargo >= 3)) {
             $Resultado = strpos($Acargo, $Aguja);
             if ($Resultado) {
                 for ($i = 0; $i < strlen($Acargo); $i ++) {
                     if (is_int($Acargo{i})) {
                         if (is_int($Acargo{i + 1})) {
-                            $CategoriaN = $Acargo{i} . $Acargo{i+1};
-                            $EncontreDosDigitos=true;
+                            $CategoriaN = $Acargo{i} . $Acargo{i + 1};
+                            $flag = true;
                             break;
                         }
                     }
                 }
-                if($CategoriaN>=10 && $CategoriaN<=24){
-                    if ($CategoriaN>$Categoria){
+                if ($CategoriaN >= 10 && $CategoriaN <= 24) {
+                    if ($CategoriaN > $Categoria) {
                         return $Devolver;
                     }
-                
-                     
                 }
             }
-            
-        }
-        else {
-            $Devolver[0]=false;
+        } else {
+            $Devolver[0] = false;
             return $Devolver;
         }
-        
-        
     }
-    
-
-    static public function IdentificarSiglasDecreto($Decreto)
-{
-    $Numeros = array(
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9');
-    
-    for ($i = 0; $i < strlen($Decreto); $i ++) {
-        foreach ($Numeros as $Numero) {
-            if ($Decreto{$i} == $Numero) {
-                return $i;
-            }
-        }
-    }
-}
 }
