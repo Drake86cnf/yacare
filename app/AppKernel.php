@@ -16,7 +16,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            
+
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
@@ -25,13 +25,16 @@ class AppKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
-        	
+
         	new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
-        		
+
             new Tapir\BaseBundle\TapirBaseBundle(),
             new Tapir\ChartsBundle\TapirChartsBundle(),
         	new Tapir\AnnotationBundle\TapirAnnotationBundle(),
+            new Tapir\TemplateBundle\TapirTemplateBundle(),
+
             new Yacare\BaseBundle\YacareBaseBundle(),
+            new Yacare\TemplateBundle\YacareTemplateBundle(),
             new Yacare\RecursosHumanosBundle\YacareRecursosHumanosBundle(),
             new Yacare\InspeccionBundle\YacareInspeccionBundle(),
             new Yacare\CatastroBundle\YacareCatastroBundle(),
@@ -39,14 +42,10 @@ class AppKernel extends Kernel
             new Yacare\ComprasBundle\YacareComprasBundle(),
             new Yacare\ComercioBundle\YacareComercioBundle(),
             new Yacare\TramitesBundle\YacareTramitesBundle(),
-            //new Yacare\BromatologiaBundle\YacareBromatologiaBundle(),
-            //new Yacare\ZoonosisBundle\YacareZoonosisBundle(),
             new Yacare\MunirgBundle\YacareMunirgBundle(),
             new Yacare\ObrasParticularesBundle\YacareObrasParticularesBundle(),
-            //new Yacare\SeguridadBundle\YacareSeguridadBundle(),
             new Yacare\RequerimientosBundle\YacareRequerimientosBundle(),
             new Yacare\AdministracionBundle\YacareAdministracionBundle(),
-            new Tapir\TemplateBundle\TapirTemplateBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
