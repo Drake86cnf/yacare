@@ -126,6 +126,20 @@ class Actividad implements Tree\NodeInterface
      * @var bool @ORM\Column(type="boolean")
      */
     private $RequiereInfEscolar = false;
+    
+    /**
+     * Indica si esta actividad requiere un estudio de impacto sonoro.
+     *
+     * @var bool @ORM\Column(type="boolean")
+     */
+    private $RequiereImpactoSonoro = false;
+    
+    /**
+     * Indica si esta actividad requiere especificar un factor de ocupación de personas, o cero si no requiere.
+     *
+     * @var bool @ORM\Column(type="integer")
+     */
+    private $RequiereFactorOcupacion = 0;
 
     /**
      *
@@ -415,4 +429,45 @@ class Actividad implements Tree\NodeInterface
     {
         $this->RequiereInfEscolar = $RequiereInfEscolar;
     }
+	
+	/**
+	 *
+	 * @ignore
+	 *
+	 */
+	public function getRequiereImpactoSonoro() {
+		return $this->RequiereImpactoSonoro;
+	}
+	
+	/**
+	 *
+	 * @ignore
+	 *
+	 */
+	public function setRequiereImpactoSonoro($RequiereImpactoSonoro) {
+		$this->RequiereImpactoSonoro = $RequiereImpactoSonoro;
+		return $this;
+	}
+	
+	/**
+	 *
+	 * @ignore
+	 *
+	 */
+	public function getRequiereFactorOcupacion() {
+		return $this->RequiereFactorOcupacion;
+	}
+	
+	/**
+	 *
+	 * @ignore
+	 *
+	 */
+	public function setRequiereFactorOcupacion($RequiereFactorOcupacion) {
+		$this->RequiereFactorOcupacion = $RequiereFactorOcupacion;
+		return $this;
+	}
+	
+	
+	
 }
