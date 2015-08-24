@@ -5,11 +5,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait ConActividades
 {
-
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-     * 
+     *
      * @Symfony\Component\Validator\Constraints\NotNull(message="Debe seleccionar una actividad principal.")
      * @Symfony\Component\Validator\Constraints\NotBlank(message="Debe elegir una actividad primaria.")
      */
@@ -45,7 +44,6 @@ trait ConActividades
      */
     protected $Actividad6;
 
-
     public function getRequiereDeyma()
     {
         $Activ1 = $this->getActividad1();
@@ -56,8 +54,8 @@ trait ConActividades
         $Activ6 = $this->getActividad6();
         
         return ($Activ1 != null && $Activ1->getRequiereDeyma()) || ($Activ2 != null && $Activ2->getRequiereDeyma()) ||
-                 ($Activ3 != null && $Activ3->getRequiereDeyma()) || ($Activ4 != null && $Activ4->getRequiereDeyma()) ||
-                 ($Activ5 != null && $Activ5->getRequiereDeyma()) || ($Activ6 != null && $Activ6->getRequiereDeyma());
+             ($Activ3 != null && $Activ3->getRequiereDeyma()) || ($Activ4 != null && $Activ4->getRequiereDeyma()) ||
+             ($Activ5 != null && $Activ5->getRequiereDeyma()) || ($Activ6 != null && $Activ6->getRequiereDeyma());
     }
 
     public function getRequiereDbeh()
@@ -70,8 +68,8 @@ trait ConActividades
         $Activ6 = $this->getActividad6();
         
         return ($Activ1 != null && $Activ1->getRequiereDbeh()) || ($Activ2 != null && $Activ2->getRequiereDbeh()) ||
-                 ($Activ3 != null && $Activ3->getRequiereDbeh()) || ($Activ4 != null && $Activ4->getRequiereDbeh()) ||
-                 ($Activ5 != null && $Activ5->getRequiereDbeh()) || ($Activ6 != null && $Activ6->getRequiereDbeh());
+             ($Activ3 != null && $Activ3->getRequiereDbeh()) || ($Activ4 != null && $Activ4->getRequiereDbeh()) ||
+             ($Activ5 != null && $Activ5->getRequiereDbeh()) || ($Activ6 != null && $Activ6->getRequiereDbeh());
     }
 
     public function getRequiereInfEscolar()
@@ -84,11 +82,11 @@ trait ConActividades
         $Activ6 = $this->getActividad6();
         
         return ($Activ1 != null && $Activ1->getRequiereInfEscolar()) ||
-                 ($Activ2 != null && $Activ2->getRequiereInfEscolar()) ||
-                 ($Activ3 != null && $Activ3->getRequiereInfEscolar()) ||
-                 ($Activ4 != null && $Activ4->getRequiereInfEscolar()) ||
-                 ($Activ5 != null && $Activ5->getRequiereInfEscolar()) ||
-                 ($Activ6 != null && $Activ6->getRequiereInfEscolar());
+             ($Activ2 != null && $Activ2->getRequiereInfEscolar()) ||
+             ($Activ3 != null && $Activ3->getRequiereInfEscolar()) ||
+             ($Activ4 != null && $Activ4->getRequiereInfEscolar()) ||
+             ($Activ5 != null && $Activ5->getRequiereInfEscolar()) ||
+             ($Activ6 != null && $Activ6->getRequiereInfEscolar());
     }
 
     public function getRequiereCamaraGrasa()
@@ -100,12 +98,12 @@ trait ConActividades
         $Activ5 = $this->getActividad5();
         $Activ6 = $this->getActividad6();
         
-        return ($Activ1 != null && $Activ1->getRequiereInfEscolar()) ||
-                 ($Activ2 != null && $Activ2->getRequiereInfEscolar()) ||
-                 ($Activ3 != null && $Activ3->getRequiereInfEscolar()) ||
-                 ($Activ4 != null && $Activ4->getRequiereInfEscolar()) ||
-                 ($Activ5 != null && $Activ5->getRequiereInfEscolar()) ||
-                 ($Activ6 != null && $Activ6->getRequiereInfEscolar());
+        return ($Activ1 != null && $Activ1->getRequiereCamaraGrasa()) ||
+             ($Activ2 != null && $Activ2->getRequiereCamaraGrasa()) ||
+             ($Activ3 != null && $Activ3->getRequiereCamaraGrasa()) ||
+             ($Activ4 != null && $Activ4->getRequiereCamaraGrasa()) ||
+             ($Activ5 != null && $Activ5->getRequiereCamaraGrasa()) ||
+             ($Activ6 != null && $Activ6->getRequiereCamaraGrasa());
     }
 
     public function getRequiereCamaraBarro()
@@ -118,11 +116,28 @@ trait ConActividades
         $Activ6 = $this->getActividad6();
         
         return ($Activ1 != null && $Activ1->getRequiereCamaraBarro()) ||
-                 ($Activ2 != null && $Activ2->getRequiereCamaraBarro()) ||
-                 ($Activ3 != null && $Activ3->getRequiereCamaraBarro()) ||
-                 ($Activ4 != null && $Activ4->getRequiereCamaraBarro()) ||
-                 ($Activ5 != null && $Activ5->getRequiereCamaraBarro()) ||
-                 ($Activ6 != null && $Activ6->getRequiereCamaraBarro());
+             ($Activ2 != null && $Activ2->getRequiereCamaraBarro()) ||
+             ($Activ3 != null && $Activ3->getRequiereCamaraBarro()) ||
+             ($Activ4 != null && $Activ4->getRequiereCamaraBarro()) ||
+             ($Activ5 != null && $Activ5->getRequiereCamaraBarro()) ||
+             ($Activ6 != null && $Activ6->getRequiereCamaraBarro());
+    }
+
+    public function getRequiereImpactoSonoro()
+    {
+        $Activ1 = $this->getActividad1();
+        $Activ2 = $this->getActividad2();
+        $Activ3 = $this->getActividad3();
+        $Activ4 = $this->getActividad4();
+        $Activ5 = $this->getActividad5();
+        $Activ6 = $this->getActividad6();
+        
+        return ($Activ1 != null && $Activ1->getRequiereImpactoSonoro()) ||
+             ($Activ2 != null && $Activ2->getRequiereImpactoSonoro()) ||
+             ($Activ3 != null && $Activ3->getRequiereImpactoSonoro()) ||
+             ($Activ4 != null && $Activ4->getRequiereImpactoSonoro()) ||
+             ($Activ5 != null && $Activ5->getRequiereImpactoSonoro()) ||
+             ($Activ6 != null && $Activ6->getRequiereImpactoSonoro());
     }
 
     /**
