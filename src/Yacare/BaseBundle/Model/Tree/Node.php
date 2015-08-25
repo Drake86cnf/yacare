@@ -4,6 +4,7 @@ namespace Yacare\BaseBundle\Model\Tree;
 use Yacare\BaseBundle\Model\Tree\NodeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Agrega la capacidad de organizar jerárquicamente las entidades.
@@ -20,17 +21,17 @@ trait Node
      * @var ArrayCollection $ChildNodes the children in the tree
      */
     private $ChildNodes;
-    
+
     /**
      * Las clases que implementan esta característica deben implementar la variable $ParentNode;
      * private $ParentNode;
      */
-    
+
     /**
      * La ruta completa de este nodo.
      *
      * @var string $MaterializedPath
-     *     
+     *
      * @ORM\Column(type="text")
      */
     protected $MaterializedPath = '';
@@ -78,7 +79,7 @@ trait Node
     {
         $this->MaterializedPath = $path;
         $this->setParentMaterializedPath($this->getParentMaterializedPath());
-        
+
         return $this;
     }
 
@@ -89,9 +90,9 @@ trait Node
     {
         $path = $this->getExplodedPath();
         array_pop($path);
-        
+
         $parentPath = static::getMaterializedPathSeparator() . implode(static::getMaterializedPathSeparator(), $path);
-        
+
         return $parentPath;
     }
 
@@ -109,7 +110,7 @@ trait Node
     public function getRootMaterializedPath()
     {
         $explodedPath = $this->getExplodedPath();
-        
+
         return static::getMaterializedPathSeparator() . array_shift($explodedPath);
     }
 
@@ -180,7 +181,7 @@ trait Node
         if (empty($id)) {
             throw new \LogicException('You must provide an id for this node if you want it to be part of a tree.');
         }
-        
+
         $MatName = static::getMaterializedPathMaterial();
         if ($MatName) {
             $MatFuncName = 'get' . $MatName;
@@ -188,27 +189,27 @@ trait Node
         } else {
             $MatContent = (string) $this;
         }
-        
+
         if (null !== $node) {
             $path = $node->getMaterializedPath() . static::getMaterializedPathSeparator() . $MatContent;
         } else {
             $path = static::getMaterializedPathSeparator() . $MatContent;
         }
         $this->setMaterializedPath($path);
-        
+
         if (null !== $this->ParentNode) {
             $this->ParentNode->getChildNodes()->removeElement($this);
         }
-        
+
         $this->ParentNode = $node;
         if (null !== $node) {
             $this->ParentNode->addChildNode($this);
         }
-        
+
         foreach ($this->getChildNodes() as $child) {
             $child->setChildNodeOf($this);
         }
-        
+
         return $this;
     }
 
@@ -227,7 +228,7 @@ trait Node
     {
         $this->ParentNode = $node;
         $this->setChildNodeOf($this->ParentNode);
-        
+
         return $this;
     }
 
@@ -240,7 +241,7 @@ trait Node
         while (null !== $parent->getParentNode()) {
             $parent = $parent->getParentNode();
         }
-        
+
         return $parent;
     }
 
@@ -262,13 +263,13 @@ trait Node
      * @ignore
      *
      * @param \Closure $prepare a function to prepare the node before putting into the result
-     *            
+     *
      * @return string the json representation of the hierarchical result
      */
     public function toJson(\Closure $prepare = null)
     {
         $tree = $this->toArray($prepare);
-        
+
         return json_encode($tree);
     }
 
@@ -277,7 +278,7 @@ trait Node
      *
      * @param \Closure $prepare a function to prepare the node before putting into the result
      * @param array $tree a reference to an array, used internally for recursion
-     *            
+     *
      * @return array the hierarchical result
      */
     public function toArray(\Closure $prepare = null, array &$tree = null)
@@ -290,12 +291,12 @@ trait Node
         if (null === $tree) {
             $tree = array($this->getId() => array('node' => $prepare($this), 'children' => array()));
         }
-        
+
         foreach ($this->getChildNodes() as $node) {
             $tree[$this->getId()]['children'][$node->getId()] = array('node' => $prepare($node), 'children' => array());
             $node->toArray($prepare, $tree[$this->getId()]['children']);
         }
-        
+
         return $tree;
     }
 
@@ -304,7 +305,7 @@ trait Node
      *
      * @param \Closure $prepare a function to prepare the node before putting into the result
      * @param array $tree a reference to an array, used internally for recursion
-     *            
+     *
      * @return array the flatten result
      */
     public function toFlatArray(\Closure $prepare = null, array &$tree = null)
@@ -312,19 +313,19 @@ trait Node
         if (null === $prepare) {
             $prepare = function (NodeInterface $node) {
                 $pre = $node->getNodeLevel() > 1 ? implode('', array_fill(0, $node->getNodeLevel(), '--')) : '';
-                
+
                 return $pre . (string) $node;
             };
         }
         if (null === $tree) {
             $tree = array($this->getId() => $prepare($this));
         }
-        
+
         foreach ($this->getChildNodes() as $node) {
             $tree[$node->getId()] = $prepare($node);
             $node->toFlatArray($prepare, $tree);
         }
-        
+
         return $tree;
     }
 
@@ -334,7 +335,7 @@ trait Node
     public function offsetSet($offset, $node)
     {
         $node->setChildNodeOf($this);
-        
+
         return $this;
     }
 
@@ -368,7 +369,7 @@ trait Node
     protected function getExplodedPath()
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());
-        
+
         return array_filter($path, function ($item) {
             return '' !== $item;
         });
