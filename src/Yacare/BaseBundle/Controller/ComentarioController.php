@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
 {
-
     /**
      * @Route("listar")
      * @Template()
@@ -39,7 +38,8 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $entities = $em->getRepository('YacareBaseBundle:Comentario')->findBy(
             array('EntidadTipo' => $tipo, 'EntidadId' => $id));
         
-        return $this->ArrastrarVariables($request, 
+        return $this->ArrastrarVariables(
+            $request, 
             array('form_comentario' => $editForm->createView(), 'entity' => $entity, 'entities' => $entities));
     }
 

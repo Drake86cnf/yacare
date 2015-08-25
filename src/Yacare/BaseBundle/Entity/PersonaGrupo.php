@@ -24,14 +24,14 @@ class PersonaGrupo
     {
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * Las personas que pertenecen a este grupo.
      *
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
      */
     protected $Personas;
-
+    
     /**
      * El grupo de nivel superior.
      *
@@ -39,7 +39,7 @@ class PersonaGrupo
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
-
+    
     /**
      * Indica si el grupo se replica al servidor de dominio.
      *
@@ -48,9 +48,7 @@ class PersonaGrupo
     private $Dominio = false;
 
     /**
-     *
      * @ignore
-     *
      */
     public function setParent($parent)
     {
@@ -58,9 +56,7 @@ class PersonaGrupo
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getParent()
     {
@@ -68,9 +64,7 @@ class PersonaGrupo
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDominio()
     {
@@ -78,9 +72,7 @@ class PersonaGrupo
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDominio($Dominio)
     {

@@ -13,7 +13,6 @@ use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 /**
  * Campo de entidad oculta.
  *
- *
  * @author Ernesto N. Carrea <ernestocarrea@gmail.com>
  */
 class EntityHiddenType extends AbstractType
@@ -29,20 +28,26 @@ class EntityHiddenType extends AbstractType
     {
         $em = $this->managerRegistry->getManagerForClass($options['class']);
         
-        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], $options['multiple']);
+        $transformer = new EntityToIdTransformer(
+            $em, 
+            $options['class'], 
+            $options['property'], 
+            $options['query_builder'], 
+            $options['multiple']);
         $builder->addModelTransformer($transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
-        $resolver->setDefaults(array('em' => null,
-            'property' => 'Nombre',
-            'query_builder' => null,
-            'filters' => null,
-            'hidden' => false,
-            'multiple' => false
-        ));
+        $resolver->setDefaults(
+            array(
+                'em' => null, 
+                'property' => 'Nombre', 
+                'query_builder' => null, 
+                'filters' => null, 
+                'hidden' => false, 
+                'multiple' => false));
     }
 
     public function getParent()

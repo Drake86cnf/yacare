@@ -82,16 +82,17 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function editarperfilActionPostPersist($entity, $editForm)
     {
-        /* if ($entity->getAgenteId()) {
-            // Es un agente municipal, lo actualizo en el LDAP
-            $em = $this->getDoctrine()->getManager();
-            $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
-            
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
-            $ldap->AgregarOActualizarAgente($Agente);
-            $ldap = null;
-        }
-        return; */
+        /*
+         * if ($entity->getAgenteId()) {
+         * // Es un agente municipal, lo actualizo en el LDAP
+         * $em = $this->getDoctrine()->getManager();
+         * $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
+         * $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
+         * $ldap->AgregarOActualizarAgente($Agente);
+         * $ldap = null;
+         * }
+         * return;
+         */
     }
 
     /**
@@ -99,18 +100,18 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
      */
     public function cambiarcontrasenaActionPostPersist($entity, $editForm)
     {
-        /* if ($entity->getAgenteId()) {
-            // Es un agente municipal, lo actualizo en el LDAP
-            $em = $this->getDoctrine()->getManager();
-            $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
-            
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
-            $ldap->CambiarContrasena($Agente);
-            $ldap = null;
-        }
-        return; */
+        /*
+         * if ($entity->getAgenteId()) {
+         * // Es un agente municipal, lo actualizo en el LDAP
+         * $em = $this->getDoctrine()->getManager();
+         * $Agente = $em->getRepository('Yacare\RecursosHumanosBundle\Entity\Agente')->find($entity->getAgenteId());
+         * $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
+         * $ldap->CambiarContrasena($Agente);
+         * $ldap = null;
+         * }
+         * return;
+         */
     }
-    
 
     /**
      * Muestra un pequeño formulario para modificar un dato.
@@ -136,42 +137,57 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         switch ($campoNombre) {
             case 'Cuilt':
-                $editFormBuilder->add($campoNombre, new \Tapir\BaseBundle\Form\Type\CuiltType(), 
-                    array('label' => 'CUIL/CUIT','required' => true));
+                $editFormBuilder->add(
+                    $campoNombre, 
+                    new \Tapir\BaseBundle\Form\Type\CuiltType(), 
+                    array('label' => 'CUIL/CUIT', 'required' => true));
                 break;
             case 'DocumentoNumero':
-                $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DocumentoType(), 
+                $editFormBuilder->add(
+                    $campoNombre, 
+                    new \Yacare\BaseBundle\Form\Type\DocumentoType(), 
                     array('label' => 'Documento'));
                 break;
             case 'Domicilio':
-                $editFormBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DomicilioType(), 
-                    array('label' => 'Domicilio','required' => true));
+                $editFormBuilder->add(
+                    $campoNombre, 
+                    new \Yacare\BaseBundle\Form\Type\DomicilioType(), 
+                    array('label' => 'Domicilio', 'required' => true));
                 break;
             case 'TelefonoNumero':
-                $editFormBuilder->add($campoNombre, 'text', array('label' => 'Teléfono(s)','required' => true));
-                $editFormBuilder->add('TelefonoVerificacionNivel', 
+                $editFormBuilder->add($campoNombre, 'text', array('label' => 'Teléfono(s)', 'required' => true));
+                $editFormBuilder->add(
+                    'TelefonoVerificacionNivel', 
                     new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
-                    array('label' => 'Nivel','required' => true));
+                    array('label' => 'Nivel', 'required' => true));
                 break;
             case 'Email':
-                $editFormBuilder->add($campoNombre, 'text', array('label' => 'E-mail','required' => true));
-                $editFormBuilder->add($campoNombre . 'VerificacionNivel', 
+                $editFormBuilder->add($campoNombre, 'text', array('label' => 'E-mail', 'required' => true));
+                $editFormBuilder->add(
+                    $campoNombre . 'VerificacionNivel', 
                     new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
-                    array('label' => 'Nivel','required' => true));
+                    array('label' => 'Nivel', 'required' => true));
                 break;
             case 'Pais':
-                $editFormBuilder->add('Pais', 'entity', 
+                $editFormBuilder->add(
+                    'Pais', 
+                    'entity', 
                     array(
-                        'label' => 'Nacionalidad',
-                        'placeholder' => 'Sin especificar',
-                        'class' => 'YacareBaseBundle:Pais',
-                        'required' => false,
-                        'preferred_choices' => $em->getRepository($this->CompleteEntityName)
-                            ->findById(array(1,2,11,15))));
+                        'label' => 'Nacionalidad', 
+                        'placeholder' => 'Sin especificar', 
+                        'class' => 'YacareBaseBundle:Pais', 
+                        'required' => false, 
+                        'preferred_choices' => $em->getRepository($this->CompleteEntityName)->findById(array(
+                            1, 
+                            2, 
+                            11, 
+                            15))));
                 break;
             case 'Genero':
-                $editFormBuilder->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), 
-                    array('label' => 'Género','required' => true));
+                $editFormBuilder->add(
+                    'Genero', 
+                    new \Tapir\BaseBundle\Form\Type\GeneroType(), 
+                    array('label' => 'Género', 'required' => true));
                 break;
         }
         
@@ -182,7 +198,9 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             return $this->redirect(
-                $this->generateUrl($this->obtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)));
+                $this->generateUrl(
+                    $this->obtenerRutaBase('ver'), 
+                    $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $editForm->all();
             foreach ($children as $child) {
@@ -194,19 +212,18 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($errors) {
             foreach ($errors as $error) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('danger', $error->getMessage());
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
             }
         } else {
             $errors = null;
         }
         
-        return $this->ArrastrarVariables($request, 
+        return $this->ArrastrarVariables(
+            $request, 
             array(
-                'edit_form' => $editForm->createView(),
-                'campo_nombre' => $campoNombre,
-                'entity' => $entity,
+                'edit_form' => $editForm->createView(), 
+                'campo_nombre' => $campoNombre, 
+                'entity' => $entity, 
                 'errors' => $errors));
     }
 
@@ -228,6 +245,6 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
         
         if ($ok) {}
         
-        return $this->ArrastrarVariables($request, array('entity1' => $entity1,'entity2' => $entity2));
+        return $this->ArrastrarVariables($request, array('entity1' => $entity1, 'entity2' => $entity2));
     }
 }

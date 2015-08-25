@@ -20,7 +20,6 @@ use Doctrine\ORM\NoResultException;
  */
 class EntityToIdTransformer implements DataTransformerInterface
 {
-
     private $em;
 
     private $class;

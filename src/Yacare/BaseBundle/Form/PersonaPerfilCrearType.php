@@ -7,10 +7,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaPerfilCrearType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('NombreVisible', null, array('label' => 'Nombre','read_only' => true))
+        $builder
+            ->add('NombreVisible', null, array('label' => 'Nombre','read_only' => true))
             ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('Username', null, array('label' => 'Nombre de usuario','required' => false))
             ->add('PasswordEnc', 'password', array('label' => 'Contraseña','required' => false));

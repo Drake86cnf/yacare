@@ -7,22 +7,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocumentoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('DocumentoTipo', 'choice', 
-            array(
-                'choices' => array('1' => 'DNI','2' => 'LE','3' => 'LC','4' => 'CI','5' => 'Pasaporte'),
-                'label' => 'Tipo'))
+        $builder
+            ->add('DocumentoTipo', 'choice', 
+                array(
+                    'choices' => array('1' => 'DNI', '2' => 'LE', '3' => 'LC', '4' => 'CI', '5' => 'Pasaporte'), 
+                    'label' => 'Tipo'))
             ->add('DocumentoNumero', null, 
-            array('label' => 'Número','attr' => array('class' => 'tapir-input-documento')))
+                array('label' => 'Número', 'attr' => array('class' => 'tapir-input-documento')))
             ->setAttribute('widget', 'form_horizontal');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('inherit_data' => true,'class' => 'form_horizontal'));
+        $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
     }
 
     public function getName()

@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Base_Persona_Domicilio")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Persona_Domicilio")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Domicilio
 {
@@ -20,11 +20,10 @@ class Domicilio
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\ConVerificacion;
     use \Yacare\CatastroBundle\Entity\ConPartida;
-
+    
     /**
      * El tipo de domicilio.
      *
@@ -39,11 +38,12 @@ class Domicilio
      *
      * 1 y 2 según Código Civil, Título VI, artículos 89 y 90.
      *
-     * @var integer @ORM\Column(type="integer", nullable=false)
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $Tipo = 0;
 
-    static public function TipoNombre($tipo)
+    public static function TipoNombre($tipo)
     {
         switch ($tipo) {
             case 0:
@@ -82,11 +82,17 @@ class Domicilio
         return $res;
     }
 
+    /**
+     * @ignore
+     */
     public function getTipo()
     {
         return $this->Tipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;

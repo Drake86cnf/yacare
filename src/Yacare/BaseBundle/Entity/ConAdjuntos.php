@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConAdjuntos
 {
-
     /**
      * @ORM\ManyToMany(targetEntity="\Yacare\BaseBundle\Entity\Adjunto", cascade={ "persist" })
      */
@@ -19,11 +18,17 @@ trait ConAdjuntos
         $this->Adjuntos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * @ignore
+     */
     public function getAdjuntos()
     {
         return $this->Adjuntos;
     }
 
+    /**
+     * @ignore
+     */
     public function setAdjuntos($Adjuntos)
     {
         $this->Adjuntos = $Adjuntos;

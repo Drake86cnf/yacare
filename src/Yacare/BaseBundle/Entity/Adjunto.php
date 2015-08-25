@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Base_Adjunto")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Adjunto")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Adjunto
 {
@@ -38,6 +38,37 @@ class Adjunto
             $this->SubirArchivo($Archivo);
         }
     }
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $EntidadTipo;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $EntidadId;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Persona;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     */
+    private $Carpeta;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, length=50)
+     */
+    private $TipoMime;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Token;
 
     protected function getRaizDeAdjuntos()
     {
@@ -55,19 +86,21 @@ class Adjunto
     {
         return 'adjuntos/' . $this->getCarpeta() . '/';
     }
-    
+
     public function getNombreArchivoRelativo()
     {
-        if($this->TieneMiniatura()) {
+        if ($this->TieneMiniatura()) {
             return $this->getRutaRelativa() . $this->getToken();
         } else {
             return $this->getIcono();
         }
     }
-    
-    public function getIcono() {
+
+    public function getIcono()
+    {
         switch ($this->getTipoMime()) {
             case 'image/jpg':
+            // no break
             case 'image/jpeg':
             case 'image/png':
             case 'image/gif':
@@ -84,6 +117,7 @@ class Adjunto
                 $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
                 switch ($Extension) {
                     case 'pdf':
+                    // no break
                     case 'rtf':
                     case 'xml':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-' . $Extension . '.png';
@@ -92,10 +126,12 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-plain.png';
                         break;
                     case 'doc':
+                    // no break
                     case 'docx':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-msword.png';
                         break;
                     case 'zip':
+                    // no break
                     case 'rar':
                     case '7z':
                     case 'tgz':
@@ -108,10 +144,12 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-csv.png';
                         break;
                     case 'htm':
+                    // no break
                     case 'html':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-html.png';
                         break;
                     case 'xls':
+                    // no break
                     case 'xlsx':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.ms-excel.png';
                         break;
@@ -128,11 +166,12 @@ class Adjunto
                 break;
         }
     }
-    
-    
-    public function EsImagen() {
+
+    public function EsImagen()
+    {
         switch ($this->getTipoMime()) {
             case 'image/jpg':
+            // no break
             case 'image/jpeg':
             case 'image/png':
             case 'image/gif':
@@ -142,11 +181,11 @@ class Adjunto
                 return false;
         }
     }
-    
-    public function TieneMiniatura() {
+
+    public function TieneMiniatura()
+    {
         return $this->EsImagen();
     }
-    
 
     public function SubirArchivo($Archivo)
     {
@@ -162,91 +201,96 @@ class Adjunto
     }
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ignore
      */
-    private $EntidadTipo;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $EntidadId;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $Persona;
-
-    /**
-     * @ORM\Column(type="string", nullable=true, length=255)
-     */
-    private $Carpeta;
-
-    /**
-     * @ORM\Column(type="string", nullable=true, length=50)
-     */
-    private $TipoMime;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Token;
-
     public function getTipoMime()
     {
         return $this->TipoMime;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipoMime($TipoMime)
     {
         $this->TipoMime = $TipoMime;
     }
 
+    /**
+     * @ignore
+     */
     public function getEntidadTipo()
     {
         return $this->EntidadTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setEntidadTipo($EntidadTipo)
     {
         $this->EntidadTipo = $EntidadTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function getEntidadId()
     {
         return $this->EntidadId;
     }
 
+    /**
+     * @ignore
+     */
     public function setEntidadId($EntidadId)
     {
         $this->EntidadId = $EntidadId;
     }
 
+    /**
+     * @ignore
+     */
     public function getToken()
     {
         return $this->Token;
     }
 
+    /**
+     * @ignore
+     */
     public function setToken($Token)
     {
         $this->Token = $Token;
     }
 
+    /**
+     * @ignore
+     */
     public function getCarpeta()
     {
         return $this->Carpeta;
     }
 
+    /**
+     * @ignore
+     */
     public function setCarpeta($Carpeta)
     {
         $this->Carpeta = $Carpeta;
     }
 
+    /**
+     * @ignore
+     */
     public function getPersona()
     {
         return $this->Persona;
     }
 
+    /**
+     * @ignore
+     */
     public function setPersona($Persona)
     {
         $this->Persona = $Persona;
