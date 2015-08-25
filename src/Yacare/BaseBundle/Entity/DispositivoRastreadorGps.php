@@ -10,22 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Base_DispositivoRastreadorGps")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_DispositivoRastreadorGps")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class DispositivoRastreadorGps extends \Yacare\BaseBundle\Entity\Dispositivo
 {
-
     /**
      * @ORM\Column(type="string", length=50)
      */
     protected $TelefonoNumero;
 
+    /**
+     * @ignore
+     */
     public function getTelefonoNumero()
     {
         return $this->TelefonoNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function setTelefonoNumero($TelefonoNumero)
     {
         $this->TelefonoNumero = $TelefonoNumero;

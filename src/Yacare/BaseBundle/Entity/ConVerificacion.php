@@ -10,14 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConVerificacion
 {
-
     /**
-     *
      * @var integer @ORM\Column(type="integer", nullable=false)
      */
     private $VerificacionNivel = 0;
 
-    static public function VerificacionNivelNombre($verificacionNivel)
+    public static function VerificacionNivelNombre($verificacionNivel)
     {
         switch ($verificacionNivel) {
             case 0:

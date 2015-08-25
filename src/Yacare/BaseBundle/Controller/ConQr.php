@@ -5,7 +5,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 trait ConQr
 {
-
     /**
      * @Route("qr/{id}")
      */
@@ -24,10 +23,12 @@ trait ConQr
         $imagen_contenido = ob_get_contents();
         ob_end_clean();
         
-        $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, 
+        $response = new \Symfony\Component\HttpFoundation\Response(
+            $imagen_contenido, 
+            200, 
             array(
-                'Content-Type' => 'image/png',
-                'Content-Length' => strlen($imagen_contenido),
+                'Content-Type' => 'image/png', 
+                'Content-Length' => strlen($imagen_contenido), 
                 'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName .
                      '_' . $entity->getId() . '.png"'));
         

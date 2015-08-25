@@ -7,7 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DispositivoGenericoType extends DispositivoType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -15,8 +14,7 @@ class DispositivoGenericoType extends DispositivoType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoGenerico'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoGenerico'));
     }
 
     public function getName()

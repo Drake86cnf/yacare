@@ -7,7 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DispositivoRastreadorGpsType extends DispositivoType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -17,8 +16,7 @@ class DispositivoRastreadorGpsType extends DispositivoType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));
     }
 
     public function getName()

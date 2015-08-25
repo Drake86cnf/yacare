@@ -7,7 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdjuntoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return $builder->add('NombreArchivo', 'file', array('label' => 'Archivo adjunto'));
@@ -17,10 +16,10 @@ class AdjuntoType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Yacare\BaseBundle\Entity\Adjunto',
-                'csrf_protection' => true,
-                'csrf_field_name' => '_token',
-                'mapped' => false,
+                'data_class' => 'Yacare\BaseBundle\Entity\Adjunto', 
+                'csrf_protection' => true, 
+                'csrf_field_name' => '_token', 
+                'mapped' => false, 
                 'intention' => 'file'));
     }
 

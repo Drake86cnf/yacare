@@ -7,24 +7,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UsuarioType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('NombreVisible', null, 
-            array('label' => 'Nombre','read_only' => true))
+        $builder
+            ->add('NombreVisible', null, 
+                array('label' => 'Nombre','read_only' => true))
             ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('UsuarioRoles', 'entity', 
-            array('label' => 'Roles','class' => 'YacareBaseBundle:PersonaRol','property' => 'Nombre','multiple' => true))
+                array(
+                    'label' => 'Roles',
+                    'class' => 'YacareBaseBundle:PersonaRol',
+                    'property' => 'Nombre',
+                    'multiple' => true))
             ->add('Username', null, 
-            array(
-                'label' => 'Usuario',
-                'required' => false,
-                'attr' => array('autocomplete' => 'off')))
+                array(
+                    'label' => 'Usuario',
+                    'required' => false,
+                    'attr' => array('autocomplete' => 'off')))
             ->add('PasswordEnc', 'password', 
-            array(
-                'label' => 'Contraseña',
-                'required' => false,
-                'attr' => array('autocomplete' => 'off')));
+                array(
+                    'label' => 'Contraseña',
+                    'required' => false,
+                    'attr' => array('autocomplete' => 'off')));
     }
 
     public function configureOptions(OptionsResolver $resolver)

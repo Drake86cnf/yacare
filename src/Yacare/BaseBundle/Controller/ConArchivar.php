@@ -7,9 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 trait ConArchivar
 {
-
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("desarchivar/{id}")
+     * @Route("desarchivar/{id}")
      */
     public function desarchivarAction(Request $request, $id)
     {
@@ -21,9 +20,7 @@ trait ConArchivar
             $entity->setArchivado(0);
             $em->persist($entity);
             $em->flush();
-            $this->get('session')
-                ->getFlashBag()
-                ->add('info', 'Se desarchivó el elemento "' . $entity . '".');
+            $this->get('session')->getFlashBag()->add('info', 'Se desarchivó el elemento "' . $entity . '".');
             return $this->afterArchivar($entity, false);
         }
         
@@ -31,7 +28,7 @@ trait ConArchivar
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("archivar/{id}")
+     * @Route("archivar/{id}")
      */
     public function archivarAction(Request $request, $id)
     {
@@ -43,9 +40,7 @@ trait ConArchivar
             $entity->Archivar();
             $em->persist($entity);
             $em->flush();
-            $this->get('session')
-                ->getFlashBag()
-                ->add('info', 'Se archivó el elemento "' . $entity . '".');
+            $this->get('session')->getFlashBag()->add('info', 'Se archivó el elemento "' . $entity . '".');
             return $this->afterArchivar($entity, true);
         }
         

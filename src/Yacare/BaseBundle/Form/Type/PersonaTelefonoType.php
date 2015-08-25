@@ -7,16 +7,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaTelefonoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('TelefonoNumero', 'text', 
-            array('label' => 'Número','required' => true))
+        $builder
+            ->add('TelefonoNumero', 'text', 
+                array('label' => 'Número','required' => true))
             ->add('TelefonoVerificacionNivel', 'choice', 
-            array(
-                'choices' => array('0' => 'Sin confirmar','10' => 'Confirmado','20' => 'Cotejado','30' => 'Certificado'),
-                'label' => 'Nivel',
-                'required' => true))
+                array(
+                    'choices' => array('0' => 'Sin confirmar','10' => 'Confirmado','20' => 'Cotejado','30' => 'Certificado'),
+                    'label' => 'Nivel',
+                    'required' => true))
             ->setAttribute('widget', 'form_horizontal');
     }
 

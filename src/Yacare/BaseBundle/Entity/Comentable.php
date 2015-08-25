@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Comentable
 {
-
     /**
      * Los comentarios asociados a esta entidad.
      *

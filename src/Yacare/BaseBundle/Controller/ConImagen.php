@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 trait ConImagen
 {
-
     /**
      * @Route("imagen/{id}")
      */
@@ -22,10 +21,12 @@ trait ConImagen
         
         $imagen_contenido = stream_get_contents($entity->getImagen());
         
-        $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, 
+        $response = new \Symfony\Component\HttpFoundation\Response(
+            $imagen_contenido, 
+            200, 
             array(
-                'Content-Type' => 'image/png',
-                'Content-Length' => strlen($imagen_contenido),
+                'Content-Type' => 'image/png', 
+                'Content-Length' => strlen($imagen_contenido), 
                 'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName .
                      '_' . $entity->getId() . '.png"'));
         

@@ -13,36 +13,35 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConDomicilioLocal
 {
-
     /**
      * Relación con la tabla de calles.
      *
      * @see \Yacare\CatastroBundle\Entity\Calle @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
-     *      @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
-
+    
     /**
      * El número, también conocido como "altura".
      *
      * @var integer $DomicilioNumero
-     *      @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioNumero;
-
+    
     /**
      * El piso, si lo hubiera.
      *
      * @var integer $DomicilioPiso
-     *      @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPiso;
-
+    
     /**
      * La puerta, si la hubiera (por ejemplo A, B, etc.)
      *
      * @var integer $DomicilioPuerta
-     *      @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPuerta;
 
@@ -64,41 +63,65 @@ trait ConDomicilioLocal
         return $res;
     }
 
+    /**
+     * @ignore
+     */
     public function getDomicilioCalle()
     {
         return $this->DomicilioCalle;
     }
 
+    /**
+     * @ignore
+     */
     public function setDomicilioCalle($DomicilioCalle)
     {
         $this->DomicilioCalle = $DomicilioCalle;
     }
 
+    /**
+     * @ignore
+     */
     public function getDomicilioNumero()
     {
         return $this->DomicilioNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function setDomicilioNumero($DomicilioNumero)
     {
         $this->DomicilioNumero = $DomicilioNumero;
     }
 
+    /**
+     * @ignore
+     */
     public function getDomicilioPiso()
     {
         return $this->DomicilioPiso;
     }
 
+    /**
+     * @ignore
+     */
     public function setDomicilioPiso($DomicilioPiso)
     {
         $this->DomicilioPiso = $DomicilioPiso;
     }
 
+    /**
+     * @ignore
+     */
     public function getDomicilioPuerta()
     {
         return $this->DomicilioPuerta;
     }
 
+    /**
+     * @ignore
+     */
     public function setDomicilioPuerta($DomicilioPuerta)
     {
         $this->DomicilioPuerta = $DomicilioPuerta;

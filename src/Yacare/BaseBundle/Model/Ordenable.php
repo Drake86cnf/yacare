@@ -2,8 +2,7 @@
 namespace Yacare\BaseBundle\Model;
 
 trait Ordenable
-{
-
+{    
     /**
      * @ORM\Column(type="integer")
      */

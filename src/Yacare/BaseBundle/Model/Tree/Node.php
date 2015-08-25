@@ -14,14 +14,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 trait Node
 {
-
     /**
      * Los nodos hijos.
      *
      * @var ArrayCollection $ChildNodes the children in the tree
      */
     private $ChildNodes;
-
+    
     /**
      * Las clases que implementan esta característica deben implementar la variable $ParentNode;
      * private $ParentNode;
@@ -32,7 +31,7 @@ trait Node
      *
      * @var string $MaterializedPath
      *     
-     *      @ORM\Column(type="text")
+     * @ORM\Column(type="text")
      */
     protected $MaterializedPath = '';
 
@@ -57,9 +56,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getRealMaterializedPath()
     {
@@ -67,9 +64,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getMaterializedPath()
     {
@@ -77,9 +72,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setMaterializedPath($path)
     {
@@ -90,9 +83,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getParentMaterializedPath()
     {
@@ -105,9 +96,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setParentMaterializedPath($path)
     {
@@ -115,9 +104,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getRootMaterializedPath()
     {
@@ -127,9 +114,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getNodeLevel()
     {
@@ -138,9 +123,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function isRootNode()
     {
@@ -148,9 +131,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function isLeafNode()
     {
@@ -158,9 +139,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getChildNodes()
     {
@@ -168,9 +147,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function addChildNode(NodeInterface $node)
     {
@@ -178,9 +155,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function isIndirectChildNodeOf(NodeInterface $node)
     {
@@ -189,9 +164,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function isChildNodeOf(NodeInterface $node)
     {
@@ -199,9 +172,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setChildNodeOf(NodeInterface $node = null)
     {
@@ -242,9 +213,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getParentNode()
     {
@@ -252,9 +221,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setParentNode(NodeInterface $node = null)
     {
@@ -265,9 +232,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getRootNode()
     {
@@ -280,9 +245,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function buildTree(array $results)
     {
@@ -296,11 +259,9 @@ trait Node
     }
 
     /**
-     *
      * @ignore
      *
-     * @param \Closure $prepare
-     *            a function to prepare the node before putting into the result
+     * @param \Closure $prepare a function to prepare the node before putting into the result
      *            
      * @return string the json representation of the hierarchical result
      */
@@ -312,31 +273,26 @@ trait Node
     }
 
     /**
-     *
      * @ignore
      *
-     * @param \Closure $prepare
-     *            a function to prepare the node before putting into the result
-     * @param array $tree
-     *            a reference to an array, used internally for recursion
+     * @param \Closure $prepare a function to prepare the node before putting into the result
+     * @param array $tree a reference to an array, used internally for recursion
      *            
      * @return array the hierarchical result
      */
     public function toArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function (NodeInterface $node)
-            {
+            $prepare = function (NodeInterface $node) {
                 return (string) $node;
             };
         }
         if (null === $tree) {
-            $tree = array(
-                $this->getId() => array('node' => $prepare($this),'children' => array()));
+            $tree = array($this->getId() => array('node' => $prepare($this), 'children' => array()));
         }
         
         foreach ($this->getChildNodes() as $node) {
-            $tree[$this->getId()]['children'][$node->getId()] = array('node' => $prepare($node),'children' => array());
+            $tree[$this->getId()]['children'][$node->getId()] = array('node' => $prepare($node), 'children' => array());
             $node->toArray($prepare, $tree[$this->getId()]['children']);
         }
         
@@ -344,22 +300,17 @@ trait Node
     }
 
     /**
-     *
      * @ignore
      *
-     * @param \Closure $prepare
-     *            a function to prepare the node before putting into the result
-     * @param array $tree
-     *            a reference to an array, used internally for recursion
+     * @param \Closure $prepare a function to prepare the node before putting into the result
+     * @param array $tree a reference to an array, used internally for recursion
      *            
      * @return array the flatten result
-     *        
      */
     public function toFlatArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function (NodeInterface $node)
-            {
+            $prepare = function (NodeInterface $node) {
                 $pre = $node->getNodeLevel() > 1 ? implode('', array_fill(0, $node->getNodeLevel(), '--')) : '';
                 
                 return $pre . (string) $node;
@@ -378,9 +329,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function offsetSet($offset, $node)
     {
@@ -390,9 +339,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function offsetExists($offset)
     {
@@ -400,9 +347,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function offsetUnset($offset)
     {
@@ -410,9 +355,7 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function offsetGet($offset)
     {
@@ -420,16 +363,13 @@ trait Node
     }
 
     /**
-     *
      * @ignore
-     *
      */
     protected function getExplodedPath()
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());
         
-        return array_filter($path, function ($item)
-        {
+        return array_filter($path, function ($item) {
             return '' !== $item;
         });
     }

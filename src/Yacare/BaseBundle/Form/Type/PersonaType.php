@@ -7,11 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaType extends AbstractType
 {
-
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('read_only' => false,'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
+        $resolver->setDefaults(array('read_only' => false, 'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }
 
     public function getParent()

@@ -26,38 +26,32 @@ class Impresion
     }
 
     /**
-     *
      * @var string $EntidadTipo
-     *      @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
 
     /**
-     *
      * @var $EntidadId @ORM\Column(type="integer")
      */
     private $EntidadId;
 
     /**
-     *
      * @var $EntidadVersion @ORM\Column(type="integer", nullable=true)
      */
     private $EntidadVersion;
 
     /**
-     *
      * @var $TipoMime @ORM\Column(type="string", length=50)
      */
     private $TipoMime;
 
     /**
-     *
      * @var $Token @ORM\Column(type="string", length=255)
      */
     private $Token;
 
     /**
-     *
      * @var $Contenido @ORM\Column(type="blob")
      */
     private $Contenido;
@@ -94,61 +88,99 @@ class Impresion
         return base64_encode($imagen_contenido);
     }
 
+    /*** Getters y Setters ****/
+    
+    /**
+     * @ignore
+     */
     public function getEntidadTipo()
     {
         return $this->EntidadTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setEntidadTipo($EntidadTipo)
     {
         $this->EntidadTipo = $EntidadTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function getEntidadId()
     {
         return $this->EntidadId;
     }
 
+    /**
+     * @ignore
+     */
     public function setEntidadId($EntidadId)
     {
         $this->EntidadId = $EntidadId;
     }
 
+    /**
+     * @ignore
+     */
     public function getEntidadVersion()
     {
         return $this->EntidadVersion;
     }
 
+    /**
+     * @ignore
+     */
     public function setEntidadVersion($EntidadVersion)
     {
         $this->EntidadVersion = $EntidadVersion;
     }
 
+    /**
+     * @ignore
+     */
     public function getTipoMime()
     {
         return $this->TipoMime;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipoMime($TipoMime)
     {
         $this->TipoMime = $TipoMime;
     }
 
+    /**
+     * @ignore
+     */
     public function getContenido()
     {
         return $this->Contenido;
     }
 
+    /**
+     * @ignore
+     */
     public function setContenido($Contenido)
     {
         $this->Contenido = $Contenido;
     }
 
+    /**
+     * @ignore
+     */
     public function getToken()
     {
         return $this->Token;
     }
 
+    /**
+     * @ignore
+     */
     public function setToken($Token)
     {
         $this->Token = $Token;
