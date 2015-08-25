@@ -16,8 +16,8 @@ trait ConBuscar
     /**
      * Acción de mostrar el buscador.
      *
-     * @Route("buscar/")
-     * @Template()
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("buscar/")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()
      */
     public function buscarAction(Request $request)
     {
