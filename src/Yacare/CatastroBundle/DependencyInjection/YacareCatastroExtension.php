@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class YacareCatastroExtension extends Extension
 {
-
     /**
      * {@inheritDoc}
      */

@@ -29,11 +29,7 @@ class EntityIdType extends AbstractType
     {
         $em = $this->managerRegistry->getManagerForClass($options['class']);
         
-        $transformer = new EntityToIdTransformer(
-            $em, 
-            $options['class'], 
-            $options['property'], 
-            $options['query_builder'], 
+        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'], 
             $options['multiple']);
         $builder->addModelTransformer($transformer);
     }
@@ -41,14 +37,13 @@ class EntityIdType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
-        $resolver->setDefaults(
-            array(
-                'em' => null, 
-                'property' => 'Nombre', 
-                'query_builder' => null, 
-                'filters' => null, 
-                'hidden' => false, 
-                'multiple' => false));
+        $resolver->setDefaults(array(
+            'em' => null, 
+            'property' => 'Nombre', 
+            'query_builder' => null, 
+            'filters' => null, 
+            'hidden' => false, 
+            'multiple' => false));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

@@ -7,30 +7,31 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RelevamientoAsignacionCalleType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Relevamiento', 'entity', 
-            array(
-                'label' => 'Relevamiento',
-                'class' => 'YacareInspeccionBundle:Relevamiento',
-                'required' => true,
-                'read_only' => true,
+        $builder
+            ->add('Relevamiento', 'entity', array(
+                'label' => 'Relevamiento', 
+                'class' => 'YacareInspeccionBundle:Relevamiento', 
+                'required' => true, 
+                'read_only' => true, 
                 'placeholder' => false))
-            ->add('Encargado', 'entity_id', 
-            array(
-                'label' => 'Encargado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
+            ->add('Encargado', 'entity_id', array(
+                'label' => 'Encargado', 
+                'property' => 'NombreVisible', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Calle', 'entity', 
-            array('label' => 'Calle','class' => 'YacareCatastroBundle:Calle','required' => true,'placeholder' => false));
+            ->add('Calle', 'entity', array(
+                'label' => 'Calle', 
+                'class' => 'YacareCatastroBundle:Calle', 
+                'required' => true, 
+                'placeholder' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
     }
 
     public function getName()

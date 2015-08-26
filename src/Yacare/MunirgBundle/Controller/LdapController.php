@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class LdapController extends Controller
 {
-
     /**
      * @Route("enrolarinicio/")
      * @Route("usuario_alta/", name="usuario_alta")
@@ -33,27 +32,35 @@ class LdapController extends Controller
         $Dominio = 'municipiorg.gob.ar';
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
-        $Documento = str_replace(array('.',' ','-',','), '', $request->get('_documento'));
+        $Documento = str_replace(array(
+            '.', 
+            ' ', 
+            '-', 
+            ','), '', $request->get('_documento'));
         
         if (! $Documento || ! $Usuario || ! $Contrasena) {
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 'Por favor escriba los datos solicitados.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
         
-        $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array('DocumentoNumero' => $Documento));
+        $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array(
+            'DocumentoNumero' => $Documento));
         if (count($Persona) < 1) {
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 
                 'No se encuentra una persona relacionada al DNI Nº ' . $Documento . ' en la base de datos.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         } else 
             if (count($Persona) > 1) {
                 $this->get('session')
                     ->getFlashBag()
                     ->add('danger', 'Hay más de una persona asociada al DNI Nº ' . $Documento . ' en la base de datos.');
+                
                 return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
             }
         
@@ -64,6 +71,7 @@ class LdapController extends Controller
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 'No se encuentra un agente municipal relacionado al DNI Nº ' . $Documento . '.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
         
@@ -73,6 +81,7 @@ class LdapController extends Controller
                 $this->get('session')
                     ->getFlashBag()
                     ->add('warning', 'No se encuentra un agente municipal relacionado al DNI Nº ' . $Documento);
+                
                 return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
             }
         }
@@ -83,9 +92,9 @@ class LdapController extends Controller
         $UsrBind = @\ldap_bind($ServidorAd, $Usuario . '@' . $Dominio, $Contrasena);
         if ($UsrBind) {
             return array(
-                'agente' => $Agente,
-                'usuario' => $Usuario,
-                'contrasena' => $Contrasena,
+                'agente' => $Agente, 
+                'usuario' => $Usuario, 
+                'contrasena' => $Contrasena, 
                 'documento' => $Documento);
         } else {
             $extended_error = '';
@@ -98,6 +107,7 @@ class LdapController extends Controller
                 ->getFlashBag()
                 ->add('danger', 
                 'No se puede conectar con la cuenta proporcionada. Verifique el nombre de usuario y la contraseña.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
     }
@@ -113,14 +123,20 @@ class LdapController extends Controller
         $Dominio = 'municipiorg.gob.ar';
         $Usuario = $request->get('_username');
         $Contrasena = $request->get('_password');
-        $Documento = str_replace(array('.',' ','-',','), '', $request->get('_documento'));
+        $Documento = str_replace(array(
+            '.', 
+            ' ', 
+            '-', 
+            ','), '', $request->get('_documento'));
         
-        $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array('DocumentoNumero' => $Documento));
+        $Persona = $em->getRepository('YacareBaseBundle:Persona')->findBy(array(
+            'DocumentoNumero' => $Documento));
         if (count($Persona) != 1) {
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 
                 'No se encuentra una persona relacionada al DNI Nº ' . $Documento . ' en la base de datos.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
         
@@ -131,6 +147,7 @@ class LdapController extends Controller
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 'No se encuentra un agente municipal relacionado al DNI Nº ' . $Documento . '.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
         
@@ -140,6 +157,7 @@ class LdapController extends Controller
                 $this->get('session')
                     ->getFlashBag()
                     ->add('warning', 'No existe ningún agente con DNI Nº ' . $Documento);
+                
                 return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
             }
         }
@@ -199,15 +217,16 @@ class LdapController extends Controller
             $ldap = null;
             
             return array(
-                'agente' => $Agente,
-                'usuario' => $Usuario,
-                'contrasena' => $Contrasena,
+                'agente' => $Agente, 
+                'usuario' => $Usuario, 
+                'contrasena' => $Contrasena, 
                 'documento' => $Documento);
         } else {
             $this->get('session')
                 ->getFlashBag()
                 ->add('danger', 
                 'No se puede conectar con la cuenta proporcionada. Verifique el nombre de usuario y la contraseña.');
+            
             return $this->redirect($this->generateUrl('yacare_munirg_ldap_enrolarinicio'));
         }
     }

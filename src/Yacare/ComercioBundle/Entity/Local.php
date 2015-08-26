@@ -21,62 +21,66 @@ class Local
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * El tipo de local (local, oficina, depósito, etc.).
      *
-     * @var string @ORM\Column(type="string", length=255)
+     * @var string 
+     * @ORM\Column(type="string", length=255)
      */
     private $Tipo;
-
+    
     /**
      * La superficie en metros cuadrados.
      *
-     * @var float @ORM\Column(type="float")
+     * @var float 
+     * @ORM\Column(type="float")
      */
     private $Superficie;
-
+    
     /**
      * La clase de depósito.
      *
      * Sólo aplica si Tipo es "Depósito".
      *
-     * @see $Tipo @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
+     * @see $Tipo 
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $DepositoClase;
-
+    
     /**
      * Indica si el local comercial posee vereda municipal reglamentaria.
      *
      * @ORM\Column(type="integer",nullable=true)
      */
     private $VeredaMunicipal;
-
+    
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $Canaletas;
-
+    
     /**
      * Indica si el local comercial posee cesto de basura.
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $CestoBasura;
-
+    
     /**
      * Indica si el local comercial tiene salidas de emergencia.
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $PuertaEmergencia;
-
+    
     /**
      * Indica la cantidad de anchos de salidas que tiene un local comercial.
      * La unidad de ancho de salida se establece en 0.55m.
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AnchoSalida;
@@ -111,9 +115,7 @@ class Local
     // *** Getters y setters
     
     /**
-     *
      * @ignore
-     *
      */
     public function getTipo()
     {
@@ -121,9 +123,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getSuperficie()
     {
@@ -131,9 +131,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSuperficie($Superficie)
     {
@@ -142,9 +140,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDepositoClase()
     {
@@ -152,9 +148,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDepositoClase($DepositoClase)
     {
@@ -163,9 +157,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getVeredaMunicipal()
     {
@@ -173,9 +165,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setVeredaMunicipal($VeredaMunicipal)
     {
@@ -184,9 +174,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCanaletas()
     {
@@ -194,9 +182,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCanaletas($Canaletas)
     {
@@ -205,9 +191,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCestoBasura()
     {
@@ -215,9 +199,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCestoBasura($CestoBasura)
     {
@@ -226,9 +208,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getPuertaEmergencia()
     {
@@ -236,9 +216,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setPuertaEmergencia($PuertaEmergencia)
     {
@@ -247,9 +225,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getAnchoSalida()
     {
@@ -257,9 +233,7 @@ class Local
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setAnchoSalida($AnchoSalida)
     {

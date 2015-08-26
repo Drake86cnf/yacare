@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     /**
      * @Route("/ajax_persona", name="ajax_persona")
      */
@@ -17,7 +16,8 @@ class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
     {
         $value = $request->get('term');
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()
+            ->getEntityManager();
         $members = $em->getRepository('YacareBaseBundle:Persona')
             ->createQueryBuilder('o')
             ->where('o.NombreVisible = :nombrevisible')
@@ -27,7 +27,9 @@ class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
         
         $json = array();
         foreach ($members as $member) {
-            $json[] = array('label' => $member->getNombreVisible(),'value' => $member->getId());
+            $json[] = array(
+                'label' => $member->getNombreVisible(), 
+                'value' => $member->getId());
         }
         
         $response = new Response();

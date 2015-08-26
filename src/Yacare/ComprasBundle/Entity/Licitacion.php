@@ -21,68 +21,67 @@ class Licitacion
     // use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     
     /**
-     *
      * @var int $Numero
-     *      @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $Numero;
-
+    
     /**
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
      * @var int $Complejidad1
-     *      @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad1;
-
+    
     /**
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
      * @var int $Complejidad2
-     *      @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad2;
-
+    
     /**
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
      * @var int $Complejidad3
-     *      @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad3;
-
+    
     /**
      * Especifica la complejidad final computada en base a Complejidad1, 2 y 3
      *
      * @var int $ComplejidadComputada
-     *      @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      *     
      */
     private $ComplejidadComputada;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
-
+    
     /**
      * El importe de la licitación
      *
      * @var $PresupuestoOficial @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PresupuestoOficial;
-
+    
     /**
      * El coeficiente es el porcentaje utilizado para calcular el valor del pliego, según ComplejidadComputada
      *
      * @var $PliegoCoeficiente @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PliegoCoeficiente;
-
+    
     /**
      * El valor del pliego
      *
@@ -156,85 +155,133 @@ class Licitacion
         }
     }
 
+    /**
+     * @ignore
+     */
     public function getNumero()
     {
         return $this->Numero;
     }
 
+    /**
+     * @ignore
+     */
     public function setNumero($Numero)
     {
         $this->Numero = $Numero;
     }
 
+    /**
+     * @ignore
+     */
     public function getComplejidad1()
     {
         return $this->Complejidad1;
     }
 
+    /**
+     * @ignore
+     */
     public function setComplejidad1($Complejidad1)
     {
         $this->Complejidad1 = $Complejidad1;
         $this->ComputarComplejidad();
     }
 
+    /**
+     * @ignore
+     */
     public function getComplejidad2()
     {
         return $this->Complejidad2;
     }
 
+    /**
+     * @ignore
+     */
     public function setComplejidad2($Complejidad2)
     {
         $this->Complejidad2 = $Complejidad2;
         $this->ComputarComplejidad();
     }
 
+    /**
+     * @ignore
+     */
     public function getComplejidad3()
     {
         return $this->Complejidad3;
     }
 
+    /**
+     * @ignore
+     */
     public function setComplejidad3($Complejidad3)
     {
         $this->Complejidad3 = $Complejidad3;
         $this->ComputarComplejidad();
     }
 
+    /**
+     * @ignore
+     */
     public function getComplejidadComputada()
     {
         return $this->ComplejidadComputada;
     }
 
+    /**
+     * @ignore
+     */
     public function setComplejidadComputada($ComplejidadComputada)
     {
         $this->ComplejidadComputada = $ComplejidadComputada;
     }
 
+    /**
+     * @ignore
+     */
     public function getDepartamento()
     {
         return $this->Departamento;
     }
 
+    /**
+     * @ignore
+     */
     public function setDepartamento($Departamento)
     {
         $this->Departamento = $Departamento;
     }
 
+    /**
+     * @ignore
+     */
     public function getPresupuestoOficial()
     {
         return $this->PresupuestoOficial;
     }
 
+    /**
+     * @ignore
+     */
     public function setPresupuestoOficial($PresupuestoOficial)
     {
         $this->PresupuestoOficial = $PresupuestoOficial;
         $this->ComputarComplejidad();
     }
 
+    /**
+     * @ignore
+     */
     public function getPliegoValor()
     {
         return $this->PliegoValor;
     }
 
+    /**
+     * @ignore
+     */
     public function getPliegoCoeficiente()
     {
         return $this->PliegoCoeficiente;

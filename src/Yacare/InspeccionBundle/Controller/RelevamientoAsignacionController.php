@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("relevamientoasignacion/")
+ * @Route("relevamientoasignacion/")
  */
 class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmController
 {
@@ -55,7 +55,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
 
     private function ObtenerRelevamientos()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         $query = $em->createQuery(
             "SELECT r.id, r.Nombre FROM YacareInspeccionBundle:Relevamiento r WHERE r.Suprimido=0 ORDER BY r.Nombre");
         return $query->getResult();
@@ -77,8 +77,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables($request, 
-                    array('filtro_relevamiento' => $entity->getRelevamiento()
+                $this->ArrastrarVariables($request, array(
+                    'filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
 
@@ -86,8 +86,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables($request, 
-                    array('filtro_relevamiento' => $entity->getRelevamiento()
+                $this->ArrastrarVariables($request, array(
+                    'filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
 
@@ -99,7 +99,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
      */
     public function guardarAction(Request $request, $id = null)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         
         if ($id) {
             $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
@@ -125,24 +125,27 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
             // ************************* Guardar detalles
             if ($entity->getCalle()) {
                 // Es por calle
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(
-                    array('DomicilioCalle' => $entity->getCalle()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array(
+                    'DomicilioCalle' => $entity->getCalle()));
             } else {
                 // Es por S-M-P
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(
-                    array('Seccion' => $entity->getSeccion(),'Macizo' => $entity->getMacizo()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array(
+                    'Seccion' => $entity->getSeccion(), 
+                    'Macizo' => $entity->getMacizo()));
                 // Guardo un cookie para que el formulario conserve la última información
                 $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'] = $entity->getSeccion();
             }
             
             if ($partidas) {
                 /*
-                 * $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad=0') ->setParameter('asignacion_id', $entity->getId()) ->execute();
+                 * $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r
+                 * WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad=0') ->setParameter('asignacion_id',
+                 * $entity->getId()) ->execute();
                  */
                 
                 // Marco los resultados en blanco actuales como cancelados
-                $numDeleted = $em->createQuery(
-                    'UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET r.Suprimido=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
+                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET 
+                    r.Suprimido=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
                     ->setParameter('asignacion_id', $entity->getId())
                     ->execute();
                 
@@ -171,7 +174,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
                 $entity->setDetallesCantidad($DetallesCantidad);
                 $em->persist($entity);
                 
-                // $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad>0')
+                // $numDeleted = $em->createQuery('DELETE FROM YacareInspeccionBundle:RelevamientoAsignacionDetalle r
+                // WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad>0')
                 // ->setParameter('asignacion_id', $entity->getId())
                 // ->execute();
             }
@@ -181,13 +185,16 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
             
             return $this->redirect(
                 $this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar'), 
-                    array('filtro_relevamiento' => $entity->getRelevamiento()
-                        ->getId())));
+                    array(
+                        'filtro_relevamiento' => $entity->getRelevamiento()
+                            ->getId())));
         }
         
         // $this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => true, 
+            'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -217,8 +224,10 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $editForm = $this->createForm(new $typeName(), $entity);
         // $deleteForm = $this->CrearFormEliminar($id);
         
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => true, 
+            'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -251,7 +260,9 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
         
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity,'create' => true,'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => true, 
+            'edit_form' => $editForm->createView()));
     }
 }

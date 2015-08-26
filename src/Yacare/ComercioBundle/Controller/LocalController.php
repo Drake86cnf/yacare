@@ -16,7 +16,6 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
     function IniciarVariables()
     {
         parent::IniciarVariables();
-        
         $this->BuscarPor = null;
     }
 
@@ -43,7 +42,6 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
                     OR t.Cuilt LIKE '%$palabra%')";
             }
         }
-        
         $res = parent::listarAction($request);
         
         return $res;

@@ -18,18 +18,19 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
         parent::__construct();
         $this->Nombre = 'Habilitación comercial';
     }
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Comercio;
-
+    
     /**
      * Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad
      * seleccionada.
      *
-     * @var string @ORM\Column(type="integer", nullable=true)
+     * @var string 
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $UsoSuelo;
 

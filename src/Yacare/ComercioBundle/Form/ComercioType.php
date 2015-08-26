@@ -7,31 +7,31 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ComercioType extends ComercioSimpleType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
         
         $builder
             ->add('Titular', 'entity_id', array(
-                'label' => 'Titular',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'label' => 'Titular', 
+                'property' => 'NombreVisible', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
             ->add('Estado', 'choice', array(
-                'label' => 'Estado',
-                'required' => true,
+                'label' => 'Estado', 
+                'required' => true, 
                 'choices' => array(
-                    0 => 'No habilitado',
-                    1 => 'Habilitación en trámite',
-                    90 => 'Cerrado',
-                    91 => 'Habilitación vencida',
+                    0 => 'No habilitado', 
+                    1 => 'Habilitación en trámite', 
+                    90 => 'Cerrado', 
+                    91 => 'Habilitación vencida', 
                     100 => 'Habilitado')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
     }
 
     public function getName()

@@ -7,19 +7,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartidaType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Seccion', null, array('label' => 'Sección'))
-            ->add('Macizo', null, array('label' => 'Macizo'))
-            ->add('Parcela', null, array('label' => 'Parcela'))
+        $builder
+            ->add('Seccion', null, array(
+                'label' => 'Sección'))
+            ->add('Macizo', null, array(
+                'label' => 'Macizo'))
+            ->add('Parcela', null, array(
+                'label' => 'Parcela'))
             ->setAttribute('widget', 'form_horizontal');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('inherit_data' => true,'class' => 'form_horizontal'));
+        $resolver->setDefaults(array(
+            'inherit_data' => true, 
+            'class' => 'form_horizontal'));
     }
 
     public function getName()

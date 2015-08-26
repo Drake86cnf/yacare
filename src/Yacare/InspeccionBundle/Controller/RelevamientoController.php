@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("relevamiento/")
+ * @Route("relevamiento/")
  */
 class RelevamientoController extends \Tapir\BaseBundle\Controller\AbmController
 {
