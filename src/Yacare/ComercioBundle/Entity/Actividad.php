@@ -18,155 +18,171 @@ class Actividad implements Tree\NodeInterface
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Model\Tree\Node;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
-
+    
     /**
      * Código correspondiente en el ClaNAE 1997 de INDEC.
      *
-     * @var string @ORM\Column(type="string", nullable=true, length=50)
+     * @var string 
+     * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae1997;
-
+    
     /**
      * Código correspondiente en el ClaNAE 2010 de INDEC.
      *
-     * @var string @ORM\Column(type="string", nullable=true, length=50)
+     * @var string 
+     * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae2010;
-
+    
     /**
      * Código correspondiente en la RG 3537/13 de AFIP.
      *
-     * @var string @ORM\Column(type="string", nullable=true, length=50)
+     * @var string 
+     * @ORM\Column(type="string", nullable=true, length=50)
      *     
-     *      RG 3537/13 AFIP
+     * RG 3537/13 AFIP
      */
     private $ClaeAfip;
-
+    
     /**
      * Código correspondiente en la Ley 854/11 de la DGR de TDF.
      *
-     * @var string @ORM\Column(type="string", nullable=true, length=50)
+     * @var string 
+     * @ORM\Column(type="string", nullable=true, length=50)
      *     
-     *      Ley 854/11 DGR-TDF
+     * Ley 854/11 DGR-TDF
      */
     private $DgrTdf;
-
+    
     /**
-     * @ORM\Column(type="string", nullable=true, length=50)
      * Los códigos Clamae2014 tienen el siguiente formato: CDDGCSMM
-     * C Categoría, alfabética
-     * DD División, numérica
-     * G Grupo, numérico
-     * C Clase, numérica
-     * S Sub-clase, numérica
-     * MM Subdivisión del Municipio de Río Grande
+     *     C Categoría, alfabética
+     *     DD División, numérica
+     *     G Grupo, numérico
+     *     C Clase, numérica
+     *     S Sub-clase, numérica
+     *     MM Subdivisión del Municipio de Río Grande
      *
      * Por ejemplo: R9521000
+     * 
+     * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clamae2014;
-
+    
     /**
      * Indica la categoría correspondiente en los rubros anteriores.
      *
-     * @var integer @ORM\Column(type="integer", nullable=false)
+     * @var integer 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $CategoriaAntigua = 0;
-
+    
     /**
      * Código correspondiente en la tabla del CPU.
      *
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $CodigoCpu;
-
+    
     /**
      * Indica si esta actividad requiere de aprobación por parte de Bromatología e Higiene.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereDbeh = false;
-
+    
     /**
      * Indica si esta actividad requiere de aprobación por parte de Ecología y medioambiente.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereDeyma = false;
-
+    
     /**
      * Algunas actividades están exentas del requisito de habilitación comercial.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $Exento = false;
-
+    
     /**
      * Indica si esta actividad requiere la instalación de una cámara decantadora de barro.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereCamaraBarro = false;
-
+    
     /**
      * Indica si esta actividad requiere la instalación de una cámara decantadora de grasa.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereCamaraGrasa = false;
-
+    
     /**
      * Indica si esta actividad requiere la aprobación de Infraestructura Escolar de provincia.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereInfEscolar = false;
     
     /**
      * Indica si esta actividad requiere un estudio de impacto sonoro.
      *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $RequiereImpactoSonoro = false;
     
     /**
      * Indica si esta actividad requiere especificar un factor de ocupación de personas, o cero si no requiere.
      *
-     * @var bool @ORM\Column(type="integer")
+     * @var bool 
+     * @ORM\Column(type="integer")
      */
     private $RequiereFactorOcupacion = 0;
-
+    
     /**
-     *
-     * @var bool @ORM\Column(type="boolean")
+     * @var bool 
+     * @ORM\Column(type="boolean")
      */
     private $Ley105 = false;
-
+    
     /**
      * Texto que explica los alcances de la actividad.
      *
-     * @var string @ORM\Column(type="text", nullable=true)
+     * @var string 
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Incluye;
-
+    
     /**
      * Texto que explica aquellas cosas que esta actividad no contempla.
      *
-     * @var string @ORM\Column(type="text", nullable=true)
+     * @var string 
+     * @ORM\Column(type="text", nullable=true)
      */
     private $NoIncluye;
-
+    
     /**
-     *
-     * @var string @ORM\Column(type="string", nullable=true, length=255)
+     * @var string 
+     * @ORM\Column(type="string", nullable=true, length=255)
      */
     private $Instructivos;
-
+    
     /**
      * Indica si es una actividad (final = 1) o una categorización (final = 0).
      * Sólo pueden seleccionarse como actividades para un comercio las actividades finales.
@@ -175,7 +191,7 @@ class Actividad implements Tree\NodeInterface
      */
     private $Final = false;
 
-    static public function NombresCategorias($categoria = null)
+    public static function NombresCategorias($categoria = null)
     {
         switch ($categoria) {
             case 'I':
@@ -255,219 +271,317 @@ class Actividad implements Tree\NodeInterface
         $this->Clanae2010 = substr($this->Clamae2014, 0, 6);
     }
 
+    /**
+     * @ignore
+     */
     public function getClamae2014()
     {
         return $this->Clamae2014;
     }
 
+    /**
+     * @ignore
+     */
     public function getClanae1997()
     {
         return $this->Clanae1997;
     }
 
+    /**
+     * @ignore
+     */
     public function getClanae2010()
     {
         return $this->Clanae2010;
     }
 
+    /**
+     * @ignore
+     */
     public function getClaeAfip()
     {
         return $this->ClaeAfip;
     }
 
+    /**
+     * @ignore
+     */
     public function getDgrTdf()
     {
         return $this->DgrTdf;
     }
 
+    /**
+     * @ignore
+     */
     public function getCodigoCpu()
     {
         return $this->CodigoCpu;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiereDbeh()
     {
         return $this->RequiereDbeh;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiereDeyma()
     {
         return $this->RequiereDeyma;
     }
 
+    /**
+     * @ignore
+     */
     public function getExento()
     {
         return $this->Exento;
     }
 
+    /**
+     * @ignore
+     */
     public function getLey105()
     {
         return $this->Ley105;
     }
 
+    /**
+     * @ignore
+     */
     public function getIncluye()
     {
         return $this->Incluye;
     }
 
+    /**
+     * @ignore
+     */
     public function getNoIncluye()
     {
         return $this->NoIncluye;
     }
 
+    /**
+     * @ignore
+     */
     public function getInstructivos()
     {
         return $this->Instructivos;
     }
 
+    /**
+     * @ignore
+     */
     public function setClanae1997($Clanae1997)
     {
         $this->Clanae1997 = $Clanae1997;
     }
 
+    /**
+     * @ignore
+     */
     public function setClanae2010($Clanae2010)
     {
         $this->Clanae2010 = $Clanae2010;
     }
 
+    /**
+     * @ignore
+     */
     public function setClaeAfip($ClaeAfip)
     {
         $this->ClaeAfip = $ClaeAfip;
     }
 
+    /**
+     * @ignore
+     */
     public function setDgrTdf($DgrTdf)
     {
         $this->DgrTdf = $DgrTdf;
     }
 
+    /**
+     * @ignore
+     */
     public function setCodigoCpu($CodigoCpu)
     {
         $this->CodigoCpu = $CodigoCpu;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequiereDbeh($RequiereDbeh)
     {
         $this->RequiereDbeh = $RequiereDbeh;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequiereDeyma($RequiereDeyma)
     {
         $this->RequiereDeyma = $RequiereDeyma;
     }
 
+    /**
+     * @ignore
+     */
     public function setExento($Exento)
     {
         $this->Exento = $Exento;
     }
 
+    /**
+     * @ignore
+     */
     public function setLey105($Ley105)
     {
         $this->Ley105 = $Ley105;
     }
 
+    /**
+     * @ignore
+     */
     public function setIncluye($Incluye)
     {
         $this->Incluye = $Incluye;
     }
 
+    /**
+     * @ignore
+     */
     public function setNoIncluye($NoIncluye)
     {
         $this->NoIncluye = $NoIncluye;
     }
 
+    /**
+     * @ignore
+     */
     public function setInstructivos($Instructivos)
     {
         $this->Instructivos = $Instructivos;
     }
 
+    /**
+     * @ignore
+     */
     public function getCategoriaAntigua()
     {
         return $this->CategoriaAntigua;
     }
 
+    /**
+     * @ignore
+     */
     public function setCategoriaAntigua($CategoriaAntigua)
     {
         $this->CategoriaAntigua = $CategoriaAntigua;
     }
 
+    /**
+     * @ignore
+     */
     public function getFinal()
     {
         return $this->Final;
     }
 
+    /**
+     * @ignore
+     */
     public function setFinal($Final)
     {
         $this->Final = $Final;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiereCamaraBarro()
     {
         return $this->RequiereCamaraBarro;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiereCamaraGrasa()
     {
         return $this->RequiereCamaraGrasa;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequiereCamaraBarro($RequiereCamaraBarro)
     {
         $this->RequiereCamaraBarro = $RequiereCamaraBarro;
     }
-
+    
+    /**
+     * @ignore
+     */
     public function setRequiereCamaraGrasa($RequiereCamaraGrasa)
     {
         $this->RequiereCamaraGrasa = $RequiereCamaraGrasa;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiereInfEscolar()
     {
         return $this->RequiereInfEscolar;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequiereInfEscolar($RequiereInfEscolar)
     {
         $this->RequiereInfEscolar = $RequiereInfEscolar;
     }
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getRequiereImpactoSonoro() {
-		return $this->RequiereImpactoSonoro;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setRequiereImpactoSonoro($RequiereImpactoSonoro) {
-		$this->RequiereImpactoSonoro = $RequiereImpactoSonoro;
-		return $this;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function getRequiereFactorOcupacion() {
-		return $this->RequiereFactorOcupacion;
-	}
-	
-	/**
-	 *
-	 * @ignore
-	 *
-	 */
-	public function setRequiereFactorOcupacion($RequiereFactorOcupacion) {
-		$this->RequiereFactorOcupacion = $RequiereFactorOcupacion;
-		return $this;
-	}
-	
-	
-	
+
+    /**
+     * @ignore
+     */
+    public function getRequiereImpactoSonoro()
+    {
+        return $this->RequiereImpactoSonoro;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setRequiereImpactoSonoro($RequiereImpactoSonoro)
+    {
+        $this->RequiereImpactoSonoro = $RequiereImpactoSonoro;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getRequiereFactorOcupacion()
+    {
+        return $this->RequiereFactorOcupacion;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setRequiereFactorOcupacion($RequiereFactorOcupacion)
+    {
+        $this->RequiereFactorOcupacion = $RequiereFactorOcupacion;
+        return $this;
+    }
 }

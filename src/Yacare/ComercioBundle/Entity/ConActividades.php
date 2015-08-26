@@ -13,31 +13,31 @@ trait ConActividades
      * @Symfony\Component\Validator\Constraints\NotBlank(message="Debe elegir una actividad primaria.")
      */
     protected $Actividad1;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad2;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad3;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad4;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad5;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -141,9 +141,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad1()
     {
@@ -151,9 +149,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad1($Actividad1)
     {
@@ -162,9 +158,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad2()
     {
@@ -172,9 +166,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad2($Actividad2)
     {
@@ -183,9 +175,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad3()
     {
@@ -193,9 +183,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad3($Actividad3)
     {
@@ -204,9 +192,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad4()
     {
@@ -214,9 +200,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad4($Actividad4)
     {
@@ -225,9 +209,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad5()
     {
@@ -235,9 +217,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad5($Actividad5)
     {
@@ -246,9 +226,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getActividad6()
     {
@@ -256,9 +234,7 @@ trait ConActividades
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setActividad6($Actividad6)
     {

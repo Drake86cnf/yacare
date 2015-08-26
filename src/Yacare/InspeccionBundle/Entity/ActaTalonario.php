@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table(name="Inspeccion_ActaTalonario")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_ActaTalonario")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class ActaTalonario
 {
@@ -17,24 +17,24 @@ class ActaTalonario
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")
      */
     protected $Tipo;
-
+    
     /**
-     *
-     * @var int @ORM\Column(type="integer")
+     * @var int 
+     * @ORM\Column(type="integer")
      */
     private $NumeroDesde;
-
+    
     /**
-     *
-     * @var int @ORM\Column(type="integer")
+     * @var int 
+     * @ORM\Column(type="integer")
      */
     private $NumeroHasta;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
@@ -47,43 +47,67 @@ class ActaTalonario
         $this->Nombre = $this->Tipo . ' Nº del ' . $this->NumeroDesde . ' al ' . $this->NumeroHasta;
     }
 
+    /**
+     * @ignore
+     */
     public function getTipo()
     {
         return $this->Tipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setNumeroDesde($NumeroDesde)
     {
         $this->NumeroDesde = $NumeroDesde;
         $this->ConstruirNombre();
     }
 
+    /**
+     * @ignore
+     */
     public function setNumeroHasta($NumeroHasta)
     {
         $this->NumeroHasta = $NumeroHasta;
         $this->ConstruirNombre();
     }
 
+    /**
+     * @ignore
+     */
     public function getEnPoderDe()
     {
         return $this->EnPoderDe;
     }
 
+    /**
+     * @ignore
+     */
     public function setEnPoderDe($EnPoderDe)
     {
         $this->EnPoderDe = $EnPoderDe;
     }
 
+    /**
+     * @ignore
+     */
     public function getNumeroDesde()
     {
         return $this->NumeroDesde;
     }
 
+    /**
+     * @ignore
+     */
     public function getNumeroHasta()
     {
         return $this->NumeroHasta;

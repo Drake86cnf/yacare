@@ -3,11 +3,31 @@ namespace Yacare\MunirgBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+/**
+ * Clase que soluciona problemas conocidos sobre distintas cadenas de texto.
+ * 
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ * @author Alejandro Díaz <adiaz.rc@gmail.com>
+ */
 class StringHelper
 {
+    /**
+     * Verifica si un decreto es mínimamente válido para su posterior procesamiento.
+     * 
+     * @param string $Decreto
+     * 
+     * @return boolean
+     */
     public static function EsDecretoValido($Decreto)
     {
-        $Decreto = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
+        $Decreto = str_replace(array(
+            '.', 
+            ',', 
+            '-', 
+            ' ', 
+            'Nº', 
+            'N', 
+            'Y'), '', trim($Decreto));
         $Decreto = strtoupper(str_replace('//', '/', $Decreto));
         $BuscarNumeros = self::SepararSiglasYNumerosDecreto($Decreto);
         
@@ -65,14 +85,38 @@ class StringHelper
         return true;
     }
 
+    /**
+     * Devuelve el decreto con formato aplicado.
+     * 
+     * @param string $Decreto para procesamiento.
+     * 
+     * @return string $Decreto formateado.
+     */
     public static function FormatearDecreto($Decreto)
     {
-        $Decreto = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
+        $Decreto = str_replace(array(
+            '.', 
+            ',', 
+            '-', 
+            ' ', 
+            'Nº', 
+            'N', 
+            'Y'), '', trim($Decreto));
         $Decreto = strtoupper(str_replace('//', '/', $Decreto));
         
         return StringHelper::SustituirPrefijo($Decreto);
     }
 
+    /**
+     * Normaliza los prefijos.
+     * 
+     * Prefijos = siglas que identifican una resolución de un decreto. 
+     * Además aplica formato completo al año del mismo. 
+     * 
+     * @param string $Decreto
+     * 
+     * @return string $Decreto previamente formateado.
+     */
     public static function SustituirPrefijo($Decreto)
     {
         $PartesDecreto = array();
@@ -129,9 +173,26 @@ class StringHelper
         return $Decreto = $PartesDecreto[0] . $PartesDecreto[1];
     }
 
+    /**
+     * Rutina que identifica la posición de un número sobre una cadena de caracteres dada.
+     * 
+     * @param string $Decreto
+     * 
+     * @return integer $i La posición del número encontrado. O la posición del final de la cadena.
+     */
     public static function SepararSiglasYNumerosDecreto($Decreto)
     {
-        $TieneNumeros = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        $TieneNumeros = array(
+            '0', 
+            '1', 
+            '2', 
+            '3', 
+            '4', 
+            '5', 
+            '6', 
+            '7', 
+            '8', 
+            '9');
         
         for ($i = 0; $i < strlen($Decreto) && $Decreto{$i} != '/'; $i ++) {
             foreach ($TieneNumeros as $Numero) {
@@ -148,7 +209,9 @@ class StringHelper
         $Aguja = 'A/C';
         $CategoriaN = null;
         $flag = true;
-        $Devolver = array('Bandera' => $flag, 'categoria_nueva' => $CategoriaN);
+        $Devolver = array(
+            'Bandera' => $flag, 
+            'categoria_nueva' => $CategoriaN);
         if (strlen($Acargo >= 3)) {
             $Resultado = strpos($Acargo, $Aguja);
             if ($Resultado) {
@@ -169,6 +232,7 @@ class StringHelper
             }
         } else {
             $Devolver[0] = false;
+            
             return $Devolver;
         }
     }

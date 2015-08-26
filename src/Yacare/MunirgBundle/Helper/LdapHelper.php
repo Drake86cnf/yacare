@@ -5,7 +5,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class LdapHelper
 {
-
     protected $ConnRg = null;
     protected $ConnMuni = null;
     protected $container = null;
@@ -34,7 +33,6 @@ class LdapHelper
         $this->ConnMuni->Connect();
     }
 
-
     public function CambiarContrasena($Agente)
     {
         $ContrasenaLdap = $this->container->getParameter('munirg_ldap_contrasena');
@@ -42,14 +40,16 @@ class LdapHelper
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
         $Contrasena = $Agente->getPersona()->getPasswordEnc();
         // setlocale(LC_CTYPE, "en_US.UTF-8");
-        exec("ssh -n apache@antares 'winexe --interactive=0 -U DIR/Administrador%" . $ContrasenaLdap . " //192.168.130.105 \"net user " .
-            addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
-        //exec("ssh -n root@pegasus 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " .
-        //         escapeshellarg($Contrasena) . "'");
+        exec("ssh -n apache@antares 'winexe --interactive=0 -U DIR/Administrador%" . $ContrasenaLdap .
+             " //192.168.130.105 \"net user " . addcslashes($NombreUsuario, '\\"') . " " .
+             addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
+        // exec("ssh -n root@pegasus 'sudo -u ebox changeadpw " . escapeshellarg($NombreUsuario) . " " .
+        // escapeshellarg($Contrasena) . "'");
         // Hay que hacer esto por SSH (a localhost) porque winexe no se ejecuta correctamente mediante exec() en
         // una sesión del servidor web.
-        //exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%" . $ContrasenaLdap . " //192.168.100.44 \"net user " .
-        //         addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
+        // exec("ssh -n apache@antares 'winexe --interactive=0 -U MUNICIPIORG/Administrador%" . $ContrasenaLdap . "
+    // //192.168.100.44 \"net user " .
+        // addcslashes($NombreUsuario, '\\"') . " " . addcslashes($Contrasena, '\\"') . "\" > /dev/null 2>&1'");
         // $this->ConnRg->UserSetPass($NombreUsuario, $Agente->getPersona()->getPasswordEnc());
     }
 
@@ -57,7 +57,6 @@ class LdapHelper
     {
         return addcslashes($s, '\\"');
     }
-
 
     public function AgregarOActualizarAgente($Agente)
     {
@@ -67,18 +66,18 @@ class LdapHelper
         $usuarioviejo = $this->ConnMuni->UserGet($NombreUsuario);
         
         $AtributosGenerales = array(
-            'sAMAccountName' => $NombreUsuario,
-            'givenName' => $Agente->getPersona()->getNombre(),
-            'sn' => $Agente->getPersona()->getApellido(),
-            'displayName' => $Agente->getPersona()->getNombre() . ' ' . $Agente->getPersona()->getApellido(),
-            'cn' => $Agente->getPersona()->getNombre() . ' ' . $Agente->getPersona()->getApellido(),
-            'company' => 'Municipio de Río Grande',
-            'l' => 'Río Grande',
-            'st' => 'Tierra del Fuego',
-            'postalCode' => '9420',
-            'description' => 'Agente Municipal Legajo Nº ' . $Agente->getId(),
-            'employeeNumber' => $Agente->getId(),
-            'department' => $Agente->getDepartamento()->getNombre(),
+            'sAMAccountName' => $NombreUsuario, 
+            'givenName' => $Agente->getPersona()->getNombre(), 
+            'sn' => $Agente->getPersona()->getApellido(), 
+            'displayName' => $Agente->getPersona()->getNombre() . ' ' . $Agente->getPersona()->getApellido(), 
+            'cn' => $Agente->getPersona()->getNombre() . ' ' . $Agente->getPersona()->getApellido(), 
+            'company' => 'Municipio de Río Grande', 
+            'l' => 'Río Grande', 
+            'st' => 'Tierra del Fuego', 
+            'postalCode' => '9420', 
+            'description' => 'Agente Municipal Legajo Nº ' . $Agente->getId(), 
+            'employeeNumber' => $Agente->getId(), 
+            'department' => $Agente->getDepartamento()->getNombre(), 
             'userAccountControl' => $Agente->getSuprimido() ? 514 : 512
             
             /* 'change_password' => false,
@@ -87,8 +86,8 @@ class LdapHelper
             'password' => $Agente->getPersona()->getPasswordEnc(), */
         );
         
-        $AttrRg = array_merge($AtributosGenerales, 
-            array('userPrincipalName' => $NombreUsuario . '@DIR.RIOGRANDE.GOB.AR'));
+        $AttrRg = array_merge($AtributosGenerales, array(
+            'userPrincipalName' => $NombreUsuario . '@DIR.RIOGRANDE.GOB.AR'));
         
         if ($usuarionuevo) {
             // Actualizar usuario en el dominio nuevo
@@ -98,8 +97,8 @@ class LdapHelper
             $this->ConnRg->UserAdd($NombreUsuario, $AttrRg);
         }
         
-        $AttrMuni = array_merge($AtributosGenerales, 
-            array('userPrincipalName' => $NombreUsuario . '@MUNICIPIORG.GOB.AR'));
+        $AttrMuni = array_merge($AtributosGenerales, array(
+            'userPrincipalName' => $NombreUsuario . '@MUNICIPIORG.GOB.AR'));
         
         if ($usuarioviejo) {
             // Actualizar usuario en el dominio viejo
@@ -113,7 +112,6 @@ class LdapHelper
         // $this->AjustarGrupos($this->ConnMuni, $Agente);
     }
 
-
     public function ObtenerGruposAnteriores($Agente)
     {
         $NombreUsuario = strtolower($Agente->getPersona()->getUsername());
@@ -122,9 +120,9 @@ class LdapHelper
         foreach ($Usuario['memberof'] as $GrupoUsuario) {
             $GruposUsuario[] = $GrupoUsuario;
         }
+        
         return $GruposUsuario;
     }
-
 
     /*
      * Agrega o quita al usuario de los grupos que corresponda
@@ -167,8 +165,7 @@ class LdapHelper
     /**
      * Crea o actualiza la descripción de un grupo.
      * 
-     * @param AgenteGrupo $entity
-     *            Un grupo de agentes, para replicar en LDAP.
+     * @param AgenteGrupo $entity Un grupo de agentes, para replicar en LDAP.
      */
     public function AgregarOActualizarGrupo($entity)
     {

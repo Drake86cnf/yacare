@@ -4,36 +4,27 @@ namespace Yacare\MunirgBundle\Helper;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class AdConnection
-{
-
+{    
     /**
      * Holds the LDAP connection.
      */
     private $conn;
-
+    
     /**
      * Domain controller name or address.
      */
     protected $Controller, $Domain;
-
     protected $UseSsl = false, $FollowReferrals = false;
-
     protected $AccountSuffix, $BaseDn;
-
     protected $AdminUsername, $AdminPassword;
-
+    
     public $DomainAdminsGroupName = 'Domain Admins';
-
     public $DomainUsersGroupName = 'Domain Users';
-
+    
     const UAC_ACCOUNTDISABLE = 2;
-
     const UAC_PASSWD_NOTREQD = 32;
-
     const UAC_PASSWD_CANT_CHANGE = 64;
-
     const UAC_NORMAL_ACCOUNT = 512;
-
     const UAC_DONT_EXPIRE_PASSWORD = 65536;
 
     public function __construct($controller, $domain, $adminUsername, $adminPassword)
@@ -93,7 +84,12 @@ class AdConnection
         
         $UserDn = $this->GetUserDnByCn($attr['cn']);
         
-        $attr['objectClass'] = array('top','person','organizationalPerson','user');
+        $attr['objectClass'] = array(
+            'top', 
+            'person', 
+            'organizationalPerson', 
+            'user');
+        
         return ldap_add($this->conn, $UserDn, $attr);
     }
 
@@ -109,8 +105,10 @@ class AdConnection
 
     public function UserSetPass($username, $newpass)
     {
-        $attr = array('unicodePwd' => $this->EncodePassword($newpass));
+        $attr = array(
+            'unicodePwd' => $this->EncodePassword($newpass));
         echo 'Password change: ' . $newpass;
+        
         return ldap_mod_replace($this->conn, $this->GetUserDnByUsername($username), $attr);
     }
 
@@ -123,6 +121,7 @@ class AdConnection
             $newpw .= "{$pw{$i}}\000";
         }
         $newpw = base64_encode($newpw);
+        
         return $newpw;
     }
 
@@ -137,15 +136,15 @@ class AdConnection
         }
         $filter .= ')';
         $fields = array(
-            'samaccountname',
-            'cn',
-            'mail',
-            'memberof',
-            'primarygroupid',
-            'department',
-            'displayname',
-            'telephonenumber',
-            'primarygroupid',
+            'samaccountname', 
+            'cn', 
+            'mail', 
+            'memberof', 
+            'primarygroupid', 
+            'department', 
+            'displayname', 
+            'telephonenumber', 
+            'primarygroupid', 
             'objectsid');
         
         $sr = ldap_search($this->conn, $this->BaseDn, $filter, $fields);
@@ -180,18 +179,23 @@ class AdConnection
             $Users[$i] = $UserInfo;
         }
         asort($Users);
+        
         return $Users;
     }
 
     public function GroupRemUser($groupname, $username)
     {
-        $attr = array('member' => $this->GetUserDnByUsername($username));
+        $attr = array(
+            'member' => $this->GetUserDnByUsername($username));
+        
         return ldap_mod_del($this->conn, $this->GetGroupDnByCn($groupname), $attr);
     }
 
     public function GroupAddUser($groupname, $username)
     {
-        $attr = array('member' => $this->GetUserDnByUsername($username));
+        $attr = array(
+            'member' => $this->GetUserDnByUsername($username));
+        
         return ldap_mod_add($this->conn, $this->GetGroupDnByCn($groupname), $attr);
     }
 
@@ -199,7 +203,9 @@ class AdConnection
     {
         $filter = '(&(objectCategory=group)';
         $filter .= '(cn=' . $search . '))';
-        $fields = array('samaccountname','description');
+        $fields = array(
+            'samaccountname', 
+            'description');
         $sr = ldap_search($this->conn, $this->BaseDn, $filter, $fields);
         $entries = ldap_get_entries($this->conn, $sr);
         
@@ -213,6 +219,7 @@ class AdConnection
             }
         }
         asort($groupsArray);
+        
         return $groupsArray;
     }
 
@@ -226,19 +233,24 @@ class AdConnection
         $attributes["cn"] = $this->CustomizeAdminGroupName($groupName);
         $attributes["samaccountname"] = $this->CustomizeAdminGroupName($groupName);
         $attributes["description"] = $groupDescription;
-        $attributes["objectClass"] = array('group','top');
+        $attributes["objectClass"] = array(
+            'group', 
+            'top');
+        
         return ldap_add($this->conn, $this->GetGroupDnByCn($groupName), $attributes);
     }
 
     public function GroupMod($groupName, $groupDescription, $attributes = array())
     {
         $attributes["description"] = $groupDescription;
+        
         return ldap_mod_replace($this->conn, $this->GetGroupDnByCn($groupName), $attributes);
     }
 
     protected function GetUserDnByUsername($username)
     {
         $User = $this->UserGet($username);
+        
         return $this->GetUserDnByCn($User['cn']);
     }
 
@@ -258,6 +270,7 @@ class AdConnection
         if (strlen($res) > 3 && substr($res, 0, 3) == 'CN=') {
             $res = substr($res, 3, strlen($res) - 3);
         }
+        
         return $res;
     }
 

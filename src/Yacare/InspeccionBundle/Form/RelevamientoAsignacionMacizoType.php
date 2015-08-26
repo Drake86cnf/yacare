@@ -7,31 +7,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RelevamientoAsignacionMacizoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Relevamiento', 'entity', 
-            array(
-                'label' => 'Relevamiento',
-                'class' => 'YacareInspeccionBundle:Relevamiento',
-                'required' => true,
-                'read_only' => true,
-                'placeholder' => false,
+        $builder
+            ->add('Relevamiento', 'entity', array(
+                'label' => 'Relevamiento', 
+                'class' => 'YacareInspeccionBundle:Relevamiento', 
+                'required' => true, 
+                'read_only' => true, 
+                'placeholder' => false, 
                 'property' => 'Nombre'))
-            ->add('Encargado', 'entity_id', 
-            array(
-                'label' => 'Encargado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
+            ->add('Encargado', 'entity_id', array(
+                'label' => 'Encargado', 
+                'property' => 'NombreVisible', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Seccion', null, array('label' => 'Sección','required' => true))
-            ->add('Macizo', null, array('label' => 'Macizo','required' => true));
+            ->add('Seccion', null, array(
+                'label' => 'Sección', 
+                'required' => true))
+            ->add('Macizo', null, array(
+                'label' => 'Macizo', 
+                'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
     }
 
     public function getName()

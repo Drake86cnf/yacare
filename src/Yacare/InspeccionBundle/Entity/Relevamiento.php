@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table("Inspeccion_Relevamiento")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table("Inspeccion_Relevamiento")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Relevamiento
 {
@@ -30,26 +30,39 @@ class Relevamiento
     private $Asignaciones;
 
     /**
-     *
-     * @var \DateTime @ORM\Column(type="datetime")
+     * @var \DateTime 
+     * 
+     * @ORM\Column(type="datetime")
      */
     private $FechaInicio;
 
+    /**
+     * @ignore
+     */
     public function getFechaInicio()
     {
         return $this->FechaInicio;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaInicio(\DateTime $fechaInicio)
     {
         $this->FechaInicio = $fechaInicio;
     }
 
+    /**
+     * @ignore
+     */
     public function getAsignaciones()
     {
         return $this->Asignaciones;
     }
 
+    /**
+     * @ignore
+     */
     public function setAsignaciones($Asignaciones)
     {
         $this->Asignaciones = $Asignaciones;

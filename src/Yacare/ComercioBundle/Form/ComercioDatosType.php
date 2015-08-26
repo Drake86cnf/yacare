@@ -7,7 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ComercioDatosType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -15,18 +14,20 @@ class ComercioDatosType extends AbstractType
         $builder
             ->add('Nombre', null, array(
                 'label' => 'Nombre de fantasía'))
-            ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), 
-                array('label' => 'Expediente', 'required' => false))
+            ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), array(
+                'label' => 'Expediente', 
+                'required' => false))
             ->add('Apoderado', 'entity_id', array(
-                'label' => 'Apoderado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'label' => 'Apoderado', 
+                'property' => 'NombreVisible', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
     }
 
     public function getName()

@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ZonaController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     function IniciarVariables()
     {
         parent::IniciarVariables();

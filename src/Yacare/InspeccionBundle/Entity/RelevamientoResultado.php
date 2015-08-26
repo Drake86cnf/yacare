@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @ORM\Table("Inspeccion_RelevamientoResultado")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table("Inspeccion_RelevamientoResultado")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class RelevamientoResultado
 {
@@ -20,22 +20,13 @@ class RelevamientoResultado
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Suprimible;
-
+    
     /**
-     *
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Grupo;
-
-    public function getGrupo()
-    {
-        return $this->Grupo;
-    }
-
-    public function setGrupo($Grupo)
-    {
-        $this->Grupo = $Grupo;
-    }
 
     public function __toString()
     {
@@ -43,5 +34,21 @@ class RelevamientoResultado
             return $this->getGrupo() . ': ' . $this->getNombre();
         else
             return $this->getNombre();
+    }
+    
+    /**
+     * @ignore
+     */
+    public function getGrupo()
+    {
+        return $this->Grupo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setGrupo($Grupo)
+    {
+        $this->Grupo = $Grupo;
     }
 }
