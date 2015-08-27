@@ -3,13 +3,14 @@ namespace Tapir\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Symfony\Component\Security\Core\Role\RoleInterface;
+use \Tapir\BaseBundle\Entity\PersonaInterface;
 
 /**
  * Rol asociable a un usuario.
  *
  * @ORM\Table(name="Base_PersonaRol")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * 
+ *
  * //@Tapir\Abm\Nombre("rol de personas")
  * //@Tapir\Abm\NombrePlural("roles de personas")
  *
@@ -26,7 +27,7 @@ class PersonaRol implements RoleInterface
     {
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * El nombre del rol.
      *
@@ -34,7 +35,7 @@ class PersonaRol implements RoleInterface
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
-    
+
     /**
      * El código de rol.
      *
@@ -42,11 +43,13 @@ class PersonaRol implements RoleInterface
      * @ORM\Column(type="string", length=255)
      */
     private $Codigo;
-    
+
     /**
      * Las personas que tienen este rol.
      *
-     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Persona", mappedBy="UsuarioRoles", cascade={"persist"})
+     * @var PersonaInterface
+     *
+     * @ORM\ManyToMany(targetEntity="PersonaInterface", mappedBy="UsuarioRoles", cascade={"persist"})
      */
     protected $Personas;
 
@@ -59,26 +62,26 @@ class PersonaRol implements RoleInterface
     {
         $this->Nombre = $nombre;
         $codigo = "ROLE_" . strtr(
-            mb_strtoupper($nombre, 'utf-8'), 
+            mb_strtoupper($nombre, 'utf-8'),
             array(
-                'Á' => 'A', 
-                'É' => 'E', 
-                'Í' => 'I', 
-                'Ó' => 'O', 
-                'Ú' => 'U', 
-                'À' => 'A', 
-                'È' => 'E', 
-                'Ì' => 'I', 
-                'Ò' => 'O', 
-                'Ù' => 'U', 
-                'Ä' => 'A', 
-                'Ë' => 'E', 
-                'Ï' => 'I', 
-                'Ö' => 'O', 
-                'Ü' => 'U', 
-                'Ñ' => 'n', 
-                'Ç' => 'C', 
-                ' ' => '_', 
+                'Á' => 'A',
+                'É' => 'E',
+                'Í' => 'I',
+                'Ó' => 'O',
+                'Ú' => 'U',
+                'À' => 'A',
+                'È' => 'E',
+                'Ì' => 'I',
+                'Ò' => 'O',
+                'Ù' => 'U',
+                'Ä' => 'A',
+                'Ë' => 'E',
+                'Ï' => 'I',
+                'Ö' => 'O',
+                'Ü' => 'U',
+                'Ñ' => 'n',
+                'Ç' => 'C',
+                ' ' => '_',
                 ':' => '_'));
         $this->Codigo = str_replace('__', '_', $codigo);
     }
