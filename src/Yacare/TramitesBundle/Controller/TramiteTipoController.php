@@ -20,13 +20,13 @@ class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
         if (! $RequisitoEspejo) {
             $RequisitoEspejo = new \Yacare\TramitesBundle\Entity\Requisito();
         }
-        
+
         $RequisitoEspejo->setTramiteTipoEspejo($entity);
         $RequisitoEspejo->setTipo('tra');
-        $RequisitoEspejo->setNombre((string) $entity);
-        
+        $RequisitoEspejo->setNombre('(trámite) ' . (string)$entity);
+
         $entity->setRequisitoEspejo($RequisitoEspejo);
-        
+
         parent::guardarActionPrePersist($entity, $editForm);
     }
 }

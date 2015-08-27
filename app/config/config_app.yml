@@ -48,3 +48,5 @@ doctrine:
                 connection: glpi
                 mappings:
                     IndepnetGlpiBundle: ~
+        resolve_target_entities:
+            Tapir\BaseBundle\Entity\PersonaInterface: Yacare\BaseBundle\Entity\Persona
