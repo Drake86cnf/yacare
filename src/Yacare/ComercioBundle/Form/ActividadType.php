@@ -54,6 +54,6 @@ class ActividadType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_comerciobundle_actividadtype';
+        return 'yacare_comerciobundle_categoriatype';
     }
 }
