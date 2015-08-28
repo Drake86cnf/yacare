@@ -14,11 +14,11 @@ use Tapir\BaseBundle\Helper\Damm;
  * humanos, a diferencia del token regular.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * @see ConToken
+ * @see ConToken ConToken
  */
 trait ConTokenSimple
 {
-    public function __constructor()
+    public function __construct()
     {
         $this->GenerarToken();
     }
@@ -27,6 +27,7 @@ trait ConTokenSimple
      * El token. 
      *
      * @var int
+     * 
      * @ORM\Column(type="integer")
      */
     protected $Token;
