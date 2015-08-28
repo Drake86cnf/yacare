@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 /**
  * Escucha los eventos "lifecycle" de Doctrine para generar registros de auditoría para aquellas entidades que tienen
  * el trait Auditable.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class AuditableListener implements EventSubscriber
@@ -21,7 +21,7 @@ class AuditableListener implements EventSubscriber
 
     /**
      * Interviene la creación de una entidad para generar un registro de auditoría.
-     * 
+     *
      * @param LifecycleEventArgs $eventArgs
      */
     public function postPersist(LifecycleEventArgs $eventArgs)
@@ -31,18 +31,18 @@ class AuditableListener implements EventSubscriber
 
     /**
      * Interviene la modificación de una entidad para generar un registro de auditoría.
-     * 
+     *
      * @param LifecycleEventArgs $eventArgs
      */
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         return $this->logChangeSet($eventArgs, 'editar');
     }
-    
-    
+
+
     /**
      * Interviene la eliminación de una entidad para generar un registro de auditoría.
-     * 
+     *
      * @param LifecycleEventArgs $eventArgs
      */
     public function preRemove(LifecycleEventArgs $eventArgs)
@@ -51,7 +51,7 @@ class AuditableListener implements EventSubscriber
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
         $user = $this->container->get('security.context')->getToken()->getUser();
-    
+
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
             $Registro->setAccion('eliminar');
@@ -63,12 +63,12 @@ class AuditableListener implements EventSubscriber
             $em->flush();
         }
     }
-    
+
 
     /**
      * Genera un registro de auditoría con un detalle de los cambios realizados a la entidad.
      *
-     * @param LifecycleEventArgs $eventArgs            
+     * @param LifecycleEventArgs $eventArgs
      */
     public function logChangeSet(LifecycleEventArgs $eventArgs, $action)
     {
@@ -77,17 +77,20 @@ class AuditableListener implements EventSubscriber
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
         $user = $this->container->get('security.context')->getToken()->getUser();
-        
+
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $uow->computeChangeSet($classMetadata, $entity);
             $changeSet = $uow->getEntityChangeSet($entity);
-            
+
             $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
             $Registro->setAccion($action);
             $Registro->setElementoTipo($classMetadata->reflClass->getName());
             $Registro->setElementoId($entity->getId());
             $Registro->setEstacion($this->container->get('request')->getClientIp());
-            $Registro->setUsuario($user->getId());
+            if(\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
+                // Algunas veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
+                $Registro->setUsuario($user->getId());
+            }
             $Registro->setCambios(json_encode($changeSet));
             $em->persist($Registro);
             $em->flush();
@@ -97,7 +100,7 @@ class AuditableListener implements EventSubscriber
     /**
      * Devuelve true si la clase es auditable.
      *
-     * @param ReflectionClass $reflClass            
+     * @param ReflectionClass $reflClass
      * @return boolean
      */
     protected function isEntitySupported(\ReflectionClass $reflClass)
@@ -105,11 +108,11 @@ class AuditableListener implements EventSubscriber
         return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(), 'Tapir\BaseBundle\Entity\Auditable');
     }
 
-    
+
     public function getSubscribedEvents()
     {
         $events = [Events::postPersist, Events::postUpdate, Events::preRemove];
-        
+
         return $events;
     }
 }
