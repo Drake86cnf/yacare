@@ -7,9 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
  * Requisito.
  *
  * Representa un requisito que se puede asociar a un trámite.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @ORM\Table(name="Tramites_Requisito")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Tramites_Requisito")
  */
 class Requisito
 {
@@ -24,63 +26,83 @@ class Requisito
         $this->Requiere = new \Doctrine\Common\Collections\ArrayCollection();
         $this->MeRequieren = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * Requisitos de nivel superior.
-     *
-     * @see $Requiere @ORM\ManyToMany(targetEntity="Requisito", mappedBy="Requiere")
+     * 
+     * @var \Yacare\TramitesBundle\Entity\Requisito
+     * 
+     * @see $Requiere $Requiere 
+     * 
+     * @ORM\ManyToMany(targetEntity="Requisito", mappedBy="Requiere")
      */
     private $MeRequieren;
-
+    
     /**
      * Sub-requisitos.
      *
      * Si es un requisito "compuesto Y" o "compuesto O", estos son los requisitos
      * que lo componen.
-     *
-     * @see $Tipo @ORM\ManyToMany(targetEntity="Requisito", inversedBy="MeRequieren")
-     *      @ORM\JoinTable(name="Tramites_Requisito_Requisito",
-     *      joinColumns={@ORM\JoinColumn(name="MeRequiere_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="Requiere_id", referencedColumnName="id")}
-     *      )
-     *     
+     * 
+     * @var \Yacare\TramitesBundle\Entity\Requisito
+     * 
+     * @see $Tipo $Tipo
+     * 
+     * @ORM\ManyToMany(targetEntity="Requisito", inversedBy="MeRequieren")
+     * @ORM\JoinTable(name="Tramites_Requisito_Requisito", 
+     *     joinColumns={@ORM\JoinColumn(name="MeRequiere_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="Requiere_id", referencedColumnName="id")}
+     * )
      */
     private $Requiere;
-
+    
     /**
      * El tipo de requisito.
      *
-     * @see getTipoNombre()
-     *
-     * @var string @ORM\Column(type="string", length=50)
+     * @var string
+     * 
+     * @see getTipoNombre() getTipoNombre()
+     * 
+     * @ORM\Column(type="string", length=50)
      */
     private $Tipo;
-
+    
     /**
      * El lugar donde se obtiene o tramita este requisito.
      *
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Lugar;
-
+    
     /**
      * La dirección web donde se obtiene información sobre este requisito.
      *
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Url;
-
+    
     /**
      * Tipo de trámite hermanado con este requisito.
      *
      * Al crear o editar un tipo de trámite, se crea o edita un requisito que lo
      * refleja para que un trámite pueda ser requisito de otro.
+     * 
+     * @var \Yacare\TramitesBundle\Entity\TramiteTipo
      *
      * @ORM\ManyToOne(targetEntity="TramiteTipo")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $TramiteTipoEspejo;
 
+    /**
+     * Devuelve el nomre normalizado del tipo de requisito.
+     * 
+     * @return string
+     */
     public function getTipoNombre()
     {
         switch ($this->getTipo()) {
@@ -99,61 +121,97 @@ class Requisito
         }
     }
 
+    /**
+     * @ignore
+     */
     public function getTipo()
     {
         return $this->Tipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;
     }
 
+    /**
+     * @ignore
+     */
     public function getLugar()
     {
         return $this->Lugar;
     }
 
+    /**
+     * @ignore
+     */
     public function setLugar($Lugar)
     {
         $this->Lugar = $Lugar;
     }
 
+    /**
+     * @ignore
+     */
     public function getUrl()
     {
         return $this->Url;
     }
 
+    /**
+     * @ignore
+     */
     public function setUrl($Url)
     {
         $this->Url = $Url;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequiere()
     {
         return $this->Requiere;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequiere($Requiere)
     {
         $this->Requiere = $Requiere;
     }
 
+    /**
+     * @ignore
+     */
     public function getMeRequieren()
     {
         return $this->MeRequieren;
     }
 
+    /**
+     * @ignore
+     */
     public function setMeRequieren($MeRequieren)
     {
         $this->MeRequieren = $MeRequieren;
     }
 
+    /**
+     * @ignore
+     */
     public function getTramiteTipoEspejo()
     {
         return $this->TramiteTipoEspejo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTramiteTipoEspejo($TramiteTipoEspejo)
     {
         $this->TramiteTipoEspejo = $TramiteTipoEspejo;
