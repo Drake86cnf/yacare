@@ -6,6 +6,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ * Formulario para requerimientos internos.
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class RequerimientoType extends AbstractType
@@ -16,20 +18,22 @@ class RequerimientoType extends AbstractType
         
         $builder
             ->add('Notas', null, array(
-                'label' => 'Asunto',
-                'attr' => array ('placeholder' => 'Asunto'),
+                'label' => 'Asunto', 
+                'attr' => array(
+                    'placeholder' => 'Asunto'), 
                 'required' => true))
             ->add('Categoria', null, array(
-                'label' => 'Categoría',
-                'attr' => array ('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
-                'required' => false))
-            ;
+                'label' => 'Categoría', 
+                'attr' => array(
+                    'help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'), 
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento','cascade_validation' => true));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento', 
+            'cascade_validation' => true));
     }
 
     public function getName()

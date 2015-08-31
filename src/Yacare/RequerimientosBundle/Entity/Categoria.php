@@ -7,12 +7,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Representa una categoria en la que puede haber requerimientos.
  *
- * @ORM\Table(name="Requerimientos_Requerimiento_Categoria")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * 
- * @ORM\Entity(repositoryClass="Yacare\RequerimientosBundle\Entity\CategoriaRepository")
- * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Entity(repositoryClass="Yacare\RequerimientosBundle\Entity\CategoriaRepository")
+ * @ORM\Table(name="Requerimientos_Requerimiento_Categoria")
  */
 class Categoria
 {
@@ -28,6 +27,8 @@ class Categoria
      * Si la categoría tiene un encargado predeterminado, todos los requerimientos que se hagan en esta categoría
      * se asignan automáticamente al encargado.
      *
+     * @var \Yacare\BaseBundle\Entity\Persona
+     *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
@@ -40,27 +41,39 @@ class Categoria
      * realizar reclamos a consultas anónimas desde el sitio del Municipio.
      *
      * @var int
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     private $PermiteAnonimos = 0;
 
-
+    /**
+     * @ignore
+     */
     public function getEncargado()
     {
         return $this->Encargado;
     }
 
+    /**
+     * @ignore
+     */
     public function setEncargado($Encargado)
     {
         $this->Encargado = $Encargado;
         return $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getPermiteAnonimos()
     {
         return $this->PermiteAnonimos;
     }
 
+    /**
+     * @ignore
+     */
     public function setPermiteAnonimos($PermiteAnonimos)
     {
         $this->PermiteAnonimos = $PermiteAnonimos;

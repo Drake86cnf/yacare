@@ -10,15 +10,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de novedades de requerimientos.
  *
- * @Route("novedad/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("novedad/")
  */
 class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
 {
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
 
     /**
+     * Realiza la publicación de comentarios en un requerimiento.
+     * 
      * @Route("publicar")
      * @Method("POST")
      * @Template()
@@ -43,6 +45,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
             if ($NuevaNovedad->getPrivada() == 0) {
                 $this->InformarNovedad($NuevaNovedad);
             }
+            
             return $this->ArrastrarVariables($request, array('entity' => $NuevaNovedad));
         } else {
             $validator = $this->get('validator');
@@ -50,7 +53,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
             
             // var_dump($errores);
             return $this->ArrastrarVariables($request, 
-                array('form_novedad' => $editForm->createView(),'errores' => (string) $errores));
+                array('form_novedad' => $editForm->createView(), 'errores' => (string) $errores));
         }
     }
 }

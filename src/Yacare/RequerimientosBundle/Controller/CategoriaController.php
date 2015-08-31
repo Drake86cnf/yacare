@@ -10,9 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de categorías de requerimientos.
  * 
- * @Route("categoria/")
- * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("categoria/")
  */
 class CategoriaController extends \Tapir\BaseBundle\Controller\AbmController
 {
