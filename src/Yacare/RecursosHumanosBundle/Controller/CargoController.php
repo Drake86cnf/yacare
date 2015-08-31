@@ -11,9 +11,9 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
 /**
  * Controlador de cargos.
  *
- * @Route("cargo/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @Route("cargo/")
  */
 class CargoController extends \Tapir\BaseBundle\Controller\AbmController
 {

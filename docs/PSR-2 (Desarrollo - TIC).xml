@@ -5,7 +5,7 @@
 <setting id="insert_space_after_opening_paren_in_declare" value="false"/>
 <setting id="insert_space_before_closing_paren_in_declare" value="false"/>
 <setting id="insert_space_before_opening_paren_in_declare" value="false"/>
-<setting id="org.eclipse.php.core.formatter.insert_new_line_in_function_invoke" value="3"/>
+<setting id="org.eclipse.php.core.formatter.insert_new_line_in_function_invoke" value="4"/>
 <setting id="org.eclipse.php.formatter.core.formatter.alignment_for_arguments_in_allocation_expression_force_split" value="false"/>
 <setting id="org.eclipse.php.formatter.core.formatter.alignment_for_arguments_in_allocation_expression_indent_policy" value="2"/>
 <setting id="org.eclipse.php.formatter.core.formatter.alignment_for_arguments_in_allocation_expression_line_wrap_policy" value="1"/>

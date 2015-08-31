@@ -28,33 +28,34 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         
         $this->OrderBy = 'p.NombreVisible';
     }
-    
-    
+
     /**
      * @Route("ver_datospersonales/{id}")
      * @Template()
      */
-    public function ver_datospersonalesAction(Request $request, $id = null) {
+    public function ver_datospersonalesAction(Request $request, $id = null)
+    {
         return $this->verAction($request, $id = null);
     }
-    
+
     /**
      * @Route("ver_lugardetrabajo/{id}")
      * @Template()
      */
-    public function ver_lugardetrabajoAction(Request $request, $id = null) {
+    public function ver_lugardetrabajoAction(Request $request, $id = null)
+    {
         return $this->verAction($request, $id = null);
     }
-    
+
     /**
      * @Route("ver_familiares/{id}")
      * @Template()
      */
-    public function ver_familiaresAction(Request $request, $id = null) {
+    public function ver_familiaresAction(Request $request, $id = null)
+    {
         return $this->verAction($request, $id = null);
     }
-    
-    
+
     /**
      * @Route("ver/{id}")
      * @Template()
@@ -67,8 +68,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $res;
     }
-    
-    
+
     /**
      * @Route("editar/{id}")
      * @Template()
@@ -76,12 +76,11 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     public function editarAction(Request $request, $id = null)
     {
         $res = parent::editarAction($request, $id);
-    
+        
         $res['tabs'] = $this->ObtenerPestanias($request, 'editar', $id);
-    
+        
         return $res;
     }
-    
 
     /**
      * @Route("volcar/")
@@ -108,11 +107,10 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         $res['entities'] = $AgentesVolcados;
-        
         $ldap = null;
+        
         return $res;
     }
-    
 
     /**
      * Actualizo el servidor de dominio al editar el agente.
@@ -126,15 +124,16 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
         }
         return;
     }
-    
-    
 
-    public function ObtenerPestanias($request, $actual, $id) {
+    public function ObtenerPestanias($request, $actual, $id)
+    {
         return new \Tapir\TemplateBundle\Controls\TabSet(
             array(
-                new \Tapir\TemplateBundle\Controls\Tab('General', $this->generateUrl($this->ObtenerRutaBase('ver'), $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'),
-                new \Tapir\TemplateBundle\Controls\Tab('Editar', $this->generateUrl($this->ObtenerRutaBase('editar'), $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'editar')
-            ));
+                new \Tapir\TemplateBundle\Controls\Tab('General', 
+                    $this->generateUrl($this->ObtenerRutaBase('ver'), 
+                        $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'), 
+                new \Tapir\TemplateBundle\Controls\Tab('Editar', 
+                    $this->generateUrl($this->ObtenerRutaBase('editar'), 
+                        $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'editar')));
     }
-
 }

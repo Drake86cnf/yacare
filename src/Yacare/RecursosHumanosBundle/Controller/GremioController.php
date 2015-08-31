@@ -11,9 +11,9 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
 /**
  * Controlador de gremios.
  *
- * @Route("gremio/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("gremio/")
  */
 class GremioController extends \Tapir\BaseBundle\Controller\AbmController
 {

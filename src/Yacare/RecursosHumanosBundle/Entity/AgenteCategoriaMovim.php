@@ -9,53 +9,58 @@ use Doctrine\ORM\Mapping\Column;
  * Representa una novedad o movimiento en una categoría de un agente.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
- *        
- *         @ORM\Table(name="Rrhh_AgenteCategoriaMovim")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * 
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_AgenteCategoriaMovim")
  */
 class AgenteCategoriaMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
-
+    
     /**
      * El agente.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
      *
      * @ORM\ManyToOne(targetEntity="Agente", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Agente;
-
+    
     /**
      * El cargo.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Categoria;
-
+    
     /**
      * La fecha de la novedad.
+     * 
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
      * @Assert\Date()
      */
     private $Fecha;
-
+    
     /**
      * La fecha de la novedad.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $ACargo;
     
-
     // *** Getters y setters
     
     /**
-     *
      * @ignore
-     *
      */
     public function getAgente()
     {
@@ -63,9 +68,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setAgente($Agente)
     {
@@ -74,9 +77,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCategoria()
     {
@@ -84,9 +85,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCategoria($Categoria)
     {
@@ -95,9 +94,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFecha()
     {
@@ -105,9 +102,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFecha($Fecha)
     {
@@ -116,9 +111,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getACargo()
     {
@@ -126,9 +119,7 @@ class AgenteCategoriaMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setACargo($ACargo)
     {

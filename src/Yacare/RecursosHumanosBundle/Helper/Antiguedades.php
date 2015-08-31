@@ -6,24 +6,41 @@ namespace Yacare\RecursosHumanosBundle\Helper;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class Antiguedades {
-    public static function CalcularAntiguedadHaberes($desdefecha, $hastafecha = null) {
-        if($hastafecha == null) {
+class Antiguedades
+{
+    /**
+     * Calcula antigüedad de haberes.
+     * 
+     * @param  \DateTime     $desdefecha
+     * @param  \DateTime     $hastafecha
+     * @return \DateInterval
+     */
+    public static function CalcularAntiguedadHaberes($desdefecha, $hastafecha = null)
+    {
+        if ($hastafecha == null) {
             $hastafecha = new \DateTime();
         }
         
         $Diff = $desdefecha->diff($hastafecha);
-
+        
         return $Diff;
     }
-    
-    public static function CalcularAntiguedadJubilacionProvincial($desdefecha, $hastafecha = null) {
-        if($hastafecha == null) {
+
+    /**
+     * Calcula antigüedad de jubilación provincial.
+     * 
+     * @param  \DateTime     $desdefecha
+     * @param  \DateTime     $hastafecha
+     * @return \DateInterval
+     */
+    public static function CalcularAntiguedadJubilacionProvincial($desdefecha, $hastafecha = null)
+    {
+        if ($hastafecha == null) {
             $hastafecha = new \DateTime();
         }
-    
+        
         $Diff = $desdefecha->diff($hastafecha);
-    
+        
         return $Diff;
     }
 }

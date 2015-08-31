@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *        
- *         @ORM\Table(name="Rrhh_Familiar")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Familiar")
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Familiar
 {
@@ -19,14 +19,14 @@ class Familiar
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * El/los apellido/s del familiar.
      *
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Apellido;
-
+    
     /**
      * El número de documento.
      *
@@ -34,21 +34,21 @@ class Familiar
      * @Assert\Length(max="10")
      */
     private $DocumentoNumero;
-
+    
     /**
      * Sexo del familiar.
      *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Sexo;
-
+    
     /**
      * El parentesco.
      *
      * @ORM\Column(type="smallint", nullable=false)
      */
     private $Parentesco;
-
+    
     /**
      * La fecha de nacimiento.
      *
@@ -56,28 +56,28 @@ class Familiar
      * @Assert\Type("\DateTime")
      */
     private $FechaNacimiento;
-
+    
     /**
      * Si es discapacitado, o no.
      *
      * @var unknown
      */
     private $Discapacitado;
-
+    
     /**
      * La escolaridad.
      *
      * @var unknown
      */
     private $Escolaridad;
-
+    
     /**
      * La residencia.
      *
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $Residencia;
-
+    
     /**
      * La fecha de baja, o NULL si no se dió de baja.
      *
@@ -85,7 +85,7 @@ class Familiar
      * @Assert\Type("\DateTime")
      */
     private $FechaBaja = null;
-
+    
     /**
      * El motivo de la baja, 0 si está activo.
      *
@@ -103,6 +103,11 @@ class Familiar
         return Familiar::setParentescosNombres($this->getParentesco());
     }
 
+    /**
+     * Normaliza los nombres de los tipos de parentescos.
+     * 
+     * @see $Parentesco
+     */
     public static function setParentescosNombres($rango)
     {
         switch ($rango) {
@@ -146,9 +151,20 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
+     */
+    public function setDocumentoNumero($DocumentoNumero)
+    {
+        $this->DocumentoNumero = str_replace(array(
+            ',', 
+            '.', 
+            ' ', 
+            '-'), '', $DocumentoNumero);
+        return $this;
+    }
+
+    /**
+     * @ignore
      */
     public function getApellido()
     {
@@ -156,9 +172,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setApellido($Apellido)
     {
@@ -167,9 +181,15 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
+     */
+    public function getDocumentoNumero()
+    {
+        return $this->DocumentoNumero;
+    }
+
+    /**
+     * @ignore
      */
     public function getSexo()
     {
@@ -177,9 +197,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSexo($Sexo)
     {
@@ -188,9 +206,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getParentesco()
     {
@@ -198,9 +214,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setParentesco($Parentesco)
     {
@@ -209,9 +223,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaNacimiento()
     {
@@ -219,9 +231,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaNacimiento($FechaNacimiento)
     {
@@ -230,9 +240,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDiscapacitado()
     {
@@ -240,9 +248,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDiscapacitado($Discapacitado)
     {
@@ -251,9 +257,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEscolaridad()
     {
@@ -261,9 +265,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEscolaridad($Escolaridad)
     {
@@ -272,9 +274,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getResidencia()
     {
@@ -282,9 +282,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setResidencia($Residencia)
     {
@@ -293,9 +291,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaBaja()
     {
@@ -303,9 +299,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaBaja($FechaBaja)
     {
@@ -314,9 +308,7 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getMotivoBaja()
     {
@@ -324,34 +316,11 @@ class Familiar
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setMotivoBaja($MotivoBaja)
     {
         $this->MotivoBaja = $MotivoBaja;
         return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function getDocumentoNumero()
-    {
-        return $this->DocumentoNumero;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setDocumentoNumero($DocumentoNumero)
-    {
-        $this->DocumentoNumero = str_replace(array(',', '.', ' ', '-'), '', $DocumentoNumero);
-        return $this;
-    }
+    } 
 }

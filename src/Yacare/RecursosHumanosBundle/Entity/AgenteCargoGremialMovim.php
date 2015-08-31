@@ -9,63 +9,82 @@ use Doctrine\ORM\Mapping\Column;
  * Representa una novedad o movimiento en un cargo gremial de un agente.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
- *        
- * @ORM\Table(name="Rrhh_AgenteCargoGremialMovim")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_AgenteCargoGremialMovim")
  */
 class AgenteCargoGremialMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * El agente.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
      *
      * @ORM\ManyToOne(targetEntity="Agente", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Agente;
-
+    
     /**
      * El gremio.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Gremio
      *
      * @ORM\ManyToOne(targetEntity="Gremio", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Gremio;
-
+    
     /**
      * El cargo.
+     * 
+     * @var integer
      *
      * @Column(type="integer", nullable=true)
      */
     private $CargoGremial;
-
+    
     /**
      * La fecha de alta.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaAlta;
-
+    
     /**
-     * La fecha de baja.
-     * NULL si aún está activo en el cargo.
+     * La fecha de baja. 
+     * *NULL si aún está activo en el cargo.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaBaja;
-
+    
     /**
      * La fecha de la novedad.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=false)
      * @Assert\Type("\DateTime")
      */
     private $Fecha;
 
+    /**
+     * Normaliza nombres de cargos gremiales.
+     * 
+     * @return string
+     * 
+     * @see $CargoGremial $CargoGremial
+     */
     public static function CargosGremialesNombres($rango)
     {
         switch ($rango) {
@@ -85,7 +104,9 @@ class AgenteCargoGremialMovim
     /**
      * Obtiene el nombre del cargo gremial.
      *
-     * @see $CargoGremial
+     * @return string
+     *
+     * @see $CargoGremial $CargoGremial
      */
     public function getCargoGremialNombre()
     {
@@ -93,19 +114,7 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
-     */
-    public function setAgente($Agente)
-    {
-        return $this->Agente = $Agente;
-    }
-
-    /**
-     *
-     * @ignore
-     *
      */
     public function getAgente()
     {
@@ -113,19 +122,16 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setGremio($Gremio)
+    public function setAgente($Agente)
     {
-        return $this->Gremio = $Gremio;
+        $this->Agente = $Agente;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getGremio()
     {
@@ -133,19 +139,16 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setCargoGremial($CargoGremial)
+    public function setGremio($Gremio)
     {
-        return $this->CargoGremial = $CargoGremial;
+        $this->Gremio = $Gremio;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCargoGremial()
     {
@@ -153,19 +156,16 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setFechaAlta($FechaAlta)
+    public function setCargoGremial($CargoGremial)
     {
-        return $this->FechaAlta = $FechaAlta;
+        $this->CargoGremial = $CargoGremial;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaAlta()
     {
@@ -173,19 +173,16 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setFechaBaja($FechaBaja)
+    public function setFechaAlta($FechaAlta)
     {
-        return $this->FechaBaja = $FechaBaja;
+        $this->FechaAlta = $FechaAlta;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaBaja()
     {
@@ -193,22 +190,28 @@ class AgenteCargoGremialMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setFecha($Fecha)
+    public function setFechaBaja($FechaBaja)
     {
-        return $this->Fecha = $Fecha;
+        $this->FechaBaja = $FechaBaja;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFecha()
     {
         return $this->Fecha;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFecha($Fecha)
+    {
+        $this->Fecha = $Fecha;
+        return $this;
     }
 }

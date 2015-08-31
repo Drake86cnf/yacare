@@ -8,9 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Representa un grupo de agentes.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- *         @ORM\Table(name="Rrhh_AgenteGrupo")
- *         @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * 
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_AgenteGrupo")
  */
 class AgenteGrupo
 {
@@ -25,43 +25,54 @@ class AgenteGrupo
     {
         $this->Agentes = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * Los agentes que pertenecen a este grupo.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
      *
      * @ORM\ManyToMany(targetEntity="Agente", mappedBy="Grupos", cascade={"persist"})
      */
     protected $Agentes;
-
+    
     /**
      * El grupo de nivel superior.
+     *
+     * @var \Yacare\RecursosHumanosBundle\Entity\AgenteGrupo
      *
      * @ORM\ManyToOne(targetEntity="Yacare\RecursosHumanosBundle\Entity\AgenteGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
      */
     private $Parent;
-
+    
     /**
      * Indica el nombre del grupo en el servidor LDAP, si está asociado.
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $NombreLdap;
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setParent($parent)
+    public function getAgentes()
     {
-        $this->Parent = $parent;
+        return $this->Agentes;
     }
 
     /**
-     *
      * @ignore
-     *
+     */
+    public function setAgentes($Agentes)
+    {
+        $this->Agentes = $Agentes;
+        return $this;
+    }
+
+    /**
+     * @ignore
      */
     public function getParent()
     {
@@ -69,9 +80,16 @@ class AgenteGrupo
     }
 
     /**
-     *
      * @ignore
-     *
+     */
+    public function setParent($Parent)
+    {
+        $this->Parent = $Parent;
+        return $this;
+    }
+
+    /**
+     * @ignore
      */
     public function getNombreLdap()
     {
@@ -79,9 +97,7 @@ class AgenteGrupo
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setNombreLdap($NombreLdap)
     {
