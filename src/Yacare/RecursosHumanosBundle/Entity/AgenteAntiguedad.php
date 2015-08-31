@@ -8,53 +8,65 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Representa la antigüedad de un agente.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
- *        
- * @ORM\Table(name="Rrhh_Antiguedad")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Antiguedad")
  */
 class AgenteAntiguedad
 {
     use \Tapir\BaseBundle\Entity\ConId;
-
+    
     /**
      * Establece el "desde" en el rango de fecha.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=false)
      * @Assert\Type("\DateTime")
      */
     private $Desde;
-
+    
     /**
      * Establece el "hasta" en el rango de fecha.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=false)
      * @Assert\Type("\DateTime")
      */
     private $Hasta;
-
+    
     /**
      * El tipo de antigüedad.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="smallint", nullable=false)
      */
     private $Tipo;
-
+    
     /**
      * ???
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean")
      */
     private $Reparticion;
-
+    
     /**
      * ???
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $PresentarReparticion;
-
+    
     /**
      * ???
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -63,13 +75,22 @@ class AgenteAntiguedad
     /**
      * Obtiene el nombre del tipo de antigüedad.
      *
-     * @see $TipoNombre
+     * @return string
+     *
+     * @see $TipoNombre $TipoNombre
      */
     public function getTipoNombre()
     {
         return AgenteAntiguedad::setTiposNombres($this->getTipoNombre());
     }
 
+    /**
+     * Normaliza nombres de tipos de antigüedad.
+     * 
+     * @return string
+     * 
+     * @see $Tipo $Tipo
+     */
     public static function setTiposNombres($rango)
     {
         switch ($rango) {
@@ -97,9 +118,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDesde()
     {
@@ -107,9 +126,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDesde($Desde)
     {
@@ -118,9 +135,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getHasta()
     {
@@ -128,9 +143,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setHasta($Hasta)
     {
@@ -139,9 +152,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getTipo()
     {
@@ -149,9 +160,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setTipo($Tipo)
     {
@@ -160,30 +169,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
-     */
-    public function getCodigo()
-    {
-        return $this->Codigo;
-    }
-
-    /**
-     *
-     * @ignore
-     *
-     */
-    public function setCodigo($Codigo)
-    {
-        $this->Codigo = $Codigo;
-        return $this;
-    }
-
-    /**
-     *
-     * @ignore
-     *
      */
     public function getReparticion()
     {
@@ -191,9 +177,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setReparticion($Reparticion)
     {
@@ -202,9 +186,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getPresentarReparticion()
     {
@@ -212,9 +194,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setPresentarReparticion($PresentarReparticion)
     {
@@ -223,9 +203,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getReconoceAnses()
     {
@@ -233,9 +211,7 @@ class AgenteAntiguedad
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setReconoceAnses($ReconoceAnses)
     {

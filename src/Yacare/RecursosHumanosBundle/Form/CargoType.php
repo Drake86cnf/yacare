@@ -7,12 +7,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CargoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Obs', null, array('label' => 'Obs.'));
+            ->add('Nombre', null, array(
+                'label' => 'Nombre'))
+            ->add('Obs', null, array(
+                'label' => 'Obs.'));
     }
 
     public function getName()

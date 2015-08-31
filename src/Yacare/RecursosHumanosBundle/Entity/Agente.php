@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * @author Alejandro Díaz <adiaz.rc@gmail.com>
- *        
- * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
- * @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
- *         })
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Agente", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="ImportSrcId", columns={"ImportSrc", "ImportId"})
+ *     })
  */
 class Agente
 {
@@ -33,7 +33,7 @@ class Agente
     {
         $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /*
      * CREATE VIEW rr_hh_agentes AS SELECT * FROM rr_hh.agentes;
      * CREATE OR REPLACE VIEW yacare.Rrhh_Agente AS SELECT agentes.legajo AS id, agentes.fechaingre AS FechaIngreso,
@@ -51,283 +51,359 @@ class Agente
     /**
      * Los grupos a los cuales pertenece el agente.
      *
+     * @var \Yacare\RecursosHumanosBundle\Entity\AgenteGrupo
+     *
      * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
      * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo",
-     * joinColumns={@ORM\JoinColumn(name="agente_id", referencedColumnName="id", nullable=true)}
+     *     joinColumns={@ORM\JoinColumn(name="agente_id", referencedColumnName="id", nullable=true)}
      * )
      */
     private $Grupos;
-
+    
     /**
      * La persona asociada.
+     *
+     * @var \Yacare\BaseBundle\Entity\Persona
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Persona;
-
+    
     /**
      * La categoría actual.
      *
-     * @var $Categoria @ORM\Column(type="integer", nullable=false)
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Categoria;
-
+    
     /**
      * La situación del agente (Normal, baja, etc.).
      *
-     * @var $Situacion @ORM\Column(type="integer", nullable=false)
+     * @var integer 
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Situacion;
-
+    
     /**
      * La función que cumple, en formato de texto libre.
      *
-     *
-     * @var $Funcion @ORM\Column(type="string")
+     * @var string 
+     * 
+     * @ORM\Column(type="string")
      */
     private $Funcion;
-
+    
     /**
      * La fecha de ingreso.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaIngreso;
-
+    
     /**
      * La fecha de baja, o NULL si todavía está activo.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $BajaFecha;
-
+    
     /**
      * El motivo de la baja, o 0 si está activo.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $BajaMotivo;
-
+    
     /**
      * Nivel de estudios.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="smallint")
      */
     private $EstudiosNivel;
-
+    
     /**
      * Título (refiere a los estudios).
+     * 
+     * @var integer
      *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $EstudiosTitulo;
-
+    
     /**
      * El departamento en el cual se desempeña.
      *
-     * @var $Departamento @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
-     *      @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento 
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Departamento;
-
+    
     /**
      * Indica si es ex-combatiente.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $ExCombatiente = 0;
-
+    
     /**
      * Indica si es discapacitado.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $Discapacitado = 0;
-
+    
     /**
      * Indica cuál es la mano habil (0 = derecha, 1 = izquierda).
+     * 
+     * @var integer
      *
      * @ORM\Column(type="smallint")
      */
     private $ManoHabil = 0;
-
+    
     /**
      * La fecha de nacionalización.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaNacionalizacion;
-
+    
     /**
      * La última actualización de domicilio.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $UltimaActualizacionDomicilio;
-
+    
     /**
      * El lugar de nacimiento.
+     *
+     * @var integer
      *
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $LugarNacimiento;
-
+    
     /**
      * La fecha de psicofísico.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaPsicofisico;
-
+    
     /**
      * La fecha de certificado de buena conducta.
+     *
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaCertificadoBuenaConducta;
-
+    
     /**
      * La fecha de certificado de antecedentes penales.
+     *
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaCertificadoAntecedentesPenales;
-
+    
     /**
      * La fecha de certificado de domicilio.
+     *
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $FechaCertificadoDomicilio;
-
+    
     /**
      * El cargo del agente.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Cargo
      *
      * @ORM\ManyToOne(targetEntity="Cargo", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $Cargo;
-
+    
     /**
      * El sector en el cual se hace el parte diario de cada agente.
+     *
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento
      *
      * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $SectorParteDiario;
-
+    
     /**
      * Indica si el agente aparece en el parte diario.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ApareceEnParte;
-
+    
     /**
      * Controla el horario del agente.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ControlaHorario;
-
+    
     /**
      * Indica si el agente marca en el reloj de control.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $MarcaEnReloj;
-
+    
     /**
      * Indica el banco al cual pertenece el agente.
+     * 
+     * @var \Yacare\BaseBundle\Entity\Banco
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Banco", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $Banco;
-
+    
     /**
      * Indica el numero de cuenta asociado al agente.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="integer",nullable=true)
      */
     private $NumeroCuentaBanco;
-
+    
     /**
      * Indica el CBU de la cuenta del agente.
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", length=23 , nullable=true)
      */
     private $CBUCuentaAgente;
-
+    
     /**
      * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Type("\DateTime")
      */
     private $BajaFechaContrato;
-
+    
     /**
      * El decreto asociado a la baja.
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    //@Assert\Regex(pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR|RG)\-(\d{1,5})\/(\d{4})\s*$/i",
-    //message="Debe escribir el número de decreto en el formato DM-1234/2015."
-    
+    // @Assert\Regex(pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR|RG)\-(\d{1,5})\/(\d{4})\s*$/i",
+    // message="Debe escribir el número de decreto en el formato DM-1234/2015."
     private $BajaDecreto;
-
+    
     /**
      * Indica si la categoría es a cargo.
+     * 
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $CategoriaACargo;
-
+    
     /**
      * El horario de ingreso.
+     * 
+     * @var \Time 
      *
      * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $HorarioIngreso;
-
+    
     /**
      * El horario de salida.
+     * 
+     * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $HorarioSalida;
-
+    
     /**
      * El horario de ingreso del segundo tramo.
+     * 
+     * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $Horario2Ingreso;
-
+    
     /**
      * El horario de salida del segundo tramo.
+     * 
+     * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
      * @Assert\Time()
      */
     private $Horario2Salida;
-    
-    
-    public function AntiguedadLiquidacionHaberes($hastafecha = null) {
-        return \Yacare\RecursosHumanosBundle\Helper\Antiguedades::CalcularAntiguedadHaberes($this->getFechaIngreso(), $hastafecha);
+
+    /**
+     * Calcula la antigüedad hasta la fecha indicada.
+     * 
+     * @param \DateTime $hastafecha fecha tope.
+     */
+    public function AntiguedadLiquidacionHaberes($hastafecha = null)
+    {
+        return \Yacare\RecursosHumanosBundle\Helper\Antiguedades::CalcularAntiguedadHaberes($this->getFechaIngreso(), 
+            $hastafecha);
     }
 
     public function __toString()
@@ -335,6 +411,12 @@ class Agente
         return $this->getPersona()->getNombreVisible();
     }
 
+    /**
+     * Normaliza nombres de situaciones laborales de un agente.
+     * 
+     * @param  integer $rango rango de codificación.
+     * @return string         nombre nromalizado.
+     */
     public static function SituacionesNombres($rango)
     {
         switch ($rango) {
@@ -374,13 +456,22 @@ class Agente
     /**
      * Obtiene el nombre de la situación.
      *
-     * @see $Situacion
+     * @return string
+     *
+     * @see $Situacion $Situacion
      */
     public function getSituacionNombre()
     {
         return Agente::SituacionesNombres($this->getSituacion());
     }
 
+    /**
+     * Normaliza nombres de motivos de bajas.
+     * 
+     * @return string
+     * 
+     * @see $BajaMotivo $BajaMotivo
+     */
     public static function BajaMotivoNombres($rango)
     {
         switch ($rango) {
@@ -408,13 +499,22 @@ class Agente
     /**
      * Obtiene el nombre del motivo de baja.
      *
-     * @see $MotivoBaja
+     * @return string
+     *
+     * @see $BajaMotivo $BajaMotivo
      */
     public function getBajaMotivoNombre()
     {
         return Agente::BajaMotivoNombres($this->getBajaMotivo());
     }
 
+    /**
+     * Normaliza nombres de niveles de estudio.
+     * 
+     * @return string
+     * 
+     * @see $EstudiosNivel $EstudiosNivel
+     */
     public static function EstudiosNivelesNombres($rango)
     {
         switch ($rango) {
@@ -450,8 +550,10 @@ class Agente
 
     /**
      * Obtiene el nombre del nivel de estudios.
+     * 
+     * @return string
      *
-     * @see $MotivoBaja
+     * @see $EstudiosNivel $EstudiosNivel
      */
     public function getEstudiosNivelNombre()
     {
@@ -461,9 +563,7 @@ class Agente
     // *** Getters y setters
     
     /**
-     *
      * @ignore
-     *
      */
     public function getGrupos()
     {
@@ -471,9 +571,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setGrupos($Grupos)
     {
@@ -482,9 +580,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getPersona()
     {
@@ -492,9 +588,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setPersona($Persona)
     {
@@ -503,9 +597,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCategoria()
     {
@@ -513,9 +605,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCategoria($Categoria)
     {
@@ -524,9 +614,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getSituacion()
     {
@@ -534,9 +622,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSituacion($Situacion)
     {
@@ -545,9 +631,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFuncion()
     {
@@ -555,9 +639,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFuncion($Funcion)
     {
@@ -566,9 +648,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaIngreso()
     {
@@ -576,9 +656,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaIngreso($FechaIngreso)
     {
@@ -587,9 +665,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getBajaFecha()
     {
@@ -597,9 +673,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setBajaFecha($BajaFecha)
     {
@@ -608,9 +682,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getBajaMotivo()
     {
@@ -618,9 +690,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setBajaMotivo($BajaMotivo)
     {
@@ -629,9 +699,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEstudiosNivel()
     {
@@ -639,9 +707,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEstudiosNivel($EstudiosNivel)
     {
@@ -650,9 +716,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEstudiosTitulo()
     {
@@ -660,9 +724,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEstudiosTitulo($EstudiosTitulo)
     {
@@ -671,9 +733,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDepartamento()
     {
@@ -681,9 +741,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDepartamento($Departamento)
     {
@@ -692,9 +750,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getExCombatiente()
     {
@@ -702,9 +758,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setExCombatiente($ExCombatiente)
     {
@@ -713,9 +767,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getDiscapacitado()
     {
@@ -723,9 +775,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setDiscapacitado($Discapacitado)
     {
@@ -734,9 +784,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getManoHabil()
     {
@@ -744,9 +792,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setManoHabil($ManoHabil)
     {
@@ -755,9 +801,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaNacionalizacion()
     {
@@ -765,9 +809,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaNacionalizacion($FechaNacionalizacion)
     {
@@ -776,9 +818,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getUltimaActualizacionDomicilio()
     {
@@ -786,9 +826,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setUltimaActualizacionDomicilio($UltimaActualizacionDomicilio)
     {
@@ -797,9 +835,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getLugarNacimiento()
     {
@@ -807,9 +843,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setLugarNacimiento($LugarNacimiento)
     {
@@ -818,9 +852,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaPsicofisico()
     {
@@ -828,9 +860,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaPsicofisico($FechaPsicofisico)
     {
@@ -839,9 +869,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaCertificadoBuenaConducta()
     {
@@ -849,9 +877,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaCertificadoBuenaConducta($FechaCertificadoBuenaConducta)
     {
@@ -860,9 +886,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaCertificadoAntecedentesPenales()
     {
@@ -870,9 +894,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaCertificadoAntecedentesPenales($FechaCertificadoAntecedentesPenales)
     {
@@ -881,9 +903,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFechaCertificadoDomicilio()
     {
@@ -891,9 +911,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setFechaCertificadoDomicilio($FechaCertificadoDomicilio)
     {
@@ -902,9 +920,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCargo()
     {
@@ -912,9 +928,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCargo($Cargo)
     {
@@ -923,9 +937,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getSectorParteDiario()
     {
@@ -933,9 +945,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSectorParteDiario($SectorParteDiario)
     {
@@ -944,9 +954,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getApareceEnParte()
     {
@@ -954,9 +962,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setApareceEnParte($ApareceEnParte)
     {
@@ -965,9 +971,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getControlaHorario()
     {
@@ -975,9 +979,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setControlaHorario($ControlaHorario)
     {
@@ -986,9 +988,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getMarcaEnReloj()
     {
@@ -996,9 +996,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setMarcaEnReloj($MarcaEnReloj)
     {
@@ -1007,9 +1005,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getBanco()
     {
@@ -1017,9 +1013,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setBanco($Banco)
     {
@@ -1028,9 +1022,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getNumeroCuentaBanco()
     {
@@ -1038,9 +1030,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setNumeroCuentaBanco($NumeroCuentaBanco)
     {
@@ -1049,9 +1039,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCBUCuentaAgente()
     {
@@ -1059,9 +1047,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCBUCuentaAgente($CBUCuentaAgente)
     {
@@ -1070,9 +1056,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getBajaFechaContrato()
     {
@@ -1080,9 +1064,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setBajaFechaContrato($BajaFechaContrato)
     {
@@ -1091,9 +1073,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getBajaDecreto()
     {
@@ -1101,9 +1081,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setBajaDecreto($BajaDecreto)
     {
@@ -1112,9 +1090,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCategoriaACargo()
     {
@@ -1122,9 +1098,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCategoriaACargo($CategoriaACargo)
     {
@@ -1133,9 +1107,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getHorarioIngreso()
     {
@@ -1143,9 +1115,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setHorarioIngreso($HorarioIngreso)
     {
@@ -1154,9 +1124,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getHorarioSalida()
     {
@@ -1164,9 +1132,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setHorarioSalida($HorarioSalida)
     {
@@ -1175,9 +1141,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getHorario2Ingreso()
     {
@@ -1185,9 +1149,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setHorario2Ingreso($Horario2Ingreso)
     {
@@ -1196,9 +1158,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getHorario2Salida()
     {
@@ -1206,9 +1166,7 @@ class Agente
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setHorario2Salida($Horario2Salida)
     {

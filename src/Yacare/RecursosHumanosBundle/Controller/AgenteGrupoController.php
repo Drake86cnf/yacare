@@ -11,9 +11,9 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
 /**
  * Controlador de grupos de agentes.
  *
- * @Route("agentegrupo/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @Route("agentegrupo/") 
  */
 class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
 {
@@ -39,21 +39,23 @@ class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
         }
         
         $ldap = null;
+        
         return $res;
     }
 
-    /**
-     * Reflejo los cambios en el servidor LDAP.
+/**
+ * Reflejo los cambios en el servidor LDAP.
+ */
+    /*
+     * public function guardarActionPostPersist($entity, $editForm)
+     * {
+     * $nombreLdap = $entity->getNombreLdap();
+     * if ($nombreLdap) {
+     * $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
+     * $ldap->AgregarOActualizarGrupo($entity);
+     * $ldap = null;
+     * }
+     * return;
+     * }
      */
-    /* public function guardarActionPostPersist($entity, $editForm)
-    {
-        $nombreLdap = $entity->getNombreLdap();
-        if ($nombreLdap) {
-            $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
-            $ldap->AgregarOActualizarGrupo($entity);
-            $ldap = null;
-        }
-        
-        return;
-    } */
 }

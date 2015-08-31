@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Representa un gremio.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Rrhh_Gremio")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_Gremio")
  */
 class Gremio
 {

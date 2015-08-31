@@ -8,33 +8,39 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Representa una novedad o movimiento en un cargo de un agente.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
- *        
- * @ORM\Table(name="Rrhh_AgenteCargoMovim")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Rrhh_AgenteCargoMovim")
  */
 class AgenteCargoMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * El agente.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
      *
      * @ORM\ManyToOne(targetEntity="Agente", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Agente;
-
+    
     /**
      * El cargo.
+     * 
+     * @var \Yacare\RecursosHumanosBundle\Entity\Cargo
      *
      * @ORM\ManyToOne(targetEntity="Cargo", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Cargo;
-
+    
     /**
      * La fecha de la novedad.
+     * 
+     * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=false)
      * @Assert\Type("\DateTime")
@@ -42,19 +48,7 @@ class AgenteCargoMovim
     private $Fecha;
 
     /**
-     *
      * @ignore
-     *
-     */
-    public function setAgente($Agente)
-    {
-        return $this->Agente = $Agente;
-    }
-
-    /**
-     *
-     * @ignore
-     *
      */
     public function getAgente()
     {
@@ -62,19 +56,16 @@ class AgenteCargoMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setCargo($Cargo)
+    public function setAgente($Agente)
     {
-        return $this->Cargo = $Cargo;
+        $this->Agente = $Agente;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCargo()
     {
@@ -82,22 +73,28 @@ class AgenteCargoMovim
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setFecha($Fecha)
+    public function setCargo($Cargo)
     {
-        return $this->Fecha = $Fecha;
+        $this->Cargo = $Cargo;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getFecha()
     {
         return $this->Fecha;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFecha($Fecha)
+    {
+        $this->Fecha = $Fecha;
+        return $this;
     }
 }
