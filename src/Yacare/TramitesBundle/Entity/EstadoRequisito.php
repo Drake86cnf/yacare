@@ -13,13 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * en curso.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Tramites_EstadoRequisito",
- * uniqueConstraints={
- * @ORM\UniqueConstraint(name="TramiteAsociacionRequisito", columns={"Tramite_id", "AsociacionRequisito_id"})
- * },
- * indexes={
- * @ORM\Index(name="Tramites_EstadoRequisito_Tramite", columns={"Tramite_id"})
- * }
+ * @ORM\Table(name="Tramites_EstadoRequisito", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="TramiteAsociacionRequisito", columns={"Tramite_id", "AsociacionRequisito_id"})},
+ *     indexes={@ORM\Index(name="Tramites_EstadoRequisito_Tramite", columns={"Tramite_id"})}
  * )
  */
 class EstadoRequisito
@@ -27,24 +23,30 @@ class EstadoRequisito
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
-
+    
     /**
      * El trámite al cual está asociado este requisito.
      *
-     * @see \Yacare\TramitesBundle\Entity\Tramite @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
-     *      @ORM\JoinColumn(nullable=false)
+     * @var \Yacare\TramitesBundle\Entity\Tramite
+     *
+     * @see \Yacare\TramitesBundle\Entity\Tramite Tramite 
+     * 
+     * @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $Tramite;
-
+    
     /**
      * La asociación entre el trámite y el requisito, que también describe las
      * condiciones en las que está asociado.
-     *
+     * 
+     * @var \Yacare\TramitesBundle\Entity\AsociacionRequisito
+     * 
      * @ORM\ManyToOne(targetEntity="AsociacionRequisito")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $AsociacionRequisito;
-
+    
     /**
      * El requisito padre, en caso de que este no sea un requisito directo, sino
      * sino un sub requisto (requisito de un requisito).
@@ -53,18 +55,22 @@ class EstadoRequisito
      * @ORM\JoinColumn(nullable=true)
      */
     protected $EstadoRequisitoPadre;
-
+    
     /**
      * El estado de este requisito para el trámite asociado.
-     *
+     * 
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     protected $Estado = 0;
-
+    
     /**
      * La fecha en la cual el requisito fue aprobado, o null si aun no lo fue.
      *
-     * @var \DateTime @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime 
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $FechaAprobado;
 
@@ -76,8 +82,10 @@ class EstadoRequisito
      * inmuebles mayores a 100 m2).
      * Este método devuelve true si este requisito debe solicitarse este
      * trámite en particular.
+     * 
+     * @return boolean Devuelve true si este requisito es necesario.
      *
-     * @see $Tramite;
+     * @see $Tramite $Tramite
      */
     public function EsNecesario()
     {
@@ -110,8 +118,9 @@ class EstadoRequisito
      *
      * Para los requisitos opcionales, siempre devuelve true.
      *
-     * @see $AsociacionRequisito
      * @return bool Devuelve true si el requisito se da por cumplido.
+     * 
+     * @see $AsociacionRequisito $AsociacionRequisito
      */
     public function EstaCumplido()
     {
@@ -121,8 +130,10 @@ class EstadoRequisito
     /**
      * Devuelve true si se cumple la condición en la cual debe solicitarse el
      * requisito asociado.
-     *
-     * @see $AsociacionRequisito
+     * 
+     * @return boolean
+     * 
+     * @see $AsociacionRequisito $AsociacionRequisito
      */
     public function CondicionSeCumple()
     {
@@ -134,7 +145,8 @@ class EstadoRequisito
         }
         
         /*
-         * Busco recursivamente las propiedades. Por ejemplo, "Titular.NumeroDocumento" se convierte en "$this->getTramite()->getTitular()->getNumeroDocumento()"
+         * Busco recursivamente las propiedades. Por ejemplo, "Titular.NumeroDocumento" se convierte en
+         * "$this->getTramite()->getTitular()->getNumeroDocumento()"
          */
         
         $Objeto = $this->getTramite();
@@ -149,7 +161,7 @@ class EstadoRequisito
                 $ValorQue = null;
                 break;
             }
-            //echo $NombreMetodo . '()=' . $ValorQue . '; ';
+            // echo $NombreMetodo . '()=' . $ValorQue . '; ';
         }
         
         $ValorCuanto = $Asoc->getCondicionCuanto();
@@ -187,7 +199,7 @@ class EstadoRequisito
     /**
      * Devuelve un cadena con el nombre del estado del requisito asociado.
      *
-     * @param int $estado El estado del cual solicita el nombre.
+     * @param  int $estado El estado del cual solicita el nombre.
      * @return string El nombre del estado.
      */
     public static function EstadoNombres($estado)
@@ -211,12 +223,11 @@ class EstadoRequisito
                 return '???';
         }
     }
-    
-    
+
     /**
      * Devuelve un cadena con el nombre corto del estado del requisito asociado.
      *
-     * @param int $estado El estado del cual solicita el nombre.
+     * @param  int $estado El estado del cual solicita el nombre.
      * @return string El nombre corto del estado.
      */
     public static function EstadoNombresCortos($estado)
@@ -240,63 +251,102 @@ class EstadoRequisito
                 return '???';
         }
     }
-    
 
+    /**
+     * Devuelve el nombre de estado (normalizado).
+     * 
+     * @return string
+     */
     public function getEstadoNombre()
     {
         return EstadoRequisito::EstadoNombres($this->Estado);
     }
-    
+
+    /**
+     * Devuelve el nombre corto de estado (normalizado).
+     *
+     * @return string
+     */
     public function getEstadoNombreCorto()
     {
         return EstadoRequisito::EstadoNombresCortos($this->Estado);
     }
 
+    /**
+     * @ignore
+     */
     public function getEstado()
     {
         return $this->Estado;
     }
 
+    /**
+     * @ignore
+     */
     public function setEstado($Estado)
     {
         $this->Estado = $Estado;
     }
 
+    /**
+     * @ignore
+     */
     public function getTramite()
     {
         return $this->Tramite;
     }
 
+    /**
+     * @ignore
+     */
     public function setTramite($Tramite)
     {
         $this->Tramite = $Tramite;
     }
 
+    /**
+     * @ignore
+     */
     public function getAsociacionRequisito()
     {
         return $this->AsociacionRequisito;
     }
 
+    /**
+     * @ignore
+     */
     public function setAsociacionRequisito($AsociacionRequisito)
     {
         $this->AsociacionRequisito = $AsociacionRequisito;
     }
 
+    /**
+     * @ignore
+     */
     public function getEstadoRequisitoPadre()
     {
         return $this->EstadoRequisitoPadre;
     }
 
+    /**
+     * @ignore
+     */
     public function setEstadoRequisitoPadre($EstadoRequisitoPadre)
     {
         $this->EstadoRequisitoPadre = $EstadoRequisitoPadre;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaAprobado()
     {
         return $this->FechaAprobado;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaAprobado(\DateTime $FechaAprobado)
     {
         $this->FechaAprobado = $FechaAprobado;

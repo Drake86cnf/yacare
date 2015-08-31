@@ -5,9 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Yacare\TramitesBundle\Entity\Resultado
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @ORM\Table(name="Tramites_Resultado")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Tramites_Resultado")
  */
 class Resultado
 {

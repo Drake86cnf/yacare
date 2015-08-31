@@ -21,80 +21,99 @@ class AsociacionRequisito
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\ConNotas;
     use \Tapir\BaseBundle\Entity\Eliminable;
-
+    
     /**
      * El tipo de trámite.
      *
-     * @see TramiteTipo @ORM\ManyToOne(targetEntity="TramiteTipo", inversedBy="AsociacionRequisitos")
-     *      @ORM\JoinColumn(nullable=false)
+     * @var \Yacare\TramitesBundle\Entity\TramiteTipo
+     * 
+     * @see \Yacare\TramitesBundle\Entity\TramiteTipo TramiteTipo 
+     * 
+     * @ORM\ManyToOne(targetEntity="TramiteTipo", inversedBy="AsociacionRequisitos")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteTipo;
-
+    
     /**
-     *
-     * @var string @ORM\Column(type="string", length=50, nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Propiedad;
-
+    
     /**
      * El requisito.
-     *
-     * @see Requisito. @ORM\ManyToOne(targetEntity="Requisito")
-     *      @ORM\JoinColumn(nullable=false)
+     * 
+     * @var \Yacare\TramitesBundle\Entity\Requisito
+     * 
+     * @see \Yacare\TramitesBundle\Entity\Requisito Requisito 
+     * 
+     * @ORM\ManyToOne(targetEntity="Requisito")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $Requisito;
-
+    
     /**
      * La instancia del requisito (original, copia, etc.)
      *
-     * @var string @ORM\Column(type="string", length=50, nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Instancia;
-
+    
     /**
      * Si el requisito es opcional, indica que se puede completar el trámite
      * aunque el requisito no haya sido cumplido.
      *
-     * @var boolean @ORM\Column(type="boolean")
+     * @var boolean 
+     * 
+     * @ORM\Column(type="boolean")
      */
     private $Opcional;
-
+    
     /**
      * El "qué" de la condición.
      *
-     * Por ejemplo, en la condición "categoría > 3", la categoría es el "qué",
+     * * Por ejemplo, en la condición "categoría > 3", la categoría es el "qué",
      * ">" es el "es" y 3 es el "cuánto".
      *
-     * @see $CondicionEs
-     * @see $CondicionCuanto
-     *
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * @var string 
+     * 
+     * @see $CondicionEs $CondicionEs
+     * @see $CondicionCuanto $CondicionCuanto
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionQue;
-
+    
     /**
      * El "es" de la condición.
      *
      * * Por ejemplo, en la condición "categoría > 3", la categoría es el "qué",
      * ">" es el "es" y 3 es el "cuánto".
      *
-     * @see $CondicionQue
-     * @see $CondicionCuanto
-     *
-     * @var string @ORM\Column(type="string", length=50, nullable=true)
+     * @var string
+     * 
+     * @see $CondicionQue $CondicionQue
+     * @see $CondicionCuanto $CondicionCuanto
+     * 
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $CondicionEs;
-
+    
     /**
      * El "cuánto" de la condición.
      *
      * * Por ejemplo, en la condición "categoría > 3", la "categoría" es el "qué",
      * ">" es el "es" y "3" es el "cuánto".
      *
-     * @see $CondicionQue
-     * @see $CondicionEs
-     *
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     * 
+     * @see $CondicionQue $CondicionQue
+     * @see $CondicionEs $CondicionEs 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionCuanto;
 
@@ -213,81 +232,129 @@ class AsociacionRequisito
         return $res;
     }
 
+    /**
+     * @ignore
+     */
     public function getRequisito()
     {
         return $this->Requisito;
     }
 
+    /**
+     * @ignore
+     */
     public function setRequisito($Requisito)
     {
         $this->Requisito = $Requisito;
     }
 
+    /**
+     * @ignore
+     */
     public function getCondicionQue()
     {
         return $this->CondicionQue;
     }
 
+    /**
+     * @ignore
+     */
     public function setCondicionQue($CondicionQue)
     {
         $this->CondicionQue = $CondicionQue;
     }
 
+    /**
+     * @ignore
+     */
     public function getCondicionEs()
     {
         return $this->CondicionEs;
     }
 
+    /**
+     * @ignore
+     */
     public function setCondicionEs($CondicionEs)
     {
         $this->CondicionEs = $CondicionEs;
     }
 
+    /**
+     * @ignore
+     */
     public function getCondicionCuanto()
     {
         return $this->CondicionCuanto;
     }
 
+    /**
+     * @ignore
+     */
     public function setCondicionCuanto($CondicionCuanto)
     {
         $this->CondicionCuanto = $CondicionCuanto;
     }
 
+    /**
+     * @ignore
+     */
     public function getOpcional()
     {
         return $this->Opcional;
     }
 
+    /**
+     * @ignore
+     */
     public function setOpcional($Opcional)
     {
         $this->Opcional = $Opcional;
     }
 
+    /**
+     * @ignore
+     */
     public function getPropiedad()
     {
         return $this->Propiedad;
     }
 
+    /**
+     * @ignore
+     */
     public function setPropiedad($Propiedad)
     {
         $this->Propiedad = $Propiedad;
     }
 
+    /**
+     * @ignore
+     */
     public function getInstancia()
     {
         return $this->Instancia;
     }
 
+    /**
+     * @ignore
+     */
     public function setInstancia($Instancia)
     {
         $this->Instancia = $Instancia;
     }
 
+    /**
+     * @ignore
+     */
     public function getTramiteTipo()
     {
         return $this->TramiteTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTramiteTipo($TramiteTipo)
     {
         $this->TramiteTipo = $TramiteTipo;

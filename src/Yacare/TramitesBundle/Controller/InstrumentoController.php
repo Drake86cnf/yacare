@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class InstrumentoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     function IniciarVariables()
     {
         parent::IniciarVariables();

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * de sus requisitos.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
+ *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_Tramite")
  * @ORM\InheritanceType("JOINED")
@@ -28,7 +28,6 @@ abstract class Tramite
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
     use \Yacare\TramitesBundle\Entity\ConTitular;
 
     public function __construct()
@@ -40,25 +39,33 @@ abstract class Tramite
     /**
      * El estado del trámite, desde 0 (nuevo sin iniciar) hasta 100 (terminado).
      *
-     * @see getEstadoNombre() @ORM\Column(type="integer")
+     * @see getEstadoNombre() getEstadoNombre() 
+     * 
+     * @ORM\Column(type="integer")
      */
     private $Estado = 0;
 
     /**
      * Indica de qué tipo de trámite se trata (discriminador).
-     *
-     * @see TramiteTipo @ORM\ManyToOne(targetEntity="TramiteTipo")
-     *      @ORM\JoinColumn(nullable=false)
+     * 
+     * @var \Yacare\TramitesBundle\Entity\TramiteTipo
+     * 
+     * @see \Yacare\TramitesBundle\Entity\TramiteTipo TramiteTipo 
+     * 
+     * @ORM\ManyToOne(targetEntity="TramiteTipo")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteTipo;
 
     /**
      * Colección que contiene los estados de los requisitos asociados a este
      * trámite.
-     *
+     * 
+     * @var \Yacare\TramitesBundle\Entity\EstadoRequisito
+     * 
      * @ORM\OneToMany(targetEntity="EstadoRequisito", mappedBy="Tramite", cascade={"persist"})
      * @ORM\JoinTable(name="Tramites_Tramite_EstadoRequisito",
-     * joinColumns={@ORM\JoinColumn(name="Tramite_id", referencedColumnName="Tramite_id")}
+     *     joinColumns={@ORM\JoinColumn(name="Tramite_id", referencedColumnName="Tramite_id")}
      * )
      */
     private $EstadosRequisitos;
@@ -68,6 +75,7 @@ abstract class Tramite
      * o nunca terminó (cancelado).
      *
      * @var \DateTime
+     * 
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $FechaTerminado;
@@ -75,14 +83,18 @@ abstract class Tramite
     /**
      * El comprobante que se emitió como resultado de este trámite o null si no
      * se emitió ningún comprobante o el trámite aun está en curso.
-     *
+     * 
+     * @var \Yacare\TramitesBundle\Enitty\Comprobante Comprobante
+     * 
      * @ORM\ManyToOne(targetEntity="Comprobante")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Comprobante;
 
-    /*
+    /**
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).
+     * 
+     * @return boolean
      */
     public function EstaEnCurso()
     {
@@ -146,7 +158,7 @@ abstract class Tramite
      * Devuelve la cantidad de requisitos obligatorios faltantes.
      *
      * @return int La cantidad de requisitos obligatorios que aun no fueron
-     *         cumplidos.
+     *             cumplidos.
      */
     public function RequisitosFaltantesCantidad()
     {
@@ -204,56 +216,89 @@ abstract class Tramite
         }
     }
 
+    /**
+     * @ignore
+     */
     public function AgregarEstadoRequisito($EstadoNuevo)
     {
         $this->EstadosRequisitos[] = $EstadoNuevo;
     }
 
+    /**
+     * @ignore
+     */
     public function getEstado()
     {
         return $this->Estado;
     }
 
+    /**
+     * @ignore
+     */
     public function setEstado($Estado)
     {
         $this->Estado = $Estado;
     }
 
+    /**
+     * @ignore
+     */
     public function getEstadosRequisitos()
     {
         return $this->EstadosRequisitos;
     }
 
+    /**
+     * @ignore
+     */
     public function setEstadosRequisitos($EstadosRequisitos)
     {
         $this->EstadosRequisitos = $EstadosRequisitos;
     }
 
+    /**
+     * @ignore
+     */
     public function getTramiteTipo()
     {
         return $this->TramiteTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function setTramiteTipo($TramiteTipo)
     {
         $this->TramiteTipo = $TramiteTipo;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaTerminado()
     {
         return $this->FechaTerminado;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaTerminado(\DateTime $FechaTerminado)
     {
         $this->FechaTerminado = $FechaTerminado;
     }
 
+    /**
+     * @ignore
+     */
     public function getComprobante()
     {
         return $this->Comprobante;
     }
 
+    /**
+     * @ignore
+     */
     public function setComprobante($Comprobante)
     {
         $this->Comprobante = $Comprobante;

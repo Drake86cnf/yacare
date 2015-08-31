@@ -7,12 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de tipos de trámite.
  *
- * @see Yacare\TramitesBundle\Entity\TramiteTipo @Route("tramitetipo/")
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @see Yacare\TramitesBundle\Entity\TramiteTipo TramiteTipo
+ * 
+ * @Route("tramitetipo/")
  */
 class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     public function guardarActionPrePersist($entity, $editForm)
     {
         // Crear o actualizar un requisito asociado
@@ -20,13 +22,13 @@ class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
         if (! $RequisitoEspejo) {
             $RequisitoEspejo = new \Yacare\TramitesBundle\Entity\Requisito();
         }
-
+        
         $RequisitoEspejo->setTramiteTipoEspejo($entity);
         $RequisitoEspejo->setTipo('tra');
-        $RequisitoEspejo->setNombre('(trámite) ' . (string)$entity);
-
+        $RequisitoEspejo->setNombre('(trámite) ' . (string) $entity);
+        
         $entity->setRequisitoEspejo($RequisitoEspejo);
-
+        
         parent::guardarActionPrePersist($entity, $editForm);
     }
 }
