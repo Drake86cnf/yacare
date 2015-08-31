@@ -6,6 +6,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ * Formulario para requerimientos anónimos.
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class RequerimientoAnonimoType extends AbstractType
@@ -16,32 +18,35 @@ class RequerimientoAnonimoType extends AbstractType
         
         $builder
             ->add('Notas', null, array(
-                'label' => 'Asunto',
-                'attr' => array ('placeholder' => ''),
+                'label' => 'Asunto', 
+                'attr' => array(
+                    'placeholder' => ''), 
                 'required' => true))
             ->add('Categoria', 'entity', array(
-                'label' => 'Categoría',
-                'attr' => array ('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
-                'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
-                'query_builder' => function(\Yacare\RequerimientosBundle\Entity\CategoriaRepository $er) {
+                'label' => 'Categoría', 
+                'attr' => array(
+                    'help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'), 
+                'class' => 'Yacare\RequerimientosBundle\Entity\Categoria', 
+                'query_builder' => function (\Yacare\RequerimientosBundle\Entity\CategoriaRepository $er) {
                     return $er->ObtenerQueryBuilderPublicas();
-                },
+                }, 
                 'required' => false))
             ->add('UsuarioNombre', null, array(
-                'label' => 'Nombre',
-                'attr' => array ('placeholder' => 'Su nombre'),
+                'label' => 'Nombre', 
+                'attr' => array(
+                    'placeholder' => 'Su nombre'), 
                 'required' => false))
             ->add('UsuarioEmail', null, array(
-                'label' => 'E-mail',
-                'attr' => array ('placeholder' => 'Su dirección de correo electrónico.'),
-                'required' => false))
-            ;
+                'label' => 'E-mail', 
+                'attr' => array('placeholder' => 'Su dirección de correo electrónico.'), 
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento','cascade_validation' => true));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento', 
+            'cascade_validation' => true));
     }
 
     public function getName()

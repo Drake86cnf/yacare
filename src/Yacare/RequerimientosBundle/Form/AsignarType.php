@@ -18,25 +18,24 @@ class AsignarType extends AbstractType
         
         $builder
             ->add('Notas', null, array(
-                'label' => 'Notas',
+                'label' => 'Notas', 
                 'required' => false))
             ->add('Usuario', 'entity', array(
-                'label' => 'Encargado',
-                'property' => 'NombreVisible',
-                'class' => 'Yacare\BaseBundle\Entity\Persona',
-                'query_builder' => function(\Yacare\BaseBundle\Entity\PersonaRepository $er) {
+                'label' => 'Encargado', 
+                'property' => 'NombreVisible', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
+                'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
-                }
-            ))
+                }))
             ->add('Requerimiento', 'entity_hidden', array(
-                'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'))
-            ;
+                'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad','cascade_validation' => true));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad', 
+            'cascade_validation' => true));
     }
 
     public function getName()
