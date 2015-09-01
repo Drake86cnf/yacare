@@ -14,20 +14,13 @@ class StringHelper
     /**
      * Verifica si un decreto es mínimamente válido para su posterior procesamiento.
      * 
-     * @param string $Decreto
-     * 
+     * @param  string  $Decreto
      * @return boolean
      */
     public static function EsDecretoValido($Decreto)
     {
-        $Decreto = str_replace(array(
-            '.', 
-            ',', 
-            '-', 
-            ' ', 
-            'Nº', 
-            'N', 
-            'Y'), '', trim($Decreto));
+        $Decreto = str_replace(
+            array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
         $Decreto = strtoupper(str_replace('//', '/', $Decreto));
         $BuscarNumeros = self::SepararSiglasYNumerosDecreto($Decreto);
         
@@ -88,20 +81,13 @@ class StringHelper
     /**
      * Devuelve el decreto con formato aplicado.
      * 
-     * @param string $Decreto para procesamiento.
-     * 
+     * @param  string $Decreto para procesamiento.
      * @return string $Decreto formateado.
      */
     public static function FormatearDecreto($Decreto)
     {
-        $Decreto = str_replace(array(
-            '.', 
-            ',', 
-            '-', 
-            ' ', 
-            'Nº', 
-            'N', 
-            'Y'), '', trim($Decreto));
+        $Decreto = str_replace(
+            array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
         $Decreto = strtoupper(str_replace('//', '/', $Decreto));
         
         return StringHelper::SustituirPrefijo($Decreto);
@@ -113,9 +99,8 @@ class StringHelper
      * Prefijos = siglas que identifican una resolución de un decreto. 
      * Además aplica formato completo al año del mismo. 
      * 
-     * @param string $Decreto
-     * 
-     * @return string $Decreto previamente formateado.
+     * @param  string $Decreto
+     * @return string $Decreto minímamente formateado.
      */
     public static function SustituirPrefijo($Decreto)
     {
@@ -176,23 +161,12 @@ class StringHelper
     /**
      * Rutina que identifica la posición de un número sobre una cadena de caracteres dada.
      * 
-     * @param string $Decreto
-     * 
-     * @return integer $i La posición del número encontrado. O la posición del final de la cadena.
+     * @param  string  $Decreto
+     * @return integer $i       La posición del número encontrado. O la posición del final de la cadena.
      */
     public static function SepararSiglasYNumerosDecreto($Decreto)
     {
-        $TieneNumeros = array(
-            '0', 
-            '1', 
-            '2', 
-            '3', 
-            '4', 
-            '5', 
-            '6', 
-            '7', 
-            '8', 
-            '9');
+        $TieneNumeros = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
         
         for ($i = 0; $i < strlen($Decreto) && $Decreto{$i} != '/'; $i ++) {
             foreach ($TieneNumeros as $Numero) {
@@ -204,14 +178,18 @@ class StringHelper
         return $i;
     }
 
+    /**
+     * Formateo de la columna de categoría A/C de un agente municipal.
+     * 
+     * @param string $Acargo
+     * @param string $Categoria
+     */
     public static function DescifrarCategoriasAcargo($Acargo, $Categoria)
     {
         $Aguja = 'A/C';
         $CategoriaN = null;
         $flag = true;
-        $Devolver = array(
-            'Bandera' => $flag, 
-            'categoria_nueva' => $CategoriaN);
+        $Devolver = array('Bandera' => $flag, 'categoria_nueva' => $CategoriaN);
         if (strlen($Acargo >= 3)) {
             $Resultado = strpos($Acargo, $Aguja);
             if ($Resultado) {
