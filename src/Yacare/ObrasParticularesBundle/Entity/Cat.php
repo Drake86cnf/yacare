@@ -4,7 +4,9 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ObrasParticularesBundle\Entity\Cat
+ * Representa un certificado de aptitud técnica.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_Cat")
@@ -12,18 +14,28 @@ use Doctrine\ORM\Mapping as ORM;
 class Cat extends \Yacare\TramitesBundle\Entity\Comprobante
 {
     use \Yacare\TramitesBundle\Entity\ConVencimiento;
-
+    
     /**
+     * El local.
+     * 
+     * @var \Yacare\ComercioBundle\Entity\Local
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Local;
 
+    /**
+     * @ignore
+     */
     public function getLocal()
     {
         return $this->Local;
     }
 
+    /**
+     * @ignore
+     */
     public function setLocal($Local)
     {
         $this->Local = $Local;

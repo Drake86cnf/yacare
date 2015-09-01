@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Alejandro Diaz <alediaz.rc@gmail.com>
  *        
- *         @Route("matriculado/")
+ * @Route("matriculado/")
  */
 class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
 {

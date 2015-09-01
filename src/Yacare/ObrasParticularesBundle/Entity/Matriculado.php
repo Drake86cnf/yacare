@@ -4,7 +4,9 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ObrasParticularesBundle\Entity\Matriculado
+ * Representa un matriculado.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_Matriculado")
@@ -15,36 +17,43 @@ class Matriculado
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Archivable;
     use \Tapir\BaseBundle\Entity\Versionable;
-
+    
     /**
      * La persona asociada.
+     * 
+     * @var \Yacare\BaseBundle\Entity\Persona
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $Persona;
-
+    
     /**
      * Indica la profesion del matriculado
      *
-     * @var $Profesion
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=false)
      */
     private $Profesion;
-
+    
     /**
      * La fecha de vencimiento del pago anual.
      *
-     * @var $FechaVencimiento
+     * @var \Date
+     * 
      * @ORM\Column(type="date", nullable=true)
      */
     private $FechaVencimiento;
 
-    public function getNombre()
+    public function __toString()
     {
-        return (string) $this;
+        return 'Matriculado Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
     }
 
+    /**
+     * Devuelve el nombre abreviado de la profesión.
+     */
     public function getProfesionAbreviada()
     {
         switch ($this->Profesion) {
@@ -63,36 +72,57 @@ class Matriculado
         }
     }
 
-    public function __toString()
+    /**
+     * @ignore
+     */
+    public function getNombre()
     {
-        return 'Matriculado Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
+        return (string) $this;
     }
 
+    /**
+     * @ignore
+     */
     public function getProfesion()
     {
         return $this->Profesion;
     }
 
+    /**
+     * @ignore
+     */
     public function setProfesion($Profesion)
     {
         $this->Profesion = $Profesion;
     }
 
+    /**
+     * @ignore
+     */
     public function getPersona()
     {
         return $this->Persona;
     }
 
+    /**
+     * @ignore
+     */
     public function setPersona($Persona)
     {
         $this->Persona = $Persona;
     }
 
+    /**
+     * @ignore
+     */
     public function getFechaVencimiento()
     {
         return $this->FechaVencimiento;
     }
 
+    /**
+     * @ignore
+     */
     public function setFechaVencimiento($FechaVencimiento)
     {
         $this->FechaVencimiento = $FechaVencimiento;
