@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de trámites para certificados de aptitud técnica.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("tramitecat/")
  */
 class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
@@ -33,7 +37,8 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
         
         // Busco el uso del suelo para esa zona
         $UsoSuelo = $em->createQuery(
-            'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
+            'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo 
+            AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
             ->setParameter('codigo', $Actividad->getCodigoCpu())
             ->setParameter('sup', $entity->getLocal()
             ->getSuperficie())
