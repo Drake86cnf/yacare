@@ -26,7 +26,7 @@ abstract class PruebaFuncional extends WebTestCase
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-        
+
         // Creo un cliente HTTP que va a hacer las solicitudes
         $this->client = static::createClient(array(
             'environment' => 'test'
@@ -34,11 +34,16 @@ abstract class PruebaFuncional extends WebTestCase
             'PHP_AUTH_USER' => 'pruebas',
             'PHP_AUTH_PW' => 'pruebas'
         ));
-        
+
         // $this->client->followRedirects();
-        
+
         /*
-         * // Login via form $crawler = $this->client->request('GET', '/login'); $form = $crawler->selectButton('Ingresar')->form(); $crawler = $this->client->submit( $form, array( '_username' => 'pruebas', '_password' => 'pruebas' ) ); $crawler = $this->client->followRedirect(); $this->assertTrue($crawler->filter('html:contains("Bienvenido")')->count() > 0, 'Falló la autenticación de usuario "pruebas".');
+         * Login via form
+         * $crawler = $this->client->request('GET', '/login');
+         * $form = $crawler->selectButton('Ingresar')->form();
+         * $crawler = $this->client->submit( $form, array( '_username' => 'pruebas', '_password' => 'pruebas' ) );
+         * $crawler = $this->client->followRedirect();
+         * $this->assertTrue($crawler->filter('html:contains("Bienvenido")')->count() > 0, 'Falló la autenticación de usuario "pruebas".');
          */
     }
 
@@ -57,9 +62,9 @@ abstract class PruebaFuncional extends WebTestCase
     public function clientRequest($path, $params = array(), $method = 'GET')
     {
         $crawler = $this->client->request($method, $path, $params);
-        
+
         $this->clientTestResponse($crawler);
-        
+
         return $crawler;
     }
 
@@ -81,7 +86,7 @@ abstract class PruebaFuncional extends WebTestCase
                 return $error;
             }
         }
-        
+
         return false;
     }
 
@@ -91,7 +96,7 @@ abstract class PruebaFuncional extends WebTestCase
     protected function tearDown()
     {
         parent::tearDown();
-        
+
         if ($this->em) {
             $this->em->close();
         }

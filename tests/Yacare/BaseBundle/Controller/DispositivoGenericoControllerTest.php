@@ -10,7 +10,7 @@ class DispositivoGenericoControllerTest extends \Tapir\BaseBundle\Controller\Abm
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->item = new DispositivoGenericoController();
     }
 }
