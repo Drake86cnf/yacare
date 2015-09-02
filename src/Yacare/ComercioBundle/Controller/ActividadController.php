@@ -232,7 +232,6 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
                 'ParentNode' => $entity->getId()));
         if ($hijos) {
             foreach ($hijos as $hijo) {
-                $hijo->setNombre($hijo->getNombre() . '2');
                 $hijo->setRequiereCamaraBarro($entity->getRequiereCamaraBarro());
                 $hijo->setRequiereCamaraGrasa($entity->getRequiereCamaraBarro());
                 $hijo->setRequiereInfEscolar($entity->getRequiereInfEscolar());
