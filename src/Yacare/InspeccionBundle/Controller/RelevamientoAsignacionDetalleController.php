@@ -8,11 +8,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de detalles de asignación.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("relevamientoasignaciondetalle/")
  */
 class RelevamientoAsignacionDetalleController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     function IniciarVariables()
     {
         parent::IniciarVariables();

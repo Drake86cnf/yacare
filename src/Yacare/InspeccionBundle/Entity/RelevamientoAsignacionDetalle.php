@@ -6,13 +6,13 @@ use Knp\DoctrineBehaviors\DBAL\Types;
 
 /**
  * Detalle de asignación.
- *
- * @see RelevamientoAsignacion
- *
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
+ *
+ * @see \Yacare\InspeccionBundle\RelevamientoAsignacion RelevamientoAsignacion
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_RelevamientoAsignacionDetalle")
  */
 class RelevamientoAsignacionDetalle
 {
@@ -22,72 +22,82 @@ class RelevamientoAsignacionDetalle
     use \Tapir\BaseBundle\Entity\Suprimible;
     
     /**
+     * @var Relevamiento
+     * 
      * @ORM\ManyToOne(targetEntity="Relevamiento")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Relevamiento;
     
     /**
+     * @var RelevamientoAsignacion
+     * 
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion", cascade={"remove"}, inversedBy="Detalles")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Asignacion;
     
     /**
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Encargado;
     
     /**
+     * @var \Yacare\CatastroBundle\Entity\Partida
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Partida;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $PartidaSeccion;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $PartidaMacizo;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $PartidaParcela;
     
     /**
+     * @var \Yacare\CatastroBundle\Entity\Calle
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Calle")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $PartidaCalle;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $PartidaCalleNombre;
     
     /**
-     * @var integer 
+     * @var integer
      * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $PartidaCalleNumero;
     
     /**
-     * @var integer 
+     * @var integer
      * 
      * @ORM\Column(type="integer")
      */

@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Acta.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_Acta")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_Acta")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ActaTipo", type="string")
  * @ORM\DiscriminatorMap({
@@ -25,6 +25,10 @@ class Acta
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**
+     * Un talonario.
+     * 
+     * @var ActaTalonario
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -45,16 +49,22 @@ class Acta
     private $Numero;
     
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $Fecha;
     
     /**
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $FuncionarioPrincipal;
     
     /**
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $FuncionarioSecundario;
@@ -80,6 +90,11 @@ class Acta
      */
     protected $Obs;
 
+    /**
+     * Genera el nombre a mostrar.
+     * 
+     * @return string
+     */
     public function ConstruirNombre()
     {
         $res = 'Acta ' . $this->getSubTipo() . ' Nº ' . $this->getNumero();

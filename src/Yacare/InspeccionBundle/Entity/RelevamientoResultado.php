@@ -5,13 +5,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Tipos de resultado.
- *
- * @see RelevamientoAsignacionResultado
- *
+ * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table("Inspeccion_RelevamientoResultado")
+ *
+ * @see \Yacare\InspeccionBundle\Entity\RelevamientoAsignacionResultado RelevamientoAsignacionResultado
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table("Inspeccion_RelevamientoResultado")
  */
 class RelevamientoResultado
 {
@@ -22,7 +22,7 @@ class RelevamientoResultado
     use \Tapir\BaseBundle\Entity\Suprimible;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */

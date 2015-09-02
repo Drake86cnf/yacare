@@ -5,14 +5,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario de tipo de actas.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class ActaTipoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array(
-                'label' => 'Nombre'))
-            ->add('Departamento', 'entity', array(
+            ->add('Nombre', null, array('label' => 'Nombre'))->add('Departamento', 'entity', array(
                 'label' => 'Departamento', 
                 'placeholder' => 'Sin especificar', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
@@ -22,14 +25,12 @@ class ActaTipoType extends AbstractType
                         ->orderBy('i.MaterializedPath', 'ASC');
                 }, 
                 'property' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('Clase', null, array(
-                'label' => 'Clase'));
+            ->add('Clase', null, array('label' => 'Clase'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\InspeccionBundle\Entity\ActaTipo'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\InspeccionBundle\Entity\ActaTipo'));
     }
 
     public function getName()

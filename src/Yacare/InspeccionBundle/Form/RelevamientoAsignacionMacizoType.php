@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para macizo en una asignación.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class RelevamientoAsignacionMacizoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -22,12 +27,8 @@ class RelevamientoAsignacionMacizoType extends AbstractType
                 'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Seccion', null, array(
-                'label' => 'Sección', 
-                'required' => true))
-            ->add('Macizo', null, array(
-                'label' => 'Macizo', 
-                'required' => true));
+            ->add('Seccion', null, array('label' => 'Sección', 'required' => true))
+            ->add('Macizo', null, array('label' => 'Macizo', 'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -5,13 +5,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario de relevamiento.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class RelevamientoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array(
-                'label' => 'Nombre'))
+            ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('FechaInicio', 'date', array(
                 'years' => range(1900, 2099), 
                 'input' => 'datetime', 
@@ -22,8 +26,7 @@ class RelevamientoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\InspeccionBundle\Entity\Relevamiento'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\InspeccionBundle\Entity\Relevamiento'));
     }
 
     public function getName()

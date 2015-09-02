@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador para resultados de una asignación.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("relevamientoasignacionresultado/")
  */
 class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Controller\AbmController

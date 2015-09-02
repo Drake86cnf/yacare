@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador de asignaciones.
+ * Controlador de asignaciones de trabajo para un relevamiento.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
@@ -77,8 +77,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables($request, array(
-                    'filtro_relevamiento' => $entity->getRelevamiento()
+                $this->ArrastrarVariables($request, 
+                    array('filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
 
@@ -86,8 +86,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), 
-                $this->ArrastrarVariables($request, array(
-                    'filtro_relevamiento' => $entity->getRelevamiento()
+                $this->ArrastrarVariables($request, 
+                    array('filtro_relevamiento' => $entity->getRelevamiento()
                         ->getId()), false)));
     }
 
@@ -125,13 +125,12 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
             // ************************* Guardar detalles
             if ($entity->getCalle()) {
                 // Es por calle
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array(
-                    'DomicilioCalle' => $entity->getCalle()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(
+                    array('DomicilioCalle' => $entity->getCalle()));
             } else {
                 // Es por S-M-P
-                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(array(
-                    'Seccion' => $entity->getSeccion(), 
-                    'Macizo' => $entity->getMacizo()));
+                $partidas = $em->getRepository('YacareCatastroBundle:Partida')->findBy(
+                    array('Seccion' => $entity->getSeccion(), 'Macizo' => $entity->getMacizo()));
                 // Guardo un cookie para que el formulario conserve la última información
                 $_SESSION['Inspeccion_Relevamiento_Asignacion_UltimaSeccion'] = $entity->getSeccion();
             }
@@ -144,10 +143,10 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
                  */
                 
                 // Marco los resultados en blanco actuales como cancelados
-                $numDeleted = $em->createQuery('UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET 
-                    r.Suprimido=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')
-                    ->setParameter('asignacion_id', $entity->getId())
-                    ->execute();
+                $numDeleted = $em->createQuery(
+                    'UPDATE YacareInspeccionBundle:RelevamientoAsignacionDetalle r SET 
+                    r.Suprimido=1 WHERE r.Asignacion = :asignacion_id AND r.ResultadosCantidad = 0')->setParameter(
+                    'asignacion_id', $entity->getId())->execute();
                 
                 $DetallesCantidad = 0;
                 foreach ($partidas as $partida) {
@@ -160,8 +159,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
                     $Deta->setPartidaCalle($partida->getDomicilioCalle());
                     if ($partida->getDomicilioCalle()) {
                         $Deta->setPartidaCalleNombre(
-                            $partida->getDomicilioCalle()
-                                ->getNombre());
+                            $partida->getDomicilioCalle()->getNombre());
                     }
                     $Deta->setPartidaCalleNumero($partida->getDomicilioNumero());
                     $Deta->setPartidaSeccion($partida->getSeccion());
@@ -185,16 +183,13 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
             
             return $this->redirect(
                 $this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar'), 
-                    array(
-                        'filtro_relevamiento' => $entity->getRelevamiento()
-                            ->getId())));
+                    array('filtro_relevamiento' => $entity->getRelevamiento()
+                        ->getId())));
         }
         
         // $this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'create' => true, 
-            'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, 
+            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -224,10 +219,8 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $editForm = $this->createForm(new $typeName(), $entity);
         // $deleteForm = $this->CrearFormEliminar($id);
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'create' => true, 
-            'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, 
+            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -260,9 +253,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
         $editForm = $this->createForm(new $typeName(), $entity);
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'create' => true, 
-            'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, 
+            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
     }
 }
