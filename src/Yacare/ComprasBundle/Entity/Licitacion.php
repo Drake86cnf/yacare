@@ -4,10 +4,12 @@ namespace Yacare\ComprasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ComprasBundle\Entity\Licitacion
+ * representa una licitacion
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com
  *
- * @ORM\Table(name="Compras_Licitacion")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Compras_Licitacion")
  */
 class Licitacion
 {
@@ -21,7 +23,8 @@ class Licitacion
     // use \Knp\DoctrineBehaviors\Model\Loggable\Loggable;
     
     /**
-     * @var int $Numero
+     * @var int
+     * 
      * @ORM\Column(type="string", nullable=false)
      */
     private $Numero;
@@ -30,7 +33,8 @@ class Licitacion
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
-     * @var int $Complejidad1
+     * @var int
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad1;
@@ -39,7 +43,8 @@ class Licitacion
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
-     * @var int $Complejidad2
+     * @var int
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad2;
@@ -48,7 +53,8 @@ class Licitacion
      * Complejidad de .
      * .., (0 = baja, 1 = media, 2 = alta)
      *
-     * @var int $Complejidad3
+     * @var int
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Complejidad3;
@@ -56,13 +62,16 @@ class Licitacion
     /**
      * Especifica la complejidad final computada en base a Complejidad1, 2 y 3
      *
-     * @var int $ComplejidadComputada
+     * @var int
+     * 
      * @ORM\Column(type="integer", nullable=false)
      *     
      */
     private $ComplejidadComputada;
     
     /**
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
@@ -71,21 +80,27 @@ class Licitacion
     /**
      * El importe de la licitación
      *
-     * @var $PresupuestoOficial @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var float 
+     * 
+     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PresupuestoOficial;
     
     /**
      * El coeficiente es el porcentaje utilizado para calcular el valor del pliego, según ComplejidadComputada
      *
-     * @var $PliegoCoeficiente @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var float 
+     * 
+     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PliegoCoeficiente;
     
     /**
      * El valor del pliego
      *
-     * @var $PliegoValor @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
+     * @var float 
+     * 
+     * @ORM\Column(type="decimal", precision=14, scale=2, nullable=false)
      */
     private $PliegoValor;
 
