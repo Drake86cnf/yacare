@@ -6,41 +6,46 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Formulario para Departamentos Municipales.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class DepartamentoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Codigo', null, array('label' => 'Código'))
-            ->add('Nombre', null, array('label' => 'Nombre','required' => true))
-            ->add('Rango', 'choice', 
-            array(
+        $builder
+            ->add('Codigo', null, array(
+                'label' => 'Código'))
+            ->add('Nombre', null, array(
+                'label' => 'Nombre', 
+                'required' => true))
+            ->add('Rango', 'choice', array(
                 'choices' => array(
-                    '1' => 'Ejecutivo',
-                    '20' => 'Ministerio',
-                    '30' => 'Secretaría',
-                    '40' => 'Subsecretaría',
-                    '50' => 'Dirección',
-                    '60' => 'Subdirección'),
+                    '1' => 'Ejecutivo', 
+                    '20' => 'Ministerio', 
+                    '30' => 'Secretaría', 
+                    '40' => 'Subsecretaría', 
+                    '50' => 'Dirección', 
+                    '60' => 'Subdirección'), 
                 'label' => 'Rango'))
-            ->add('ParentNode', 'entity', 
-            array(
-                'label' => 'Depende de',
-                'class' => 'YacareOrganizacionBundle:Departamento',
-                'required' => false,
-                'placeholder' => 'Ninguno',
-                'query_builder' => function (EntityRepository $er)
-                {
+            ->add('ParentNode', 'entity', array(
+                'label' => 'Depende de', 
+                'class' => 'YacareOrganizacionBundle:Departamento', 
+                'required' => false, 
+                'placeholder' => 'Ninguno', 
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.MaterializedPath', 'ASC');
-                },
+                }, 
                 'property' => 'NombreConSangriaDeEspaciosDuros'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array('data_class' => 'Yacare\OrganizacionBundle\Entity\Departamento'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\OrganizacionBundle\Entity\Departamento'));
     }
 
     public function getName()

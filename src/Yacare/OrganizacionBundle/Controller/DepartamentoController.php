@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de departamentos municipales.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("departamento/")
  */
 class DepartamentoController extends \Tapir\BaseBundle\Controller\AbmController
