@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Prueba de ActividadController.
- * 
+ *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
 
@@ -16,14 +16,14 @@ class ActividadControllerTest extends \Tapir\BaseBundle\Controller\AbmController
 		parent::setup();
 		$this->item = new ActividadController();
 	}
-	
+
 	public function testConstructor()
 	{
 		$this->assertEquals('Yacare', $this->item->getVendorName());
 		$this->assertEquals('Comercio', $this->item->getBundleName());
 		$this->assertEquals('Actividad', $this->item->getEntityName());
 	}
-	
+
 	public function testBaseRoute()
 	{
 		$this->assertEquals('yacare_comercio_actividad', $this->item->obtenerRutaBase());
