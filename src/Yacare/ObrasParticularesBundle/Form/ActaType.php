@@ -16,9 +16,7 @@ class ActaType extends AbstractType
     {
         $builder
             ->add('Talonario', null, array('label' => 'Talonario'))
-            ->add('Numero', null, array(
-                'label' => 'Numero', 
-                'required' => true))
+            ->add('Numero', null, array('label' => 'Numero', 'required' => true))
             ->add('SubTipo', 'choice', array(
                 'choices' => array(
                     'Anulada' => 'Anulada', 

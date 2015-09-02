@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
-
     public function EmitirComprobante($tramite)
     {
         $Comprob = parent::EmitirComprobante($tramite);
@@ -58,7 +57,6 @@ class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteCont
                 }
             }
         }
-        
         $entity->setNombre('Trámite de CAT de ' . $entity->getTitular());
         
         return $res;

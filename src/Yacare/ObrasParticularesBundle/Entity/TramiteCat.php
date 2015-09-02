@@ -27,6 +27,11 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
      */
     private $UsoSuelo;
 
+    /**
+     * Devuelve el nombre normalizado para el UsoSuelo.
+     * 
+     * @return string
+     */
     public function UsoSueloNombre()
     {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
