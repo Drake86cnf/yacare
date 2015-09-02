@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario de asiganación de trabajo para un relevamiento.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class RelevamientoAsignacionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -27,10 +32,8 @@ class RelevamientoAsignacionType extends AbstractType
                 'required' => false, 
                 'placeholder' => 'Ninguna', 
                 'property' => 'Nombre'))
-            ->add('Seccion', null, array(
-                'label' => 'Sección'))
-            ->add('Macizo', null, array(
-                'label' => 'Macizo'));
+            ->add('Seccion', null, array('label' => 'Sección'))
+            ->add('Macizo', null, array('label' => 'Macizo'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

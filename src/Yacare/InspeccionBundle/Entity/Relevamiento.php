@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Relevamiento.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table("Inspeccion_Relevamiento")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table("Inspeccion_Relevamiento")
  */
 class Relevamiento
 {
@@ -23,12 +23,14 @@ class Relevamiento
     {
         $this->Asignaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
+     * @var RelevamientoAsignacion
+     * 
      * @ORM\OneToMany(targetEntity="RelevamientoAsignacion", mappedBy="Relevamiento")
      */
     private $Asignaciones;
-
+    
     /**
      * @var \DateTime 
      * 

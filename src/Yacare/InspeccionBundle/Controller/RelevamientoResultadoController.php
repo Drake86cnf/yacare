@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de resultados del relevamiento.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("relevamiento/resultado/")
  */
 class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmController

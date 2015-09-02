@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Tipo de acta (representa una especie).
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_ActaTipo")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_ActaTipo")
  */
 class ActaTipo
 {
@@ -21,7 +21,7 @@ class ActaTipo
     /**
      * Indica el departamento o dependencia a la cual pertenecen este tipo de actas.
      *
-     * @see \Yacare\BaseBundle\Organizacion\Departamento 
+     * @see \Yacare\BaseBundle\Organizacion\Departamento Departamento
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)

@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Talonario de actas.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_ActaTalonario")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_ActaTalonario")
  */
 class ActaTalonario
 {
@@ -19,29 +19,38 @@ class ActaTalonario
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * @var ActaTipo
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")
      */
     protected $Tipo;
     
     /**
-     * @var int 
+     * @var int
+     * 
      * @ORM\Column(type="integer")
      */
     private $NumeroDesde;
     
     /**
-     * @var int 
+     * @var int
+     * 
      * @ORM\Column(type="integer")
      */
     private $NumeroHasta;
     
     /**
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      * @ORM\OrderBy({ "NombreVisible" = "ASC" })
      */
     protected $EnPoderDe;
 
+    /**
+     * Establece el nombre a mostrar.
+     */
     private function ConstruirNombre()
     {
         $this->Nombre = $this->Tipo . ' Nº del ' . $this->NumeroDesde . ' al ' . $this->NumeroHasta;

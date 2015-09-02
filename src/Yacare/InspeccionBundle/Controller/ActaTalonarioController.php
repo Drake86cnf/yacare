@@ -5,6 +5,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
+ * Controlador para talonario de actas.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("actatalonario/")
  */
 class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
@@ -16,8 +20,7 @@ class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
     {
         $value = $request->get('term');
         
-        $em = $this->getDoctrine()
-            ->getEntityManager();
+        $em = $this->getDoctrine()->getEntityManager();
         $members = $em->getRepository('YacareBaseBundle:Persona')
             ->createQueryBuilder('o')
             ->where('o.NombreVisible = :nombrevisible')
@@ -27,9 +30,7 @@ class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
         
         $json = array();
         foreach ($members as $member) {
-            $json[] = array(
-                'label' => $member->getNombreVisible(), 
-                'value' => $member->getId());
+            $json[] = array('label' => $member->getNombreVisible(), 'value' => $member->getId());
         }
         
         $response = new Response();

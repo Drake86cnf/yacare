@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para resultado de un relevamiento.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class RelevamientoResultadoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -19,8 +24,7 @@ class RelevamientoResultadoType extends AbstractType
                     'Tránsito' => 'Tránsito'), 
                 'required' => false, 
                 'label' => 'Grupo'))
-            ->add('Nombre', null, array(
-                'label' => 'Nombre'));
+            ->add('Nombre', null, array('label' => 'Nombre'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Asignación de trabajo para un relevamiento.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_RelevamientoAsignacion")
  * @ORM\HasLifecycleCallbacks
  */
 class RelevamientoAsignacion
@@ -33,58 +33,66 @@ class RelevamientoAsignacion
     use \Tapir\BaseBundle\Entity\Archivable;
     
     /**
-     * @var string $Nombre
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Nombre;
     
     /**
+     * @var Relevamiento
+     * 
      * @ORM\ManyToOne(targetEntity="Relevamiento", inversedBy="Asignaciones")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Relevamiento;
     
     /**
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Encargado;
     
     /**
+     * @var \Yacare\CatastroBundle\Entity\Calle
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Calle")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Calle;
     
     /**
-     * @var string $Seccion
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Seccion;
     
     /**
-     * @var string $Macizo
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Macizo;
     
     /**
+     * @var RelevamientoAsignacionDetalle
+     * 
      * @ORM\OneToMany(targetEntity="RelevamientoAsignacionDetalle", mappedBy="Asignacion", cascade={"remove"})
      */
     protected $Detalles;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $DetallesCantidad = 0;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -110,6 +118,13 @@ class RelevamientoAsignacion
         return $this->getNombre();
     }
 
+    /**
+     * Construye inteligentemente el nombre a mostrar.
+     * 
+     * @return string
+     * 
+     * @see $Nombre $Nombre
+     */
     public function getNombre()
     {
         if ($this->getEncargado()) {
@@ -126,6 +141,11 @@ class RelevamientoAsignacion
         return $this->Nombre;
     }
 
+    /**
+     * Establece el nombre, posterior a su construcción.
+     * 
+     * @param string $Nombre
+     */
     public function setNombre($Nombre)
     {
         $this->Nombre = $this->getEncargado()->getNombreVisible();

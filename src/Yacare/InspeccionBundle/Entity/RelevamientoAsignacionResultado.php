@@ -7,12 +7,12 @@ use Knp\DoctrineBehaviors\DBAL\Types;
 /**
  * Resultado de una asignación.
  *
- * @see RelevamientoAsignacion
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
+ *
+ * @see \Yacare\InspeccionBundle\Entity\RelevamientoAsignacion RelevamientoAsignacion
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Inspeccion_RelevamientoAsignacionResultado")
  */
 class RelevamientoAsignacionResultado
 {
@@ -23,37 +23,48 @@ class RelevamientoAsignacionResultado
     use \Tapir\BaseBundle\Entity\Suprimible;
     
     /**
+     * @var RelevamientoResultado
+     * 
      * @ORM\ManyToOne(targetEntity="RelevamientoResultado")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Resultado;
     
     /**
+     * @var RelevamientoAsignacion
+     * 
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacion")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Asignacion;
     
     /**
+     * @var RelevamientoAsignacionDetalle
+     * 
      * @ORM\ManyToOne(targetEntity="RelevamientoAsignacionDetalle")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Detalle;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Obs;
     
     /**
-     * @var string 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Ubicacion;
 
+    /**
+     * Obtiene la latitud de la ubicación.
+     * 
+     * @return 
+     */
     public function getUbicacionLatitud()
     {
         if ($this->Ubicacion) {
@@ -65,6 +76,11 @@ class RelevamientoAsignacionResultado
         return $Latitud;
     }
     
+    /**
+     * Obtiene la longitud de la ubicación.
+     *
+     * @return
+     */
     public function getUbicacionLongitud()
     {
         if ($this->Ubicacion) {

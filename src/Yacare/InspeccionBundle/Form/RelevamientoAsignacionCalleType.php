@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario de calle para asignación.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class RelevamientoAsignacionCalleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
