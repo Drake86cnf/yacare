@@ -53,6 +53,8 @@ class Matriculado
 
     /**
      * Devuelve el nombre abreviado de la profesión.
+     * 
+     * @return string nombre abreviado.
      */
     public function getProfesionAbreviada()
     {

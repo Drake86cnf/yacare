@@ -37,10 +37,9 @@ class EmpresaConstructoraType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora', 
-                'cascade_validation' => true));
+        $resolver->setDefaults(array(
+            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora', 
+            'cascade_validation' => true));
     }
 
     public function getName()

@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class EmpresaConstructoraController extends \Tapir\BaseBundle\Controller\AbmController
 {
-
     function IniciarVariables()
     {
         parent::IniciarVariables();
