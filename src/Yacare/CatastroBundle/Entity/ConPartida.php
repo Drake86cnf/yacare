@@ -13,7 +13,7 @@ trait ConPartida
     /**
      * La partida inmobiliaria.
      * 
-     * @var Partida.
+     * @var Partida
      * 
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Partida")
      * @ORM\JoinColumn(nullable=true)
