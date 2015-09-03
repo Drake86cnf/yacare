@@ -14,8 +14,13 @@ pagina_contenido %}
 	<tbody>
 		{% for entity in entities %}
 		<tr  {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-			data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
+			     {% if entity.Final %}
+					data-toggle="ajax-link"
+					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
+					{% else %}
+					data-toggle="ajax-link"
+					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id, 'form':'ActividadCategoria' }) }}"
+				{%endif%}	
 			{% endif %}>
 			<td>{{ entity.Clamae2014Formateado }}</td>
 			<td>{{ entity.Sangria|raw }} {% if entity.Final %}{{ entity.Nombre
