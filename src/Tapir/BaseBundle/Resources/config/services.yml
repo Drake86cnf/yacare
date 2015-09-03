@@ -20,3 +20,13 @@ services:
         class: Tapir\BaseBundle\Form\Type\ButtonGroupType
         tags:
           - { name: form.type, alias: buttongroup }
+    
+    audit.logger:
+        class:     Symfony\Bridge\Monolog\Logger
+        arguments: [ app ]
+        calls:
+            - [ pushHandler, [ '@audit.logger_handler' ] ]
+    
+    audit.logger_handler:
+        class:     Monolog\Handler\StreamHandler       
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.audit.log', 200 ]
