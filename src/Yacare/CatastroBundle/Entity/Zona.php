@@ -4,13 +4,13 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\CatastroBundle\Entity\Zona
+ * Representa un zona.
  *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Zona", indexes={
  *     @ORM\Index(name="Catastro_Zona_Nombre", columns={"Nombre"})
  *     }
  * )
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Zona
 {
@@ -22,16 +22,24 @@ class Zona
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * El código de zona.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Codigo;
     
     /** 
+     * @var float
+     * 
      * @ORM\Column(type="decimal", precision=14, scale=2, nullable=true)
      */
     private $Fos;
     
     /**
+     * @var float
+     * 
      * @ORM\Column(type="decimal", precision=14, scale=2, nullable=true)
      */
     private $Fot;

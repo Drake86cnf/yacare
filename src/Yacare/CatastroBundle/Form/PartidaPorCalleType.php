@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario de partidas por calle.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class PartidaPorCalleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -13,19 +18,14 @@ class PartidaPorCalleType extends AbstractType
             ->add('DomicilioCalle', 'entity', array(
                 'label' => 'Calle', 
                 'class' => 'YacareCatastroBundle:Calle', 
-                'required' => true, 
-                'mapped' => false))
-            ->add('DomicilioNumero', null, array(
-                'label' => 'Nº', 
-                'mapped' => false))
+                'required' => true, 'mapped' => false))
+            ->add('DomicilioNumero', null, array('label' => 'Nº', 'mapped' => false))
             ->setAttribute('widget', 'form_horizontal');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'inherit_data' => true, 
-            'class' => 'form_horizontal'));
+        $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
     }
 
     public function getName()

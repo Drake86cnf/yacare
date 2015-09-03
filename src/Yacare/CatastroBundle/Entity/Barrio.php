@@ -4,12 +4,14 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\CatastroBundle\Entity\Barrio
+ * Representa un barrio.
+ * 
+ * @author Ernesto Carrea <ernestoacarrea@gmail.com>
  *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Barrio", indexes={
  *     @ORM\Index(name="Catastro_Barrio_Nombre", columns={"nombre"})
  * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Barrio
 {
@@ -21,12 +23,20 @@ class Barrio
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * El nombre alternativo.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $NombreAlternativo;
     
     /**
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * La ordenanza.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Ordenanza;
 

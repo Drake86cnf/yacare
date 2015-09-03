@@ -5,27 +5,26 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para zonas.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class ZonaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Codigo', null, array(
-                'label' => 'Código'))
-            ->add('Nombre', null, array(
-                'label' => 'Nombre'))
-            ->add('Fos', null, array(
-                'label' => 'F.O.S.'))
-            ->add('Fot', null, array(
-                'label' => 'F.O.T.'))
-            ->add('Obs', null, array(
-                'label' => 'Obs.'));
+            ->add('Codigo', null, array('label' => 'Código'))
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Fos', null, array('label' => 'F.O.S.'))
+            ->add('Fot', null, array('label' => 'F.O.T.'))
+            ->add('Obs', null, array('label' => 'Obs.'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\CatastroBundle\Entity\Zona'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\CatastroBundle\Entity\Zona'));
     }
 
     public function getName()
