@@ -4,12 +4,14 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\CatastroBundle\Entity\Calle
+ * Representa una calle.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Calle", indexes={
  *     @ORM\Index(name="Catastro_Calle_Nombre", columns={"nombre"})
  * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class Calle
 {
@@ -20,24 +22,37 @@ class Calle
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * El nombre original.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $NombreOriginal;
     
     /**
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * El nombre alternativo.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $NombreAlternativo;
     
     /**
-     * @var int @ORM\Column(type="integer", nullable=false)
+     * El tipo.
+     * 
+     * @var int 
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $Tipo;
 
     /**
      * Normaliza el tipo de calle.
      * 
-     * @param integer $tipo
+     * @param  integer $tipo
+     * @return string
      */
     public static function getTipoNombres($tipo)
     {
@@ -57,6 +72,8 @@ class Calle
 
     /**
      * Devuelve el tipo normalizado de calle.
+     * 
+     * @return string
      */
     public function getTipoNombre()
     {

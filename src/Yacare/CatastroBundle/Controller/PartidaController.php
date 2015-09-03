@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador para partida inmobiliaria.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("partida/")
  */
 class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
@@ -39,7 +43,8 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
     // ************** Al importar:
     // UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
     // UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
-    // UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ', ParcelaNum, ParcelaAlfa),
+    // UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ',
+    // ParcelaNum, ParcelaAlfa),
     // Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
     
     /**
@@ -91,7 +96,7 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
             foreach ($palabras as $palabra) {
                 $this->Where .= " AND (p.NombreVisible LIKE '%$palabra%'
-                    OR p.RazonSocial LIKE '%$palabra%'
+                    OR p.RazonSocial LIKE '%$paparalabra%'
                     OR p.DocumentoNumero LIKE '%$palabra%'
                     OR p.Cuilt LIKE '%$palabra%')";
             }
@@ -105,6 +110,11 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         return $res;
     }
 
+    /**
+     * Devuelve todas las secciones de las partidas.
+     * 
+     * @return \Yacare\CatastroBundle\Entity\Partida
+     */
     private function ObtenerSecciones()
     {
         $em = $this->getDoctrine()->getManager();
@@ -112,6 +122,11 @@ class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
         return $query->getResult();
     }
 
+    /**
+     * Devuelve todas las calles.
+     * 
+     * @return \Yacare\CatastroBundle\Entity\Calle
+     */
     private function ObtenerCalles()
     {
         $em = $this->getDoctrine()->getManager();

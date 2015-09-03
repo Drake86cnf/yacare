@@ -4,12 +4,12 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\CatastroBundle\Entity\UsoSuelo
+ * Representa el UsoSuelo.
  *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_UsoSuelo", indexes={
  *     @ORM\Index(name="Catastro_UsoSuelo_Codigo", columns={"Codigo"})
  * })
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  */
 class UsoSuelo
 {
@@ -19,125 +19,187 @@ class UsoSuelo
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * La categoría.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Categoria;
     
     /**
+     * La sección.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Seccion;
     
     /**
+     * El código.
+     * 
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $Codigo;
     
     /**
+     * La superficie máxima.
+     * 
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $SuperficieMaxima;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona1;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona2;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona3;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona4;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona5;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona6;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona7;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona8;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona9;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona10;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona11;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona12;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona13;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona14;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona15;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona16;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona17;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona18;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona19;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $UsoZona20;
 
+    /**
+     * Normaliza el nombre de UsoSuelo.
+     * 
+     * @param  integer $numero rango de clasificación.
+     * @return string
+     */
     public static function UsoSueloNombre($numero)
     {
         switch ($numero) {
@@ -154,6 +216,12 @@ class UsoSuelo
         }
     }
 
+    /**
+     * Getter grupal que identifica y devuelve la zona correspondiente.
+     * 
+     * @param  Zona $zona
+     * @return Zona
+     */
     public function getUsoZona($zona)
     {
         switch ($zona) {

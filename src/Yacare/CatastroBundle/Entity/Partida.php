@@ -4,17 +4,19 @@ namespace Yacare\CatastroBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\CatastroBundle\Entity\Partida
+ * Representa una partida inmobiliaria.
  *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Partida", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
- * }, indexes={
- *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
+ *         @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
+ *         }, 
+ *     indexes={
+ *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", 
+ *             columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
  *         @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
  *         @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *         }
  * )
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  *
  * UPDATE Catastro_Partida
  * SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);
@@ -42,78 +44,109 @@ class Partida
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * La sección.
      *
-     * @var string $Seccion
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Seccion;
     
     /**
-     *
-     * @var string $MacizoAlfa
+     * El macizo alfa.
+     * 
+     * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $MacizoAlfa;
     
     /**
-     *
-     * @var string $MacizoNum
+     * El número de macizo.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $MacizoNum;
     
     /**
+     * El macizo.
      *
-     * @var string $Macizo
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Macizo;
     
     /**
+     * La parcela alfa.
      *
-     * @var string $ParcelaAlfa
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ParcelaAlfa;
     
     /**
+     * El número de parcela.
      *
-     * @var string $ParcelaNum
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ParcelaNum;
     
     /**
+     * La parcela.
      *
-     * @var string $Parcela
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Parcela;
     
     /**
-     * @var int @ORM\Column(type="integer")
+     * @var int 
+     * 
+     * @ORM\Column(type="integer")
      */
     private $UnidadFuncional;
     
     /**
+     * El titular.
+     * 
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      */
     private $Titular;
     
     /**
+     * La zona.
+     * 
+     * @var Zona
+     * 
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Zona")
      * @ORM\JoinColumn(nullable=true)
      */
     private $Zona;
     
     /**
-     * @var @ORM\Column(type="integer")
+     * El número de partida.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
      */
     private $Numero;
     
     /**
-     * @var @ORM\Column(type="integer")
+     * El número de legajo.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
      */
     private $Legajo;
 
@@ -127,6 +160,9 @@ class Partida
         return $res;
     }
 
+    /**
+     * Establece inteligentemente el nombre completo de la partida.
+     */
     public function CalcularNombre()
     {
         if ($this->getDomicilioCalle() && $this->getDomicilioCalle()->getId()) {
@@ -166,7 +202,7 @@ class Partida
         $this->CalcularNombre();
         return $this->Nombre;
     }
-    
+
     /**
      * @ignore
      */
