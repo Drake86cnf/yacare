@@ -29,4 +29,4 @@ services:
     
     audit.logger_handler:
         class:     Monolog\Handler\StreamHandler       
-        arguments: [ '%kernel.logs_dir%/%kernel.environment%.audit.log', 200 ]
+        arguments: [ '%kernel.logs_dir%/audit.log', 200 ]
