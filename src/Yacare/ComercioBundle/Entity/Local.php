@@ -25,7 +25,8 @@ class Local
     /**
      * El tipo de local (local, oficina, depósito, etc.).
      *
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Tipo;
@@ -33,7 +34,8 @@ class Local
     /**
      * La superficie en metros cuadrados.
      *
-     * @var float 
+     * @var float
+     * 
      * @ORM\Column(type="float")
      */
     private $Superficie;
@@ -42,8 +44,11 @@ class Local
      * La clase de depósito.
      *
      * Sólo aplica si Tipo es "Depósito".
+     * 
+     * @var DepositoClase
      *
-     * @see $Tipo 
+     * @see $Tipo $Tipo
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\DepositoClase")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
@@ -51,6 +56,8 @@ class Local
     
     /**
      * Indica si el local comercial posee vereda municipal reglamentaria.
+     * 
+     * @var integer
      *
      * @ORM\Column(type="integer",nullable=true)
      */
@@ -58,6 +65,8 @@ class Local
     
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -65,6 +74,8 @@ class Local
     
     /**
      * Indica si el local comercial posee cesto de basura.
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -72,6 +83,8 @@ class Local
     
     /**
      * Indica si el local comercial tiene salidas de emergencia.
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -80,6 +93,8 @@ class Local
     /**
      * Indica la cantidad de anchos de salidas que tiene un local comercial.
      * La unidad de ancho de salida se establece en 0.55m.
+     * 
+     * @var integer
      * 
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -90,6 +105,11 @@ class Local
         return $this->ConstruirNombre();
     }
 
+    /**
+     * Establece el nombre que se mostrará.
+     * 
+     * @return string
+     */
     private function ConstruirNombre()
     {
         $res = $this->getTipo();
@@ -106,6 +126,9 @@ class Local
         return $res;
     }
 
+    /**
+     * @ignore
+     */
     public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;

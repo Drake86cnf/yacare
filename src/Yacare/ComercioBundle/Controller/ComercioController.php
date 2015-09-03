@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Yacare\ComercioBundle\Entity\Actividad;
 
 /**
+ * Controlador de comercio.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ * 
  * @Route("comercio/")
  */
 class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
@@ -24,7 +29,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist()
+     * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist() AbmController::guardarActionPrePersist()
      */
     public function guardarActionPrePersist($entity, $editForm)
     {
@@ -36,6 +41,9 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Reordena las actividades antes de persistirlas en un comercio para que estén consolidadas (sin espacios
      * intermedios en blanco).
+     * 
+     * @param \Yacare\ComercioBundle\Entity\Actividad $entity
+     * @return ComercioController::ReordenarActividades() | null devuelve nada.
      */
     public static function ReordenarActividades($entity)
     {
@@ -70,7 +78,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
             return self::ReordenarActividades($entity);
         } else {
             // No hice cambios. La lista está ordenada.
-            return array();
+            return;
         }
     }
 }

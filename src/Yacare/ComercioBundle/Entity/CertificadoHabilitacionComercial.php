@@ -4,7 +4,9 @@ namespace Yacare\ComercioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial
+ * Representa un Certificado de Habilitación Comercial.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_CertificadoHabilitacionComercial")
@@ -12,8 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
 class CertificadoHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Comprobante
 {
     use \Yacare\TramitesBundle\Entity\ConVencimiento;
-
+    
     /**
+     * @var Comercio
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */

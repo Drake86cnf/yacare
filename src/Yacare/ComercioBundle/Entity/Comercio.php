@@ -6,6 +6,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * El comercio.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Comercio")
@@ -14,7 +16,7 @@ class Comercio
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
-    use \Yacare\ComercioBundle\Entity\ConDatosComercio;    
+    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
     use \Tapir\BaseBundle\Entity\Suprimible;
@@ -23,20 +25,25 @@ class Comercio
     use \Yacare\TramitesBundle\Entity\ConApoderado;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     protected $Estado = 0;
     
     /**
+     * @var CertificadoHabilitacionComercial
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $CertificadoHabilitacion;
 
     /**
-     * Normaliza nombres de estado.
+     * Devuelve nombres de estado normalizados.
      * 
-     * @param integer $estado
+     * @param  integer $estado
+     * @return string
      */
     public static function NombreEstado($estado)
     {
@@ -56,6 +63,11 @@ class Comercio
         }
     }
 
+    /**
+     * Obtiene el nombre de estado.
+     * 
+     * @return string
+     */
     public function getEstadoNombre()
     {
         return self::NombreEstado($this->Estado);

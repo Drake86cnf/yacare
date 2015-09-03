@@ -7,6 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
+ * Controlador de actividades.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
+ * 
  * @Route("actividad/")
  */
 class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
@@ -20,7 +25,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     function IniciarVariables()
     {
         parent::IniciarVariables();
-
+        
         $this->BuscarPor = 'Nombre,Clamae2014,Incluye';
         $this->OrderBy = 'MaterializedPath';
         $this->Paginar = false;
@@ -43,11 +48,11 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             ->setCellValue('L1', 'ClaNAE 2010')
             ->setCellValue('M1', 'ClaE AFIP RG3537/13')
             ->setCellValue('N1', 'DGR TDF Ley 854/11');
-
+        
         $i = 1;
         foreach ($entities as $entity) {
             $i ++;
-
+            
             $phpExcelObject->getActiveSheet()
                 ->setCellValue('A' . $i, $entity->getClamae2014())
                 ->setCellValue('B' . $i, $entity->getNombre())
@@ -63,11 +68,9 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
                 ->setCellValue('L' . $i, $entity->getClanae2010())
                 ->setCellValue('M' . $i, $entity->getClaeAfip())
                 ->setCellValue('N' . $i, $entity->getDgrTdf());
-
-            $phpExcelObject->getActiveSheet()
-                ->getRowDimension($i)
-                ->setRowHeight(12);
-
+            
+            $phpExcelObject->getActiveSheet()->getRowDimension($i)->setRowHeight(12);
+            
             $phpExcelObject->getActiveSheet()
                 ->getStyle('B' . $i)
                 ->getAlignment()
@@ -83,26 +86,22 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
                     ->setBold(true);
             }
         }
-
-        $phpExcelObject->getActiveSheet()
-            ->getColumnDimension('A')
-            ->setWidth(12);
-        $phpExcelObject->getActiveSheet()
-            ->getColumnDimension('B')
-            ->setWidth(70);
-
+        
+        $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setWidth(70);
+        
         $phpExcelObject->getActiveSheet()
             ->getStyle('A1:N1')
             ->getFill()
             ->getStartColor()
             ->setARGB(\PHPExcel_Style_Color::COLOR_YELLOW);
-
+        
         $phpExcelObject->getActiveSheet()
             ->getStyle('A2:N' . $i)
             ->getFill()
             ->getStartColor()
             ->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
-
+        
         $phpExcelObject->getActiveSheet()
             ->getStyle('A2:A' . $i)
             ->getNumberFormat()
@@ -111,7 +110,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             ->getStyle('A2:A' . $i)
             ->getAlignment()
             ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-
+        
         $phpExcelObject->getActiveSheet()
             ->getStyle('K2:K' . $i)
             ->getNumberFormat()
@@ -120,14 +119,14 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             ->getStyle('K2:K' . $i)
             ->getAlignment()
             ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
+        
         return $i;
     }
 
     public function guardarActionPrePersist($entity, $editForm)
     {
         $em = $this->getEm();
-
+        
         if (! $entity->getId()) {
             /*
              * No tiene id. Como es parte de un árbol, necesito asignar un id manualmente.
@@ -140,19 +139,19 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             $metadata = $em->getClassMetaData(get_class($entity));
             $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         }
-
+        
         /*
          * Quito guiones, espacios y puntos del código
          */
         $codigo = trim(str_replace('-', '', str_replace(' ', '', str_replace('.', '', $entity->getClamae2014()))));
         $entity->setClamae2014($codigo);
-
+        
         /*
          * Calculo el ClaE AFIP y el ClaNAE 2010
          */
         $entity->setClaeAfip(substr($codigo, 0, 6));
         $entity->setClanae2010(substr($codigo, 0, 5));
-
+        
         /*
          * Busco un ParentNode acorde al código ingresado
          */
@@ -218,18 +217,16 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         } else {
             $codigoPadre = '';
         }
-
+        
         if ($codigoPadre) {
             $em = $this->getDoctrine()->getManager();
             $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(
-                array(
-                    'Clamae2014' => $codigoPadre));
+                array('Clamae2014' => $codigoPadre));
             $entity->setParentNode($parentNode);
         }
-
+        
         $hijos = $em->getRepository('YacareComercioBundle:Actividad')->findBy(
-            array(
-                'ParentNode' => $entity->getId()));
+            array('ParentNode' => $entity->getId()));
         if ($hijos) {
             foreach ($hijos as $hijo) {
                 $hijo->setRequiereCamaraBarro($entity->getRequiereCamaraBarro());
@@ -251,7 +248,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     public function buscarAction(Request $request)
     {
         $this->Where = 'r.Final=1';
-
+        
         return $this->buscarAction2($request);
     }
 
@@ -263,7 +260,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     {
         set_time_limit(600);
         ini_set('memory_limit', '2048M');
-
+        
         $em = $this->getDoctrine()->getManager();
         /* $em->getConnection()->beginTransaction(); */
         $items = $em->getRepository('YacareComercioBundle:Actividad')->findAll();
@@ -272,9 +269,9 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             $em->persist($item);
             $em->flush();
         }
-
+        
         /* $em->getConnection()->commit(); */
-
+        
         return parent::listarAction($request);
     }
 }
