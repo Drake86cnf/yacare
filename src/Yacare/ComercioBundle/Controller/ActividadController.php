@@ -225,19 +225,7 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
             $entity->setParentNode($parentNode);
         }
         
-        $hijos = $em->getRepository('YacareComercioBundle:Actividad')->findBy(
-            array('ParentNode' => $entity->getId()));
-        if ($hijos) {
-            foreach ($hijos as $hijo) {
-                $hijo->setRequiereCamaraBarro($entity->getRequiereCamaraBarro());
-                $hijo->setRequiereCamaraGrasa($entity->getRequiereCamaraBarro());
-                $hijo->setRequiereInfEscolar($entity->getRequiereInfEscolar());
-                $hijo->setRequiereImpactoSonoro($entity->getRequiereImpactoSonoro());
-                $hijo->setRequiereDbeh($entity->getRequiereDbeh());
-                $hijo->setRequiereDeyma($entity->getRequiereDEyma());
-                $em->persist($hijo);
-            }
-        }
+        $hijos = $em->getRepository('YacareComercioBundle:Actividad')->findBy(array('ParentNode' => $entity->getId()));
         return parent::guardarActionPrePersist($entity, $editForm);
     }
 
