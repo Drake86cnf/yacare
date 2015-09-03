@@ -5,6 +5,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para un sola actividad.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
+ */
 class ActividadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -15,14 +21,20 @@ class ActividadType extends AbstractType
                 'required' => true, 
                 'attr' => array(
                     'help' => 'No es necesario escribir los guiones. 
-                    Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
+                        Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Exento', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Exento', 'required' => true, 'choices' => array('0' => 'No', '1' => 'Sí')))
+                'label' => 'Exento', 
+                'required' => true, 
+                'choices' => array('0' => 'No', '1' => 'Sí')))
             ->add('RequiereDeyma', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Requiere DEyMA', 'required' => true, 'choices' => array('0' => 'No', '1' => 'Sí')))
+                'label' => 'Requiere DEyMA', 
+                'required' => true, 
+                'choices' => array('0' => 'No', '1' => 'Sí')))
             ->add('RequiereDbeh', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Requiere DBeH', 'required' => true, 'choices' => array('0' => 'No', '1' => 'Sí')))
+                'label' => 'Requiere DBeH', 
+                'required' => true, 
+                'choices' => array('0' => 'No', '1' => 'Sí')))
             ->add('RequiereCamaraGrasa', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                 'label' => 'Requiere cámara de grasa', 
                 'required' => true, 

@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
+ * Controlador de local.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * @Route("local/")
  */
 class LocalController extends \Tapir\BaseBundle\Controller\AbmController

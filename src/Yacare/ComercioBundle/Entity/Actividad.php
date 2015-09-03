@@ -6,6 +6,8 @@ use Yacare\BaseBundle\Model\Tree;
 
 /**
  * Representa una actividad económica, según ClaMAE 2014.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Actividad")
@@ -20,6 +22,10 @@ class Actividad implements Tree\NodeInterface
     use \Yacare\BaseBundle\Model\Tree\Node;
     
     /**
+     * Actividad que contiene a la actual.
+     * 
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
@@ -28,7 +34,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Código correspondiente en el ClaNAE 1997 de INDEC.
      *
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae1997;
@@ -36,7 +43,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Código correspondiente en el ClaNAE 2010 de INDEC.
      *
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $Clanae2010;
@@ -44,33 +52,37 @@ class Actividad implements Tree\NodeInterface
     /**
      * Código correspondiente en la RG 3537/13 de AFIP.
      *
-     * @var string 
-     * @ORM\Column(type="string", nullable=true, length=50)
-     *     
      * RG 3537/13 AFIP
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $ClaeAfip;
     
     /**
      * Código correspondiente en la Ley 854/11 de la DGR de TDF.
-     *
-     * @var string 
-     * @ORM\Column(type="string", nullable=true, length=50)
-     *     
+     * 
      * Ley 854/11 DGR-TDF
+     *
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $DgrTdf;
     
     /**
      * Los códigos Clamae2014 tienen el siguiente formato: CDDGCSMM
-     *     C Categoría, alfabética
-     *     DD División, numérica
-     *     G Grupo, numérico
-     *     C Clase, numérica
-     *     S Sub-clase, numérica
-     *     MM Subdivisión del Municipio de Río Grande
+     * * C Categoría, alfabética
+     * * DD División, numérica
+     * * G Grupo, numérico
+     * * C Clase, numérica
+     * * S Sub-clase, numérica
+     * * MM Subdivisión del Municipio de Río Grande
      *
      * Por ejemplo: R9521000
+     * 
+     * @var string
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
@@ -79,13 +91,16 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica la categoría correspondiente en los rubros anteriores.
      *
-     * @var integer 
+     * @var integer
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     private $CategoriaAntigua = 0;
     
     /**
      * Código correspondiente en la tabla del CPU.
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true, length=50)
      */
@@ -94,7 +109,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere de aprobación por parte de Bromatología e Higiene.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereDbeh = false;
@@ -102,7 +118,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere de aprobación por parte de Ecología y medioambiente.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereDeyma = false;
@@ -110,7 +127,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Algunas actividades están exentas del requisito de habilitación comercial.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $Exento = false;
@@ -118,7 +136,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere la instalación de una cámara decantadora de barro.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereCamaraBarro = false;
@@ -126,7 +145,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere la instalación de una cámara decantadora de grasa.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereCamaraGrasa = false;
@@ -134,7 +154,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere la aprobación de Infraestructura Escolar de provincia.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereInfEscolar = false;
@@ -142,7 +163,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere un estudio de impacto sonoro.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $RequiereImpactoSonoro = false;
@@ -150,13 +172,15 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si esta actividad requiere especificar un factor de ocupación de personas, o cero si no requiere.
      *
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="integer")
      */
     private $RequiereFactorOcupacion = 0;
     
     /**
-     * @var bool 
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $Ley105 = false;
@@ -164,7 +188,8 @@ class Actividad implements Tree\NodeInterface
     /**
      * Texto que explica los alcances de la actividad.
      *
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $Incluye;
@@ -172,13 +197,15 @@ class Actividad implements Tree\NodeInterface
     /**
      * Texto que explica aquellas cosas que esta actividad no contempla.
      *
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $NoIncluye;
     
     /**
-     * @var string 
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=true, length=255)
      */
     private $Instructivos;
@@ -186,11 +213,19 @@ class Actividad implements Tree\NodeInterface
     /**
      * Indica si es una actividad (final = 1) o una categorización (final = 0).
      * Sólo pueden seleccionarse como actividades para un comercio las actividades finales.
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $Final = false;
 
+    /**
+     * Devuelve el nombre correspondiente de la categoría.
+     * 
+     * @param  string $categoria|null
+     * @return string|null
+     */
     public static function NombresCategorias($categoria = null)
     {
         switch ($categoria) {
@@ -209,11 +244,21 @@ class Actividad implements Tree\NodeInterface
         }
     }
 
+    /**
+     * Obtiene el nombre correspondiente de la categoría.
+     * 
+     * @return string
+     */
     public function getCategoriaNombre()
     {
         return static::NombresCategorias($this->getCategoria());
     }
 
+    /**
+     * Devuelve nomenclador de actividades comerciales, formateado.
+     * 
+     * @return string
+     */
     public function getClamae2014Formateado()
     {
         $codigo = $this->getClamae2014();
@@ -230,8 +275,10 @@ class Actividad implements Tree\NodeInterface
                 }
     }
 
-    /*
-     * Devuelve el "bread crumb" de la actividad actual
+    /**
+     * Devuelve el "bread crumb" de la actividad actual.
+     * 
+     * @return string
      */
     public function getRuta()
     {
@@ -249,6 +296,11 @@ class Actividad implements Tree\NodeInterface
         return $res;
     }
 
+    /**
+     * Devuelve 'Clamae2014'.
+     * 
+     * @return string
+     */
     public static function getMaterializedPathMaterial()
     {
         return 'Clamae2014';
@@ -259,12 +311,20 @@ class Actividad implements Tree\NodeInterface
         return str_repeat($sangria, $this->getNodeLevel());
     }
 
+    /**
+     * @return string
+     */
     public function getNombreConSangriaDeEspaciosDuros()
     {
         // Atención, los de la siguiente línea son 'espacios duros' (no se consolidan en el navegador)
         return $this->getSangria('   ') . $this->getNombre();
     }
 
+    /**
+     * Establece el nomenclador de activiadades comerciales, a las propiedades correpsondientes.
+     * 
+     * @param string $Clamae2014
+     */
     public function setClamae2014($Clamae2014)
     {
         $this->Clamae2014 = $Clamae2014;
@@ -526,7 +586,7 @@ class Actividad implements Tree\NodeInterface
     {
         $this->RequiereCamaraBarro = $RequiereCamaraBarro;
     }
-    
+
     /**
      * @ignore
      */

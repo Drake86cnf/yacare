@@ -3,47 +3,69 @@ namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Agrega la capacidad para trabajar con Actividades.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
+ */
 trait ConActividades
 {
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-     *
      * @Symfony\Component\Validator\Constraints\NotNull(message="Debe seleccionar una actividad principal.")
      * @Symfony\Component\Validator\Constraints\NotBlank(message="Debe elegir una actividad primaria.")
      */
     protected $Actividad1;
     
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad2;
     
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad3;
     
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad4;
     
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad5;
     
     /**
+     * @var Actividad
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad6;
 
+    /**
+     * Devuelve TRUE si requiere la intervención de la Dirección de Ecología y Medio Ambiente.
+     * 
+     * @return boolean
+     */
     public function getRequiereDeyma()
     {
         $Activ1 = $this->getActividad1();
@@ -58,6 +80,11 @@ trait ConActividades
              ($Activ5 != null && $Activ5->getRequiereDeyma()) || ($Activ6 != null && $Activ6->getRequiereDeyma());
     }
 
+    /**
+     * Devuelve TRUE si requiere la intervención de la Dirección de Bromatología e Higiene.
+     *
+     * @return boolean
+     */
     public function getRequiereDbeh()
     {
         $Activ1 = $this->getActividad1();
@@ -72,6 +99,11 @@ trait ConActividades
              ($Activ5 != null && $Activ5->getRequiereDbeh()) || ($Activ6 != null && $Activ6->getRequiereDbeh());
     }
 
+    /**
+     * Devuelve TRUE si requiere informe de infraestructura escolar.
+     *
+     * @return boolean
+     */
     public function getRequiereInfEscolar()
     {
         $Activ1 = $this->getActividad1();
@@ -89,6 +121,11 @@ trait ConActividades
              ($Activ6 != null && $Activ6->getRequiereInfEscolar());
     }
 
+    /**
+     * Devuelve TRUE si requiere cámara de grasa.
+     * 
+     * @return boolean
+     */
     public function getRequiereCamaraGrasa()
     {
         $Activ1 = $this->getActividad1();
@@ -106,6 +143,11 @@ trait ConActividades
              ($Activ6 != null && $Activ6->getRequiereCamaraGrasa());
     }
 
+    /**
+     * Devuelve TRUE si requiere cámara de barro.
+     *
+     * @return boolean
+     */
     public function getRequiereCamaraBarro()
     {
         $Activ1 = $this->getActividad1();
@@ -123,6 +165,11 @@ trait ConActividades
              ($Activ6 != null && $Activ6->getRequiereCamaraBarro());
     }
 
+    /**
+     * Devuelve TRUE si requiere un informe de impacto sonoro.
+     *
+     * @return boolean
+     */
     public function getRequiereImpactoSonoro()
     {
         $Activ1 = $this->getActividad1();

@@ -4,7 +4,9 @@ namespace Yacare\ComercioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Yacare\ComercioBundle\Entity\DepositoClase
+ * Representa la clase de un depósito.
+ * 
+ * @author Ernesto Carrea <ernestocarra@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_DepositoClase")
@@ -17,26 +19,36 @@ class DepositoClase
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string")
      */
     private $Categoria;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $Tipo;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $ClaseHasta300;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $ClaseHasta1000;
     
     /**
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $ClaseMasDe1000;

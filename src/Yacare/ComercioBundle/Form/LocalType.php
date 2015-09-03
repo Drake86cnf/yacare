@@ -5,6 +5,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para un local.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
+ */
 class LocalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -68,8 +74,7 @@ class LocalType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\Local'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Local'));
     }
 
     public function getName()
