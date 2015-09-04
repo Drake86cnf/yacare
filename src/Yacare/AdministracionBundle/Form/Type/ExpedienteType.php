@@ -13,14 +13,14 @@ class ExpedienteType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'label' => 'Expediente',
-                'maxlength' => 13,
-                'attr' => array('class' => 'yacare-input-expediente',
-                    'class' => 'tapir-input-240',
-                    'data-type' => 'yacare_expediente',
-                    'maxlength' => '11')));
+        $resolver->setDefaults(array(
+            'label' => 'Expediente', 
+            'maxlength' => 13, 
+            'attr' => array(
+                'class' => 'yacare-input-expediente', 
+                'class' => 'tapir-input-240', 
+                'data-type' => 'yacare_expediente', 
+                'maxlength' => '11')));
     }
 
     public function getParent()

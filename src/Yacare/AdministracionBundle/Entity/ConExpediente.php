@@ -14,8 +14,9 @@ trait ConExpediente
     /**
      * El número de expediente asociado.
      * 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
      * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern="/^\s*(\d{1,6})\/(19|20)(\d{2})\s*$/i",
      *     message="Debe escribir el número de expediente en el formato 1234/2015."
