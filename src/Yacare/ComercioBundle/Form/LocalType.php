@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para un local.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @author Alejandro Díaz <alediaz.rc@gmail.com>
  */
@@ -17,59 +17,59 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('Partida', 'entity_id', array(
-                'label' => 'Partida', 
-                'class' => 'Yacare\CatastroBundle\Entity\Partida', 
+                'label' => 'Partida',
+                'class' => 'Yacare\CatastroBundle\Entity\Partida',
                 'required' => true))
             ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Tipo', 
-                'required' => true, 
+                'label' => 'Tipo',
+                'required' => true,
                 'choices' => array(
-                    'Local de ventas' => 'Local de ventas', 
-                    'Oficina' => 'Oficina', 
-                    'Galpón' => 'Galpón', 
-                    'Depósito' => 'Depósito', 
+                    'Local de ventas' => 'Local de ventas',
+                    'Oficina' => 'Oficina',
+                    'Galpón' => 'Galpón',
+                    'Depósito' => 'Depósito',
                     'Otro' => 'Otro')))
             ->add('DepositoClase', 'entity', array(
-                'label' => 'Tipo de depósito', 
-                'placeholder' => '(sólo para depósitos)', 
-                'class' => 'Yacare\ComercioBundle\Entity\DepositoClase', 
+                'label' => 'Tipo de depósito',
+                'placeholder' => '(sólo para depósitos)',
+                'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
                 'required' => false))
             ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
                 'label' => 'Superficie (m²)'))
             ->add('CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Cesto de basura', 
-                'required' => false, 
+                'label' => 'Cesto de basura',
+                'required' => false,
                 'choices' => array(
-                    null => 'Sin información', 
-                    0 => 'No', 
-                    1 => 'Si')))
+                    null => 'Sin información',
+                    0 => 'No',
+                    1 => 'Sí')))
             ->add('Canaletas', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'required' => false, 
+                'required' => false,
                 'choices' => array(
-                    null => 'Sin información', 
-                    0 => 'No', 
-                    1 => 'Si')))
+                    null => 'Sin información',
+                    0 => 'No',
+                    1 => 'Sí')))
             ->add('VeredaMunicipal', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'required' => false, 
+                'required' => false,
                 'choices' => array(
-                    null => 'Sin información', 
-                    0 => 'No', 
-                    1 => 'Si')))
+                    null => 'Sin información',
+                    0 => 'No',
+                    1 => 'Sí')))
             ->add('AnchoSalida', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Salida de emergencia', 
-                'required' => false, 
+                'label' => 'Salida de emergencia',
+                'required' => false,
                 'attr' => array(
-                    'help' => "El valor corresponde a la cantidad de anchos de salida (0,55m)"), 
+                    'help' => "El valor corresponde a la cantidad de anchos (de 55 cm) que suman todas las salidas de emergencia."),
                 'choices' => array(
-                    null => 'Sin información', 
-                    0 => 'No', 
-                    1 => '1', 
-                    2 => '2', 
-                    3 => '3', 
-                    4 => '4', 
-                    5 => '5', 
-                    6 => '6', 
-                    99 => '+')));
+                    null => 'Sin información',
+                    0 => 'No',
+                    1 => '1',
+                    2 => '2',
+                    3 => '3',
+                    4 => '4',
+                    5 => '5',
+                    6 => '6',
+                    99 => 'Más de 6')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
