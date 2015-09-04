@@ -16,8 +16,9 @@ trait ConActoAdministrativo
     /**
      * El número de acto administrativo asociado, en el formato DM-1234/2015.
      * 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
      * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR)\-(\d{1,5})\/(19|20)(\d{2})\s*$/i",
      *     message="Debe escribir el número de acto administrativo en el formato DM-1234/2015, RC-321/2014, etc."
