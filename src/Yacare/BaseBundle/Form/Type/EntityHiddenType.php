@@ -13,7 +13,7 @@ use Yacare\BaseBundle\DataTransformer\EntityToIdTransformer;
 /**
  * Campo de entidad oculta.
  *
- * @author Ernesto N. Carrea <ernestocarrea@gmail.com>
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class EntityHiddenType extends AbstractType
 {

@@ -4,10 +4,12 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="Base_Banco")
+ * Representa un banco.
+ * 
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- *
- * @author Diaz Alejandro <alediaz.rc@gmail.com>
+ * @ORM\Table(name="Base_Banco")
  */
 class Banco
 {

@@ -6,10 +6,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Yacare\BaseBundle\Entity\Impresion
+ * Describe un contenido de impresión.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @ORM\Table(name="Base_Impresion")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Impresion")
  */
 class Impresion
 {
@@ -24,35 +26,58 @@ class Impresion
     {
         $this->Token = md5(openssl_random_pseudo_bytes(256));
     }
-
+    
     /**
-     * @var string $EntidadTipo
+     * El tipo de la entidad.
+     * 
+     * @var string 
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
-
+    
     /**
-     * @var $EntidadId @ORM\Column(type="integer")
+     * La ID de la entidad.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
      */
     private $EntidadId;
-
+    
     /**
-     * @var $EntidadVersion @ORM\Column(type="integer", nullable=true)
+     * La versión de la entidad.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $EntidadVersion;
-
+    
     /**
-     * @var $TipoMime @ORM\Column(type="string", length=50)
+     * El tipo de mime.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=50)
      */
     private $TipoMime;
-
+    
     /**
-     * @var $Token @ORM\Column(type="string", length=255)
+     * El token.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255)
      */
     private $Token;
-
+    
     /**
-     * @var $Contenido @ORM\Column(type="blob")
+     * El contenido de un archivo, en forma binaria.
+     * 
+     * @var \Blob
+     * 
+     * @ORM\Column(type="blob")
      */
     private $Contenido;
 
@@ -85,6 +110,7 @@ class Impresion
         
         // PHPQRCode cambia el content-type a image/png... lo volvemos a html
         header("Content-type: text/html");
+        
         return base64_encode($imagen_contenido);
     }
 

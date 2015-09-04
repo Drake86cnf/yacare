@@ -5,9 +5,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Agrega la capacidad de almacenar archivos adjuntos.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 trait ConAdjuntos
 {
-
     public function guardarActionSubirArchivos($entity, $editForm)
     {
         parent::guardarActionSubirArchivos($entity, $editForm);
@@ -35,13 +39,11 @@ trait ConAdjuntos
             }
             
             if (count($NombresAdjuntados) == 1) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('success', 'Se adjuntó el archivo ' . implode(',', $NombresAdjuntados) . '.');
+                $this->get('session')->getFlashBag()->add('success', 
+                    'Se adjuntó el archivo ' . implode(',', $NombresAdjuntados) . '.');
             } elseif (count($NombresAdjuntados) > 1) {
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('success', 'Se adjuntaron los archivos ' . implode(',', $NombresAdjuntados) . '.');
+                $this->get('session')->getFlashBag()->add('success', 
+                    'Se adjuntaron los archivos ' . implode(',', $NombresAdjuntados) . '.');
             }
         }
     }

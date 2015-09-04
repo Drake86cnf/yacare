@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Representa un grupo de personas.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Base_PersonaGrupo")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_PersonaGrupo")
  */
 class PersonaGrupo
 {
@@ -27,6 +27,8 @@ class PersonaGrupo
     
     /**
      * Las personas que pertenecen a este grupo.
+     * 
+     * @var Persona
      *
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
      */
@@ -34,6 +36,8 @@ class PersonaGrupo
     
     /**
      * El grupo de nivel superior.
+     * 
+     * @var PersonaGrupo
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\PersonaGrupo")
      * @ORM\JoinColumn(name="Parent", referencedColumnName="id", nullable=true)
@@ -42,6 +46,8 @@ class PersonaGrupo
     
     /**
      * Indica si el grupo se replica al servidor de dominio.
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean")
      */

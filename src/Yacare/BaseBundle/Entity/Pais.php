@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Describe un país.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Base_Pais")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Pais")
  */
 class Pais
 {
@@ -23,7 +23,8 @@ class Pais
      *
      * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      *
-     * @var string $Iso
+     * @var string
+     * 
      * @ORM\Column(type="string", length=2)
      */
     private $Iso;

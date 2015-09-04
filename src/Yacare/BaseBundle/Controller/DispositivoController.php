@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Controlador abstracto de dispositivos.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @abstract
  */
 abstract class DispositivoController extends \Tapir\BaseBundle\Controller\AbmController
 {

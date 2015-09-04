@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para dispositvo genérico.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class DispositivoGenericoType extends DispositivoType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

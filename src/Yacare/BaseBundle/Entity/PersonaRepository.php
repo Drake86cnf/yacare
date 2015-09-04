@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonaRepository extends \Tapir\BaseBundle\Entity\TapirBaseRepository
 {
-
     public function ObtenerPorRol($rol)
     {
         return $this->ObtenerQueryBuilderPorRol($rol)->getQuery()->getResult();

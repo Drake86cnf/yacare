@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para cambiar la contraseña de un usuario.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class PersonaCambiarContrasenaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -14,9 +19,7 @@ class PersonaCambiarContrasenaType extends AbstractType
                 'label' => 'Contraseña actual', 
                 'required' => true, 
                 'mapped' => false))
-            ->add('PasswordEnc', 'password', array(
-                'label' => 'Contraseña nueva', 
-                'required' => true))
+            ->add('PasswordEnc', 'password', array('label' => 'Contraseña nueva', 'required' => true))
             ->add('ContrasenaNueva2', 'password', array(
                 'label' => 'Repetir contraseña', 
                 'required' => true, 
@@ -25,8 +28,7 @@ class PersonaCambiarContrasenaType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }
 
     public function getName()

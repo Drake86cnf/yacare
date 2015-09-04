@@ -4,41 +4,49 @@ namespace Yacare\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Rastreo asociado a un Rastreador GPS.
+ * El rastreo asociado de un dispositivo GPS.
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
- *        
- * @ORM\Table(name="Base_DispositivoRastreo")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_DispositivoRastreo")
  */
 class DispositivoRastreo
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-
+    
     /**
      * Coordenadas de su ubicación.
+     * 
+     * @var \Point
      * 
      * @ORM\Column(type="point")
      */
     protected $Ubicacion;
-
+    
     /**
      * La velocidad.
+     * 
+     * @var integer
      * 
      * @ORM\Column(type="integer")
      */
     protected $Velocidad;
-
+    
     /**
      * El rumbo.
+     * 
+     * @var integer
      * 
      * @ORM\Column(type="integer")
      */
     protected $Rumbo;
-
+    
     /**
      * El dispositivo asociado.
+     * 
+     * @var DispositivoRastreadorGps
      * 
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\DispositivoRastreadorGps")
      * @ORM\JoinColumn(nullable=true)

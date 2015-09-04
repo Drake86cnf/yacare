@@ -15,10 +15,10 @@ use Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper;
 /**
  * Controlador de rastreadores GPS.
  *
- * @Route("dispositivorastreadorgps/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ * 
+ * @Route("dispositivorastreadorgps/")
  */
 class DispositivoRastreadorGpsController extends DispositivoController
 {
@@ -38,9 +38,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         
         $em = $this->getEm();
         $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-            array('Dispositivo' => $id), 
-            array('id' => 'DESC'), 
-            1);
+            array('Dispositivo' => $id), array('id' => 'DESC'), 1);
         
         if (count($UltimoRastreo) == 1) {
             // Si es un array de un 1 elemento, lo convierto en un elemento plano.
@@ -57,9 +55,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         }
         
         $UltimosRastreos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-            array('Dispositivo' => $id), 
-            array('id' => 'DESC'), 
-            100);
+            array('Dispositivo' => $id), array('id' => 'DESC'), 100);
         
         if ($UltimosRastreos) {
             $polyline = new \Ivory\GoogleMap\Overlays\Polyline();
@@ -68,10 +64,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
             $polyline->setOption('strokeOpacity', '0.3');
             
             foreach ($UltimosRastreos as $Rastreo) {
-                $polyline->addCoordinate(
-                    $Rastreo->getUbicacion()->getX(), 
-                    $Rastreo->getUbicacion()->getY(), 
-                    true);
+                $polyline->addCoordinate($Rastreo->getUbicacion()->getX(), $Rastreo->getUbicacion()->getY(), true);
             }
             
             $map->addPolyline($polyline);
@@ -96,47 +89,38 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function coordjsonAction(Request $request)
     {
-        
-        // obtenemos los ids de los marcadores enviados por POST
+        // Obtenemos los ids de los marcadores enviados por POST
         $rastreadores = $request->request->get('id_ras');
-        
         $x = array();
-        
         $y = array();
         
         $em = $this->getEm();
         
-        // iteramos por cada marcador en el mapa y buscamos las nuevas coordenadas
+        // Iteramos por cada marcador en el mapa y buscamos las nuevas coordenadas
         foreach ($rastreadores as $rastreador) {
             
             $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-                array('Dispositivo' => $rastreador), 
-                array('id' => 'DESC'), 
-                1);
+                array('Dispositivo' => $rastreador), array('id' => 'DESC'), 1);
             
             if (count($UltimoRastreo) == 1) {
                 // Si es un array de un 1 elemento, lo convierto en un elemento plano.
                 $UltimoRastreo = $UltimoRastreo[0];
             }
             
-            // TODO: quitar el rand para produccion
+            // TODO: quitar el rand para producción
             $sumX = $UltimoRastreo->getUbicacion()->getX();
-            
             $sumY = $UltimoRastreo->getUbicacion()->getY();
             
-            // asignamos las coordenadas en dos array X e Y
+            // Asignamos las coordenadas en dos array X e Y
             array_push($x, $sumX);
-            
             array_push($y, $sumY);
         }
-        
         $res = array('x' => $x, 'y' => $y);
         
         /*
          * En este punto sabemos que al marcador[0] le corresponden las coordenadas x[0] e y[0]
          * y asi con todos
          */
-        
         return new JsonResponse($res);
     }
 
@@ -159,25 +143,19 @@ class DispositivoRastreadorGpsController extends DispositivoController
             if ($entity->getObs() == null) {
                 $entity->setObs('Serie ' . $entity->getNumeroSerie());
             }
-            
             $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-                array('Dispositivo' => $id), 
-                array('id' => 'DESC'), 
-                1);
+                array('Dispositivo' => $id), array('id' => 'DESC'), 1);
             
             if ($UltimoRastreo) {
                 $UltimoRastreo = $UltimoRastreo[0];
                 $map->addMarker($this->CrearMarcador($UltimoRastreo, $entity));
-                
                 // $map->setCenter($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(),
-            // true);
+                // true);
             }
         }
         
         $mapHelper = new MapHelper();
-        
         $mapHelper->setExtensionHelper('gps_extension_helper', new GpsExtensionHelper());
-        
         $output = $mapHelper->renderJavascripts($map);
         
         $res['dispositivos'] = $Dispositivos;
@@ -190,6 +168,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
 
     /**
      * Rutina que crea un mapa base de GoogleMaps.
+     * 
+     * @return \Map
      */
     private function CrearMapa()
     {
@@ -199,8 +179,10 @@ class DispositivoRastreadorGpsController extends DispositivoController
         $map->setAsync(true);
         $map->setAutoZoom(true);
         
-        $map->setMapOptions(
-            array('disableDefaultUI' => true, 'disableDoubleClickZoom' => true, 'mapTypeId' => 'roadmap'));
+        $map->setMapOptions(array(
+            'disableDefaultUI' => true, 
+            'disableDoubleClickZoom' => true, 
+            'mapTypeId' => 'roadmap'));
         $map->setStylesheetOptions(array('width' => '100%', 'height' => '480px'));
         $map->setLanguage('es');
         
@@ -211,7 +193,12 @@ class DispositivoRastreadorGpsController extends DispositivoController
      * Rutina que crea un marcador en base a las coordenadas pasadas como parametros.
      *
      * La rutina crea primero una "infoWindow" y realiza los distintos 'set' añadiendo las opciones con la cual trabajará.
-     * Luego realiza las mismas operaciones de configuración a un 'marker', que será el marcador que apuntará en el mapa a al último rastreo de un dispositivo GPS.
+     * Luego realiza las mismas operaciones de configuración a un 'marker', que será el marcador que apuntará en el 
+     * mapa a al último rastreo de un dispositivo GPS.
+     * 
+     * @param \Yacare\BaseBundle\Entity\DispositivoRastreo       $UltimoRastreo última coordenada del GPS estudiado.
+     * @param \Yacare\BaseBundle\Entity\DispositivoRastreadorGps $entity        el dispositivo GPS.
+     * @return \Marker
      */
     private function CrearMarcador($UltimoRastreo, $entity)
     {
@@ -226,19 +213,14 @@ class DispositivoRastreadorGpsController extends DispositivoController
         // $infoWindow->setAutoOpen(true);
         // $infoWindow->setOpenEvent(\Ivory\GoogleMap\Events\MouseEvent::CLICK);
         $infoWindow->setAutoClose(false);
-        $infoWindow->setOptions(
-            array('disableAutoPan' => false, 'zIndex' => 10, 'maxWidth' => 100));
+        $infoWindow->setOptions(array('disableAutoPan' => false, 'zIndex' => 10, 'maxWidth' => 100));
         
         // Configuración de las opciones del marcador a incorporar
         $marker = new \Ivory\GoogleMap\Overlays\Marker();
         
-        $marker->setPosition(
-            $UltimoRastreo->getUbicacion()->getX(), 
-            $UltimoRastreo->getUbicacion()->getY(), 
-            true);
+        $marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
         $marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
-        $marker->setOptions(
-            array('clickable' => true, 'flat' => true, 'title' => (string) $entity));
+        $marker->setOptions(array('clickable' => true, 'flat' => true, 'title' => (string) $entity));
         
         // Incorporo la ventana de información como una propiedad más al marcador.
         $marker->setInfoWindow($infoWindow);

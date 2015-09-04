@@ -5,6 +5,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para dispositivos GPS.
+ * 
+ * @author Ernesto Carrea ernestocarrea@gmail.com>
+ */
 class DispositivoRastreadorGpsType extends DispositivoType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

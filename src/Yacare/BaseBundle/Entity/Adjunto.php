@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Representa un archivo adjuntado a otra entidad.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Base_Adjunto")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Adjunto")
  */
 class Adjunto
 {
@@ -40,36 +40,59 @@ class Adjunto
     }
     
     /**
+     * El tipo de la entidad.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
     
     /**
+     * La ID de la entidad.
+     * 
+     * @var integer
+     * 
      * @ORM\Column(type="integer")
      */
     private $EntidadId;
     
     /**
+     * La persona.
+     * 
+     * @var Persona
+     * 
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Persona;
     
     /**
+     * La carpeta donde se aloja el archivo adjunto.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=true, length=255)
      */
     private $Carpeta;
     
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $TipoMime;
     
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Token;
 
+    /**
+     * Devuelve la ruta raíz de la carpeta de adjuntos.
+     */
     protected function getRaizDeAdjuntos()
     {
         // the absolute directory path where uploaded
@@ -77,16 +100,31 @@ class Adjunto
         return __DIR__ . '/../../../../web/adjuntos/';
     }
 
+    /**
+     * Devuelve la ruta completa de la carpeta.
+     * 
+     * @return string
+     */
     public function getRutaCompleta()
     {
         return $this->getRaizDeAdjuntos() . $this->getCarpeta() . '/';
     }
 
+    /**
+     * Devuelve la ruta relativa.
+     * 
+     * @return string
+     */
     public function getRutaRelativa()
     {
         return 'adjuntos/' . $this->getCarpeta() . '/';
     }
 
+    /**
+     * Devuelve el nombre del archivo relativo.
+     * 
+     * @return string
+     */
     public function getNombreArchivoRelativo()
     {
         if ($this->TieneMiniatura()) {
@@ -96,6 +134,11 @@ class Adjunto
         }
     }
 
+    /**
+     * Devuelve la ruta del ícono deseado.
+     * 
+     * @return string
+     */
     public function getIcono()
     {
         switch ($this->getTipoMime()) {
@@ -157,7 +200,8 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/x-office-spreadsheet.png';
                         break;
                     case 'odt':
-                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png';
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.
+                            openxmlformats-officedocument.wordprocessingml.document.png';
                         break;
                     default:
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/unknown.png';
@@ -167,6 +211,11 @@ class Adjunto
         }
     }
 
+    /**
+     * Comprueba si se trata de una imágen o no.
+     * 
+     * @return boolean
+     */
     public function EsImagen()
     {
         switch ($this->getTipoMime()) {
@@ -182,6 +231,9 @@ class Adjunto
         }
     }
 
+    /**
+     * Devuelve TRUE si tiene miniatura.
+     */
     public function TieneMiniatura()
     {
         return $this->EsImagen();

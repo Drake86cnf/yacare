@@ -5,12 +5,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para archivos adjuntos.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class AdjuntoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return $builder->add('NombreArchivo', 'file', array(
-            'label' => 'Archivo adjunto'));
+        return $builder
+            ->add('NombreArchivo', 'file', array('label' => 'Archivo adjunto'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

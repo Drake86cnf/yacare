@@ -3,6 +3,11 @@ namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Agrega la capacidad de controlar versiones de impresión e imprimir, en caso de solicitarlo.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 trait ConImprimir
 {
     /**
@@ -29,12 +34,11 @@ trait ConImprimir
         
         $entity = $res['entity'];
         
-        $impresionEnCache = $em->getRepository('YacareBaseBundle:Impresion')->findBy(
-            array(
-                'EntidadTipo' => $this->BundleName . '/' . $this->EntityName, 
-                'EntidadId' => $entity->getId(), 
-                'EntidadVersion' => $entity->getVersion(), 
-                'TipoMime' => $fmt));
+        $impresionEnCache = $em->getRepository('YacareBaseBundle:Impresion')->findBy(array(
+            'EntidadTipo' => $this->BundleName . '/' . $this->EntityName, 
+            'EntidadId' => $entity->getId(), 
+            'EntidadVersion' => $entity->getVersion(), 
+            'TipoMime' => $fmt));
         if ($impresionEnCache && is_array($impresionEnCache)) {
             $impresionEnCache = $impresionEnCache[0];
         }
@@ -69,12 +73,11 @@ trait ConImprimir
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
         
-        $impresionEnCache = $em->getRepository('YacareBaseBundle:Impresion')->findBy(
-            array(
-                'EntidadTipo' => $this->BundleName . '/' . $this->EntityName, 
-                'EntidadId' => $entity->getId(), 
-                'EntidadVersion' => $entity->getVersion(), 
-                'TipoMime' => $fmt));
+        $impresionEnCache = $em->getRepository('YacareBaseBundle:Impresion')->findBy(array(
+            'EntidadTipo' => $this->BundleName . '/' . $this->EntityName, 
+            'EntidadId' => $entity->getId(), 
+            'EntidadVersion' => $entity->getVersion(), 
+            'TipoMime' => $fmt));
         
         if ($impresionEnCache && is_array($impresionEnCache)) {
             $impresionEnCache = $impresionEnCache[0];
@@ -100,19 +103,16 @@ trait ConImprimir
             
             switch ($fmt) {
                 case 'text/html':
-                    $impresionEnCache->setContenido(
-                        $this->renderView(
-                            'Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':generar.html.twig', 
-                            array(
-                                'id' => $id, 
-                                'entity' => $entity, 
-                                'impresion' => $impresionEnCache, 
-                                'fmt' => 'text/html', 
-                                'tpl' => $tpl)));
+                    $impresionEnCache->setContenido($this->renderView(
+                        'Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':generar.html.twig', array(
+                            'id' => $id, 
+                            'entity' => $entity, 
+                            'impresion' => $impresionEnCache, 
+                            'fmt' => 'text/html', 
+                            'tpl' => $tpl)));
                     break;
                 case 'application/pdf':
-                    $impresionEnCache->setContenido(
-                        $this->get('knp_snappy.pdf')->getOutput($urlImprimir));
+                    $impresionEnCache->setContenido($this->get('knp_snappy.pdf')->getOutput($urlImprimir));
                     break;
             }
             $impresionEnCache->setImagen($this->get('knp_snappy.image')->getOutput($urlImprimir));
@@ -147,12 +147,9 @@ trait ConImprimir
             $contenido = stream_get_contents($contenido);
         }
         
-        return new \Symfony\Component\HttpFoundation\Response(
-            $contenido, 
-            200, 
-            array(
-                'Content-Type' => $impresionEnCache->getTipoMime(), 
-                'Content-Length' => strlen($contenido), 
-                'Content-Disposition' => 'filename="' . $this->EntityName . '_' . $entity->getId() . '.pdf"'));
+        return new \Symfony\Component\HttpFoundation\Response($contenido, 200, array(
+            'Content-Type' => $impresionEnCache->getTipoMime(), 
+            'Content-Length' => strlen($contenido), 
+            'Content-Disposition' => 'filename="' . $this->EntityName . '_' . $entity->getId() . '.pdf"'));
     }
 }

@@ -16,7 +16,9 @@ trait ConDomicilioLocal
     /**
      * Relación con la tabla de calles.
      *
-     * @see \Yacare\CatastroBundle\Entity\Calle @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
+     * @see \Yacare\CatastroBundle\Entity\Calle YacareCatastroBundle:Calle 
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
@@ -24,7 +26,8 @@ trait ConDomicilioLocal
     /**
      * El número, también conocido como "altura".
      *
-     * @var integer $DomicilioNumero
+     * @var integer
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioNumero;
@@ -32,7 +35,8 @@ trait ConDomicilioLocal
     /**
      * El piso, si lo hubiera.
      *
-     * @var integer $DomicilioPiso
+     * @var integer
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPiso;
@@ -40,11 +44,17 @@ trait ConDomicilioLocal
     /**
      * La puerta, si la hubiera (por ejemplo A, B, etc.)
      *
-     * @var integer $DomicilioPuerta
+     * @var integer
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPuerta;
 
+    /**
+     * Devuelve el nombre completo del domicilio del local.
+     * 
+     * @return string
+     */
     public function getDomicilio()
     {
         $res = $this->DomicilioCalle;

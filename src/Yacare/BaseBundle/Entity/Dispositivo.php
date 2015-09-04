@@ -5,14 +5,17 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Clase base para dispositivos.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @abstract
  *
- * @ORM\Table(name="Base_Dispositivo")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Dispositivo")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
- *  "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *  "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
+ *     "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
+ *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
  * })
  */
 abstract class Dispositivo
@@ -25,12 +28,16 @@ abstract class Dispositivo
     /**
      * La marca del dispositivo.
      * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $Marca;
     
     /**
      * El modelo del dispositivo.
+     * 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255)
      */
@@ -39,12 +46,16 @@ abstract class Dispositivo
     /**
      * El número de serie.
      * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $NumeroSerie;
     
     /**
      * Un identificador único (por ejemplo dirección MAC).
+     * 
+     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -53,6 +64,8 @@ abstract class Dispositivo
     /**
      * La persona encargada del dispositivo.
      * 
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $Encargado;
@@ -60,10 +73,17 @@ abstract class Dispositivo
     /**
      * La versión de firmware.
      * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Firmware;
 
+    /**
+     * Devuelve la ruta completa de la clase.
+     * 
+     * @return string
+     */
     public function getDispositivoTipo()
     {
         return get_class($this);
@@ -73,13 +93,13 @@ abstract class Dispositivo
     {
         return trim($this->getMarca() . ' ' . $this->getModelo() . ' (serie ' . $this->getNumeroSerie() . ')');
     }
-    
+
     /**** Getters y setters ****/
     
     /**
      * @ignore
      */
-     public function getNumeroSerie()
+    public function getNumeroSerie()
     {
         return $this->NumeroSerie;
     }

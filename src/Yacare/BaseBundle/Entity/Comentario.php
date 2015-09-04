@@ -5,9 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Yacare\BaseBundle\Entity\Comentario
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @ORM\Table(name="Base_Comentario")
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Comentario")
  */
 class Comentario
 {
@@ -16,16 +18,28 @@ class Comentario
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
-     * @var $EntidadTipo @ORM\Column(type="string", length=255)
+     * EL tipo de la entidad.
+     * 
+     * @var string 
+     * 
+     * @ORM\Column(type="string", length=255)
      */
     private $EntidadTipo;
     
     /**
-     * @var $EntidadId @ORM\Column(type="integer")
+     * La ID de la entidad.
+     * 
+     * @var integer 
+     * 
+     * @ORM\Column(type="integer")
      */
     private $EntidadId;
     
     /**
+     * La persona.
+     * 
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
      * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
      * @ORM\JoinColumn(nullable=true)
      */

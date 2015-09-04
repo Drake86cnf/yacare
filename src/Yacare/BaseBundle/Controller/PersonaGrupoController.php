@@ -10,14 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de grupos de personas.
  *
- * @Route("personagrupo/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("personagrupo/")
  */
 class PersonaGrupoController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConEliminar;
-    
+
     function IniciarVariables()
     {
         parent::IniciarVariables();

@@ -9,13 +9,17 @@ use Doctrine\ORM\Mapping as ORM;
  * Yacare\BaseBundle\Entity\DispositivoRastreadorGps
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Base_DispositivoRastreadorGps")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_DispositivoRastreadorGps")
  */
 class DispositivoRastreadorGps extends \Yacare\BaseBundle\Entity\Dispositivo
 {
     /**
+     * El número de teléfono.
+     * 
+     * @var string
+     * 
      * @ORM\Column(type="string", length=50)
      */
     protected $TelefonoNumero;

@@ -27,10 +27,10 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $em = $this->getEm();
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
-        $res['requerimientos_pendientes'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorEncargado(
-            $UsuarioConectado);
-        $res['requerimientos_propios'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')->findPendientesPorUsuario(
-            $UsuarioConectado);
+        $res['requerimientos_pendientes'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')
+            ->findPendientesPorEncargado($UsuarioConectado);
+        $res['requerimientos_propios'] = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Requerimiento')
+            ->findPendientesPorUsuario($UsuarioConectado);
         
         return $res;
     }

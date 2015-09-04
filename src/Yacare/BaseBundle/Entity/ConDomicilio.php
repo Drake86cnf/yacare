@@ -9,36 +9,65 @@ use Doctrine\ORM\Mapping as ORM;
 trait ConDomicilio
 {
     /**
+     * La calle del domicilio.
+     * 
+     * @var \Yacare\CatastroBundle\Entity\Calle
+     * 
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Calle")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $DomicilioCalle;
     
     /**
-     * @var string @ORM\Column(type="string", length=255, nullable=true)
+     * El nombre de la calle.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $DomicilioCalleNombre;
     
     /**
-     * @var integer @ORM\Column(type="integer", nullable=true)
+     * El número del domicilio.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioNumero;
     
     /**
-     * @var integer @ORM\Column(type="integer", nullable=true)
+     * El piso.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $DomicilioPiso;
     
     /**
-     * @var integer @ORM\Column(type="string", nullable=true)
+     * La puerta.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $DomicilioPuerta;
     
     /**
-     * @var integer @ORM\Column(type="string", length=50, nullable=true)
+     * El código postal.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $DomicilioCodigoPostal = '9420';
 
+    /**
+     * Devuelve el nombre completo del domicilio.
+     * 
+     * @return string
+     */
     public function getDomicilio()
     {
         if ($this->DomicilioCalle) {
