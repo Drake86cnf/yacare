@@ -17,7 +17,7 @@
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
         {{ form_label(form) }}
         <div class="{{ block('form_group_class') }}">
-			{% if attr['prefix'] is defined or attr['suffix'] is defined %}<div class="input-group">{% endif %}        
+			{% if attr['prefix'] is defined or attr['suffix'] is defined %}<div class="input-group">{% endif %}
             {% if attr['prefix'] is defined %}
             	<div class="input-group-addon">{{ attr['prefix']|raw }}</div>
             {% endif %}
@@ -66,8 +66,8 @@
         	{% if attr['class'] is defined %}
         	    {% set bgclass = attr['class']|split(' ') %}
                 {% if 'btn-xs' in bgclass %}btn-xs{% endif %}{% if 'btn-sm' in bgclass %}btn-sm{% endif %}
-            {% endif %} 
-        	btn-default {% if choice is selectedchoice(value) %} active{% endif %}" 
+            {% endif %}
+        	btn-default {% if choice is selectedchoice(value) %} active{% endif %}"
             value="{{ choice.value }}">
             <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
             {{ choice.label }}</button>
@@ -80,7 +80,7 @@
 	{% set values = value|split(':', 2) %}
 	<input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
 	{% if type is defined and type == 'hidden' %}
-	   
+
 	{% else %}
     	{% set old_id = id %}
     	{% set old_full_name = full_name %}
@@ -109,16 +109,15 @@
     <input {{ block('widget_attributes') }} type="file"	multiple="multiple"></input>
 {% endblock %}
 
-
+{#
 {%- block form_widget_compound -%}
-	{# Remplazo widget_compound para que no muestre errores que serán mostrados por sus hijos #}
+	{ Remplazo widget_compound para que no muestre errores que serán mostrados por sus hijos }
     <div {{ block('widget_container_attributes') }}>
     	{%- if form.parent is empty -%}
-            {# form_errors(form) #}
+            {{ form_errors(form) }}
         {%- endif -%}
         {{- block('form_rows') -}}
         {{- form_rest(form) -}}
     </div>
 {%- endblock form_widget_compound -%}
-
-
+#}
