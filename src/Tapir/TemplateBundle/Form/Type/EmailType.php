@@ -9,15 +9,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class EmailType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'maxlength' => 200,
-            'attr' => array('class' => 'tapir-input-480', 'data-type' => 'email', 'type' => 'email', 'maxlength' => '200'))
-            );
+            'maxlength' => 200, 
+            'attr' => array(
+                'class' => 'tapir-input-480', 
+                'data-type' => 'email', 
+                'type' => 'email', 
+                'maxlength' => '200')));
     }
 
     public function getParent()
