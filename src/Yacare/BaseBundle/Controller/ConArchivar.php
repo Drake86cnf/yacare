@@ -5,6 +5,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Agrega la capacidad de controlar objetos archivables.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @see \Tapir\BaseBundle\Entity\Archivable TapirBasebundle:Archivable
+ */
 trait ConArchivar
 {
     /**
@@ -21,9 +27,9 @@ trait ConArchivar
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Se desarchivó el elemento "' . $entity . '".');
+            
             return $this->afterArchivar($entity, false);
         }
-        
         return $this->afterArchivar($entity);
     }
 
@@ -41,17 +47,17 @@ trait ConArchivar
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Se archivó el elemento "' . $entity . '".');
+            
             return $this->afterArchivar($entity, true);
         }
-        
         return $this->afterArchivar($entity);
     }
 
     /**
      * Este método se dispara después de archivar una entidad.
      *
-     * @param bool $archivado
-     *            Indica si el elemento fue archivado.
+     * @param mixed  $entity    Entidad 'X' que posea características para archivar.
+     * @param bool   $archivado Indica si el elemento fue archivado.
      */
     public function afterArchivar($entity, $archivado = false)
     {

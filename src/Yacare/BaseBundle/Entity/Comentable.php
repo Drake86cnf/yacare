@@ -12,6 +12,8 @@ trait Comentable
 {
     /**
      * Los comentarios asociados a esta entidad.
+     * 
+     * @var Comentario
      *
      * @ORM\OneToMany(targetEntity="\Yacare\BaseBundle\Entity\Comentario", mappedBy="EntidadId", cascade={ "persist" })
      */

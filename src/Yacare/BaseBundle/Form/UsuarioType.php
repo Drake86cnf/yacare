@@ -5,16 +5,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Formulario para usuarios.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class UsuarioType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array(
-                'label' => 'Nombre', 
-                'read_only' => true))
-            ->add('Email', null, array(
-                'label' => 'Correo electrónico'))
+            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
+            ->add('Email', null, array('label' => 'Correo electrónico'))
             ->add('UsuarioRoles', 'entity', array(
                 'label' => 'Roles', 
                 'class' => 'YacareBaseBundle:PersonaRol', 
@@ -23,19 +25,16 @@ class UsuarioType extends AbstractType
             ->add('Username', null, array(
                 'label' => 'Usuario', 
                 'required' => false, 
-                'attr' => array(
-                    'autocomplete' => 'off')))
+                'attr' => array('autocomplete' => 'off')))
             ->add('PasswordEnc', 'password', array(
                 'label' => 'Contraseña', 
                 'required' => false, 
-                'attr' => array(
-                    'autocomplete' => 'off')));
+                'attr' => array('autocomplete' => 'off')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }
 
     public function getName()

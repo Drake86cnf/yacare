@@ -10,9 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de comentarios.
  *
- * @Route("comentario/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("comentario/")
  */
 class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
 {
@@ -38,8 +38,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $entities = $em->getRepository('YacareBaseBundle:Comentario')->findBy(
             array('EntidadTipo' => $tipo, 'EntidadId' => $id));
         
-        return $this->ArrastrarVariables(
-            $request, 
+        return $this->ArrastrarVariables($request, 
             array('form_comentario' => $editForm->createView(), 'entity' => $entity, 'entities' => $entities));
     }
 

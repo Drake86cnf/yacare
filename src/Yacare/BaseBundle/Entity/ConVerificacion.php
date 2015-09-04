@@ -7,14 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
  * Agrega la capacidad de que algo tenga una marca de nivel de verificación.
  *
  * Por ejemplo para datos personales (como domicilio) sin verificar o verificados por distintos medios.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 trait ConVerificacion
 {
     /**
-     * @var integer @ORM\Column(type="integer", nullable=false)
+     * El nivel de verificación.
+     * 
+     * @var integer 
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $VerificacionNivel = 0;
 
+    /**
+     * Normaliza el nombre del nivel de verificación.
+     * 
+     * @param string $verificacionNivel
+     */
     public static function VerificacionNivelNombre($verificacionNivel)
     {
         switch ($verificacionNivel) {
@@ -33,6 +44,9 @@ trait ConVerificacion
         }
     }
 
+    /**
+     * Devuelve el nombre del nivel de verificación.
+     */
     public function getVerificacionNivelNombre()
     {
         return Persona::VerificacionNivelNombre($this->getVerificacionNivel());

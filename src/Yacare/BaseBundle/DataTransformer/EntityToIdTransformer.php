@@ -21,15 +21,10 @@ use Doctrine\ORM\NoResultException;
 class EntityToIdTransformer implements DataTransformerInterface
 {
     private $em;
-
     private $class;
-
     private $property;
-
     private $queryBuilder;
-
     private $multiple;
-
     private $unitOfWork;
 
     public function __construct(EntityManager $em, $class, $property, $queryBuilder, $multiple)

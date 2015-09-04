@@ -3,9 +3,13 @@ namespace Yacare\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Agrega la capacidad de exportar un listado cualquiera, a distintos formatos disponibles.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 trait ConExportarLista
 {
-
     /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("listar/exportar/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()
@@ -34,9 +38,7 @@ trait ConExportarLista
             ->getFont()
             ->setName('Calibri')
             ->setSize(10);
-        $phpExcelObject->getDefaultStyle()
-            ->getFill()
-            ->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
+        $phpExcelObject->getDefaultStyle()->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
         $phpExcelObject->getDefaultStyle()
             ->getFill()
             ->getStartColor()
@@ -73,6 +75,7 @@ trait ConExportarLista
                 $ArchivoExtension = 'csv';
                 break;
             default:
+            // no break
             case 'excel':
             case 'excel2007':
                 $WriterFormat = 'Excel2007';
@@ -96,16 +99,10 @@ trait ConExportarLista
 
     protected function getExportarListaExcel($entities, $phpExcelObject)
     {
-        $phpExcelObject->getActiveSheet()
-            ->setCellValue('A1', 'Código')
-            ->setCellValue('B1', 'Detalle');
+        $phpExcelObject->getActiveSheet()->setCellValue('A1', 'Código')->setCellValue('B1', 'Detalle');
         
-        $phpExcelObject->getActiveSheet()
-            ->getColumnDimension('A')
-            ->setWidth(12);
-        $phpExcelObject->getActiveSheet()
-            ->getColumnDimension('B')
-            ->setWidth(70);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setWidth(70);
         
         $phpExcelObject->getActiveSheet()
             ->getStyle('A1:B1')
@@ -119,7 +116,6 @@ trait ConExportarLista
             $phpExcelObject->getActiveSheet()->setCellValue('A' . $i, $entity->getId());
             $phpExcelObject->getActiveSheet()->setCellValue('B' . $i, (string) $entity);
         }
-        
         return $i;
     }
 }

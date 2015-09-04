@@ -11,9 +11,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * Nota: los adjuntos se identifican por token y no por id para evitar nombres predecibles.
  * 
- * @Route("adjunto/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("adjunto/")
  */
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
@@ -150,13 +150,10 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         
         $adjunto_contenido = file_get_contents($entity->getRutaCompleta() . $entity->getToken());
         
-        $response = new \Symfony\Component\HttpFoundation\Response(
-            $adjunto_contenido, 
-            200, 
-            array(
-                'Content-Type' => $entity->getTipoMime(), 
-                'Content-Length' => strlen($adjunto_contenido), 
-                'Content-Disposition' => 'attachment; filename="' . $entity->getNombre() . '"'));
+        $response = new \Symfony\Component\HttpFoundation\Response($adjunto_contenido, 200, array(
+            'Content-Type' => $entity->getTipoMime(), 
+            'Content-Length' => strlen($adjunto_contenido), 
+            'Content-Disposition' => 'attachment; filename="' . $entity->getNombre() . '"'));
         
         return $response;
     }

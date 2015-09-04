@@ -3,6 +3,11 @@ namespace Yacare\BaseBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Agrega la capacidad de obtener el código QR, a partir de una entidad dada.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 trait ConQr
 {
     /**
@@ -23,14 +28,11 @@ trait ConQr
         $imagen_contenido = ob_get_contents();
         ob_end_clean();
         
-        $response = new \Symfony\Component\HttpFoundation\Response(
-            $imagen_contenido, 
-            200, 
-            array(
-                'Content-Type' => 'image/png', 
-                'Content-Length' => strlen($imagen_contenido), 
-                'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName .
-                     '_' . $entity->getId() . '.png"'));
+        $response = new \Symfony\Component\HttpFoundation\Response($imagen_contenido, 200, array(
+            'Content-Type' => 'image/png', 
+            'Content-Length' => strlen($imagen_contenido), 
+            'Content-Disposition' => 'filename="' . 'Yacare' . $this->BundleName . 'Bundle_' . $this->EntityName .
+                 '_' . $entity->getId() . '.png"'));
         
         return $response;
     }

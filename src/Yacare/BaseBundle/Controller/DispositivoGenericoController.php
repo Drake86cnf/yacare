@@ -10,9 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de dispositivos genéricos.
  *
- * @Route("dispositivogenerico/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("dispositivogenerico/")
  */
 class DispositivoGenericoController extends DispositivoController
 {

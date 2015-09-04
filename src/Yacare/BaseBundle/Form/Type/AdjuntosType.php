@@ -4,6 +4,11 @@ namespace Yacare\BaseBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Tipo de campo Adjunto, para un formulario en particular.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class AdjuntosType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)

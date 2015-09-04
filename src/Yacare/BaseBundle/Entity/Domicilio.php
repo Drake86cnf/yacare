@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Un domicilio asociable a una Persona.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
- * @ORM\Table(name="Base_Persona_Domicilio")
+ * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Persona_Domicilio")
  */
 class Domicilio
 {
@@ -27,22 +27,29 @@ class Domicilio
     /**
      * El tipo de domicilio.
      *
-     * 0) Sin especificar, simplemente "domicilio". Especialmente útil para datos importados de otros sistemas.
-     * 1) El domicilio real de las personas, es el lugar donde tienen establecido el asiento principal de su residencia
+     * * 0) Sin especificar, simplemente "domicilio". Especialmente útil para datos importados de otros sistemas.
+     * * 1) El domicilio real de las personas, es el lugar donde tienen establecido el asiento principal de su residencia
      * y de sus negocios.
-     * 2) El domicilio legal es el lugar donde la ley presume, sin admitir prueba en contra, que una persona reside de
+     * * 2) El domicilio legal es el lugar donde la ley presume, sin admitir prueba en contra, que una persona reside de
      * una manera permanente para el ejercicio de sus derechos y cumplimiento de sus obligaciones, aunque de hecho no
      * esté allí presente.
-     * 3) Domicilio comercial: Es el constituido por un comerciante para los efectos de las obligaciones emergentes de
+     * * 3) Domicilio comercial: Es el constituido por un comerciante para los efectos de las obligaciones emergentes de
      * sus actividades comerciales.
      *
-     * 1 y 2 según Código Civil, Título VI, artículos 89 y 90.
+     * * 1 y 2 según Código Civil, Título VI, artículos 89 y 90.
      *
      * @var integer
+     * 
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $Tipo = 0;
 
+    /**
+     * Normaliza el nombre del tipo de domicilio.
+     * 
+     * @param  integer $tipo rango de clasificación.
+     * @return string
+     */
     public static function TipoNombre($tipo)
     {
         switch ($tipo) {
@@ -59,6 +66,11 @@ class Domicilio
         }
     }
 
+    /**
+     * Devuelve el nombre normalizado.
+     * 
+     * @return string
+     */
     public function getTipoNombre()
     {
         return Domicilio::TipoNombre($this->getTipo());
