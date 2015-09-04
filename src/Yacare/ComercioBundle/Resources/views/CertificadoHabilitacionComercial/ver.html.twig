@@ -42,6 +42,7 @@
 				<div class="col-xs-4"><strong>{{ entity.Comercio.Local.Partida.Domicilio }}</strong></div>
 				<div class="col-xs-3 text-right">Versión</div>
 				<div class="col-xs-3"><strong>{{ entity.Version }}</strong></div>
+				
 			</div>
 		</div>
 	</div>
@@ -69,6 +70,24 @@
 	<tr>
 		<td>{{ entity.Comercio.Actividad3.Clamae2014 }}</td>
 		<td>{{ entity.Comercio.Actividad3 }}</td>
+	</tr>
+	{% endif %}
+	{% if entity.Comercio.Actividad4 %}
+	<tr>
+		<td>{{ entity.Comercio.Actividad4.Clamae2014 }}</td>
+		<td>{{ entity.Comercio.Actividad4 }}</td>
+	</tr>
+	{% endif %}
+	{% if entity.Comercio.Actividad5 %}
+	<tr>
+		<td>{{ entity.Comercio.Actividad5.Clamae2014 }}</td>
+		<td>{{ entity.Comercio.Actividad5 }}</td>
+	</tr>
+	{% endif %}
+	{% if entity.Comercio.Actividad6 %}
+	<tr>
+		<td>{{ entity.Comercio.Actividad6.Clamae2014 }}</td>
+		<td>{{ entity.Comercio.Actividad6 }}</td>
 	</tr>
 	{% endif %}
 </tbody>
