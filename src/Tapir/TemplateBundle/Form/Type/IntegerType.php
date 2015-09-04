@@ -9,16 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class IntegerType extends AbstractType
 {
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'maxlength' => 12,
-            'attr' => array('class' => 'tapir-input-120', 'data-type' => 'cuilt', 'maxlength' => '12'))
-            );
+            'maxlength' => 12, 
+            'attr' => array('class' => 'tapir-input-120', 'data-type' => 'cuilt', 'maxlength' => '12')));
     }
 
     public function getParent()

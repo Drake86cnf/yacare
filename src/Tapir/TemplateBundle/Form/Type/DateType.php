@@ -9,15 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-
 class DateType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'maxlength' => 10,
-            'attr' => array('class' => 'tapir-input-120', 'data-type' => 'date', 'maxlength' => '10'))
-            );
+            'maxlength' => 10, 
+            'attr' => array('class' => 'tapir-input-120', 'data-type' => 'date', 'maxlength' => '10')));
     }
 
     public function getParent()
