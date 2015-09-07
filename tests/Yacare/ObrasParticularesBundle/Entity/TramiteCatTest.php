@@ -3,9 +3,15 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Tapir\BaseBundle\Tests\Entity\GenericEntityTest;
 
+/**
+ * Prueba para el entidad TramiteCat.
+ * 
+ * @author Ernesto Carrea <ernestocarre@gmail.com>
+ * 
+ * @see \Yacare\ObrasParticulares\Entity\TramiteCat YacareObrasParticulares:TramiteCat
+ */
 class TramiteCatTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
 {
-
     protected $item;
 
     public function setUp()

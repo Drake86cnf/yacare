@@ -3,9 +3,12 @@ namespace Tapir\BaseBundle\Helper;
 
 use \Tests\Tapir\PruebaUnitaria;
 
+/**
+ * 
+ * @author Ernesto Carrea <ernestocarre@gmail.com>
+ */
 class DammTest extends PruebaUnitaria
 {
-
     public function testtaq()
     {
         $this->assertEquals('7', Damm::taq('25248532'));

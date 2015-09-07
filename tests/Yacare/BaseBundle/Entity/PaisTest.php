@@ -3,9 +3,15 @@ namespace Yacare\BaseBundle\Entity;
 
 use Tapir\BaseBundle\Tests\Entity\GenericEntityTest;
 
+/**
+ * Prueba de la entidad País.
+ * 
+ * @author eriquelme
+ * 
+ * @see \Yacare\BaseBundle\Entity\Pais YacareBaseBundle:Pais
+ */
 class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
 {
-
     protected $item;
 
     public function setUp()
@@ -14,7 +20,7 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         
         $this->item = new Pais();
     }
-    
+
     /**
      * Prueba el código del trait "ConId"
      */
@@ -25,14 +31,15 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         $this->assertEquals(32, $this->item->getId());
         $this->assertEquals('032-4', $this->item->getDamm());
         $this->assertEquals('http://yacare.riogrande.gob.ar/cp/?en=Base+Pais&id=32&ver=', $this->item->getYri());
-        $this->assertEquals('aHR0cDovL3lhY2FyZS5yaW9ncmFuZGUuZ29iLmFyL2NwLz9lbj1CYXNlK1BhaXMmaWQ9MzImdmVyPQ==', $this->item->getYri64());
+        $this->assertEquals('aHR0cDovL3lhY2FyZS5yaW9ncmFuZGUuZ29iLmFyL2NwLz9lbj1CYXNlK1BhaXMmaWQ9MzImdmVyPQ==', 
+            $this->item->getYri64());
     }
 
     public function testPropiedades()
     {
         $this->ProbarPropiedad('Iso', 'ar');
     }
-    
+
     /**
      * Prueba el código del trait "ConNombre"
      */
@@ -45,7 +52,7 @@ class PaisTest extends \Tapir\BaseBundle\Entity\GenericEntityTest
         // Prueba el toString()
         $this->assertEquals($Nombre, (string) $this->item);
     }
-    
+
     /**
      * Prueba el código del trait "Versionable"
      */
