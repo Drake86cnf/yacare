@@ -6,23 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Agrega una columna de observaciones y sus métodos (getter y setter) a una entidad.
  *
- * @see ConNotas
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\Entity\ConNotas ConNotas
  */
 trait ConObs
 {
     /**
      * El texto de las observaciones.
      * 
-     * @var string $obs
-     *      @ORM\Column(type="text", nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Obs;
 
     /**
-     *
      * @ignore
-     *
      */
     public function getObs()
     {
@@ -30,9 +30,7 @@ trait ConObs
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setObs($Obs)
     {

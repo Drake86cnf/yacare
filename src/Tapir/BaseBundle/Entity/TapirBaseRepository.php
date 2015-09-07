@@ -11,11 +11,11 @@ use Doctrine\ORM\EntityRepository;
  *
  * Todos los repositorios de la aplicación deben derivar de este.
  *
- * @see Suprimible
- * @see Archivable
- * @see ConNombre
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\Entity\Suprimible Suprimible
+ * @see \Tapir\BaseBundle\Entity\Archivable Archivable
+ * @see \Tapir\BaseBundle\Entity\ConNombre ConNombre
  */
 class TapirBaseRepository extends EntityRepository
 {
@@ -37,8 +37,7 @@ class TapirBaseRepository extends EntityRepository
                 // Sólo incluyo el filtro Archivado=0 si no existe un filtro explícito de Archivado=1
                 $res->where($alias . '.Archivado=0');
             }
-        }
-        
+        }       
         return $res;
     }
 }

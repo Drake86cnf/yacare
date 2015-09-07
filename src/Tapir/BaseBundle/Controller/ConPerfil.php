@@ -46,7 +46,6 @@ trait ConPerfil
                 if ($entity->getPasswordEnc()) {
                     // Genero una nueva sal
                     $entity->setSalt(md5(uniqid(null, true)));
-                    
                     $factory = $this->get('security.encoder_factory');
                     $encoder = $factory->getEncoder($entity);
                     $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
@@ -60,8 +59,7 @@ trait ConPerfil
                 
                 $this->editarperfilActionPostPersist($entity, $editForm);
                 
-                $this->get('session')->getFlashBag()->add(
-                    'success', 
+                $this->get('session')->getFlashBag()->add('success', 
                     'Los cambios en "' . $entity . '" fueron guardados.');
                 $errors = null;
             } else {
@@ -74,13 +72,11 @@ trait ConPerfil
                     $this->get('session')->getFlashBag()->add('danger', $error);
                 }
                 
-                $res = $this->ArrastrarVariables(
-                    $request, 
-                    array(
-                        'entity' => $entity, 
-                        'errors' => $errors, 
-                        'create' => $id ? false : true, 
-                        'edit_form' => $editForm->createView()));
+                $res = $this->ArrastrarVariables($request, array(
+                    'entity' => $entity, 
+                    'errors' => $errors, 
+                    'create' => $id ? false : true, 
+                    'edit_form' => $editForm->createView()));
                 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             } else {
@@ -90,14 +86,12 @@ trait ConPerfil
             }
         }
         
-        return $this->ArrastrarVariables(
-            $request, 
-            array(
-                'entity' => $entity, 
-                'edit_form_action' => 'usuario_editarperfil', 
-                'edit_form' => $editForm->createView()));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'edit_form_action' => 'usuario_editarperfil', 
+            'edit_form' => $editForm->createView()));
     }
-    
+
     /**
      * @Route("cambiarcontrasena/{id}", name="usuario_cambiarcontrasena", defaults={"id" = null})
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
@@ -154,11 +148,12 @@ trait ConPerfil
             $em->refresh($user);
         }
         
-        return $this->ArrastrarVariables(
-            $request, 
-            array('entity' => $entity, 'edit_form' => $editForm->createView(), 'terminado' => $terminado));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'edit_form' => $editForm->createView(), 
+            'terminado' => $terminado));
     }
-    
+
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de guardar el perfil.
      */
@@ -166,7 +161,7 @@ trait ConPerfil
     {
         return;
     }
-    
+
     /**
      * Función para que las clases derivadas puedan intervenir la entidad después de cambiar la contraseña.
      */
@@ -175,4 +170,3 @@ trait ConPerfil
         return;
     }
 }
-

@@ -12,9 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * Controlador abstracto con funciones básicas que se heredan en todos los controladores de la aplicación.
  *
- * @abstract
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @abstract
  */
 abstract class BaseController extends Controller
 {
@@ -25,13 +24,15 @@ abstract class BaseController extends Controller
     
     /**
      * @var string El nombre del vendor al cual pertenece este controlador.
-     * @see $BundleName
+     * 
+     * @see $BundleName $BundleName
      */
     protected $VendorName;
     
     /**
      * @var string El nombre del bundle al cual pertenece este controlador.
-     * @see $VendorName
+     * 
+     * @see $VendorName $VendorName
      */
     protected $BundleName;
     
@@ -42,26 +43,25 @@ abstract class BaseController extends Controller
     
     /**
      * @var string El nombre completo de la entidad, incluyendo vendor y bundle.
-     * @see $EntityName
+     * 
+     * @see $EntityName $EntityName
      */
     protected $CompleteEntityName;
     
     /**
+     * En la mayoría de los casos se deja en blanco y se asume que es lo mismo
+     * que EntityName. Puede ser diferente del nombre de la entidad en el bundle,
+     * por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
+     * 
      * @var string El nombre de la entidad para las rutas generadas.
-     *     
-     *      En la mayoría de los casos se deja en blanco y se asume que es lo mismo
-     *      que EntityName. Puede ser diferente del nombre de la entidad en el bundle,
-     *      por ejemplo cuando el controlador se llama "Usuario" per la entidad en "Persona".
      */
     protected $BaseRouteEntityName;
     
     /**
-     *
-     * @var array Un array con los nombres de las variables que se deben conservar al pasar de
-     *      una acción a otra.
+     * @var array Un array con los nombres de las variables que se deben conservar al pasar de una acción a otra.
      *     
-     * @see ArrastrarVariables()
-     * @see IniciarVariables()
+     * @see ArrastrarVariables() ArrastrarVariables()
+     * @see IniciarVariables() IniciarVariables()
      */
     protected $ConservarVariables;
 
@@ -123,6 +123,13 @@ abstract class BaseController extends Controller
         }
     }
 
+    /**
+     * Obtiene una variable pasada por request.
+     * 
+     * @param  \Symfony\Component\HttpFoundation\Request $request
+     * @param  string                                    $varName
+     * @return string Contenido de la variable pasada a la request.
+     */
     public function ObtenerVariable(Request $request, $varName)
     {
         return $request->query->get($varName);
@@ -137,12 +144,12 @@ abstract class BaseController extends Controller
      * variable "page" que determina el número de página actual en el listado
      * debe ser conservada (arrastrada) entre acciones.
      *
-     * @see $ConservarVariables
-     *
-     * @param string $valorInicial            
-     * @param bool $incluirDelSistema            
+     * @param  string $valorInicial            
+     * @param  bool   $incluirDelSistema            
      * @return string El array con todas las variables necesarias para pasar a
-     *         una acción.
+     *                una acción.
+     * 
+     * @see $ConservarVariables $ConservarVariables
      */
     protected function ArrastrarVariables(Request $request, $valorInicial = null, $incluirDelSistema = true)
     {
@@ -195,9 +202,9 @@ abstract class BaseController extends Controller
      * "tapir_bundle_entidad_guardar" (donde "bundle" y "entidad" tienen sus
      * respectivos valores para el controlador actual).
      *
-     * @param string $action
-     *            La acción para la cual obtener la ruta.
-     * @return string El nombre de la ruta para la acción solicitada o el nombre de la ruta base para este controlador.
+     * @param  string $action La acción para la cual obtener la ruta.
+     * @return string         El nombre de la ruta para la acción solicitada o el nombre de la ruta base 
+     *                        para este controlador.
      */
     public function obtenerRutaBase($action = null)
     {
@@ -222,8 +229,9 @@ abstract class BaseController extends Controller
      * un nombre visible diferente, por ejemplo la entidad "Persona" se puede
      * usar con el nombre visible "Usuario".
      *
-     * @see obtenerEtiquetaEntidadPlural()
      * @return string El nombre visible de la clase de entidad.
+     * 
+     * @see obtenerEtiquetaEntidadPlural() obtenerEtiquetaEntidadPlural()
      */
     public function obtenerEtiquetaEntidad()
     {
@@ -240,8 +248,9 @@ abstract class BaseController extends Controller
      * En caso de no estar definido, pluraliza mediante un algoritmo el valor
      * obtenido de obtenerEtiquetaEntidad().
      *
-     * @see obtenerEtiquetaEntidad()
      * @return string El nombre visible de la clase de entidad en plural.
+     * 
+     * @see obtenerEtiquetaEntidad() obtenerEtiquetaEntidad()
      */
     public function obtenerEtiquetaEntidadPlural()
     {
@@ -260,7 +269,7 @@ abstract class BaseController extends Controller
     /**
      * Devuelve el nombre del bundle al cual pertenece este controlador.
      *
-     * @see $BundleName
+     * @see $BundleName $BundleName
      */
     public function getBundleName()
     {
@@ -270,7 +279,7 @@ abstract class BaseController extends Controller
     /**
      * Devuelve el nombre de la entidad principal que administra este controlador.
      *
-     * @see $EntityName
+     * @see $EntityName $EntityName
      */
     public function getEntityName()
     {
@@ -280,7 +289,7 @@ abstract class BaseController extends Controller
     /**
      * Devuelve el nombre del vendor o aplicación al cual pertenece este controlador.
      *
-     * @see $VendorName
+     * @see $VendorName $VendorName
      */
     public function getVendorName()
     {

@@ -14,13 +14,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Implementa métodos genéricos para realizar listados (listar), altas (crear y
  * guardar), bajas (eliminar y eliminar2) y modificaciones (editar y guardar).
  *
- * @abstract
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @abstract
  */
 abstract class AbmController extends BaseController
 {
     // use \Tapir\BaseBundle\Controller\ConBuscar;
+    
+    /**
+     * @see \Tapir\BaseBundle\Controller\BaseController::IniciarVariables() BaseController::IniciarVariables()
+     */
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -30,8 +33,7 @@ abstract class AbmController extends BaseController
         }
         
         if (! isset($this->OrderBy)) {
-            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait(
-                $this->CompleteEntityName, 
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
                 'Tapir\BaseBundle\Entity\ConNombre')) {
                 $this->OrderBy = 'Nombre';
             } else {
@@ -67,9 +69,10 @@ abstract class AbmController extends BaseController
     /**
      * Obtiene la cantidad de registros del listado.
      *
-     * @see listarAction()
-     * @see obtenerComandoSelect()
-     * @return int Cantidad de registros.
+     * @return int $cant Cantidad de registros.
+     *
+     * @see listarAction() listarAction()
+     * @see obtenerComandoSelect() obtenerComandoSelect()
      */
     public function obtenerCantidadRegistros($whereAdicional = null)
     {
@@ -91,16 +94,16 @@ abstract class AbmController extends BaseController
      * condiciones de páginación y búsqueda (esta última si el parámetro
      * $filtro_buscar no es null).
      *
-     * @see listarAction()
-     * @see $Joins
-     * @see $Where
-     * @see $OrderBy
-     * @see $BuscarPor
-     * @see $Limit
-     * @see $Paginar
+     * @param  string $filtro_buscar El filtro a aplicar en formato DQL.
+     * @return string $dql           Una comando DQL SELECT para obtener el listado.
      *
-     * @param string $filtro_buscar El filtro a aplicar en formato DQL.
-     * @return string Una comando DQL SELECT para obtener el listado.
+     * @see listarAction() listarAction()
+     * @see $Joins $Joins
+     * @see $Where $Where
+     * @see $OrderBy $OrderBy
+     * @see $BuscarPor $BuscarPor
+     * @see $Limit $Limit
+     * @see $Paginar $Paginar
      */
     protected function obtenerComandoSelect($filtro_buscar = null, $soloContar = false, $whereAdicional = null)
     {
@@ -124,8 +127,7 @@ abstract class AbmController extends BaseController
         
         $where = "";
         
-        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait(
-            $this->CompleteEntityName, 
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
             'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
@@ -201,7 +203,8 @@ abstract class AbmController extends BaseController
      * Utiliza las condiciones de límites y paginación y devuelve un array()
      * con las entidades a listar.
      *
-     * @see obtenerComandoSelect()
+     * @see obtenerComandoSelect() obtenerComandoSelect()
+     * 
      * @Route("listar/")
      * @Template()
      */
@@ -227,7 +230,6 @@ abstract class AbmController extends BaseController
         } else {
             $entities = $query->getResult();
         }
-        
         return $this->ArrastrarVariables($request, array('entities' => $entities));
     }
 
@@ -238,7 +240,8 @@ abstract class AbmController extends BaseController
      * El FormType puede ser especificado mediante la variable form del query string o si no se especifica se
      * asume que es {Vendor}\{Bundle}\Form\{Entidad}Type.
      *
-     * @return string El nombre del tipo de formulario.
+     * @param  \Symfony\Component\HttpFoundation\Request $request 
+     * @return string                                             El nombre del tipo de formulario.
      */
     protected function ObtenerFormType(Request $request)
     {
@@ -286,7 +289,9 @@ abstract class AbmController extends BaseController
      *
      * Es como editar, pero sólo lectura.
      *
-     * @see editarAction() @Route("ver/{id}")
+     * @see editarAction() editarAction() 
+     * 
+     * @Route("ver/{id}")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -301,8 +306,7 @@ abstract class AbmController extends BaseController
         
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        }
-        
+        }        
         return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
 
@@ -341,16 +345,14 @@ abstract class AbmController extends BaseController
             $em->flush();
         }
         
-        return $this->ArrastrarVariables(
-            $request, 
-            array(
-                'entity' => $entity, 
-                'errors' => '', 
-                'data_control' => $DataControl, 
-                'nombrecampo' => $nombrecampo, 
-                'valoractual' => $ValorActual, 
-                'nuevovalor' => $NuevoValor, 
-                'id' => $id));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'errors' => '', 
+            'data_control' => $DataControl, 
+            'nombrecampo' => $nombrecampo, 
+            'valoractual' => $ValorActual, 
+            'nuevovalor' => $NuevoValor, 
+            'id' => $id));
     }
 
     /**
@@ -358,13 +360,14 @@ abstract class AbmController extends BaseController
      *
      * Recibe el ID de la entidad a editar o null en caso de crear una nueva
      * (alta). Devuelve la entidad actual (desde la base de datos) o la entidad
-     * nueva (creada con el método CrearNuevaEntidad) y el formulario de edición
-     *
-     * @see CrearNuevaEntidad()
-     * @see guardarAction()
-     *
+     * nueva (creada con el método CrearNuevaEntidad) y el formulario de edición.
+     * 
      * @param \Symfony\Component\HttpFoundation\Request $request 
-     * @param int $id El ID de la entidad a editar, o null si se trata de un alta.
+     * @param integer                                   $id      El ID de la entidad a editar, o null si se trata 
+     *                                                           de un alta.
+     *
+     * @see CrearNuevaEntidad() CrearNuevaEntidad()
+     * @see guardarAction() guardarAction()
      * 
      * @Route("editar/{id}")
      * @Route("crear/")
@@ -393,14 +396,12 @@ abstract class AbmController extends BaseController
             $FormEliminar = null;
         }
         
-        return $this->ArrastrarVariables(
-            $request, 
-            array(
-                'entity' => $entity, 
-                'create' => $id ? false : true, 
-                'errors' => '', 
-                'edit_form' => $FormEditar->createView(), 
-                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => $id ? false : true, 
+            'errors' => '', 
+            'edit_form' => $FormEditar->createView(), 
+            'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
     }
 
     /**
@@ -409,8 +410,9 @@ abstract class AbmController extends BaseController
      * Recibe el formulario de alta o de edición y persiste los cambios en la
      * base de datos o vuelve al formulario con una lista de errores.
      *
-     * @see editarAction()
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @see editarAction() editarAction()
      * 
      * @Route("guardar/{id}")
      * @Route("guardar")
@@ -469,18 +471,15 @@ abstract class AbmController extends BaseController
              * }
              */
             
-            $res = $this->ArrastrarVariables(
-                $request, 
-                array(
-                    'entity' => $entity, 
-                    'errors' => $Errores, 
-                    'create' => $id ? false : true, 
-                    'edit_form' => $FormEditar->createView(), 
-                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+            $res = $this->ArrastrarVariables($request, array(
+                'entity' => $entity, 
+                'errors' => $Errores, 
+                'create' => $id ? false : true, 
+                'edit_form' => $FormEditar->createView(), 
+                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
             
             return $this->render(
-                $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', 
-                $res);
+                $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
             return $this->guardarActionAfterSuccess($request, $entity);
         }
@@ -488,15 +487,19 @@ abstract class AbmController extends BaseController
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return $this->redirectToRoute(
-            $this->obtenerRutaBase('listar'), 
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
             $this->ArrastrarVariables($request, null, false));
     }
 
+    /**
+     * Función para que las clases derivadas puedan intervenir la entidad antes de bindear el formulario.
+     * 
+     * Devuelve un array con errores o null si está todo bien.
+     * 
+     * @param object $entity una entidad determinada.
+     */
     public function guardarActionPreBind($entity)
     {
-        // Función para que las clases derivadas puedan intervenir la entidad antes de bindear el formulario
-        // Devuelve un array con errores o null si está todo bien
         return null;
     }
 
@@ -530,8 +533,11 @@ abstract class AbmController extends BaseController
      * Crear el formulario de eliminar.
      *
      * Está en blanco ya que se espera que sea implementada por ConEliminar.
+     * 
+     * @param  integer $id ID de la entidad que se está procesando.
+     * @return null
      *
-     * @see ConEliminar
+     * @see \Yacare\BaseBundle\Entity\ConEliminar ConEliminar
      */
     protected function CrearFormEliminar($id)
     {
@@ -545,12 +551,13 @@ abstract class AbmController extends BaseController
      * la creación de las entidades durante el procedo de alta.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request 
-     * @return object La entidad nueva.
+     * @return object                                   $entity  La entidad nueva.
      */
     protected function CrearNuevaEntidad(Request $request)
     {
         $entityName = $this->CompleteEntityName;
         $entity = new $entityName();
+        
         return $entity;
     }
 
@@ -560,13 +567,13 @@ abstract class AbmController extends BaseController
      * Permite a los controladores derivados intervenir la obtención de
      * entidades durante los procesos de edición, eliminación, archivado, etc.
      *
-     * @param
-     * integer
-     * @return object La entidad.
+     * @param  integer $id ID de la entidad que se está procesando.
+     * @return object      La entidad.
      */
     protected function ObtenerEntidadPorId($id)
     {
         $em = $this->getEm();
+        
         return $em->getRepository($this->CompleteEntityName)->find($id);
     }
 }

@@ -13,11 +13,10 @@ class CuiltType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'label' => 'CUIL/CUIT', 
-                'maxlength' => 13, 
-                'attr' => array('class' => 'tapir-input-cuilt', 'data-type' => 'cuilt', 'maxlength' => '13')));
+        $resolver->setDefaults(array(
+            'label' => 'CUIL/CUIT', 
+            'maxlength' => 13, 
+            'attr' => array('class' => 'tapir-input-cuilt', 'data-type' => 'cuilt', 'maxlength' => '13')));
     }
 
     public function getParent()

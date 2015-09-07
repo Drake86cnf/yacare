@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * La eliminación es permanente (se traduce en un DELETE SQL).
  *
- * @see Suprimible
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\Entity\Suprimible Suprimible
  */
 trait Eliminable
 {

@@ -10,14 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de roles de personas.
  *
- * @Route("personarol/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("personarol/")
  */
 class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
 {
     use \Tapir\BaseBundle\Controller\ConEliminar;
-    
+
     function IniciarVariables()
     {
         parent::IniciarVariables();

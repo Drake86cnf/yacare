@@ -8,22 +8,23 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Las notas son similares a las observaciones.
  *
- * @see ConObs
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @see \Tapir\BaseBundle\Entity\ConObs ConObs
  */
 trait ConNotas
 {
     /**
      * El texto de las notas.
+     * 
+     * @var string
      *
      * @ORM\Column(type="text", nullable=true)
      */
     private $Notas;
 
     /**
-     *
      * @ignore
-     *
      */
     public function getNotas()
     {
@@ -31,9 +32,7 @@ trait ConNotas
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setNotas($Notas)
     {

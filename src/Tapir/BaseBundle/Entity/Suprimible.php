@@ -9,14 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  * La supresión no es permanente, se hace levantando una bandera en la columna
  * "suprimido".
  *
- * @see Eliminable
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\Enity\Eliminable Eliminable
  */
 trait Suprimible
 {
     /**
      * Indica si la entidad fue suprimido (soft-delete).
+     * 
+     * @var boolean
      *
      * @ORM\Column(type="boolean")
      */
@@ -31,9 +33,7 @@ trait Suprimible
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getSuprimido()
     {
@@ -41,9 +41,7 @@ trait Suprimible
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setSuprimido($Suprimido)
     {

@@ -18,9 +18,8 @@ class BuscadorDeRelaciones
     /**
      * Búsqueda de al menos una relación, para el objeto estudiado.
      *
-     * @param  array $entidadASuprimir
-     * 
-     * @return boolean
+     * @param  array   $entidadASuprimir entidad a estudiar.
+     * @return boolean si tiene asociaciones o no.
      */
     public function tieneAsociaciones($entidadASuprimir)
     {
@@ -34,18 +33,18 @@ class BuscadorDeRelaciones
                     if ($asociacion['targetEntity'] == trim(get_class($entidadASuprimir), '\\') &&
                          $asociacion['isOwningSide']) {
                         if ($asociacion['type'] == 8) {
-                            $hayRelacion = $this->construirDQL(
-                                $entidadASuprimir, 
-                                $asociacion['sourceEntity'], 
+                            $hayRelacion = $this->construirDQL($entidadASuprimir, $asociacion['sourceEntity'], 
                                 $asociacion['fieldName']);
-                        } elseif (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait(
-                            $nombreEntidad, 
+                        } elseif (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($nombreEntidad, 
                             'Tapir\BaseBundle\Entity\Suprimible')) {
                             $hayRelacion = $this->em->getRepository($asociacion['sourceEntity'])->findOneBy(
-                                array($asociacion['fieldName'] => $entidadASuprimir->getId(), 'Suprimido' => 0));
+                                array(
+                                    $asociacion['fieldName'] => $entidadASuprimir->getId(), 
+                                    'Suprimido' => 0));
                         } else {
                             $hayRelacion = $this->em->getRepository($asociacion['sourceEntity'])->findOneBy(
-                                array($asociacion['fieldName'] => $entidadASuprimir->getId()));
+                                array(
+                                    $asociacion['fieldName'] => $entidadASuprimir->getId()));
                         }
                     }
                     if ($hayRelacion) {
@@ -77,10 +76,9 @@ class BuscadorDeRelaciones
     /**
      * Rutina de búsqueda de asociaciones, a partir del objeto de una entidad.
      *
-     * @param array $nombreEntidad    Consulta a la metadata de ORM.
-     * @param array $entidadASuprimir Entidad a analizar.
-     *            
-     * @return integer $contador Variable con la cantidad de relaciones encontradas para esa entidad.
+     * @param  array    $nombreEntidad    Consulta a la metadata de ORM.
+     * @param  array    $entidadASuprimir Entidad a analizar.
+     * @return integer  $contador         Variable con la cantidad de relaciones encontradas para esa entidad.
      */
     protected function obtenerCantidadRelaciones($nombreEntidad, $entidadASuprimir)
     {
@@ -156,17 +154,18 @@ class BuscadorDeRelaciones
     /**
      * Rutina destinada a la consulta de asociaciones para relaciones de ManyToOne.
      *
-     * @param array $asociacion            
-     * @param int   $id            
-     *
-     * @return int $totalRelaciones
+     * @param  array $asociacion      array de metadatos de la entidad estudiada.
+     * @param  int   $id              ID de la entidad.
+     * @return int   $totalRelaciones cantidad de asociaciones ManyToOne de la entidad estudiada.
      */
     protected function rutinaManyToOne($asociacion, $id)
     {
         $variableRemitente = $asociacion['fieldName'];
         $rutaRemitente = $asociacion['sourceEntity'];
         $totalRelaciones = count(
-            $this->em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), array('id' => 'ASC'), 5));
+            $this->em->getRepository($rutaRemitente)->findBy(array(
+                $variableRemitente => $id), array(
+                'id' => 'ASC'), 5));
         
         return $totalRelaciones;
     }
@@ -174,17 +173,18 @@ class BuscadorDeRelaciones
     /**
      * Rutina encargada de manejar consulta en relaciones OneTomany.
      *
-     * @param array $asociacion            
-     * @param int   $id            
-     *
-     * @return int $totalRelaciones
+     * @param  array $asociacion      array de metadatos de la entidad estudiada.
+     * @param  int   $id              ID de la entidad.
+     * @return int   $totalRelaciones cantidad de asociaciones OneToMany de la entidad estudiada.
      */
     protected function rutinaOneToMany($asociacion, $id)
     {
         $variableRemitente = $asociacion['fieldName'];
         $rutaRemitente = $asociacion['sourceEntity'];
         $totalRelaciones = count(
-            $this->em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), array('id' => 'ASC'), 5));
+            $this->em->getRepository($rutaRemitente)->findBy(array(
+                $variableRemitente => $id), array(
+                'id' => 'ASC'), 5));
         
         return $totalRelaciones;
     }
@@ -192,10 +192,9 @@ class BuscadorDeRelaciones
     /**
      * Rutina que se encarga de realizar la consulta para la relación ManyToMany.
      *            
-     * @param array $asociacion
-     * @param int   $id
-     *
-     * @return int $totalRelaciones
+     * @param  array $asociacion      array de metadatos de la entidad estudiada.
+     * @param  int   $id              ID de la entidad.
+     * @return int   $totalRelaciones cantidad de asociaciones ManyToMany de la entidad estudiada.
      */
     protected function rutinaManyToMany($asociacion, $entidadASuprimir)
     {
@@ -226,11 +225,10 @@ class BuscadorDeRelaciones
     /**
      * Método con sentencia SELECT para asociaciones ManyToMany.
      *
-     * @param int    $id                        ID de la entidad a suprimir.
-     * @param string $rutaEntidadCandidata      Ruta a la entidad que referencia al objeto a suprimir.
-     * @param string $propiedadEntidadCandidata Variable que referencia al objeto de la entidad a suprimir.
-     * 
-     * @return array $hayRelacion resultado de la consulta.
+     * @param  array  $entidadASuprimir          entidad a suprimir.
+     * @param  string $rutaEntidadCandidata      ruta a la entidad que referencia al objeto a suprimir.
+     * @param  string $propiedadEntidadCandidata variable que referencia al objeto de la entidad a suprimir.
+     * @return array  $hayRelacion               resultado de la consulta.
      */
     public function construirDQL($entidadASuprimir, $rutaEntidadCandidata, $propiedadEntidadCandidata)
     {
@@ -242,12 +240,18 @@ class BuscadorDeRelaciones
             ->where('b.id = :id_candidato');
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($rutaEntidadCandidata, 'Tapir\BaseBundle\Entity\Suprimible')) {
             $hayRelacion->andwhere('a.Suprimido = :no_es_suprimido')->setParameters(
-                array('id_candidato' => $entidadASuprimir->getId(), 'no_es_suprimido' => 0));
+                array(
+                    'id_candidato' => $entidadASuprimir->getId(), 
+                    'no_es_suprimido' => 0));
         } else {
-            $hayRelacion->setParameter(array('id_candidato' => $entidadASuprimir->getId()));
+            $hayRelacion->setParameter(
+                array(
+                    'id_candidato' => $entidadASuprimir->getId()));
         }
         
-        $hayRelacion = $hayRelacion->getQuery()->setMaxResults(1)->getResult();
+        $hayRelacion = $hayRelacion->getQuery()
+            ->setMaxResults(1)
+            ->getResult();
         
         return $hayRelacion;
     }

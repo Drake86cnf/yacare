@@ -14,17 +14,20 @@ use Tapir\BaseBundle\Helper\Damm;
  * URL, etc.) a diferencia del token simple.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * @see ConTokenSimple
+ * 
+ * @see \Tapir\BaseBundle\Entity\ConTokenSimple ConTokenSimple
  */
 trait ConToken
 {
-    public function __constructor()
+    public function __construct()
     {
         $this->GenerarToken();
     }
     
     /**
      * El token.
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=false)
      */
@@ -43,9 +46,9 @@ trait ConToken
      *
      * El YRI es una URL que apunta a una entidad.
      *
-     * @param boot $incluye_version
-     * Indica si el YRI es a una versión específica de la entidad (true)
-     * o en general a cualquier versión disponible (false).
+     * @param boot $incluye_version Indica si el YRI es a una versión específica de la entidad (true)
+     *                              o en general a cualquier versión disponible (false).
+     * @return string
      */
     public function getYriConToken($incluye_version = true)
     {
@@ -71,6 +74,7 @@ trait ConToken
         
         // PHPQRCode cambia el content-type a image/png... lo volvemos a html
         header("Content-type: text/html");
+        
         return base64_encode($imagen_contenido);
     }
 

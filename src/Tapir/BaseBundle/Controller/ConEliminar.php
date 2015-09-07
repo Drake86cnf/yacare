@@ -12,21 +12,23 @@ use Zend\Cache\Pattern\ObjectCache;
  *
  * La entidad controlada por el controlador debe ser Eliminable o Suprimible.
  *
- * @see \Tapir\BaseBundle\Entity\Eliminable
- * @see \Tapir\BaseBundle\Entity\Suprimible
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\Entity\Eliminable Eliminable
+ * @see \Tapir\BaseBundle\Entity\Suprimible Suprimible
  */
 trait ConEliminar
 {
     /**
      * Crea el formulario de eliminación.
+     * 
+     * @param integer $id ID de la entidad que se está procesando.
      */
     protected function CrearFormEliminar($id)
     {
         return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
     }
-    
+
     /**
      * @Route("eliminar/{id}")
      * @Template("TapirBaseBundle:Default:eliminar.html.twig")
@@ -44,15 +46,13 @@ trait ConEliminar
             $buscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
         }
         
-        return $this->ArrastrarVariables(
-            $request, 
-            array(
-                'entity' => $entity, 
-                'create' => $id ? false : true, 
-                'delete_form' => $deleteForm->createView(), 
-                'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => $id ? false : true, 
+            'delete_form' => $deleteForm->createView(), 
+            'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
     }
-    
+
     /**
      * @Route("eliminar2/{id}")
      * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
@@ -84,20 +84,17 @@ trait ConEliminar
                     return $this->afterEliminar($request, $entity, true);
                 } else {
                     // No es eliminable ni suprimible... no se puede borrar
-                    $this->get('session')->getFlashBag()->add(
-                        'info', 
+                    $this->get('session')->getFlashBag()->add('info', 
                         'No se puede eliminar el elemento "' . $entity . '".');
                 }
         }
-        
         return $this->afterEliminar($request, $entity);
     }
-    
+
     /**
      * Este método se dispara después de eliminar una entidad.login
      *
-     * @param bool $eliminado
-     *            Indica si el elemento fue eliminado.
+     * @param bool Indica si el elemento fue eliminado.
      */
     public function afterEliminar(Request $request, $entity, $eliminado = false)
     {

@@ -14,7 +14,8 @@ use Tapir\BaseBundle\Helper\Damm;
  * humanos, a diferencia del token regular.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * @see ConToken ConToken
+ * 
+ * @see \Tapir\BaseBundle\Entity\ConToken ConToken
  */
 trait ConTokenSimple
 {
