@@ -10,8 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
  */
 trait ConAcciones
 {
+    /**
+     * @var array
+     */
     protected $Actions = array();
 
+    /**
+     * Devuelve el conjunto de acciones; dado un índice, o crea un conjunto nuevo, basado en dicho índice.
+     * 
+     * @param  string                                   $conjunto
+     * @return \Tapir\TemplateBundle\Controls\ActionSet $Actions|$NuevoConjunto
+     */
     public function ObtenerAcciones($conjunto = '1')
     {
         if (array_key_exists($conjunto, $this->Actions)) {
@@ -19,6 +28,7 @@ trait ConAcciones
         } else {
             $NuevoConjunto = new \Tapir\TemplateBundle\Controls\ActionSet();
             $this->Actions[$conjunto] = $NuevoConjunto;
+            
             return $NuevoConjunto;
         }
     }

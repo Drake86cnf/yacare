@@ -18,35 +18,36 @@ trait Importable
      * o cualquier cosa que en conjunto con el ImportId permitan identificar el origen
      * de este registro.
      *
-     * @see $ImportId
-     *
-     * @var string $ImportSrc
-     *      @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     * 
+     * @see $ImportId $ImportId
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ImportSrc;
     
     /**
      * El id o valor de clave primaria original de este registro en su origen.
      *
-     * @see $ImportSrc
+     * @var string
      *
-     * @var string $ImportId
-     *      @ORM\Column(type="string", length=50, nullable=true)
+     * @see $ImportSrc $ImportSrc
+     * 
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $ImportId;
     
     /**
      * La fecha y hora de la última importación.
      *
-     * @var DateTime $ImportedAt
-     *      @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $ImportedAt;
 
     /**
-     *
      * @ignore
-     *
      */
     public function getImportSrc()
     {
@@ -54,19 +55,16 @@ trait Importable
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setImportSrc($importSrc)
+    public function setImportSrc($ImportSrc)
     {
-        $this->ImportSrc = $importSrc;
+        $this->ImportSrc = $ImportSrc;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getImportId()
     {
@@ -74,19 +72,16 @@ trait Importable
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setImportId($importId)
+    public function setImportId($ImportId)
     {
-        $this->ImportId = $importId;
+        $this->ImportId = $ImportId;
+        return $this;
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getImportedAt()
     {
@@ -94,12 +89,11 @@ trait Importable
     }
 
     /**
-     *
      * @ignore
-     *
      */
-    public function setImportedAt(\DateTime $importedAt)
+    public function setImportedAt($ImportedAt)
     {
-        $this->ImportedAt = $importedAt;
+        $this->ImportedAt = $ImportedAt;
+        return $this;
     }
 }

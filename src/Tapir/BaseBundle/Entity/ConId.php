@@ -9,9 +9,8 @@ use Tapir\BaseBundle\Helper\Damm;
  *
  * Los métodos (getter y setter) están en un trait separado.
  *
- * @see ConIdMetodos
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @see \Tapir\BaseBundle\EnityConIdMetodos ConIdMetodos
  */
 trait ConId
 {
@@ -19,6 +18,8 @@ trait ConId
     
     /**
      * La clave primaria.
+     * 
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id

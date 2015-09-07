@@ -17,6 +17,8 @@ trait ConBuscar
 {
     /**
      * Acción de mostrar el buscador.
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("buscar/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()

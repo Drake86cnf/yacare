@@ -7,10 +7,10 @@ use \Symfony\Component\Security\Core\Role\RoleInterface;
 /**
  * Una entrada en el registro de auditoría (log).
  *
- * @ORM\Table(name="Base_Auditoria")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_Auditoria")
  */
 class AuditoriaRegistro
 {
@@ -53,9 +53,9 @@ class AuditoriaRegistro
      *
      * @var string
      * 
+     * @see $ElementoId $ElementoId
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
-     *     
-     * @see ElementoId
      */
     private $ElementoTipo;
     
@@ -64,9 +64,9 @@ class AuditoriaRegistro
      *
      * @var integer
      * 
+     * @see $ElementoTipo $ElementoTipo
+     * 
      * @ORM\Column(type="integer", nullable=true)
-     *     
-     * @see ElementoTipo
      */
     private $ElementoId;
     
@@ -89,9 +89,7 @@ class AuditoriaRegistro
     private $Usuario;
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCreatedAt()
     {
@@ -99,9 +97,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCreatedAt($createdAt)
     {
@@ -110,9 +106,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getEstacion()
     {
@@ -120,9 +114,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setEstacion($Estacion)
     {
@@ -131,9 +123,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getAccion()
     {
@@ -141,9 +131,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setAccion($Accion)
     {
@@ -152,9 +140,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getElementoTipo()
     {
@@ -162,9 +148,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setElementoTipo($ElementoTipo)
     {
@@ -173,9 +157,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getElementoId()
     {
@@ -183,9 +165,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setElementoId($ElementoId)
     {
@@ -194,9 +174,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCambios()
     {
@@ -204,9 +182,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCambios($Cambios)
     {
@@ -215,9 +191,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getUsuario()
     {
@@ -225,9 +199,7 @@ class AuditoriaRegistro
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setUsuario($Usuario)
     {

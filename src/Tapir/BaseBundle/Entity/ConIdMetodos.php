@@ -8,16 +8,14 @@ use Tapir\BaseBundle\Helper\Damm;
  * Trait que agrega los métodos (getter y setter) a una entidad.
  * Requiere ConId.
  *
- * @see ConId
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ *
+ * @see \Tapir\BaseBundle\EntityConId ConId
  */
 trait ConIdMetodos
 {
     /**
-     *
      * @ignore
-     *
      */
     public function getId()
     {
@@ -25,9 +23,7 @@ trait ConIdMetodos
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setId($id)
     {
@@ -59,9 +55,9 @@ trait ConIdMetodos
      *
      * El YRI es una URL que apunta a una entidad.
      *
-     * @param boot $incluye_version
-     * Indica si el YRI es a una versión específica de la entidad (true)
-     * o en general a cualquier versión disponible (false).
+     * @param  boot   $incluye_version Indica si el YRI es a una versión específica de la entidad (true)
+     *                                 o en general a cualquier versión disponible (false).
+     * @return string $res
      */
     public function getYri($incluye_version = true)
     {
@@ -75,7 +71,6 @@ trait ConIdMetodos
         if ($incluye_version && in_array('Tapir\BaseBundle\Entity\Versionable', class_uses($this))) {
             $Res .= "&ver=" . $this->getVersion();
         }
-        
         return $Res;
     }
 
@@ -95,6 +90,7 @@ trait ConIdMetodos
         
         // PHPQRCode cambia el content-type a image/png... lo volvemos a html
         header("Content-type: text/html");
+        
         return base64_encode($imagen_contenido);
     }
 }

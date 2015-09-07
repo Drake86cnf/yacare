@@ -13,7 +13,9 @@ trait ConImagen
     /**
      * La imagen, en formato binario.
      *
-     * @var $imagen @ORM\Column(name="imagen", type="blob", nullable=true)
+     * @var $imagen 
+     * 
+     * @ORM\Column(name="imagen", type="blob", nullable=true)
      */
     private $imagen;
 
@@ -42,9 +44,7 @@ trait ConImagen
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getImagen()
     {
@@ -52,9 +52,7 @@ trait ConImagen
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setImagen($imagen)
     {

@@ -18,16 +18,16 @@ trait ConNombre
      * personas, calles o ciudades debe ser el nombre visible. Para otras
      * entidades puede ser una etiqueta o representación (ToString) de la
      * entidad, por ejemplo "Comprobante Nº 32".
+     * 
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=false)
-     * Assert\NotBlank(message="Debe proporcionar un nombre.")
+     * @Assert\NotBlank(message="Debe proporcionar un nombre.")
      */
     private $Nombre;
 
     /**
-     *
      * @ignore
-     *
      */
     public function __toString()
     {
@@ -39,9 +39,7 @@ trait ConNombre
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getNombre()
     {
@@ -49,9 +47,7 @@ trait ConNombre
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setNombre($Nombre)
     {

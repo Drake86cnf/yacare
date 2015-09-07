@@ -10,14 +10,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Controlador de usuarios.
  *
- * @Route("usuario/")
- *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
+ * @Route("usuario/")
  */
 class UsuarioController extends AbmController
 {
+    /**
+     * La contraseña original.
+     * 
+     * @var string
+     */
     private $PassOriginal = '';
 
+    /**
+     * @see \Tapir\BaseBundle\Controller\BaseController::IniciarVariables() BaseController::IniciarVariables()
+     */
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -39,6 +47,7 @@ class UsuarioController extends AbmController
     public function guardarActionPreBind($entity)
     {
         $this->PassOriginal = $entity->getPasswordEnc();
+        
         return parent::guardarActionPreBind($entity);
     }
 
@@ -59,7 +68,6 @@ class UsuarioController extends AbmController
             // Si la contraseña está en blanco, dejo la original
             $entity->setPasswordEnc($this->PassOriginal);
         }
-        
         return parent::guardarActionPrePersist($entity, $editForm);
     }
 }

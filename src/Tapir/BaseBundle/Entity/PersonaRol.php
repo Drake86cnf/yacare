@@ -7,14 +7,14 @@ use \Tapir\BaseBundle\Entity\PersonaInterface;
 
 /**
  * Rol asociable a un usuario.
- *
- * @ORM\Table(name="Base_PersonaRol")
- * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- *
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * 
  * //@Tapir\Abm\Nombre("rol de personas")
  * //@Tapir\Abm\NombrePlural("roles de personas")
  *
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
+ * @ORM\Table(name="Base_PersonaRol")
  */
 class PersonaRol implements RoleInterface
 {
@@ -27,23 +27,25 @@ class PersonaRol implements RoleInterface
     {
         $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * El nombre del rol.
      *
      * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Nombre;
-
+    
     /**
      * El código de rol.
      *
      * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $Codigo;
-
+    
     /**
      * Las personas que tienen este rol.
      *
@@ -54,42 +56,36 @@ class PersonaRol implements RoleInterface
     protected $Personas;
 
     /**
-     *
      * @ignore
-     *
      */
     public function setNombre($nombre)
     {
         $this->Nombre = $nombre;
-        $codigo = "ROLE_" . strtr(
-            mb_strtoupper($nombre, 'utf-8'),
-            array(
-                'Á' => 'A',
-                'É' => 'E',
-                'Í' => 'I',
-                'Ó' => 'O',
-                'Ú' => 'U',
-                'À' => 'A',
-                'È' => 'E',
-                'Ì' => 'I',
-                'Ò' => 'O',
-                'Ù' => 'U',
-                'Ä' => 'A',
-                'Ë' => 'E',
-                'Ï' => 'I',
-                'Ö' => 'O',
-                'Ü' => 'U',
-                'Ñ' => 'n',
-                'Ç' => 'C',
-                ' ' => '_',
-                ':' => '_'));
+        $codigo = "ROLE_" . strtr(mb_strtoupper($nombre, 'utf-8'), array(
+            'Á' => 'A', 
+            'É' => 'E', 
+            'Í' => 'I', 
+            'Ó' => 'O', 
+            'Ú' => 'U', 
+            'À' => 'A', 
+            'È' => 'E', 
+            'Ì' => 'I', 
+            'Ò' => 'O', 
+            'Ù' => 'U', 
+            'Ä' => 'A', 
+            'Ë' => 'E', 
+            'Ï' => 'I', 
+            'Ö' => 'O', 
+            'Ü' => 'U', 
+            'Ñ' => 'n', 
+            'Ç' => 'C', 
+            ' ' => '_', 
+            ':' => '_'));
         $this->Codigo = str_replace('__', '_', $codigo);
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getRole()
     {
@@ -97,9 +93,7 @@ class PersonaRol implements RoleInterface
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getNombre()
     {
@@ -107,9 +101,7 @@ class PersonaRol implements RoleInterface
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function getCodigo()
     {
@@ -117,9 +109,7 @@ class PersonaRol implements RoleInterface
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function setCodigo($Codigo)
     {
@@ -127,9 +117,7 @@ class PersonaRol implements RoleInterface
     }
 
     /**
-     *
      * @ignore
-     *
      */
     public function __toString()
     {
