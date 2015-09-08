@@ -3,8 +3,19 @@ namespace Tapir\BaseBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+/**
+ * Clase con métodos útiles para cadenas de texto.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class StringHelper
 {
+    /**
+     * Devuelve el nombre, normalizado, de un mes.
+     * 
+     * @param  integer $mes rango de clasificación.
+     * @return string
+     */
     public static function NombreMes($mes)
     {
         switch ($mes) {
@@ -35,9 +46,13 @@ class StringHelper
         }
     }
 
-    /*
-     * Obtiene el nombre del bundle y de la entidad a partide una clase. Por ejemplo, para
-     * \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }
+    /**
+     * Obtiene el nombre del bundle y de la entidad a partide una clase.
+     * 
+     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve { "Base", "Persona" }.
+     * 
+     * @param  string $nombreclase
+     * @return array  $res
      */
     public static function ObtenerBundleYEntidad($nombreclase)
     {
@@ -55,14 +70,17 @@ class StringHelper
         if (strlen($res[1]) > 10 && substr($res[1], - 10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
-        }
-        
+        }        
         return $res;
     }
 
-    /*
-     * Obtiene el nombre la aplicación (vendor) a partir de una clase. Por ejemplo, para
-     * \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir"
+    /**
+     * Obtiene el nombre la aplicación (vendor) a partir de una clase. 
+     * 
+     * Por ejemplo, para \Tapir\BaseBundle\Controller\PersonaController devuelve "Tapir".
+     * 
+     * @param  string $nombreclase
+     * @return string $PartesNombreClase[0]
      */
     public static function ObtenerAplicacion($nombreclase)
     {
@@ -71,10 +89,15 @@ class StringHelper
         return $PartesNombreClase[0];
     }
 
-    /*
-     * Obtiene una ruta base a partir de una clase. Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController"
-     * devuelve "tapir_base_persona" Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve
-     * "tapir_base_persona_editar".
+    /**
+     * Obtiene una ruta base a partir de una clase. 
+     * 
+     * Por ejemplo, para "\Tapir\BaseBundle\Controller\PersonaController" devuelve "tapir_base_persona". 
+     * Para ("\Tapir\BaseBundle\Controller\PersonaController", "editar") devuelve "tapir_base_persona_editar".
+     * 
+     * @param  string $nombreclase
+     * @param  string $accion|null
+     * @return string
      */
     public static function ObtenerRutaBase($nombreclase, $accion = null)
     {
@@ -114,8 +137,7 @@ class StringHelper
                 if (! $Tipo || $Tipo = 'SC') {
                     $Tipo = 'DNI';
                 }
-        }
-        
+        }        
         return array($Tipo, ltrim($Numero, '0'));
     }
 
@@ -195,11 +217,16 @@ class StringHelper
                 array_push($newwords, $word);
             }
             $string = join($delimiter, $newwords);
-        }
-        
+        }        
         return $string;
     }
 
+    /**
+     * Soluciona problemas de tipeo u ortografía.
+     * 
+     * @param  string $text
+     * @return string
+     */
     public static function ArreglarProblemasConocidos($text)
     {
         $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
@@ -267,11 +294,16 @@ class StringHelper
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
-        }
-        
+        }        
         return trim(str_replace('  ', ' ', $text));
     }
 
+    /**
+     * Coloca tildes.
+     * 
+     * @param  string $text
+     * @return string
+     */
     public static function PonerTildes($text)
     {
         $text = ' ' . $text . ' ';
@@ -451,15 +483,17 @@ class StringHelper
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
-        }
-        
+        }        
         return trim($text);
     }
 
-    /*
+    /**
      * Obtiene el apellido y nombre de la persona por separado.
      * Devuelve un array con dos elementos (apellidos y nombre).
      * TODO: mejorar para que reconozca algunos apellidos dobles (por lista).
+     * 
+     * @param  string $nombreCompleto contiene el nombres y apellido en un sola cadena.
+     * @return array  $PartesNombre   contiene el nombres y apellido por separado.
      */
     public static function ObtenerApellidoYNombres($nombreCompleto)
     {
@@ -475,10 +509,13 @@ class StringHelper
         return $PartesNombre;
     }
 
-    /*
+    /**
      * Obtiene el nombre de la calle y la altura por separado.
      * Devuelve un array con dos o tres elementos (calle, altura [y departamento]).
      * TODO: mejorar para que si no existe 'Nº', reconozca el final del nombre de la calle cuando encuentre un dígito.
+     * 
+     * @param  string $domicilio
+     * @return array  $PartesNombre contiene la calle y número, de un domicilio, por separado.
      */
     public static function ObtenerCalleYNumero($domicilio)
     {
@@ -502,8 +539,7 @@ class StringHelper
         if (count($PartesNumero) == 2) {
             $PartesNombre[1] = trim($PartesNumero[0]);
             $PartesNombre[2] = trim($PartesNumero[1]);
-        }
-        
+        }       
         return $PartesNombre;
     }
 }

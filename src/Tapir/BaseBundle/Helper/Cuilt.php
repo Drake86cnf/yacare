@@ -3,8 +3,19 @@ namespace Tapir\BaseBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+/**
+ * Clase con métodos útiles para Cuilt.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class Cuilt
 {
+    /**
+     * Evalúa si un cuilt obedece un formato y largo de cadena válido.
+     * 
+     * @param  string $Cuilt
+     * @return boolean
+     */
     public static function EsCuiltValida($Cuilt)
     {
         $cadena = str_replace(array('.', ',', ' ', '-'), '', $Cuilt);
@@ -42,6 +53,15 @@ class Cuilt
         }
     }
 
+    /**
+     * Devuelve un cuilt formateado.
+     * 
+     * Elimina cualquier otro caracter que no sea números (para asegurarse que, por ejemplo, ningún guión '-' se
+     * encuentre fuera de lugar. Y devuelve la cadena bajo el formato: XX-XXXXXXXX-X.
+     * 
+     * @param  string $Cuilt
+     * @return string
+     */
     public static function FormatearCuilt($Cuilt)
     {
         $solonumeros = str_replace(array('.', ',', ' ', '-'), '', $Cuilt);
