@@ -235,10 +235,10 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     /**
      * La fecha de nacimiento.
      * 
-     * @var \DateTime
+     * @var \Date
      * 
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Type("\Date")
      */
     private $FechaNacimiento;
     
@@ -291,7 +291,71 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AgenteId;
+    
+    /**
+     * El número de ingresos brutos.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Nib;
+    
+    /**
+     * El tipo de sociedad de una persona, sea física o jurídica.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $TipoSociedad;
 
+    /**
+     * Devuelve el nombre del tipo de sociedad requerido.
+     * 
+     * @return string
+     */
+    public function getTipoSociedadNombre()
+    {
+        return self::TipoSociedadNombres($this->getTipoSociedad());
+    }
+    
+    /**
+     * Normaliza nombres para los tipos de sociedad de persona física y/o jurídica.
+     * 
+     * @param  string $TipoSociedad
+     * @return string
+     */
+    public static function TipoSociedadNombres($TipoSociedad)
+    {
+        switch($TipoSociedad) {
+            case '0':
+                return 'Unipersonal';
+            case '1':
+                return 'Anónima';
+            case '2':
+                return 'Colectiva';
+            case '3':
+                return 'De Hecho';
+            case '4':
+                return 'Comandita por acciones';
+            case '5':
+                return 'Capital Industrial';
+            case '6':
+                return 'Participación';
+            case '7':
+                return 'Comandita Simple';
+            case '8':
+                return 'S.R.L.';
+            case '9':
+                return 'Cooperativa';
+            case '10':
+                return 'A.S.F.L.';
+            default:
+                return 'n/a';
+        }
+    }
+    
     /**
      * Devuelve el campo Cuilt, formateado con guiones (12-12345678-9).
      * 
@@ -950,6 +1014,40 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     public function setEmailVerificacionNivel($EmailVerificacionNivel)
     {
         $this->EmailVerificacionNivel = $EmailVerificacionNivel;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getNib()
+    {
+        return $this->Nib;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNib($Nib)
+    {
+        $this->Nib = $Nib;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getTipoSociedad()
+    {
+        return $this->TipoSociedad;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipoSociedad($TipoSociedad)
+    {
+        $this->TipoSociedad = $TipoSociedad;
         return $this;
     }
 }

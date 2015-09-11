@@ -98,6 +98,15 @@ class Local
      * @ORM\Column(type="integer", nullable=true)
      */
     private $AnchoSalida;
+    
+    /**
+     * Indica si es o no en parque industrial.
+     * 
+     * @var boolean
+     * 
+     * @ORM\Column(type="boolean")
+     */
+    private $EnParqueIndustrial = false;
 
     public function __toString()
     {
