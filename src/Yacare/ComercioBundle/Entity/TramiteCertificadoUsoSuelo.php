@@ -2,6 +2,7 @@
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa un Certificado de factibilidad de uso de suelo.
@@ -17,7 +18,7 @@ class TramiteCertificadoUsoSuelo
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\Comercio\Entity\ConActividades;
+    use \Yacare\ComercioBundle\Entity\ConActividades;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
     
     /**
