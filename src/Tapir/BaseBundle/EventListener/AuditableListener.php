@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\BaseBundle\ORM\Auditable;
+namespace Tapir\BaseBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
@@ -55,18 +55,16 @@ class AuditableListener implements EventSubscriber
         $user = $this->container->get('security.context')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
-            /*
-             * $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-             * $Registro->setAccion('eliminar');
-             * $Registro->setElementoTipo($classMetadata->reflClass->getName());
-             * $Registro->setElementoId($entity->getId());
-             * $Registro->setEstacion($this->container->get('request')->getClientIp());
-             * if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
-             * $Registro->setUsuario($user->getId());
-             * }
-             * $em->persist($Registro);
-             * $em->flush();
-             */
+            $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
+            $Registro->setAccion('eliminar');
+            $Registro->setElementoTipo($classMetadata->reflClass->getName());
+            $Registro->setElementoId($entity->getId());
+            $Registro->setEstacion($this->container->get('request')->getClientIp());
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
+                $Registro->setUsuario($user->getId());
+            }
+            $em->persist($Registro);
+            $em->flush();
 
             $this->WriteToLog('eliminar', $entity, $user);
         }
@@ -91,24 +89,22 @@ class AuditableListener implements EventSubscriber
 
             $this->WriteToLog($action, $entity, $user, $changeSet);
 
-            /*
-             * $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-             * $Registro->setAccion($action);
-             * $Registro->setElementoTipo($classMetadata->reflClass->getName());
-             * $Registro->setElementoId($entity->getId());
-             * $Registro->setEstacion($this->container->get('request')->getClientIp());
-             * if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
-             * // Algunas veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
-             * $Registro->setUsuario($user->getId());
-             * }
-             * // echo '<pre>' . json_encode($changeSet, JSON_PRETTY_PRINT) . '</pre>';
-             * $Registro->setCambios(json_encode($changeSet));
-             * $em->persist($Registro);
-             * //$em->flush();
-             * //$em->clear();
-             * //$RegistroMeta = $em->getClassMetadata(get_class($Registro));
-             * //$uow->computeChangeSet($RegistroMeta, $Registro);
-             */
+            $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
+            $Registro->setAccion($action);
+            $Registro->setElementoTipo($classMetadata->reflClass->getName());
+            $Registro->setElementoId($entity->getId());
+            $Registro->setEstacion($this->container->get('request')->getClientIp());
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
+                // Algunas veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
+                $Registro->setUsuario($user->getId());
+            }
+            //echo '<pre>' . json_encode($changeSet, JSON_PRETTY_PRINT) . '</pre>';
+            $Registro->setCambios(json_encode($changeSet));
+            $em->persist($Registro);
+            $em->flush();
+            //$em->clear();
+            //$RegistroMeta = $em->getClassMetadata(get_class($Registro));
+            //$uow->computeChangeSet($RegistroMeta, $Registro);
         }
     }
 
