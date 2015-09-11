@@ -37,4 +37,34 @@ trait ConBuscar
             return $this->ArrastrarVariables($request, array());
         }
     }
+
+
+    /**
+     * @Route("buscarjson/")
+     * @Template()
+     */
+    public function buscarjsonAction(Request $request)
+    {
+        $request->query->set('filtro_buscar', $this->ObtenerVariable($request, 'q'));
+
+        $res = $this->buscarAction($request);
+
+        $jsonres = array();
+        if(array_key_exists('entities', $res)) {
+            foreach ($res['entities'] as $entity) {
+                $jsonres[] = array(
+                    'id' => $entity->getId(),
+                    'text' => (string)$entity
+                );
+            }
+        }
+
+        $ret = array();
+        $ret['results'] = $jsonres;
+
+        $response = new \Symfony\Component\HttpFoundation\Response(json_encode($ret,  JSON_PRETTY_PRINT));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }

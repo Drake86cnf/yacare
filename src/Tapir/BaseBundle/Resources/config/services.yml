@@ -1,5 +1,5 @@
 services:
-    tapir.base_bundle.auditable_listener:
+    tapir.base.auditable_listener:
         class: Tapir\BaseBundle\ORM\Auditable\AuditableListener
         arguments: [ '@service_container' ]
         public:  false

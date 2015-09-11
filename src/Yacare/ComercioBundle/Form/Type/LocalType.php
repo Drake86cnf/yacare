@@ -1,25 +1,23 @@
 <?php
-namespace Yacare\BaseBundle\Form\Type;
+namespace Yacare\ComercioBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Campo de formulario para seleccionar una persona.
+ * Campo de formulario para seleccionar una local comercial.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class PersonaType extends AbstractType
+class LocalType extends AbstractType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array('class'));
         $resolver->setDefaults(
             array(
-                'property' => 'NombreVisible',
-                'extra_data' => 'DocumentoNumero,Cuilt',
-                'placeholder' => 'Seleccione una persona',
-                'class' => 'Yacare\BaseBundle\Entity\Persona'
+                'placeholder' => 'Seleccione un local',
+                'class' => 'Yacare\ComercioBundle\Entity\Local'
             ));
     }
 
@@ -30,6 +28,6 @@ class PersonaType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_persona';
+        return 'yacare_comercio_local';
     }
 }

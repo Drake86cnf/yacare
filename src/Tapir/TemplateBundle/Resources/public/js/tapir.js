@@ -51,7 +51,7 @@ function tapirEntityIdSeleccionarItem(destino, id, detalle) {
 }
 
 /**
- * Mostrar una URL en una ventana modal
+ * Muestra una URL en una ventana modal
  */
 function tapirMostrarModalEn(url, destino) {
 	if (destino === undefined || destino === '') {
@@ -111,11 +111,9 @@ function tapirAtras() {
 }
 
 /**
- * Seguir un enlace, pero via AJAX. Si no se pasa un elemento destino, se toma
- * "page-wrapper" que es el contenedor principal. La diferencia con
- * tapirCargarUrlEn() es que tapirNavegarA() indica navegación, incluyendo
- * cambio de URL en la barra de navegación, mientras que tapirCargarUrlEn() es
- * sólo un refresco o actualización de una porción.
+ * Sigue un enlace, pero mediante AJAX. Si no se pasa un elemento destino, se toma "page-wrapper" que es el contenedor
+ * principal. La diferencia con tapirCargarUrlEn() es que tapirNavegarA() indica navegación, incluyendo cambio de URL
+ * en la barra de navegación, mientras que tapirCargarUrlEn() es sólo un refresco o actualización de una porción.
  */
 function tapirNavegarA(url, destino) {
 	// parent.location = url; // sin AJAX
@@ -124,7 +122,7 @@ function tapirNavegarA(url, destino) {
 }
 
 /**
- * Cambiar la URL en la barra de dirección (y en el historial) del navegador.
+ * Cambia la URL en la barra de dirección (y en el historial) del navegador.
  */
 function tapirCambiarDireccion(url) {
 	if (url !== window.location && url.indexOf('hisapi=0') === -1
@@ -140,8 +138,8 @@ function tapirCambiarDireccion(url) {
 }
 
 /**
- * Cargar una URL en un elemento via AJAX. Si no se pasa un elemento destino, se
- * toma "page-wrapper" que es el contenedor principal.
+ * Carga una URL en un elemento mediante AJAX. Si no se pasa un elemento destino, se toma "page-wrapper" que es el
+ * contenedor principal.
  * 
  * @see tapirNavegarA()
  */
@@ -233,14 +231,10 @@ function tapirFormatoFecha(fecha) {
 }
 
 /**
- * Valida una fecha mediante una expresion regular
- * 
+ * Devuelve true si una cadena representa una fecha válida.
  * Los separadores aceptados son "/", "." y "-".
- * 
- * @param fecha
- * @returns {Boolean}
  */
-function tapirValidarFecha(fecha) {
+function tapirFechaEsValida(fecha) {
 	if ((fecha.length > 4) && (fecha.indexOf("-") < 0)
 			&& (fecha.indexOf(".") < 0) && (fecha.indexOf("/") < 0))
 		fecha = fecha.substring(0, 2) + "/" + fecha.substring(2, 4) + "/"
@@ -255,8 +249,10 @@ function tapirValidarFecha(fecha) {
 
 }
 
+
 /**
- * Incorporar funciones mejoradas como calendario, chosen, etc.
+ * Mejora elementos, según sus data-toggle u otras características.
+ * Incorpora funciones mejoradas como calendario, Select2, validación, formateo, etc.
  */
 function MejorarElementos(destino) {
 	//alert('Mejorar ' + destino);
@@ -353,14 +349,16 @@ function MejorarElementos(destino) {
 	// Popovers de Bootstrap
 	$(desintoFinal + '[data-toggle="popover"]').popover()
 	
-	// Select2
-	$(desintoFinal + 'select').select2({ language: "es" });
+	// @see tapirEntitySelect()
+	$(desintoFinal + '[data-toggle="entity-select"]').each(function() {
+        tapirEntitySelect($(this));
+    });
 
 	// Dar tratamiento especial a los campos de fecha
 	// (validar y formatear la fecha ingresada al perder el foco)
 	$(desintoFinal + '.valirdar-fecha').blur(function(e) {
 		var fecha = this.value;
-		if (tapirValidarFecha(fecha)) {
+		if (tapirFechaEsValida(fecha)) {
 			fecha = tapirFormatoFecha(fecha);
 			this.value = fecha;
 		} else {
@@ -373,6 +371,62 @@ function MejorarElementos(destino) {
 	});
 }
 
+
+/**
+ * Prepara un elemento <select> para utilizar Select2 con AJAX.
+ * Auxiliar de Tapir:FormBundle:AjaxEntityType. 
+ */
+function tapirEntitySelect(element) {
+	var entity = element.data('entity');
+	var property = element.data('property');
+	var allowclear = !element.attr('required');
+	var allowmultiple = element.attr('multiple');
+	var extradata = element.data('extra-data');
+	
+	var options = {
+        placeholder: function(element) {
+            return $(element).data('placeholder');
+        },
+        width: 'style',
+        allowClear: allowclear,
+        multiple: allowmultiple,
+        ajax: {
+            dataType: 'json',
+            type: 'post',
+            data: function (params) {
+                return {
+                    q: params.term,
+                    entity: entity,
+                    property: property,
+                    extra: extradata,
+                }
+            }/* ,
+            results: function (data) {
+                return { results: data }
+            } */
+        }
+    };
+	
+	element.select2(options);
+	
+	var initial = element.data('initial');
+	if(typeof initial != 'undefined') {
+		if(initial instanceof Array) {
+			for (index = 0; index < initial.length; ++index) {
+				var option = $('<option selected>Loading...</option>').val(initial[index].id).text(initial[index].text);
+				element.append(option);
+			}
+			element.trigger('change');
+		} else {
+			var option = $('<option selected>Loading...</option>').val(initial.id).text(initial.text);
+			element.append(option).trigger('change');
+		}
+	}
+}
+
+/**
+ * Devuelve true si la cadena representa una CUIT válida.
+ */
 function tapirCuiltEsValida(cuilt) {
 	cuiltLimpia = cuilt.toString().replace(/-/g, '').trim();
 	if (cuiltLimpia.length == 11) {
@@ -397,6 +451,9 @@ function tapirCuiltEsValida(cuilt) {
 }
 
 
+/**
+ * Devuelve true si la cadena representa una CBU válida.
+ */
 function tapirCbuEsValida(cbu) {
 	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
 	if (cbuLimpia.length == 22) {
@@ -421,6 +478,10 @@ function tapirCbuEsValida(cbu) {
 	return false;
 }
 
+/**
+ * Formatea una CUIT.
+ * Quita espacios antes y después y agrega los guiones si no los tiene.
+ */
 function tapirFormatearCuilt(cuilt) {
 	cuiltLimpia = cuilt.toString().replace(/-/g, '').trim();
 	if (cuiltLimpia.length == 11) {
@@ -430,34 +491,11 @@ function tapirFormatearCuilt(cuilt) {
 	}
 }
 
-function tapirCbuEsValida(cbu) {
-	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
-	if (cbuLimpia.length == 22) {
-	    var digitoVerificador = cbuLimpia[7];
-	    var suma = cbuLimpia[0] * 7 + cbuLimpia[1] * 1 + cbuLimpia[2] * 3
-	    	+ cbuLimpia[3] * 9 + cbuLimpia[4] * 7 + cbuLimpia[5] * 1 + cbuLimpia[6] * 3;
-	    var diferencia = 10 - (suma % 10);
-	     
-	    if(diferencia != digitoVerificador) {
-	    	return false;
-	    }
-	    
-	    var digitoVerificador2 = cbuLimpia[21];
-	    var suma = cbuLimpia[8] * 3 + cbuLimpia[9] * 9 + cbuLimpia[10] * 7  + cbuLimpia[11] * 1
-	    	+ cbuLimpia[12] * 3 + cbuLimpia[13] * 9 + cbuLimpia[14] * 7 + cbuLimpia[15] * 1
-	    	+ cbuLimpia[16] * 3 + cbuLimpia[17] * 9 + cbuLimpia[18] * 7 + cbuLimpia[19] * 1
-	    	+ cbuLimpia[20] * 3;
-	    var diferencia = 10 - (suma % 10);
-	    
-   	    if(diferencia != digitoVerificador2) {
-	    	return false;
-	    }
 
-	    return true;
-	}
-	return false;
-}
-
+/**
+ * Formatea una CBU.
+ * Quita espacios antes y después y agrega los guiones si no los tiene.
+ */
 function tapirFormatearCbu(cbu) {
 	cbuLimpia = cbu.toString().replace(/-/g, '').trim();
 	if (cbuLimpia.length == 22) {

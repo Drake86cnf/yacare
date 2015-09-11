@@ -5,7 +5,6 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\Common\EventArgs;
-use Doctrine\ORM\Events;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /**
@@ -54,7 +53,7 @@ class AuditableListener implements EventSubscriber
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
         $user = $this->container->get('security.context')->getToken()->getUser();
-        
+
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             /*
              * $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
@@ -68,7 +67,7 @@ class AuditableListener implements EventSubscriber
              * $em->persist($Registro);
              * $em->flush();
              */
-            
+
             $this->WriteToLog('eliminar', $entity, $user);
         }
     }
@@ -85,13 +84,13 @@ class AuditableListener implements EventSubscriber
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
         $user = $this->container->get('security.context')->getToken()->getUser();
-        
+
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $uow->computeChangeSet($classMetadata, $entity);
             $changeSet = $uow->getEntityChangeSet($entity);
-            
+
             $this->WriteToLog($action, $entity, $user, $changeSet);
-            
+
             /*
              * $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
              * $Registro->setAccion($action);
@@ -123,7 +122,7 @@ class AuditableListener implements EventSubscriber
         } else {
             $logUser = (string) $user;
         }
-        
+
         $log = $this->container->get('audit.logger');
         $log->addInfo(
             $action . ' ' . get_class($entity) . ' ' . $entity->getId() . ' ' . $logUser . ' ' .
@@ -138,15 +137,12 @@ class AuditableListener implements EventSubscriber
      */
     protected function isEntitySupported(\ReflectionClass $reflClass)
     {
-        return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(), 
+        return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(),
             'Tapir\BaseBundle\Entity\Auditable');
     }
 
     public function getSubscribedEvents()
     {
-        // $events = [Events::onFlush];
-        $events = [Events::postPersist, Events::postUpdate, Events::preRemove];
-        
-        return $events;
+        return [\Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::postUpdate, \Doctrine\ORM\Events::preRemove];
     }
 }

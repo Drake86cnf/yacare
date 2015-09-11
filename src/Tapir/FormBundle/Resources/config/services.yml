@@ -1,0 +1,27 @@
+parameters:
+    tapir_form.ajax_entity_manager.class: Tapir\FormBundle\Form\AjaxEntityManager
+    tapir_form.ajax_entity_controller.class: Tapir\FormBundle\Controller\AjaxEntityController
+    tapir_form.ajax_entity_type.class: Tapir\FormBundle\Form\Type\AjaxEntityType
+
+services:
+    tapir_form.ajax_entity_type:
+        class: '%tapir_form.ajax_entity_type.class%'
+        tags:
+            - { name: form.type, alias: tapir_ajax_entity }
+        arguments: [ '@doctrine', '@router', '@?tapir_form.ajax_entity_manager' ]
+
+    tapir_form.ajax_entity_controller:
+        class: Tapir\FormBundle\Controller\AjaxEntityController
+        arguments: [ '@doctrine' ]
+
+    entity_id.type:
+        class: Tapir\FormBundle\Form\Type\EntityIdType
+        arguments: [ '@doctrine' ]
+        tags:
+            - { name: form.type, alias: entity_id }
+
+    entity_hidden.type:
+        class: Tapir\FormBundle\Form\Type\EntityHiddenType
+        arguments: [ '@doctrine' ]
+        tags:
+            - { name: form.type, alias: entity_hidden }

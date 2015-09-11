@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario con datos adicionales para un comercio.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class ComercioType extends ComercioSimpleType
@@ -15,21 +15,19 @@ class ComercioType extends ComercioSimpleType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        
+
         $builder
-            ->add('Titular', 'entity_id', array(
-                'label' => 'Titular', 
-                'property' => 'NombreVisible', 
-                'class' => 'Yacare\BaseBundle\Entity\Persona', 
+            ->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+                'label' => 'Titular',
                 'required' => true))
             ->add('Estado', 'choice', array(
-                'label' => 'Estado', 
-                'required' => true, 
+                'label' => 'Estado',
+                'required' => true,
                 'choices' => array(
-                    0 => 'No habilitado', 
-                    1 => 'Habilitación en trámite', 
-                    90 => 'Cerrado', 
-                    91 => 'Habilitación vencida', 
+                    0 => 'No habilitado',
+                    1 => 'Habilitación en trámite',
+                    90 => 'Cerrado',
+                    91 => 'Habilitación vencida',
                     100 => 'Habilitado')));
     }
 
