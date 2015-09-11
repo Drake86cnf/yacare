@@ -5,12 +5,16 @@
 {% block pagina_contenido %}
 <div id="resultadosbuscar">
     <div class="input-group">
-        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus
+        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus="autofocus"
            onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
            id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o DNI..." />
         <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
             class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
     </div>
+
+<script>
+	$(function() { $('#filtro_buscar').focus(); });
+</script>
 
 {% if entities is defined and entities|length > 0 %}
     {% if entities|length == 1 %}
@@ -31,7 +35,7 @@
         </div>
     </div>
     {% endif %}
-    
+
 
     &nbsp;
     <table class="table table-responsive table-condensed table-hoverselect">
@@ -60,7 +64,7 @@
 {% else %}
     <p class="lead">Puede buscar personas físicas o jurídicas, por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
 {% endif %}
-    
+
 {% endblock %}
 
 {% block pagina_fin %}

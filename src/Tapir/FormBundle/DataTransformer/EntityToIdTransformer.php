@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\DataTransformer;
+namespace Tapir\FormBundle\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\FormException;
@@ -32,17 +32,17 @@ class EntityToIdTransformer implements DataTransformerInterface
         if (! (null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
         }
-        
+
         if (null == $class) {
             throw new UnexpectedTypeException($class, 'string');
         }
-        
+
         $this->em = $em;
         $this->unitOfWork = $this->em->getUnitOfWork();
         $this->class = $class;
         $this->queryBuilder = $queryBuilder;
         $this->multiple = $multiple;
-        
+
         if ($property) {
             $this->property = $property;
         }
@@ -53,17 +53,17 @@ class EntityToIdTransformer implements DataTransformerInterface
         if (null === $data) {
             return null;
         }
-        
+
         if (! $this->multiple) {
             return $this->transformSingleEntity($data);
         }
-        
+
         $return = array();
-        
+
         foreach ($data as $element) {
             $return[] = $this->transformSingleEntity($element);
         }
-        
+
         return implode(', ', $return);
     }
 
@@ -77,14 +77,14 @@ class EntityToIdTransformer implements DataTransformerInterface
         if (! $this->unitOfWork->isInIdentityMap($data)) {
             throw new FormException('Entities passed to the choice field must be managed');
         }
-        
+
         if ($this->property) {
             // Devuelve "id: propiedad"
             $propertyAccessor = PropertyAccess::createPropertyAccessor();
             return current($this->unitOfWork->getEntityIdentifier($data)) . ': ' .
                  $propertyAccessor->getValue($data, $this->property);
         }
-        
+
         // Devuelve "id: " . __toString()
         return current($this->unitOfWork->getEntityIdentifier($data) . ': ' . (string) $data);
     }
@@ -94,17 +94,17 @@ class EntityToIdTransformer implements DataTransformerInterface
         if (! $data) {
             return null;
         }
-        
+
         if (! $this->multiple) {
             return $this->reverseTransformSingleEntity($data);
         }
-        
+
         $return = array();
-        
+
         foreach ($this->splitData($data) as $element) {
             $return[] = $this->reverseTransformSingleEntity($element);
         }
-        
+
         return $return;
     }
 
@@ -113,16 +113,16 @@ class EntityToIdTransformer implements DataTransformerInterface
         $em = $this->em;
         $class = $this->class;
         $repository = $em->getRepository($class);
-        
+
         if (strpos($data, ': ') !== false) {
             $data = substr($data, 0, strpos($data, ': '));
         }
-        
+
         if ($qb = $this->queryBuilder) {
             if ($qb instanceof \Closure) {
                 $qb = $qb($repository, $data);
             }
-            
+
             try {
                 $result = $qb->getQuery()->getSingleResult();
             } catch (NoResultException $e) {
@@ -135,11 +135,11 @@ class EntityToIdTransformer implements DataTransformerInterface
             $result = $repository->find($data);
             // }
         }
-        
+
         if (! $result) {
             throw new TransformationFailedException('No se encuentra la entidad');
         }
-        
+
         return $result;
     }
 }

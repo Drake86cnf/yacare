@@ -7,9 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador de local.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
+ *
  * @Route("local/")
  */
 class LocalController extends \Tapir\BaseBundle\Controller\AbmController
@@ -30,11 +30,11 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-        
+
         if ($filtro_buscar) {
             $this->Joins[] = " JOIN r.Partida p";
             $this->Joins[] = " JOIN p.Titular t";
-            
+
             // Busco por varias palabras
             // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
@@ -47,7 +47,8 @@ class LocalController extends \Tapir\BaseBundle\Controller\AbmController
             }
         }
         $res = parent::listarAction($request);
-        
+
         return $res;
     }
+
 }

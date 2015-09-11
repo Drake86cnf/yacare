@@ -23,3 +23,7 @@ logout:
 
 login_check:
     path:      /login_check
+
+tapir_ajax_entity:
+    path:      /_entity_find
+    defaults:  { _controller: 'tapir_form.ajax_entity_controller:findAction' }
