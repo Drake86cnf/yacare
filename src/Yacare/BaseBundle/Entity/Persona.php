@@ -238,7 +238,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      * @var \Date
      * 
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\Date")
+     * @Assert\Type("\DateTime")
      */
     private $FechaNacimiento;
     
