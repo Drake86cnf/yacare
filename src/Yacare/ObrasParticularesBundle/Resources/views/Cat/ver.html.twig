@@ -18,7 +18,7 @@ pagina_contenido %} {% block comprobante_encab %}
 <footer>El presente certificado es intransferible, es válido sólo para
 	el ejercicio de las actividades mencionadas, en el local comercial
 	mencionado y es válido hasta el día {{
-	entity.Vencimiento|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
+	entity.FechaValidezHasta|tapir_fecha('full', 'none')|lower }} inclusive.</footer>
 {% endblock %} {% endblock %} {% block pagina_acciones %}
 <a class="btn btn-primary print-preview" href="#"
 	onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>

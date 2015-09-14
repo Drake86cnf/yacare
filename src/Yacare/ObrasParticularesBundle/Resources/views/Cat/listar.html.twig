@@ -21,7 +21,7 @@ pagina_titulo %}Certificados de Aptitud Técnica Edilicia{% endblock %}
 			<td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
 			<td class="hidden-xs">{{ entity.createdAt|tapir_fecha('medium',
 				'none') }}</td>
-			<td>{{ entity.Vencimiento|tapir_fecha('medium', 'none') }}</td>
+			<td>{{ entity.FechaValidezHasta|tapir_fecha('medium', 'none') }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>

@@ -30,7 +30,7 @@ block pagina_contenido %}
 					entity.Comercio.Local.Partida.Domicilio }}{% endif %}</span></td>
 			<td class="hidden-xs">{{ entity.createdAt|tapir_fecha('medium',
 				'none') }}</td>
-			<td>{{ entity.Vencimiento|tapir_fecha('medium', 'none') }}</td>
+			<td>{{ entity.FechaValidezHasta|tapir_fecha('medium', 'none') }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
