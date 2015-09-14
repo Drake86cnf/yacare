@@ -2,7 +2,7 @@
 namespace Yacare\ComercioBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Campo de formulario para seleccionar una local comercial.
@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class LocalType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
         $resolver->setDefaults(

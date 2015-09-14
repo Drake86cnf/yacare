@@ -5,13 +5,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Representa un trámite de habilitacion comercial.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_TramiteHabilitacionComercial")
  */
 class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
+    implements ITramiteHabilitacionComercial
 {
     use \Yacare\TramitesBundle\Entity\ConApoderado;
 
@@ -20,50 +21,50 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
         parent::__construct();
         $this->Nombre = 'Habilitación comercial';
     }
-    
+
     /**
      * El comercio.
-     * 
+     *
      * @var Comercio
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Comercio;
-    
+
     /**
      * Almacena el valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad
      * seleccionada.
      *
      * @var string
-     * 
+     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $UsoSuelo;
 
     /**
      * Devuelve el nombre de UsoSuelo normalizado.
-     * 
+     *
      * @return string
      */
     public function UsoSueloNombre()
     {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
-    
+
     /**
      * Devuelve true si el trámite está listo para ser terminado (es decir,
      * todos los requisitos están cumplidos).
-     * 
+     *
      * @return boolean
-     * 
+     *
      * @see \Yacare\TramitesBundle\Entity\Tramite::EstaListoParaTerminar() Tramite::EstaListoParaTerminar()
      */
     public function EstaListoParaTerminar()
     {
         return $this->getUsoSuelo() <= 3 && parent::EstaListoParaTerminar();
     }
-    
+
     /**
      * @ignore
      */

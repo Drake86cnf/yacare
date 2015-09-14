@@ -52,7 +52,7 @@ class AuditableListener implements EventSubscriber
         $em = $eventArgs->getEntityManager();
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
@@ -81,7 +81,7 @@ class AuditableListener implements EventSubscriber
         $uow = $em->getUnitOfWork();
         $entity = $eventArgs->getEntity();
         $classMetadata = $em->getClassMetadata(get_class($entity));
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if ($this->isEntitySupported($classMetadata->reflClass)) {
             $uow->computeChangeSet($classMetadata, $entity);

@@ -7,8 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpKernel\Kernel;
-use Tapir\FormBundle\DataTransformer\EntityToIdTransformer;
+use Tapir\FormBundle\DataTransformer\AjaxEntityTransformer;
 
 /**
  * Campo de entidad con selcción por buscador.
@@ -18,34 +17,21 @@ use Tapir\FormBundle\DataTransformer\EntityToIdTransformer;
  */
 class EntityIdType extends AbstractType
 {
-    protected $managerRegistry;
+    protected $registry;
 
     public function __construct(RegistryInterface $registry)
     {
-        $this->managerRegistry = $registry;
+        $this->registry = $registry;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $em = $this->managerRegistry->getManagerForClass($options['class']);
-
         if(!array_key_exists('property', $options)) {
             $options['property'] = 'Nombre';
         }
-        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'],
-            $options['query_builder'], $options['multiple']);
+        $transformer = new AjaxEntityTransformer($this->registry, $options['class'], $options['multiple'],
+            $options['property']);
         $builder->addModelTransformer($transformer);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setRequired(array('class'));
-        $resolver->setDefaults(array(
-            'em' => null,
-            'query_builder' => null,
-            'filters' => null,
-            'hidden' => false,
-            'multiple' => false));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -73,6 +59,17 @@ class EntityIdType extends AbstractType
         }
 
         $view->vars['baseroute'] = strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired(array('class'));
+        $resolver->setDefaults(array(
+            'em' => null,
+            'query_builder' => null,
+            'filters' => null,
+            'hidden' => false,
+            'multiple' => false));
     }
 
     public function getParent()

@@ -2,32 +2,30 @@
 namespace Tapir\FormBundle\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\FormException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-// use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\NoResultException;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Data transformation class
+ * TODO: Obsoleto. Usar AjaxEntityTransformer
  *
  * @author Gregwar <g.passault@gmail.com>
  */
 class EntityToIdTransformer implements DataTransformerInterface
 {
-    private $em;
-    private $class;
-    private $property;
-    private $queryBuilder;
-    private $multiple;
-    private $unitOfWork;
+    protected $registry;
+    protected $class;
+    protected $property;
+    protected $queryBuilder;
+    protected $multiple;
+    protected $unitOfWork;
 
-    public function __construct(EntityManager $em, $class, $property, $queryBuilder, $multiple)
+    //public function __construct(EntityManager $em, $class, $property, $queryBuilder, $multiple)
+    public function __construct(ManagerRegistry $registry, $class, $multiple, $property, $queryBuilder)
     {
         if (! (null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
@@ -37,8 +35,10 @@ class EntityToIdTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($class, 'string');
         }
 
-        $this->em = $em;
-        $this->unitOfWork = $this->em->getUnitOfWork();
+        $this->repo = $registry->getManager()->getRepository($class);
+
+        $this->registry = $registry;
+        $this->unitOfWork = $this->registry->getManager()->getUnitOfWork();
         $this->class = $class;
         $this->queryBuilder = $queryBuilder;
         $this->multiple = $multiple;
@@ -110,7 +110,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 
     protected function reverseTransformSingleEntity($data)
     {
-        $em = $this->em;
+        $em = $this->registry->getManager();
         $class = $this->class;
         $repository = $em->getRepository($class);
 
