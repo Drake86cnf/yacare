@@ -20,16 +20,27 @@ trait ConDatosComercio
      */
     protected $Local;
 
+    /**
+     * Devuelve el local inmueble.
+     * 
+     * @return Local
+     */
     public function getInmueble()
     {
         return $this->Local;
     }
 
+    /**
+     * @ignore
+     */
     public function getLocal()
     {
         return $this->Local;
     }
 
+    /**
+     * @ignore
+     */
     public function setLocal($Local)
     {
         $this->Local = $Local;

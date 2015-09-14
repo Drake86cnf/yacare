@@ -16,10 +16,11 @@ class TramiteCertificadoUsoSuelo
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConFechaValidezHasta;
     use \Tapir\BaseBundle\Entity\Versionable;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    use \Yacare\ComercioBundle\Entity\ConActividades;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
+    use \Yacare\ComercioBundle\Entity\ConActividades;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * Indica la fecha en la que se emitio el certificado.
@@ -32,22 +33,11 @@ class TramiteCertificadoUsoSuelo
     private $FechaEmision;
     
     /**
-     * Indica la fecha de vencimiento de el certificado.
-     *
-     * @var \Date
-     *
-     * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\Date")
-     */
-    private $FechaVencimiento;
-    
-    /**
      * Indica el codigo de resolución condicionada.
      * 
      * @var string
      * 
      * @ORM\Column(type="string", nullable=true)
-     * 
      */
     private $ResolucionCondicionada;
 
@@ -65,23 +55,6 @@ class TramiteCertificadoUsoSuelo
     public function setFechaEmision(\DateTime $FechaEmision)
     {
         $this->FechaEmision = $FechaEmision;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getFechaVencimiento()
-    {
-        return $this->FechaVencimiento;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setFechaVencimiento(\DateTime $FechaVencimiento)
-    {
-        $this->FechaVencimiento = $FechaVencimiento;
         return $this;
     }
 
