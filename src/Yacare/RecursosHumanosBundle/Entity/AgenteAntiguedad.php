@@ -22,7 +22,7 @@ class AgenteAntiguedad
      * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Date(message="Por favor proporcione una fecha "desde".")
+     * @Assert\Date(message="Por favor proporcione una fecha 'desde'.")
      */
     private $Desde;
     
@@ -32,7 +32,7 @@ class AgenteAntiguedad
      * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Date(message="Por favor proporcione una fecha "hasta".")
+     * @Assert\Date(message="Por favor proporcione una fecha 'hasta'.")
      */
     private $Hasta;
     
