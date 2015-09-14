@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Cat extends \Yacare\TramitesBundle\Entity\Comprobante
 {
-    use \Yacare\TramitesBundle\Entity\ConVencimiento;
+    use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
     
     /**
      * El local.

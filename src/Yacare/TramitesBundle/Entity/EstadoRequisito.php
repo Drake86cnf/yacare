@@ -23,7 +23,7 @@ class EstadoRequisito
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
-    use \Yacare\TramitesBundle\Entity\ConVencimiento;
+    use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
     
     /**
      * El trámite al cual está asociado este requisito.
