@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trait para entidades que tienen una fecha de vencimiento.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
@@ -16,9 +16,9 @@ trait ConFechaValidezHasta
      * La fecha de vencimiento.
      *
      * @var \Date
-     * 
+     *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\DateTime(message="Ingrese una fecha válida")
+     * @Assert\Date(message="Por favor proporcione una fecha de validez.")
      */
     private $FechaValidezHasta;
 
