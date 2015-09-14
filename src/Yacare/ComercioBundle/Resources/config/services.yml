@@ -4,4 +4,4 @@ services:
         arguments: [ '@service_container' ]
         public:  false
         tags:
-          - { name: doctrine.event_subscriber }
+            - { name: doctrine.event_subscriber }

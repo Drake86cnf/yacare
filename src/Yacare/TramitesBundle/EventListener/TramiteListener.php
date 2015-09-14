@@ -3,28 +3,40 @@ namespace Yacare\TramitesBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 use Yacare\TramitesBundle\Entity\ITramite;
 
+/**
+ * Escucha los eventos "lifecycle" de Doctrine para intervenir durante la creación o modificación de un Trámite
+ * .
+ *
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
 class TramiteListener implements EventSubscriber
 {
-    public function postPersist(LifecycleEventArgs $args)
+    private $container;
+
+    public function __construct(Container $container)
     {
-        echo 'postPersist!';
-        $this->container->get('logger')->info('postPersist!');
-        exit(0);
+        $this->container = $container;
+    }
 
+    /**
+     * Interviene enn la creación de un trámite.
+     */
+    public function prePersist(LifecycleEventArgs $args)
+    {
         $entity = $args->getEntity();
+        //echo 'Tramite::prePersist ' . get_class($entity) . '!<br />';
         if (!($entity instanceof ITramite)) {
-            continue;
+            return;
         }
-
-        $em = $args->getEntityManager();
 
         if (! $entity->getTramiteTipo()) {
             // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el TramiteTipo que corresponde a la clase y lo guardo
-            $em = $this->getDoctrine()->getManager();
+            $em = $args->getEntityManager();
 
             $NombreClase = '\\' . get_class($entity);
             $TramiteTipo = $em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
@@ -36,18 +48,12 @@ class TramiteListener implements EventSubscriber
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
     }
 
-    public function postUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args)
     {
-        echo 'postUpdate!';
-        $this->container->get('logger')->info('postUpdate!');
-        exit(0);
-
         $entity = $args->getEntity();
         if (!($entity instanceof ITramite)) {
-            continue;
+            return;
         }
-
-        $em = $args->getEntityManager();
 
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
     }
@@ -100,6 +106,6 @@ class TramiteListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::postUpdate];
+        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
     }
 }
