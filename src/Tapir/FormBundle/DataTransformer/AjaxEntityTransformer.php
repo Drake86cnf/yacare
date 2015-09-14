@@ -27,14 +27,17 @@ class AjaxEntityTransformer implements DataTransformerInterface
 
     public function transform($value)
     {
+        if ($value === null) {
+            return '';
+        }
+
         if (is_array($value) || $value instanceof Collection) {
             $ret = array();
             foreach ($value as $entity) {
                 $ret[] = array('id' => $entity->getId(), 'text' => $this->getText($entity));
             }
             return $ret;
-        }
-        if (is_object($value)) {
+        } elseif (is_object($value)) {
             return array('id' => $value->getId(), 'text' => $this->getText($value));
         }
         return null;
@@ -65,7 +68,7 @@ class AjaxEntityTransformer implements DataTransformerInterface
         if (! $this->property || ! class_exists('Symfony\Component\PropertyAccess\PropertyAccess')) {
             return (string) $object;
         }
-        $accessor = PropertyAccess::getPropertyAccessor();
+        $accessor = PropertyAccess::createPropertyAccessor();
         return $accessor->getValue($object, $this->property);
     }
 }

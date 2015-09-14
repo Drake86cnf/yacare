@@ -7,11 +7,10 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
-use Tapir\FormBundle\Form\AjaxEntityManager;
 use Tapir\FormBundle\DataTransformer\AjaxEntityTransformer;
 
 /**
@@ -85,7 +84,7 @@ class AjaxEntityType extends AbstractType
         $view->vars['attr']['data-extra-data'] = $serializer->serialize($extraData, 'json');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
         $resolver->setDefaults(

@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tapir\FormBundle\DataTransformer\EntityToIdTransformer;
+use Tapir\FormBundle\DataTransformer\AjaxEntityTransformer;
 
 /**
  * Campo de entidad oculta.
@@ -25,8 +25,9 @@ class EntityHiddenType extends AbstractType
     {
         $em = $this->managerRegistry->getManagerForClass($options['class']);
 
-        $transformer = new EntityToIdTransformer($em, $options['class'], $options['property'], $options['query_builder'],
-            $options['multiple']);
+        $transformer = new AjaxEntityTransformer($this->registry, $options['class'], $options['multiple'],
+            $options['property']); //, $options['query_builder']);
+
         $builder->addModelTransformer($transformer);
     }
 

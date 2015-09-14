@@ -84,8 +84,7 @@
 
 {% block entity_id_widget %}
 <div class="input-group">
-	{% set values = value|split(':', 2) %}
-	<input {{ block('widget_attributes') }} type="hidden" value="{% if values|length>0 %}{{ values[0] }}{% endif %}" />
+	<input {{ block('widget_attributes') }} type="hidden" value="{% if (value is iterable) and (value|length>0) %}{{ value['id'] }}{% else %}{{ value }}{% endif %}" />
 	{% if type is defined and type == 'hidden' %}
 
 	{% else %}
@@ -94,7 +93,7 @@
     	{% set id = id ~ '_Detalle' %}
     	{% set full_name = 'Detalle_' ~ full_name %}
     	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
-    		value="{% if values|length>1 %}{{ values[1] }}{% endif %}"
+    		value="{% if (value is iterable) and (value|length>1) %}{{ value['text'] }}{% endif %}"
     		data-toggle="modal"
     		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
     		style="cursor: pointer;" />

@@ -1,0 +1,7 @@
+services:
+    yacare.comercio.tramitehabilitacioncomercial_listener:
+        class: Yacare\ComercioBundle\EventListener\TramiteHabilitacionComercialListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+          - { name: doctrine.event_subscriber }
