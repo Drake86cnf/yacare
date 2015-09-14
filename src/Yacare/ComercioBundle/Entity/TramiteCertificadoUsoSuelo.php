@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Representa un Certificado de factibilidad de uso de suelo.
  * 
- * @author Diaz Alejandro <alediaz.rc@gmail.com>
+ * @author Alejandro Díaz <alediaz.rc@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_CertificadoUsoSuelo")
@@ -24,22 +24,20 @@ class TramiteCertificadoUsoSuelo
     /**
      * Indica la fecha en la que se emitio el certificado.
      * 
-     * @var \DateTime
+     * @var \Date
      * 
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
-     * 
+     * @Assert\Type("\Date")
      */
     private $FechaEmision;
     
     /**
      * Indica la fecha de vencimiento de el certificado.
      *
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
-     *
+     * @Assert\Type("\Date")
      */
     private $FechaVencimiento;
     
@@ -104,6 +102,3 @@ class TramiteCertificadoUsoSuelo
         return $this;
     }
 }
-
-    
-
