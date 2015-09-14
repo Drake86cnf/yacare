@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para asignación de un requerimiento.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class AsignarType extends AbstractType
@@ -15,15 +15,15 @@ class AsignarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        
+
         $builder
             ->add('Notas', null, array(
-                'label' => 'Notas', 
+                'label' => 'Notas',
                 'required' => false))
             ->add('Usuario', 'entity', array(
-                'label' => 'Encargado', 
-                'property' => 'NombreVisible', 
-                'class' => 'Yacare\BaseBundle\Entity\Persona', 
+                'label' => 'Encargado',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
                 }))
@@ -34,8 +34,7 @@ class AsignarType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad', 
-            'cascade_validation' => true));
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
     }
 
     public function getName()

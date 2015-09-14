@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para novedades anónimas.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class NovedadAnonimaType extends AbstractType
@@ -15,10 +15,10 @@ class NovedadAnonimaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        
+
         $builder
             ->add('Notas', null, array(
-                'label' => 'Descripción', 
+                'label' => 'Descripción',
                 'required' => true))
             ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
@@ -27,8 +27,7 @@ class NovedadAnonimaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad', 
-            'cascade_validation' => true));
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
     }
 
     public function getName()
