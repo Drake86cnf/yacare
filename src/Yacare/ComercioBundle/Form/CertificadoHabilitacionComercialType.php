@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para certidficados de habilitaticón comercial.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\ComprobanteType
@@ -15,18 +15,17 @@ class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\C
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        
+
         $builder
             ->add('Comercio', new ComercioType(), array(
-                'label' => 'Datos del comercio', 
+                'label' => 'Datos del comercio',
                 'hola' => 'holacomoandas'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial', 
-            'cascade_validation' => true));
+            'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial'));
     }
 
     public function getName()
