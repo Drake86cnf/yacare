@@ -19,20 +19,20 @@ class AgenteAntiguedad
     /**
      * Establece el "desde" en el rango de fecha.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha "desde".")
      */
     private $Desde;
     
     /**
      * Establece el "hasta" en el rango de fecha.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha "hasta".")
      */
     private $Hasta;
     

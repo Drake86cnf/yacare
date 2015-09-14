@@ -51,7 +51,7 @@ class Agente
     /**
      * Los grupos a los cuales pertenece el agente.
      *
-     * @var \Yacare\RecursosHumanosBundle\Entity\AgenteGrupo
+     * @var AgenteGrupo
      *
      * @ORM\ManyToMany(targetEntity="AgenteGrupo", inversedBy="Agentes")
      * @ORM\JoinTable(name="Rrhh_Agente_AgenteGrupo",
@@ -100,20 +100,20 @@ class Agente
     /**
      * La fecha de ingreso.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de ingreso.")
      */
     private $FechaIngreso;
     
     /**
      * La fecha de baja, o NULL si todavía está activo.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de baja.")
      */
     private $BajaFecha;
     
@@ -184,20 +184,20 @@ class Agente
     /**
      * La fecha de nacionalización.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de nacionalización")
      */
     private $FechaNacionalizacion;
     
     /**
      * La última actualización de domicilio.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de actualización de domicilio.")
      */
     private $UltimaActualizacionDomicilio;
     
@@ -213,47 +213,47 @@ class Agente
     /**
      * La fecha de psicofísico.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de exámen de psicofísico.")
      */
     private $FechaPsicofisico;
     
     /**
      * La fecha de certificado de buena conducta.
      *
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de certificado de buena conducta.")
      */
     private $FechaCertificadoBuenaConducta;
     
     /**
      * La fecha de certificado de antecedentes penales.
      *
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de certificado de antecedentes penales.")
      */
     private $FechaCertificadoAntecedentesPenales;
     
     /**
      * La fecha de certificado de domicilio.
      *
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de certificado de domicilio.")
      */
     private $FechaCertificadoDomicilio;
     
     /**
      * El cargo del agente.
      * 
-     * @var \Yacare\RecursosHumanosBundle\Entity\Cargo
+     * @var Cargo
      *
      * @ORM\ManyToOne(targetEntity="Cargo", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
@@ -328,10 +328,10 @@ class Agente
     /**
      * Indica la fecha en la que se da de baja el contrato, en caso que corresponda.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione la fecha de baja del contrato.")
      */
     private $BajaFechaContrato;
     
@@ -361,7 +361,7 @@ class Agente
      * @var \Time 
      *
      * @ORM\Column(type="time", nullable=true)
-     * @Assert\Time()
+     * @Assert\Time(message="Por favor proporcione un horario de ingreso.")
      */
     private $HorarioIngreso;
     
@@ -371,7 +371,7 @@ class Agente
      * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
-     * @Assert\Time()
+     * @Assert\Time(message="Por favor proporcione un horario de salida.")
      */
     private $HorarioSalida;
     
@@ -381,7 +381,7 @@ class Agente
      * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
-     * @Assert\Time()
+     * @Assert\Time(message="Por favor proporcione un horario de segundo ingreso.")
      */
     private $Horario2Ingreso;
     
@@ -391,14 +391,15 @@ class Agente
      * @var \Time
      *
      * @ORM\Column(type="time", nullable=true)
-     * @Assert\Time()
+     * @Assert\Time(message="Por favor proporcione un horario de segunda salida.")
      */
     private $Horario2Salida;
 
     /**
      * Calcula la antigüedad hasta la fecha indicada.
      * 
-     * @param \DateTime $hastafecha fecha tope.
+     * @param  \Date         $hastafecha fecha tope.
+     * @return \DateInterval
      */
     public function AntiguedadLiquidacionHaberes($hastafecha = null)
     {

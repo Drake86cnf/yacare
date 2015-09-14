@@ -21,7 +21,7 @@ class AgenteCargoGremialMovim
     /**
      * El agente.
      * 
-     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
+     * @var Agente
      *
      * @ORM\ManyToOne(targetEntity="Agente", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
@@ -31,7 +31,7 @@ class AgenteCargoGremialMovim
     /**
      * El gremio.
      * 
-     * @var \Yacare\RecursosHumanosBundle\Entity\Gremio
+     * @var Gremio
      *
      * @ORM\ManyToOne(targetEntity="Gremio", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
@@ -50,10 +50,10 @@ class AgenteCargoGremialMovim
     /**
      * La fecha de alta.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione la fecha de alta.")
      */
     private $FechaAlta;
     
@@ -61,20 +61,20 @@ class AgenteCargoGremialMovim
      * La fecha de baja. 
      * *NULL si aún está activo en el cargo.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione la fecha de baja.")
      */
     private $FechaBaja;
     
     /**
      * La fecha de la novedad.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione la fecha de la novedad.")
      */
     private $Fecha;
 

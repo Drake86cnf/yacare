@@ -33,7 +33,7 @@ trait ConFechaValidezHasta
     /**
      * @ignore
      */
-    public function setFechaValidezHasta(\DateTime $FechaValidezHasta)
+    public function setFechaValidezHasta($FechaValidezHasta)
     {
         $this->FechaValidezHasta = $FechaValidezHasta;
         return $this;

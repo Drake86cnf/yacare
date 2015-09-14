@@ -28,7 +28,7 @@ class TramiteCertificadoUsoSuelo
      * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\Date")
+     * @Assert\Date(message="Por favor proporcione una fecha de emisión.")
      */
     private $FechaEmision;
 
@@ -52,7 +52,7 @@ class TramiteCertificadoUsoSuelo
     /**
      * @ignore
      */
-    public function setFechaEmision(\DateTime $FechaEmision)
+    public function setFechaEmision($FechaEmision)
     {
         $this->FechaEmision = $FechaEmision;
         return $this;

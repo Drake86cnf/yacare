@@ -20,7 +20,7 @@ class AgenteCargoMovim
     /**
      * El agente.
      * 
-     * @var \Yacare\RecursosHumanosBundle\Entity\Agente
+     * @var Agente
      *
      * @ORM\ManyToOne(targetEntity="Agente", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
@@ -30,7 +30,7 @@ class AgenteCargoMovim
     /**
      * El cargo.
      * 
-     * @var \Yacare\RecursosHumanosBundle\Entity\Cargo
+     * @var Cargo
      *
      * @ORM\ManyToOne(targetEntity="Cargo", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
@@ -40,10 +40,10 @@ class AgenteCargoMovim
     /**
      * La fecha de la novedad.
      * 
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione la fecha de la novedad.")
      */
     private $Fecha;
 
