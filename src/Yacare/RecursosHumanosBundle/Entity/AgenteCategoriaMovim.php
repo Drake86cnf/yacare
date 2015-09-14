@@ -16,8 +16,8 @@ use Doctrine\ORM\Mapping\Column;
 class AgenteCategoriaMovim
 {
     use \Tapir\BaseBundle\Entity\ConId;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
     /**
      * El agente.
@@ -44,7 +44,7 @@ class AgenteCategoriaMovim
      * @var \Date
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Date()
+     * @Assert\Date(message="Por favor proporcione una fecha para la novedad.")
      */
     private $Fecha;
 

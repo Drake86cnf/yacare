@@ -53,21 +53,21 @@ class Familiar
      * La fecha de nacimiento.
      *
      * @ORM\Column(type="date", nullable=false)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de nacimiento.")
      */
     private $FechaNacimiento;
     
     /**
      * Si es discapacitado, o no.
      *
-     * @var unknown
+     * @var boolean
      */
     private $Discapacitado;
     
     /**
      * La escolaridad.
      *
-     * @var unknown
+     * @var boolean
      */
     private $Escolaridad;
     
@@ -82,7 +82,7 @@ class Familiar
      * La fecha de baja, o NULL si no se dió de baja.
      *
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Type("\DateTime")
+     * @Assert\Date(message="Por favor proporcione una fecha de baja.")
      */
     private $FechaBaja = null;
     
@@ -95,8 +95,10 @@ class Familiar
 
     /**
      * Devuelve el nombre del parentesco.
+     * 
+     * @return string
      *
-     * @see $Parentesco
+     * @see $Parentesco $Parentesco
      */
     public function getParentescoNombre()
     {
@@ -106,7 +108,10 @@ class Familiar
     /**
      * Normaliza los nombres de los tipos de parentescos.
      * 
-     * @see $Parentesco
+     * @param  integer $rango el rango de clasificación de nombres para parentesco.
+     * @return string
+     * 
+     * @see $Parentesco $Parentesco
      */
     public static function setParentescosNombres($rango)
     {
