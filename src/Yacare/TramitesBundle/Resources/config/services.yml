@@ -1,6 +1,7 @@
 services:
     yacare.tramites.tramite_listener:
         class: Yacare\TramitesBundle\EventListener\TramiteListener
-        arguments: [ '@router' ]
+        arguments: [ '@service_container' ]
+        public:  false
         tags:
             - { name: doctrine.event_subscriber }

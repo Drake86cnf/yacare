@@ -3,8 +3,6 @@ namespace Yacare\ComercioBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\OnFlushEventArgs;
-use Doctrine\Common\EventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial;
 
@@ -24,40 +22,26 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
     }
 
     /**
-     * Interviene la creación de una entidad para generar un registro de auditoría.
-     *
-     * @param LifecycleEventArgs $eventArgs
+     * Interviene enn la creación de un trámite de habilitación comercial.
      */
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function prePersist(LifecycleEventArgs $args)
     {
-        $em = $eventArgs->getEntityManager();
-        $entity = $eventArgs->getEntity();
+        $entity = $args->getEntity();
+        //echo 'TramiteHC::prePersist ' . get_class($entity) . '!<br />';
         if (!($entity instanceof ITramiteHabilitacionComercial)) {
             return;
         }
 
-        $Comercio = $entityTramite->getComercio();
-
-        echo (string)$Comercio;
-        die(0);
+        $Comercio = $entity->getComercio();
+        if(!$Comercio->getTitular()) {
+            // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
+            //echo 'Asignar titular<br />';
+            $Comercio->setTitular($entity->getTitular());
+        }
     }
-
-
-    /**
-     * Devuelve true si la clase es auditable.
-     *
-     * @param ReflectionClass $reflClass
-     * @return boolean True si la clase es auditable.
-     */
-    protected function isEntitySupported(\ReflectionClass $reflClass)
-    {
-        return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(),
-            'Tapir\BaseBundle\Entity\Auditable');
-    }
-
 
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::prePersist];
+        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
     }
 }
