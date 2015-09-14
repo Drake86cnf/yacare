@@ -88,7 +88,7 @@
 		<div class="col-sm-6 col-xs-12">
 	        {{ bs.grid_label_text('Número', entity.CertificadoHabilitacion.Numero) }}
 	        {{ bs.grid_label_text('Fecha de emisión', entity.CertificadoHabilitacion.createdAt|tapir_fecha('medium', 'none')) }}
-	        {{ bs.grid_label_text('Vencimiento', entity.CertificadoHabilitacion.Vencimiento|tapir_fecha('medium', 'none')) }}
+	        {{ bs.grid_label_text('Vencimiento', entity.CertificadoHabilitacion.FechaValidezHasta|tapir_fecha('medium', 'none')) }}
 		</div>
 		<div class="col-sm-6 col-xs-12">
     		
@@ -108,7 +108,7 @@
     	
     	El comercio
         {% if entity.CertificadoHabilitacion %}cuenta con un certificado de habilitación con vencimiento el día
-            {{ entity.CertificadoHabilitacion.Vencimiento|tapir_fecha('full', 'none')|lower }}
+            {{ entity.CertificadoHabilitacion.FechaValidezHasta|tapir_fecha('full', 'none')|lower }}
         {% elseif entity.Estado == 100 %}fue dado de alta de oficio y no cuenta con un certificado de habilitación
         {% else %}no cuenta con un certificado de habilitación
         {% endif %}
