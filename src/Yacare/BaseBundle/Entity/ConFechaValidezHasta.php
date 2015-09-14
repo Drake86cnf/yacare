@@ -18,7 +18,7 @@ trait ConFechaValidezHasta
      * @var \Date
      * 
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Date(message="Ingrese una fecha válida")
+     * @Assert\DateTime(message="Ingrese una fecha válida")
      */
     private $FechaValidezHasta;
 
