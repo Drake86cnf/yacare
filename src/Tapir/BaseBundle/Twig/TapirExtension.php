@@ -2,8 +2,6 @@
 namespace Tapir\BaseBundle\Twig;
 
 use Twig_Extension;
-use Twig_Filter_Method;
-use Twig_Function_Method;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
 
@@ -13,18 +11,18 @@ class TapirExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('tapir_cuiltesvalida', 
+            new \Twig_SimpleFilter('tapir_cuiltesvalida',
                 array($this,'tapir_cuiltesvalida')));
     }
 
     public function tapir_cuiltesvalida($Cuilt)
     {
         $CuiltSaneado = str_split(str_replace('-', '', trim($Cuilt)));
-        
+
         if (count($CuiltSaneado) != 11) {
             return false;
         }
-        
+
         $result = $CuiltSaneado[0] * 5;
         $result += $CuiltSaneado[1] * 4;
         $result += $CuiltSaneado[2] * 3;
@@ -35,10 +33,10 @@ class TapirExtension extends \Twig_Extension
         $result += $CuiltSaneado[7] * 4;
         $result += $CuiltSaneado[8] * 3;
         $result += $CuiltSaneado[9] * 2;
-        
+
         $div = intval($result / 11);
         $resto = $result - ($div * 11);
-        
+
         if ($resto == 0) {
             if ($resto == $CuiltSaneado[10]) {
                 return true;

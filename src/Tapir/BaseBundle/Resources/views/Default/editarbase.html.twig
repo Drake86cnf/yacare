@@ -1,5 +1,7 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}Solicitud de modificación{% endblock %}
+
 {% block pagina_inicio %}
     {% if (edit_form_action is defined) == false %}
         {% set edit_form_action = baseroute ~ '_guardar' %}
@@ -12,7 +14,7 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-    <button 
+    <button
     	{% if tapir_modal is not defined or tapir_modal == 0 %}
     		onclick="return tapirAtras();"
     	{% else %}

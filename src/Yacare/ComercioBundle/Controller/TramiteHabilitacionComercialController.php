@@ -124,7 +124,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             'edit_form' => $editForm->createView()));
     }
 
-    public function guardarActionPrePersist($entity, $editForm)
+    /* public function guardarActionPrePersist($entity, $editForm)
     {
         $em = $this->getEm();
         $res = parent::guardarActionPrePersist($entity, $editForm);
@@ -176,5 +176,5 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
 
         return $res;
-    }
+    } */
 }

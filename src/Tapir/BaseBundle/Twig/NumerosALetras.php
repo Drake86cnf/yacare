@@ -1,11 +1,11 @@
 <?php
 namespace Tapir\BaseBundle\Twig;
 /**
- * Clase que implementa un coversor de números a letras. 
- * 
+ * Clase que implementa un coversor de números a letras.
+ *
  * @author AxiaCore S.A.S
  */
-class NumerosALetras 
+class NumerosALetras
 {
     private $UNIDADES = [
         '',
@@ -61,16 +61,16 @@ class NumerosALetras
         ['country' => 'Perú', 'currency' => 'PEN', 'singular' => 'nuevo sol', 'plural' => 'nuevos soles', 'symbol', 'S/'],
         ['country' => 'Reino Unido', 'currency' => 'GBP', 'singular' => 'libra', 'plural' => 'libras', 'symbol', '£']
     ];
-    
-    
+
+
     /**
      * Convierte números a letras.
      */
     public function Convertir($number, $miMoneda = null)
-    {   
+    {
         if ($miMoneda !== null) {
             try {
-                
+
                 $moneda = array_filter($this->MONEDAS, function($m) use ($miMoneda) {
                     return ($m['currency'] == $miMoneda);
                 });
@@ -107,7 +107,7 @@ class NumerosALetras
                 $converted .= sprintf('%smillones ', $this->convertGroup($millones));
             }
         }
-        
+
         if (intval($miles) > 0) {
             if ($miles == '001') {
                 $converted .= 'mil ';
@@ -125,14 +125,14 @@ class NumerosALetras
         $converted .= $moneda;
         return $converted;
     }
-    
+
     private function convertGroup($n)
     {
         $output = '';
         if ($n == '100') {
             $output = "cien ";
         } else if ($n[0] !== '0') {
-            $output = $this->CENTENAS[$n[0] - 1];   
+            $output = $this->CENTENAS[$n[0] - 1];
         }
         $k = intval(substr($n,1));
         if ($k <= 20) {
@@ -144,7 +144,7 @@ class NumerosALetras
                 $output .= sprintf('%s%s', $this->DECENAS[intval($n[1]) - 2], $this->UNIDADES[intval($n[2])]);
             }
         }
-      
+
         return $output;
     }
 }
