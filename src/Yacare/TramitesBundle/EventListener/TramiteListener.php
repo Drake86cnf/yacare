@@ -28,15 +28,28 @@ class TramiteListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        //echo 'Tramite::prePersist ' . get_class($entity) . '!<br />';
-        if (!($entity instanceof ITramite)) {
-            return;
+
+        if ($entity instanceof ITramite) {
+            $this->TramiteCrearActualizar($args);
         }
+    }
+
+    public function preUpdate(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        if ($entity instanceof ITramite) {
+            $this->TramiteCrearActualizar($args);
+        }
+    }
+
+
+    protected function TramiteCrearActualizar(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        $em = $args->getEntityManager();
 
         if (! $entity->getTramiteTipo()) {
             // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el TramiteTipo que corresponde a la clase y lo guardo
-            $em = $args->getEntityManager();
 
             $NombreClase = '\\' . get_class($entity);
             $TramiteTipo = $em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
@@ -48,15 +61,6 @@ class TramiteListener implements EventSubscriber
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if (!($entity instanceof ITramite)) {
-            return;
-        }
-
-        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
-    }
 
     /**
      * Crear (en cero) un estado para cada uno de los requisitos asociados a este trámite.

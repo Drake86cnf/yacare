@@ -2,8 +2,6 @@
 namespace Tapir\BaseBundle\Twig;
 
 use Twig_Extension;
-use Twig_Filter_Method;
-use Twig_Function_Method;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
 use Tapir;
@@ -60,27 +58,27 @@ class FormatExtension extends \Twig_Extension
             ))
         );
     }
-    
+
     public function tapir_diferenciafechas($diff) {
         $partes = array();
         if($diff->y == 1) {
-                $partes[] = $diff->y . ' año'; 
+                $partes[] = $diff->y . ' año';
         } elseif($diff->y > 1) {
-                $partes[] = $diff->y . ' años'; 
+                $partes[] = $diff->y . ' años';
         }
-        
+
         if($diff->m == 1) {
             $partes[] = $diff->m . ' mes';
         } elseif($diff->m > 1) {
             $partes[] = $diff->m . ' meses';
         }
-        
+
         if($diff->d == 1) {
             $partes[] = $diff->d . ' día';
         } elseif($diff->d > 1) {
             $partes[] = $diff->d . ' días';
         }
-        
+
         return implode($partes, ', ');
     }
 
@@ -143,7 +141,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
     }
-    
+
 
     public function tapir_sino($valor)
     {
@@ -153,14 +151,14 @@ class FormatExtension extends \Twig_Extension
             return "No";
         }
     }
-    
-    
+
+
     public function tapir_numerosaletras($valor)
     {
         $Conversor = new NumerosALetras();
         return $Conversor->Convertir($valor);
     }
-    
+
 
     public function tapir_abreviar($texto, $largo = 20)
     {
@@ -170,19 +168,19 @@ class FormatExtension extends \Twig_Extension
             return $texto;
         }
     }
-    
+
 
     public function tapir_decodehtml($valor)
     {
         return htmlspecialchars_decode($valor, ENT_QUOTES);
     }
-    
+
 
     public function tapir_mejorartexto($valor)
     {
         return Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($valor);
     }
-    
+
 
     public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium', $emptyMessage = '')
     {
@@ -194,7 +192,7 @@ class FormatExtension extends \Twig_Extension
                 [ 'jan', 'apr', 'aug', 'dec' ],
                 strtolower($date)
             );
-            
+
             if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/", $date)) {
                 $transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
                 $date = $transformer->reverseTransform($date);
@@ -254,7 +252,7 @@ class FormatExtension extends \Twig_Extension
 
         return ucfirst(str_replace(',', '', $formatter->format($date->getTimestamp())));
     }
-    
+
 
     public function tapir_hacetiempo($value, $format = 'Y-m-d H:i:s')
     {
@@ -267,7 +265,7 @@ class FormatExtension extends \Twig_Extension
         return $this->distanceOfTimeInWordsFilter($value);
     }
 
-    
+
     public function tapir_cantidaddedias($value, $format = 'Y-m-d H:i:s')
     {
         if (! $value) {
@@ -279,7 +277,7 @@ class FormatExtension extends \Twig_Extension
         return $this->distanceOfTimeInNumber($value);
     }
 
-    
+
     public function distanceOfTimeInNumber($from_time, $to_time = null, $include_seconds = false)
     {
         $datetime_transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
@@ -430,7 +428,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
     }
-    
+
 
     /**
      * Returns the name of the extension.
