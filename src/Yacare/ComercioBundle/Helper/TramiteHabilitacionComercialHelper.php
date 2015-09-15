@@ -1,50 +1,15 @@
 <?php
-namespace Yacare\ComercioBundle\EventListener;
+namespace Yacare\ComercioBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\Common\EventSubscriber;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial;
 
 /**
- * Escucha los eventos "lifecycle" de Doctrine para intervenir durante la creación o modificación de un Trámite de
- * Habilitación Comercial.
+ * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en los trámites de habilitación comercial.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteHabilitacionComercialListener implements EventSubscriber
-{
-    private $container;
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * Interviene en la modificación de un trámite de habilitación comercial.
-     */
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if ($entity instanceof ITramiteHabilitacionComercial) {
-            $this->TramiteHabilitacionComercial($args);
-        }
-    }
-
-    /**
-     * Interviene en la creación de un trámite de habilitación comercial.
-     */
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if ($entity instanceof ITramiteHabilitacionComercial) {
-            $this->TramiteHabilitacionComercial($args);
-        }
-    }
-
-    protected function TramiteHabilitacionComercial($args)
-    {
+class TramiteHabilitacionComercialHelper {
+    public function LifecycleEvent(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $em = $args->getManager();
 
@@ -89,10 +54,5 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
             }
         }
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
-    }
-
-    public function getSubscribedEvents()
-    {
-        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
     }
 }
