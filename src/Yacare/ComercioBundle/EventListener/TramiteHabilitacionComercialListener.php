@@ -43,8 +43,8 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
         }
     }
 
-
-    protected function TramiteHabilitacionComercial($args) {
+    protected function TramiteHabilitacionComercial($args)
+    {
         $entity = $args->getEntity();
         $em = $args->getManager();
 
@@ -59,10 +59,9 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
             \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
         }
 
-        // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
         $Local = $Comercio->getLocal();
         if ($Local && $entity->getUsoSuelo() == null) {
-            // $Superficie = $Local->getSuperficie();
+            // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
             $Actividad = $Comercio->getActividad1();
 
             // Busco el uso del suelo para esa zona
@@ -70,24 +69,24 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
                 'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u
                     WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup
                     ORDER BY u.SuperficieMaxima DESC')
-                            ->setParameter('codigo', $Actividad->getCodigoCpu())
-                            ->setParameter('sup', $Local->getSuperficie())
-                            ->setMaxResults(1)
-                            ->getResult();
-                            // Si es un array tomo el primero
-                            if ($UsoSuelo && count($UsoSuelo) > 0) {
-                                $UsoSuelo = $UsoSuelo[0];
-                            }
+                ->setParameter('codigo', $Actividad->getCodigoCpu())
+                ->setParameter('sup', $Local->getSuperficie())
+                ->setMaxResults(1)
+                ->getResult();
+            // Si es un array tomo el primero
+            if ($UsoSuelo && count($UsoSuelo) > 0) {
+                $UsoSuelo = $UsoSuelo[0];
+            }
 
-                            if ($UsoSuelo) {
-                                $Partida = $Local->getPartida();
-                                if ($Partida) {
-                                    $Zona = $Partida->getZona();
-                                    if ($Zona) {
-                                        $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
-                                    }
-                                }
-                            }
+            if ($UsoSuelo) {
+                $Partida = $Local->getPartida();
+                if ($Partida) {
+                    $Zona = $Partida->getZona();
+                    if ($Zona) {
+                        $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
+                    }
+                }
+            }
         }
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
     }
