@@ -1,6 +1,6 @@
 services:
     yacare.tramites.tramite_listener:
-        class: Yacare\TramitesBundle\EventListener\TramiteListener
+        class: Yacare\TramitesBundle\EventListener\TramitesListener
         arguments: [ '@service_container' ]
         public:  false
         tags:

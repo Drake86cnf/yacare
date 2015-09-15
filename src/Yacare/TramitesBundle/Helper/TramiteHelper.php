@@ -1,49 +1,17 @@
 <?php
-namespace Yacare\TramitesBundle\EventListener;
+namespace Yacare\TramitesBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\Common\EventSubscriber;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-
-use Yacare\TramitesBundle\Entity\ITramite;
 
 /**
- * Escucha los eventos "lifecycle" de Doctrine para intervenir durante la creación o modificación de un Trámite
- * .
+ * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en los trámites.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteListener implements EventSubscriber
+class TramiteHelper
 {
-    private $container;
-
-    public function __construct(Container $container)
+    public function LifecycleEvent(LifecycleEventArgs $args)
     {
-        $this->container = $container;
-    }
-
-    /**
-     * Interviene enn la creación de un trámite.
-     */
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-
-        if ($entity instanceof ITramite) {
-            $this->TramiteCrearActualizar($args);
-        }
-    }
-
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if ($entity instanceof ITramite) {
-            $this->TramiteCrearActualizar($args);
-        }
-    }
-
-
-    protected function TramiteCrearActualizar(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
 
@@ -60,7 +28,6 @@ class TramiteListener implements EventSubscriber
 
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
     }
-
 
     /**
      * Crear (en cero) un estado para cada uno de los requisitos asociados a este trámite.
@@ -106,10 +73,5 @@ class TramiteListener implements EventSubscriber
                 }
             }
         }
-    }
-
-    public function getSubscribedEvents()
-    {
-        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
     }
 }
