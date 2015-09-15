@@ -25,7 +25,7 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
     {}
 
     /**
-     * Interviene enn la creación de un trámite de habilitación comercial.
+     * Interviene en la creación de un trámite de habilitación comercial.
      */
     public function prePersist(LifecycleEventArgs $args)
     {
@@ -73,8 +73,7 @@ class TramiteHabilitacionComercialListener implements EventSubscriber
                         }
                     }
                 }
-            }
-            
+            }            
             $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
         }
     }
