@@ -27,7 +27,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      *
      * @var Comercio
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Comercio;

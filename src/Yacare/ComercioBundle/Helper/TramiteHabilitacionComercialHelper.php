@@ -11,7 +11,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 class TramiteHabilitacionComercialHelper {
     public function LifecycleEvent(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
-        $em = $args->getManager();
+        $em = $args->getEntityManager();
 
         $Comercio = $entity->getComercio();
         if (! $Comercio->getTitular()) {
@@ -20,6 +20,7 @@ class TramiteHabilitacionComercialHelper {
             // También el apoderado
             $Comercio->setApoderado($entity->getApoderado());
 
+            $em->persist($Comercio);
         }
 
         // Consolidar las actividades para que no queden campos en blanco
@@ -54,6 +55,7 @@ class TramiteHabilitacionComercialHelper {
                 }
             }
         }
+
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
     }
 }
