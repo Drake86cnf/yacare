@@ -20,9 +20,10 @@ class TramiteHabilitacionComercialHelper {
             // También el apoderado
             $Comercio->setApoderado($entity->getApoderado());
 
-            // Consolidar las actividades para que no queden campos en blanco
-            \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
         }
+
+        // Consolidar las actividades para que no queden campos en blanco
+        \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
 
         $Local = $Comercio->getLocal();
         if ($Local && $entity->getUsoSuelo() == null) {
