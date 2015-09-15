@@ -1,6 +1,6 @@
 services:
-    yacare.comercio.tramitehabilitacioncomercial_listener:
-        class: Yacare\ComercioBundle\EventListener\TramiteHabilitacionComercialListener
+    yacare.comercio.comercio_listener:
+        class: Yacare\ComercioBundle\EventListener\ComercioListener
         arguments: [ '@service_container' ]
         public:  false
         tags:

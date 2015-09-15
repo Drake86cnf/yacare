@@ -18,36 +18,36 @@ use Doctrine\ORM\Mapping as ORM;
  *     indexes={@ORM\Index(name="Tramites_EstadoRequisito_Tramite", columns={"Tramite_id"})}
  * )
  */
-class EstadoRequisito
+class EstadoRequisito implements IEstadoRequisito
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
-    
+
     /**
      * El trámite al cual está asociado este requisito.
      *
      * @var \Yacare\TramitesBundle\Entity\Tramite
      *
-     * @see \Yacare\TramitesBundle\Entity\Tramite Tramite 
-     * 
+     * @see \Yacare\TramitesBundle\Entity\Tramite Tramite
+     *
      * @ORM\ManyToOne(targetEntity="Tramite", inversedBy="EstadosRequisitos")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $Tramite;
-    
+
     /**
      * La asociación entre el trámite y el requisito, que también describe las
      * condiciones en las que está asociado.
-     * 
+     *
      * @var \Yacare\TramitesBundle\Entity\AsociacionRequisito
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="AsociacionRequisito")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $AsociacionRequisito;
-    
+
     /**
      * El requisito padre, en caso de que este no sea un requisito directo, sino
      * sino un sub requisto (requisito de un requisito).
@@ -56,21 +56,21 @@ class EstadoRequisito
      * @ORM\JoinColumn(nullable=true)
      */
     protected $EstadoRequisitoPadre;
-    
+
     /**
      * El estado de este requisito para el trámite asociado.
-     * 
+     *
      * @var integer
-     * 
+     *
      * @ORM\Column(type="integer")
      */
     protected $Estado = 0;
-    
+
     /**
      * La fecha en la cual el requisito fue aprobado, o null si aun no lo fue.
      *
-     * @var \DateTime 
-     * 
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $FechaAprobado;
@@ -83,7 +83,7 @@ class EstadoRequisito
      * inmuebles mayores a 100 m2).
      * Este método devuelve true si este requisito debe solicitarse este
      * trámite en particular.
-     * 
+     *
      * @return boolean Devuelve true si este requisito es necesario.
      *
      * @see $Tramite $Tramite
@@ -120,7 +120,7 @@ class EstadoRequisito
      * Para los requisitos opcionales, siempre devuelve true.
      *
      * @return bool Devuelve true si el requisito se da por cumplido.
-     * 
+     *
      * @see $AsociacionRequisito $AsociacionRequisito
      */
     public function EstaCumplido()
@@ -131,25 +131,25 @@ class EstadoRequisito
     /**
      * Devuelve true si se cumple la condición en la cual debe solicitarse el
      * requisito asociado.
-     * 
+     *
      * @return boolean
-     * 
+     *
      * @see $AsociacionRequisito $AsociacionRequisito
      */
     public function CondicionSeCumple()
     {
         $Asoc = $this->getAsociacionRequisito();
-        
+
         if (! $Asoc->getCondicionQue()) {
             // No hay condición... lo doy siempre por cumplido
             return true;
         }
-        
+
         /*
          * Busco recursivamente las propiedades. Por ejemplo, "Titular.NumeroDocumento" se convierte en
          * "$this->getTramite()->getTitular()->getNumeroDocumento()"
          */
-        
+
         $Objeto = $this->getTramite();
         $Propiedades = explode('.', $Asoc->getCondicionQue());
         $ValorQue = null;
@@ -164,9 +164,9 @@ class EstadoRequisito
             }
             // echo $NombreMetodo . '()=' . $ValorQue . '; ';
         }
-        
+
         $ValorCuanto = $Asoc->getCondicionCuanto();
-        
+
         switch ($Asoc->getCondicionEs()) {
             case '==':
                 return $ValorQue == $ValorCuanto;
@@ -255,7 +255,7 @@ class EstadoRequisito
 
     /**
      * Devuelve el nombre de estado (normalizado).
-     * 
+     *
      * @return string
      */
     public function getEstadoNombre()
