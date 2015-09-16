@@ -7,11 +7,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TramiteType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(),
-            array('label' => 'Titular','class' => 'Yacare\BaseBundle\Entity\Persona','required' => true));
+        $builder
+            ->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+                'label' => 'Titular', 
+                'class' => 'Yacare\BaseBundle\Entity\Persona', 
+                'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

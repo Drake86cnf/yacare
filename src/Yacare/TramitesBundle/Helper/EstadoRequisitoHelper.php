@@ -8,7 +8,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class EstadoRequisitoHelper {
-    public function LifecycleEvent(LifecycleEventArgs $args) {
-   }
+class EstadoRequisitoHelper
+{
+    public function LifecycleEvent(LifecycleEventArgs $args)
+    {}
 }

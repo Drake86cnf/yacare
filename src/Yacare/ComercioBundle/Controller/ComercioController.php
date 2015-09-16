@@ -42,8 +42,8 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
      * Reordena las actividades antes de persistirlas en un comercio para que estén consolidadas (sin espacios
      * intermedios en blanco).
      * 
-     * @param \Yacare\ComercioBundle\Entity\Actividad $entity
-     * @return ComercioController::ReordenarActividades() | null devuelve nada.
+     * @param  \Yacare\ComercioBundle\Entity\Comercio $entity el comercio.
+     * @return ComercioController::ReordenarActividades() | null
      */
     public static function ReordenarActividades($entity)
     {
