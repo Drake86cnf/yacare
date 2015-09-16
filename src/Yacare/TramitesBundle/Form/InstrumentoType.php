@@ -7,19 +7,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InstrumentoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Codigo', null, array('label' => 'Código'))
+        $builder
+            ->add('Codigo', null, array('label' => 'Código'))
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Tipo', 'choice', 
-            array(
-                'label' => 'Tipo',
-                'required' => true,
+            ->add('Tipo', 'choice', array(
+                'label' => 'Tipo', 
+                'required' => true, 
                 'choices' => array(
-                    'com' => 'Comprobante',
-                    'for' => 'Formulario',
-                    'ins' => 'Instructivo',
+                    'com' => 'Comprobante', 
+                    'for' => 'Formulario', 
+                    'ins' => 'Instructivo', 
                     'car' => 'Carpeta')))
             ->add('Obs', null, array('label' => 'Obs.'));
     }

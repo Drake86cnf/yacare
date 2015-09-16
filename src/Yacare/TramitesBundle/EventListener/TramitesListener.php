@@ -4,7 +4,6 @@ namespace Yacare\TramitesBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-
 use Yacare\TramitesBundle\Entity\ITramite;
 
 /**
@@ -51,7 +50,6 @@ class TramitesListener implements EventSubscriber
             $Helper->LifecycleEvent($args);
         }
     }
-
 
     public function getSubscribedEvents()
     {
