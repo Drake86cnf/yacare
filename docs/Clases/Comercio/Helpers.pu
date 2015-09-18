@@ -1,0 +1,10 @@
+@startuml
+namespace Yacare.ComercioBundle.Helper  {
+	class EstadoRequisitoHelper << class >> {
+	}
+	class TramiteHelper << class >> {
+		#AsociarEstadosRequisitos()
+	}
+}
+@enduml
+
