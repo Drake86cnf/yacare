@@ -1,10 +1,4 @@
 @startuml
-namespace Yacare.TramitesBundle.Entity  {
-	class Tramite << class >> {
-	}
-	class Comprobante << class >> {
-	}
-}
 namespace Yacare.ComercioBundle.Entity  {
 	class ConActividades << (T,#FF7700) trait >> {
 		#Actividad1
@@ -18,22 +12,11 @@ namespace Yacare.ComercioBundle.Entity  {
 		#Local
 		#ConActividades
 	}
-	interface ITramiteHabilitacionComercial << interface >> {
-	}
 	class TramiteHabilitacionComercial << class >> {
 		#Comercio
 		-UsoSuelo
 		--
 		+EstaListoParaTerminar()
-		+getInmueble()
-		+getLocal()
-		+getRequiereDeyma()
-		+getRequiereDbeh()
-		+getRequiereCamaraBarro()
-		+getRequiereCamaraGrasa()
-		+getRequiereImpactoSonoro()
-		+getRequiereFactorOcupacion()
-		+getRequiereInfEscolar()
 	}
 	class Actividad << class >> {
 		-ParentNode
@@ -90,16 +73,19 @@ namespace Yacare.ComercioBundle.Entity  {
 		#Actividad6
 	}
 	
+	Comercio <|-- ConDatosComercio : implementa
+	
 	ConDatosComercio <|.. ConActividades : implementa
 	ConDatosComercio o.. Local : contiene
 	
 	ConActividades o-- Actividad : contiene
 	
 	Local o-- DepositoClase : contiene
+	Local o-- Yacare.CatastroBundle.Entity.Partida : contiene
 	
-	TramiteHabilitacionComercial <|-- ITramiteHabilitacionComercial  : implementa
 	TramiteHabilitacionComercial <|-- Yacare.TramitesBundle.Entity.Tramite
 	TramiteHabilitacionComercial <|.. ConDatosComercio : implementa
+	TramiteHabilitacionComercial o-- Yacare.CatastroBundle.Entity.UsoSuelo : contiene
 	TramiteHabilitacionComercial o-- Comercio : contiene
 	
 	CertificadoHabilitacionComercial <|-- Yacare.TramitesBundle.Entity.Comprobante

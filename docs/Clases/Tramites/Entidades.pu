@@ -85,7 +85,9 @@ namespace Yacare.TramitesBundle.Entity  {
 	Requisito <|-- IRequisito  : implementa
 	
 	Comprobante <|-- IComprobante  : implementa
+	Comprobante o-- ConTitular  : implementa
 	Comprobante o-- ComprobanteTipo  : contiene
+	Comprobante o-- Tramite  : contiene
 	
 	Tramite <|-- ITramite  : implementa
 	Tramite <|-- ConApoderado  : implementa
@@ -93,12 +95,15 @@ namespace Yacare.TramitesBundle.Entity  {
 	Tramite o-- TramiteTipo  : contiene
 	
 	EstadoRequisito <|-- IEstadoRequisito  : implementa
+	EstadoRequisito o-- AsociacionRequisito : contiene
 	EstadoRequisito o-- Tramite : contiene
 	EstadoRequisito o-- Requisito : contiene
-	EstadoRequisito o-- Comprobante : contiene
 	
 	AsociacionRequisito o-- Tramite : contiene
 	AsociacionRequisito o-- Requisito : contiene
+	
+	ConTitular o-- Yacare.BaseBundle.Entity.Persona : contiene
+	ConApoderado o-- Yacare.BaseBundle.Entity.Persona : contiene
 }
 @enduml
 
