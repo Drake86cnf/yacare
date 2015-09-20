@@ -1,0 +1,54 @@
+@startuml
+namespace Yacare.BaseBundle.Entity  {
+	class ConDomicilio << (T,#FF7700) trait >> {
+		+DomicilioCalle
+		+DomicilioCalleNombre
+		+DomicilioNumero
+		+DomicilioPiso
+		+DomicilioPuerta
+		--
+		+getDomicilio()
+	}
+	
+	class Persona << class >> {
+		+Nombre
+		+Apellido
+		+RazonSocial
+		+NombreVisible
+		+Grupos
+		+Roles		
+		+UsuarioRoles
+		+Username
+		+Password
+		+Salt
+		+DocumentoTipo
+		+DocumentoNumero
+		+Cuilt
+		+TelefonoNumero
+		+Email
+		+SituacionTributaria
+		+FechaNacimiento
+		+Genero
+		+EstadoCivil
+		+Pais
+		+Nib
+		+TipoSociedad
+	}
+
+	class PersonaGrupo << class >> {
+		+Nombre
+	}
+	
+	class Pais << class >> {
+		+Nombre
+	}
+	
+	Persona ..|> ConDomicilio : implementa
+	Persona "0..1" o-- "1" Pais : nacionalidad
+	Persona "1" o-- "0..n" PersonaGrupo : pertenece
+	Persona "1" o-- "0..n" Tapir.BaseBundle.Entity.PersonaRol : pertenece
+	
+	
+}
+@enduml
+

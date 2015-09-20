@@ -1,0 +1,95 @@
+@startuml
+namespace Yacare.TramitesBundle.Entity  {
+	class ComprobanteTipo << class >> {
+		+Codigo
+		+Clase
+		+PeriodoValidez
+		+InstrumentoEspejo
+	}
+	class Requisito << class >> {
+		+MeRequieren
+		+Requiere
+		+Tipo
+		+Lugar
+		+Url
+		+TramiteTipoEspejo
+	}
+	class TramiteTipo << class >> {
+		+Clase
+		+ComprobanteTipo
+		+Formulario
+		+RequisitoEspejo
+		+AsociacionRequisitos
+	}
+	class EstadoRequisito << class >> {
+		+Tramite
+		+AsociacionRequisito
+		+EstadoRequisitoPadre
+		+Estado
+		+FechaAprobado
+		--
+		+EsNecesario()
+		+EsOpcional()
+		+EstaCumplido()
+		+CondicionSeCumple()
+	}
+	class AsociacionRequisito << class >> {
+		+TramiteTipo
+		+Propiedad
+		+Requisito
+		+Instancia
+		+Opcional
+		+CondicionQue
+		+CondicionEs
+		+CondicionCuanto
+	}
+	abstract Tramite << abstract >> {
+		+Estado
+		+TramiteTipo
+		+EstadosRequisitos
+		+FechaTerminado
+		+Comprobante
+		+Titular
+		--
+		+EstaEnCurso()
+		+PorcentajeCompleto()
+		+EstaListoParaTerminar()
+		+EstaTerminado()
+		+RequisitosObligatoriosCantidad()
+		+RequisitosFaltantesCantidad()
+		+ExplicarEstadosRequisitos()
+		+AgregarEstadoRequisito()
+	}
+	abstract Comprobante << abstract >> {
+		+ComprobanteTipo
+		+TramiteOrigen
+		+NumeroPrefijo
+		+Numero
+		+Titular
+	}
+	class ConApoderado << (T,#FF7700) trait >> {
+		+Apoderado
+	}
+	class ConTitular << (T,#FF7700) trait >> {
+		+Titular
+	}
+	
+	Comprobante ..|> ConTitular  : implementa
+	Comprobante "0..n" o-- "1" ComprobanteTipo  : contiene
+	Comprobante "1" o-- "0..1" Tramite  : puede tener
+	
+	Tramite ..|> ConApoderado  : implementa
+	Tramite ..|> ConTitular  : implementa
+	Tramite "0..n" o-- "1" TramiteTipo : contiene
+	
+	EstadoRequisito "1" o-- "1" AsociacionRequisito : contiene
+	EstadoRequisito "1" o-- "1" Tramite : contiene
+	EstadoRequisito "1" o-- "1" Requisito : contiene
+	
+	AsociacionRequisito "1" o-- "1" Tramite : contiene
+	AsociacionRequisito "1" o-- "1" Requisito : contiene
+	
+	ConTitular "0..n" o-- "1" Yacare.BaseBundle.Entity.Persona : contiene
+	ConApoderado "0..n" o-- "0..1" Yacare.BaseBundle.Entity.Persona : puede tener
+}
+@enduml
