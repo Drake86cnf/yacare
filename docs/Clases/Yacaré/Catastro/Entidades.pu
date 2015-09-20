@@ -1,0 +1,63 @@
+@startuml
+namespace Yacare.CatastroBundle.Entity  {
+	class ConPartida << (T,#FF7700) trait >> {
+		+Partida
+	}
+	
+	class Calle << class >> {
+		+Nombre
+		+NombreOriginal
+		+NombreAlternativo
+		+Tipo
+	}
+
+	class Barrio << class >> {
+		+Nombre
+		+NombreAlternativo
+		+Ordenanza
+		+Notas
+		+Obs
+	}
+	
+	class Partida << class >> {
+		+Seccion
+		+MacizoAlfa
+		+MacizoNum
+		+Macizo
+		+ParcelaAlfa
+		+ParcelaNum
+		+Parcela
+		+UnidadFuncional
+		+Titular
+		+Zona
+		+Numero
+		+Legajo
+	}
+	
+	class UsoSuelo << class >> {
+		+Nombre
+		+Categoria
+		+Seccion
+		+Codigo
+		+SuperficieMaxima
+		+UsoZona1..20
+		--
+		getUsoZona(zona)
+	}
+	
+	class Zona << class >> {
+		+Nombre
+		+Obs
+		+Codigo
+		+Fos
+		+Fot
+	}
+	
+	Partida ..|> Yacare.BaseBundle.Entity.ConDomicilio : implementa
+	Partida "1" o-- "0..1" Yacare.BaseBundle.Entity.Persona : titular
+	Partida "1" o-- "0..1" Calle : puede tener
+	Partida "1" o-- "0..1" Zona : puede tener
+	
+}
+@enduml
+
