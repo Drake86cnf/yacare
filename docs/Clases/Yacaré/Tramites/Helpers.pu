@@ -1,9 +1,16 @@
 @startuml
 namespace Yacare.TramitesBundle.Helper  {
 	class EstadoRequisitoHelper << class >> {
+		+CambiarEstado()
 	}
 	class TramiteHelper << class >> {
 		#AsociarEstadosRequisitos()
+		+Iniciar()
+		+Cancelar()
+		+Terminar()
+		+CambiarEstadoRequisito()
+		+EmitirComprobante()
+		+ObtenerProximoNumeroComprobante()
 	}
 }
 @enduml
