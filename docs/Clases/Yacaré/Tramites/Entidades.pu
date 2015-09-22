@@ -74,6 +74,23 @@ namespace Yacare.TramitesBundle.Entity  {
 		+Titular
 	}
 	
+	enum EstadosTramite << enum >> {
+		+Nuevo
+		+Iniciado
+		+Cancelado
+		+Terminado
+	}
+	
+	enum EstadosEstadoRequisito << enum >> {
+		+Faltante
+		+Observado
+		+Rechazado
+		+PresentadoSinAprobar
+		+Aprobado
+	}
+	
+	
+	
 	Comprobante ..|> ConTitular  : implementa
 	Comprobante "0..n" o-- "1" ComprobanteTipo  : contiene
 	Comprobante "1" o-- "0..1" Tramite  : puede tener
@@ -81,6 +98,7 @@ namespace Yacare.TramitesBundle.Entity  {
 	Tramite ..|> ConApoderado  : implementa
 	Tramite ..|> ConTitular  : implementa
 	Tramite "0..n" o-- "1" TramiteTipo : contiene
+	Tramite ..|> EstadosTramite : "Estado"
 	
 	EstadoRequisito "1" o-- "1" AsociacionRequisito : contiene
 	EstadoRequisito "1" o-- "1" Tramite : contiene
@@ -88,6 +106,7 @@ namespace Yacare.TramitesBundle.Entity  {
 	
 	AsociacionRequisito "1" o-- "1" Tramite : contiene
 	AsociacionRequisito "1" o-- "1" Requisito : contiene
+	AsociacionRequisito ..|> EstadosEstadoRequisito : "Estado"
 	
 	ConTitular "0..n" o-- "1" Yacare.BaseBundle.Entity.Persona : contiene
 	ConApoderado "0..n" o-- "0..1" Yacare.BaseBundle.Entity.Persona : puede tener

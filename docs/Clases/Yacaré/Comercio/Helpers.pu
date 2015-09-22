@@ -2,8 +2,9 @@
 namespace Yacare.ComercioBundle.Helper  {
 	class EstadoRequisitoHelper << class >> {
 	}
-	class TramiteHelper << class >> {
-		#AsociarEstadosRequisitos()
+	class TramiteHabilitacionComercialHelper << class >> {
+		+EmitirComprobante(){redefine}
+		+Consultar()
 	}
 }
 @enduml
