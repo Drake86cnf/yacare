@@ -1,0 +1,24 @@
+@startuml
+UsuarioAtenticado --> (AT1 - Registrar trámite)
+UsuarioAtenticado -> (AT2 - Listar trámite)
+UsuarioAtenticado --> (AT3 - Editar trámite)
+(AT4 - Indicar avance de  trámite)<--UsuarioAtenticado 
+(AT5 - Finalizar trámite y emitir comprobante)<-- UsuarioAtenticado 
+(AT6 - Asociar requisito a trámite)<-- UsuarioAtenticado
+(AT7 - Registrar requisito)<--  UsuarioAtenticado 
+(AT8 - Listar requistos)<-UsuarioAtenticado 
+(AT9 - Editar requisito)<--UsuarioAtenticado
+(AT10 - Registrar comprobante)<-- UsuarioAtenticado  
+(AT11 - Listar comprobante)<--UsuarioAtenticado 
+(AT12 - Editar comprobante)<--UsuarioAtenticado 
+(AT1 - Registrar trámite) ..> (AT2 - Listar trámite): include
+(AT3 - Editar trámite) ..> (AT2 - Listar trámite):include
+(AT4 - Indicar avance de  trámite) ..> (AT2 - Listar trámite): include
+(AT5 - Finalizar trámite y emitir comprobante) ..> (AT2 - Listar trámite): include
+(AT6 - Asociar requisito a trámite) ..> (AT2 - Listar trámite):include
+(AT6 - Asociar requisito a trámite) ..> (AT3 - Editar trámite):extend
+(AT8 - Listar requistos)<...(AT7 - Registrar requisito): include
+(AT8 - Listar requistos)<...(AT9 - Editar requisito): include
+(AT10 - Registrar comprobante)..>(AT11 - Listar comprobante): include
+(AT12 - Editar comprobante)..>(AT11 - Listar comprobante): include
+@enduml
