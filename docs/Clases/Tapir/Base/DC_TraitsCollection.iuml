@@ -1,0 +1,80 @@
+@startuml
+
+Namespace Tapir.BaseBundle <<cloud>> {
+ class ConId <<(T,#FF7700) trait>>{
+ +id
+ }
+ class ConIdMetodos <<(T,#FF7700) trait>>{
+ +getId()
+ +setId($id)
+ +getYri64()
+ +getYri()
+ +getDamm()
+ +getYriQrBase64()
+ }
+ ConId-left-ConIdMetodos
+ }
+ 
+@enduml
+
+@startuml
+
+namespace Tapir.BaseBundle.Versionable<<cloud>>{
+class Versionable << (T,#FF7700) trait >> {
+	-Version
+	+getVersion()
+	+setVersion()
+	}
+class Auditable << (T,#FF7700) trait >> {
+	}	
+	Versionable .left.|> Auditable : implementa
+ }
+ 
+@enduml
+
+@startuml
+
+namespace Tapir.BaseBundle <<cloud>> {
+class Suprimible << (T,#FF7700) trait >> {
+	-Suprimido
+	+Suprimir()
+	}
+ }
+ 
+@enduml
+
+@startuml
+
+namespace Tapir.BaseBundle <<cloud>>{
+class Archivable << (T,#FF7700) trait >> {
+	-Archivado
+	+Archivar()
+	}
+ }
+ 
+@enduml
+
+@startuml
+
+namespace Tapir.BaseBundle <<cloud>> {
+class ConObs <<(T,#FF7700) trait>> {
+ +Observaciones
+ +getObs()
+ +setObs()
+ }
+ }
+ 
+@enduml
+
+@startuml
+ 
+namespace Tapir.BaseBundle <<cloud>>{
+class ConNombre <<(T,#FF7700) trait>>{
+ +Nombre
+ +__toString()
+ +getetNombre()
+ +setNombre()
+ }
+ }
+ 
+@enduml

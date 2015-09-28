@@ -1,26 +1,17 @@
 @startuml
 namespace Tapir.BaseBundle.Entity  {
-	class Versionable << (T,#FF7700) trait >> {
-		-Version
-	}
-	class Suprimible << (T,#FF7700) trait >> {
-		-Suprimido
-		--
-		Suprimir()
-	}
-	class Archivable << (T,#FF7700) trait >> {
-		-Archivado
-		--
-		Archivar()
-	}
-	class Auditable << (T,#FF7700) trait >> {
-	}
-	
 	class PersonaRol << class >> {
-		-Nombre
-	}
-	
-	Versionable ..|> Auditable : implementa	
+	-Nombre
+	-Codigo
+	#Personas
+	+getNombre()
+	+getRole()
+	+setNombre()
+	+getCodigo()
+	+setCodigo()
+	+__toString()
+	}		
 }
+!include DC_TraitsCollection.iuml!0
+Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.ConId
 @enduml
-
