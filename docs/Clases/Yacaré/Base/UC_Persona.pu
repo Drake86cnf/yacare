@@ -1,7 +1,14 @@
 @startuml
 
+skinparam usecase {
+Backgroundcolor YellowGreen
+Bordercolor DarkSlateGrey
+
+ArrowColor Olive
+}
+
 /' ACTORES '/
-actor :Usuario autenticado: as act1
+actor :Usuario autenticado: as Act1
 
 /' CASOS DE USO '/
 (AB1 - Registrar persona) as AB1

@@ -1,5 +1,12 @@
 @startuml
 
+skinparam usecase {
+Backgroundcolor YellowGreen
+Bordercolor DarkSlateGrey
+
+ArrowColor Olive
+}
+
 /'CASOS DE USO'/
 (ABMC1 - Registrar entidad) as ABMC1
 (ABMC2 - Suprimir entidad) as ABMC2

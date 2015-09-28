@@ -1,5 +1,12 @@
 @startuml
 
+skinparam usecase {
+Backgroundcolor YellowGreen
+Bordercolor DarkSlateGrey
+
+ArrowColor Olive
+}
+
 /'CASOS DE USO'/
 (ACO1- Registrar Actividad) as ACO1
 (ACO2 - Suprimir Actividad) as ACO2
