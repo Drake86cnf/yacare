@@ -1,0 +1,11 @@
+@startuml
+
+namespace Yacare.AdiministracionBundle.Entity  {
+	class Expediente << class >> {		
+	}
+}
+!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_TraitsCollection.iuml
+Yacare.AdiministracionBundle.Entity.Expediente--> Tapir.BaseBundle.ConId: Implementa
+
+@enduml
+
