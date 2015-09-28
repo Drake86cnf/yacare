@@ -1,0 +1,25 @@
+@startuml
+
+/'CASOS DE USO'/
+(ABMC1 - Registrar entidad) as ABMC1
+(ABMC2 - Suprimir entidad) as ABMC2
+(ABMC3 - Modificar entidad) as ABMC3
+(ABMC4 - Consultar entidad) as ABMC4
+(ABMC5 - Listar entidad) as ABMC5
+
+/'ACTORES'/
+:Usuario autenticado: as Act1
+
+/'RELACIONES'/
+Act1 -up- ABMC1
+Act1 -l- ABMC2
+Act1 -- ABMC3
+Act1 -r- ABMC4
+Act1 -- ABMC5
+
+ABMC4 ..> ABMC2 : extend
+ABMC3 <.. ABMC4 : extend
+ABMC5 ..> ABMC2 : extend
+ABMC3 <.. ABMC5 : extend
+
+@enduml

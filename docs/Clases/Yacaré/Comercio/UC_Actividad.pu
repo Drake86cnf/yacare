@@ -1,0 +1,25 @@
+@startuml
+
+/'CASOS DE USO'/
+(ACO1- Registrar Actividad) as ACO1
+(ACO2 - Suprimir Actividad) as ACO2
+(ACO3 - Modificar Actividad) as ACO3
+(ACO4 - Consultar Actividad) as ACO4
+(ACO5 - Listar Actividad) as ACO5
+
+/'ACTORES'/
+:Usuario autenticado: as Act1
+
+/'RELACIONES'/
+Act1 -up- ACO1
+Act1 -l- ACO2
+Act1 -- ACO3
+Act1 -r- ACO4
+Act1 -- ACO5
+
+ACO4 ..> ACO2 : extend
+ACO3 <.. ACO4 : extend
+ACO5 ..> ACO2 : extend
+ACO3 <.. ACO5 : extend
+
+@enduml

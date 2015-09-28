@@ -1,0 +1,28 @@
+@startuml
+
+/' ACTORES '/
+actor :Usuario autenticado: as act1
+
+/' CASOS DE USO '/
+(AB1 - Registrar persona) as AB1
+(AB2 - Suprimir persona) as AB2
+(AB3 - Modificar persona) as AB3
+(AB4 - Modificar perfil) as AB4
+(AB5 - Consultar persona) as AB5
+(AB6 - Listar persona) as AB6
+
+/' RELACIONES '/
+Act1 -up- AB1
+Act1 -- AB2
+Act1 -up- AB3
+Act1 -- AB4
+Act1 -r- AB5
+Act1 -l- AB6
+
+AB4 ..> AB3 : extend
+AB5 ..> AB2 : extend
+AB5 ..> AB3 : extend
+AB6 ..> AB2 : extend
+AB6 ..> AB3 : extend
+
+@enduml

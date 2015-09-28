@@ -1,0 +1,45 @@
+@startuml
+
+/'ACTORES'/
+:Usuario Autenticado: as Act1
+
+/'CASOS DE USO'/
+(AT1 - Registrar trámite) as AT1
+(AT2 - Listar trámite) as AT2
+(AT3 - Editar trámite) as AT3
+(AT4 - Indicar avance de  trámite) as AT4
+(AT5 - Finalizar trámite y emitir comprobante) as AT5
+(AT6 - Asociar requisito a trámite) as AT6
+(AT7 - Registrar requisito) as AT7
+(AT8 - Listar requistos) as AT8
+(AT9 - Editar requisito) as AT9
+(AT10 - Registrar comprobante) as AT10
+(AT11 - Listar comprobante) as AT11
+(AT12 - Editar comprobante) as AT12
+
+/'RELACIONES'/
+Act1 -- AT1
+Act1 - AT2
+Act1 -- AT3
+
+AT4 -- Act1
+AT5 -- Act1
+AT6 -- Act1
+AT7 -- Act1
+AT8 - Act1
+AT9 -- Act1
+AT10 -- Act1
+AT11 -- Act1
+AT12 -- Act1 
+AT1 ..> AT2 : include
+AT3 ..> AT2 : include
+AT4 ..> AT2 : include
+AT5 ..> AT2 : include
+AT6 ..> AT2 : include
+AT6 ..> AT3 : extend
+AT8 <... AT7 : include
+AT8 <... AT9 : include
+AT10 ..> AT11 : include
+AT12 ..> AT11 : include
+
+@enduml
