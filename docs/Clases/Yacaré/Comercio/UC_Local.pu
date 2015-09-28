@@ -1,0 +1,31 @@
+@startuml
+
+/'CASOS DE USO'/
+(ACO10 - Registrar local) as ACO10
+(ACO11 - Suprimir local) as ACO11
+(ACO12 - Modificar local) as ACO12
+(ACO13 - Consultar local) as ACO13
+(ACO14 - Listar local) as ACO14
+
+rectangle Partida {
+(AC5 - Consultar partida) as AC5
+}
+
+/'ACTORES'/
+:Usuario autenticado: as Act1
+
+/'RELACIONES'/
+Act1 -up- ACO10
+Act1 -l- ACO11
+Act1 -- ACO12
+Act1 -r- ACO13
+Act1 -- ACO14
+Act1 -- AC5
+
+ACO13 ..> ACO11 : extend
+ACO12 <.. ACO13 : extend
+ACO14 ..> ACO11 : extend
+ACO12 <.. ACO14 : extend
+ACO12 <.. AC5 : extend
+
+@enduml

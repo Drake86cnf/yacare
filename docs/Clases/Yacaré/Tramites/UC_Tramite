@@ -18,21 +18,21 @@
 (AT12 - Editar comprobante) as AT12
 
 /'RELACIONES'/
-Act1 -- AT1
-Act1 - AT2
-Act1 -- AT3
-
+AT1 --- Act1
+Act1 -up- AT2
+Act1 -up- AT3
 AT4 -- Act1
 AT5 -- Act1
 AT6 -- Act1
-AT7 -- Act1
-AT8 - Act1
-AT9 -- Act1
-AT10 -- Act1
-AT11 -- Act1
-AT12 -- Act1 
+Act1 -- AT7
+Act1 -l- AT8
+Act1 -- AT9
+Act1 -- AT10
+Act1 -- AT11
+Act1 -- AT12
+
 AT1 ..> AT2 : include
-AT3 ..> AT2 : include
+AT2 <.. AT3 : include
 AT4 ..> AT2 : include
 AT5 ..> AT2 : include
 AT6 ..> AT2 : include
