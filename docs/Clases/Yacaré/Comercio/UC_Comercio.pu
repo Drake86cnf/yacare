@@ -1,0 +1,41 @@
+@startuml
+
+skinparam packageStyle rec
+
+/'CASOS DE USO'/
+(ACO6 - Registrar Comercio) as ACO6
+(ACO7 - Modificar Comercio) as ACO7
+(ACO8 - Consultar Comercio) as ACO8
+(ACO9 - Listar Comercio) as ACO9
+
+rectangle Persona {
+(AB5 - Consultar persona) as AB5
+}
+
+rectangle Actividad {
+(ACO4 - Consultar actividad) as ACO4
+}
+
+rectangle Local {
+(ACO12 - Modificar local) as ACO12
+}
+
+/'ACTORES'/
+:Usuario autenticado: as Act1
+
+/'RELACIONES'/
+Act1 -- ACO6
+Act1 -- ACO7
+Act1 -- ACO8
+Act1 -- ACO9
+Act1 -up- ACO4
+Act1 -up- AB5
+Act1 -up- ACO12
+
+ACO6 ..> ACO4 : include
+ACO6 ..> AB5 : include
+ACO7 <.. ACO8 : extend
+ACO7 <.. ACO9 : extend
+ACO12 ..> ACO7 : extend
+
+@enduml
