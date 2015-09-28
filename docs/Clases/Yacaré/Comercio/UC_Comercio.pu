@@ -1,5 +1,12 @@
 @startuml
 
+skinparam usecase {
+Backgroundcolor YellowGreen
+Bordercolor DarkSlateGrey
+
+ArrowColor Olive
+}
+
 skinparam packageStyle rec
 
 /'CASOS DE USO'/
