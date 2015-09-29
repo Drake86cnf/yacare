@@ -1,0 +1,13 @@
+@startuml
+namespace Yacare.BaseBundle.Entity <<cloud>> {
+	class ConDomicilio << (T,#FF7700) trait >> {
+		+DomicilioCalle
+		+DomicilioCalleNombre
+		+DomicilioNumero
+		+DomicilioPiso
+		+DomicilioPuerta
+		+getDomicilio()
+	}	
+}
+@enduml
+
