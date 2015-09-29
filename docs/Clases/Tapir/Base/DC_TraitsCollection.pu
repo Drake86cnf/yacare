@@ -1,6 +1,6 @@
 @startuml
 
-Namespace Tapir.BaseBundle <<cloud>> {
+Namespace Tapir.BaseBundle.Entity <<cloud>> {
  class ConId <<(T,#FF7700) trait>>{
  +id
  }
@@ -19,7 +19,7 @@ Namespace Tapir.BaseBundle <<cloud>> {
 
 @startuml
 
-namespace Tapir.BaseBundle.Versionable<<cloud>>{
+namespace Tapir.BaseBundle.Entity<<cloud>>{
 class Versionable << (T,#FF7700) trait >> {
 	-Version
 	+getVersion()
@@ -34,7 +34,7 @@ class Auditable << (T,#FF7700) trait >> {
 
 @startuml
 
-namespace Tapir.BaseBundle <<cloud>> {
+namespace Tapir.BaseBundle.Entity <<cloud>> {
 class Suprimible << (T,#FF7700) trait >> {
 	-Suprimido
 	+Suprimir()
@@ -45,7 +45,7 @@ class Suprimible << (T,#FF7700) trait >> {
 
 @startuml
 
-namespace Tapir.BaseBundle <<cloud>>{
+namespace Tapir.BaseBundle.Entity <<cloud>>{
 class Archivable << (T,#FF7700) trait >> {
 	-Archivado
 	+Archivar()
@@ -56,7 +56,7 @@ class Archivable << (T,#FF7700) trait >> {
 
 @startuml
 
-namespace Tapir.BaseBundle <<cloud>> {
+namespace Tapir.BaseBundle.Entity <<cloud>> {
 class ConObs <<(T,#FF7700) trait>> {
  +Observaciones
  +getObs()
@@ -68,7 +68,7 @@ class ConObs <<(T,#FF7700) trait>> {
 
 @startuml
  
-namespace Tapir.BaseBundle <<cloud>>{
+namespace Tapir.BaseBundle.Entity <<cloud>>{
 class ConNombre <<(T,#FF7700) trait>>{
  +Nombre
  +__toString()

@@ -12,6 +12,8 @@ namespace Tapir.BaseBundle.Entity  {
 	+__toString()
 	}		
 }
-!include DC_TraitsCollection.iuml!0
-Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.ConId
+!include DC_TraitsCollection.pu!0
+!include DC_TraitsCollection.pu!5
+Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.Entity.ConId
+Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.Entity.ConNombre
 @enduml
