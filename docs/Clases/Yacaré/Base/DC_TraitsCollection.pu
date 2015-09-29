@@ -8,6 +8,12 @@ namespace Yacare.BaseBundle.Entity <<cloud>> {
 		+DomicilioPuerta
 		+getDomicilio()
 	}	
+	class ConPartida << (T,#FF7700) trait >> {
+		+Partida
+	}
+	
 }
+!include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Catastro/DC_Entidades.pu
+
 @enduml
 
