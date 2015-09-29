@@ -73,6 +73,9 @@ namespace Yacare.ComercioBundle.Entity  {
 		+Actividad6
 	}
 	
+	
+	
+	
 	Comercio ..|> ConDatosComercio : implementa
 	
 	ConDatosComercio ..|> ConActividades : implementa
@@ -91,5 +94,6 @@ namespace Yacare.ComercioBundle.Entity  {
 	CertificadoHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Comprobante
 	CertificadoHabilitacionComercial "0..n" o-- "1" Comercio : contiene
 }
+!include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Tramites/DC_Entidades.pu
 @enduml
 

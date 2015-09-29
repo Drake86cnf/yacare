@@ -1,0 +1,17 @@
+@startuml
+
+Namespace Yacare.TramitesBundle.Entity <<cloud>> {
+
+ class ConTitular <<(T,#FF7700) trait>>{
+ #Titular
+ +getTitular()
+ +setTitular()
+ }
+ class ConApoderado <<(T,#FF7700) trait>>{
+ #Apoderado
+ +getApoderado()
+ +setApoderado()
+ }
+ 
+@enduml
+
