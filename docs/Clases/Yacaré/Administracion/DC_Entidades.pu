@@ -4,8 +4,8 @@ namespace Yacare.AdiministracionBundle.Entity  {
 	class Expediente << class >> {		
 	}
 }
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_TraitsCollection.iuml!0
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_TraitsCollection.iuml!5
+!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_TraitsCollection.pu!0
+!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_TraitsCollection.pu!5
 Yacare.AdiministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConId: Implementa
 Yacare.AdiministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConNombre: Implementa
 
