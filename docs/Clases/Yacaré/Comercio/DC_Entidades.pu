@@ -1,17 +1,5 @@
 @startuml
-namespace Yacare.ComercioBundle.Entity  {
-	class ConActividades << (T,#FF7700) trait >> {
-		+Actividad1
-		+Actividad2
-		+Actividad3
-		+Actividad4
-		+Actividad5
-		+Actividad6
-	}
-	class ConDatosComercio << (T,#FF7700) trait >> {
-		+Local
-		+ConActividades
-	}
+namespace Yacare.ComercioBundle.Entity{  
 	class TramiteHabilitacionComercial << class >> {
 		+Comercio
 		+UsoSuelo
@@ -74,26 +62,24 @@ namespace Yacare.ComercioBundle.Entity  {
 	}
 	
 	
-	
-	
-	Comercio ..|> ConDatosComercio : implementa
-	
-	ConDatosComercio ..|> ConActividades : implementa
-	ConDatosComercio "1" o-- "0..1" Local : puede tener
-	
-	ConActividades "1" o-- "0..n" Actividad : contiene
-	
-	Local "1" o-- "0..1" DepositoClase : puede tener
-	Local "1" o-- "0..1" Yacare.CatastroBundle.Entity.Partida : puede tener
-	
-	TramiteHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Tramite
-	TramiteHabilitacionComercial ..|> ConDatosComercio : implementa
-	TramiteHabilitacionComercial "0..1" o-- "0..1" Yacare.CatastroBundle.Entity.UsoSuelo : puede tener
 	TramiteHabilitacionComercial "0..n" o-- "1" Comercio : contiene
-	
-	CertificadoHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Comprobante
+	TramiteHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Tramite
+	TramiteHabilitacionComercial "0..1" o-- "0..1" Yacare.CatastroBundle.Entity.UsoSuelo : puede tener
+	CertificadoHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Comprobante	
 	CertificadoHabilitacionComercial "0..n" o-- "1" Comercio : contiene
+	
 }
+
+!include DC_TraitsCollection.pu
+Yacare.ComercioBundle.Entity.Comercio ..|> Yacare.ComercioBundle.Entity.ConDatosComercio : implementa
+Yacare.ComercioBundle.Entity.ConDatosComercio ..|> Yacare.ComercioBundle.Entity.ConActividades : implementa
+Yacare.ComercioBundle.Entity.ConDatosComercio "1" o-- "0..1" Yacare.ComercioBundle.Entity.Local : puede tener
+Yacare.ComercioBundle.Entity.ConActividades "1" o-- "0..n" Yacare.ComercioBundle.Entity.Actividad : contiene
+Yacare.ComercioBundle.Entity.TramiteHabilitacionComercial ..|> Yacare.ComercioBundle.Entity.ConDatosComercio : implementa
+Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.ComercioBundle.Entity.DepositoClase : puede tener
+Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.CatastroBundle.Entity.Partida : puede tener
+	
 !include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Tramites/DC_Entidades.pu
+	
 @enduml
 
