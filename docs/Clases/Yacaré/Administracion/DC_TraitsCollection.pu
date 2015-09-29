@@ -1,6 +1,6 @@
 @startuml
 title Administracion/<b>Traits Collection</b>\n
-package Yacare.Administracion {
+package Yacare.AdministracionBundle.Entity {
  class ConExpediente <<(T,#FF7700) trait>>{
   #ExpedienteNumero
   getExpedienteNumero()
