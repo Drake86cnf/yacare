@@ -1,0 +1,32 @@
+@startuml
+namespace Yacare.BaseBundle.Entity <<cloud>> {
+	class ConDomicilio << (T,#FF7700) trait >> {
+		#DomicilioCalle
+		#DomicilioCalleNombre
+		#DomicilioNumero
+		#DomicilioPiso
+		#DomicilioPuerta
+		#DomicilioCodigoPostal
+		+getDomicilio()
+		+getDomicilioCalle()
+		+setDomicilioCalle()
+		+getDomicilioCalleNombre()
+		+setDomicilioCalleNombre()
+		+getDomicilioNumero()
+		+setDomicilioNumero()
+		+getDomicilioPiso()
+		+setDomicilioPiso()
+		+getDomicilioPuerta()
+		+setDomicilioPuerta()
+		+getDomicilioCodigoPostal()
+		+setDomicilioCodigoPostal()
+	}
+	class ConPartida << (T,#FF7700) trait >> {
+		#Partida
+		+getPartida()
+		+setPartida()
+	}
+		
+}
+@enduml
+
