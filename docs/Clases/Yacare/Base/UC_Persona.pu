@@ -3,7 +3,7 @@
 !include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
 
 /' ACTORES '/
-actor :Usuario autenticado: as Act1
+actor :Usuario autenticado: as actor1
 
 /' CASOS DE USO '/
 (AB1 - Registrar persona) as AB1
@@ -14,12 +14,12 @@ actor :Usuario autenticado: as Act1
 (AB6 - Listar persona) as AB6
 
 /' RELACIONES '/
-Act1 -up- AB1
-Act1 -- AB2
-Act1 -up- AB3
-Act1 -- AB4
-Act1 -r- AB5
-Act1 -l- AB6
+actor1 -up- AB1
+actor1 -- AB2
+actor1 -up- AB3
+actor1 -- AB4
+actor1 -r- AB5
+actor1 -l- AB6
 
 AB4 ..> AB3 : extend
 AB5 ..> AB2 : extend

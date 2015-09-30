@@ -14,15 +14,15 @@ rectangle Partida {
 }
 
 /'ACTORES'/
-:Usuario autenticado: as Act1
+:Usuario autenticado: as actor1
 
 /'RELACIONES'/
-Act1 -up- ACO10
-Act1 -l- ACO11
-Act1 -- ACO12
-Act1 -r- ACO13
-Act1 -- ACO14
-Act1 -- AC5
+actor1 -up- ACO10
+actor1 -l- ACO11
+actor1 -- ACO12
+actor1 -r- ACO13
+actor1 -- ACO14
+actor1 -- AC5
 
 ACO13 ..> ACO11 : extend
 ACO12 <.. ACO13 : extend
