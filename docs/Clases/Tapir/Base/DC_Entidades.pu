@@ -1,19 +1,23 @@
 @startuml
-namespace Tapir.BaseBundle.Entity  {
-	class PersonaRol << class >> {
-	-Nombre
-	-Codigo
-	#Personas
-	+getNombre()
-	+getRole()
-	+setNombre()
-	+getCodigo()
-	+setCodigo()
-	+__toString()
+
+namespace Tapir.BaseBundle.Entity {
+	class PersonaRol <<class>> {
+		-Nombre
+		-Codigo
+		#Personas
+		+getNombre()
+		+getRole()
+		+setNombre()
+		+getCodigo()
+		+setCodigo()
+		+__toString()
 	}		
 }
+
 !include DC_TraitsCollection.pu!0
 !include DC_TraitsCollection.pu!5
-Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.Entity.ConId
-Tapir.BaseBundle.Entity.PersonaRol-->Tapir.BaseBundle.Entity.ConNombre
+
+Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConId
+Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConNombre
+
 @enduml

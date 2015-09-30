@@ -1,19 +1,20 @@
 @startuml
+
 namespace Yacare.BaseBundle.Entity <<cloud>> {
-	class ConDomicilio << (T,#FF7700) trait >> {
+	class ConDomicilio <<(T,#FF7700) trait>> {
 		+DomicilioCalle
 		+DomicilioCalleNombre
 		+DomicilioNumero
 		+DomicilioPiso
 		+DomicilioPuerta
 		+getDomicilio()
-	}	
-	class ConPartida << (T,#FF7700) trait >> {
+	}
+
+	class ConPartida <<(T,#FF7700) trait>> {
 		+Partida
 	}
 	
 }
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Catastro/DC_Entidades.pu
+!include /%HOME%/%YACARE_DIR%/docs/Clases/Yacare/Catastro/DC_Entidades.pu
 
 @enduml
-

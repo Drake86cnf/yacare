@@ -1,9 +1,11 @@
 @startuml
-namespace Yacare.TramitesBundle.Helper  {
-	class EstadoRequisitoHelper << class >> {
+
+namespace Yacare.TramitesBundle.Helper {
+	class EstadoRequisitoHelper <<class>> {
 		+CambiarEstado()
 	}
-	class TramiteHelper << class >> {
+	
+	class TramiteHelper <<class>> {
 		#AsociarEstadosRequisitos()
 		+Iniciar()
 		+Cancelar()
@@ -13,5 +15,5 @@ namespace Yacare.TramitesBundle.Helper  {
 		+ObtenerProximoNumeroComprobante()
 	}
 }
-@enduml
 
+@enduml

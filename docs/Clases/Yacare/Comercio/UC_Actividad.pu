@@ -1,6 +1,6 @@
 @startuml
 
-!include /home/eriquelme/workspace/Yacaré/docs/Clases/Tapir/Base/UC_skinparam.skp
+!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
 (ACO1- Registrar Actividad) as ACO1

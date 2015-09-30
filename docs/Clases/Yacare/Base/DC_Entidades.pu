@@ -1,6 +1,7 @@
 @startuml
+
 namespace Yacare.BaseBundle.Entity  {
-	class ConDomicilio << (T,#FF7700) trait >> {
+	class ConDomicilio <<(T,#FF7700) trait>> {
 		+DomicilioCalle
 		+DomicilioCalleNombre
 		+DomicilioNumero
@@ -10,7 +11,7 @@ namespace Yacare.BaseBundle.Entity  {
 		+getDomicilio()
 	}
 	
-	class Persona << class >> {
+	class Persona <<class>> {
 		+Nombre
 		+Apellido
 		+RazonSocial
@@ -35,7 +36,7 @@ namespace Yacare.BaseBundle.Entity  {
 		+TipoSociedad
 	}
 
-	class PersonaGrupo << class >> {
+	class PersonaGrupo <<class>> {
 		+Nombre
 	}
 	
@@ -50,10 +51,8 @@ namespace Yacare.BaseBundle.Entity  {
 	
 	
 }
+
 !include DC_TraitsCollection.pu
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Tapir/Base/DC_Entidades.pu
-
-
+!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/DC_Entidades.pu
 
 @enduml
-
