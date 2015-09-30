@@ -1,6 +1,6 @@
 @startuml
 
-!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/UC_skinparam.skp
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
 (ACO10 - Registrar local) as ACO10
