@@ -1,12 +1,14 @@
 @startuml
-namespace Yacare.ComercioBundle.Entity{  
-	class TramiteHabilitacionComercial << class >> {
+
+namespace Yacare.ComercioBundle.Entity {  
+	class TramiteHabilitacionComercial <<class>> {
 		+Comercio
 		+UsoSuelo
 		--
 		+EstaListoParaTerminar()
 	}
-	class Actividad << class >> {
+
+	class Actividad <<class>> {
 		+ParentNode
 		+Clanae1997
 		+Clanae2010
@@ -28,7 +30,8 @@ namespace Yacare.ComercioBundle.Entity{
 		+NoIncluye
 		+Final
 	}
-	class Local << class >> {
+
+	class Local <<class>> {
 		+Tipo
 		+Superficie
 		+DepositoClase
@@ -39,17 +42,20 @@ namespace Yacare.ComercioBundle.Entity{
 		+AnchoSalida
 		+EnParqueIndustrial
 	}
-	class CertificadoHabilitacionComercial << class >> {
+
+	class CertificadoHabilitacionComercial <<class>> {
 		+Comercio
 	}
-	class DepositoClase << class >> {
+
+	class DepositoClase <<class>> {
 		+Categoria
 		+Tipo
 		+ClaseHasta300
 		+ClaseHasta1000
 		+ClaseMasDe1000
 	}
-	class Comercio << class >> {
+
+	class Comercio <<class>> {
 		+Estado
 		+CertificadoHabilitacion
 		+Local
@@ -60,17 +66,16 @@ namespace Yacare.ComercioBundle.Entity{
 		+Actividad5
 		+Actividad6
 	}
-	
-	
+
 	TramiteHabilitacionComercial "0..n" o-- "1" Comercio : contiene
 	TramiteHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Tramite
 	TramiteHabilitacionComercial "0..1" o-- "0..1" Yacare.CatastroBundle.Entity.UsoSuelo : puede tener
 	CertificadoHabilitacionComercial --|> Yacare.TramitesBundle.Entity.Comprobante	
 	CertificadoHabilitacionComercial "0..n" o-- "1" Comercio : contiene
-	
 }
 
 !include DC_TraitsCollection.pu
+
 Yacare.ComercioBundle.Entity.Comercio ..|> Yacare.ComercioBundle.Entity.ConDatosComercio : implementa
 Yacare.ComercioBundle.Entity.ConDatosComercio ..|> Yacare.ComercioBundle.Entity.ConActividades : implementa
 Yacare.ComercioBundle.Entity.ConDatosComercio "1" o-- "0..1" Yacare.ComercioBundle.Entity.Local : puede tener
@@ -79,7 +84,6 @@ Yacare.ComercioBundle.Entity.TramiteHabilitacionComercial ..|> Yacare.ComercioBu
 Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.ComercioBundle.Entity.DepositoClase : puede tener
 Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.CatastroBundle.Entity.Partida : puede tener
 	
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Tramites/DC_Entidades.pu
+!include /%HOME%/%YACARE_DIR%/docs/Clases/Yacare/Tramites/DC_Entidades.pu
 	
 @enduml
-

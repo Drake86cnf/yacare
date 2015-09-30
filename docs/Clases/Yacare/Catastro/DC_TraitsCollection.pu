@@ -1,6 +1,7 @@
 @startuml
+
 namespace Yacare.BaseBundle.Entity <<cloud>> {
-	class ConDomicilio << (T,#FF7700) trait >> {
+	class ConDomicilio <<(T,#FF7700) trait>> {
 		#DomicilioCalle
 		#DomicilioCalleNombre
 		#DomicilioNumero
@@ -21,12 +22,11 @@ namespace Yacare.BaseBundle.Entity <<cloud>> {
 		+getDomicilioCodigoPostal()
 		+setDomicilioCodigoPostal()
 	}
-	class ConPartida << (T,#FF7700) trait >> {
+	class ConPartida <<(T,#FF7700) trait>> {
 		#Partida
 		+getPartida()
 		+setPartida()
 	}
-		
 }
-@enduml
 
+@enduml

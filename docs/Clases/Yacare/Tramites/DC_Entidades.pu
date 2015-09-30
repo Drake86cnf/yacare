@@ -1,12 +1,14 @@
 @startuml
-namespace Yacare.TramitesBundle.Entity  {
-	class ComprobanteTipo << class >> {
+
+namespace Yacare.TramitesBundle.Entity {
+	class ComprobanteTipo <<class>> {
 		+Codigo
 		+Clase
 		+PeriodoValidez
 		+InstrumentoEspejo
 	}
-	class Requisito << class >> {
+
+	class Requisito <<class>> {
 		+MeRequieren
 		+Requiere
 		+Tipo
@@ -14,14 +16,16 @@ namespace Yacare.TramitesBundle.Entity  {
 		+Url
 		+TramiteTipoEspejo
 	}
-	class TramiteTipo << class >> {
+
+	class TramiteTipo <<class>> {
 		+Clase
 		+ComprobanteTipo
 		+Formulario
 		+RequisitoEspejo
 		+AsociacionRequisitos
 	}
-	class EstadoRequisito << class >> {
+
+	class EstadoRequisito <<class>> {
 		+Tramite
 		+AsociacionRequisito
 		+EstadoRequisitoPadre
@@ -33,7 +37,8 @@ namespace Yacare.TramitesBundle.Entity  {
 		+EstaCumplido()
 		+CondicionSeCumple()
 	}
-	class AsociacionRequisito << class >> {
+
+	class AsociacionRequisito <<class>> {
 		+TramiteTipo
 		+Propiedad
 		+Requisito
@@ -43,7 +48,8 @@ namespace Yacare.TramitesBundle.Entity  {
 		+CondicionEs
 		+CondicionCuanto
 	}
-	abstract Tramite << abstract >> {
+	
+	abstract Tramite <<abstract>> {
 		+Estado
 		+TramiteTipo
 		+EstadosRequisitos
@@ -60,54 +66,54 @@ namespace Yacare.TramitesBundle.Entity  {
 		+ExplicarEstadosRequisitos()
 		+AgregarEstadoRequisito()
 	}
-	abstract Comprobante << abstract >> {
+
+	abstract Comprobante <<abstract>> {
 		+ComprobanteTipo
 		+TramiteOrigen
 		+NumeroPrefijo
 		+Numero
 		+Titular
 	}
-	enum EstadosTramite << enum >> {
+
+	enum EstadosTramite <<enum>> {
 		+Nuevo
 		+Iniciado
 		+Cancelado
 		+Terminado
-	}
-	
-	enum EstadosEstadoRequisito << enum >> {
+	}	
+
+	enum EstadosEstadoRequisito <<enum>> {
 		+Faltante
 		+Observado
 		+Rechazado
 		+PresentadoSinAprobar
 		+Aprobado
 	}
-	
-	
-	
-	
+
 	Comprobante "0..n" o-- "1" ComprobanteTipo  : contiene
 	Comprobante "1" o-- "0..1" Tramite  : puede tener
-	
-	
+
 	Tramite "0..n" o-- "1" TramiteTipo : contiene
 	Tramite ..|> EstadosTramite : "Estado"
-	
+
 	EstadoRequisito "1" o-- "1" AsociacionRequisito : contiene
 	EstadoRequisito "1" o-- "1" Tramite : contiene
 	EstadoRequisito "1" o-- "1" Requisito : contiene
-	
+
 	AsociacionRequisito "1" o-- "1" Tramite : contiene
 	AsociacionRequisito "1" o-- "1" Requisito : contiene
 	AsociacionRequisito ..|> EstadosEstadoRequisito : "Estado"
-	
+
 	!include DC_TraitsCollection.pu
+
 	Yacare.TramitesBundle.Entity.Tramite ..|> ConApoderado  : implementa
 	Yacare.TramitesBundle.Entity.Tramite ..|> ConTitular  : implementa
 	Yacare.TramitesBundle.Entity.Comprobante ..|> ConTitular  : implementa
 	ConTitular "0..n" o-- "1" Yacare.BaseBundle.Entity.Persona : contiene
 	ConApoderado "0..n" o-- "0..1" Yacare.BaseBundle.Entity.Persona : puede tener
-	
-}	
-!include /home/alediaz/workspace/Yacare1/docs/Clases/Yacaré/Base/DC_Entidades.pu
+
+}
+
+!include /%HOME%/%YACARE_DIR%/docs/Clases/Yacare/Base/DC_Entidades.pu
 
 @enduml
