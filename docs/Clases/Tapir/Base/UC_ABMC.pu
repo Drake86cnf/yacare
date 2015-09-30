@@ -10,14 +10,14 @@
 (ABMC5 - Listar entidad) as ABMC5
 
 /'ACTORES'/
-:Usuario autenticado: as Act1
+:Usuario autenticado: as actor1
 
 /'RELACIONES'/
-Act1 -up- ABMC1
-Act1 -l- ABMC2
-Act1 -- ABMC3
-Act1 -r- ABMC4
-Act1 -- ABMC5
+actor1 -up- ABMC1
+actor1 -l- ABMC2
+actor1 -- ABMC3
+actor1 -r- ABMC4
+actor1 -- ABMC5
 
 ABMC4 ..> ABMC2 : extend
 ABMC3 <.. ABMC4 : extend

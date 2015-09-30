@@ -1,10 +1,10 @@
 @startuml
 
 skinparam usecase {
-Backgroundcolor YellowGreen
-Bordercolor DarkSlateGrey
+	Backgroundcolor YellowGreen
+	Bordercolor DarkSlateGrey
 
-ArrowColor Olive
+	ArrowColor Olive
 }
 
 @enduml

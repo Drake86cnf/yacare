@@ -53,6 +53,6 @@ namespace Yacare.BaseBundle.Entity  {
 }
 
 !include DC_TraitsCollection.pu
-!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/DC_Entidades.pu
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/DC_Entidades.pu
 
 @enduml

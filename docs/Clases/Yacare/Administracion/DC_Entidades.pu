@@ -5,8 +5,8 @@ namespace Yacare.AdministracionBundle.Entity  {
 	}
 }
 
-!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/DC_TraitsCollection.pu!0
-!include /%HOME%/%YACARE_DIR%/docs/Clases/Tapir/Base/DC_TraitsCollection.pu!5
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/DC_TraitsCollection.pu!0
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/DC_TraitsCollection.pu!5
 
 Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConId: Implementa
 Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConNombre: Implementa
