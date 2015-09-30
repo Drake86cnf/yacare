@@ -3,21 +3,21 @@
 !include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
-(ACO1- Registrar Actividad) as ACO1
-(ACO2 - Suprimir Actividad) as ACO2
-(ACO3 - Modificar Actividad) as ACO3
-(ACO4 - Consultar Actividad) as ACO4
-(ACO5 - Listar Actividad) as ACO5
+(ACO1 - Registrar actividad) as ACO1
+(ACO2 - Suprimir actividad) as ACO2
+(ACO3 - Modificar actividad) as ACO3
+(ACO4 - Consultar actividad) as ACO4
+(ACO5 - Listar actividad) as ACO5
 
 /'ACTORES'/
-:Usuario autenticado: as Act1
+:Usuario autenticado: as actor1
 
 /'RELACIONES'/
-Act1 -up- ACO1
-Act1 -l- ACO2
-Act1 -- ACO3
-Act1 -r- ACO4
-Act1 -- ACO5
+actor1 -up- ACO1
+actor1 -l- ACO2
+actor1 -- ACO3
+actor1 -r- ACO4
+actor1 -- ACO5
 
 ACO4 ..> ACO2 : extend
 ACO3 <.. ACO4 : extend

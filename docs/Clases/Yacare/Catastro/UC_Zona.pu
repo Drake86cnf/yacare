@@ -1,0 +1,23 @@
+@startuml
+
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AC7 - Registrar zona) as AC7
+(AC8 - Modificar zona) as AC8
+(AC9 - Consultar zona) as AC9
+(A10 - Listar zona) as A10
+
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -up- AC7
+actor1 -- AC8
+actor1 -l- AC9
+actor1 -r- A10
+
+AC8 <.. AC9 : extend
+AC8 <.. A10 : extend
+
+@enduml

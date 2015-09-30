@@ -23,16 +23,16 @@ rectangle Local {
 }
 
 /'ACTORES'/
-:Usuario autenticado: as Act1
+:Usuario autenticado: as actor1
 
 /'RELACIONES'/
-Act1 -- ACO6
-Act1 -- ACO7
-Act1 -- ACO8
-Act1 -- ACO9
-Act1 -up- ACO4
-Act1 -up- AB5
-Act1 -up- ACO12
+actor1 -- ACO6
+actor1 -- ACO7
+actor1 -- ACO8
+actor1 -- ACO9
+actor1 -up- ACO4
+actor1 -up- AB5
+actor1 -up- ACO12
 
 ACO6 ..> ACO4 : include
 ACO6 ..> AB5 : include

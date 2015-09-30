@@ -1,0 +1,17 @@
+@startuml
+
+!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AC5 - Consultar partida) as AC5
+(AC6 - Listar partida) as AC6
+
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+
+actor1 -up- AC5
+actor1 -- AC6
+
+@enduml
