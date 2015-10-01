@@ -3,25 +3,25 @@
 !include ../../Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
-(ARH21 - Registrar agente_grupo) as ARH21
-(ARH22 - Suprimir agente_grupo) as ARH22
-(ARH23 - Modificar agente_grupo) as ARH23
-(ARH24 - Consultar agente_grupo) as ARH24
-(ARH25 - Listar agente_grupo) as ARH25
+(ARH6 - Registrar agente_grupo) as ARH6
+(ARH7 - Suprimir agente_grupo) as ARH7
+(ARH8 - Modificar agente_grupo) as ARH8
+(ARH9 - Consultar agente_grupo) as ARH9
+(ARH10 - Listar agente_grupo) as ARH10
 
 /'ACTORES'/
 :Usuario autenticado: as actor1
 
 /'RELACIONES'/
-actor1 -up- ARH21
-actor1 -l- ARH22
-actor1 -- ARH23
-actor1 -r- ARH24
-actor1 -- ARH25
+actor1 -up- ARH6
+actor1 -l- ARH7
+actor1 -- ARH8
+actor1 -r- ARH9
+actor1 -- ARH10
 
-ARH24 ..> ARH22 : extend
-ARH23 <.. ARH24 : extend
-ARH25 ..> ARH22 : extend
-ARH23 <.. ARH25 : extend
+ARH9 ..> ARH7 : extend
+ARH8 <.. ARH9 : extend
+ARH10 ..> ARH7 : extend
+ARH8 <.. ARH10 : extend
 
 @enduml
