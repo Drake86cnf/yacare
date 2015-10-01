@@ -114,6 +114,6 @@ namespace Yacare.TramitesBundle.Entity {
 
 }
 
-!include /%home%/%yacare_root_dir%/%puml_root_dir%/Yacare/Base/DC_Entidades.pu
+!include ../../Yacare/Base/DC_Entidades.pu
 
 @enduml

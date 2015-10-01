@@ -1,6 +1,6 @@
 @startuml
 
-!include /%home%/%yacare_root_dir%/%puml_root_dir%/Tapir/Base/UC_skinparam.skp
+!include ../../Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
 (AC7 - Registrar zona) as AC7
