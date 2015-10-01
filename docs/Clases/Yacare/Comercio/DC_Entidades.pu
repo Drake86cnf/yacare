@@ -84,6 +84,6 @@ Yacare.ComercioBundle.Entity.TramiteHabilitacionComercial ..|> Yacare.ComercioBu
 Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.ComercioBundle.Entity.DepositoClase : puede tener
 Yacare.ComercioBundle.Entity.Local "1" o-- "0..1" Yacare.CatastroBundle.Entity.Partida : puede tener
 	
-!include /%home%/%yacare_root_dir%/%puml_root_dir%/Yacare/Tramites/DC_Entidades.pu
+!include ../../Yacare/Tramites/DC_Entidades.pu
 	
 @enduml

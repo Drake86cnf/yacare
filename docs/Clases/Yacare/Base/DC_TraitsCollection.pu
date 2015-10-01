@@ -15,6 +15,6 @@ namespace Yacare.BaseBundle.Entity <<cloud>> {
 	}
 	
 }
-!include /%home%/%yacare_root_dir%/%puml_root_dir%/Yacare/Catastro/DC_Entidades.pu
+!include ../../Yacare/Catastro/DC_Entidades.pu
 
 @enduml
