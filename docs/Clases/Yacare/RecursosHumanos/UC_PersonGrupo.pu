@@ -3,7 +3,7 @@
 !include ../../Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
-(ARH6- Registrar persona_grupo) as ARH6
+(ARH6 - Registrar persona_grupo) as ARH6
 (ARH7 - Suprimir persona_grupo) as ARH7
 (ARH8 - Modificar persona_grupo) as ARH8
 (ARH9 - Consultar persona_grupo) as ARH9

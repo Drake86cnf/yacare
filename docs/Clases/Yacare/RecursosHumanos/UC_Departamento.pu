@@ -3,7 +3,7 @@
 !include ../../Tapir/Base/UC_skinparam.skp
 
 /'CASOS DE USO'/
-(ARH1- Registrar departamento) as ARH1
+(ARH1 - Registrar departamento) as ARH1
 (ARH2 - Suprimir departamento) as ARH2
 (ARH3 - Modificar departamento) as ARH3
 (ARH4 - Consultar departamento) as ARH4
