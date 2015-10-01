@@ -3,10 +3,17 @@
 namespace Yacare.AdministracionBundle.Entity  {
 	class Expediente <<class>> {		
 	}
+	class ConExpediente <<(T,#FF7700) trait>> {
+  		#ExpedienteNumero
+  		getExpedienteNumero()
+  		setExpedienteNumero($ExpedienteNumero)
+	}
+	class ConActoAdministrativo <<(T,#FF7700) trait>> {
+  		#ActoAdministrativoNumero
+  		getActoAdministrativoNumero()
+  		setActoadministrativoNumero()
+ 	}
 }
-
-!include ../../Tapir/Base/DC_TraitsCollection.pu!0
-!include ../../Tapir/Base/DC_TraitsCollection.pu!5
 
 Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConId: Implementa
 Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConNombre: Implementa
