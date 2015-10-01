@@ -1,0 +1,27 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(ARH16 - Registrar agente) as ARH16
+(ARH17 - Suprimir agente) as ARH17
+(ARH18 - Modificar agente) as ARH18
+(ARH19 - Consultar agente) as ARH19
+(ARH20 - Listar agente) as ARH20
+
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -up- ARH16
+actor1 -l- ARH17
+actor1 -- ARH18
+actor1 -r- ARH19
+actor1 -- ARH20
+
+ARH19 ..> ARH17 : extend
+ARH18 <.. ARH19 : extend
+ARH20 ..> ARH17 : extend
+ARH18 <.. ARH20 : extend
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(WR1 - Ingresar requerimiento) as WR1
+(WR2 - Consultar requerimiento) as WR2
+(WR3 - Informar novedad) as WR3
+(WR4 - Calificar requerimiento) as WR4
+
+(AR1 - Listar requerimientos) as AR1
+(AR2 - Consultar requerimiento) as AR2
+(AR3 - Asignar requerimiento) as AR3
+(AR4 - Cerrar requerimiento) as AR4
+(AR5 - Informar novedad) as AR5
+(AR6 - Rechazar asignación) as AR6
+(AR7 - Ingresar requerimiento) as AR7
+(AR8 - Calificar requerimiento) as AR8
+
+/'ACTORES'/
+:Usuario: as actor1 << Web >>
+:Usuario autenticado: as actor2 << Aplicación >>
+:Administrador: as actor3 << Aplicación >>
+:Encargado: as actor4 << Aplicación >>
+
+/'RELACIONES'/
+actor1 -- WR1
+actor1 - WR2
+actor1 -up- WR3
+actor1 -- WR4
+
+actor2 -up- AR2
+actor2 -r- AR5
+actor2 -- AR7
+actor2 -- AR8
+
+actor3 -- AR1
+actor3 -- AR2
+actor3 -r- AR3
+actor3 -- AR4
+
+actor4 -d- AR5
+actor4 -d- AR6
+
+WR1 ..> WR2 : extend
+WR1 ..> AR1 : extend
+WR3 ..> WR2 : include
+WR4 ..> WR2 : include
+
+AR1 ..> AR2 : extend
+AR3 ..> AR2 : include
+AR4 ..> AR2 : include
+AR5 ..> AR2 : include
+AR6 ..> AR2 : include
+AR1 <.. AR7 : extend
+AR8 ..> AR2 : include
+
+@enduml

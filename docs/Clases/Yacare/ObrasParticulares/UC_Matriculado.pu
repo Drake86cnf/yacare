@@ -1,0 +1,20 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(WOP1 - Listar matriculados) as WOP1
+(AOP1 - Registrar matriculado) as AOP1
+(AOP2 - Listar matriculados) as AOP2
+
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -up- WOP1
+actor1 -l- AOP1
+actor1 -d- AOP2
+
+AOP1 ..> AOP2 : extend
+
+@enduml
