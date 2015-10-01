@@ -1,0 +1,27 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AB12 - Registrar persona_rol) as AB12
+(AB13 - Suprimir persona_rol) as AB13
+(AB14 - Modificar persona_rol) as AB14
+(AB15 - Consultar persona_rol) as AB15
+(AB16 - Listar persona_rol) as AB16
+
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -up- AB12
+actor1 -l- AB13
+actor1 -- AB14
+actor1 -r- AB15
+actor1 -- AB16
+
+AB15 ..> AB13 : extend
+AB14 <.. AB15 : extend
+AB16 ..> AB13 : extend
+AB14 <.. AB16 : extend
+
+@enduml
