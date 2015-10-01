@@ -1,6 +1,6 @@
 @startuml
 
-namespace Yacare.TramitesBundle.Entity {
+namespace Yacare.TramitesBundle.Entity  {
 	class ComprobanteTipo <<class>> {
 		+Codigo
 		+Clase
@@ -89,6 +89,14 @@ namespace Yacare.TramitesBundle.Entity {
 		+PresentadoSinAprobar
 		+Aprobado
 	}
+	class ConTitular <<(T,#FF7700) trait>>{
+		+Titular
+ 	}
+ 	
+	class ConApoderado <<(T,#FF7700) trait>>{
+		+Apoderado
+		
+}
 
 	Comprobante "0..n" o-- "1" ComprobanteTipo  : contiene
 	Comprobante "1" o-- "0..1" Tramite  : puede tener
@@ -104,8 +112,6 @@ namespace Yacare.TramitesBundle.Entity {
 	AsociacionRequisito "1" o-- "1" Requisito : contiene
 	AsociacionRequisito ..|> EstadosEstadoRequisito : "Estado"
 
-	!include DC_TraitsCollection.pu
-
 	Yacare.TramitesBundle.Entity.Tramite ..|> ConApoderado  : implementa
 	Yacare.TramitesBundle.Entity.Tramite ..|> ConTitular  : implementa
 	Yacare.TramitesBundle.Entity.Comprobante ..|> ConTitular  : implementa
@@ -113,7 +119,5 @@ namespace Yacare.TramitesBundle.Entity {
 	ConApoderado "0..n" o-- "0..1" Yacare.BaseBundle.Entity.Persona : puede tener
 
 }
-
-!include ../../Yacare/Base/DC_Entidades.pu
 
 @enduml

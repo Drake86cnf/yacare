@@ -33,6 +33,14 @@ namespace Yacare.BaseBundle.Entity  {
 	class Pais << class >> {
 		+Nombre
 	}
+	class ConDomicilio <<(T,#FF7700) trait>> {
+		+DomicilioCalle
+		+DomicilioCalleNombre
+		+DomicilioNumero
+		+DomicilioPiso
+		+DomicilioPuerta
+		+getDomicilio()
+	}
 	
 	Persona ..|> ConDomicilio : implementa
 	Persona "0..1" o-- "1" Pais : nacionalidad
@@ -41,8 +49,5 @@ namespace Yacare.BaseBundle.Entity  {
 	
 	
 }
-
-!include DC_TraitsCollection.pu
-!include ../../Tapir/Base/DC_Entidades.pu
 
 @enduml

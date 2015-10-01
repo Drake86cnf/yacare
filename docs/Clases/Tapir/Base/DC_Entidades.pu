@@ -4,18 +4,50 @@ namespace Tapir.BaseBundle.Entity {
 	class PersonaRol <<class>> {
 		-Nombre
 		-Codigo
-		#Personas
-		+getNombre()
+		+Personas
 		+getRole()
-		+setNombre()
-		+getCodigo()
-		+setCodigo()
 		+__toString()
 	}		
-}
+	class ConId <<(T,#FF7700) trait>> {
+ 		+id
+	}
+ 
+	class ConIdMetodos <<(T,#FF7700) trait>> {
+		+getId()
+		+setId($id)
+		+getYri64()
+		+getYri()
+		+getDamm()
+		+getYriQrBase64()
+	}
+	
+	class Versionable <<(T,#FF7700) trait>> {
+		-Version
+	}
+	
+	class Auditable <<(T,#FF7700) trait>> {
+	}
+	
+	Versionable .l.|> Auditable : implementa
+	class Suprimible <<(T,#FF7700) trait>> {
+		-Suprimido
+		
+	}
+	class Archivable <<(T,#FF7700) trait>> {
+		-Archivado
+		
+	}
+	class ConObs <<(T,#FF7700) trait>> {
+		+Observaciones
+		
+	}
+	class ConNombre <<(T,#FF7700) trait>>{
+		+Nombre
+		+__toString()
+		
+	}
 
-!include DC_TraitsCollection.pu!0
-!include DC_TraitsCollection.pu!5
+}
 
 Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConId
 Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConNombre
