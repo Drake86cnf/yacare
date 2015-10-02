@@ -49,7 +49,7 @@ namespace Tapir.BaseBundle.Entity {
 
 }
 
-Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConId
-Tapir.BaseBundle.Entity.PersonaRol --> Tapir.BaseBundle.Entity.ConNombre
+Tapir.BaseBundle.Entity.PersonaRol ..|> Tapir.BaseBundle.Entity.ConId
+Tapir.BaseBundle.Entity.PersonaRol ..|> Tapir.BaseBundle.Entity.ConNombre
 
 @enduml

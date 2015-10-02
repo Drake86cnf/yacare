@@ -53,7 +53,7 @@ namespace Yacare.CatastroBundle.Entity  {
 		+Partida
 		
 	}
-	Yacare.CatastroBundle.Entity.Partida "1" o-- "0..1" Yacare.BaseBundle.Entity.ConPartida : titular
+	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.BaseBundle.Entity.ConPartida : titular
 	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.BaseBundle.Entity.ConDomicilio : implementa
 	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.CatastroBundle.Entity.ConPartida : implementa
 	Yacare.CatastroBundle.Entity.Partida "1" o-- "0..1" Yacare.BaseBundle.Entity.Persona : titular

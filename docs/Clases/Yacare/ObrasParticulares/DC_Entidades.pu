@@ -1,0 +1,12 @@
+@startuml
+
+namespace Yacare.ObrasParticularesBundle.Entity  {
+	class Matriculado <<class>> {
+		+Persona
+		+Profesion
+		+FechaVencimiento
+	}
+	Yacare.ObrasParticularesBundle.Entity.Matriculado..|> Tapir.BaseBundle.Entity.ConId:Implementa
+}
+
+@enduml

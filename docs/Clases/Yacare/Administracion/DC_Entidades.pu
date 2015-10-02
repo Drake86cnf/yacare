@@ -4,18 +4,16 @@ namespace Yacare.AdministracionBundle.Entity  {
 	class Expediente <<class>> {		
 	}
 	class ConExpediente <<(T,#FF7700) trait>> {
-  		#ExpedienteNumero
-  		getExpedienteNumero()
-  		setExpedienteNumero($ExpedienteNumero)
+  		+ExpedienteNumero
+  		
 	}
 	class ConActoAdministrativo <<(T,#FF7700) trait>> {
-  		#ActoAdministrativoNumero
-  		getActoAdministrativoNumero()
-  		setActoadministrativoNumero()
+  		+ActoAdministrativoNumero
+  		
  	}
 }
 
-Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConId: Implementa
-Yacare.AdministracionBundle.Entity.Expediente--> Tapir.BaseBundle.Entity.ConNombre: Implementa
+Yacare.AdministracionBundle.Entity.Expediente..|> Tapir.BaseBundle.Entity.ConId: Implementa
+Yacare.AdministracionBundle.Entity.Expediente..|> Tapir.BaseBundle.Entity.ConNombre: Implementa
 
 @enduml
