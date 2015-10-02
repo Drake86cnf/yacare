@@ -115,7 +115,7 @@ class Pais
     /**
      * @ignore
      */
-    public function setIsoAlfa2(string $IsoAlfa2)
+    public function setIsoAlfa2($IsoAlfa2)
     {
         $this->IsoAlfa2 = $IsoAlfa2;
         return $this;
@@ -132,7 +132,7 @@ class Pais
     /**
      * @ignore
      */
-    public function setCctld(string $Cctld)
+    public function setCctld($Cctld)
     {
         $this->Cctld = $Cctld;
         return $this;
@@ -183,7 +183,7 @@ class Pais
     /**
      * @ignore
      */
-    public function setMonedaIso(string $MonedaIso)
+    public function setMonedaIso($MonedaIso)
     {
         $this->MonedaIso = $MonedaIso;
         return $this;
@@ -200,7 +200,7 @@ class Pais
     /**
      * @ignore
      */
-    public function setNombreOficial(string $NombreOficial)
+    public function setNombreOficial($NombreOficial)
     {
         $this->NombreOficial = $NombreOficial;
         return $this;
