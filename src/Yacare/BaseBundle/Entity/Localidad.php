@@ -151,7 +151,7 @@ class Localidad
     /**
      * @ignore
      */
-    public function setUbicacion(\Point $Ubicacion)
+    public function setUbicacion($Ubicacion)
     {
         $this->Ubicacion = $Ubicacion;
         return $this;
