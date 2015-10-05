@@ -137,15 +137,6 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     private $PasswordEnc = 'MTIzNDU2'; // Contraseña predeterminada 123456, con base64
 
     /**
-     * Indica si es persona jurídica (true) o física (false).
-     *
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $PersonaJuridica = false;
-
-    /**
      * La razón social (sólo para personas jurídicas).
      *
      * @var string
@@ -224,7 +215,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     private $EmailVerificacionNivel = 0;
 
     /**
-     * La situación tributaria.
+     * La situación tributaria, según AFIP.
      *
      * @var integer
      *
@@ -311,7 +302,54 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     private $TipoSociedad;
 
     /**
-     * Devuelve el nombre del tipo de sociedad requerido.
+     * Devuelve el nombre de la situación tributaria de la persona.
+     */
+    public function getSituacionTributariaNombre()
+    {
+        return self::SituacionTributariaNombres($this->getSituacionTributaria());
+    }
+
+    /**
+     * Devuelve una cadena de descripción para un valor de SituacionTributaria.
+     */
+    public static function SituacionTributariaNombres($SituacionTributaria)
+    {
+        switch ($SituacionTributaria) {
+            case '1':
+                return 'IVA Responsable Inscripto';
+            case '2':
+                return 'IVA Responsable no Inscripto';
+            case '3':
+                return 'IVA no Responsable';
+            case '4':
+                return 'IVA Sujeto Exento';
+            case '5':
+                return 'Consumidor Final';
+            case '6':
+                return 'Responsable Monotributo';
+            case '7':
+                return 'Sujeto no Categorizado';
+            case '8':
+                return 'Proveedor del Exterior';
+            case '9':
+                return 'Cliente del Exterior';
+            case '10':
+                return 'IVA Liberado – Ley Nº 19.640';
+            case '11':
+                return 'IVA Responsable Inscripto – Agente de Percepción';
+            case '12':
+                return 'Pequeño Contribuyente Eventual';
+            case '13':
+                return 'Monotributista Social';
+            case '14':
+                return 'Pequeño Contribuyente Eventual Social';
+            default:
+                return '???';
+        }
+    }
+
+    /**
+     * Devuelve el nombre del tipo de sociedad de la persona.
      *
      * @return string
      */
@@ -321,39 +359,53 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     }
 
     /**
-     * Normaliza nombres para los tipos de sociedad de persona física y/o jurídica.
+     * Devuelve una cadena de descripción para un valor de TipoSociedad.
      *
      * @param  string $TipoSociedad
      * @return string
      */
     public static function TipoSociedadNombres($TipoSociedad)
     {
-        switch($TipoSociedad) {
-            case '0':
-                return 'Unipersonal';
+        switch ($TipoSociedad) {
+            case null:
+                return 'Persona física / Empresa Unipersonal';
             case '1':
-                return 'Anónima';
+                return 'Sociedad Anónima';
             case '2':
-                return 'Colectiva';
+                return 'Sociedad Colectiva';
             case '3':
-                return 'De Hecho';
+                return 'Sociedad de Hecho';
             case '4':
-                return 'Comandita por acciones';
+                return 'Sociedad en Comandita por Acciones';
             case '5':
-                return 'Capital Industrial';
+                return 'Sociedad de Capital e Industria';
             case '6':
-                return 'Participación';
+                return 'Sociedad Accidental o en Participación';
             case '7':
-                return 'Comandita Simple';
+                return 'Sociedad en Comandita Simple';
             case '8':
-                return 'S.R.L.';
+                return 'Sociedad de Responsabilidad Limitada';
             case '9':
                 return 'Cooperativa';
             case '10':
-                return 'A.S.F.L.';
+                return 'Asociación Sin Fines de Lucro';
             default:
-                return 'n/a';
+                return '???';
         }
+    }
+
+    /**
+     * Devuelve true si si trata de una persona física.
+     */
+    public function EsPersonaFisica() {
+        return $this->getTipoSociedad() == null;
+    }
+
+    /**
+     * Devuelve true si si trata de un consumidor final.
+     */
+    public function EsConsumidorFinal() {
+        return ($this->getSituacionTributaria() == 5) || ($this->getSituacionTributaria() == 9);
     }
 
     /**
@@ -812,22 +864,6 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     public function setGenero($Genero)
     {
         $this->Genero = $Genero;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getPersonaJuridica()
-    {
-        return $this->PersonaJuridica;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPersonaJuridica($PersonaJuridica)
-    {
-        $this->PersonaJuridica = $PersonaJuridica;
     }
 
     /**
