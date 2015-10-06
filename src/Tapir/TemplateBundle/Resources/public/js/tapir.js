@@ -353,6 +353,9 @@ function MejorarElementos(destino) {
 	$(desintoFinal + '[data-toggle="entity-select"]').each(function() {
         tapirEntitySelect($(this));
     });
+	
+	// El resto de los <select> con Select2
+	$(desintoFinal + '[data-toggle="select"]').select2()
 
 	// Dar tratamiento especial a los campos de fecha
 	// (validar y formatear la fecha ingresada al perder el foco)
