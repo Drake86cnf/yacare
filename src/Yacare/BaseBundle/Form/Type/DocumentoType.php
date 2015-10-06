@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para tipo de documento.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class DocumentoType extends AbstractType
@@ -17,15 +17,17 @@ class DocumentoType extends AbstractType
         $builder
             ->add('DocumentoTipo', 'choice', array(
                 'choices' => array(
-                    '1' => 'DNI', 
-                    '2' => 'LE', 
-                    '3' => 'LC', 
-                    '4' => 'CI', 
-                    '5' => 'Pasaporte'), 
-                'label' => 'Tipo'))
+                    '1' => 'DNI',
+                    '2' => 'LE',
+                    '3' => 'LC',
+                    '4' => 'CI',
+                    '5' => 'Pasaporte'),
+                'label' => false))
             ->add('DocumentoNumero', null, array(
-                'label' => 'Número', 
-                'attr' => array('class' => 'tapir-input-documento')))
+                'label' => false,
+                'attr' => array(
+                    'class' => 'tapir-input-documento',
+                    'placeholder' => 'Número')))
             ->setAttribute('widget', 'form_horizontal');
     }
 

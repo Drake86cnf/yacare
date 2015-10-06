@@ -15,11 +15,11 @@ class SuperficieType extends \Tapir\TemplateBundle\Form\Type\IntegerType
     {
         $resolver->setDefaults(
             array(
-                'maxlength' => 6, 
+                'maxlength' => 6,
                 'attr' => array(
-                    'class' => 'tapir-input-120', 
-                    'data-type' => 'number', 
-                    'maxlength' => '6', 
+                    'class' => 'tapir-input-120',
+                    'data-type' => 'number',
+                    'maxlength' => '6',
                     'suffix' => 'm²')));
     }
 

@@ -12,17 +12,16 @@
 	{{ parent() }}
 {% endspaceless %}{% endblock choice_widget %}
 
-{% block date_widget %}{% spaceless %}
-    {% if widget == 'single_text' %}
-        {% set attr = attr|merge({ 'format': 'dd/MM/yyyy', 'class': 'datepicker' }) %}
-        {{ block('form_widget_simple') }}
+{% block form_label -%}
+{% spaceless %}
+    {% if label is same as(false) %}
+
     {% else %}
-        <div {{ block('widget_container_attributes') }}>
-            {{ date_pattern|replace({ '{{ year }}': form_widget(form.year), '{{ month }}': form_widget(form.month),
-            '{{ day }}': form_widget(form.day) })|raw }}
-        </div>
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+        {{- parent() -}}
     {% endif %}
-{% endspaceless %}{% endblock date_widget %}
+{% endspaceless %}
+{%- endblock form_label %}
 
 {% block form_row -%}
 {% spaceless %}
