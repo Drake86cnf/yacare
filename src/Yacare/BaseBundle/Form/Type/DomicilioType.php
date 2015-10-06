@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para domicilios.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
 class DomicilioType extends AbstractType
@@ -16,32 +16,32 @@ class DomicilioType extends AbstractType
     {
         $builder
             ->add('DomicilioCalle', 'entity', array(
-                'label' => 'Calle', 
-                'class' => 'YacareCatastroBundle:Calle', 
-                'required' => false, 
-                'attr' => array('style' => 'width: 240px;'), 
-                'placeholder' => 'Otra (escribir a continuación)', 
+                'label' => false,
+                'class' => 'YacareCatastroBundle:Calle',
+                'required' => false,
+                'attr' => array('class' => 'tapir-input-240'),
+                'placeholder' => 'Otra (escribir a continuación)',
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
             ->add('DomicilioCalleNombre', null, array(
-                'label' => ' ', 
-                'attr' => array('placeholder' => 'Nombre de la calle'), 
+                'label' => false,
+                'attr' => array('placeholder' => 'Calle'),
                 'required' => false))
             ->add('DomicilioNumero', null, array(
-                'label' => ' ', 
-                'trim' => true, 
-                'attr' => array('placeholder' => 'Nº', 'style' => 'width: 60px;'), 
+                'label' => false,
+                'trim' => true,
+                'attr' => array('placeholder' => 'Nº', 'style' => 'width: 64px;'),
                 'required' => false))
             ->add('DomicilioPiso', null, array(
-                'label' => ' ', 
-                'trim' => true, 
-                'attr' => array('placeholder' => 'piso', 'style' => 'width: 55px;'), 
+                'label' => false,
+                'trim' => true,
+                'attr' => array('placeholder' => 'piso', 'style' => 'width: 64px;'),
                 'required' => false))
             ->add('DomicilioPuerta', null, array(
-                'label' => ' ', 
-                'trim' => true, 
-                'attr' => array('placeholder' => 'puerta', 'style' => 'width: 55px;'), 
+                'label' => false,
+                'trim' => true,
+                'attr' => array('placeholder' => 'puerta', 'style' => 'width: 64px;'),
                 'required' => false))
             ->setAttribute('widget', 'form_horizontal');
     }
