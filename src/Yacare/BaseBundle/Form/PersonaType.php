@@ -14,9 +14,7 @@ class PersonaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('PersonaJuridica', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'choices' => array('0' => 'Física', '1' => 'Jurídica'), 'label' => 'Persona'))
+        $builder            
             ->add('Apellido', null, array('label' => 'Apellido'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
