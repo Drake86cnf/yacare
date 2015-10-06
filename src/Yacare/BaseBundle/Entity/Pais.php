@@ -105,7 +105,11 @@ class Pais
 
     public function NombreYGentilicio() {
         $Gentilicio = trim(explode(',', $this->getGentiliciosFemeninos())[0]);
-        return $this->getNombre() . ' (' . $Gentilicio . ')';
+        if(strcasecmp($Gentilicio, $this->getNombre()) == 0) {
+            return $this->getNombre();
+        } else {
+            return $this->getNombre() . ' (' . $Gentilicio . ')';
+        }
     }
 
 
