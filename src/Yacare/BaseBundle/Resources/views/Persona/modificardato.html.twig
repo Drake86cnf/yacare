@@ -3,7 +3,7 @@
 {% block pagina_titulo %}Solicitud de modificación{% endblock %}
 
 {% block pagina_inicio %}
-    {% set edit_form_action = path(baseroute ~ '_modificardato', arrastre|merge({ 'id': entity.id, 'campo_nombre': campo_nombre })) %}
+    {% set edit_form_action = baseroute ~ '_modificardato' %}
     {{ form_start(edit_form, {
             'action': path(edit_form_action, arrastre|merge({ 'id': entity.id, 'hisapi': 0, 'form': app.request.query.get('form') })),
             'method': 'POST',
