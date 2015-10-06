@@ -103,6 +103,12 @@ class Pais
     private $NombreOficialIngles;
 
 
+    public function NombreYGentilicio() {
+        $Gentilicio = trim(explode(',', $this->getGentiliciosFemeninos())[0]);
+        return $this->getNombre() . ' (' . $Gentilicio . ')';
+    }
+
+
 
     /**
      * @ignore
