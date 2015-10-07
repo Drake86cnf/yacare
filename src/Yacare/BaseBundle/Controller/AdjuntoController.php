@@ -10,26 +10,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Controlador para gestionar archivos adjuntos asociados a otras entidades.
  *
  * Nota: los adjuntos se identifican por token y no por id para evitar nombres predecibles.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
+ *
  * @Route("adjunto/")
  */
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
     /**
      * Muestra una galería de adjuntos.
-     * 
-     * @Route("listar/{tipo}/{id}/")
+     *
+     * @Route("listar/{tipo}/")
      * @Template()
      */
-    public function listarAction(Request $request, $tipo, $id)
+    public function listarAction(Request $request, $tipo)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getEm();
-        
+
         $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
             array('EntidadTipo' => $tipo, 'EntidadId' => $id));
-        
+
         return $this->ArrastrarVariables($request, array('entities' => $entities));
     }
 
@@ -39,13 +40,13 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      public function miniaturaAction(Request $request, $token, $ancho = null)
      {
      $em = $this->getDoctrine()->getManager();
-     
+
      $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
-     
+
      if (! $entity) {
      throw $this->createNotFoundException('No se puede cargar la entidad.');
      }
-     
+
      $imagen_tipo = $entity->getTipoMime();
      switch ($entity->getTipoMime()) {
      case 'image/jpg':
@@ -55,7 +56,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      case 'image/svg':
      // string to put directly in the "src" of the tag <img>
      $cacheManager = $this->container->get('liip_imagine.cache.manager');
-     $ArchivoImagen = $cacheManager->getBrowserPath($entity->getRutaRelativa() . $entity->getToken(), 
+     $ArchivoImagen = $cacheManager->getBrowserPath($entity->getRutaRelativa() . $entity->getToken(),
      'thumb256');
      $ArchivoImagen = str_replace('/app_dev.php', '', $ArchivoImagen);
      $imagen_tipo = 'image/jpeg';
@@ -120,60 +121,60 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      }
      break;
      }
-     
+
      $imagen_conenido = file_get_contents(
      $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath() . $ArchivoImagen);
-     
-     $response = new \Symfony\Component\HttpFoundation\Response($imagen_conenido, 200, 
+
+     $response = new \Symfony\Component\HttpFoundation\Response($imagen_conenido, 200,
      array(
      'Content-Type' => $imagen_tipo,
      'Content-Length' => strlen($imagen_conenido),
      'Content-Disposition' => 'filename="' . $entity->getNombre() . '"'));
-     
+
      return $response;
      }*/
-    
+
     /**
      * Descargar el archivo adjunto.
-     * 
+     *
      * @Route("descargar/{token}")
      */
     public function descargarAction($token)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
-        
+
         if (! $entity) {
             throw $this->createNotFoundException('No se puede cargar la entidad.');
         }
-        
+
         $adjunto_contenido = file_get_contents($entity->getRutaCompleta() . $entity->getToken());
-        
+
         $response = new \Symfony\Component\HttpFoundation\Response($adjunto_contenido, 200, array(
-            'Content-Type' => $entity->getTipoMime(), 
-            'Content-Length' => strlen($adjunto_contenido), 
+            'Content-Type' => $entity->getTipoMime(),
+            'Content-Length' => strlen($adjunto_contenido),
             'Content-Disposition' => 'attachment; filename="' . $entity->getNombre() . '"'));
-        
+
         return $response;
     }
 
     /**
      * Ver el adjunto.
-     * 
+     *
      * @Route("ver/{token}")
      * @Template()
      */
     public function verAction(Request $request, $token)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
-        
+
         if (! $entity) {
             throw $this->createNotFoundException('No se puede cargar la entidad.');
         }
-        
+
         return $this->ArrastrarVariables($request, array('entity' => $entity));
     }
 }

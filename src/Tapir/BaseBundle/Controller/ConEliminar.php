@@ -21,7 +21,7 @@ trait ConEliminar
 {
     /**
      * Crea el formulario de eliminación.
-     * 
+     *
      * @param integer $id ID de la entidad que se está procesando.
      */
     protected function CrearFormEliminar($id)
@@ -30,44 +30,46 @@ trait ConEliminar
     }
 
     /**
-     * @Route("eliminar/{id}/")
+     * @Route("eliminar/")
      * @Template("TapirBaseBundle:Default:eliminar.html.twig")
      */
-    public function eliminarAction(Request $request, $id)
+    public function eliminarAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $deleteForm = $this->CrearFormEliminar($id);
-        
+
         $em = $this->getEm();
         $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-        
+
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         } else {
             $buscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
         }
-        
+
         return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'create' => $id ? false : true, 
-            'delete_form' => $deleteForm->createView(), 
+            'entity' => $entity,
+            'create' => $id ? false : true,
+            'delete_form' => $deleteForm->createView(),
             'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
     }
 
     /**
-     * @Route("eliminar2/{id}/")
+     * @Route("eliminar2/")
      * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
      */
-    public function eliminar2Action(Request $request, $id)
+    public function eliminar2Action(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $form = $this->CrearFormEliminar($id);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getEm();
             $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find(
                 $id);
-            
+
             if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
                 // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
                 $entity->Suprimir();
@@ -75,7 +77,7 @@ trait ConEliminar
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
                 return $this->afterEliminar($request, $entity, true);
-            } else 
+            } else
                 if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                     // Es eliminable... lo elimino de verdad
                     $em->remove($entity);
@@ -84,7 +86,7 @@ trait ConEliminar
                     return $this->afterEliminar($request, $entity, true);
                 } else {
                     // No es eliminable ni suprimible... no se puede borrar
-                    $this->get('session')->getFlashBag()->add('info', 
+                    $this->get('session')->getFlashBag()->add('info',
                         'No se puede eliminar el elemento "' . $entity . '".');
                 }
         }

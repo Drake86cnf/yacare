@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Controlador de agentes.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- *        
+ *
  * @Route("agente/")
  */
 class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
@@ -20,84 +20,86 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     function IniciarVariables()
     {
         parent::IniciarVariables();
-        
+
         $this->BuscarPor = 'id, p.NombreVisible, p.DocumentoNumero';
         if (in_array('r.Persona p', $this->Joins) == false) {
             $this->Joins[] = 'JOIN r.Persona p';
         }
-        
+
         $this->OrderBy = 'p.NombreVisible';
     }
 
     /**
-     * @Route("ver_datospersonales/{id}/")
+     * @Route("/ver_datospersonales/")
      * @Template()
      */
-    public function ver_datospersonalesAction(Request $request, $id = null)
+    public function ver_datospersonalesAction(Request $request)
     {
-        return $this->verAction($request, $id = null);
+        return $this->verAction($request);
     }
 
     /**
-     * @Route("ver_lugardetrabajo/{id}/")
+     * @Route("/ver_lugardetrabajo/")
      * @Template()
      */
-    public function ver_lugardetrabajoAction(Request $request, $id = null)
+    public function ver_lugardetrabajoAction(Request $request)
     {
-        return $this->verAction($request, $id = null);
+        return $this->verAction($request);
     }
 
     /**
-     * @Route("ver_familiares/{id}/")
+     * @Route("/ver_familiares/")
      * @Template()
      */
-    public function ver_familiaresAction(Request $request, $id = null)
+    public function ver_familiaresAction(Request $request)
     {
-        return $this->verAction($request, $id = null);
+        return $this->verAction($request);
     }
 
     /**
-     * @Route("ver/{id}/")
+     * @Route("/ver/")
      * @Template()
      */
-    public function verAction(Request $request, $id = null)
+    public function verAction(Request $request)
     {
-        $res = parent::verAction($request, $id);
-        
+        $id = $this->ObtenerVariable($request, 'id');
+        $res = parent::verAction($request);
+
         $res['tabs'] = $this->ObtenerPestanias($request, 'ver', $id);
-        
+
         return $res;
     }
 
     /**
-     * @Route("editar/{id}/")
+     * @Route("/editar/")
      * @Template()
      */
-    public function editarAction(Request $request, $id = null)
+    public function editarAction(Request $request)
     {
-        $res = parent::editarAction($request, $id);
-        
-        $res['tabs'] = $this->ObtenerPestanias($request, 'editar', $id);
-        
+        $id = $this->ObtenerVariable($request, 'id');
+        $res = parent::editarAction($request);
+
+        $res['tabs'] = $this->ObtenerPestanias($request, 'editar');
+
         return $res;
     }
 
     /**
-     * @Route("volcar/")
-     * @Route("volcar/{id}/")
+     * @Route("/volcar/")
      * @Template("YacareRecursosHumanosBundle:Agente:listar.html.twig")
      */
-    public function volcarAction(Request $request, $id = null)
+    public function volcarAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $this->Paginar = false;
-        
+
         if ($id) {
             $this->Where = 'r.id=' . $id;
         }
         $res = parent::listarAction($request);
-        
+
         $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
-        
+
         $AgentesVolcados = array();
         foreach ($res['entities'] as $Agente) {
             if ($Agente->getPersona()->PuedeAcceder()) {
@@ -105,10 +107,10 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
                 $AgentesVolcados[] = $Agente;
             }
         }
-        
+
         $res['entities'] = $AgentesVolcados;
         $ldap = null;
-        
+
         return $res;
     }
 
@@ -129,11 +131,11 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     {
         return new \Tapir\TemplateBundle\Controls\TabSet(
             array(
-                new \Tapir\TemplateBundle\Controls\Tab('General', 
-                    $this->generateUrl($this->ObtenerRutaBase('ver'), 
-                        $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'), 
-                new \Tapir\TemplateBundle\Controls\Tab('Editar', 
-                    $this->generateUrl($this->ObtenerRutaBase('editar'), 
+                new \Tapir\TemplateBundle\Controls\Tab('General',
+                    $this->generateUrl($this->ObtenerRutaBase('ver'),
+                        $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'),
+                new \Tapir\TemplateBundle\Controls\Tab('Editar',
+                    $this->generateUrl($this->ObtenerRutaBase('editar'),
                         $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'editar')));
     }
 }

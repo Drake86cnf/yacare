@@ -15,16 +15,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 trait ConPerfil
 {
     /**
-     * @Route("editarperfil/{id}/", name="usuario_editarperfil", defaults={"id" = null})
-     * @Route("editarperfil/", name="usuario_editarperfil_actual", defaults={"id" = null})
+     * @Route("editarperfil/", name="usuario_editarperfil")
+     * @Route("editarperfil/", name="usuario_editarperfil_actual")
      * @Template()
      */
-    public function editarperfilAction(Request $request, $id = null)
+    public function editarperfilAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
             $user = null;
@@ -32,16 +33,16 @@ trait ConPerfil
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
-        
+
         if ($entity->getUsername()) {
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
         } else {
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
         }
-        
+
         if ($request->getMethod() === 'POST') {
             $editForm->handleRequest($request);
-            
+
             if ($editForm->isValid()) {
                 if ($entity->getPasswordEnc()) {
                     // Genero una nueva sal
@@ -53,31 +54,31 @@ trait ConPerfil
                 } else {
                     $entity->setPassword();
                 }
-                
+
                 $em->persist($entity);
                 $em->flush();
-                
+
                 $this->editarperfilActionPostPersist($entity, $editForm);
-                
-                $this->get('session')->getFlashBag()->add('success', 
+
+                $this->get('session')->getFlashBag()->add('success',
                     'Los cambios en "' . $entity . '" fueron guardados.');
                 $errors = null;
             } else {
                 $validator = $this->get('validator');
                 $errors = $validator->validate($entity);
             }
-            
+
             if ($errors) {
                 foreach ($errors as $error) {
                     $this->get('session')->getFlashBag()->add('danger', $error);
                 }
-                
+
                 $res = $this->ArrastrarVariables($request, array(
-                    'entity' => $entity, 
-                    'errors' => $errors, 
-                    'create' => $id ? false : true, 
+                    'entity' => $entity,
+                    'errors' => $errors,
+                    'create' => $id ? false : true,
                     'edit_form' => $editForm->createView()));
-                
+
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             } else {
                 if ($user) {
@@ -85,32 +86,33 @@ trait ConPerfil
                 }
             }
         }
-        
+
         return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'edit_form_action' => 'usuario_editarperfil', 
+            'entity' => $entity,
+            'edit_form_action' => 'usuario_editarperfil',
             'edit_form' => $editForm->createView()));
     }
 
     /**
-     * @Route("cambiarcontrasena/{id}/", name="usuario_cambiarcontrasena", defaults={"id" = null})
+     * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena")
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
      * @Template()
      */
-    public function cambiarContrasenaAction(Request $request, $id = null)
+    public function cambiarContrasenaAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
-        
+
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        
+
         $em = $this->getDoctrine()->getManager();
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
         } else {
             $entity = $em->getRepository($entidadUsuario)->find($user->getId());
         }
-        
+
         if ($entity->getId() == $user->getId()) {
             // Es el usuario conectado, muestro "cambiar contraseña"
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
@@ -119,16 +121,16 @@ trait ConPerfil
             $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCrearContrasenaType(), $entity);
         }
         $editForm->handleRequest($request);
-        
+
         if ($editForm->isValid()) {
             // TODO: si es "cambiar contraseña", hay que validar que haya puesto la contraseña actual.
             // TODO: validar que haya puesto dos veces la misma contraseña
-            
+
             // Guardo el password con hash
             if ($entity->getPasswordEnc()) {
                 // Genero una nueva sal
                 $entity->setSalt(md5(uniqid(null, true)));
-                
+
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($entity);
                 $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
@@ -136,21 +138,21 @@ trait ConPerfil
             } else {
                 $entity->setPassword();
             }
-            
+
             $terminado = 1;
             $em->persist($entity);
             $em->flush();
-            
+
             $this->cambiarcontrasenaActionPostPersist($entity, $editForm);
         }
-        
+
         if (isset($user)) {
             $em->refresh($user);
         }
-        
+
         return $this->ArrastrarVariables($request, array(
-            'entity' => $entity, 
-            'edit_form' => $editForm->createView(), 
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'terminado' => $terminado));
     }
 
