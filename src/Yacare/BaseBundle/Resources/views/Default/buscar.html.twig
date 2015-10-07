@@ -20,7 +20,7 @@
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
-    
+
     function buscarTexto(texto) {
         url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', texto);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {

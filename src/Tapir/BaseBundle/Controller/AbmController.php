@@ -291,7 +291,8 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction() editarAction()
      *
-     * @Route("ver/{id}/")
+     * @Route("ver/")
+     * @Route("ver/{id}/", defaults={"id" = null})
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -414,8 +415,8 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction() editarAction()
      *
+     * @Route("guardar/")
      * @Route("guardar/{id}/")
-     * @Route("guardar")
      * @Method("POST")
      * @Template()
      */
