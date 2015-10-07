@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 trait ConArchivar
 {
     /**
-     * @Route("desarchivar/{id}")
+     * @Route("desarchivar/{id}/")
      */
     public function desarchivarAction(Request $request, $id)
     {
@@ -34,7 +34,7 @@ trait ConArchivar
     }
 
     /**
-     * @Route("archivar/{id}")
+     * @Route("archivar/{id}/")
      */
     public function archivarAction(Request $request, $id)
     {

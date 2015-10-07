@@ -20,7 +20,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     /**
      * Muestra una galería de adjuntos.
      * 
-     * @Route("listar/{tipo}/{id}")
+     * @Route("listar/{tipo}/{id}/")
      * @Template()
      */
     public function listarAction(Request $request, $tipo, $id)

@@ -291,7 +291,7 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction() editarAction()
      *
-     * @Route("ver/{id}")
+     * @Route("ver/{id}/")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -315,7 +315,7 @@ abstract class AbmController extends BaseController
      *
      * Recibe el nombre del campo y el ID de la entidad y muestra un textbox.
      *
-     * @Route("editarcampo/{nombrecampo}/{id}")
+     * @Route("editarcampo/{nombrecampo}/{id}/")
      * @Template("TapirBaseBundle:Default:editarcampo.html.twig")
      */
     public function editarcampoAction(Request $request, $nombrecampo, $id)
@@ -369,7 +369,7 @@ abstract class AbmController extends BaseController
      * @see CrearNuevaEntidad() CrearNuevaEntidad()
      * @see guardarAction() guardarAction()
      *
-     * @Route("editar/{id}")
+     * @Route("editar/{id}/")
      * @Route("crear/")
      * @Template()
      */
@@ -414,7 +414,7 @@ abstract class AbmController extends BaseController
      *
      * @see editarAction() editarAction()
      *
-     * @Route("guardar/{id}")
+     * @Route("guardar/{id}/")
      * @Route("guardar")
      * @Method("POST")
      * @Template()

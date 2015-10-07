@@ -272,7 +272,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Ver un requerimiento, con formulario para publicar una novedad.
      *
-     * @Route("ver/{id}")
+     * @Route("ver/{id}/")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -302,7 +302,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Cambia el estado del requerimiento y agrega una novedad informando el nuevo estado.
      *
-     * @Route("cambiarestado/{id}")
+     * @Route("cambiarestado/{id}/")
      * @Template()
      */
     public function cambiarestadoAction(Request $request, $id = null)
@@ -387,7 +387,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Rechazar una asignación.
      *
-     * @Route("rechazar/{id}")
+     * @Route("rechazar/{id}/")
      * @Template()
      */
     public function rechazarAction(Request $request, $id = null)
@@ -459,7 +459,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Asginar un requerimiento a un encargado.
      *
-     * @Route("asignar/{id}")
+     * @Route("asignar/{id}/")
      * @Template()
      */
     public function asignarAction(Request $request, $id = null)
@@ -538,7 +538,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Muestra un pequeño formulario para modificar un dato.
      *
-     * @Route("modificardato/{id}")
+     * @Route("modificardato/{id}/")
      * @Template()
      */
     public function modificardatoAction(Request $request, $id)

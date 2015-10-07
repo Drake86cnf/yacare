@@ -30,7 +30,7 @@ trait ConEliminar
     }
 
     /**
-     * @Route("eliminar/{id}")
+     * @Route("eliminar/{id}/")
      * @Template("TapirBaseBundle:Default:eliminar.html.twig")
      */
     public function eliminarAction(Request $request, $id)
@@ -54,7 +54,7 @@ trait ConEliminar
     }
 
     /**
-     * @Route("eliminar2/{id}")
+     * @Route("eliminar2/{id}/")
      * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
      */

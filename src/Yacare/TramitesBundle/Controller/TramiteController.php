@@ -61,7 +61,7 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("terminar/{id}")
+     * @Route("terminar/{id}/")
      * @Template()
      */
     public function terminarAction(Request $request, $id = null)
