@@ -23,7 +23,7 @@ use Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper;
 class DispositivoRastreadorGpsController extends DispositivoController
 {
     /**
-     * @Route("ver/{id}")
+     * @Route("ver/{id}/")
      * @Template()
      */
     public function verAction(Request $request, $id = null)

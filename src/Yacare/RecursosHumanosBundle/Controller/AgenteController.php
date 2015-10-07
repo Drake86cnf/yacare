@@ -30,7 +30,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("ver_datospersonales/{id}")
+     * @Route("ver_datospersonales/{id}/")
      * @Template()
      */
     public function ver_datospersonalesAction(Request $request, $id = null)
@@ -39,7 +39,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("ver_lugardetrabajo/{id}")
+     * @Route("ver_lugardetrabajo/{id}/")
      * @Template()
      */
     public function ver_lugardetrabajoAction(Request $request, $id = null)
@@ -48,7 +48,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("ver_familiares/{id}")
+     * @Route("ver_familiares/{id}/")
      * @Template()
      */
     public function ver_familiaresAction(Request $request, $id = null)
@@ -57,7 +57,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("ver/{id}")
+     * @Route("ver/{id}/")
      * @Template()
      */
     public function verAction(Request $request, $id = null)
@@ -70,7 +70,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("editar/{id}")
+     * @Route("editar/{id}/")
      * @Template()
      */
     public function editarAction(Request $request, $id = null)
@@ -84,7 +84,7 @@ class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
 
     /**
      * @Route("volcar/")
-     * @Route("volcar/{id}")
+     * @Route("volcar/{id}/")
      * @Template("YacareRecursosHumanosBundle:Agente:listar.html.twig")
      */
     public function volcarAction(Request $request, $id = null)

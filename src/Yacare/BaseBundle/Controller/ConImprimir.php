@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 trait ConImprimir
 {
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("generar/{id}")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("generar/{id}/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()
      */
     public function generarAction(Request $request, $id)
@@ -49,7 +49,7 @@ trait ConImprimir
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("imprimir/{id}")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("imprimir/{id}/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Template()
      */
     public function imprimirAction(Request $request, $id)

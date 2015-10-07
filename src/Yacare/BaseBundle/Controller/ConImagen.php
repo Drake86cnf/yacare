@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 trait ConImagen
 {
     /**
-     * @Route("imagen/{id}")
+     * @Route("imagen/{id}/")
      */
     public function imagenAction($id)
     {

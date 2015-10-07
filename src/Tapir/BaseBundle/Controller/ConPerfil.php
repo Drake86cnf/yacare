@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 trait ConPerfil
 {
     /**
-     * @Route("editarperfil/{id}", name="usuario_editarperfil", defaults={"id" = null})
+     * @Route("editarperfil/{id}/", name="usuario_editarperfil", defaults={"id" = null})
      * @Route("editarperfil/", name="usuario_editarperfil_actual", defaults={"id" = null})
      * @Template()
      */
@@ -93,7 +93,7 @@ trait ConPerfil
     }
 
     /**
-     * @Route("cambiarcontrasena/{id}", name="usuario_cambiarcontrasena", defaults={"id" = null})
+     * @Route("cambiarcontrasena/{id}/", name="usuario_cambiarcontrasena", defaults={"id" = null})
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
      * @Template()
      */

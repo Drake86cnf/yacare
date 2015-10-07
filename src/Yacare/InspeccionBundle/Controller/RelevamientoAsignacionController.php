@@ -62,7 +62,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     }
 
     /**
-     * @Route("listarrelevamiento/{id}")
+     * @Route("listarrelevamiento/{id}/")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacion:listar.html.twig")
      */
     public function listarrelevamientoAction(Request $request, $id)
@@ -92,7 +92,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     }
 
     /**
-     * @Route("guardar/{id}")
+     * @Route("guardar/{id}/")
      * @Route("guardar")
      * @Method("POST")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacion:asignarcalle.html.twig")

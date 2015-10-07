@@ -24,7 +24,7 @@ class RelevamientoAsignacionDetalleController extends \Tapir\BaseBundle\Controll
     }
 
     /**
-     * @Route("listarrelevamiento/{id}")
+     * @Route("listarrelevamiento/{id}/")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionDetalle:listar.html.twig")
      */
     public function listarrelevamientoAction(Request $request, $id)
