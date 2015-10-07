@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
 {
     /**
-     * @Route("/ajax_persona", name="ajax_persona")
+     * @Route("ajax_persona", name="ajax_persona")
      */
     public function ajaxPersonaAction(Request $request)
     {

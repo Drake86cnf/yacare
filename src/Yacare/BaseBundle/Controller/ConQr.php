@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 trait ConQr
 {
     /**
-     * @Route("/qr/")
+     * @Route("qr/")
      */
     public function qrAction()
     {

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Tapir\FormBundle\DataTransformer\AjaxEntityTransformer;
+use Tapir\FormBundle\DataTransformer\EntityToIdTextTransformer;
 
 /**
  * Campo de entidad con selcción por buscador.
@@ -29,7 +29,7 @@ class EntityIdType extends AbstractType
         if(!array_key_exists('property', $options)) {
             $options['property'] = 'Nombre';
         }
-        $transformer = new AjaxEntityTransformer($this->registry, $options['class'], $options['multiple'],
+        $transformer = new EntityToIdTextTransformer($this->registry, $options['class'], $options['multiple'],
             $options['property']);
         $builder->addModelTransformer($transformer);
     }
