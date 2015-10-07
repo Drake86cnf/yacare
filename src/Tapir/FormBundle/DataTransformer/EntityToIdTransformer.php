@@ -9,7 +9,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Transforma una o más entidades en una cadena de id separados por coma.
+ * Transforma una o más entidades en una cadena de id separados por coma y viceversa.
+ *
+ * @see EntityToIdTextTransformer
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */

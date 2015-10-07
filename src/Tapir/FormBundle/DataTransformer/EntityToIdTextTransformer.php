@@ -11,6 +11,8 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 /**
  * Transforma una o más entidades en uno o más conjuntos de { id, texto } y viceversa.
  *
+ * @see EntityToIdTransformer
+ *
  * @author Kevin Bond <kevinbond@gmail.com>
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
