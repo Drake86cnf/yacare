@@ -1,9 +1,14 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% set filtro_buscar =
-app.request.get('filtro_buscar') %} {% set tapir_buscar_destino =
-app.request.get('tapir_buscar_destino') %} {% if not
-tapir_buscar_destino %} {% set tapir_buscar_destino = path(baseroute ~
-'_ver', arrastre) %} {% endif %} {% block pagina_titulo %}Buscar
-matriculado{% endblock %} {% block pagina_contenido %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+{% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
+{% if not tapir_buscar_destino %}
+    {% set tapir_buscar_destino = path(baseroute ~ '_ver', arrastre) %}
+{% endif %}
+
+{% block pagina_titulo %}Buscar matriculado{% endblock %}
+
+{% block pagina_contenido %}
 <div id="resultadosbuscar">
 	<div class="input-group">
 		<input class="form-control" size="50" maxlength="50"
@@ -18,8 +23,9 @@ matriculado{% endblock %} {% block pagina_contenido %}
 			</button></span>
 	</div>
 
-	{% if entities is defined and entities|length > 0 %} {% if
-	entities|length == 1 %} {% set entity = entities|first %}
+	{% if entities is defined and entities|length > 0 %}
+	    {% if entities|length == 1 %}
+	        {% set entity = entities|first %}
 	<script type="text/javascript">
         $('#filtro_buscar').prop('disabled', true);
         setTimeout(function() {
@@ -40,7 +46,7 @@ matriculado{% endblock %} {% block pagina_contenido %}
 			</p>
 		</div>
 	</div>
-	{% endif %} &nbsp;
+	    {% endif %} &nbsp;
 	<table class="table table-responsive table-condensed table-hoverselect">
 		<thead>
 			<tr>
@@ -56,12 +62,10 @@ matriculado{% endblock %} {% block pagina_contenido %}
 			<tr
 				onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Persona.NombreVisible|escape('js') }}'); return false;">
 				<td><i class="fa fa-caret-right showonhover"></i> {{ entity.id }}</td>
-				<td><span style="white-space: nowrap;">{{
-						entity.Persona.NombreVisible }}</span></td>
+				<td><span style="white-space: nowrap;">{{ entity.Persona.NombreVisible }}</span></td>
 				<td class="visible-lg">{{ entity.ProfesionAbreviada }}</td>
 				<td><span class="text-muted">{{ entity.Persona.CuiltODocumento }}</span></td>
-				<td class="hidden-xs hidden-sm"><span class="text-muted">{{
-						entity.Persona.Domicilio }}</span></td>
+				<td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Persona.Domicilio }}</span></td>
 			</tr>
 			{% endfor %}
 		</tbody>
@@ -84,7 +88,7 @@ matriculado{% endblock %} {% block pagina_contenido %}
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
     }
-    
+
     function buscarPorNombre(nombre) {
         url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', nombre);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
@@ -97,7 +101,9 @@ matriculado{% endblock %} {% block pagina_contenido %}
 
     tapirEnfocarControl('#filtro_buscar');
 </script>
-	{% endblock %} {% block pagina_fin %}
+{% endblock %}
+
+{% block pagina_fin %}
 </div>
 {% endblock %}
 
