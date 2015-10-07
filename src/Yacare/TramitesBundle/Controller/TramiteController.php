@@ -61,11 +61,12 @@ class TramiteController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @Route("terminar/{id}/")
+     * @Route("/terminar/")
      * @Template()
      */
-    public function terminarAction(Request $request, $id = null)
+    public function terminarAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);

@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controlador para resultados de una asignación.
- * 
+ *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
+ *
  * @Route("relevamientoasignacionresultado/")
  */
 class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Controller\AbmController
@@ -24,13 +24,13 @@ class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Contro
      * Inspeccion_RelevamientoAsignacionResultado WHERE
      * Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=Inspeccion_RelevamientoAsignacion.id );
      */
-    
+
     use \Yacare\BaseBundle\Controller\ConImagen;
 
     function IniciarVariables()
     {
         parent::IniciarVariables();
-        
+
         $this->ConservarVariables[] = 'filtro_relevamiento';
         $this->ConservarVariables[] = 'filtro_asignacion';
     }
@@ -44,39 +44,40 @@ class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Contro
         $filtro_relevamiento = $this->ObtenerVariable($request, 'filtro_relevamiento');
         $filtro_asignacion = $this->ObtenerVariable($request, 'filtro_asignacion');
         $filtro_archivado = $this->ObtenerVariable($request, 'filtro_archivado');
-        
+
         if ($filtro_relevamiento) {
             $this->Joins[] = " JOIN r.Asignacion a";
-            
+
             $this->Where .= " AND a.Relevamiento=$filtro_relevamiento";
         }
-        
+
         if ($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
         }
-        
+
         return parent::listarAction($request);
     }
 
     /**
-     * @Route("listarrelevamiento/{id}/")
+     * @Route("/listarrelevamiento/")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionResultado:listar.html.twig")
      */
-    public function listarrelevamientoAction(Request $request, $id)
+    public function listarrelevamientoAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $filtro_asignacion = $this->ObtenerVariable($request, 'filtro_asignacion');
-        
+
         if ($filtro_asignacion) {
             $this->Where .= " AND r.Asignacion=$filtro_asignacion";
         }
-        
+
         $res = parent::listarAction($request);
-        
+
         $em = $this->getDoctrine()->getManager();
         $query_secciones = $em->createQuery(
             "SELECT DISTINCT r.Seccion FROM YacareCatastroBundle:Partida r ORDER BY r.Seccion");
         $res['secciones'] = $query_secciones->getResult();
-        
+
         $res['id'] = $id;
         return $res;
     }

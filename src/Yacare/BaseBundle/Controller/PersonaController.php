@@ -120,11 +120,12 @@ class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Muestra un pequeño formulario para modificar un dato.
      *
-     * @Route("modificardato/{id}/")
+     * @Route("/modificardato/")
      * @Template()
      */
-    public function modificardatoAction(Request $request, $id)
+    public function modificardatoAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getEm();
 
         if ($id) {

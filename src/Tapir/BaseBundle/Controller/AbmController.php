@@ -292,14 +292,11 @@ abstract class AbmController extends BaseController
      * @see editarAction() editarAction()
      *
      * @Route("ver/")
-     * @Route("ver/{id}/", defaults={"id" = null})
      * @Template()
      */
-    public function verAction(Request $request, $id = null)
+    public function verAction(Request $request)
     {
-        if (! $id) {
-            $id = $this->ObtenerVariable($request, 'id');
-        }
+        $id = $this->ObtenerVariable($request, 'id');
 
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
@@ -316,11 +313,13 @@ abstract class AbmController extends BaseController
      *
      * Recibe el nombre del campo y el ID de la entidad y muestra un textbox.
      *
-     * @Route("editarcampo/{nombrecampo}/{id}/")
+     * @Route("editarcampo/{nombrecampo}/")
      * @Template("TapirBaseBundle:Default:editarcampo.html.twig")
      */
-    public function editarcampoAction(Request $request, $nombrecampo, $id)
+    public function editarcampoAction(Request $request, $nombrecampo)
     {
+        $id = $this->ObtenerVariable($request, 'id');
+
         $em = $this->getEm();
 
         if ($id) {
@@ -370,12 +369,14 @@ abstract class AbmController extends BaseController
      * @see CrearNuevaEntidad() CrearNuevaEntidad()
      * @see guardarAction() guardarAction()
      *
-     * @Route("editar/{id}/")
+     * @Route("editar/")
      * @Route("crear/")
      * @Template()
      */
-    public function editarAction(Request $request, $id = null)
+    public function editarAction(Request $request)
     {
+        $id = $this->ObtenerVariable($request, 'id');
+
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
         } else {
@@ -416,13 +417,14 @@ abstract class AbmController extends BaseController
      * @see editarAction()
      *
      * @Route("guardar/")
-     * @Route("guardar/{id}/")
      * @Method("POST")
      * @Template()
      */
-    public function guardarAction(Request $request, $id = null)
+    public function guardarAction(Request $request)
     {
         $em = $this->getEm();
+
+        $id = $this->ObtenerVariable($request, 'id');
 
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
