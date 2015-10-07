@@ -59,7 +59,7 @@ class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Contro
     }
 
     /**
-     * @Route("/listarrelevamiento/")
+     * @Route("listarrelevamiento/")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacionResultado:listar.html.twig")
      */
     public function listarrelevamientoAction(Request $request)

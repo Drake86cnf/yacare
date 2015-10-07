@@ -93,7 +93,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     }
 
     /**
-     * @Route("/guardar/")
+     * @Route("guardar/")
      * @Method("POST")
      * @Template("YacareInspeccionBundle:RelevamientoAsignacion:asignarcalle.html.twig")
      */
@@ -194,7 +194,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     }
 
     /**
-     * @Route("/asignarcalle/")
+     * @Route("asignarcalle/")
      * @Template()
      */
     public function asignarcalleAction(Request $request)
@@ -225,7 +225,7 @@ class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmC
     }
 
     /**
-     * @Route("/asignarmacizo/")
+     * @Route("asignarmacizo/")
      * @Template()
      */
     public function asignarmacizoAction(Request $request)

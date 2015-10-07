@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
-use Tapir\FormBundle\DataTransformer\AjaxEntityTransformer;
+use Tapir\FormBundle\DataTransformer\EntityToIdTextTransformer;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -30,7 +30,7 @@ class AjaxEntityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new AjaxEntityTransformer($this->registry, $options['class'], $options['multiple'],
+        $transformer = new EntityToIdTextTransformer($this->registry, $options['class'], $options['multiple'],
             $options['property']);
         $builder->addViewTransformer($transformer);
     }

@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/login")
+     * @Route("login")
      * @Template
      */
     public function loginAction(Request $request)
@@ -35,7 +35,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route("logout", name="logout")
      * @Template
      */
     public function logoutAction()

@@ -36,7 +36,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
     }
 
     /**
-     * @Route("/accesodenegado")
+     * @Route("accesodenegado")
      * @Template
      */
     public function accesodenegadoAction()
