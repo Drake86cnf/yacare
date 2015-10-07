@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 abstract class PruebaFuncional extends WebTestCase
 {
     protected $client;
-    
+
     /**
      * El entity manager de Doctrine.
      *
@@ -25,13 +25,13 @@ abstract class PruebaFuncional extends WebTestCase
         static::$kernel = static::createKernel();
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        
+
         // Creo un cliente HTTP que va a hacer las solicitudes
-        $this->client = static::createClient(array('environment' => 'test'), 
+        $this->client = static::createClient(array('environment' => 'test'),
             array('PHP_AUTH_USER' => 'pruebas', 'PHP_AUTH_PW' => 'pruebas'));
-        
+
         // $this->client->followRedirects();
-        
+
         /*
          * Login via form
          * $crawler = $this->client->request('GET', '/login');
@@ -48,8 +48,8 @@ abstract class PruebaFuncional extends WebTestCase
      */
     public function clientRequestAction($actionname, $params = array(), $method = 'GET')
     {
-        $url = $this->getUrl($this->item->obtenerRutaBase($actionname));
-        
+        $url = $this->getUrl($this->item->obtenerRutaBase($actionname), $params);
+
         return $this->clientRequest($url, $params, $method);
     }
 
@@ -60,7 +60,7 @@ abstract class PruebaFuncional extends WebTestCase
     {
         $crawler = $this->client->request($method, $path, $params);
         $this->clientTestResponse($crawler);
-        
+
         return $crawler;
     }
 
@@ -79,10 +79,10 @@ abstract class PruebaFuncional extends WebTestCase
             echo substr(strip_tags($this->client->getResponse()->getContent()), 0, 4096);
             if ($block->count()) {
                 $error = $block->text();
-                
+
                 return $error;
             }
-        }        
+        }
         return false;
     }
 
@@ -92,7 +92,7 @@ abstract class PruebaFuncional extends WebTestCase
     protected function tearDown()
     {
         parent::tearDown();
-        
+
         if ($this->em) {
             $this->em->close();
         }
