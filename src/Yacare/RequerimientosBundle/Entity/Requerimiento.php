@@ -355,7 +355,7 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioNombre(string $UsuarioNombre)
+    public function setUsuarioNombre($UsuarioNombre)
     {
         $this->UsuarioNombre = $UsuarioNombre;
         return $this;
@@ -372,7 +372,7 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioEmail(string $UsuarioEmail)
+    public function setUsuarioEmail($UsuarioEmail)
     {
         $this->UsuarioEmail = $UsuarioEmail;
         return $this;
@@ -389,7 +389,7 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioDireccion(string $UsuarioDireccion)
+    public function setUsuarioDireccion($UsuarioDireccion)
     {
         $this->UsuarioDireccion = $UsuarioDireccion;
         return $this;
@@ -406,7 +406,7 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioTelefono(string $UsuarioTelefono)
+    public function setUsuarioTelefono($UsuarioTelefono)
     {
         $this->UsuarioTelefono = $UsuarioTelefono;
         return $this;
