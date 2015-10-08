@@ -1,7 +1,12 @@
-#yacare_seguridad:
-#    resource: "@YacareSeguridadBundle/Controller/"
+yacare_sitio_web:
+    resource: "@YacareSitioWebBundle/Controller/"
+    type:     annotation
+    prefix:   /sitioweb/
+
+#yacare_suit:
+#    resource: "@YacareSuitBundle/Controller/"
 #    type:     annotation
-#    prefix:   /seguridad/
+#    prefix:   /suit/
 
 yacare_requerimientos:
     resource: "@YacareRequerimientosBundle/Controller/"
