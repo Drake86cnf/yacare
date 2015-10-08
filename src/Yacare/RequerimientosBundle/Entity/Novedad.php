@@ -65,6 +65,28 @@ class Novedad
     private $UsuarioEmail;
     
     /**
+     * La dirección del usuario que inició el requerimiento.
+     *
+     * Sólo presente si Usuario es null.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $UsuarioDireccion;
+    
+    /**
+     * El teléfono del usuario que inició el requerimiento.
+     *
+     * Sólo presente si Usuario es null
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $UsuarioTelefono;
+    
+    /**
      * El nuevo estado del requerimiento, o null si el requerimiento continua en el mismo estado.
      *
      * @var int
@@ -103,6 +125,23 @@ class Novedad
     /**
      * @ignore
      */
+    public function getRequerimiento()
+    {
+        return $this->Requerimiento;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setRequerimiento($Requerimiento)
+    {
+        $this->Requerimiento = $Requerimiento;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
     public function getUsuario()
     {
         return $this->Usuario;
@@ -128,7 +167,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioNombre($UsuarioNombre)
+    public function setUsuarioNombre(string $UsuarioNombre)
     {
         $this->UsuarioNombre = $UsuarioNombre;
         return $this;
@@ -145,9 +184,43 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioEmail($UsuarioEmail)
+    public function setUsuarioEmail(string $UsuarioEmail)
     {
         $this->UsuarioEmail = $UsuarioEmail;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getUsuarioDireccion()
+    {
+        return $this->UsuarioDireccion;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUsuarioDireccion(string $UsuarioDireccion)
+    {
+        $this->UsuarioDireccion = $UsuarioDireccion;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getUsuarioTelefono()
+    {
+        return $this->UsuarioTelefono;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUsuarioTelefono(string $UsuarioTelefono)
+    {
+        $this->UsuarioTelefono = $UsuarioTelefono;
         return $this;
     }
 
@@ -171,23 +244,6 @@ class Novedad
     /**
      * @ignore
      */
-    public function getRequerimiento()
-    {
-        return $this->Requerimiento;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequerimiento($Requerimiento)
-    {
-        $this->Requerimiento = $Requerimiento;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
     public function getPrivada()
     {
         return $this->Privada;
@@ -196,7 +252,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setPrivada($Privada)
+    public function setPrivada(int $Privada)
     {
         $this->Privada = $Privada;
         return $this;
@@ -213,7 +269,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setAutomatica($Automatica)
+    public function setAutomatica(int $Automatica)
     {
         $this->Automatica = $Automatica;
         return $this;
