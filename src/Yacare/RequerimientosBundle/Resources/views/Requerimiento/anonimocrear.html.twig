@@ -41,16 +41,25 @@
 </p>
 {{ form_widget(edit_form.Categoria) }}
 
-&nbsp;<br /> 
+&nbsp;<br />
 
 <p class="text-primary">
-	Si quiere que nos pongamos en contacto con Usted por favor escriba su nombre y dirección de correo electrónico.
+	Si quiere que nos pongamos en contacto con Usted por favor escriba sus datos de contacto a continuación.
 	Si prefiere hacer un reclamo anónimo, puede dejar estos campos en blanco.
 </p>
-{{ form_widget(edit_form.UsuarioNombre) }}
-{{ form_widget(edit_form.UsuarioEmail) }}
-{{ form_widget(edit_form.UsuarioDireccion) }}
-{{ form_widget(edit_form.UsuarioTelefono) }}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
+            {{ form_widget(edit_form.UsuarioNombre) }}
+            {{ form_widget(edit_form.UsuarioEmail) }}
+		</div>
+		<div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
+            {{ form_widget(edit_form.UsuarioDireccion) }}
+            {{ form_widget(edit_form.UsuarioTelefono) }}
+		</div>
+	</div>
+</div>
 
 &nbsp;<br />
 
