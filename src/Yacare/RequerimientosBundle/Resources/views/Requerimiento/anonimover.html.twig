@@ -1,4 +1,4 @@
-{% extends 'TapirTemplateBundle::blank.html.twig' %}
+{% extends 'YacareSitioWebBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Requerimiento anónimo{% endblock %}
 
@@ -16,56 +16,56 @@
 {% if entity is defined and entity %}
 
     <h1><i class="fa fa-ticket"></i> Estado del requerimiento</h1>
-    
+
     <p class="lead">Descripción de la solicitud: <e class="text-info">{{ entity.Notas }}</e></p>
-    
+
     <p>
     {% if entity.Estado == 0 %}{# Nuevo #}
 
         <strong>Su solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
         correspondiente.</strong>
-	
+
     {% elseif entity.Estado == 10 %}{# Iniciado #}
-	
+
 		<strong>Su solicitud está siendo atendida.</strong> El último movimiento al respecto
 			fue {{ entity.updatedAt|tapir_hacetiempo }}.
-		
+
 	{% elseif entity.Estado == 20 %}{# En espera #}
-	
+
 		<strong>Su solicitud fue puesta en espera.</strong>
-		
+
 	{% elseif entity.Estado == 80 %}{# Cancelado #}
-	
+
 		<strong>Su solicitud fue cancelada.</strong>
-	
+
 	{% elseif entity.Estado == 90 %}{# Terminado #}
-	
+
 		<strong>Su solicitud fue cursada y llegó a una solución exitosa.</strong>
 
     {% endif %}
-    
+
     Por favor vea el registro a continuación para más información
-    {% if form_novedad is defined %} 
+    {% if form_novedad is defined %}
     	y si lo considera necesario puede agregar comentarios
     {% endif %}.
-    
+
     Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud:
         	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
-    
+
     </p>
-    
+
     {% if entity.Encargado %}
     	<p>En encargado de atender su solicitud
-    	{% if entity.EstaPendiente %} 
+    	{% if entity.EstaPendiente %}
     	es
     	{% else %}
     	fue
     	{% endif %}
         {{ entity.Encargado.NombreAmigable }}.
     {% endif %}
-    
+
     <hr />
-    
+
     {% if entity.Novedades|length > 0 %}
     	<div class="container-fluid"><div class="row">
 			<div class="col-sm-2 col-xs-12">
@@ -93,7 +93,7 @@
     	    {{ entity.updatedAt|tapir_hacetiempo }}.</p>
     {% endif %}
 
-    
+
 {% if form_novedad is defined %}
 <hr />
 <div class="container-fluid"><div class="row">
@@ -122,13 +122,13 @@
 {% endif %}
 
     <hr />
-    
-    <p>La dirección de la página para consultas es la siguiente: 
+
+    <p>La dirección de la página para consultas es la siguiente:
     	<a href="http://www.riogrande.gob.ar/reclamos/consultar/{{ entity.id }}-{{ entity.Token }}"
     		>http://www.riogrande.gob.ar/reclamos/consultar/{{ entity.id }}-{{ entity.Token }}</a>.
         {% if entity.UsuarioEmail %}
         	Además, se envia copia de las novedades a la dirección de correo electrónico proporcionada.
-        {% endif %}	
+        {% endif %}
     </p>
 
 {% else %}
@@ -140,14 +140,14 @@
 	{% else %}
 		<h1><i class="fa fa-ticket"></i> Consultar estado de un requerimiento</h1>
 	{% endif %}
-	
+
 	<p class="lead">Para consultar el estado de su solicitud, por favor escriba el número de seguimiento a continuación:</p>
-	
+
 	<form method="GET" class="form-inline">
 		<input class="form-control" type="text" size="12" name="seg" value="{{ seg }}" style="width: 160px" autofocus>
-		<button class="btn btn-success">Consultar <i class="fa fa-play"></i></button> 
+		<button class="btn btn-success">Consultar <i class="fa fa-play"></i></button>
 	</form>
-	
+
 	<p>Si hizo un reclamo o una consulta, puede ver el avance de su solicitud. Para ello necesita el
 		número de seguimiento que se le informó al realizar el reclamo. Si nos proporcionó una dirección de correo
 		electrónico (e-mail), recibió el número de seguimiento en su bandeja de entrada.</p>
