@@ -167,7 +167,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioNombre(string $UsuarioNombre)
+    public function setUsuarioNombre($UsuarioNombre)
     {
         $this->UsuarioNombre = $UsuarioNombre;
         return $this;
@@ -184,7 +184,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioEmail(string $UsuarioEmail)
+    public function setUsuarioEmail($UsuarioEmail)
     {
         $this->UsuarioEmail = $UsuarioEmail;
         return $this;
@@ -201,7 +201,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioDireccion(string $UsuarioDireccion)
+    public function setUsuarioDireccion($UsuarioDireccion)
     {
         $this->UsuarioDireccion = $UsuarioDireccion;
         return $this;
@@ -218,7 +218,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setUsuarioTelefono(string $UsuarioTelefono)
+    public function setUsuarioTelefono($UsuarioTelefono)
     {
         $this->UsuarioTelefono = $UsuarioTelefono;
         return $this;
@@ -252,7 +252,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setPrivada(int $Privada)
+    public function setPrivada($Privada)
     {
         $this->Privada = $Privada;
         return $this;
@@ -269,7 +269,7 @@ class Novedad
     /**
      * @ignore
      */
-    public function setAutomatica(int $Automatica)
+    public function setAutomatica($Automatica)
     {
         $this->Automatica = $Automatica;
         return $this;
