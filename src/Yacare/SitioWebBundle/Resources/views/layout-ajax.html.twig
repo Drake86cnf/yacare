@@ -1,0 +1,18 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
+			<article class="page type-page status-publish hentry">
+
+				<section class="post-entry">
+					{% block pagina_inicio %}{% endblock %}
+					{% block pagina_contenido %}{% endblock %}
+				</section>
+
+				<footer class="article-footer">
+                    {% block pagina_pie %}{% endblock %}
+				</footer>
+
+			</article>
+		</div><!-- /col-lg-10 -->
+	</div><!-- /row -->
+</div><!-- /container -->
