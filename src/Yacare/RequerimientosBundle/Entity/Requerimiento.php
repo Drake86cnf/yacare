@@ -87,6 +87,28 @@ class Requerimiento
     private $UsuarioEmail;
     
     /**
+     * La dirección del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $UsuarioDireccion;
+    
+    /**
+     * El teléfono del usuario que inició el requerimiento.
+     * 
+     * Sólo presente si Usuario es null
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $UsuarioTelefono;
+    
+    /**
      * El estado del requerimiento.
      *
      * @var int
@@ -126,7 +148,7 @@ class Requerimiento
      *     cascade={ "persist" })
      */
     protected $Novedades;
-    
+
     /**
      * Obtiene estado pendiente.
      * 
@@ -291,6 +313,23 @@ class Requerimiento
     /**
      * @ignore
      */
+    public function getCategoria()
+    {
+        return $this->Categoria;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCategoria($Categoria)
+    {
+        $this->Categoria = $Categoria;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
     public function getUsuario()
     {
         return $this->Usuario;
@@ -316,7 +355,7 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioNombre($UsuarioNombre)
+    public function setUsuarioNombre(string $UsuarioNombre)
     {
         $this->UsuarioNombre = $UsuarioNombre;
         return $this;
@@ -333,9 +372,43 @@ class Requerimiento
     /**
      * @ignore
      */
-    public function setUsuarioEmail($UsuarioEmail)
+    public function setUsuarioEmail(string $UsuarioEmail)
     {
         $this->UsuarioEmail = $UsuarioEmail;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getUsuarioDireccion()
+    {
+        return $this->UsuarioDireccion;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUsuarioDireccion(string $UsuarioDireccion)
+    {
+        $this->UsuarioDireccion = $UsuarioDireccion;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getUsuarioTelefono()
+    {
+        return $this->UsuarioTelefono;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUsuarioTelefono(string $UsuarioTelefono)
+    {
+        $this->UsuarioTelefono = $UsuarioTelefono;
         return $this;
     }
 
@@ -353,6 +426,23 @@ class Requerimiento
     public function setEstado($Estado)
     {
         $this->Estado = $Estado;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getPrioridad()
+    {
+        return $this->Prioridad;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setPrioridad($Prioridad)
+    {
+        $this->Prioridad = $Prioridad;
         return $this;
     }
 
@@ -387,40 +477,6 @@ class Requerimiento
     public function setNovedades($Novedades)
     {
         $this->Novedades = $Novedades;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getPrioridad()
-    {
-        return $this->Prioridad;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPrioridad($Prioridad)
-    {
-        $this->Prioridad = $Prioridad;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getCategoria()
-    {
-        return $this->Categoria;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setCategoria($Categoria)
-    {
-        $this->Categoria = $Categoria;
         return $this;
     }
 }
