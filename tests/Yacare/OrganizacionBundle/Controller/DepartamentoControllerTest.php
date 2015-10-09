@@ -1,7 +1,6 @@
 <?php
 namespace Yacare\OrganizacionBundle\Controller;
 
-use Yacare\BaseBundle\Tests\YacareWebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

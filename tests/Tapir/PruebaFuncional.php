@@ -49,23 +49,24 @@ abstract class PruebaFuncional extends WebTestCase
     public function clientRequestAction($actionname, $params = array(), $method = 'GET')
     {
         $url = $this->getUrl($this->item->obtenerRutaBase($actionname), $params);
-
-        return $this->clientRequest($url, $params, $method);
+        //echo $url;
+        return $this->clientRequest($url, $method);
     }
 
     /**
      * Hace un request HTTP de una URL
      */
-    public function clientRequest($path, $params = array(), $method = 'GET')
+    public function clientRequest($path, $method = 'GET')
     {
-        $crawler = $this->client->request($method, $path, $params);
+        echo $method . ' ' . $path;
+        $crawler = $this->client->request($method, $path);
         $this->clientTestResponse($crawler);
 
         return $crawler;
     }
 
     /**
-     * Prueba que la respuesta se exitosa.
+     * Prueba que la respuesta sea exitosa.
      *
      * Si no lo es, intenta obtener y mostrar un mensaje de error.
      */

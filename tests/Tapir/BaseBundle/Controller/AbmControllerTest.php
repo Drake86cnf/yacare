@@ -29,7 +29,6 @@ abstract class AbmControllerTest extends \Tapir\BaseBundle\Controller\BaseContro
             
             return;
         }
-        
         $crawler = $this->clientRequestAction('buscar');
         $this->clientTestResponse($crawler);
         
