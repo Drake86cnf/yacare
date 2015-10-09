@@ -414,7 +414,7 @@ abstract class AbmController extends BaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @see editarAction()
+     * @see editarAction() editarAction()
      *
      * @Route("guardar/")
      * @Method("POST")
