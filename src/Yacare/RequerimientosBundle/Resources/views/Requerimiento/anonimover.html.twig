@@ -49,7 +49,7 @@
     	y si lo considera necesario puede agregar comentarios
     {% endif %}.
 
-    Si aun no lo hizo, por favor tome nota del número de seguimiento para su solicitud:
+    Si aun no lo hizo, tome nota del número de seguimiento para su solicitud:
         	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
 
     </p>
@@ -125,7 +125,7 @@
 
     <p>La dirección de la página para consultas es la siguiente:
     	<a href="http://www.riogrande.gob.ar/reclamos/consultar/{{ entity.id }}-{{ entity.Token }}"
-    		>http://www.riogrande.gob.ar/reclamos/consultar/{{ entity.id }}-{{ entity.Token }}</a>.
+    		>http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ entity.id }}-{{ entity.Token }}</a>.
         {% if entity.UsuarioEmail %}
         	Además, se envia copia de las novedades a la dirección de correo electrónico proporcionada.
         {% endif %}
