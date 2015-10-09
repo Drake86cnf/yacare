@@ -22,32 +22,32 @@
     <p>
     {% if entity.Estado == 0 %}{# Nuevo #}
 
-        <strong>Su solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
+        <strong>La solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
         correspondiente.</strong>
 
     {% elseif entity.Estado == 10 %}{# Iniciado #}
 
-		<strong>Su solicitud está siendo atendida.</strong> El último movimiento al respecto
+		<strong>La solicitud está siendo atendida.</strong> El último movimiento al respecto
 			fue {{ entity.updatedAt|tapir_hacetiempo }}.
 
 	{% elseif entity.Estado == 20 %}{# En espera #}
 
-		<strong>Su solicitud fue puesta en espera.</strong>
+		<strong>La solicitud fue puesta en espera.</strong>
 
 	{% elseif entity.Estado == 80 %}{# Cancelado #}
 
-		<strong>Su solicitud fue cancelada.</strong>
+		<strong>La solicitud fue cancelada.</strong>
 
 	{% elseif entity.Estado == 90 %}{# Terminado #}
 
-		<strong>Su solicitud fue cursada y llegó a una solución exitosa.</strong>
+		<strong>La solicitud fue cursada y llegó a una solución exitosa.</strong>
 
     {% endif %}
 
-    Por favor vea el registro a continuación para más información
-    {% if form_novedad is defined %}
+    Vea el registro a continuación para más información
+    {% if form_novedad is defined -%}
     	y si lo considera necesario puede agregar comentarios
-    {% endif %}.
+    {%- endif %}.
 
     Si aun no lo hizo, tome nota del número de seguimiento para su solicitud:
         	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
