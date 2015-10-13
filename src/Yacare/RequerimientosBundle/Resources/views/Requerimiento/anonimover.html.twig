@@ -107,7 +107,7 @@
         {{ form_widget(form_novedad._token) }}
         {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
         {{ form_rest(form_novedad) }}
-        {{ form_end(form_novedad) }}
+        <button type="submit" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
         <script>
             $('#yacare_requerimientosbundle_novedadanonimatype_Notas').keypress(function (e) {
                 if (e.which === 13) {
@@ -117,6 +117,7 @@
                 }
             });
         </script>
+        {{ form_end(form_novedad) }}
     </div>
 </div></div>
 {% endif %}
