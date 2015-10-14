@@ -10,8 +10,11 @@
     header('Location: inspeccion/');
 ?>
 
-<script type="text/javascript">
-window.location='inspeccion/';
-</script>
+<body>
+	<p>Redireccionando...</p>
+    <script type="text/javascript">
+    window.location='inspeccion/';
+    </script>
+</body>
 
 </html>
