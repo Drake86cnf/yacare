@@ -30,13 +30,13 @@
     </pre>
     En Fedora:
     <pre>
-    yum install subversion git php-pear-Image-GraphViz graphviz-php \
+    dnf install subversion git php-pear-Image-GraphViz graphviz-php \
         php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
-        php-mbstring
+        php-mbstring composer
     </pre>
     Para instalar el entorno de desarrollo Eclipse:
     <pre>
-    yum install subversion-javahl eclipse-pdt eclipse-subclipse eclipse-egit \
+    dnf install subversion-javahl eclipse-pdt eclipse-subclipse eclipse-egit \
         eclipse-egit-github
     </pre>
 
@@ -48,13 +48,17 @@
     <pre>
     mkdir yacare
     cd yacare
-    svn co http://webmuni/svn/yacare/trunk ./
+    svn co http://antares.dir.riogrande.gob.ar/svn/yacare/trunk ./
     </pre>
 
-    <li>Descargar Composer y crear el proyecto (para descargar vendors)
+    <li>Descargar Composer (no es necesario en Fedora)
     <pre>
     php -r "readfile('https://getcomposer.org/installer');" | php
     sudo mv composer.phar /usr/local/bin/composer
+    </pre>
+    
+    <li>Crear el proyecto (para descargar vendors)
+    <pre>
     composer create-project
     </pre>
 
