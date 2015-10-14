@@ -38,7 +38,7 @@
             document.querySelector('#video').play();
         }
     }
-    
+
     function confirmarYTerminar() {
         if(ConfirmarSalida) {
             var conf = confirm("Está a punto de abandonar la página sin guardar su trabajo. ¿Está seguro de que desea salir sin guardar?");
@@ -53,7 +53,7 @@
 </script>
 
 <body>
-    
+
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,7 +71,7 @@
                 <li><a id="restartbutton" style="display: none;"><i class="fa fa-camera"></i> Tomar foto nuevamente</a></li>
                 <li><a onclick="window.open('mostrar_historial.php?id=<?php echo $AsignacionDetalleId; ?>')"><i class="fa fa-history"></i> Historial</a></li>
                 <li><a class="text-warning" onclick="confirmarYTerminar()"><i class="fa fa-reply"></i> Terminar</a></li>
-                <li><a class="text-success" onclick="$('#form-editar').submit();" type='submit' name='Aceptar'><i class="fa fa-check"></i> Guardar y continuar</a></li>
+                <li><a class="text-success" onclick="$('#form-editar').submit();" type='submit'><i class="fa fa-check"></i> Guardar y continuar</a></li>
             </ul>
         </div>
     </div>
@@ -115,14 +115,14 @@ Latitud <input type='text' name='lat' id='lat' maxlength=16 size=5 readonly />, 
 <fieldset name='Observaciones'>
 <textarea name='Obs' cols='50' rows='10' style="width: 95%" placeholder="Escriba aquí las observaciones" onchange='ConfirmarSalida=1;'></textarea>
 </fieldset>
-    
+
         </div><!-- col-*-4 -->
 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 <video id="video" width="320" height="240" style="margin: 0; padding: 0; border: 12px solid white" autoplay></video>
 <canvas id="canvas" width="320" height="240" style="display: none; margin: 0; padding: 0; background-color: silver; border: 12px solid #33d23e"></canvas>
-    
+
         </div><!-- col-*-8 -->
     </div>
 </div>
@@ -222,7 +222,7 @@ function showPosition(position) {
 	//x.innerHTML="Latitude: " + position.coords.latitude +
 	//"<br>Longitude: " + position.coords.longitude;
 	document.getElementById("lat").value = position.coords.latitude;
-	document.getElementById("lon").value = position.coords.longitude;  
+	document.getElementById("lon").value = position.coords.longitude;
 }
 
 </script>

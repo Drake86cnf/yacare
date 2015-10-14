@@ -43,7 +43,7 @@
     <tbody>
 <?php
     $tipoLinea = 0;
-    
+
     $sql = "SELECT Resultado_id, Obs, Imagen FROM Inspeccion_RelevamientoAsignacionResultado WHERE Detalle_id=$AsignacionDetalleId ORDER BY CreatedAt DESC";
     foreach ($YacareDbLocal->query($sql) as $row) {
         $ResultadoId = $row['Resultado_id'];
@@ -52,7 +52,7 @@
         $Imagen = 'data:image/png' . ';base64,' . base64_encode($data);
 
         if($tipoLinea==0) {
-            $tipoLinea = 1;    		
+            $tipoLinea = 1;
     		echo '<tr class="alt"';
     	} else {
     		$tipoLinea = 0;
@@ -67,10 +67,9 @@
         </tr>
 <?php
 	}
-?>    
+?>
     </tbody>
 </table>
-</div>
 
 <?php
     require_once '../footer.php.inc';
