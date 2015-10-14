@@ -17,7 +17,7 @@
 		}
 	],
 	"support" : {
-		"email" : "modernizacion@riogrande.gob.ar"
+		"email" : "ecarrea@riogrande.gob.ar"
 	},
 	"autoload" : {
 		"psr-0" : {
