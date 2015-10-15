@@ -24,20 +24,19 @@
     <p>Para ello, ejecutar:</p>
     En Ubuntu:
     <pre>
-    apt-get install subversion git \
+    apt-get install git \
         php5 php5-cli php5-gd php5-mysqlnd php5-intl php5-ldap php5-apcu \
         php5-xsl php5-xdebug libsvnclientadapter-java
     </pre>
     En Fedora:
     <pre>
-    dnf install subversion git php-pear-Image-GraphViz graphviz-php \
+    dnf install git php-pear-Image-GraphViz graphviz-php \
         php-cli php-gd php-mysqlnd php-intl php-ldap php-apcu php-xdebug \
         php-mbstring composer
     </pre>
-    Para instalar el entorno de desarrollo Eclipse:
+    Para instalar el entorno de desarrollo Eclipse en Fedora:
     <pre>
-    dnf install subversion-javahl eclipse-pdt eclipse-subclipse eclipse-egit \
-        eclipse-egit-github
+    dnf install eclipse-pdt eclipse-mpc eclipse-egit eclipse-egit-github
     </pre>
 
     <li>También es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
@@ -46,9 +45,8 @@
 
     <li>Descargar Yacaré desde SVN:
     <pre>
-    mkdir yacare
+    git clone https://github.com/municipioriogrande/yacare.git
     cd yacare
-    svn co http://antares.dir.riogrande.gob.ar/svn/yacare/trunk ./
     </pre>
 
     <li>Descargar Composer (no es necesario en Fedora)
