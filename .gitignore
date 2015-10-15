@@ -2,6 +2,4 @@ composer.lock
 .buildpath
 .project
 .settings
-var
-bin
 vendor
