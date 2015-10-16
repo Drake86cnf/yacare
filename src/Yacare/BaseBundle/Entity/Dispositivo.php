@@ -71,6 +71,15 @@ abstract class Dispositivo
     protected $Encargado;
     
     /**
+     * El departamento al cual pertenece este dispositivo.
+     *
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
+     */
+    protected $Departamento;
+    
+    /**
      * La versión de firmware.
      * 
      * @var string
@@ -190,5 +199,16 @@ abstract class Dispositivo
     public function setFirmware($Firmware)
     {
         $this->Firmware = $Firmware;
+    }
+
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
     }
 }
