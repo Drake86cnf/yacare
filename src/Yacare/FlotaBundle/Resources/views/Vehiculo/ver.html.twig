@@ -45,7 +45,7 @@
 
 {% block pagina_acciones2 %}
     {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')") %}
-    	<a href="{{ path(baseoute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+    	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
     {% endif %}
 {% endblock pagina_acciones2 %}
