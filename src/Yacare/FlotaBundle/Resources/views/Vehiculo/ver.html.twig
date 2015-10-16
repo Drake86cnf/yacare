@@ -2,7 +2,7 @@
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
 
-{% block pagina_titulo %} {{ entity }} {% endblock %}
+{% block pagina_titulo %}{{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
 <div class="container-fluid">
@@ -13,8 +13,40 @@
 			{{ bs.grid_label_text('Año', entity.Anio) }}
 			{{ bs.grid_label_text('Color', entity.Color) }}
 			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
-			{{ bs.grid_label_text('Combustible', entity.Combustible) }}
+			{{ bs.grid_label_text('Combustible', entity.CombustibleNombre) }}
 		</div>
 	</div>
 </div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Litros</th>
+            <th>Importe</th>
+            <th>Kilometraje</th>
+            <th>Combustible</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for carga in entity.Cargas %}
+        <tr>
+            <td>{{ carga.createdAt|tapir_fecha }}</td>
+            <td>{{ carga.Litros }}</td>
+            <td>{{ carga.Importe|tapir_importe }}</td>
+            <td>{{ carga.Kilometraje }}</td>
+            <td>{{ carga.CombustibleNombre }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
+
+
+{% block pagina_acciones2 %}
+    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')") %}
+    	<a href="{{ path(baseoute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+    		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
+    {% endif %}
+{% endblock pagina_acciones2 %}
+    
