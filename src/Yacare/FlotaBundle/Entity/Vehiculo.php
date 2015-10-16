@@ -2,6 +2,7 @@
 namespace Yacare\FlotaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Un vehículo.
@@ -13,6 +14,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
 {
+    public function __construct()
+    {
+        $this->Cargas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Los cargas de combustible realizadas por este vehículo.
+     *
+     * @ORM\OneToMany(targetEntity="Carga", mappedBy="Vehiculo")
+     */
+    private $Cargas;
+    
+    
     /**
      * El tipo de combustible que lleva este vehículo.
      *
@@ -30,6 +44,12 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *      min = 1980,
+     *      max = 2050,
+     *      minMessage = "Por favor proporcione un año válido.",
+     *      maxMessage = "Por favor proporcione un año válido."
+     * )
      */
     private $Anio;
     
@@ -42,6 +62,24 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      */
     private $Color;
     
+    public function getCombustibleNombre() {
+        return Vehiculo::CombustibleNombres($this->getCombustible());
+    }
+    
+    
+    /**
+     * Devuelve el nombre de un combustible a partir de su código.
+     */
+    public static function CombustibleNombres($combustible) {
+        switch($combustible) {
+            case null: return '';
+            case 'nafta': return 'Nafta';
+            case 'nafta-98': return 'Nafta 98 octanos';
+            case 'gasoil': return 'Gasoil';
+            case 'gasoil-3': return 'Gasoil grado 3';
+            default: return '???';
+        }
+    }
     
     /**
      * Obtiene la matrícula del vehículo.
@@ -49,7 +87,6 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     public function getMatricula() {
         return $this->getNumeroSerie();
     }
-    
     
     /**
      * Obtiene el código municipal del vehículo.
@@ -114,5 +151,21 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
         $this->Color = $Color;
         return $this;
     }
- 
+
+    /**
+     * @return the unknown_type
+     */
+    public function getCargas()
+    {
+        return $this->Cargas;
+    }
+
+    /**
+     * @param unknown_type $Cargas
+     */
+    public function setCargas($Cargas)
+    {
+        $this->Cargas = $Cargas;
+        return $this;
+    }
 }

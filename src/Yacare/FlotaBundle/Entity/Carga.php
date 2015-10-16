@@ -2,6 +2,7 @@
 namespace Yacare\FlotaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Una carga de combustible.
@@ -21,7 +22,7 @@ class Carga
      *
      * @var \Yacare\FlotaBundle\Entity\Vehiculo
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo")
+     * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo", inversedBy="Cargas")
      */
     protected $Vehiculo;
     
@@ -31,6 +32,12 @@ class Carga
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5000,
+     *      minMessage = "Por favor escriba la cantidad de litros cargados.",
+     *      maxMessage = "Por favor escriba la cantidad de litros cargados."
+     * )
      */
     private $Litros;
     
@@ -40,6 +47,12 @@ class Carga
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Range(
+     *      min = 10,
+     *      max = 50000,
+     *      minMessage = "Por favor escriba el importe correspondiente a la carga.",
+     *      maxMessage = "Por favor escriba el importe correspondiente a la carga."
+     * )
      */
     private $Importe;
     
@@ -62,6 +75,10 @@ class Carga
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Combustible;
+    
+    public function getCombustibleNombre() {
+        return Vehiculo::CombustibleNombres($this->getCombustible());
+    }
     
 
     /**
