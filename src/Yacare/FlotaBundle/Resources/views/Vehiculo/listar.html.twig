@@ -9,7 +9,7 @@
             <tr>
                 <th>Marca</th>
                 <th>Modelo</th>
-                <th>Combustible (lts.)</th>
+                <th>Combustible</th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +17,7 @@
             <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
                 <td>{{ entity.Marca }}</td>
                 <td>{{ entity.Modelo }}</td>
-                <td>{{ entity.Combustible }}</td>
+                <td>{{ entity.CombustibleNombre }}</td>
             </tr>
         {% endfor %}
         </tbody>
