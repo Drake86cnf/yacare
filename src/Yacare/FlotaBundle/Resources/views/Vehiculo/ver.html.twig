@@ -1,0 +1,20 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %} {{ entity }} {% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text('Marca', entity.Marca) }}
+			{{ bs.grid_label_text('Modelo', entity.Modelo) }}
+			{{ bs.grid_label_text('Año', entity.Anio) }}
+			{{ bs.grid_label_text('Color', entity.Color) }}
+			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
+			{{ bs.grid_label_text('Combustible', entity.Combustible) }}
+		</div>
+	</div>
+</div>
+{% endblock %}
