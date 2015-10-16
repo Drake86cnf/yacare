@@ -1,7 +1,3 @@
-yacare_flota:
-    resource: "@YacareFlotaBundle/Resources/config/routing.yml"
-    prefix:   /
-
 tapir_template:
     resource: "@TapirTemplateBundle/Controller/"
     type:     annotation
