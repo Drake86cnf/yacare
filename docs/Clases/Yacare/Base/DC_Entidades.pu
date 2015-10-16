@@ -42,12 +42,23 @@ namespace Yacare.BaseBundle.Entity  {
 		+getDomicilio()
 	}
 	
+	class Dispositivo <<class>> {
+		+Marca
+		+Modelo
+		+IdentificadorUnico
+		+NumeroSerie
+		+Sector
+		+Encargado
+		+Firmware
+	}
+	
 	Persona ..|> ConDomicilio : implementa
-	Persona "0..1" o-- "1" Pais : nacionalidad
+	Persona "0..1" o-- "1" Pais : Nacionalidad
 	Persona "1" o-- "0..n" PersonaGrupo : pertenece
 	Persona "1" o-- "0..n" Tapir.BaseBundle.Entity.PersonaRol : pertenece
 	
-	
+	Dispositivo "1..0" o-- "1" Persona : Encargado
+
 }
 
 @enduml
