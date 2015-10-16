@@ -58,7 +58,7 @@ abstract class PruebaFuncional extends WebTestCase
      */
     public function clientRequest($path, $method = 'GET')
     {
-        echo $method . ' ' . $path;
+        //echo $method . ' ' . $path;
         $crawler = $this->client->request($method, $path);
         $this->clientTestResponse($crawler);
 
@@ -77,7 +77,7 @@ abstract class PruebaFuncional extends WebTestCase
             if ($block->count() == 0) {
                 $block = $crawler->filter('h1');
             }
-            echo substr(strip_tags($this->client->getResponse()->getContent()), 0, 4096);
+            //echo substr(strip_tags($this->client->getResponse()->getContent()), 0, 4096);
             if ($block->count()) {
                 $error = $block->text();
 
