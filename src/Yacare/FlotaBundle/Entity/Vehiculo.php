@@ -69,7 +69,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
             case 'nafta': return 'Nafta';
             case 'nafta-98': return 'Nafta 98 octanos';
             case 'gasoil': return 'Gasoil';
-            case 'gasoil': return 'Gasoil grado 3';
+            case 'gasoil-3': return 'Gasoil grado 3';
             default: return '???';
         }
     }
