@@ -30,7 +30,7 @@ class Carga
      *
      * @var int
      *
-     * @ORM\Column(type="integer", nullabled=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Litros;
     
@@ -39,7 +39,7 @@ class Carga
      *
      * @var float
      *
-     * @ORM\Column(type="float", nullabled=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $Importe;
     
@@ -48,7 +48,7 @@ class Carga
      *
      * @var int
      *
-     * @ORM\Column(type="integer", nullabled=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Kilometraje;
     
@@ -59,7 +59,7 @@ class Carga
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullabled=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Combustible;
     

@@ -15,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
  *     "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
+ *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps",
+ *     "Vehiculo" = "\Yacare\FlotaBundle\Entity\Vehiculo"
  * })
  */
 abstract class Dispositivo
