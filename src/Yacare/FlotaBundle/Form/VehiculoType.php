@@ -38,10 +38,10 @@ class VehiculoType extends AbstractType
                 'label' => 'Tipo de combustible',
                 'required'=> true,
                 'choices'=> array (
-                    'Nafta comun' =>'Nafta Comun',
-                    'Nafta 98 octanos' =>'Nafta 98',
-                    'Diesel' =>'Diesel',
-                    'Diesel grado 3' =>'Euro Diesel',
+                    'nafta' =>'Nafta Comun',
+                    'nafta-98' =>'Nafta 98',
+                    'gasoil' =>'Gasoil',
+                    'gasoil-3' =>'Gasoil grado 3',
                     'Gnc'=> 'GNC')));
     }
 
