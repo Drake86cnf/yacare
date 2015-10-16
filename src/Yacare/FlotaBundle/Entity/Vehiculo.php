@@ -20,7 +20,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullabled=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Combustible;
     
@@ -29,7 +29,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      *
      * @var int
      *
-     * @ORM\Column(type="integer", nullabled=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Anio;
     
@@ -38,7 +38,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullabled=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Color;
 
