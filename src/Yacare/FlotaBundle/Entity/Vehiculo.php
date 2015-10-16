@@ -70,13 +70,14 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * Devuelve el nombre de un combustible a partir de su código.
      */
-    public static function CombustibleNombres($combustible) {
-        switch($combustible) {
+    public static function CombustibleNombres($Combustible) {
+        switch($Combustible) {
             case null: return '';
             case 'nafta': return 'Nafta';
             case 'nafta-98': return 'Nafta 98 octanos';
             case 'gasoil': return 'Gasoil';
             case 'gasoil-3': return 'Gasoil grado 3';
+            case 'gnc': return 'GNC';
             default: return '???';
         }
     }
