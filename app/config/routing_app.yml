@@ -1,3 +1,8 @@
+yacare_flota:
+    resource: "@YacareFlotaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 yacare_sitio_web:
     resource: "@YacareSitioWebBundle/Controller/"
     type:     annotation
