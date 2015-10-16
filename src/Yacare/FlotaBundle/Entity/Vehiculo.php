@@ -2,6 +2,7 @@
 namespace Yacare\FlotaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Un vehículo.
@@ -43,6 +44,12 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *      min = 1980,
+     *      max = 2050,
+     *      minMessage = "Por favor proporcione un año válido.",
+     *      maxMessage = "Por favor proporcione un año válido."
+     * )
      */
     private $Anio;
     

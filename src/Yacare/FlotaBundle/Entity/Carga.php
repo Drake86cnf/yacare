@@ -31,6 +31,12 @@ class Carga
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 75,
+     *      minMessage = "Por favor escriba la cantidad de litros cargados.",
+     *      maxMessage = "Por favor escriba la cantidad de litros cargados."
+     * )
      */
     private $Litros;
     
@@ -40,6 +46,12 @@ class Carga
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Range(
+     *      min = 10,
+     *      max = 1500,
+     *      minMessage = "Por favor escriba el importe correspondiente a la carga.",
+     *      maxMessage = "Por favor escriba el importe correspondiente a la carga."
+     * )
      */
     private $Importe;
     
