@@ -11,7 +11,7 @@ namespace Yacare.FlotaBundle.Entity  {
 		+Vehiculo
 		+Litros
 		+Importe
-		+Tipo
+		+Combustible
 		+Kilometraje
 	}
 	
