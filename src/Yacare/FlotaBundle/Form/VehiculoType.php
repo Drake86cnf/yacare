@@ -38,11 +38,11 @@ class VehiculoType extends AbstractType
                 'label' => 'Tipo de combustible',
                 'required'=> true,
                 'choices'=> array (
-                    'nafta' =>'Nafta Comun',
+                    'nafta' =>'Nafta',
                     'nafta-98' =>'Nafta 98',
                     'gasoil' =>'Gasoil',
                     'gasoil-3' =>'Gasoil grado 3',
-                    'Gnc'=> 'GNC')));
+                    'gnc'=> 'GNC')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
