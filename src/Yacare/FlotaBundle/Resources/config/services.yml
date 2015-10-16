@@ -1,0 +1,4 @@
+services:
+#    yacare_flota.example:
+#        class: Yacare\FlotaBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
