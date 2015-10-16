@@ -21,7 +21,7 @@ class Carga
      *
      * @var \Yacare\FlotaBundle\Entity\Vehiculo
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo")
+     * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo", inversedBy="Cargas")
      */
     protected $Vehiculo;
     
@@ -62,6 +62,10 @@ class Carga
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Combustible;
+    
+    public function getCombustibleNombre() {
+        return Vehiculo::CombustibleNombres($this->getCombustible());
+    }
     
 
     /**
