@@ -41,6 +41,28 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Color;
+    
+    
+    /**
+     * Obtiene la matrícula del vehículo.
+     */
+    public function getMatricula() {
+        return $this->getNumeroSerie();
+    }
+    
+    
+    /**
+     * Obtiene el código municipal del vehículo.
+     */
+    public function getCodigo() {
+        return $this->getIdentificadorUnico();
+    }
+    
+    public function __toString()
+    {
+        return trim($this->getMarca() . ' ' . $this->getModelo() . ' (' . $this->getCodigo() . ', mat. ' . $this->getMatricula() . ')');
+    }
+    
 
     /**
      * @return the string
