@@ -22,12 +22,27 @@ class VehiculoType extends AbstractType
                     'help' => 'Marca del vehículo en particular')))
             ->add('Modelo',null, array('label' => 'Modelo'))
             ->add('IdentificadorUnico', null, array(
-                'label' => 'Codigo del vehículo', 'help'=>'El código identificador ej (l-71)'))
-            ->add('Departamento', null, array('label' => 'Area', 'help'=> 'Dirección a la que pertenece el vehículo'))
+                'label' => 'Codigo del vehículo',
+                 'attr' => array(
+                    'help'=>'El código identificador ej (l-71)')))
+            ->add('Departamento', null, array('label' => 'Area',
+                  'attr' => array(
+                  'placeholder'=> 'Dirección a la que pertenece el vehículo')))
             ->add('NumeroSerie', null, array('label' => 'Patente'))
-            ->add('Combustible', null, array('label' => 'Combustible', 'help'=>'Tipo de combustible que utiliza'))
+            ->add('Combustible', null, array('label' => 'Combustible', 
+                  'attr'=> array(
+                  'placeholder'=>'Tipo de combustible que utiliza')))
             ->add('Anio', null, array('label' => 'Año del auto'))
-            ->add('Color', null, array('label' => 'Color'));
+            ->add('Color', null, array('label' => 'Color'))
+            ->add('Combustible', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                'label' => 'Tipo de combustible',
+                'required'=> true,
+                'choices'=> array (
+                    'Nafta comun' =>'Nafta Comun',
+                    'Nafta 98 octanos' =>'Nafta 98',
+                    'Diesel' =>'Diesel',
+                    'Diesel grado 3' =>'Euro Diesel',
+                    'Gnc'=> 'GNC')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
