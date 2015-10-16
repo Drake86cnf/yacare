@@ -1,0 +1,72 @@
+{% extends 'YacareBaseBundle:Default:buscar.html.twig' %}
+
+{% block pagina_titulo %}Buscar personas{% endblock %}
+
+{% block pagina_contenido %}
+<div id="resultadosbuscar">
+    <div class="input-group">
+        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus="autofocus"
+           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+           id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o DNI..." />
+        <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
+            class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
+    </div>
+
+<script>
+	$(function() { $('#filtro_buscar').focus(); });
+</script>
+
+{% if entities is defined and entities|length > 0 %}
+    {% if entities|length == 1 %}
+        {% set entity = entities|first %}
+    <script type="text/javascript">
+        $('#filtro_buscar').prop('disabled', true);
+        setTimeout(function() {
+        	seleccionarItem('{{ entity.id }}', '{{ entity.Codigo|escape("js") }}');
+        }, 3500);
+    </script>
+    <hr />
+    <div class="row">
+        <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
+        <div class="col-xs-8">
+            <h1>¡Encontrado!</h1>
+            <p>Se va a seleccionar automáticamente <strong>{{ entity }}</strong>,
+            porque es el único resultado que coincide con la búsqueda.</p>
+        </div>
+    </div>
+    {% endif %}
+
+
+    &nbsp;
+    <table class="table table-responsive table-condensed table-hoverselect">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Marca y modelo</th>
+            <th>Año</th>
+            <th>Código</th>
+            <th>Departamento</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+            <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Codigo|escape('js') }}'); return false;">
+                <td><i class="fa fa-caret-right showonhover"></i></td>
+                <td><span style="white-space: nowrap;">{{ entity.Marca ~ ', ' ~ entity.Modelo }}</span></td>
+                <td><span class="text-muted">{{ entity.Año }}</span></td>
+                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Codigo }}</span></td>
+                <td class="visible-lg"><span>{{ entity.Departamento }}</span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+{% else %}
+    <p class="lead">Puede buscar vehículos a partir de...</p>
+{% endif %}
+
+{% endblock %}
+
+{% block pagina_fin %}
+	{{ parent() }}
+</div>
+{% endblock pagina_fin %}
