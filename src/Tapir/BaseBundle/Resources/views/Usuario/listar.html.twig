@@ -1,7 +1,8 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}{{ entitylabelplural }}{% endblock %} {% block pagina_contenido %} {%
-include 'TapirBaseBundle::buscar.html.twig' %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}{{ entitylabelplural }}{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -33,5 +34,7 @@ include 'TapirBaseBundle::buscar.html.twig' %}
 		{% endfor %}
 	</tbody>
 </table>
+{% endblock %}
 
-{% include 'TapirBaseBundle::paginar.html.twig' %} {% endblock %}
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% set pagina_buscar_destino = path(baseroute ~ '_buscar', arrastre) %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
