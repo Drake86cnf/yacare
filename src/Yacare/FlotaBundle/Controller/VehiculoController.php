@@ -19,7 +19,7 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
     function IniciarVariables()
     {
         parent::IniciarVariables();
-        $this->BuscarPor = 'NumeroSerie, IdentificadorUnico';
+        $this->BuscarPor = 'NumeroSerie, IdentificadorUnico, Marca, Modelo';
         $this->OrderBy = 'r.IdentificadorUnico';
     }
 }
