@@ -54,9 +54,6 @@ function tapirEntityIdSeleccionarItem(destino, id, detalle) {
  * Muestra una URL en una ventana modal
  */
 function tapirMostrarModalEn(url, destino) {
-	// Cerrar los select2 antes de mostrar un modal
-	$(desintoFinal + '[data-toggle="select"]').select2('close');
-	
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#modal';
 	} else {
@@ -119,11 +116,6 @@ function tapirAtras() {
  * en la barra de navegación, mientras que tapirCargarUrlEn() es sólo un refresco o actualización de una porción.
  */
 function tapirNavegarA(url, destino) {
-	// Cerrar los select2 antes de recargar por AJAX
-	$(desintoFinal + '[data-toggle="select"]').select2('close');
-	
-	// parent.location = url; // sin AJAX
-	
 	tapirCambiarDireccion(url);
 	tapirCargarUrlEn(url, destino); // con AJAX
 }
@@ -162,12 +154,18 @@ function tapirCargarUrlEn(url, destino) {
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#page-wrapper';
 	} else {
-		destinoFinal = destino;
+		destinoFinal = destino + '';
 	}
 
-	$(".tinymce").each(function() {
+	// Eliminar TinyMCE de elementos que se van a quitar
+	$(destinoFinal + '.tinymce').each(function() {
 		tinymce.execCommand('mceRemoveEditor', false, this.id);
 	});
+	
+	// Cerrar los select2 antes de recargar por AJAX
+	$(desintoFinal + '.select2-hidden-accessible').each(function() {
+		$(this).select2("close");
+    });
 
 	// $(destino).html('<p><i class="fa fa-spinner fa-spin"></i>
 	// Cargando...</p>');
