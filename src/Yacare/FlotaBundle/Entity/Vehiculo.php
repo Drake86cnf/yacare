@@ -112,9 +112,28 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
 
     public function __toString()
     {
-        return trim(
-            $this->getMarca() . ' ' . $this->getModelo() . ' (' . $this->getCodigo() . ', mat. ' . $this->getMatricula() .
-                 ')');
+        $res = '';
+        
+        if($this->getMarca()) {
+            $res .= $this->getMarca() . ' ';
+        }
+        if($this->getModelo()) {
+            $res .= $this->getModelo() . ' ';
+        }
+        
+        if($this->getCodigo() || $this->getMatricula()) {
+            $res .= '(';
+            if($this->getCodigo()) {
+                $res .= $this->getCodigo() . ' ';
+            }
+            if($this->getMatricula()) {
+                $res .= 'mat ' . $this->getMatricula() . ' ';
+            }
+            $res = trim($res) .')';
+        }
+        
+        
+        return trim($res);
     }
 
     /**
@@ -145,7 +164,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * @ignore
      */
-    public function setCombustible(string $Combustible)
+    public function setCombustible($Combustible)
     {
         $this->Combustible = $Combustible;
         return $this;
@@ -162,7 +181,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * @ignore
      */
-    public function setAnio(int $Anio)
+    public function setAnio($Anio)
     {
         $this->Anio = $Anio;
         return $this;
@@ -179,7 +198,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * @ignore
      */
-    public function setColor(string $Color)
+    public function setColor($Color)
     {
         $this->Color = $Color;
         return $this;
