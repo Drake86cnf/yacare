@@ -1,12 +1,16 @@
 # Yacaré
 
-## Descripción 
-Aplicación para la gestión integral del Municipio.
+Yacaré es una aplicación integrada para gestión municipal, creada por el Municipio
+de Río Grande, Tierra del Fuego, Argentina.
 
-## Objetivo 
-Asistir a los agentes para mejorar el resultado de la gestión en calidad y eficiencia. 
-Aportar mejoras en la calidad mediante la medición y mejora del servicio; y mejoras en la eficiencia mediante la 
-agilización y simplificación de los trámites.
+## Características funcionales
+
+La aplicación tiene módulos para la gestión de requerimientos, trámites, actas de
+inspección y mucho más.
+
+La parte más importante es la gestión parametrizable de trámites.
+
+## Características técnicas
 
 El desarrollo se realiza en leguaje PHP, utilizando las siguientes tecnologías:
 
