@@ -7,17 +7,22 @@
 {% block pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-8 col-xs-12">
+		<div class="col-sm-6 col-xs-12">
 			{{ bs.grid_label_text('Marca', entity.Marca) }}
 			{{ bs.grid_label_text('Modelo', entity.Modelo) }}
 			{{ bs.grid_label_text('Año', entity.Anio) }}
+			{{ bs.grid_label_text('Patente', entity.NumeroSerie) }}
+		</div>
+		<div class="col-sm-6 col-xs-12">
 			{{ bs.grid_label_text('Color', entity.Color) }}
-			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
 			{{ bs.grid_label_text('Combustible', entity.CombustibleNombre) }}
+			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
+			{{ bs.grid_label_text('Código', entity.IdentificadorUnico) }}
 		</div>
 	</div>
 </div>
 
+<h2>Historial de cargas</h2>
 <table class="table table-hover">
     <thead>
         <tr>

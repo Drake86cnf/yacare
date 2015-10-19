@@ -19,34 +19,34 @@ class VehiculoType extends AbstractType
             ->add('Marca', null, array(
                 'label' => 'Marca', 
                 'required' => false, 
-                'attr' => array('help' => 'Marca del vehículo en particular')))
+                ))
             ->add('Modelo', null, array('label' => 'Modelo'))
+            ->add('Anio', null, array('label' => 'Año'))
+            ->add('Color', null, array('label' => 'Color'))
+            ->add('Combustible', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                'label' => 'Combustible',
+                'required' => false,
+                'choices' => array(
+                    null => 'Sin espeficiar',
+                    'nafta' => 'Nafta',
+                    'nafta-98' => 'Nafta 98 oct.',
+                    'gasoil' => 'Gasoil',
+                    'gasoil-3' => 'Gasoil grado 3',
+                    'gnc' => 'GNC')))
+            
             ->add('IdentificadorUnico', null, array(
-                'label' => 'Codigo del vehículo', 
-                'attr' => array('help' => 'El código identificador ej (l-71)')))
+                'label' => 'Código', 
+                'attr' => array('help' => 'El código Municipal de identificación del vehículo, por ejemplo L-71.')))
             ->add('Departamento', null, array(
-                'label' => 'Area', 
-                'attr' => array('placeholder' => 'Dirección a la que pertenece el vehículo'), 
+                'label' => 'Sector', 
+                'attr' => array('placeholder' => 'El sector al que pertenece el vehículo'), 
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
                 'property' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('NumeroSerie', null, array('label' => 'Patente'))
-            ->add('Combustible', null, array(
-                'label' => 'Combustible', 
-                'attr' => array('placeholder' => 'Tipo de combustible que utiliza')))
-            ->add('Anio', null, array('label' => 'Año del auto'))
-            ->add('Color', null, array('label' => 'Color'))
-            ->add('Combustible', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
-                'label' => 'Tipo de combustible', 
-                'required' => true, 
-                'choices' => array(
-                    'nafta' => 'Nafta', 
-                    'nafta-98' => 'Nafta 98', 
-                    'gasoil' => 'Gasoil', 
-                    'gasoil-3' => 'Gasoil grado 3', 
-                    'gnc' => 'GNC')));
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
