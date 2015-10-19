@@ -26,7 +26,6 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      */
     private $Cargas;
     
-    
     /**
      * El tipo de combustible que lleva este vehículo.
      *
@@ -61,100 +60,65 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Color;
-    
-    public function getCombustibleNombre() {
+
+    /**
+     * Devuelve el nombre del combustible (nromalizado).
+     * 
+     * @return string
+     */
+    public function getCombustibleNombre()
+    {
         return Vehiculo::CombustibleNombres($this->getCombustible());
     }
-    
-    
+
     /**
      * Devuelve el nombre de un combustible a partir de su código.
      */
-    public static function CombustibleNombres($Combustible) {
-        switch($Combustible) {
-            case null: return '';
-            case 'nafta': return 'Nafta';
-            case 'nafta-98': return 'Nafta 98 octanos';
-            case 'gasoil': return 'Gasoil';
-            case 'gasoil-3': return 'Gasoil grado 3';
-            case 'gnc': return 'GNC';
-            default: return '???';
+    public static function CombustibleNombres($Combustible)
+    {
+        switch ($Combustible) {
+            case null:
+                return '';
+            case 'nafta':
+                return 'Nafta';
+            case 'nafta-98':
+                return 'Nafta 98 octanos';
+            case 'gasoil':
+                return 'Gasoil';
+            case 'gasoil-3':
+                return 'Gasoil grado 3';
+            case 'gnc':
+                return 'GNC';
+            default:
+                return '???';
         }
     }
-    
+
     /**
      * Obtiene la matrícula del vehículo.
      */
-    public function getMatricula() {
+    public function getMatricula()
+    {
         return $this->getNumeroSerie();
     }
-    
+
     /**
      * Obtiene el código municipal del vehículo.
      */
-    public function getCodigo() {
+    public function getCodigo()
+    {
         return $this->getIdentificadorUnico();
     }
-    
+
     public function __toString()
     {
-        return trim($this->getMarca() . ' ' . $this->getModelo() . ' (' . $this->getCodigo() . ', mat. ' . $this->getMatricula() . ')');
-    }
-    
-
-    /**
-     * @return the string
-     */
-    public function getCombustible()
-    {
-        return $this->Combustible;
+        return trim(
+            $this->getMarca() . ' ' . $this->getModelo() . ' (' . $this->getCodigo() . ', mat. ' . $this->getMatricula() .
+                 ')');
     }
 
     /**
-     * @param string $Combustible
-     */
-    public function setCombustible($Combustible)
-    {
-        $this->Combustible = $Combustible;
-        return $this;
-    }
-
-    /**
-     * @return the int
-     */
-    public function getAnio()
-    {
-        return $this->Anio;
-    }
-
-    /**
-     * @param int $Anio
-     */
-    public function setAnio($Anio)
-    {
-        $this->Anio = $Anio;
-        return $this;
-    }
-
-    /**
-     * @return the string
-     */
-    public function getColor()
-    {
-        return $this->Color;
-    }
-
-    /**
-     * @param string $Color
-     */
-    public function setColor($Color)
-    {
-        $this->Color = $Color;
-        return $this;
-    }
-
-    /**
-     * @return the unknown_type
+     * @ignore
      */
     public function getCargas()
     {
@@ -162,11 +126,62 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     }
 
     /**
-     * @param unknown_type $Cargas
+     * @ignore
      */
     public function setCargas($Cargas)
     {
         $this->Cargas = $Cargas;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getCombustible()
+    {
+        return $this->Combustible;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCombustible(string $Combustible)
+    {
+        $this->Combustible = $Combustible;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getAnio()
+    {
+        return $this->Anio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setAnio(int $Anio)
+    {
+        $this->Anio = $Anio;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getColor()
+    {
+        return $this->Color;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setColor(string $Color)
+    {
+        $this->Color = $Color;
         return $this;
     }
 }
