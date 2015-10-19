@@ -54,6 +54,9 @@ function tapirEntityIdSeleccionarItem(destino, id, detalle) {
  * Muestra una URL en una ventana modal
  */
 function tapirMostrarModalEn(url, destino) {
+	// Cerrar los select2 antes de mostrar un modal
+	$(desintoFinal + '[data-toggle="select"]').select2('close');
+	
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#modal';
 	} else {
@@ -116,7 +119,11 @@ function tapirAtras() {
  * en la barra de navegación, mientras que tapirCargarUrlEn() es sólo un refresco o actualización de una porción.
  */
 function tapirNavegarA(url, destino) {
+	// Cerrar los select2 antes de recargar por AJAX
+	$(desintoFinal + '[data-toggle="select"]').select2('close');
+	
 	// parent.location = url; // sin AJAX
+	
 	tapirCambiarDireccion(url);
 	tapirCargarUrlEn(url, destino); // con AJAX
 }
