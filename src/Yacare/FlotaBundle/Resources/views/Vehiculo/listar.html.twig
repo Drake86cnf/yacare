@@ -28,7 +28,6 @@
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
 
 {% block pagina_buscar %}
-    {% set pagina_buscar_destino = path(baseroute ~ '_buscar', arrastre) %}
     {% include 'TapirBaseBundle::buscar.html.twig' %}
 {% endblock %}
 
