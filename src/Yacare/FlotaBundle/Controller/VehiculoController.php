@@ -1,5 +1,4 @@
 <?php
-
 namespace Yacare\FlotaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,9 +13,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    // use \Tapir\BaseBundle\Controller\ConBuscar;
     use \Tapir\BaseBundle\Controller\ConEliminar;
-    
+
     function IniciarVariables()
     {
         parent::IniciarVariables();
