@@ -24,21 +24,11 @@ namespace Yacare.CatastroBundle.Entity  {
 		+ParcelaAlfa
 		+ParcelaNum
 		+Parcela
-		+SubparcelaAlfa
-		+SubparcelaNum
-		+Subparcela
 		+UnidadFuncional
 		+Titular
 		+Zona
 		+Numero
 		+Legajo
-	}
-	
-	class PartidaPersona {
-		+Partida
-		+Persona
-		+Relacion
-		+TipoRelacion
 	}
 	
 	class UsoSuelo <<class>> {
@@ -63,16 +53,12 @@ namespace Yacare.CatastroBundle.Entity  {
 		+Partida
 		
 	}
-
-	Partida ..|> Yacare.BaseBundle.Entity.ConPartida : titular
-	Partida ..|> Yacare.BaseBundle.Entity.ConDomicilio : implementa
-	Partida ..|> ConPartida : implementa
-	Partida "1" o-- "0..1" Yacare.BaseBundle.Entity.Persona : titular
-	Partida "1" o-- "0..1" Calle : puede tener
-	Partida "1" o-- "0..1" Zona : puede tener
-	
-	PartidaPersona "0..n" o-- "0..n" Yacare.BaseBundle.Entity.Persona : Persona
-	PartidaPersona "0..n" o-- "0..n" Partida : Partida	
+	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.BaseBundle.Entity.ConPartida : titular
+	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.BaseBundle.Entity.ConDomicilio : implementa
+	Yacare.CatastroBundle.Entity.Partida ..|> Yacare.CatastroBundle.Entity.ConPartida : implementa
+	Yacare.CatastroBundle.Entity.Partida "1" o-- "0..1" Yacare.BaseBundle.Entity.Persona : titular
+	Yacare.CatastroBundle.Entity.Partida "1" o-- "0..1" Calle : puede tener
+	Yacare.CatastroBundle.Entity.Partida "1" o-- "0..1" Zona : puede tener	
 }
 
 
