@@ -1,0 +1,33 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AF1 - Alta vehículo) as AF1
+(AF2 - Suprimir vehículo) as AF2
+(AF3 - Modificar vehículo) as AF3
+(AF4 - Consultar vehículo) as AF4
+(AF5 - Listar vehículo) as AF5
+(AF6 - Registrar carga) as AF6
+
+/'ACTORES'/
+:Agente municipal: as actor1
+:Administrador: as actor2
+
+/'RELACIONES'/
+AF4 -l- actor1
+AF6 -- actor1
+AF1 --- actor2
+actor2 -up- AF2
+AF3 -- actor2
+AF4 -r- actor2
+AF5 -l- actor2
+
+AF2 <.. AF4 : extends
+AF4 ..> AF3 : extends
+AF2 <.. AF5 : extends
+AF5 ..> AF3 : extends
+AF4 ...> AF6 : extends
+AF5 ...> AF6 : extends
+
+@enduml
