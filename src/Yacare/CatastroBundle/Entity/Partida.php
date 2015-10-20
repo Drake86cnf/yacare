@@ -43,6 +43,11 @@ class Partida
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
+    public function __construct()
+    {
+        $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * La sección.
      *
@@ -121,6 +126,19 @@ class Partida
      * @ORM\JoinColumn(nullable=true)
      */
     private $Titular;
+    
+    /**
+     * Las personas que están relacionadas con esta partida.
+     *
+     * @var Yacare\BaseBundle\Entity\Persona
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinTable(name="Catastro_PartidaPersona",
+     *  joinColumns={ @ORM\JoinColumn(name="Partida_id", referencedColumnName="id") },
+     *  inverseJoinColumns={ @ORM\JoinColumn(name="Persona_id", referencedColumnName="id") }
+     * )
+     */
+    protected $Personas;
     
     /**
      * La zona.
@@ -411,4 +429,22 @@ class Partida
     {
         $this->Titular = $Titular;
     }
+
+    /**
+     * @return the Reponsable
+     */
+    public function getResponsables()
+    {
+        return $this->Responsables;
+    }
+
+    /**
+     * @param  $Responsables
+     */
+    public function setResponsables($Responsables)
+    {
+        $this->Responsables = $Responsables;
+        return $this;
+    }
+ 
 }
