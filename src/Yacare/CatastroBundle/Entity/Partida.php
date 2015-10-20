@@ -279,7 +279,6 @@ class Partida
     public function setMacizoAlfa($MacizoAlfa)
     {
         $this->MacizoAlfa = $MacizoAlfa;
-        $this->setMacizo($this->getMacizoAlfa() . $this->getMacizoNum());
         $this->CalcularNombre();
     }
 
@@ -297,7 +296,6 @@ class Partida
     public function setMacizoNum($MacizoNum)
     {
         $this->MacizoNum = $MacizoNum;
-        $this->setMacizo($this->getMacizoAlfa() . $this->getMacizoNum());
         $this->CalcularNombre();
     }
 
@@ -315,7 +313,6 @@ class Partida
     public function setParcelaAlfa($ParcelaAlfa)
     {
         $this->ParcelaAlfa = $ParcelaAlfa;
-        $this->setParcela($this->getParcelaAlfa() . $this->getParcelaNum());
         $this->CalcularNombre();
     }
 
@@ -333,7 +330,6 @@ class Partida
     public function setParcelaNum($ParcelaNum)
     {
         $this->ParcelaNum = $ParcelaNum;
-        $this->setParcela($this->getParcelaAlfa() . $this->getParcelaNum());
         $this->CalcularNombre();
     }
 
@@ -451,7 +447,6 @@ class Partida
     public function setSubparcelaAlfa($SubparcelaAlfa)
     {
         $this->SubparcelaAlfa = $SubparcelaAlfa;
-        $this->setSubparcela($this->getSubparcelaAlfa() . $this->getSubparcelaNum());
         $this->CalcularNombre();
         return $this;
     }
@@ -470,7 +465,6 @@ class Partida
     public function setSubparcelaNum($SubparcelaNum)
     {
         $this->SubparcelaNum = $SubparcelaNum;
-        $this->setSubparcela($this->getSubparcelaAlfa() . $this->getSubparcelaNum());
         $this->CalcularNombre();
         return $this;
     }
