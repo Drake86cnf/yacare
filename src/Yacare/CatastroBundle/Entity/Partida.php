@@ -111,6 +111,33 @@ class Partida
     private $Parcela;
     
     /**
+     * La Subparcela alfa.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $SubparcelaAlfa;
+    
+    /**
+     * El número de Subparcela.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $SubparcelaNum;
+    
+    /**
+     * La Subparcela.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Subparcela;
+    
+    /**
      * @var int 
      * 
      * @ORM\Column(type="integer")
@@ -184,7 +211,6 @@ class Partida
     public function CalcularNombre()
     {
         if ($this->getDomicilioCalle() && $this->getDomicilioCalle()->getId()) {
-            
             $this->Nombre = $this->getDomicilioCalle()->getNombre();
             
             if ($this->DomicilioNumero) {
@@ -197,15 +223,19 @@ class Partida
                 $this->Nombre .= ', pta. ' . $this->DomicilioPuerta;
             }
             
-            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
-                 $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizo() . ", parcela " . $this->getParcela();
+            if ($this->Subparcela > 0) {
+                $this->Nombre .= ', subparcela ' . $this->getSubparcela();
+            }
             if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
             $this->Nombre .= ")";
         } else {
-            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
-                 $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizo() . ", parcela " . $this->getParcela();
+            if ($this->Subparcela > 0) {
+                $this->Nombre .= ', subparcela ' . $this->getSubparcela();
+            }
             if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
@@ -260,6 +290,7 @@ class Partida
     public function setMacizoAlfa($MacizoAlfa)
     {
         $this->MacizoAlfa = $MacizoAlfa;
+        $this->setMacizo($this->getMacizoAlfa() . $this->getMacizoNum());
         $this->CalcularNombre();
     }
 
@@ -277,6 +308,7 @@ class Partida
     public function setMacizoNum($MacizoNum)
     {
         $this->MacizoNum = $MacizoNum;
+        $this->setMacizo($this->getMacizoAlfa() . $this->getMacizoNum());
         $this->CalcularNombre();
     }
 
@@ -294,6 +326,7 @@ class Partida
     public function setParcelaAlfa($ParcelaAlfa)
     {
         $this->ParcelaAlfa = $ParcelaAlfa;
+        $this->setParcela($this->getParcelaAlfa() . $this->getParcelaNum());
         $this->CalcularNombre();
     }
 
@@ -311,6 +344,7 @@ class Partida
     public function setParcelaNum($ParcelaNum)
     {
         $this->ParcelaNum = $ParcelaNum;
+        $this->setParcela($this->getParcelaAlfa() . $this->getParcelaNum());
         $this->CalcularNombre();
     }
 
@@ -446,5 +480,79 @@ class Partida
         $this->Responsables = $Responsables;
         return $this;
     }
+
+    /**
+     * @return the string
+     */
+    public function getSubparcelaAlfa()
+    {
+        return $this->SubparcelaAlfa;
+    }
+
+    /**
+     * @param string $SubparcelaAlfa
+     */
+    public function setSubparcelaAlfa($SubparcelaAlfa)
+    {
+        $this->SubparcelaAlfa = $SubparcelaAlfa;
+        $this->setSubparcela($this->getSubparcelaAlfa() . $this->getSubparcelaNum());
+        $this->CalcularNombre();
+        return $this;
+    }
+
+    /**
+     * @return the string
+     */
+    public function getSubparcelaNum()
+    {
+        return $this->SubparcelaNum;
+    }
+
+    /**
+     * @param string $SubparcelaNum
+     */
+    public function setSubparcelaNum($SubparcelaNum)
+    {
+        $this->SubparcelaNum = $SubparcelaNum;
+        $this->setSubparcela($this->getSubparcelaAlfa() . $this->getSubparcelaNum());
+        $this->CalcularNombre();
+        return $this;
+    }
+
+    /**
+     * @return the string
+     */
+    public function getSubparcela()
+    {
+        return $this->Subparcela;
+    }
+
+    /**
+     * @param string $Subparcela
+     */
+    public function setSubparcela($Subparcela)
+    {
+        $this->Subparcela = $Subparcela;
+        $this->CalcularNombre();
+        return $this;
+    }
+
+    /**
+     * @return the Persona
+     */
+    public function getPersonas()
+    {
+        return $this->Personas;
+    }
+
+    /**
+     * @param Yacare\BaseBundle\Entity\Persona $Personas
+     */
+    public function setPersonas($Personas)
+    {
+        $this->Personas = $Personas;
+        return $this;
+    }
+ 
  
 }

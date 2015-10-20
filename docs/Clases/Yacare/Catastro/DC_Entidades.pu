@@ -24,6 +24,9 @@ namespace Yacare.CatastroBundle.Entity  {
 		+ParcelaAlfa
 		+ParcelaNum
 		+Parcela
+		+SubparcelaAlfa
+		+SubparcelaNum
+		+Subparcela
 		+UnidadFuncional
 		+Titular
 		+Zona
