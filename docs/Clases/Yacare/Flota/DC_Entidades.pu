@@ -1,0 +1,23 @@
+@startuml
+
+namespace Yacare.FlotaBundle.Entity  {
+	class Vehiculo <<class>> {
+		+Combustible
+		+Anio
+		+Color
+	}
+	
+	class Carga <<class>> {
+		+Vehiculo
+		+Litros
+		+Importe
+		+Combustible
+		+Kilometraje
+	}
+	
+	Vehiculo --|> Yacare.BaseBundle.Entity.Dispositivo
+	
+	Vehiculo "1" --o "0..n" Carga
+}
+
+@enduml
