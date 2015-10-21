@@ -8,32 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Partida", uniqueConstraints={
- *         @ORM\UniqueConstraint(name="SeccionMacizoParcelaUf", columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"})
+ *         @ORM\UniqueConstraint(name="SeccionMacizoParcelaSubparcelaUf",
+ *          columns={"Seccion", "MacizoNum", "MacizoAlfa", "ParcelaNum", "ParcelaAlfa",
+ *              "SubparcelaNum", "SubparcelaAlfa", "UnidadFuncional"})
  *         }, 
  *     indexes={
- *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaUf", 
- *             columns={"Seccion", "Macizo", "Parcela", "UnidadFuncional"}),
+ *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaSubparcelaUf", 
+ *             columns={"Seccion", "MacizoAlfa", "MacizoNum", "ParcelaAlfa", "ParcelaNum", "UnidadFuncional"}),
  *         @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
  *         @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *         }
  * )
- *
- * UPDATE Catastro_Partida
- * SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoAlfa, MacizoNum, ', parcela ', ParcelaAlfa, ParcelaNum);
- * UPDATE Catastro_Partida
- * SET DomicilioNumero=NULL WHERE DomicilioNumero=0;
- *
- * UPDATE Inspeccion_RelevamientoAsignacionDetalle SET Partida_id=22345 WHERE Partida_id IN (22346, 22347);
- *
- * DELETE FROM Catastro_Partida
- * WHERE id NOT IN (SELECT DISTINCT Partida_id FROM Inspeccion_RelevamientoAsignacionDetalle);
- *
- * SELECT * FROM Catastro_Partida WHERE Seccion='D' AND Macizo='177' AND Parcela='9' AND UnidadFuncional=0;
- *
- * SELECT COUNT(id), Seccion, Macizo, Parcela, UnidadFuncional FROM Catastro_Partida
- *
- * GROUP BY Seccion, Macizo, Parcela, UnidadFuncional
- * HAVING COUNT(id)>1
  */
 class Partida
 {
@@ -42,6 +27,11 @@ class Partida
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    public function __construct()
+    {
+        $this->Personas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     /**
      * La sección.
@@ -69,14 +59,6 @@ class Partida
      */
     private $MacizoNum;
     
-    /**
-     * El macizo.
-     *
-     * @var string
-     * 
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $Macizo;
     
     /**
      * La parcela alfa.
@@ -97,13 +79,22 @@ class Partida
     private $ParcelaNum;
     
     /**
-     * La parcela.
+     * La Subparcela alfa.
      *
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $Parcela;
+    private $SubparcelaAlfa;
+    
+    /**
+     * El número de Subparcela.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $SubparcelaNum;
     
     /**
      * @var int 
@@ -121,6 +112,19 @@ class Partida
      * @ORM\JoinColumn(nullable=true)
      */
     private $Titular;
+    
+    /**
+     * Las personas que están relacionadas con esta partida.
+     *
+     * @var Yacare\BaseBundle\Entity\Persona
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinTable(name="Catastro_PartidaPersona",
+     *  joinColumns={ @ORM\JoinColumn(name="Partida_id", referencedColumnName="id") },
+     *  inverseJoinColumns={ @ORM\JoinColumn(name="Persona_id", referencedColumnName="id") }
+     * )
+     */
+    protected $Personas;
     
     /**
      * La zona.
@@ -146,14 +150,44 @@ class Partida
      * 
      * @var integer
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Legajo;
+    
+    /**
+     * Devuelve el combinado de MacizoAlfa y MacizoNum.
+     */
+    public function getMacizo()
+    {
+        return $this->getMacizoAlfa() . $this->getMacizoNum();
+    }
+    
+    /**
+     * Devuelve el combinado de ParcelaAlfa y ParcelaNum.
+     */
+    public function getParcela()
+    {
+        return $this->getParcelaAlfa() . $this->getParcelaNum();
+    }
+    
+    /**
+     * Devuelve el combinado de SubparcelaAlfa y SubparcelaNum.
+     */
+    public function getSubparcela()
+    {
+        return $this->getSubparcelaAlfa() . $this->getSubparcelaNum();
+    }
 
+    /**
+     * Devuevle una descripción textual de sección, macizo, parcela, subparcela, unidad funcional.
+     * @return string
+     */
     public function getSmpu()
     {
-        $res = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() . $this->getMacizoAlfa() .
-             ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+        $res = 'Sección ' . $this->getSeccion() . ', macizo ' . $this->getMacizo() . ', parcela ' . $this->getParcela();
+        if ($this->getSubparcela()) {
+            $res .= ', subparcela ' . $this->getSubparcela();
+        }
         if ($this->UnidadFuncional > 0) {
             $res .= ', UF ' . $this->UnidadFuncional;
         }
@@ -166,7 +200,6 @@ class Partida
     public function CalcularNombre()
     {
         if ($this->getDomicilioCalle() && $this->getDomicilioCalle()->getId()) {
-            
             $this->Nombre = $this->getDomicilioCalle()->getNombre();
             
             if ($this->DomicilioNumero) {
@@ -179,15 +212,19 @@ class Partida
                 $this->Nombre .= ', pta. ' . $this->DomicilioPuerta;
             }
             
-            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
-                 $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre .= " (sección " . $this->getSeccion() . ", macizo " . $this->getMacizo() . ", parcela " . $this->getParcela();
+            if ($this->getSubparcela()) {
+                $this->Nombre .= ', subparcela ' . $this->getSubparcela();
+            }
             if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
             $this->Nombre .= ")";
         } else {
-            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizoNum() .
-                 $this->getMacizoAlfa() . ", parcela " . $this->getParcelaNum() . $this->getParcelaAlfa();
+            $this->Nombre = "Sección " . $this->getSeccion() . ", macizo " . $this->getMacizo() . ", parcela " . $this->getParcela();
+            if ($this->getSubparcela()) {
+                $this->Nombre .= ', subparcela ' . $this->getSubparcela();
+            }
             if ($this->UnidadFuncional > 0) {
                 $this->Nombre .= ', UF ' . $this->UnidadFuncional;
             }
@@ -296,39 +333,6 @@ class Partida
         $this->CalcularNombre();
     }
 
-    /**
-     * @ignore
-     */
-    public function getMacizo()
-    {
-        return $this->Macizo;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setMacizo($Macizo)
-    {
-        $this->Macizo = $Macizo;
-        $this->CalcularNombre();
-    }
-
-    /**
-     * @ignore
-     */
-    public function getParcela()
-    {
-        return $this->Parcela;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setParcela($Parcela)
-    {
-        $this->Parcela = $Parcela;
-        $this->CalcularNombre();
-    }
 
     /**
      * @ignore
@@ -411,4 +415,76 @@ class Partida
     {
         $this->Titular = $Titular;
     }
+
+    /**
+     * @return the Reponsable
+     */
+    public function getResponsables()
+    {
+        return $this->Responsables;
+    }
+
+    /**
+     * @param  $Responsables
+     */
+    public function setResponsables($Responsables)
+    {
+        $this->Responsables = $Responsables;
+        return $this;
+    }
+
+    /**
+     * @return the string
+     */
+    public function getSubparcelaAlfa()
+    {
+        return $this->SubparcelaAlfa;
+    }
+
+    /**
+     * @param string $SubparcelaAlfa
+     */
+    public function setSubparcelaAlfa($SubparcelaAlfa)
+    {
+        $this->SubparcelaAlfa = $SubparcelaAlfa;
+        $this->CalcularNombre();
+        return $this;
+    }
+
+    /**
+     * @return the string
+     */
+    public function getSubparcelaNum()
+    {
+        return $this->SubparcelaNum;
+    }
+
+    /**
+     * @param string $SubparcelaNum
+     */
+    public function setSubparcelaNum($SubparcelaNum)
+    {
+        $this->SubparcelaNum = $SubparcelaNum;
+        $this->CalcularNombre();
+        return $this;
+    }
+
+    /**
+     * @return the Persona
+     */
+    public function getPersonas()
+    {
+        return $this->Personas;
+    }
+
+    /**
+     * @param Yacare\BaseBundle\Entity\Persona $Personas
+     */
+    public function setPersonas($Personas)
+    {
+        $this->Personas = $Personas;
+        return $this;
+    }
+ 
+ 
 }

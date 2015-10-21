@@ -1,27 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<title>{{ tapir_nombreaplicacion }} - Importar</title>
-<link rel="icon"
-	href="{{ asset('bundles/yacarebase/img/yacare_logo64.png') }}" />
-</head>
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-<body>
+{% block pagina_titulo %}Importar {{ importando }}{% endblock %}
 
-	<h1>Se procesaron {{ importar_procesados }} registros, se actualizaron
-		{{importar_actualizados }} y se importaron {{ importar_importados }}
-		nuevos.</h1>
-
-	<pre>{% for entry in log %}
+{% block pagina_contenido %}
+    {% if cantidad == 0 %}
+    	<p>Cuando esté listo para iniciar la importación, haga clic en el botón iniciar.</p>
+    	<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 1 })) }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar</a>
+    	<script>
+    		window.YacareImportarDetener = false;
+    	</script>
+    {% else %}
+    	<p>Se están importando los registros...</p>
+    	{% if resultado.RegistrosTotal %}
+    	<div class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" 
+          		aria-valuenow="{{ hasta }}" aria-valuemin="0" aria-valuemax="{{ resultado.RegistrosTotal }}"
+          		style="width: {{ ((hasta / resultado.RegistrosTotal) * 100)|round }}%">
+          </div>
+        </div>
+        {% endif %}
+    	<p>Se procesaron {{ hasta }} registros,
+    		que representan un {{ ((hasta / resultado.RegistrosTotal) * 100)|round }}%
+    		del total de {{ resultado.RegistrosTotal }}.
+    		En la última iteración se actualizaron 
+    		{{ resultado.RegistrosActualizados }} y se importaron
+    		{{ resultado.RegistrosNuevos }} nuevos.</p>
+{#    
+    	<pre>{% for renglon in resultado.Mensajes %}
 {{ entry }}
-{% endfor %}</pre>
+{% endfor %}</pre> #}
+    
+    	{% if resultado.HayMasRegistros %}
+    	<script>
+    		if(window.YacareImportarDetener === true) {
+        		window.location = '{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 0 })) }}';
+        	} else {
+    			tapirNavegarA("{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 1, 'desde': siguientedesde }))|raw }}");
+        	}
+    	</script>
+    	{% endif %}
+    
+    {% endif %}
+{% endblock %}
 
-	{% if redir_desde is defined and redir_desde > 0%}
-	<script>
-        parent.location='?desde={{ redir_desde }}';
-</script>
-	{% endif %}
-
-</body>
-</html>
+{% block pagina_acciones2 %}
+{% if cantidad != 0 %}
+    <a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-danger"><i class="fa fa-stop"></i> Detener</a>
+{% endif %}
+{% endblock %}
