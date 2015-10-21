@@ -3,7 +3,9 @@
 Estas instrucciones son sólo para programadores o desarrolladores que estén interesados
 en contribuir o modificar el código fuente de Yacaré.
 
-El código fuente está disponible en GitHub y se puede descargar de forma pública y anónima. 
+El código fuente está disponible en GitHub y se puede descargar de forma pública y anónima.
+
+https://github.com/municipioriogrande/yacare
 
 ## En Linux
 
@@ -20,7 +22,7 @@ Es necesario instalar los siguientes paquetes:
 	* Plugin para Symfony (http://symfony.dubture.com)
 	* Plugin de PlantUML (http://es.plantuml.com/eclipse.html)
 	* Plugin de EGit (http://www.eclipse.org/egit/download/)
-	* Plugin de Markdown (https://marketplace.eclipse.org/content/markdown-text-editor)
+	* Plugin de para preview de Markdown de GitHub (https://marketplace.eclipse.org/content/github-flavored-markdown-viewer-plugin-eclipse)
 
 ### Instalar prerequisitos
 

@@ -23,3 +23,8 @@ parameters:
     tapir.cliente: 'Municipio de Río Grande'
     munirg_ldap_contrasena: 'password'
     
+    munirg_dbmuni_host: '127.0.0.1'
+    munirg_dbmuni_usuario: 'yacare'
+    munirg_dbmuni_contrasena: 'password'
+
+    

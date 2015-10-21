@@ -6,9 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Tapir\BaseBundle\TapirBaseBundle;
-use Mmoreram\ControllerExtraBundle\Annotation as Annotation;
+use Yacare\MunirgBundle\Helper\ImportadorPartidas;
 
 /**
  * Controlador para importar datos de otras DB, a la DB de Yacaré.
@@ -19,234 +17,40 @@ use Mmoreram\ControllerExtraBundle\Annotation as Annotation;
  * 
  * @Route("importar/")
  */
-class ImportarController extends Controller
+class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
 {
+    use \Yacare\MunirgBundle\Helper\ConConexionAOracle;
+    
     /**
      * @Route("partidas/")
      * @Template("YacareMunirgBundle:Importar:importar.html.twig")
      */
     public function importarPartidasAction(Request $request)
     {
-        // DELETE FROM Catastro_Partida WHERE id NOT IN (SELECT DISTINCT Partida_id FROM
-        // Inspeccion_RelevamientoAsignacionDetalle);
-        $desde = (int) ($request->query->get('desde'));
-        $cant = 500;
-        
-        mb_internal_encoding('UTF-8');
-        ini_set('display_errors', 1);
-        set_time_limit(600);
-        ini_set('memory_limit', '2048M');
-        
-        $Zonas = array(
-            'ZC' => 2, 
-            'ZCB' => 7, 
-            'ZCM' => 4, 
-            'ZCP' => 5, 
-            'CRT1' => 3, 
-            'ZCRT1' => 3, 
-            'ZCS' => 6, 
-            'ZMC' => 1, 
-            'ZC-MC' => 1, 
-            'ZPE' => 15, 
-            'ZR1' => 8, 
-            'ZR2' => 9, 
-            'ZR3' => 10, 
-            'ZR4' => 11, 
-            'ZR5' => 12, 
-            'ZR6' => 13, 
-            'ZREU' => 16, 
-            'ZRM' => 14, 
-            'ZSEU' => 18, 
+        $iniciar = (int) ($request->query->get('iniciar'));
+        if($iniciar) {
+            $desde = (int) ($request->query->get('desde'));
+            $cantidad = 100;
             
-            // Estos no existen en el SIGEMI
-            'Z extra urb. zona costera' => 19, 
-            'Z residencial extraurbano 2' => 17, 
-            
-            // Estos no existen en el anexo 6 de planificación territorial
-            'ZEIA' => null, 
-            'ZEIS' => null, 
-            'ZEIU' => null);
-        
-        $Dbmunirg = $this->ConectarOracle();
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->getConnection()->beginTransaction();
-        
-        $importar_importados = 0;
-        $importar_actualizados = 0;
-        $importar_procesados = 0;
-        $log = array();
-        $sql = "
-            SELECT * FROM (
-                SELECT a.*, ROWNUM rnum FROM (
-                    SELECT tr3a100.tr3a100_id,
-                          tr3a100.catastro_id,
-                          tr3a100.nomenclatura_cat,
-                          tr3a100.estado,
-                          tr3a100.categoria,
-                          tr3a100.zona_codigo,
-                          tr3a100\$rgr.chacra,
-                          tr3a100\$rgr.seccion,
-                          tr3a100\$rgr.macizo_num,
-                          tr3a100\$rgr.macizo_alfa,
-                          tr3a100\$rgr.parcela_num,
-                          tr3a100\$rgr.parcela_alfa,
-                          tr3a100\$rgr.subparc_num,
-                          tr3a100\$rgr.subparc_alfa,
-                          tr3a100\$rgr.unid_func,
-                          tr3a100\$rgr.legajo,
-                          TG06300.CODIGO_CALLE,
-                          TG06300.CALLE,
-                          TG06300.NUMERO,
-                          TG06300.PISO,
-                          TG06300.DEPARTAMENTO,
-                          TR3A100.ZONA_CURB,
-                          tr02100.TIT_TG06100_ID,
-                          j.IDENTIFICACION_TRIBUTARIA,
-                		  doc.DOCUMENTO_NRO
-                     FROM tr3a100
-                          JOIN tr3a100\$rgr ON (tr3a100.tr3a100_id = tr3a100\$rgr.tr3a100_tr3a100_id)
-                          JOIN TG06300 ON (TG06300.TG06300_ID = tr3a100.TG06300_TG06300_ID)
-                          LEFT JOIN tr02100 ON (tr02100.tr02100_id = tr3a100.tr02100_tr02100_id)
-                		  LEFT JOIN TG06110 p ON tr02100.TIT_TG06100_ID = p.TG06100_TG06100_ID
-                		  LEFT JOIN TG06120 j ON tr02100.TIT_TG06100_ID = j.TG06100_TG06100_ID
-                		  LEFT JOIN TG06111 doc ON tr02100.TIT_TG06100_ID = doc.TG06110_TG06100_TG06100_ID
-                     WHERE tr3a100.estado='AL'
-                        AND tr3a100.lugar='RGR'
-                        AND tr02100.DEFINITIVO='D'
-                        AND tr02100.IMPONIBLE_TIPO='INM'
-                
-                     ORDER BY tr3a100.catastro_id
-                ) a 
-                WHERE ROWNUM <=" . ($desde + $cant) . ")
-            WHERE rnum >" . $desde . "
-            ";
-        foreach ($Dbmunirg->query($sql) as $Row) {
-            $Seccion = strtoupper(trim($Row['SECCION'], ' .'));
-            $MacizoNum = trim($Row['MACIZO_NUM'], ' .');
-            $MacizoAlfa = trim($Row['MACIZO_ALFA'], ' .');
-            $ParcelaNum = trim($Row['PARCELA_NUM'], ' .');
-            $ParcelaAlfa = trim($Row['PARCELA_ALFA'], ' .');
-            $Macizo = trim($MacizoNum . $MacizoAlfa);
-            $Parcela = trim($ParcelaNum . $ParcelaAlfa);
-            $UnidadFuncional = (int) ($Row['UNID_FUNC']);
-            
-            $entity = null;
-            /*
-             * $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
-             * 'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
-             */
-            
-            if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
-                    array(
-                        'Seccion' => $Seccion, 
-                        'Macizo' => $Macizo, 
-                        'Parcela' => $Parcela, 
-                        'UnidadFuncional' => $UnidadFuncional));
-            }
-            
-            if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
-                    array('Numero' => (int) ($Row['CATASTRO_ID'])));
-            }
-            
-            if (! $entity) {
-                $entity = new \Yacare\CatastroBundle\Entity\Partida();
-                $entity->setSeccion($Seccion);
-                $entity->setMacizoAlfa($MacizoAlfa);
-                $entity->setMacizoNum($MacizoNum);
-                $entity->setMacizo($Macizo);
-                $entity->setParcelaAlfa($ParcelaAlfa);
-                $entity->setParcelaNum($ParcelaNum);
-                $entity->setParcela($Parcela);
-                
-                $importar_importados ++;
-            } else {
-                $importar_actualizados ++;
-            }
-            
-            $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
-            
-            if ($entity && $Seccion) {
-                if ($CodigoCalle) {
-                    $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
-                } else {
-                    $entity->setDomicilioCalle(null);
-                }
-                
-                if ($Row['ZONA_CURB']) {
-                    $ZonaId = @$Zonas[$Row['ZONA_CURB']];
-                    if ($ZonaId) {
-                        $entity->setZona($em->getReference('YacareCatastroBundle:Zona', $ZonaId));
-                    } else {
-                        $entity->setZona(null);
-                    }
-                } else {
-                    $entity->setZona(null);
-                }
-                
-                $Row['DOCUMENTO_NRO'] = str_replace(array(' ', '-', '.'), '', $Row['DOCUMENTO_NRO']);
-                $Row['IDENTIFICACION_TRIBUTARIA'] = str_replace(array(' ', '-', '.'), '', 
-                    $Row['IDENTIFICACION_TRIBUTARIA']);
-                
-                if ($Row['TIT_TG06100_ID'] || $Row['DOCUMENTO_NRO'] || $Row['IDENTIFICACION_TRIBUTARIA']) {
-                    $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                        array('Tg06100Id' => $Row['TIT_TG06100_ID']));
-                    if (! $titular && $Row['DOCUMENTO_NRO']) {
-                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('DocumentoNumero' => $Row['DOCUMENTO_NRO']));
-                        if (! $titular) {
-                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                                array('Cuilt' => $Row['DOCUMENTO_NRO']));
-                        }
-                    }
-                    if (! $titular && $Row['IDENTIFICACION_TRIBUTARIA']) {
-                        $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
-                        if (! $titular) {
-                            $titular = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                                array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
-                        }
-                    }
-                    $entity->setTitular($titular);
-                    if ($titular)
-                        $log[] = "titular encontrado " . $Row['TIT_TG06100_ID'] . ': ' . $titular;
-                    else
-                        $log[] = "titular NO encontrado " . $Row['TIT_TG06100_ID'] . ', doc ' . $Row['DOCUMENTO_NRO'] .
-                             ', it ' . $Row['IDENTIFICACION_TRIBUTARIA'];
-                } else {
-                    $log[] = "*** Sin titular " . $Row['TIT_TG06100_ID'];
-                    $entity->setTitular(null);
-                }
-                
-                $entity->setUnidadFuncional($UnidadFuncional, $CodigoCalle);
-                $entity->setDomicilioNumero((int) ($Row['NUMERO']));
-                $entity->setDomicilioPiso(trim($Row['PISO']));
-                $entity->setDomicilioPuerta(trim($Row['DEPARTAMENTO']));
-                $entity->setLegajo((int) ($Row['LEGAJO']));
-                $entity->setNumero((int) ($Row['CATASTRO_ID']));
-                
-                // $entity->setImportSrc('dbmunirg.TR3A100');
-                // $entity->setImportId($Row['TR3A100_ID']);
-                
-                $em->persist($entity);
-                $em->flush();
-                // $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion-$Macizo-$Parcela-$UnidadFuncional) ${Row['CALLE']}
-                // #${Row['NUMERO']} --- " . $entity->getTitular();
-            }
-            
-            $importar_procesados ++;
+            $importador = new ImportadorPartidas($this->container, $this->getDoctrine()->getManager());
+            $importador->Inicializar();
+            $resultado = $importador->Importar($desde, $cantidad);
+           
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'partidas',
+                'resultado' => $resultado,
+                'desde' => $desde,
+                'cantidad' => $cantidad,
+                'hasta' => $desde + $cantidad,
+                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+        } else {
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'partidas',
+                'desde' => 0,
+                'cantidad' => 0,
+                'hasta' => 0
+            ));
         }
-        
-        $em->getConnection()->commit();
-        
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0), 
-            'log' => $log);
     }
 
     /**
@@ -263,15 +67,7 @@ class ImportarController extends Controller
         ini_set('display_errors', 1);
         ini_set('memory_limit', '1024M');
         
-        $TipoDocs = array(
-            'DNI' => 1, 
-            'CF' => 1, 
-            'LE' => 2, 
-            'LC' => 3, 
-            'CI' => 4, 
-            'PAS' => 5, 
-            'CUIL' => 98, 
-            'CUIT' => 99);
+
         
         $Dbmunirg = $this->ConectarOracle();
         
@@ -962,126 +758,13 @@ class ImportarController extends Controller
             'log' => $log);
     }
 
-    protected function ConectarOracle()
-    {
-        $tns = '(DESCRIPTION = 
-			    (ADDRESS_LIST = 
-			        (ADDRESS = 
-			          (COMMUNITY = tcp.world)
-			          (PROTOCOL = TCP)
-			          (Host = 192.168.100.20)
-			          (Port = 1521)
-			        )
-			    )
-			    (CONNECT_DATA = (SID = dbmunirg)
-			    )
-			  )';
-        
-        return new \PDO('oci:charset=UTF8;dbname=' . $tns, 'rgr', '123');
-    }
+    
 
     protected function ConectarRrhh()
     {
         return new \PDO('mysql:host=192.168.100.5;dbname=rr_hh;charset=utf8', 'yacare', 'L1n4j3');
     }
 
-    protected function ArreglarNombreCalle($nombreCalle)
-    {
-        switch ($nombreCalle) {
-            case 'D\'Agostini':
-                return 'Reverendo Padre Alberto D\'Agostini';
-                break;
-            case 'Juaretche':
-                return 'Arturo Jauretche';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            case '':
-                return '';
-                break;
-            default:
-                return $nombreCalle;
-                break;
-        }
-    }
-
-    protected function ArreglarCodigoCalle($codigoCalle)
-    {
-        // Arreglar errores conocidos
-        // O algunas calles que están duplicadas en SIGEMI (Isla Soledad con ids 85 y 354)
-        // y que en Yacaré ingresan una sola vez.
-        if ($codigoCalle == 380) {
-            return null; // No existe
-        } elseif ($codigoCalle == 384) { // Santa María Dominga Mazzarello
-            return 389; // Este es el código correcto
-        } elseif ($codigoCalle == 454) { // Juana Manuela Gorriti
-            return 249;
-        } elseif ($codigoCalle == 1482) { // General Villegas
-            return 211;
-        } elseif ($codigoCalle == 724) { // Remolcador Guaraní
-            return 69;
-        } elseif ($codigoCalle == 567) { // Neuquén
-            return 144;
-        } elseif ((int) ($codigoCalle) == 0 || $codigoCalle == 1748) { // ???
-            return null;
-        } elseif ($codigoCalle == 1157) { // 25 de Mayo
-            return 224;
-        } elseif ($codigoCalle == 474) { // Rosales
-            return 174;
-        } elseif ($codigoCalle == 3247) { // Luis Garibaldi Honte
-            return 285;
-        } elseif ($codigoCalle == 1768) { // Obispo Trejo
-            return 294;
-        } elseif ($codigoCalle == 1153) { // José Hernández
-            return 90;
-        } elseif ($codigoCalle == 1398 || $codigoCalle == 1381) { // Belisario Roldán
-            return 173;
-        } elseif ($codigoCalle == 1506) { // Tomas Roldán
-            return 53;
-        } elseif ($codigoCalle == 718) { // Libertad
-            return 116;
-        } elseif ($codigoCalle == 1949) { // Juan Bautista Thorne
-            return 197;
-        } elseif ($codigoCalle == 857) { // Gobernador Paz
-            return 67;
-        } elseif ($codigoCalle == 655) { // Estrada
-            return 55;
-        } elseif ($codigoCalle == 354) { // Estrada
-            return 85;
-        } elseif ($codigoCalle == 2451) { // Mariano Moreno
-            return 251;
-        } else {
-            return (int) ($codigoCalle);
-        }
-    }
 
     /**
      * @Route("matriculados/")
