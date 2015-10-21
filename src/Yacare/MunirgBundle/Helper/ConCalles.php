@@ -8,7 +8,6 @@ namespace Yacare\MunirgBundle\Helper;
  */
 trait ConCalles
 {
-
     protected function ArreglarNombreCalle($nombreCalle)
     {
         switch ($nombreCalle) {
