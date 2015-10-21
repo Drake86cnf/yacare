@@ -55,6 +55,7 @@ class AuditableListener implements EventSubscriber
         if($this->container->get('security.token_storage')->getToken()) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
         } else {
+            // A veces no hay usuario conectado, por ejemplo al correr servicios desde la línea de comandos
             $user = null;
         }
 
@@ -63,8 +64,12 @@ class AuditableListener implements EventSubscriber
             $Registro->setAccion('eliminar');
             $Registro->setElementoTipo($classMetadata->reflClass->getName());
             $Registro->setElementoId($entity->getId());
-            $Registro->setEstacion($this->container->get('request')->getClientIp());
+            if($this->container->isScopeActive('request')) {
+                // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
+                $Registro->setEstacion($this->container->get('request')->getClientIp());
+            }
             if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
+                // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
                 $Registro->setUsuario($user->getId());
             }
             $em->persist($Registro);
@@ -88,6 +93,7 @@ class AuditableListener implements EventSubscriber
         if($this->container->get('security.token_storage')->getToken()) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
         } else {
+            // A veces no hay usuario conectado, por ejemplo al correr servicios desde la línea de comandos
             $user = null;
         }
 
@@ -101,9 +107,12 @@ class AuditableListener implements EventSubscriber
             $Registro->setAccion($action);
             $Registro->setElementoTipo($classMetadata->reflClass->getName());
             $Registro->setElementoId($entity->getId());
-            $Registro->setEstacion($this->container->get('request')->getClientIp());
+            if($this->container->isScopeActive('request')) {
+                // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
+                $Registro->setEstacion($this->container->get('request')->getClientIp());
+            }
             if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
-                // Algunas veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
+                // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
                 $Registro->setUsuario($user->getId());
             }
             //echo '<pre>' . json_encode($changeSet, JSON_PRETTY_PRINT) . '</pre>';
