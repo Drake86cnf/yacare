@@ -48,4 +48,8 @@
     	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
     {% endif %}
+    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_CARGA')") %}
+    	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'Carga': entity.Cargas })) }}"
+    		class="btn btn-default"><i class="fa fa-edit"></i> Nueva carga</a>
+    {% endif %}
 {% endblock pagina_acciones2 %}
