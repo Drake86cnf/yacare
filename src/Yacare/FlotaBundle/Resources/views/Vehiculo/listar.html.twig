@@ -21,7 +21,7 @@
                 <td>{{ entity.CombustibleNombre }}</td>
             </tr>
             {% elseif is_expr_granted ("hasAnyRole('ROLE_FLOTA_CARGA')") %}
-            <tr data-toggle="ajax-link" href="{{ path(baseroute ~'_carga', { 'vehiculo': entity.Id }) }}">
+            <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_carga', { 'vehiculo': entity.Id }) }}">
                 <td>{{ entity.Marca }}</td>
                 <td>{{ entity.Modelo }}</td>
                 <td>{{ entity.CombustibleNombre }}</td>

@@ -1,0 +1,19 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %} Nueva carga {% endblock %}
+
+{% block pagina_inicio %}
+	{{ form_start(edit_form, {
+        'action': path(baseroute ~ '_carga', arrastre|merge({ 'id': entity.id })),
+        'method': 'POST',
+        'attr': { 'id': edit_form.vars.id }
+    }) }}
+{% endblock %}
+
+{% block pagina_contenido %}
+	{{ form_widget(edit_form) }}
+{% endblock %}
+
+{% block pagina_acciones %}
+	<button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Guardar</button>
+{% endblock %}

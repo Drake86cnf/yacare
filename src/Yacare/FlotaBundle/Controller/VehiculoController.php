@@ -59,7 +59,7 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * @Route("carga/")
      * @Security("has_role('ROLE_FLOTA_CARGA')")
-     * @Template("YacareFlotaBundle:Carga:editar.html.twig")
+     * @Template("YacareFlotaBundle:Carga:carga.html.twig")
      */
     public function cargaAction(Request $request)
     {
@@ -67,20 +67,21 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
         
         $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
         $NuevaCarga = new \Yacare\FlotaBundle\Entity\Carga();
+        if ($idVehiculo) {
+            $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
+            $NuevaCarga->setVehiculo($Vehiculo);
+            $NuevaCarga->setCombustible($Vehiculo->getCombustible());
+        }
+        
         $editForm = $this->createForm(new \Yacare\FlotaBundle\Form\CargaType(), $NuevaCarga);
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {
-            if ($idVehiculo) {
-                $entity = $this->ObtenerEntidadPorId($idVehiculo);
-                $NuevaCarga->setVehiculo($NuevaCarga . $Vehiculo);
-            }
-            return $this->ArrastrarVariables($request, array('entity' => null
-            ));
+            $em->persist($NuevaCarga);
+            $em->flush();
+            return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
+                $this->ArrastrarVariables($request, null, false));
         } else {
-            $entity = $this->CrearNuevaEntidad($request);
-            $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
-            $NuevaCarga->setVehiculo($Vehiculo);
             return $this->ArrastrarVariables($request, 
                 array('entity' => $NuevaCarga, 'edit_form' => $editForm->createView()));
         }
