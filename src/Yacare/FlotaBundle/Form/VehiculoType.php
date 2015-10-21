@@ -18,8 +18,8 @@ class VehiculoType extends AbstractType
         $builder
             ->add('Marca', null, array(
                 'label' => 'Marca', 
-                'required' => false, 
-                ))
+                'required' => false
+            ))
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('Anio', null, array('label' => 'Año'))
             ->add('Color', null, array('label' => 'Color'))
@@ -27,7 +27,7 @@ class VehiculoType extends AbstractType
                 'label' => 'Combustible',
                 'required' => false,
                 'choices' => array(
-                    null => 'Sin espeficiar',
+                    null => 'Sin especificar',
                     'nafta' => 'Nafta',
                     'nafta-98' => 'Nafta 98 oct.',
                     'gasoil' => 'Gasoil',
@@ -45,8 +45,8 @@ class VehiculoType extends AbstractType
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
                 'property' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('NumeroSerie', null, array('label' => 'Patente'))
-            ;
+            ->add('NumeroSerie', null, array('label' => 'Patente')
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
