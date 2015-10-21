@@ -15,7 +15,9 @@ class CargaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-             ->add('Litros', null, array('label' => 'Cantidad de Litros'))
+            ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo'))
+            ->add('Combustible', 'hidden')
+            ->add('Litros', null, array('label' => 'Cantidad de Litros'))
             ->add('Kilometraje', null, array(
                 'label' => 'Kilometraje', 
                 'required' => true, 
