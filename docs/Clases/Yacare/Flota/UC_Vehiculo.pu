@@ -15,19 +15,20 @@
 :Administrador: as actor2
 
 /'RELACIONES'/
-AF4 -l- actor1
-AF6 -- actor1
-AF1 --- actor2
-actor2 -up- AF2
+actor1 -do- AF4 
+actor1 -r- AF5 
+actor1 -up- AF6 
+AF1 ---- actor2
+actor2 --up-- AF2
 AF3 -- actor2
 AF4 -r- actor2
-AF5 -l- actor2
+actor2 -up- AF5 
 
 AF2 <.. AF4 : extends
 AF4 ..> AF3 : extends
 AF2 <.. AF5 : extends
 AF5 ..> AF3 : extends
-AF4 ...> AF6 : extends
-AF5 ...> AF6 : extends
+AF6 <... AF4 : extends
+AF6 <... AF5 : extends
 
 @enduml
