@@ -55,4 +55,34 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         return parent::editarAction($request);
     }
+
+    /**
+     * @Route("carga/")
+     * @Security("has_role('ROLE_FLOTA_CARGA')")
+     * @Template("YacareFlotaBundle:Carga:editar.html.twig")
+     */
+    public function cargaAction(Request $request)
+    {
+        $em = $this->getEm();
+        
+        $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
+        $NuevaCarga = new \Yacare\FlotaBundle\Entity\Carga();
+        $editForm = $this->createForm(new \Yacare\FlotaBundle\Form\CargaType(), $NuevaCarga);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isValid()) {
+            if ($idVehiculo) {
+                $entity = $this->ObtenerEntidadPorId($idVehiculo);
+                $NuevaCarga->setVehiculo($NuevaCarga . $Vehiculo);
+            }
+            return $this->ArrastrarVariables($request, array('entity' => null
+            ));
+        } else {
+            $entity = $this->CrearNuevaEntidad($request);
+            $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
+            $NuevaCarga->setVehiculo($Vehiculo);
+            return $this->ArrastrarVariables($request, 
+                array('entity' => $NuevaCarga, 'edit_form' => $editForm->createView()));
+        }
+    }
 }
