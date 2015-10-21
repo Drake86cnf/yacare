@@ -15,12 +15,7 @@ class CargaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-             ->add('Vehiculo', null, array(
-                   'label' => 'Vehículo',
-                   'required' => true,
-                   'attr' => array(
-                   'help' => 'El vehículo que va a realizar la carga'))) 
-            ->add('Litros', null, array('label' => 'Cantidad de Litros'))
+             ->add('Litros', null, array('label' => 'Cantidad de Litros'))
             ->add('Kilometraje', null, array(
                 'label' => 'Kilometraje', 
                 'required' => true, 
@@ -28,8 +23,7 @@ class CargaType extends AbstractType
                     'help' => 'El kilometraje del auto cuando carga')))
             ->add('Importe', null, array(
                 'label' => 'Importe de la carga',
-                ))
-            ->add('Combustible', null, array('label' => 'Tipo de combustible'));
+                ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
