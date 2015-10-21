@@ -13,7 +13,7 @@
     	<p>Se están importando los registros...</p>
     	{% if resultado.RegistrosTotal %}
     	<div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" 
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" 
           		aria-valuenow="{{ hasta }}" aria-valuemin="0" aria-valuemax="{{ resultado.RegistrosTotal }}"
           		style="width: {{ ((hasta / resultado.RegistrosTotal) * 100)|round }}%">
           </div>
