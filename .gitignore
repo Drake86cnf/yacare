@@ -3,3 +3,4 @@ composer.lock
 .project
 .settings
 vendor
+*.md.html
