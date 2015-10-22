@@ -2,6 +2,10 @@
 namespace Yacare\ComercioBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 
 /**
  * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en los trámites de habilitación comercial.
@@ -16,6 +20,7 @@ class TramiteHabilitacionComercialHelper
         $em = $args->getEntityManager();
         
         $Comercio = $entity->getComercio();
+        
         if (! $Comercio->getTitular()) {
             // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
             $Comercio->setTitular($entity->getTitular());
@@ -29,6 +34,11 @@ class TramiteHabilitacionComercialHelper
         \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
         
         $Local = $Comercio->getLocal();
+        if ($Local->getCanaletas()){
+            $EmailUsuario='alediaz.rc@gmail.com';
+            $VistaEmail='YacareComercioBundle:TramiteHabilitacionComercial/Mail:tramitehabilitacioncomercial_novedad.html.twig';
+            $this->EnviarNovedad($EmailUsuario, $VistaEmail);
+        }
         if ($Local && $entity->getUsoSuelo() == null) {
             // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
             $Actividad = $Comercio->getActividad1();
@@ -56,7 +66,9 @@ class TramiteHabilitacionComercialHelper
                     }
                 }
             }
+         
         }        
         $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
     }
+    
 }
