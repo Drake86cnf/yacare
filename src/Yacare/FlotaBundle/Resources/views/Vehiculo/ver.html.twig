@@ -25,6 +25,7 @@
         <tr>
             <th>Fecha</th>
             <th>Hora</th>
+            <th>Operador</th>
             <th>Combustible</th>
             <th class="text-right">Litros</th>
             <th class="text-right">Importe</th>
@@ -41,6 +42,7 @@
                     {{ FechaFormateada }}
                 {% endif %}</td>
             <td>{{ carga.createdAt|tapir_fecha('none', 'medium') }}</td>
+            <td>{{ carga.Persona }}</td>
             <td>{{ carga.CombustibleNombre }}</td>
             <td class="text-right">{{ carga.Litros }}</td>
             <td class="text-right">{{ carga.Importe|tapir_importe }}</td>
