@@ -1,0 +1,48 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Obras Particulares{% endblock %}
+
+{% block pagina_contenido %}
+
+<div class="container-fluid"><div class="row">
+
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-warning">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Actas</h2>
+        </div>
+        <div class="panel-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
+            	tristique. Aliquam vel sapien metus.</p>
+            <input type="text" class="form-control pull-rigth" placeholder="buscar por apellido o número de acta" />
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_obrasparticulares_acta_inicio', arrastre) }}">Actas de notificación <span class="badge">14</span></a>
+            <a class="list-group-item" href="#">Actas de infracción <span class="badge">5</span></a>
+            <a class="list-group-item" href="#">Actas de constatación</a>
+            <a class="list-group-item" href="#">Actas de suspensión</a>
+            <a class="list-group-item" href="#">Actas de compromiso</a>
+            <a class="list-group-item list-group-item-success" href="{{ path('yacare_obrasparticulares_acta_editar_1', arrastre)  }}"><i class="fa fa-plus"></i> Ingresar acta nueva</a>
+        </ul>
+    </div></div>
+    
+    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-info">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Comercios</h2>
+        </div>
+        <div class="panel-body">
+        	<a href="#">Lista de matriculados</a>
+        </div>
+    </div></div>
+    
+    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-info">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Matriculados</h2>
+        </div>
+        <div class="panel-body">
+        	<a href="#">Lista de matriculados</a>
+        </div>
+    </div></div>
+
+</div></div>
+{% endblock %}
