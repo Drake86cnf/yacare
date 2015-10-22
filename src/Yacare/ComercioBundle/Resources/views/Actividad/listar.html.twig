@@ -13,14 +13,18 @@ pagina_contenido %}
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr  {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
-			     {% if entity.Final %}
-					data-toggle="ajax-link"
-					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
-					{% else %}
-					data-toggle="ajax-link"
-					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id, 'form':'ActividadCategoria' }) }}"
-				{%endif%}	
+		<tr    {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+			
+			
+			     {% if entity.Final %} data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
+			
+			
+					{% else %} data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id, 'form':'ActividadCategoria' }) }}"
+			
+			
+				{%endif%}  	
 			{% endif %}>
 			<td>{{ entity.Clamae2014Formateado }}</td>
 			<td>{{ entity.Sangria|raw }} {% if entity.Final %}{{ entity.Nombre
@@ -28,16 +32,13 @@ pagina_contenido %}
 			</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{
 				entity.CategoriaAntigua }}{% endif %}</td>
-			<td class="hidden-sm hidden-xs">{% if entity.Exento %}<span
-				class="label label-success">Exenta</span>{% endif %} {% if
-				entity.RequiereDeyma %}<span class="label label-info">Req. DEyMA</span>{%
-				endif %} {% if entity.RequiereDbeh %}<span
-				class="label label-warning">Req. DBeH</span>{% endif %} {% if
-				entity.RequiereCamaraGrasa %}<span class="label label-warning">Req.
-					CamaraGrasa</span>{% endif %} {% if entity.RequiereCamaraBarro%}<span
-				class="label label-warning">Req. CamaraBarro</span>{% endif %} {% if
-				entity.RequiereInfEscolar%}<span class="label label-warning">Req.
-					InfEscolar</span>{% endif %}
+			<td>{% for Etiqueta in entity.Etiquetas %}                
+			<i class=" glyphicon glyphicon-info-sign" role="button"	data-trigger="hover" data-container="body"
+			 data-animation="true" data-toggle="popover" title="Etiquetas" data-placement="left"
+				data-content=" {{Etiqueta}} ">
+				{% endfor %}
+			</i> 
+
 			</td>
 		</tr>
 		{% endfor %}
