@@ -14,19 +14,15 @@
         </thead>
         <tbody>
         {% for entity in entities %}
-        	{% if is_expr_granted ("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')")  %}
-            <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
-                <td>{{ entity.Marca }}</td>
-                <td>{{ entity.Modelo }}</td>
-                <td>{{ entity.CombustibleNombre }}</td>
-            </tr>
-            {% elseif is_expr_granted ("hasAnyRole('ROLE_FLOTA_CARGA')") %}
-            <tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_carga', { 'vehiculo': entity.Id }) }}">
-                <td>{{ entity.Marca }}</td>
-                <td>{{ entity.Modelo }}</td>
-                <td>{{ entity.CombustibleNombre }}</td>
-            </tr>
+        	{% if is_granted('ROLE_FLOTA_ADMINISTRADOR')  %}
+            	<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+            {% elseif is_granted('ROLE_FLOTA_CARGA') %}
+            	<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_carga', { 'vehiculo': entity.Id }) }}">
             {% endif %}
+                <td>{{ entity.Marca }}</td>
+                <td>{{ entity.Modelo }}</td>
+                <td>{{ entity.CombustibleNombre }}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
@@ -40,7 +36,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')") %}
+{% if is_granted('ROLE_FLOTA_ADMINISTRADOR') %}
     	<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1', arrastre) }}" class="btn btn-primary">
     	<i class="fa fa-plus"></i> Alta de vehículo</a>
 {% endif %}
