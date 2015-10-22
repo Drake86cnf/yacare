@@ -30,16 +30,14 @@ class ImportarActividadesCommand extends ContainerAwareCommand
         
         $importador = new ImportadorActividades($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
         $importador->Inicializar();
-        $procesados = 0;
         while(true) {
             $ResultadoParcial = $importador->Importar($desde, $cantidad);
-            $ResultadoTotal->AgregarResultados($ResultadoParcial);
+            $ResultadoTotal->AgregarContadores($ResultadoParcial);
             if(!$progress) {
                 $progress = new ProgressBar($output, $ResultadoParcial->RegistrosTotal);
                 $progress->start();
             }
-            $procesados += $ResultadoParcial->ObtenerCantidadDeRegistrosProcesados();
-            $progress->setProgress($procesados);
+            $progress->setProgress($ResultadoTotal->ObtenerCantidadDeRegistrosProcesados());
             if(!$ResultadoParcial->HayMasRegistros) {
                 break;
             }

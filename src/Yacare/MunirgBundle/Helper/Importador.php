@@ -68,5 +68,6 @@ abstract class Importador {
     
     public function PostImportar() {
         $this->em->getConnection()->commit();
+        $this->em->clear();
     }
 }
