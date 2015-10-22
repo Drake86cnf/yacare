@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Diaz Alejandro <alediaz.rc@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Comercio_ActividadEtiquetas")
+ * @ORM\Table(name="Comercio_ActividadEtiqueta")
  */
-class ActividadEtiquetas
+class ActividadEtiqueta
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
@@ -28,7 +28,7 @@ class ActividadEtiquetas
      * 
      * @ORM\ManyToMany(targetEntity="Actividad",mappedBy="Etiquetas", cascade={"persist"})
      */
-    protected $Actividad;
+    protected $Actividades;
     
     /**
      * Codigo identificador de la etiqueta.
