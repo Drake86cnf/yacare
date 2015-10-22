@@ -6,7 +6,42 @@ namespace Yacare.ObrasParticularesBundle.Entity  {
 		+Profesion
 		+FechaVencimiento
 	}
-	Yacare.ObrasParticularesBundle.Entity.Matriculado..|> Tapir.BaseBundle.Entity.ConId:Implementa
+	
+	class Acta <<class>> {
+		+Comercio
+		+Partida
+		+EstadoAvance
+		+Estado
+		+Plazo
+		+Profesional
+		+TipoFalta
+		+Descargo
+	}
+	
+	class TipoFalta <<class>> {
+		+Nombre
+	}
+	
+	class TrasladoCasilla <<class>> {
+		+Solicitante
+		+DomicilioOrigen
+		+FechaTraslado
+		+PartidaDestino
+		+Croquis
+	}
+	
+	class DocumentacionObra <<class>> {
+		+Solicitante
+		+Profesional
+		+Partida
+		+ConSeguimiento
+	}
+	
+	Matriculado ..|> Tapir.BaseBundle.Entity.ConId : implementa
+	Matriculado --|> Tapir.BaseBundle.Entity.Persona : contiene
+	
+	Acta --|> Yacare.InspeccionBundle.Entity.Acta
+	Acta "0..1" --o "0..n" TipoFalta 
 }
 
 @enduml

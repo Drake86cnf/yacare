@@ -20,7 +20,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
      * @Route("inicio/")
      * @Template
      */
-    public function inicioAction()
+    public function inicioAction(Request $request)
     {
         $res = parent::inicioAction();
         
@@ -39,7 +39,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
      * @Route("accesodenegado")
      * @Template
      */
-    public function accesodenegadoAction()
+    public function accesodenegadoAction(Request $request)
     {
         return array();
     }

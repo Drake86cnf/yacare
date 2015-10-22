@@ -13,12 +13,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
-    /**
-     * @Route("inicio/")
-     * @Template
-     */
-    public function inicioAction()
-    {
-        return parent::inicioAction();
-    }
 }
