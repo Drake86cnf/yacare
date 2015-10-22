@@ -15,5 +15,6 @@
 {% endblock %}
 
 {% block pagina_acciones %}
+	<a class="btn btn-default" href="{{ path(baseroute ~ '_listar', arrastre) }}"><i class="fa fa-reply"></i> Cancelar</a>
 	<button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Guardar</button>
 {% endblock %}
