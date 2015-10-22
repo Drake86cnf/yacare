@@ -6,15 +6,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Yacare\MunirgBundle\Helper\ImportadorPartidas;
+use Yacare\MunirgBundle\Helper\ImportadorCalles;
 
-class ImportarCommand extends ContainerAwareCommand
+class ImportarCallesCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-        ->setName('importar:partidas')
-        ->setDescription('Importar partidas de catastro desde SiGeMI')
+        ->setName('munirg:importar:calles')
+        ->setDescription('Importar calles desde SiGeMI')
         ->addArgument(
             'desde',
             InputArgument::OPTIONAL,
@@ -27,12 +27,12 @@ class ImportarCommand extends ContainerAwareCommand
     {
         $desde = (int)($input->getArgument('desde'));
         
-        $output->writeln('Importando partidas...');
+        $output->writeln('Importando calles...');
 
         $cantidad = 100;
         $progress = null;
         
-        $importador = new ImportadorPartidas($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
+        $importador = new ImportadorCalles($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
         $importador->Inicializar();
         $procesados = 0;
         while(true) {
@@ -41,7 +41,7 @@ class ImportarCommand extends ContainerAwareCommand
                 $progress = new ProgressBar($output, $resultado->RegistrosTotal);
                 $progress->start();
             }
-            $procesados += $resultado->RegistrosTotal; 
+            $procesados += $resultado->ObtenerCantidadDeRegistrosProcesados(); 
             $progress->setProgress($procesados);
             if(!$resultado->HayMasRegistros) {
                 break;
@@ -51,6 +51,7 @@ class ImportarCommand extends ContainerAwareCommand
 
         if($progress) {
             $progress->finish();
+            echo "\n";
         }
         $output->writeln('Importación finalizada, se procesaron ' . $procesados . ' registros.');
     }

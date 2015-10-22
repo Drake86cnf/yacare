@@ -44,7 +44,7 @@ class Calle
      * 
      * @var int 
      * 
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Tipo;
 
