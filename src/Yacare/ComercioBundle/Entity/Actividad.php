@@ -107,83 +107,20 @@ class Actividad implements Tree\NodeInterface
     private $CodigoCpu;
     
     /**
-     * Indica si esta actividad requiere de aprobación por parte de Bromatología e Higiene.
+     * Requerimientos que se pueden asociar a una activiad.
+     * 
+     * @var ActividadEtiquetas
      *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActividadEtiquetas",inversedBy="ActividadEtiquetas")
+     * @ORM\JoinTable(name="Comercio_Actividad_ActividaEtiquetas",
+     *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
      */
-    private $RequiereDbeh = false;
+    protected $Etiquetas;
     
-    /**
-     * Indica si esta actividad requiere de aprobación por parte de Ecología y medioambiente.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $RequiereDeyma = false;
+    public function _construct(){
+        $this->Etiquetas= new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
-    /**
-     * Algunas actividades están exentas del requisito de habilitación comercial.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $Exento = false;
-    
-    /**
-     * Indica si esta actividad requiere la instalación de una cámara decantadora de barro.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $RequiereCamaraBarro = false;
-    
-    /**
-     * Indica si esta actividad requiere la instalación de una cámara decantadora de grasa.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $RequiereCamaraGrasa = false;
-    
-    /**
-     * Indica si esta actividad requiere la aprobación de Infraestructura Escolar de provincia.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $RequiereInfEscolar = false;
-    
-    /**
-     * Indica si esta actividad requiere un estudio de impacto sonoro.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $RequiereImpactoSonoro = false;
-    
-    /**
-     * Indica si esta actividad requiere especificar un factor de ocupación de personas, o cero si no requiere.
-     *
-     * @var bool
-     * 
-     * @ORM\Column(type="integer")
-     */
-    private $RequiereFactorOcupacion = 0;
-    
-    /**
-     * @var bool
-     * 
-     * @ORM\Column(type="boolean")
-     */
-    private $Ley105 = false;
     
     /**
      * Texto que explica los alcances de la actividad.
@@ -382,38 +319,6 @@ class Actividad implements Tree\NodeInterface
     /**
      * @ignore
      */
-    public function getRequiereDbeh()
-    {
-        return $this->RequiereDbeh;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getRequiereDeyma()
-    {
-        return $this->RequiereDeyma;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getExento()
-    {
-        return $this->Exento;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getLey105()
-    {
-        return $this->Ley105;
-    }
-
-    /**
-     * @ignore
-     */
     public function getIncluye()
     {
         return $this->Incluye;
@@ -478,38 +383,6 @@ class Actividad implements Tree\NodeInterface
     /**
      * @ignore
      */
-    public function setRequiereDbeh($RequiereDbeh)
-    {
-        $this->RequiereDbeh = $RequiereDbeh;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereDeyma($RequiereDeyma)
-    {
-        $this->RequiereDeyma = $RequiereDeyma;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setExento($Exento)
-    {
-        $this->Exento = $Exento;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setLey105($Ley105)
-    {
-        $this->Ley105 = $Ley105;
-    }
-
-    /**
-     * @ignore
-     */
     public function setIncluye($Incluye)
     {
         $this->Incluye = $Incluye;
@@ -566,82 +439,19 @@ class Actividad implements Tree\NodeInterface
     /**
      * @ignore
      */
-    public function getRequiereCamaraBarro()
+    public function getEtiquetas()
     {
-        return $this->RequiereCamaraBarro;
+        return $this->Etiquetas;
     }
 
     /**
      * @ignore
      */
-    public function getRequiereCamaraGrasa()
+    public function setEtiquetas(ActividadEtiquetas $Etiquetas)
     {
-        return $this->RequiereCamaraGrasa;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereCamaraBarro($RequiereCamaraBarro)
-    {
-        $this->RequiereCamaraBarro = $RequiereCamaraBarro;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereCamaraGrasa($RequiereCamaraGrasa)
-    {
-        $this->RequiereCamaraGrasa = $RequiereCamaraGrasa;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getRequiereInfEscolar()
-    {
-        return $this->RequiereInfEscolar;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereInfEscolar($RequiereInfEscolar)
-    {
-        $this->RequiereInfEscolar = $RequiereInfEscolar;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getRequiereImpactoSonoro()
-    {
-        return $this->RequiereImpactoSonoro;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereImpactoSonoro($RequiereImpactoSonoro)
-    {
-        $this->RequiereImpactoSonoro = $RequiereImpactoSonoro;
+        $this->Etiquetas = $Etiquetas;
         return $this;
     }
-
-    /**
-     * @ignore
-     */
-    public function getRequiereFactorOcupacion()
-    {
-        return $this->RequiereFactorOcupacion;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequiereFactorOcupacion($RequiereFactorOcupacion)
-    {
-        $this->RequiereFactorOcupacion = $RequiereFactorOcupacion;
-        return $this;
-    }
+ 
+   
 }
