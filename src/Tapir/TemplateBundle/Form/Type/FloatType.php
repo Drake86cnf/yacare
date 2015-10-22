@@ -5,17 +5,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Campo de formulario para ingreso de números enteros.
+ * Campo de formulario para ingreso de números de punto flotante.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class IntegerType extends AbstractType
+class FloatType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'maxlength' => 12, 
-            'attr' => array('class' => 'tapir-input-120', 'maxlength' => '12')));
+            'maxlength' => 16, 
+            'attr' => array('class' => 'tapir-input-160', 'maxlength' => '16')));
     }
 
     public function getParent()
@@ -25,6 +25,6 @@ class IntegerType extends AbstractType
 
     public function getName()
     {
-        return 'int';
+        return 'float';
     }
 }
