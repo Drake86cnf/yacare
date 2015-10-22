@@ -275,6 +275,10 @@ legend small {
     font-size: 40px;
 }
 
+.panel .panel-heading h2,h3 {
+	font-weight: 600;
+}
+
 .panel-green {
     border-color: #5cb85c;
 }
@@ -286,7 +290,7 @@ legend small {
 }
 
 .panel-green a {
-    color: #5cb85c;
+    color: #005200;
 }
 
 .panel-green a:hover {
@@ -322,11 +326,11 @@ legend small {
 }
 
 .panel-yellow a {
-    color: #f0ad4e;
+    color: #571400;
 }
 
 .panel-yellow a:hover {
-    color: #df8a13;
+    color: #712E00;
 }
 
 .showonhover {
