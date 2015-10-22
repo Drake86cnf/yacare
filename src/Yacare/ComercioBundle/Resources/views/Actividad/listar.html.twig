@@ -10,7 +10,7 @@
 				title="Clasificador Municipal de Actividades Económicas 2014">Código</abbr></th>
 			<th>Nombre</th>
 			<th class="hidden-sm hidden-xs">Cat. antig.</th>
-			<th class="hidden-sm hidden-xs">Obs.</th>
+			<th class="hidden-sm hidden-xs">Etiquetas</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -25,12 +25,12 @@
 			<td>{{ entity.Clamae2014Formateado }}</td>
 			<td>{{ entity.Sangria|raw }}{% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
-			<td>{% for Etiqueta in entity.Etiquetas %}                
-    			<i class=" glyphicon glyphicon-info-sign" role="button"	data-trigger="hover" data-container="body"
+			<td class="text-right">{% if entity.Etiquetas|length %}
+				<span class="badge" data-trigger="hover" data-container="body"
     				data-animation="true" data-toggle="popover" title="Etiquetas" data-placement="left"
-    				data-content=" {{Etiqueta}} ">
-    	            {% endfor %}
-    			</i>
+    				data-content="{% for etiqueta in entity.Etiquetas %}{{ etiqueta }}{% endfor %}">{{ entity.Etiquetas|length }}
+    			</span>
+			{% endif %}
 			</td>
 		</tr>
 		{% endfor %}
