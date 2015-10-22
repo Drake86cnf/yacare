@@ -23,6 +23,9 @@ class ActividadEtiquetaType extends AbstractType
             ->add('Nombre', null, array(
                 'label' => 'Nombre',
                 'required' => true))
+            ->add('Obs', null, array(
+                'label' => 'Obs.',
+                'required' => false))
             ;
     }
 
