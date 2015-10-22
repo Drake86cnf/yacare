@@ -24,9 +24,8 @@ class ActividadType extends AbstractType
                         Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
             ->add('Nombre',null, array('label' => 'Nombre'))
             ->add('Etiquetas', null, array(
-                'label' => 'Requerimientos',
-                'multiple'=> true
-                ))
+                'label' => 'Etiquetas',
+                'multiple'=> true))
             ->add('Incluye', null, array('label' => 'Incluye'))
             ->add('NoIncluye', null, array('label' => 'No incluye'));
     }

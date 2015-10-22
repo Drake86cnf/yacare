@@ -52,6 +52,40 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
             ));
         }
     }
+    
+    
+    /**
+     * @Route("actividades/")
+     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
+     */
+    public function importarActividadesAction(Request $request)
+    {
+        $iniciar = (int) ($request->query->get('iniciar'));
+        if($iniciar) {
+            $desde = (int) ($request->query->get('desde'));
+            $cantidad = 100;
+    
+            $importador = new ImportadorActividades($this->container, $this->getDoctrine()->getManager());
+            $importador->Inicializar();
+            $resultado = $importador->Importar($desde, $cantidad);
+             
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'actividades',
+                'resultado' => $resultado,
+                'desde' => $desde,
+                'cantidad' => $cantidad,
+                'hasta' => $desde + $cantidad,
+                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+        } else {
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'actividades',
+                'desde' => 0,
+                'cantidad' => 0,
+                'hasta' => 0
+            ));
+        }
+    }
+    
 
     /**
      * @Route("personas/")

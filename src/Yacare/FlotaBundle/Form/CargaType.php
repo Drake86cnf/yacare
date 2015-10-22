@@ -17,7 +17,7 @@ class CargaType extends AbstractType
         $builder
             ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 'required' => false))
             ->add('Combustible', 'hidden')
-            ->add('Litros', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array('label' => 'Cantidad de litros'))
+            ->add('Litros', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array('label' => 'Litros'))
             ->add('Importe', new \Tapir\BaseBundle\Form\Type\ImporteType(), array(
                 'label' => 'Importe'))
             ->add('Kilometraje', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array(
