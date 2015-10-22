@@ -15,17 +15,18 @@ class CargaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo'))
+            ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 'required' => false))
             ->add('Combustible', 'hidden')
-            ->add('Litros', null, array('label' => 'Cantidad de litros'))
-            ->add('Kilometraje', null, array(
+            ->add('Litros', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array('label' => 'Cantidad de litros'))
+            ->add('Importe', new \Tapir\BaseBundle\Form\Type\ImporteType(), array(
+                'label' => 'Importe'))
+            ->add('Kilometraje', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array(
                 'label' => 'Kilometraje', 
                 'required' => true, 
                 'attr' => array(
                     'help' => 'El kilometraje del vehículo al momento de la carga.')))
-            ->add('Importe', null, array(
-                'label' => 'Importe',
-                ));
+            ;
+            
     }
 
     public function configureOptions(OptionsResolver $resolver)
