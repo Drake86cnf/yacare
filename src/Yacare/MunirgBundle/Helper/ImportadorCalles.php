@@ -72,8 +72,8 @@ class ImportadorCalles extends Importador {
             $resultado->RegistrosActualizados++;
         }
         
-        //$this->em->persist($entity);
-        //$this->em->flush();
+        $this->em->persist($entity);
+        $this->em->flush();
         
         return $resultado;
     }
