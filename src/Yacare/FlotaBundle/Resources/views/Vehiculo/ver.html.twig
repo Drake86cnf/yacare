@@ -7,13 +7,15 @@
 {% block pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-8 col-xs-12">
-			{{ bs.grid_label_text('Marca', entity.Marca) }}
-			{{ bs.grid_label_text('Modelo', entity.Modelo) }}
+		<div class="col-sm-6 col-xs-12">
+			{{ bs.grid_label_text('Marca y modelo', entity.Marca ~ ' ' ~ entity.Modelo) }}
 			{{ bs.grid_label_text('Año', entity.Anio) }}
 			{{ bs.grid_label_text('Color', entity.Color) }}
+		</div>
+		<div class="col-sm-6 col-xs-12">
+    		{{ bs.grid_label_text('Patente', entity.Patente) }}
+    		{{ bs.grid_label_text('Código', entity.Codigo) }}
 			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
-			{{ bs.grid_label_text('Combustible', entity.CombustibleNombre) }}
 		</div>
 	</div>
 </div>
@@ -22,20 +24,27 @@
     <thead>
         <tr>
             <th>Fecha</th>
-            <th>Litros</th>
-            <th>Importe</th>
-            <th>Kilometraje</th>
+            <th>Hora</th>
             <th>Combustible</th>
+            <th class="text-right">Litros</th>
+            <th class="text-right">Importe</th>
+            <th class="text-right">Kilometraje</th>
         </tr>
     </thead>
     <tbody>
+    {% set UltimaFecha = '-' %}
     {% for carga in entity.Cargas %}
         <tr>
-            <td>{{ carga.createdAt|tapir_fecha }}</td>
-            <td>{{ carga.Litros }}</td>
-            <td>{{ carga.Importe|tapir_importe }}</td>
-            <td>{{ carga.Kilometraje }}</td>
+            <td>{% set FechaFormateada = carga.createdAt|tapir_fecha('long', 'none') %}
+                {% if FechaFormateada != UltimaFecha %}
+                	{% set UltimaFecha = FechaFormateada %}
+                    {{ FechaFormateada }}
+                {% endif %}</td>
+            <td>{{ carga.createdAt|tapir_fecha('none', 'medium') }}</td>
             <td>{{ carga.CombustibleNombre }}</td>
+            <td class="text-right">{{ carga.Litros }}</td>
+            <td class="text-right">{{ carga.Importe|tapir_importe }}</td>
+            <td class="text-right">{{ carga.Kilometraje }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -49,7 +58,7 @@
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
     {% endif %}
     {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_CARGA')") %}
-    	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'Carga': entity.Cargas })) }}"
-    		class="btn btn-default"><i class="fa fa-edit"></i> Nueva carga</a>
+    	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'vehiculo': entity.id })) }}"
+    		class="btn btn-default"><i class="fa fa-tachometer"></i> Nueva carga</a>
     {% endif %}
 {% endblock pagina_acciones2 %}

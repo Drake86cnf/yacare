@@ -23,8 +23,18 @@ class Carga
      * @var \Yacare\FlotaBundle\Entity\Vehiculo
      *
      * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo", inversedBy="Cargas")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $Vehiculo;
+    
+    /**
+     * La persona que asienta esta carga.
+     *
+     * @var \Yacare\BaseBundle\Entity\Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     */
+    protected $Persona;
     
     /**
      * La cantidad de litros.
@@ -165,4 +175,22 @@ class Carga
         $this->Combustible = $Combustible;
         return $this;
     }
+
+    /**
+     * @return the Persona
+     */
+    public function getPersona()
+    {
+        return $this->Persona;
+    }
+
+    /**
+     * @param  $Persona
+     */
+    public function setPersona($Persona)
+    {
+        $this->Persona = $Persona;
+        return $this;
+    }
+ 
 }

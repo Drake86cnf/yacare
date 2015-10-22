@@ -17,14 +17,14 @@ class CargaType extends AbstractType
         $builder
             ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo'))
             ->add('Combustible', 'hidden')
-            ->add('Litros', null, array('label' => 'Cantidad de Litros'))
+            ->add('Litros', null, array('label' => 'Cantidad de litros'))
             ->add('Kilometraje', null, array(
                 'label' => 'Kilometraje', 
                 'required' => true, 
                 'attr' => array(
-                    'help' => 'El kilometraje del auto cuando carga')))
+                    'help' => 'El kilometraje del vehículo al momento de la carga.')))
             ->add('Importe', null, array(
-                'label' => 'Importe de la carga',
+                'label' => 'Importe',
                 ));
     }
 

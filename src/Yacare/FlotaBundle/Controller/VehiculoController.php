@@ -64,26 +64,29 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
     public function cargaAction(Request $request)
     {
         $em = $this->getEm();
-        
-        $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
         $NuevaCarga = new \Yacare\FlotaBundle\Entity\Carga();
-        if ($idVehiculo) {
-            $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
-            $NuevaCarga->setVehiculo($Vehiculo);
-            $NuevaCarga->setCombustible($Vehiculo->getCombustible());
-        }
         
         $editForm = $this->createForm(new \Yacare\FlotaBundle\Form\CargaType(), $NuevaCarga);
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {
+            $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+            $NuevaCarga->setPersona($UsuarioConectado);
+
             $em->persist($NuevaCarga);
             $em->flush();
             return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
                 $this->ArrastrarVariables($request, null, false));
         } else {
+            $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
+            if ($idVehiculo) {
+                $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
+                $NuevaCarga->setVehiculo($Vehiculo);
+            }
+            
             return $this->ArrastrarVariables($request, 
-                array('entity' => $NuevaCarga, 'edit_form' => $editForm->createView()));
+                array('entity' => $NuevaCarga,
+                    'edit_form' => $editForm->createView()));
         }
     }
 }

@@ -97,7 +97,7 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     /**
      * Obtiene la matrícula del vehículo.
      */
-    public function getMatricula()
+    public function getPatente()
     {
         return $this->getNumeroSerie();
     }
@@ -121,13 +121,13 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
             $res .= $this->getModelo() . ' ';
         }
         
-        if($this->getCodigo() || $this->getMatricula()) {
+        if($this->getCodigo() || $this->getPatente()) {
             $res .= '(';
             if($this->getCodigo()) {
                 $res .= $this->getCodigo() . ' ';
             }
-            if($this->getMatricula()) {
-                $res .= 'mat ' . $this->getMatricula() . ' ';
+            if($this->getPatente()) {
+                $res .= 'mat ' . $this->getPatente() . ' ';
             }
             $res = trim($res) .')';
         }
