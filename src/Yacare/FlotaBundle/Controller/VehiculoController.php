@@ -65,7 +65,13 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
     {
         $em = $this->getEm();
         $NuevaCarga = new \Yacare\FlotaBundle\Entity\Carga();
-        
+
+        $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
+        if ($idVehiculo) {
+            $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
+            $NuevaCarga->setVehiculo($Vehiculo);
+        }
+
         $editForm = $this->createForm(new \Yacare\FlotaBundle\Form\CargaType(), $NuevaCarga);
         $editForm->handleRequest($request);
         
@@ -78,12 +84,6 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
             return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
                 $this->ArrastrarVariables($request, null, false));
         } else {
-            $idVehiculo = $this->ObtenerVariable($request, 'vehiculo');
-            if ($idVehiculo) {
-                $Vehiculo = $em->getRepository('YacareFlotaBundle:Vehiculo')->find($idVehiculo);
-                $NuevaCarga->setVehiculo($Vehiculo);
-            }
-            
             return $this->ArrastrarVariables($request, 
                 array('entity' => $NuevaCarga,
                     'edit_form' => $editForm->createView()));
