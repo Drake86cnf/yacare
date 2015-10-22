@@ -241,6 +241,8 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
+     * Recalcula los parent en el árbol.
+     * 
      * @Route("recalcular/")
      * @Template("YacareComercioBundle:Actividad:listar.html.twig")
      */
