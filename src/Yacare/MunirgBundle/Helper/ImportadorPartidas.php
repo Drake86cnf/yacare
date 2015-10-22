@@ -6,7 +6,7 @@ use Yacare\MunirgBundle\Helper\ResultadoImportacion;
 use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
- * Importador de partidas de catastro.
+ * Importador de partidas de catastro desde SiGeMI.
  * 
  * @author Ernesto Nicolás Carrea <equistango@gmail.com>
  */
