@@ -116,7 +116,8 @@ class Actividad implements Tree\NodeInterface
      *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
      */
     protected $Etiquetas;
-    
+
+
     public function _construct(){
         $this->Etiquetas= new \Doctrine\Common\Collections\ArrayCollection();
     }
