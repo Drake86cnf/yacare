@@ -7,8 +7,8 @@
     <table class="table table-hoverselect">
         <thead>
             <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
+                <th>Marca y modelo</th>
+                <th>Patente</th>
                 <th>Combustible</th>
             </tr>
         </thead>
@@ -19,8 +19,8 @@
             {% elseif is_granted('ROLE_FLOTA_CARGA') %}
             	<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_carga', { 'vehiculo': entity.Id }) }}">
             {% endif %}
-                <td>{{ entity.Marca }}</td>
-                <td>{{ entity.Modelo }}</td>
+                <td>{{ entity.Marca }} {{ entity.Modelo }}</td>
+                <td>{{ entity.Patente }}</td>
                 <td>{{ entity.CombustibleNombre }}</td>
             </tr>
         {% endfor %}
