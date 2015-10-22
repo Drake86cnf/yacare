@@ -89,19 +89,16 @@ class Comercio
         $this->Estado = $Estado;
     }
 
-    /**
-     * @ignore
-     */
     public function getCertificadoHabilitacion()
     {
         return $this->CertificadoHabilitacion;
     }
 
-    /**
-     * @ignore
-     */
-    public function setCertificadoHabilitacion($CertificadoHabilitacion)
+    public function setCertificadoHabilitacion(CertificadoHabilitacionComercial $CertificadoHabilitacion)
     {
         $this->CertificadoHabilitacion = $CertificadoHabilitacion;
+        return $this;
     }
+ 
+
 }

@@ -58,7 +58,7 @@ class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
 
     /**
      * @Route("carga/")
-     * @Security("has_role('ROLE_FLOTA_CARGA')")
+     * @Security("has_role('ROLE_FLOTA_ADMINISTRADOR') or has_role('ROLE_FLOTA_CARGA')")
      * @Template("YacareFlotaBundle:Carga:carga.html.twig")
      */
     public function cargaAction(Request $request)
