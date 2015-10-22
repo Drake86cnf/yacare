@@ -15,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
  *     "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps"
+ *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps",
+ *     "Vehiculo" = "\Yacare\FlotaBundle\Entity\Vehiculo"
  * })
  */
 abstract class Dispositivo
@@ -69,6 +70,15 @@ abstract class Dispositivo
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
     protected $Encargado;
+    
+    /**
+     * El departamento al cual pertenece este dispositivo.
+     *
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
+     */
+    protected $Departamento;
     
     /**
      * La versión de firmware.
@@ -190,5 +200,16 @@ abstract class Dispositivo
     public function setFirmware($Firmware)
     {
         $this->Firmware = $Firmware;
+    }
+
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
     }
 }

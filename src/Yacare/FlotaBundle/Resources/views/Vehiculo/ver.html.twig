@@ -1,0 +1,64 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}{{ entity }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+			{{ bs.grid_label_text('Marca y modelo', entity.Marca ~ ' ' ~ entity.Modelo) }}
+			{{ bs.grid_label_text('Año', entity.Anio) }}
+			{{ bs.grid_label_text('Color', entity.Color) }}
+		</div>
+		<div class="col-sm-6 col-xs-12">
+    		{{ bs.grid_label_text('Patente', entity.Patente) }}
+    		{{ bs.grid_label_text('Código', entity.Codigo) }}
+			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
+		</div>
+	</div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Combustible</th>
+            <th class="text-right">Litros</th>
+            <th class="text-right">Importe</th>
+            <th class="text-right">Kilometraje</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% set UltimaFecha = '-' %}
+    {% for carga in entity.Cargas %}
+        <tr>
+            <td>{% set FechaFormateada = carga.createdAt|tapir_fecha('long', 'none') %}
+                {% if FechaFormateada != UltimaFecha %}
+                	{% set UltimaFecha = FechaFormateada %}
+                    {{ FechaFormateada }}
+                {% endif %}</td>
+            <td>{{ carga.createdAt|tapir_fecha('none', 'medium') }}</td>
+            <td>{{ carga.CombustibleNombre }}</td>
+            <td class="text-right">{{ carga.Litros }}</td>
+            <td class="text-right">{{ carga.Importe|tapir_importe }}</td>
+            <td class="text-right">{{ carga.Kilometraje }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+{% block pagina_acciones2 %}
+    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')") %}
+    	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+    		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
+    {% endif %}
+    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_CARGA')") %}
+    	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'vehiculo': entity.id })) }}"
+    		class="btn btn-default"><i class="fa fa-tachometer"></i> Nueva carga</a>
+    {% endif %}
+{% endblock pagina_acciones2 %}

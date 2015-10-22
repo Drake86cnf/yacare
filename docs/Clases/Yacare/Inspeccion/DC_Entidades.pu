@@ -1,0 +1,33 @@
+@startuml
+
+namespace Yacare.InspeccionBundle.Entity  {
+	class Acta <<class>> {
+		+Talonario
+		+SubTipo
+		+Numero
+		+Fecha
+		+FuncionarioPrincipal
+		+FuncionarioSegundario
+		+ResponsableNombre
+		+Detalle
+		+Obs
+	}
+	
+	class ActaTipo <<class>> {
+		+Nombre
+		+Departamento
+		+Clase
+	}
+	
+	class ActaTalonario <<class>> {
+		+Tipo
+		+NumeroDesde
+		+NumeroHasta
+		+EnPoderDe
+	}
+	
+	Acta "1" --o "1" ActaTalonario : Talonario
+	Acta "1" --o "1" ActaTipo : Tipo
+}
+
+@enduml

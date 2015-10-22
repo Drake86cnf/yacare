@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
- * @Route("actacontroller/")
+ * @Route("acta/")
  */
 class ActaController extends \Tapir\BaseBundle\Controller\AbmController
 {
