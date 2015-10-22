@@ -109,10 +109,10 @@ class Actividad implements Tree\NodeInterface
     /**
      * Requerimientos que se pueden asociar a una activiad.
      * 
-     * @var ActividadEtiquetas
+     * @var ActividadEtiqueta
      *
-     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActividadEtiquetas",inversedBy="ActividadEtiquetas")
-     * @ORM\JoinTable(name="Comercio_Actividad_ActividaEtiquetas",
+     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActividadEtiqueta", inversedBy="Actividades")
+     * @ORM\JoinTable(name="Comercio_Actividad_ActividaEtiqueta",
      *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
      */
     protected $Etiquetas;
@@ -447,7 +447,7 @@ class Actividad implements Tree\NodeInterface
     /**
      * @ignore
      */
-    public function setEtiquetas(ActividadEtiquetas $Etiquetas)
+    public function setEtiquetas($Etiquetas)
     {
         $this->Etiquetas = $Etiquetas;
         return $this;
