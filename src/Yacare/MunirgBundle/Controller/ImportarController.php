@@ -6,7 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
+use Yacare\MunirgBundle\Helper\ImportadorCalles;
 use Yacare\MunirgBundle\Helper\ImportadorPartidas;
+use Yacare\MunirgBundle\Helper\ImportadorActividades;
 
 /**
  * Controlador para importar datos de otras DB, a la DB de Yacaré.
@@ -38,14 +40,51 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
            
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'partidas',
+                'url' => 'importarpartidas',
                 'resultado' => $resultado,
                 'desde' => $desde,
                 'cantidad' => $cantidad,
-                'hasta' => $desde + $cantidad,
+                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
                 'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
         } else {
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'partidas',
+                'url' => 'importarpartidas',
+                'desde' => 0,
+                'cantidad' => 0,
+                'hasta' => 0
+            ));
+        }
+    }
+    
+    
+    /**
+     * @Route("calles/")
+     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
+     */
+    public function importarCallesAction(Request $request)
+    {
+        $iniciar = (int) ($request->query->get('iniciar'));
+        if($iniciar) {
+            $desde = (int) ($request->query->get('desde'));
+            $cantidad = 100;
+    
+            $importador = new ImportadorCalles($this->container, $this->getDoctrine()->getManager());
+            $importador->Inicializar();
+            $resultado = $importador->Importar($desde, $cantidad);
+             
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'calles',
+                'url' => 'importarcalles',
+                'resultado' => $resultado,
+                'desde' => $desde,
+                'cantidad' => $cantidad,
+                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
+                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+        } else {
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'calles',
+                'url' => 'importarcalles',
                 'desde' => 0,
                 'cantidad' => 0,
                 'hasta' => 0
@@ -71,14 +110,16 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
              
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'actividades',
+                'url' => 'importaractividades',
                 'resultado' => $resultado,
                 'desde' => $desde,
                 'cantidad' => $cantidad,
-                'hasta' => $desde + $cantidad,
+                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
                 'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
         } else {
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'actividades',
+                'url' => 'importaractividades',
                 'desde' => 0,
                 'cantidad' => 0,
                 'hasta' => 0
@@ -331,63 +372,6 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
             'log' => $log);
     }
 
-    /**
-     * @Route("calles/")
-     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
-     */
-    public function importarCallesAction()
-    {
-        mb_internal_encoding('UTF-8');
-        ini_set('display_errors', 1);
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        $Dbmunirg = $this->ConectarOracle();
-        
-        $importar_importados = 0;
-        $importar_actualizados = 0;
-        $importar_procesados = 0;
-        $log = array();
-        foreach ($Dbmunirg->query(
-            'SELECT CODIGO_CALLE AS id, CALLE AS Nombre FROM TG06405 WHERE TG06403_TG06403_ID=410') as $Row) {
-            $nombreBueno = StringHelper::Desoraclizar($Row['NOMBRE']);
-            
-            $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(
-                array('ImportSrc' => 'dbmunirg.TG06405', 'ImportId' => $Row['ID']));
-            
-            if (! $entity) {
-                $entity = $em->getRepository('YacareCatastroBundle:Calle')->findOneBy(array('Nombre' => $nombreBueno));
-            }
-            
-            if (! $entity) {
-                $entity = new \Yacare\CatastroBundle\Entity\Calle();
-                /*
-                 * $entity->setId($Row['ID']); $metadata = $em->getClassMetaData(get_class($entity));
-                 * $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-                 */
-                $importar_importados ++;
-            } else {
-                $importar_actualizados ++;
-            }
-            
-            $entity->setNombre($nombreBueno);
-            $entity->setImportSrc('dbmunirg.TG06405');
-            $entity->setImportId($Row['ID']);
-            $entity->setNombreOriginal($Row['NOMBRE'] . '!!!');
-            
-            $em->persist($entity);
-            
-            $importar_procesados ++;
-            $log[] = $Row['ID'] . ' ' . $nombreBueno;
-        }
-        $em->flush();
-        
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'log' => $log);
-    }
 
     /**
      * @Route("departamentos/")

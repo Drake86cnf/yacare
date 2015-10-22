@@ -5,12 +5,16 @@
 {% block pagina_contenido %}
     {% if cantidad == 0 %}
     	<p>Cuando esté listo para iniciar la importación, haga clic en el botón iniciar.</p>
-    	<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 1 })) }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar</a>
     	<script>
     		window.YacareImportarDetener = false;
     	</script>
     {% else %}
-    	<p>Se están importando los registros...</p>
+        {% if resultado.HayMasRegistros %}
+    		<h2>Se están importando los registros...</h2>
+    	{% else %}
+    		<h2>Importación terminada</h2>
+    	{% endif %}
+    	
     	{% if resultado.RegistrosTotal %}
     	<div class="progress">
           <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" 
@@ -19,23 +23,28 @@
           </div>
         </div>
         {% endif %}
-    	<p>Se procesaron {{ hasta }} registros,
-    		que representan un {{ ((hasta / resultado.RegistrosTotal) * 100)|round }}%
-    		del total de {{ resultado.RegistrosTotal }}.
-    		En la última iteración se actualizaron 
-    		{{ resultado.RegistrosActualizados }} y se importaron
-    		{{ resultado.RegistrosNuevos }} nuevos.</p>
-{#    
-    	<pre>{% for renglon in resultado.Mensajes %}
-{{ entry }}
-{% endfor %}</pre> #}
+        
+        {% if resultado.HayMasRegistros %}
+        	<p>Se procesaron {{ hasta }} registros,
+        		que representan un {{ ((hasta / resultado.RegistrosTotal) * 100)|round }}%
+        		del total de {{ resultado.RegistrosTotal }}.
+        		En la última iteración se actualizaron 
+        		{{ resultado.RegistrosActualizados }} y se importaron
+        		{{ resultado.RegistrosNuevos }} nuevos.</p>
+        {% else %}
+        	<p>Se procesaron {{ hasta }} registros.</p>
+        {% endif %}
+    
+<pre>{% for renglon in resultado.Mensajes %}
+{{ renglon }}
+{% endfor %}</pre>
     
     	{% if resultado.HayMasRegistros %}
     	<script>
     		if(window.YacareImportarDetener === true) {
-        		window.location = '{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 0 })) }}';
+        		window.location = '{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}';
         	} else {
-    			tapirNavegarA("{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 1, 'desde': siguientedesde }))|raw }}");
+    			tapirNavegarA("{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 1, 'desde': siguientedesde }))|raw }}");
         	}
     	</script>
     	{% endif %}
@@ -43,8 +52,12 @@
     {% endif %}
 {% endblock %}
 
-{% block pagina_acciones2 %}
-{% if cantidad != 0 %}
-    <a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_importarpartidas', arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-danger"><i class="fa fa-stop"></i> Detener</a>
+{% block pagina_acciones %}
+{% if resultado is defined and resultado.HayMasRegistros == false %}
+	<a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+{% elseif cantidad == 0 %}
+	<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 1 })) }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar</a>
+{% else %}
+    <a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-danger"><i class="fa fa-stop"></i> Detener</a>
 {% endif %}
 {% endblock %}
