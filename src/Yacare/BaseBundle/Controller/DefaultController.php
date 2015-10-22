@@ -22,7 +22,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
      */
     public function inicioAction(Request $request)
     {
-        $res = parent::inicioAction();
+        $res = parent::inicioAction($request);
         
         $em = $this->getEm();
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
