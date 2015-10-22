@@ -3,7 +3,6 @@ namespace Yacare\MunirgBundle\Helper;
 
 use Yacare\MunirgBundle\Helper\Importador;
 use Yacare\MunirgBundle\Helper\ResultadoImportacion;
-use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
  * Importador de partidas de actividades de ClaMAE.
@@ -17,7 +16,9 @@ class ImportadorActividades extends Importador {
 
     protected $ColNumbers = array(
         'Clamae2014' => 1,
-        'Categoria' => 7
+        'Nombre' => 2,
+        'Categoria' => 7,
+        'Exenta' => 8
     );
     
     public function ObtenerRegistros($desde, $cantidad) {
@@ -56,26 +57,38 @@ class ImportadorActividades extends Importador {
     
     public function ImportarRegistro($Row) {
         $resultado = new ResultadoImportacion();
-        $resultado->Registros[] = $Row;
         
-        $entity = null;
-        if (! $entity) {
-            $entity = $this->em->getRepository('YacareComercioBundle:Actividad')
-                ->findOneBy(array('Clamae2014' => $Row[$this->ColNumbers['Clamae2014']]));
-        }
-        
-        if (! $entity) {
-            $entity = new \Yacare\ComercioBundle\Entity\Actividad();
-            $entity->setClamae2014($Row[$this->ColNumbers['Clamae2014']]);
-            $resultado->RegistrosNuevos++;
-        } else {
-            $resultado->RegistrosActualizados++;
-        }
-        
-        if ($entity) {
-            $entity->setCategoriaAntigua($Row[$this->ColNumbers['Categoria']]);
+        $Clamae2014 = $Row[$this->ColNumbers['Clamae2014']];
+        if(strlen($Clamae2014) >= 6) {
+            $resultado->Registros[] = $Row;
+            $entity = null;
+            if (! $entity) {
+                $entity = $this->em->getRepository('YacareComercioBundle:Actividad')
+                    ->findOneBy(array('Clamae2014' => $Clamae2014));
+            }
             
-            $resultado->AgregarMensaje($entity->getClamae2014() . ' - ' . $entity->getNombre());
+            if (! $entity) {
+                $entity = new \Yacare\ComercioBundle\Entity\Actividad();
+                $entity->setClamae2014($Clamae2014);
+                $resultado->RegistrosNuevos++;
+            } else {
+                $resultado->RegistrosActualizados++;
+            }
+            
+            $Exenta = $Row[$this->ColNumbers['Exenta']];
+            
+            $entity->setNombre($Row[$this->ColNumbers['Nombre']]);
+            $entity->setCategoriaAntigua($Row[$this->ColNumbers['Categoria']]);
+            $entity->setClanae2010(substr($Clamae2014, 0, 6));
+            
+            if($Exenta) {
+                //echo $Clamae2014 . ' - ' . $entity->getNombre() . "\n";
+            }
+            
+            $this->em->persist($entity);
+            $this->em->flush();
+        } else {
+            $resultado->RegistrosIgnorados++;
         }
         
         return $resultado;

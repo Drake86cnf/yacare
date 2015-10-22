@@ -13,14 +13,19 @@ class ResultadoImportacion {
     public $RegistrosTotal = 0;
 
     /**
-     * Los registros que se agregaron durante esta importación. 
+     * La cantidad registros que se agregaron durante esta importación. 
      */
     public $RegistrosNuevos = 0;
     
     /**
-     * Los registros que ya existían y se actualizaron durante esta importación.
+     * La cantidad registros que ya existían y se actualizaron durante esta importación.
      */
     public $RegistrosActualizados = 0;
+    
+    /**
+     * La cantidad de registros que fueron ignorados.
+     */
+    public $RegistrosIgnorados = 0;
 
     /**
      * Indica si existen más registros para importar, además de los incluidos en este resultado.
@@ -38,6 +43,7 @@ class ResultadoImportacion {
     public function AgregarResultados($resultado) {
         $this->RegistrosNuevos += $resultado->RegistrosNuevos;
         $this->RegistrosActualizados += $resultado->RegistrosActualizados;
+        $this->RegistrosIgnorados += $resultado->RegistrosIgnorados;
         if($resultado->HayMasRegistros) {
             $this->HayMasRegistros = true;
         }
@@ -83,9 +89,9 @@ class ResultadoImportacion {
     /**
      * Devuelve la cantidad de registros procesados.
      * 
-     * @return int La sumatoria de registros nuevos y actualizados.
+     * @return int La sumatoria de registros nuevos, actualizados e ignorados.
      */
     public function ObtenerCantidadDeRegistrosProcesados() {
-        return $this->RegistrosNuevos + $this->RegistrosActualizados;
+        return $this->RegistrosNuevos + $this->RegistrosActualizados + $this->RegistrosIgnorados;
     }
 }

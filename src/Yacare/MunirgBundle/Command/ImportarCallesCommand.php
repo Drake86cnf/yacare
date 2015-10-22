@@ -41,7 +41,7 @@ class ImportarCallesCommand extends ContainerAwareCommand
                 $progress = new ProgressBar($output, $resultado->RegistrosTotal);
                 $progress->start();
             }
-            $procesados += $resultado->ObtenerCantidadDeRegistrosProcesados(); 
+            $procesados += $resultado->ObtenerCantidadDeRegistrosProcesados();
             $progress->setProgress($procesados);
             if(!$resultado->HayMasRegistros) {
                 break;
