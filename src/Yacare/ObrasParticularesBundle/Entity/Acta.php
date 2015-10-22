@@ -14,6 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Acta extends \Yacare\InspeccionBundle\Entity\Acta
 {
     /**
+     * La falta tipificada, o null si no está tipificada.
+     *
+     * @var \Yacare\ObrasParticularesBundle\Entity\TipoFalta
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\TipoFalta")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $TipoFalta;
+    
+    /**
      * El comercio asociado al acta, en caso de ser un acta de comercio o null si es un acta de obra.
      * 
      * @var \Yacare\ComercioBundle\Entity\Comercio
@@ -73,6 +83,7 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Profesional;
+    
 
     /**
      * @ignore
@@ -152,5 +163,39 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
     public function setPlazo($Plazo)
     {
         $this->Plazo = $Plazo;
+    }
+
+    /**
+     * @return the TipoFalta
+     */
+    public function getTipoFalta()
+    {
+        return $this->TipoFalta;
+    }
+
+    /**
+     * @param  $TipoFalta
+     */
+    public function setTipoFalta($TipoFalta)
+    {
+        $this->TipoFalta = $TipoFalta;
+        return $this;
+    }
+
+    /**
+     * @return the integer
+     */
+    public function getEstado()
+    {
+        return $this->Estado;
+    }
+
+    /**
+     * @param  $Estado
+     */
+    public function setEstado($Estado)
+    {
+        $this->Estado = $Estado;
+        return $this;
     }
 }

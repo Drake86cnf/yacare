@@ -19,8 +19,8 @@ class DefaultController extends BaseController
      * @Route("inicio/")
      * @Template
      */
-    public function inicioAction()
+    public function inicioAction(Request $request)
     {
-        return array();
+        return $this->ArrastrarVariables($request);
     }
 }
