@@ -17,9 +17,9 @@ class ActividadEtiqueta
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Tapir\BaseBundle\Entity\ConObs;
-    
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * Las actividades que utilizan este requerimiento.
@@ -38,47 +38,32 @@ class ActividadEtiqueta
      * @ORM\Column(type="string", nullable=false)
      * 
      */
-   private $Codigo;
-    
-    
-    
+    private $Codigo;
     
     public function _construct(){
-        $this->Actividad= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Actividades = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * @ignore
-     */
-    public function getActividad()
+    public function getActividades()
     {
-        return $this->Actividad;
+        return $this->Actividades;
     }
 
-    /**
-     * @ignore
-     */
-    public function setActividad(Actividad $Actividad)
+    public function setActividades(Actividad $Actividades)
     {
-        $this->Actividad = $Actividad;
+        $this->Actividades = $Actividades;
         return $this;
     }
 
-    /**
-     * @ignore
-     */
     public function getCodigo()
     {
         return $this->Codigo;
     }
 
-    /**
-     * @ignore
-     */
     public function setCodigo($Codigo)
     {
         $this->Codigo = $Codigo;
         return $this;
     }
- 
+
 }
