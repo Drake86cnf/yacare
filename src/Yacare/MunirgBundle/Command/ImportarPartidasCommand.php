@@ -39,7 +39,7 @@ class ImportarPartidasCommand extends ContainerAwareCommand
         $procesados = 0;
         while(true) {
             $ResultadoParcial = $importador->Importar($desde, $cantidad);
-            $ResultadoTotal->AgregarResultados($ResultadoParcial);
+            $ResultadoTotal->AgregarContadores($ResultadoParcial);
             if(!$progress) {
                 $progress = new ProgressBar($output, $ResultadoTotal->RegistrosTotal);
                 $progress->start();

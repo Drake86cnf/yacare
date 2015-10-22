@@ -41,15 +41,25 @@ class ResultadoImportacion {
      * @param ImportarResultado $resultado
      */
     public function AgregarResultados($resultado) {
-        $this->RegistrosNuevos += $resultado->RegistrosNuevos;
-        $this->RegistrosActualizados += $resultado->RegistrosActualizados;
-        $this->RegistrosIgnorados += $resultado->RegistrosIgnorados;
+        $this->AgregarContadores($resultado);
         if($resultado->HayMasRegistros) {
             $this->HayMasRegistros = true;
         }
         
         $this->Registros = array_merge($this->Registros, $resultado->Registros);
         $this->Mensajes = array_merge($this->Mensajes, $resultado->Mensajes);
+    }
+    
+    /**
+     * Incorpora los contadores de un resultado parcial dentro de otro resultado parcial o total.
+     *
+     * @param ImportarResultado $resultado
+     */
+    public function AgregarContadores($resultado)
+    {
+        $this->RegistrosNuevos += $resultado->RegistrosNuevos;
+        $this->RegistrosActualizados += $resultado->RegistrosActualizados;
+        $this->RegistrosIgnorados += $resultado->RegistrosIgnorados;
     }
     
     /**

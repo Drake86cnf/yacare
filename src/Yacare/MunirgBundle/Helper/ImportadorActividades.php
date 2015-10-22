@@ -36,7 +36,7 @@ class ImportadorActividades extends Importador {
             }
         }
         fclose($Archivo);
-        
+
         return $res;
      }
     
