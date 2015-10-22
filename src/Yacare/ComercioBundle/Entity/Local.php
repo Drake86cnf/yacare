@@ -40,6 +40,15 @@ class Local
     private $Superficie;
     
     /**
+     * La superficie en metros cuadrados dedicada a depósito.
+     *
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $SuperficieDeposito;
+    
+    /**
      * La clase de depósito.
      *
      * Sólo aplica si Tipo es "Depósito".
@@ -262,13 +271,44 @@ class Local
     {
         return $this->AnchoSalida;
     }
+	
+	/**
+	 * @ignore
+	 */
+	public function getSuperficieDeposito() {
+		return $this->SuperficieDeposito;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	public function setSuperficieDeposito($SuperficieDeposito) {
+		$this->SuperficieDeposito = $SuperficieDeposito;
+		return $this;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	public function setAnchoSalida($AnchoSalida) {
+		$this->AnchoSalida = $AnchoSalida;
+		return $this;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	public function getEnParqueIndustrial() {
+		return $this->EnParqueIndustrial;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	public function setEnParqueIndustrial($EnParqueIndustrial) {
+		$this->EnParqueIndustrial = $EnParqueIndustrial;
+		return $this;
+	}
+	
 
-    /**
-     * @ignore
-     */
-    public function setAnchoSalida($AnchoSalida)
-    {
-        $this->AnchoSalida = $AnchoSalida;
-        return $this;
-    }
 }
