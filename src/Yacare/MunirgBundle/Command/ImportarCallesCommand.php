@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Yacare\MunirgBundle\Helper\ImportadorCalles;
+use Yacare\MunirgBundle\Helper\ResultadoImportacion;
 
 class ImportarCallesCommand extends ContainerAwareCommand
 {
@@ -34,25 +35,23 @@ class ImportarCallesCommand extends ContainerAwareCommand
         
         $importador = new ImportadorCalles($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
         $importador->Inicializar();
-        $procesados = 0;
+        $progress = new ProgressBar($output, $importador->ObtenerCantidadTotal());
+        $progress->start();
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
-            if(!$progress) {
-                $progress = new ProgressBar($output, $resultado->RegistrosTotal);
-                $progress->start();
-            }
-            $procesados += $resultado->ObtenerCantidadDeRegistrosProcesados();
-            $progress->setProgress($procesados);
-            if(!$resultado->HayMasRegistros) {
+            $progress->setProgress($resultado->PosicionCursor());
+            if(!$resultado->HayMasRegistros()) {
                 break;
             }
             $desde += $cantidad;
         }
 
-        if($progress) {
-            $progress->finish();
-            echo "\n";
-        }
-        $output->writeln('Importación finalizada, se procesaron ' . $procesados . ' registros.');
+        $progress->finish();
+        echo "\n";
+        
+        $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
+        $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');
+        $output->writeln(' Se ignoraron    ' . $resultado->RegistrosIgnorados . ' registros.');
+        $output->writeln('Importación finalizada, se procesaron ' . $resultado->TotalRegistrosProcesados() . ' registros.');
     }
 }
