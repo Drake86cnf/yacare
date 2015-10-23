@@ -21,6 +21,8 @@ class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
     
     /**
      * Los cargas de combustible realizadas por este vehículo.
+     * 
+     * @var Carga
      *
      * @ORM\OneToMany(targetEntity="Carga", mappedBy="Vehiculo")
      */
