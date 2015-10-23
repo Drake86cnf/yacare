@@ -16,6 +16,10 @@
 	<p><a href="http://www.riogrande.gob.ar" target="_blank">www.riogrande.gob.ar</a></p>
 </div>
 
+{% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR', 'ROLE_FLOTA_CARGA')") %}
+	<a class="btn btn-default" href="{{ path('yacare_flota_vehiculo_listar') }}"><i class="fa fa-car"></i> Flota</a>
+{% endif %}
+
 <div class="row">
     {% if requerimientos_pendientes|length > 0 %}
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-red">
