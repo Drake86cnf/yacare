@@ -251,17 +251,25 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
+        $i = 0;
+        $batchSize = 200;
         /* $em->getConnection()->beginTransaction(); */
         $items = $em->getRepository('YacareComercioBundle:Actividad')->findAll();
         foreach ($items as $item) {
             $item->setParentNode($item->getParentNode());
             $em->persist($item);
-            $em->flush();
+            if (($i % $batchSize) === 0) {
+                $em->flush();
+                $em->clear();
+            }
         }
+        $em->flush();
+        $em->clear();
         
         /* $em->getConnection()->commit(); */
         
         return parent::listarAction($request);
     }
 }
+

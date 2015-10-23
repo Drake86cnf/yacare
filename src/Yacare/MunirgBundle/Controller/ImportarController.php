@@ -9,6 +9,7 @@ use Tapir\BaseBundle\Helper\StringHelper;
 use Yacare\MunirgBundle\Helper\ImportadorCalles;
 use Yacare\MunirgBundle\Helper\ImportadorPartidas;
 use Yacare\MunirgBundle\Helper\ImportadorActividades;
+use Yacare\MunirgBundle\Helper\ResultadoImportacion;
 
 /**
  * Controlador para importar datos de otras DB, a la DB de Yacaré.
@@ -42,17 +43,12 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
                 'importando' => 'partidas',
                 'url' => 'importarpartidas',
                 'resultado' => $resultado,
-                'desde' => $desde,
-                'cantidad' => $cantidad,
-                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
-                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+                'cantidad' => $cantidad
+                ));
         } else {
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'partidas',
-                'url' => 'importarpartidas',
-                'desde' => 0,
-                'cantidad' => 0,
-                'hasta' => 0
+                'url' => 'importarpartidas'
             ));
         }
     }
@@ -75,19 +71,14 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
              
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'calles',
-                'url' => 'importarcalles',
-                'resultado' => $resultado,
-                'desde' => $desde,
                 'cantidad' => $cantidad,
-                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
-                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+                'url' => 'importarcalles',
+                'resultado' => $resultado
+            ));
         } else {
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'calles',
-                'url' => 'importarcalles',
-                'desde' => 0,
-                'cantidad' => 0,
-                'hasta' => 0
+                'url' => 'importarcalles'
             ));
         }
     }
@@ -99,30 +90,25 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
      */
     public function importarActividadesAction(Request $request)
     {
-        $iniciar = (int) ($request->query->get('iniciar'));
+    $iniciar = (int) ($request->query->get('iniciar'));
         if($iniciar) {
             $desde = (int) ($request->query->get('desde'));
             $cantidad = 100;
-    
+            
             $importador = new ImportadorActividades($this->container, $this->getDoctrine()->getManager());
             $importador->Inicializar();
             $resultado = $importador->Importar($desde, $cantidad);
-             
+           
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'actividades',
                 'url' => 'importaractividades',
                 'resultado' => $resultado,
-                'desde' => $desde,
-                'cantidad' => $cantidad,
-                'hasta' => $desde + $resultado->ObtenerCantidadDeRegistrosProcesados(),
-                'siguientedesde' => ($resultado->HayMasRegistros ? $desde + $cantidad : 0)));
+                'cantidad' => $cantidad
+                ));
         } else {
             return $this->ArrastrarVariables($request, array(
                 'importando' => 'actividades',
-                'url' => 'importaractividades',
-                'desde' => 0,
-                'cantidad' => 0,
-                'hasta' => 0
+                'url' => 'importaractividades'
             ));
         }
     }

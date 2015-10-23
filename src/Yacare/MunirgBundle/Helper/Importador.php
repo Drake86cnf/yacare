@@ -21,23 +21,19 @@ abstract class Importador {
     }
     
     public function Inicializar() {
-        
     }
     
     public function Importar($desde, $cantidad) {
         $this->PreImportar();
         
-        $resultado = new ResultadoImportacion();
+        $resultado = new ResultadoImportacion($this);
         $resultado->RegistrosTotal = $this->ObtenerCantidadTotal();
+        $resultado->Desde = $desde;
         
         $Registros = $this->ObtenerRegistros($desde, $cantidad);
         foreach ($Registros as $Registro) {
-            $resultado->AgregarResultados($this->ImportarRegistro($Registro));
+            $resultado->AgregarResultadoLote($this->ImportarRegistro($Registro));
         }
-        
-        // Si se solicitó un parcial y se procesaron todos los solicitados, asumo que hay más.
-        // Si se procesó menos de lo solicitado, asumo que es porque se acabaron los registros.
-        $resultado->HayMasRegistros = $cantidad != 0 && $resultado->ObtenerCantidadDeRegistrosProcesados() >= $cantidad;
         
         $this->PostImportar();
         
