@@ -2,7 +2,7 @@
 namespace Yacare\MunirgBundle\Helper;
 
 use Yacare\MunirgBundle\Helper\Importador;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
+use Yacare\MunirgBundle\Helper\ResultadoLote;
 
 /**
  * Importador de partidas de actividades de ClaMAE.
@@ -56,7 +56,7 @@ class ImportadorActividades extends Importador {
     
     
     public function ImportarRegistro($Row) {
-        $resultado = new ResultadoImportacion();
+        $resultado = new ResultadoLote();
         
         $Clamae2014 = $Row[$this->ColNumbers['Clamae2014']];
         if(strlen($Clamae2014) >= 6) {

@@ -2,6 +2,7 @@
 namespace Yacare\MunirgBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -15,43 +16,42 @@ class ImportarActividadesCommand extends ContainerAwareCommand
         $this
         ->setName('munirg:importar:actividades')
         ->setDescription('Importar actividades comerciales desde un archivo CSV.')
+        ->addArgument(
+            'desde',
+            InputArgument::OPTIONAL,
+            'Registro de inicio'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $desde = 0;
+        $desde = (int)($input->getArgument('desde'));
         
         $output->writeln('Importando actividades...');
 
         $cantidad = 100;
         $progress = null;
-        $ResultadoTotal = new ResultadoImportacion();
         
         $importador = new ImportadorActividades($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
         $importador->Inicializar();
+        $progress = new ProgressBar($output, $importador->ObtenerCantidadTotal());
+        $progress->start();
         while(true) {
-            $ResultadoParcial = $importador->Importar($desde, $cantidad);
-            $ResultadoTotal->AgregarContadores($ResultadoParcial);
-            if(!$progress) {
-                $progress = new ProgressBar($output, $ResultadoParcial->RegistrosTotal);
-                $progress->start();
-            }
-            $progress->setProgress($ResultadoTotal->ObtenerCantidadDeRegistrosProcesados());
-            if(!$ResultadoParcial->HayMasRegistros) {
+            $resultado = $importador->Importar($desde, $cantidad);
+            $progress->setProgress($resultado->PosicionCursor());
+            if(!$resultado->HayMasRegistros()) {
                 break;
             }
             $desde += $cantidad;
         }
 
-        if($progress) {
-            $progress->finish();
-            echo "\n";
-        }
+        $progress->finish();
+        echo "\n";
         
-        $output->writeln(' Se importaron   ' . $ResultadoTotal->RegistrosNuevos . ' registros nuevos.');
-        $output->writeln(' Se actualizaron ' . $ResultadoTotal->RegistrosActualizados . ' registros.');
-        $output->writeln(' Se ignoraron    ' . $ResultadoTotal->RegistrosIgnorados . ' registros.');
-        $output->writeln('Importación finalizada, se procesaron ' . $ResultadoTotal->ObtenerCantidadDeRegistrosProcesados() . ' registros.');
+        $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
+        $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');
+        $output->writeln(' Se ignoraron    ' . $resultado->RegistrosIgnorados . ' registros.');
+        $output->writeln('Importación finalizada, se procesaron ' . $resultado->TotalRegistrosProcesados() . ' registros.');
     }
 }
