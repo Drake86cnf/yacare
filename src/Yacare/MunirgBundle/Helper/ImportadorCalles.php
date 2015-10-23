@@ -2,7 +2,7 @@
 namespace Yacare\MunirgBundle\Helper;
 
 use Yacare\MunirgBundle\Helper\Importador;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
+use Yacare\MunirgBundle\Helper\ResultadoLote;
 use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
@@ -43,7 +43,7 @@ class ImportadorCalles extends Importador {
     
     
     public function ImportarRegistro($Row) {
-        $resultado = new ResultadoImportacion();
+        $resultado = new ResultadoLote();
         $resultado->Registros[] = $Row;
         
         $nombreBueno = StringHelper::Desoraclizar($Row['CALLE']);

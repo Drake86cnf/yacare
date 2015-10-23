@@ -2,7 +2,7 @@
 namespace Yacare\MunirgBundle\Helper;
 
 use Yacare\MunirgBundle\Helper\Importador;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
+use Yacare\MunirgBundle\Helper\ResultadoLote;
 use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
@@ -87,7 +87,7 @@ class ImportadorPartidas extends Importador {
     
     
     public function ImportarRegistro($Row) {
-        $resultado = new ResultadoImportacion();
+        $resultado = new ResultadoLote();
         $resultado->Registros[] = $Row;
         
         $Seccion = strtoupper(trim($Row['SECCION'], ' .'));
@@ -208,8 +208,6 @@ class ImportadorPartidas extends Importador {
         
             $this->em->persist($entity);
             $this->em->flush();
-            // $log[] = $Row['CATASTRO_ID'] . " SMP($Seccion-$Macizo-$Parcela-$UnidadFuncional) ${Row['CALLE']}
-            // #${Row['NUMERO']} --- " . $entity->getTitular();
         }
         
         return $resultado;
