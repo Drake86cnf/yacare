@@ -26,7 +26,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @var Actividad
      * 
-     * @ORM\ManyToOne(targetEntity="Actividad")
+     * @ORM\ManyToOne(targetEntity="Actividad", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
