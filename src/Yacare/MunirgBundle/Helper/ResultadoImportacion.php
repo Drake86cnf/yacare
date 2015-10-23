@@ -73,7 +73,6 @@ class ResultadoImportacion {
      * 
      * @param int $nuevos La cantidad de registros nuevos.
      * @param int $actualizados La cantidad de registros actualizados.
-     * @param bool $haymas Indica si hay más registros para importar.
      */
     public function IncrementarContadores($nuevos, $actualizados, $haymas) {
         $this->RegistrosNuevos += $nuevos;

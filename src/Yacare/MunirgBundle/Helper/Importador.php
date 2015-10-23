@@ -27,7 +27,6 @@ abstract class Importador {
         $this->PreImportar();
         
         $resultado = new ResultadoImportacion($this);
-        $resultado->RegistrosTotal = $this->ObtenerCantidadTotal();
         $resultado->Desde = $desde;
         
         $Registros = $this->ObtenerRegistros($desde, $cantidad);
