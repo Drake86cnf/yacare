@@ -20,7 +20,7 @@ class Carga
     /**
      * El vehículo al cual pertenece esta carga.
      *
-     * @var \Yacare\FlotaBundle\Entity\Vehiculo
+     * @var \Yacare\FlotaBundle\Entity\Vehiculo Vehiculo
      *
      * @ORM\ManyToOne(targetEntity="Yacare\FlotaBundle\Entity\Vehiculo", inversedBy="Cargas")
      * @ORM\JoinColumn(nullable=false)
@@ -30,7 +30,7 @@ class Carga
     /**
      * La persona que asienta esta carga.
      *
-     * @var \Yacare\BaseBundle\Entity\Persona
+     * @var \Yacare\BaseBundle\Entity\Persona YacareBaseBundle::Persona
      *
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
      */
@@ -89,10 +89,9 @@ class Carga
     public function getCombustibleNombre() {
         return Vehiculo::CombustibleNombres($this->getCombustible());
     }
-    
 
     /**
-     * @return the Vehiculo
+     * @ignore
      */
     public function getVehiculo()
     {
@@ -100,7 +99,7 @@ class Carga
     }
 
     /**
-     * @param  $Vehiculo
+     * @ignore
      */
     public function setVehiculo($Vehiculo)
     {
@@ -109,7 +108,24 @@ class Carga
     }
 
     /**
-     * @return the int
+     * @ignore
+     */
+    public function getPersona()
+    {
+        return $this->Persona;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setPersona($Persona)
+    {
+        $this->Persona = $Persona;
+        return $this;
+    }
+
+    /**
+     * @ignore
      */
     public function getLitros()
     {
@@ -117,7 +133,7 @@ class Carga
     }
 
     /**
-     * @param int $Litros
+     * @ignore
      */
     public function setLitros($Litros)
     {
@@ -126,7 +142,7 @@ class Carga
     }
 
     /**
-     * @return the float
+     * @ignore
      */
     public function getImporte()
     {
@@ -134,7 +150,7 @@ class Carga
     }
 
     /**
-     * @param float $Importe
+     * @ignore
      */
     public function setImporte($Importe)
     {
@@ -143,7 +159,7 @@ class Carga
     }
 
     /**
-     * @return the int
+     * @ignore
      */
     public function getKilometraje()
     {
@@ -151,7 +167,7 @@ class Carga
     }
 
     /**
-     * @param int $Kilometraje
+     * @ignore
      */
     public function setKilometraje($Kilometraje)
     {
@@ -160,7 +176,7 @@ class Carga
     }
 
     /**
-     * @return the string
+     * @ignore
      */
     public function getCombustible()
     {
@@ -168,29 +184,11 @@ class Carga
     }
 
     /**
-     * @param string $Combustible
+     * @ignore
      */
     public function setCombustible($Combustible)
     {
         $this->Combustible = $Combustible;
         return $this;
     }
-
-    /**
-     * @return the Persona
-     */
-    public function getPersona()
-    {
-        return $this->Persona;
-    }
-
-    /**
-     * @param  $Persona
-     */
-    public function setPersona($Persona)
-    {
-        $this->Persona = $Persona;
-        return $this;
-    }
- 
 }
