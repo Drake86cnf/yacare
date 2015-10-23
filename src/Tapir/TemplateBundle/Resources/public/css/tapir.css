@@ -83,17 +83,19 @@ h1, legend {
 }
 
 h1 a {
-	font-weight: 400;
+	font-weight: 600;
 }
 
 h2 {
 	margin-top: 10px;
 	font-size: 14pt;
+	font-weight: 600;
 }
 
 h3 {
 	margin-top: 8px;
 	font-size: 12pt;
+	font-weight: 600;
 }
 
 h4 {

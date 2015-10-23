@@ -1,0 +1,40 @@
+{% extends 'TapirAbmBundle::inicio.html.twig' %}
+
+{% block pagina_titulo %}Comercio{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid"><div class="row">
+
+<div class="col-xs-12 col-sm-6 col-md-6"><div class="list-group">
+    <a href="{{ path('yacare_comercio_comercio_listar') }}" class="list-group-item">
+    	<h2>Comercios</h2>
+    	<p>Nómina de comercios habilitados, sin habilitación y con habilitación en trámite.
+    		También tiene acceso al archivo de comercios cerrados.</p>
+    </a>
+    
+    <a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}" class="list-group-item">
+    	<h2>Trámites</h2>
+    	<p>La lista de trámites de habilitación comercial en proceso. También tiene acceso
+    		al archivo de trámites finalizados.</p>
+    </a>
+    
+    <a href="{{ path('yacare_comercio_local_listar') }}" class="list-group-item">
+    	<h2>Locales</h2>
+    	<p>Nómina de locales de uso comercial. Antes de iniciar un trámite de habilitación,
+    		es necesario dar de alta el local comercial si aun no lo hizo.</p>
+    </a>
+
+    <a href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar') }}" class="list-group-item">
+    	<h2>Certificados</h2>
+    	<p>Ver o imprimir certificados de habilitación para aquellos comercios que
+    		hayan finalizado el trámite.</p>
+    </a>
+    
+    <a href="{{ path('yacare_comercio_actividad_listar') }}" class="list-group-item">
+    	<h2>Actividades comerciales</h2>
+    	<p>Acceso al Clasificador Municipal de Actividades Económicas (ClaMAE 2014).</p>
+    </a>
+</div></div>
+
+</div></div>
+{% endblock pagina_contenido %}

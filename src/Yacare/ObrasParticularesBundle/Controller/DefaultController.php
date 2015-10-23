@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
- * @Route("default/")
  */
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
