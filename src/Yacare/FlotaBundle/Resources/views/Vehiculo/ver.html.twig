@@ -53,13 +53,12 @@
 </table>
 {% endblock %}
 
-
 {% block pagina_acciones2 %}
-    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR')") %}
+    {% if is_granted('ROLE_FLOTA_ADMINISTRADOR') %}
     	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
     {% endif %}
-    {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_CARGA')") %}
+    {% if is_granted('ROLE_FLOTA_CARGA') %}
     	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'vehiculo': entity.id })) }}"
     		class="btn btn-default"><i class="fa fa-tachometer"></i> Nueva carga</a>
     {% endif %}
