@@ -239,37 +239,5 @@ class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
         
         return $this->buscarAction2($request);
     }
-
-    /**
-     * Recalcula los parent en el árbol.
-     * 
-     * @Route("recalcular/")
-     * @Template("YacareComercioBundle:Actividad:listar.html.twig")
-     */
-    public function recalcularAction(Request $request)
-    {
-        set_time_limit(600);
-        ini_set('memory_limit', '2048M');
-        
-        $em = $this->getEm();
-        $i = 0;
-        $batchSize = 200;
-        /* $em->getConnection()->beginTransaction(); */
-        $items = $em->getRepository('YacareComercioBundle:Actividad')->findAll();
-        foreach ($items as $item) {
-            $item->setParentNode($item->getParentNode());
-            $em->persist($item);
-            if (($i % $batchSize) === 0) {
-                $em->flush();
-                $em->clear();
-            }
-        }
-        $em->flush();
-        $em->clear();
-        
-        /* $em->getConnection()->commit(); */
-        
-        return parent::listarAction($request);
-    }
 }
 
