@@ -25,8 +25,6 @@ class LocalType extends AbstractType
                 'required' => true,
                 'choices' => array(
                     'Local de ventas' => 'Local de ventas',
-                    'Oficina' => 'Oficina',
-                    'Galpón' => 'Galpón',
                     'Depósito' => 'Depósito',
                     'Otro' => 'Otro')))
             ->add('DepositoClase', 'entity', array(
@@ -36,8 +34,11 @@ class LocalType extends AbstractType
                 'required' => false))
             ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
                 'label' => 'Superficie total (m²)'))
-            ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
-                'label' => 'Superficie depósito (m²)'))
+            ->add('SuperficieDeposito', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
+                'label' => 'Depósito (m²)',
+                'required' => false,
+                'attr' => array('help' => 'Indicar cuántos metros cuadrados de la superficie total están dedicados a depósito.')
+            ))
             ->add('CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                 'label' => 'Cesto de basura',
                 'required' => false,

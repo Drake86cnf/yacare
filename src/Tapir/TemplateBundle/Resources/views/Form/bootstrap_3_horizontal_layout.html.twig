@@ -38,7 +38,7 @@
             {% endif %}
             {% if attr['prefix'] is defined or attr['suffix'] is defined %}</div>{% endif %}
             {{ form_errors(form) }}
-            {% if attr['help'] is defined %} <div class="help-block">{{ attr['help']|raw }}</div>{% endif %}
+            {% if attr['help'] is defined %} <span class="help-block">{{ attr['help']|raw }}</span>{% endif %}
         </div>
     </div>
 {% endspaceless %}
