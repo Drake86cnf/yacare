@@ -12,10 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("partida/")
  */
-class PartidaController extends \Tapir\BaseBundle\Controller\AbmController
+class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar {
-    	\Tapir\BaseBundle\Controller\ConBuscar::buscarAction as parent_buscarAction;
+    use \Tapir\AbmBundle\Controller\ConBuscar {
+    	\Tapir\AbmBundle\Controller\ConBuscar::buscarAction as parent_buscarAction;
     }
 
     function IniciarVariables()

@@ -8,9 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("asociacionrequisito/")
  */
-class AsociacionRequisitoController extends \Tapir\BaseBundle\Controller\AbmController
+class AsociacionRequisitoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()
     {

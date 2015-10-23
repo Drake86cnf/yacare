@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\ObrasParticulares\Controller\MatriculadoController MatriculadoController
  */
-class MatriculadoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class MatriculadoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

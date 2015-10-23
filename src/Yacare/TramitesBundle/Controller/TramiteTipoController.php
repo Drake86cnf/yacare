@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("tramitetipo/")
  */
-class TramiteTipoController extends \Tapir\BaseBundle\Controller\AbmController
+class TramiteTipoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     public function guardarActionPrePersist($entity, $editForm)
     {

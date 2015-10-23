@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @see \Yacare\FlotaBundle\Controller\VehiculoController VehiculoController
  */
-class VehiculoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class VehiculoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

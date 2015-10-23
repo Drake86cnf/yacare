@@ -14,6 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("barrio/")
  */
-class BarrioController extends \Tapir\BaseBundle\Controller\AbmController
+class BarrioController extends \Tapir\AbmBundle\Controller\AbmController
 {
 }

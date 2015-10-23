@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Tapir\BaseBundle\Controller\PersonaRolController PersonaRolController
  */
-class PersonaRolControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class PersonaRolControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

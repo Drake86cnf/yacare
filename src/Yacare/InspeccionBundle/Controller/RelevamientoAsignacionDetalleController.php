@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("relevamientoasignaciondetalle/")
  */
-class RelevamientoAsignacionDetalleController extends \Tapir\BaseBundle\Controller\AbmController
+class RelevamientoAsignacionDetalleController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

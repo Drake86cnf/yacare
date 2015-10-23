@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\InspeccionBundle\Controller\ActaTipoController ActaTipoController
  */
-class ActaTipoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class ActaTipoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

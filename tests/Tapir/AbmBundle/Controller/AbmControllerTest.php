@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\BaseBundle\Controller;
+namespace Tapir\AbmBundle\Controller;
 
 use \Tests\Tapir\PruebaFuncional;
 
@@ -23,7 +23,7 @@ abstract class AbmControllerTest extends \Tapir\BaseBundle\Controller\BaseContro
 
     public function testbuscarAction()
     {
-        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Tapir\\BaseBundle\\Controller\\ConBuscar') ==
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->item, 'Tapir\\AbmBundle\\Controller\\ConBuscar') ==
              false) {
             $this->markTestSkipped('Este controlador no soporta búsquedas.');
             

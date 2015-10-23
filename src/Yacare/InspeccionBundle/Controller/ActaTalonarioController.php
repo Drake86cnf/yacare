@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @Route("actatalonario/")
  */
-class ActaTalonarioController extends \Tapir\BaseBundle\Controller\AbmController
+class ActaTalonarioController extends \Tapir\AbmBundle\Controller\AbmController
 {
     /**
      * @Route("ajax_persona", name="ajax_persona")

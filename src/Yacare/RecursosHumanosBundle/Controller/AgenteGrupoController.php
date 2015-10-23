@@ -15,9 +15,9 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
  *
  * @Route("agentegrupo/") 
  */
-class AgenteGrupoController extends \Tapir\BaseBundle\Controller\AbmController
+class AgenteGrupoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 
     /**
      * @Route("volcar/")

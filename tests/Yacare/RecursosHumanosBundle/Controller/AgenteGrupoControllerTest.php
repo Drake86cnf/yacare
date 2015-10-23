@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\RecursosHumanosBundle\Controller\AgenteGrupoController AgenteGrupoController
  */
-class AgenteGrupoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class AgenteGrupoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

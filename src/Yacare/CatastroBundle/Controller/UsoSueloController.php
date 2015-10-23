@@ -14,6 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("usosuelo/")
  */
-class UsoSueloController extends \Tapir\BaseBundle\Controller\AbmController
+class UsoSueloController extends \Tapir\AbmBundle\Controller\AbmController
 {
 }

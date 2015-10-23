@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
 
-/*class ComentarioControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+/*class ComentarioControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
 	public function setup()
 	{

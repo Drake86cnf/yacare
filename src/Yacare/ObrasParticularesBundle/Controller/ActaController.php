@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("acta/")
  */
-class ActaController extends \Tapir\BaseBundle\Controller\AbmController
+class ActaController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 } 

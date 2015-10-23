@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
 /*
-class PartidaControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class PartidaControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
 	public function setup()
 	{

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\CatastroBundle\Controller\CalleController CalleController
  */
-class CalleControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class CalleControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

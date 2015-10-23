@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *        
  * @Route("empresaconstructora/")
  */
-class EmpresaConstructoraController extends \Tapir\BaseBundle\Controller\AbmController
+class EmpresaConstructoraController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

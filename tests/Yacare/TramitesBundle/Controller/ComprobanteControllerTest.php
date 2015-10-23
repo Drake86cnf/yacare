@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\TramitesBundle\Controller\ComprobanteController ComprobanteController
  */
-class ComprobanteControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class ComprobanteControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

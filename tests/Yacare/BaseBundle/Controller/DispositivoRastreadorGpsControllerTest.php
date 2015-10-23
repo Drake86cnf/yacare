@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\BaseBundle\Controller\DispositivoRastreadorGpsController DispositivoRastreadorGpsController
  */
-class DispositivoRastreadorGpsControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class DispositivoRastreadorGpsControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

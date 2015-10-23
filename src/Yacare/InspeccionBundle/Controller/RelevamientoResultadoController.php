@@ -14,9 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("relevamiento/resultado/")
  */
-class RelevamientoResultadoController extends \Tapir\BaseBundle\Controller\AbmController
+class RelevamientoResultadoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()
     {

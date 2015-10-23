@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\BaseBundle\Controller;
+namespace Tapir\AbmBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,9 +17,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @abstract
  */
-abstract class AbmController extends BaseController
+abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
 {
-    // use \Tapir\BaseBundle\Controller\ConBuscar;
+    // use \Tapir\AbmBundle\Controller\ConBuscar;
 
     /**
      * @see \Tapir\BaseBundle\Controller\BaseController::IniciarVariables()

@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("instrumento/")
  */
-class InstrumentoController extends \Tapir\BaseBundle\Controller\AbmController
+class InstrumentoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

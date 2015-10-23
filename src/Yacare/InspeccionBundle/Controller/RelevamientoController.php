@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  *        
  * @Route("relevamiento/")
  */
-class RelevamientoController extends \Tapir\BaseBundle\Controller\AbmController
+class RelevamientoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 }

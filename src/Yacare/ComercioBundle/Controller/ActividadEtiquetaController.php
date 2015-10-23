@@ -14,10 +14,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @Route("actividadetiqueta/")
  */
-class ActividadEtiquetaController extends \Tapir\BaseBundle\Controller\AbmController
+class ActividadEtiquetaController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConBuscar;
 
     function IniciarVariables()
     {

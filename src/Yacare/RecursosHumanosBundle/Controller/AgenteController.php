@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("agente/")
  */
-class AgenteController extends \Tapir\BaseBundle\Controller\AbmController
+class AgenteController extends \Tapir\AbmBundle\Controller\AbmController
 {
 
     function IniciarVariables()

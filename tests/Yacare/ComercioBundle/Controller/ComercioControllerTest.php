@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\ComercioBundle\Controller\ComercioController ComercioController
  */
-class ComercioControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class ComercioControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

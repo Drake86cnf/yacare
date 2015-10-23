@@ -8,7 +8,7 @@ namespace Yacare\TramitesBundle\Controller;
  * 
  * @see \Yacare\TramitesBundle\Controller\TramiteTipoController TramiteTipoController
  */
-class TramiteTipoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class TramiteTipoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {
