@@ -1,2 +1,62 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_pie %}
+	{% if entities is defined and entities|length == 0 %}
+		{% set filtros = [] %}
+		{% for queryvar in app.request.query.keys %}
+			{% if queryvar|length > 7 and queryvar|slice(0, 7) == 'filtro_' %}
+				{% if app.request.query.get(queryvar) %}
+				    {% set filtros = filtros|merge([ queryvar ]) %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+		<br />
+		<br />
+		<div class="container-fluid"><div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2"><div class="panel panel-info">
+				<div class="panel-heading">
+					<h3><i class="fa fa-search"></i> No hay elementos para mostrar</h3>
+				</div>
+                <div class="panel-body">
+                	
+                	{% if filtros is defined and filtros|length > 0%}
+                		{# Tiene filtros y/o búsqueda #}
+                		{% if 'filtro_buscar' in filtros %}
+                			{# Tiene búsqueda #}
+                			<p class="lead">La búsqueda de &quot;{{ app.request.query.get('filtro_buscar') }}&quot;
+                				no arrojó ningún resultado.</p>
+                			<p>Es probable que el elemento que busca no exista. Si cree que existe pero no puede
+                				encontrarlo, aquí hay algunas sugerencias para mejorar la búsqueda:</p>
+                				<ul>
+                					<li>Compruebe que su término de búsqueda esté bien escrito.</li>
+                					<li>Intente buscar en términos más generales. Por ejemplo en
+                						lugar de buscar algo como "teléfono celular" busque "teléfono".</li>
+                					<li>Intente buscar términos parciales. Por ejemplo en
+                						lugar de buscar algo como "Antártida Argentina" busque simplemente "Antártida".</li>
+                					<li>Si busca personas, busque por apellido (sin nombre), o por DNI.</li>
+                				</ul>
+                		{% else %}
+                		    {# Tiene filtros #}
+                		    <p>Los filtros aplicados resultaron en un listado vacío porque ningún elemento
+                		    	cumple con los criterios seleccionados.</p>
+                		    {% set params = app.request.query.all %}
+                		    {% for filtro in filtros %}
+                		    	{% set params = params|merge({ (filtro): '' }) %} 
+                		    {% endfor %}
+                		    <p>Si quiere quitar todos los filtros y ver el listado completo, haga clic aquí:
+                		    	<a class="btn btn-primary" data-toggle="ajax-link"
+                		    		href="{{ path(app.request.get('_route'), params) }}">
+								<i class="fa fa-times-circle"></i> Quitar filtros</a></p>
+                		    
+                		{% endif %}
+                	{% else %}
+                		{# No tiene filtros ni búsqueda, es una tabla sin datos #}
+                		<p>Esta sección todavía no tiene datos. Puede ser el primero en crear uno.</p>
+                	{% endif %}
+                </div>
+            </div></div>
+		</div></div>
+		<br />
+		<br />
+	{% endif %}
+{% endblock pagina_pie %}
