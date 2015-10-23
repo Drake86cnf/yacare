@@ -18,9 +18,9 @@ use Yacare\RequerimientosBundle\Form\CategoriaType;
  *
  * @Route("requerimiento/")
  */
-class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
+class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
     private $vistaMailNuevoRequerimiento = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_nuevo.html.twig';
 
@@ -185,7 +185,7 @@ class RequerimientoController extends \Tapir\BaseBundle\Controller\AbmController
     /**
      * Listar, con filtros.
      *
-     * @see \Tapir\BaseBundle\Controller\AbmController::listarAction()
+     * @see \Tapir\AbmBundle\Controller\AbmController::listarAction()
      *
      * @Route("listar/")
      * @Template()

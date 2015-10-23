@@ -14,9 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *
  * @Route("vehiculo/")
  */
-class VehiculoController extends \Tapir\BaseBundle\Controller\AbmController
+class VehiculoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()
     {

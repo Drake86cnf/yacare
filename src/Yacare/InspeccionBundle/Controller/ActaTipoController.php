@@ -11,6 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @Route("actatipo/")
  */
-class ActaTipoController extends \Tapir\BaseBundle\Controller\AbmController
+class ActaTipoController extends \Tapir\AbmBundle\Controller\AbmController
 {
 }

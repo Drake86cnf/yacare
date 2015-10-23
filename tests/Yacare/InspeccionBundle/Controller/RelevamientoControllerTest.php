@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\InspeccionBundle\RelevamientoController RelevamientoController
  */
-class RelevamientoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class RelevamientoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

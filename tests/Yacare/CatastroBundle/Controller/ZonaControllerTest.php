@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\CatastroBundle\Controller\ZonaController ZonaController
  */
-class ZonaControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class ZonaControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

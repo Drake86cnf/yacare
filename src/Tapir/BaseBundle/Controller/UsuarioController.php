@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("usuario/")
  */
-class UsuarioController extends AbmController
+class UsuarioController extends \Tapir\AbmBundle\Controller\AbmController
 {
     /**
      * La contraseña original.

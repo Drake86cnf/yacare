@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("estadorequisito/")
  */
-class EstadoRequisitoController extends \Tapir\BaseBundle\Controller\AbmController
+class EstadoRequisitoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConAdjuntos;
 

@@ -9,3 +9,15 @@
         <small><i class="fa fa-certificate text-success fa-fw" title="Nativo"></i></small>
     {% endif %}
 {% endspaceless %}{% endmacro %}
+
+{% macro post_listado(entities) %}
+	{% if entities|length == 0 %}
+		<div class="container-fluid"><div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 panel panel-green">
+              <div class="panel-body">
+                No hay elementos para mostrar en la vista actual.
+              </div>
+            </div>
+		</div></div>
+	{% endif %}
+{% endmacro %}

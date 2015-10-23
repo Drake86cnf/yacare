@@ -12,10 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @Route("licitacion/")
  */
-class LicitacionController extends \Tapir\BaseBundle\Controller\AbmController
+class LicitacionController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConImprimir;
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConQr;
 
     /**

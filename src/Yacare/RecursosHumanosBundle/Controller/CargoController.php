@@ -15,7 +15,7 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
  *
  * @Route("cargo/")
  */
-class CargoController extends \Tapir\BaseBundle\Controller\AbmController
+class CargoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 }

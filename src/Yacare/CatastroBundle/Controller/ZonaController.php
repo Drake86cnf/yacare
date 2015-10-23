@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("zona/")
  */
-class ZonaController extends \Tapir\BaseBundle\Controller\AbmController
+class ZonaController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("calle/")
  */
-class CalleController extends \Tapir\BaseBundle\Controller\AbmController
+class CalleController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
 }

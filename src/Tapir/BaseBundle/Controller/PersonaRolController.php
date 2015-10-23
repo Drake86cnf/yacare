@@ -14,9 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("personarol/")
  */
-class PersonaRolController extends \Tapir\BaseBundle\Controller\AbmController
+class PersonaRolController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()
     {

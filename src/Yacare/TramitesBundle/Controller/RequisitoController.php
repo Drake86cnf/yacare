@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("requisito/")
  */
-class RequisitoController extends \Tapir\BaseBundle\Controller\AbmController
+class RequisitoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

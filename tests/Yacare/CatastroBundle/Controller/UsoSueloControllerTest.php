@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see Yacare\CatastroBundle\Controller\UsoSueloController UsoSueloController
  */
-class UsoSueloControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class UsoSueloControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

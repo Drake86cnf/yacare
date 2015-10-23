@@ -14,10 +14,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("persona/")
  */
-class PersonaController extends \Tapir\BaseBundle\Controller\AbmController
+class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConBuscar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
     use \Tapir\BaseBundle\Controller\ConPerfil;
 
     function IniciarVariables()

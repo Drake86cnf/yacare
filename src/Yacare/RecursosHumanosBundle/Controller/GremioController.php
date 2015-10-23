@@ -15,7 +15,7 @@ use Yacare\MunirgBundle\Helper\LdapHelper;
  * 
  * @Route("gremio/")
  */
-class GremioController extends \Tapir\BaseBundle\Controller\AbmController
+class GremioController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
 }

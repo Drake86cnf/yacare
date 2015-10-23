@@ -12,9 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *        
  * @Route("matriculado/")
  */
-class MatriculadoController extends \Tapir\BaseBundle\Controller\AbmController
+class MatriculadoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\AbmBundle\Controller\ConBuscar;
 
     function IniciarVariables()
     {

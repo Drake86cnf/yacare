@@ -1,5 +1,5 @@
 <?php
-namespace Tapir\BaseBundle\Controller;
+namespace Tapir\AbmBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

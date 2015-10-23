@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\ObrasParticulares\Controller\CatController CatController
  */
-class CatControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class CatControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

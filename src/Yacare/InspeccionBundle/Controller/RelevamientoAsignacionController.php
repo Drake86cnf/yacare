@@ -13,9 +13,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("relevamientoasignacion/")
  */
-class RelevamientoAsignacionController extends \Tapir\BaseBundle\Controller\AbmController
+class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConArchivar;
 
     function IniciarVariables()

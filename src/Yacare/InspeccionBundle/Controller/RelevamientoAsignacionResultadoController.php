@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @Route("relevamientoasignacionresultado/")
  */
-class RelevamientoAsignacionResultadoController extends \Tapir\BaseBundle\Controller\AbmController
+class RelevamientoAsignacionResultadoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     /*
      * UPDATE Inspeccion_RelevamientoAsignacionResultado SET Inspeccion_RelevamientoAsignacionResultado.Asignacion_id=(

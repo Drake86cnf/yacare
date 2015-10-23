@@ -8,7 +8,7 @@ namespace Yacare\TramitesBundle\Controller;
  * 
  * @see \Yacare\TramitesBundle\Controller\InstrumentoController InstrumentoController
  */
-class InstrumentoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class InstrumentoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

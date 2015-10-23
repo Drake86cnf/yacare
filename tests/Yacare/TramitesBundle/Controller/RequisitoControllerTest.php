@@ -8,7 +8,7 @@ namespace Yacare\TramitesBundle\Controller;
  * 
  * @see \Yacare\TramitesBundle\Controller\RequisitoController RequisitoController
  */
-class RequisitoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class RequisitoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

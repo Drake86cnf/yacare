@@ -1,4 +1,4 @@
-{% extends 'TapirBaseBundle:Default:ver.html.twig' %}
+{% extends 'TapirAbmBundle:Default:ver.html.twig' %}
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
 
@@ -28,7 +28,7 @@
 	<hr />
 
 	{{ bs.grid_row() }}
-	{{ bs.grid_col_12() }}
+	{{ bs.grid_col(12) }}
 	
 	{% set depname = entity.Departamento %}
 	{% if entity.Departamento and entity.Departamento.ParentNode %}
@@ -40,8 +40,8 @@
 	{{ bs.grid_label_text('Departamento <i class="fa fa-building fa-fw"></i>', depname) }}
 	{{ bs.grid_label_text('Función', entity.Funcion) }}
 	{{ bs.grid_label_text('Estudios', entity.EstudiosNivelNombre) }}
-	{{ bs.grid_col_12_end() }}
-	{{ bs.grid_col_12() }}
+	{{ bs.grid_row_col_end() }}
+	{{ bs.grid_col(12) }}
 	{% set a='text-danger' %}
 	{{ bs.grid_label_text('Categoría', entity.Categoria) }}
 	{{ bs.grid_label_text('Situación', entity.SituacionNombre) }}
@@ -51,7 +51,7 @@
 	    {{ bs.grid_label_text('Motivo de baja', entity.BajaMotivoNombre) }}
 	{% endif %}
 	{% for Grupo in entity.Grupos %}<span class="label label-info">{{ Grupo }}</span> {% endfor %}
-	{{ bs.grid_col_12_end() }}
+	{{ bs.grid_row_col_end() }}
 	{{ bs.grid_row_end() }}
 </div>
 

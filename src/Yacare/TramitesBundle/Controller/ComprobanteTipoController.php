@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("comprobantetipo/")
  */
-class ComprobanteTipoController extends \Tapir\BaseBundle\Controller\AbmController
+class ComprobanteTipoController extends \Tapir\AbmBundle\Controller\AbmController
 {
 
     public function guardarActionPrePersist($entity, $editForm)

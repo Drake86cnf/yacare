@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("ticket/")
  */
-class TicketController extends \Tapir\BaseBundle\Controller\AbmController
+class TicketController extends \Tapir\AbmBundle\Controller\AbmController
 {
     function IniciarVariables()
     {

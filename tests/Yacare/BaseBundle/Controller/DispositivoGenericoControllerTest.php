@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @see \Yacare\BaseBundle\Controller\DispositivoGenericoController DispositivoGenericoController
  */
-class DispositivoGenericoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class DispositivoGenericoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

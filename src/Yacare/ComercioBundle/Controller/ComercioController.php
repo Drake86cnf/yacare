@@ -15,9 +15,9 @@ use Yacare\ComercioBundle\Entity\Actividad;
  * 
  * @Route("comercio/")
  */
-class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
+class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\BaseBundle\Controller\ConBuscar;
+    use \Tapir\AbmBundle\Controller\ConBuscar;
 
     /**
      * @Route("altamanual/")
@@ -29,7 +29,7 @@ class ComercioController extends \Tapir\BaseBundle\Controller\AbmController
     }
 
     /**
-     * @see \Tapir\BaseBundle\Controller\AbmController::guardarActionPrePersist() AbmController::guardarActionPrePersist()
+     * @see \Tapir\AbmBundle\Controller\AbmController::guardarActionPrePersist() AbmController::guardarActionPrePersist()
      */
     public function guardarActionPrePersist($entity, $editForm)
     {

@@ -14,6 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * 
  * @Route("categoria/")
  */
-class CategoriaController extends \Tapir\BaseBundle\Controller\AbmController
+class CategoriaController extends \Tapir\AbmBundle\Controller\AbmController
 {
 }

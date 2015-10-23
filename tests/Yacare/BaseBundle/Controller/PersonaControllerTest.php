@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\BaseBundle\Controller\PersonaController PersonaController
  */
-class PersonaControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class PersonaControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setUp()
     {

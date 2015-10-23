@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Route("comprobante/")
  */
-class ComprobanteController extends \Tapir\BaseBundle\Controller\AbmController
+class ComprobanteController extends \Tapir\AbmBundle\Controller\AbmController
 {
     public function guardarActionPrePersist($entity, $editForm)
     {

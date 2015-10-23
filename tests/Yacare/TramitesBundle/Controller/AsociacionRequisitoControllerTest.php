@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @see \Yacare\TramitesBundle\Controller\AsociacionRequisitoController AsociacionRequisitoController
  */
-class AsociacionRequisitoControllerTest extends \Tapir\BaseBundle\Controller\AbmControllerTest
+class AsociacionRequisitoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
     public function setup()
     {

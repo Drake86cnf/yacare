@@ -14,12 +14,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * 
  * @Route("actividad/")
  */
-class ActividadController extends \Tapir\BaseBundle\Controller\AbmController
+class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
-    use \Tapir\BaseBundle\Controller\ConEliminar;
-    use \Tapir\BaseBundle\Controller\ConBuscar {
-        \Tapir\BaseBundle\Controller\ConBuscar::buscarAction as buscarAction2;
+    use \Tapir\AbmBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConBuscar {
+        \Tapir\AbmBundle\Controller\ConBuscar::buscarAction as buscarAction2;
     }
 
     function IniciarVariables()
