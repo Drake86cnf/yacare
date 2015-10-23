@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Yacare\MunirgBundle\Helper\ImportadorActividades;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
 
 class ImportarActividadesCommand extends ContainerAwareCommand
 {
@@ -45,9 +44,11 @@ class ImportarActividadesCommand extends ContainerAwareCommand
             }
             $desde += $cantidad;
         }
-
+        
         $progress->finish();
         echo "\n";
+        
+        $importador->RecalcularParent($output);
         
         $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
         $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');

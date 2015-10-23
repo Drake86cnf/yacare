@@ -3,6 +3,7 @@ namespace Yacare\MunirgBundle\Helper;
 
 use Yacare\MunirgBundle\Helper\Importador;
 use Yacare\MunirgBundle\Helper\ResultadoLote;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Importador de partidas de actividades de ClaMAE.
@@ -58,8 +59,9 @@ class ImportadorActividades extends Importador {
     public function ImportarRegistro($Row) {
         $resultado = new ResultadoLote();
         
-        $Clamae2014 = $Row[$this->ColNumbers['Clamae2014']];
-        if(strlen($Clamae2014) >= 6) {
+        $Clamae2014 = str_replace('-', '', $Row[$this->ColNumbers['Clamae2014']]);
+        if(strlen($Clamae2014) >= 6 && $Clamae2014 != 'ClaMAE14') {
+            $Clamae2014 = str_pad($Clamae2014, 7, '0', STR_PAD_LEFT);
             $resultado->Registros[] = $Row;
             $entity = null;
             if (! $entity) {
@@ -80,10 +82,13 @@ class ImportadorActividades extends Importador {
             $entity->setNombre($Row[$this->ColNumbers['Nombre']]);
             $entity->setCategoriaAntigua($Row[$this->ColNumbers['Categoria']]);
             $entity->setClanae2010(substr($Clamae2014, 0, 6));
+            $entity->setSuprimido(0);
+            $entity->setFinal(1);
             
             if($Exenta) {
-                //echo $Clamae2014 . ' - ' . $entity->getNombre() . "\n";
+                //
             }
+            //echo $Clamae2014 . ' - ' . $entity->getNombre() . "\n";
             
             $this->em->persist($entity);
             $this->em->flush();
@@ -94,6 +99,41 @@ class ImportadorActividades extends Importador {
         return $resultado;
     }
     
+    
+    /**
+     * Recalcula los parent en el árbol.
+     */
+    public function RecalcularParent($output)
+    {
+        /* $em->getConnection()->beginTransaction(); */
+        $Registros = $this->em->getRepository('YacareComercioBundle:Actividad')->findBy(array('MaterializedPath' => ''));
+        
+        if($output) {
+            $progress = new ProgressBar($output, count($Registros));
+            $progress->start();
+        }
+        foreach ($Registros as $item) {
+            $item->setParentNode($item->getParentNode());
+            $this->em->persist($item);
+            $this->em->flush();
+            if($output) {
+                $progress->advance(1);
+            }
+        }
+        
+        if($output) {
+            $progress->finish();
+            echo "\n";
+        }
+    
+        /* $em->getConnection()->commit(); */
+    }
+
+    
+    /**
+     * Obtiene un handle al archivo de origen.
+     * @param string $params
+     */
     protected function ObtenerArchivo($params = 'r') {
         return fopen('Nomenclador.csv', $params);
     }
