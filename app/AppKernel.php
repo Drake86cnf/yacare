@@ -33,6 +33,7 @@ class AppKernel extends Kernel
         	new Tapir\AnnotationBundle\TapirAnnotationBundle(),
             new Tapir\TemplateBundle\TapirTemplateBundle(),
             new Tapir\FormBundle\TapirFormBundle(),
+			new Tapir\AbmBundle\TapirAbmBundle(),
 
             new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\TemplateBundle\YacareTemplateBundle(),
@@ -50,7 +51,6 @@ class AppKernel extends Kernel
             //new Yacare\SuitBundle\YacareSuitBundle(),
             new Yacare\SitioWebBundle\YacareSitioWebBundle(),
             new Yacare\FlotaBundle\YacareFlotaBundle(),
-            new Tapir\AbmBundle\TapirAbmBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
