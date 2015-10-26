@@ -50,9 +50,9 @@ trait ConArchivar
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Se archivó el elemento "' . $entity . '".');
 
-            return $this->afterArchivar($entity, true);
+            return $this->afterArchivar($request, $entity, true);
         }
-        return $this->afterArchivar($entity);
+        return $this->afterArchivar($request, $entity);
     }
 
     /**

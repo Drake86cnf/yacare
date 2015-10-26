@@ -32,8 +32,7 @@ class VehiculoType extends AbstractType
                     'nafta-98' => 'Nafta 98 oct.',
                     'gasoil' => 'Gasoil',
                     'gasoil-3' => 'Gasoil grado 3',
-                    'gnc' => 'GNC')))
-            
+                    'gnc' => 'GNC')))            
             ->add('IdentificadorUnico', null, array(
                 'label' => 'Código', 
                 'attr' => array('help' => 'El código Municipal de identificación del vehículo, por ejemplo L-71.')))
@@ -44,7 +43,7 @@ class VehiculoType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
-                'property' => 'NombreConSangriaDeEspaciosDuros'))
+                'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('NumeroSerie', null, array('label' => 'Patente')
             );
     }

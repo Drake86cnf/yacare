@@ -23,7 +23,7 @@ class RelevamientoAsignacionType extends AbstractType
                 'property' => 'Nombre'))
             ->add('Encargado', 'entity_id', array(
                 'label' => 'Encargado', 
-                'property' => 'NombreVisible', 
+                // 'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
             ->add('Calle', 'entity', array(

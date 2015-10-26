@@ -14,7 +14,7 @@ trait ConImagen
     /**
      * @Route("imagen/")
      */
-    public function imagenAction()
+    public function imagenAction(\Symfony\Component\HttpFoundation\Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getDoctrine()->getManager();

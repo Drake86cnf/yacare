@@ -74,7 +74,7 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
         return $res;
     }
 
-    public function afterEliminar($entity, $eliminado = false)
+    public function afterEliminar(Request $request, $entity, $eliminado = false)
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'),
@@ -83,7 +83,7 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
                         ->getId()), false)));
     }
 
-    public function afterArchivar($entity, $archivado = false)
+    public function afterArchivar(Request $request, $entity, $archivado = false)
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'),
