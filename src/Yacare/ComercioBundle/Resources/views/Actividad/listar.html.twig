@@ -10,6 +10,7 @@
 				title="Clasificador Municipal de Actividades Económicas 2014">Código</abbr></th>
 			<th>Nombre</th>
 			<th class="hidden-sm hidden-xs">Cat. antig.</th>
+			<th class="hidden-sm hidden-xs">CPU</th>
 			<th class="hidden-sm hidden-xs">Etiquetas</th>
 		</tr>
 	</thead>
@@ -25,6 +26,7 @@
 			<td>{{ entity.Clamae2014Formateado }}</td>
 			<td>{{ entity.Sangria|raw }}{% if entity.Final %}{{ entity.Nombre }}{% else %}<strong>{{ entity.Nombre }}</strong>{% endif %}</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
+			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CodigoCpu }}{% endif %}</td>
 			<td class="text-right">{% if entity.Etiquetas|length %}
 				<span class="badge" data-trigger="hover" data-container="body"
     				data-animation="true" data-toggle="popover" title="Etiquetas" data-placement="left"

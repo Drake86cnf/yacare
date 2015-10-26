@@ -107,19 +107,31 @@ class Actividad implements Tree\NodeInterface
     private $CodigoCpu;
     
     /**
-     * Requerimientos que se pueden asociar a una activiad.
+     * Las etiquetas asociadas a esta actividad..
      * 
      * @var ActividadEtiqueta
      *
      * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActividadEtiqueta", inversedBy="Actividades")
-     * @ORM\JoinTable(name="Comercio_Actividad_ActividaEtiqueta",
+     * @ORM\JoinTable(name="Comercio_Actividad_ActividadEtiqueta",
      *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
      */
     protected $Etiquetas;
+    
+    /**
+     * Requisitos particulares asociados a esta actividad.
+     *
+     * @var Yacare\TramitesBundle\Entity\Requisito
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\TramitesBundle\Entity\Requisito")
+     * @ORM\JoinTable(name="Comercio_Actividad_Requisito",
+     *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
+     */
+    protected $Requisitos;
 
 
     public function _construct(){
-        $this->Etiquetas= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Requisitos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     
@@ -453,6 +465,22 @@ class Actividad implements Tree\NodeInterface
         $this->Etiquetas = $Etiquetas;
         return $this;
     }
- 
+
+    /**
+     * @ignore
+     */
+    public function getRequisitos()
+    {
+        return $this->Requisitos;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setRequisitos($Requisitos)
+    {
+        $this->Requisitos = $Requisitos;
+        return $this;
+    }
    
 }
