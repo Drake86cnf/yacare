@@ -19,7 +19,7 @@
         <p class="lead text-primary">{{ entity }}</p>
         <p>Si quiere eliminar este elemento de todos modos, debe eliminar antes los elementos asociados.</p>
 
-        <a data-dismiss="modal" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+        <a data-dismiss="modal" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'id': entity.id })) }}"
         	class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
     </div>
 </div></div>	

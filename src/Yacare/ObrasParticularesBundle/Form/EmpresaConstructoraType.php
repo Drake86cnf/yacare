@@ -19,7 +19,7 @@ class EmpresaConstructoraType extends AbstractType
         $builder
             ->add('Persona', 'entity_id', array(
                 'label' => 'Empresa',
-                'property' => 'NombreVisible',
+                // 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
             ->add('RepresentanteTecnico', 'entity_id', array(

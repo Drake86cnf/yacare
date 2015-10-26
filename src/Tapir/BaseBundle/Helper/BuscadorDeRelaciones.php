@@ -38,13 +38,10 @@ class BuscadorDeRelaciones
                         } elseif (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($nombreEntidad, 
                             'Tapir\BaseBundle\Entity\Suprimible')) {
                             $hayRelacion = $this->em->getRepository($asociacion['sourceEntity'])->findOneBy(
-                                array(
-                                    $asociacion['fieldName'] => $entidadASuprimir->getId(), 
-                                    'Suprimido' => 0));
+                                array($asociacion['fieldName'] => $entidadASuprimir->getId(), 'Suprimido' => 0));
                         } else {
                             $hayRelacion = $this->em->getRepository($asociacion['sourceEntity'])->findOneBy(
-                                array(
-                                    $asociacion['fieldName'] => $entidadASuprimir->getId()));
+                                array($asociacion['fieldName'] => $entidadASuprimir->getId()));
                         }
                     }
                     if ($hayRelacion) {
@@ -163,9 +160,8 @@ class BuscadorDeRelaciones
         $variableRemitente = $asociacion['fieldName'];
         $rutaRemitente = $asociacion['sourceEntity'];
         $totalRelaciones = count(
-            $this->em->getRepository($rutaRemitente)->findBy(array(
-                $variableRemitente => $id), array(
-                'id' => 'ASC'), 5));
+            $this->em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), 
+                array('id' => 'ASC'), 5));
         
         return $totalRelaciones;
     }
@@ -182,9 +178,8 @@ class BuscadorDeRelaciones
         $variableRemitente = $asociacion['fieldName'];
         $rutaRemitente = $asociacion['sourceEntity'];
         $totalRelaciones = count(
-            $this->em->getRepository($rutaRemitente)->findBy(array(
-                $variableRemitente => $id), array(
-                'id' => 'ASC'), 5));
+            $this->em->getRepository($rutaRemitente)->findBy(array($variableRemitente => $id), 
+                array('id' => 'ASC'), 5));
         
         return $totalRelaciones;
     }
@@ -239,19 +234,14 @@ class BuscadorDeRelaciones
             ->leftJoin('a.' . $propiedadEntidadCandidata, 'b')
             ->where('b.id = :id_candidato');
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($rutaEntidadCandidata, 'Tapir\BaseBundle\Entity\Suprimible')) {
-            $hayRelacion->andwhere('a.Suprimido = :no_es_suprimido')->setParameters(
-                array(
-                    'id_candidato' => $entidadASuprimir->getId(), 
-                    'no_es_suprimido' => 0));
+            $hayRelacion
+                ->andwhere('a.Suprimido = :no_es_suprimido')
+                ->setParameters(array('id_candidato' => $entidadASuprimir->getId(), 'no_es_suprimido' => 0));
         } else {
-            $hayRelacion->setParameter(
-                array(
-                    'id_candidato' => $entidadASuprimir->getId()));
+            $hayRelacion->setParameter('id_candidato', $entidadASuprimir->getId());
         }
         
-        $hayRelacion = $hayRelacion->getQuery()
-            ->setMaxResults(1)
-            ->getResult();
+        $hayRelacion = $hayRelacion->getQuery()->setMaxResults(1)->getResult();
         
         return $hayRelacion;
     }

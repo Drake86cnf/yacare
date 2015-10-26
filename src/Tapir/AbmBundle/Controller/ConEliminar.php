@@ -4,8 +4,6 @@ namespace Tapir\AbmBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\DBAL\DriverManager;
-use Zend\Cache\Pattern\ObjectCache;
 
 /**
  * Trait que agrega la capacidad de eliminar entidades.
@@ -31,7 +29,7 @@ trait ConEliminar
 
     /**
      * @Route("eliminar/")
-     * @Template("TapirBaseBundle:Default:eliminar.html.twig")
+     * @Template("TapirAbmBundle::eliminar.html.twig")
      */
     public function eliminarAction(Request $request)
     {
@@ -56,7 +54,7 @@ trait ConEliminar
 
     /**
      * @Route("eliminar2/")
-     * @Template("TapirBaseBundle:Default:eliminar2.html.twig")
+     * @Template("TapirAbmBundle::eliminar2.html.twig")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
      */
     public function eliminar2Action(Request $request)

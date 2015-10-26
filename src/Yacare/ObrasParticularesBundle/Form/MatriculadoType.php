@@ -19,7 +19,7 @@ class MatriculadoType extends AbstractType
         $builder
             ->add('Persona', 'entity_id', array(
                 'label' => 'Persona',
-                'property' => 'NombreVisible',
+                // 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
             ->add('Profesion', 'choice', array(
