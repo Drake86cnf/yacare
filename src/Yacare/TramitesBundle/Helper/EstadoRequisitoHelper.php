@@ -8,8 +8,12 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class EstadoRequisitoHelper
+class EstadoRequisitoHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    public function LifecycleEvent(LifecycleEventArgs $args)
-    {}
+    function __construct($em = null) {
+        parent::__construct($em);
+    }
+    
+    public function PreUpdatePersist($entity, $args = null) {
+    }
 }
