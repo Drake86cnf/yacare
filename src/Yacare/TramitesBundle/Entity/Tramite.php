@@ -29,6 +29,7 @@ abstract class Tramite implements ITramite
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\TramitesBundle\Entity\ConTitular;
+    use \Yacare\BaseBundle\Entity\ConAdjuntos;
 
     public function __construct()
     {

@@ -1,0 +1,205 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+{% import 'YacareTramitesBundle:Tramite:macros.html.twig' as tm %}
+
+{% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
+
+{% block pagina_contenido %}
+{% set porpartida = app.request.query.get('porpartida') %}
+	<h2>Sobre el inmueble</h2>
+	<p>
+		{{ comercio.Local.Tipo }} ubicado en <strong>{{ comercio.Local.Partida.Domicilio }}</strong> de la
+		ciudad de Río Grande, con una superficie cubierta de {{ comercio.Local.Superficie }}
+		m². Datos catastrales: partida Nº {{ comercio.Local.Partida.Numero }}, denominación:
+		{{ comercio.Local.Partida.Smpu }}.
+	</p>
+	{% if comercio.Local.id > 0 %}
+	<p>
+		<i class="fa fa-info-circle"></i> El local se encuentra empadronado
+		con el Nº {{ comercio.Local.id }}.
+	</p>
+	{% endif %}
+	
+	{% if comercio.Local.Superficie > 0 and comercio.Local.Superficie < 16 %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>Importante</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left text-warning"></i> Los
+			establecimientos comerciales deben contar con una superficie mínima
+			de 16 m² sin contar sanitarios y cocina, con un lado mínimo de 3 m. y
+			una altura mínima de 2,4 m.
+		</div>
+	</div>
+	{% endif %}
+
+	<h2>Sobre el uso del suelo</h2>
+	<p>
+		El inmueble se encuentra en una zona
+		{% if comercio.Local.Partida.Zona %} 
+			catalogada como &quot;{{ comercio.Local.Partida.Zona|lower }}&quot;.
+		{% else %}
+			sin catalogar.
+		{% endif %}
+		El plan de desarrollo territorial dice que el uso del suelo para esta actividad en este sector de la ciudad
+		<strong>
+		    {%- if peorusosuelo == 1 %}es predominante <i class="fa fa-check"></i> </strong> (
+			{%- elseif peorusosuelo == 2 %}está permitido</strong> <i class="fa fa-check"></i> (uso compatible,
+			{%- elseif peorusosuelo == 3 %}está permitido en ciertas condiciones</strong><small>*</small> (uso condicional,
+			{%- elseif peorusosuelo == 9 %}está prohibido en todos los casos</strong><small>*</small> (
+			{%- else %}es desconocido (no zonificado, </strong>{% endif -%}
+			según el Plan de Desarrollo Territorial, Anexo 4: Localización de usos por zona).
+		Para más información, ver la columna &quot;Uso suelo&quot; en la tabla de actividades a desarrollar.
+	</p>
+
+	{% if peorusosuelo == 3 %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			condicionales&quot;, el mencionado anexo 4 dice que &quot;son
+			aquellos que para su posible implantación se requiere la presentación
+			de información adicional en cuanto a alguno de sus aspectos para que
+			analice su viabilidad en función de la incidencia urbanística en su
+			ámbito de localización.<br /> Dicho estudio deberá:<br />
+			&nbsp;&nbsp;a) Tomar en cuenta el área de influencia de la actividad
+			que se propone localizar, cuya delimitación deberá ser debidamente
+			justificada.<br /> &nbsp;&nbsp;b) Evaluar los aspectos cuantitativos
+			o cualitativos del uso pretendido para evitar la colisión con los
+			usos predominantes y compatibles de la zona, área o sector
+			correspondiente y la tergiversación de las condiciones urbanísticas
+			de sus ámbitos de influencia.<br /> &nbsp;&nbsp;c) La condición de
+			uso autorizable es aplicable a los supuestos de nuevos
+			emprendimientos y localizaciones, cambios de uso existente o
+			ampliación de superficies.&quot;
+		</div>
+	</div>
+	{% elseif peorusosuelo == 9 %}
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			prohibidos&quot;, el mencionado anexo 4 dice que &quot;son usos no
+			admitidos de forma expresa en esta normativa&quot; y por lo tanto el
+			ejercicio de la actividad está prohibido en esta zona de la ciudad.
+		</div>
+	</div>
+	{% endif %}
+
+	<h2>Sobre las actividades a desarrollar</h2>
+	
+	<p>La siguiente tabla enumera las actividades declaradas, con su descripción
+	
+	<table class="table">
+		<tr>
+			<th>ClaMAE</th>
+			<th>Nombre</th>
+			<th>Categoría</th>
+			<th>Uso suelo</th>
+		</tr>
+	{% for actividad in comercio.Actividades %}
+		<tr class="info">
+			<td>{{ actividad.Clamae2014 }}</td>
+			<td>{{ actividad }}</td>
+			<td>{{ actividad.CategoriaAntigua }}</td>
+			<td>{% if actividad.CodigoCpu %}
+            	{% if comercio.Local.Partida.Zona %}
+				    {% for uso in usossuelo %}{% if uso.Codigo == actividad.CodigoCpu %}{{ uso.UsoZonaNombre(uso.UsoZona(comercio.Local.Partida.Zona.id)) }}{% endif %}{% endfor %}
+			    {% else %}
+			    	Partida sin zonificar
+			    {% endif %}
+			{% else %}
+			    Actividad sin código de CPU
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td></td><td colspan="3">
+    		La actividad se declara como &quot;<strong>{{ actividad|lower }}</strong>&quot;,
+    		tipificada como una actividad de categoría {{ actividad.CategoriaAntigua }} según el Clasificador
+    		Municipal de Actividades Económicas 2014 con el código <strong>{{ actividad.Clamae2014 }}</strong>
+    		(correspondiente con el código {{ actividad.Clanae2010 }} del Clasificador Nacional de Actividades
+    		Económicas ClaNAE 2010 del INDEC, en uso por AFIP).
+			</td>
+		</tr>
+		{% if actividad.Incluye or actividad.NoIncluye %}<tr><td></td><td colspan="3" class="small">{% endif %}
+		{% if actividad.Incluye %}
+    		<strong>La actividad incluye</strong>: {{ actividad.Incluye }} 
+    	{% endif %}
+    	{% if actividad.NoIncluye %}
+    		<br /><strong>La actividad no incluye</strong>: {{ actividad.NoIncluye }}
+    	{% endif %}
+    	{% if actividad.Incluye or actividad.NoIncluye %}</td></tr>{% endif %}
+	{% endfor %}
+	</table>
+	
+	{% if comercio.ActividadesTodasExentas %}
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3>
+				<small>*</small> Importante
+			</h3>
+		</div>
+		<div class="panel-body">
+			<i class="fa fa-warning fa-4x pull-left"></i> El ejercicio de esta
+			actividad está exceptuado del requerimiento de habilitación por parte
+			de este municipio. No es necesario contar con una habilitación
+			comercial municipal.
+		</div>
+	</div>
+	{% endif %}
+	
+	{% if true %}
+	<p>
+		<i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene
+		requisitos ambientales específicos. Al momento de iniciar el trámite
+		de habilitación comercial se le solicitará documentación especial para
+		la Dirección de Ecología y Medio Ambiente.
+	</p>
+	{% endif %}
+	
+	{% if true %}
+	<p>
+		<i class="fa fa-info-circle"></i> El ejercicio de esta actividad tiene
+		requisitos bromatológicos y/o de higiene. Al momento de iniciar el
+		trámite de habilitación comercial se le solicitará documentación
+		especial para la Dirección de Bromatología e Higiene.
+	</p>
+	{% endif %}
+	
+	<h2>Sobre el trámite</h2>
+	{{ tm.listarrequisitos(tramite, 1) }}
+
+	<h2>Conclusión</h2>
+	{% if comercio.ActividadesTodasExentas %}
+		<p>No es necesario tramitar una habilitación comercial para esta actividad.</p>
+	{% elseif (comercio.Local.Superficie == 0 or comercio.Local.Superficie >= 16) and (peorusosuelo <= 3) %}
+    	<p>
+    		<i class="fa fa-check"></i> La habilitación comercial puede ser
+    		viable{% if peorusosuelo == 3 %} mediante la presentación de información
+    		adicional{% endif %}.
+    	</p>
+    	<a class="btn btn-primary hidden-print" data-toggle="ajax-link"
+    		href="{{ path(baseroute ~ '_editar_1') }}"><i class="fa fa-play"></i>
+    		Iniciar el trámite</a>
+	{% else %}
+		<p>La habilitación comercial no es viable.</p>
+	{% endif %}
+	
+	<a class="btn btn-default hidden-print"
+		onclick="window.print(); return false;" href="#"><i
+		class="fa fa-print"></i> Imprimir</a>
+
+	<h2>Descargo</h2>
+	<p>El presente informe preliminar no es vinculante y está dedicado a orientar sobre las características
+		más importantes del trámite de Habilitación Comercial. Esta información está sujeta a aprobación
+		por las autoridades competentes y puede cambiar sin previo aviso.</p>
+{% endblock %}

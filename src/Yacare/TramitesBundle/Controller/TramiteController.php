@@ -70,83 +70,19 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
-
-        if ($entity->getEstado() != 100) {
-            $entity->setEstado(100);
-            $entity->setFechaTerminado(new \DateTime());
-
-            $Comprob = $this->EmitirComprobante($entity);
-            if ($Comprob) {
-                $Comprob->setTramiteOrigen($entity);
-                $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
-                $em->persist($Comprob);
-
-                $entity->setComprobante($Comprob);
-            }
-
-            $em->persist($entity);
-            $em->flush();
-
-            $mensaje = null;
-        } else {
-            $mensaje = 'El trámite ya estaba terminado.';
-            $Comprob = $entity->getComprobante();
-        }
-
-        if ($Comprob) {
-            $RutaComprob = \Tapir\BaseBundle\Helper\StringHelper::ObtenerRutaBase(
-                $Comprob->getComprobanteTipo()->getClase());
-        } else {
-            $RutaComprob = null;
-        }
+        
+        $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
+        $resultado = $Helper->TerminarTramite($entity);
 
         return $this->ArrastrarVariables($request,
             array(
                 'entity' => $entity,
-                'mensaje' => $mensaje,
-                'comprob' => $Comprob,
-                'rutacomprob' => $RutaComprob,
-                'rutacomprob' => $RutaComprob));
+                'mensaje' => $resultado['mensaje'],
+                'comprob' => $resultado['comprobante'],
+                'rutacomprob' => $resultado['rutacomprobante']
+            ));
     }
-
-    public function EmitirComprobante($tramite)
-    {
-        // Al finalizar un trámite, ver si es necesario emitir un comprobante
-        $Comprob = null;
-
-        $ComprobanteTipo = $tramite->getTramiteTipo()->getComprobanteTipo();
-        if ($ComprobanteTipo) {
-            // Tiene un tipo de comprobante asociado
-            $Clase = $ComprobanteTipo->getClase();
-            if ($Clase) {
-                // Instancio un comprobante del tipo asociado
-                $Comprob = new $Clase();
-                $Comprob->setComprobanteTipo($ComprobanteTipo);
-
-                if ($ComprobanteTipo->getPeriodoValidez()) {
-                    // Este tipo de comprobante tiene un período de validez predeterminado
-                    // Fecha de vencimiento: validez indicada por el comprobante, menos 1 día
-                    $Venc = new \DateTime();
-                    $Comprob->setVencimiento($Venc->add(new \DateInterval('P' . $ComprobanteTipo->getPeriodoValidez())));
-                }
-            }
-        }
-
-        return $Comprob;
-    }
-
-    public function ObtenerProximoNumeroComprobante($comprob)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-            'SELECT MAX(c.Numero) FROM \Yacare\TramitesBundle\Entity\Comprobante c WHERE c.ComprobanteTipo=?1
-            AND c.NumeroPrefijo=?2');
-        $query->setParameter(1, $comprob->getComprobanteTipo());
-        $query->setParameter(2, $comprob->getNumeroPrefijo());
-        $res = (int) $query->getResult(\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR);
-
-        return ++ $res;
-    }
+    
 
     /* public function guardarActionPrePersist($entity, $editForm)
     {

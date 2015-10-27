@@ -1,0 +1,44 @@
+{% macro listar(tramitetipo, nivel) %}
+{% if tramitetipo.Obs %}
+	<p>{{ tramitetipo.Obs|raw }}</p>
+{% endif %}
+
+{% if tramitetipo.AsociacionRequisitos|length > 0 %}
+	<p>Para iniciar el trámite de &quot;{{ tramitetipo }}&quot; deberá
+		presentar la siguiente documentación:</p>
+<ol>
+	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	    {% if AsocRequisito.Requisito.Tipo == 'tra' %}
+		<li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite
+			previo{% if AsocRequisito.Opcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
+	        {% if AsocRequisito.Condicion %}
+				<p class="text-muted">Sólo si {{ AsocRequisito.Condicion }}.</p>
+	        {% endif %}
+	        {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
+	        {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
+	    {% endif %}
+	{% endfor %}
+	
+	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	    {% if AsocRequisito.Requisito.Tipo != 'tra' %}
+			<li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}
+			    {% if AsocRequisito.Opcional %}<small> (opcional)</small>{% endif %}
+				</h{{ nivel }}></li>
+	        {% if AsocRequisito.Condicion %}
+			<p class="text-muted">Sólo se requiere si
+			    {{ AsocRequisito.Condicion }}.</p>
+	        {% endif %}
+	        {{ _self.mostrarrequisito(AsocRequisito.Requisito) }}
+	    {% endif %}
+	{% endfor %}
+</ol>
+{% endif %}
+{% endmacro %}
+
+{% macro mostrarrequisito(requisito) %}
+{% if requisito.Obs %}<p>{{ requisito.Obs }}</p>{% endif %}
+{% if requisito.Lugar or requisito.Url %}<p class="text-info">{% endif %}
+{% if requisito.Lugar %}Se obtiene en <strong>{{ requisito.Lugar }}</strong>{% endif %}
+{% if requisito.Url %}[ {{ requisito.Url }} ]{% endif %}
+{% if requisito.Lugar or requisito.Url %}</p>{% endif %}
+{% endmacro %}
