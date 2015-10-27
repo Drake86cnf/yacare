@@ -60,7 +60,46 @@ trait ConActividades
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $Actividad6;
+    
+    
+    public function getActividades() {
+        $res = array();
+        if($this->Actividad1 != null) { $res[] = $this->Actividad1; }
+        if($this->Actividad2 != null) { $res[] = $this->Actividad2; }
+        if($this->Actividad3 != null) { $res[] = $this->Actividad3; }
+        if($this->Actividad4 != null) { $res[] = $this->Actividad4; }
+        if($this->Actividad5 != null) { $res[] = $this->Actividad5; }
+        if($this->Actividad6 != null) { $res[] = $this->Actividad6; }
+        return $res;
+    }
 
+    
+    public function ActividadesTodasTienenEtiqueta($etiq) {
+        return ($this->Actividad1 == null || $this->Actividad1->ContieneEtiquetaPorCodigo($etiq))
+            && ($this->Actividad2 == null || $this->Actividad2->ContieneEtiquetaPorCodigo($etiq))
+            && ($this->Actividad3 == null || $this->Actividad3->ContieneEtiquetaPorCodigo($etiq))
+            && ($this->Actividad4 == null || $this->Actividad4->ContieneEtiquetaPorCodigo($etiq))
+            && ($this->Actividad5 == null || $this->Actividad5->ContieneEtiquetaPorCodigo($etiq))
+            && ($this->Actividad6 == null || $this->Actividad6->ContieneEtiquetaPorCodigo($etiq));
+    }
+    
+    public function ActividadesAlgunaTieneEtiqueta($etiq) {
+        return ($this->Actividad1 == null || $this->Actividad1->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad2 == null || $this->Actividad2->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad3 == null || $this->Actividad3->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad4 == null || $this->Actividad4->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad5 == null || $this->Actividad5->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad6 == null || $this->Actividad6->ContieneEtiquetaPorCodigo($etiq));
+    }
+    
+    
+    public function ActividadesTodasExentas() {
+        return $this->ActividadesTodasTienenEtiqueta('exenta');
+    }
+    
+    public function ActividadesAlgunaRequiereDeyma() {
+        return $this->ActividadesAlgunaTieneEtiqueta('reqiere_deyma');
+    }
     
     
     /**

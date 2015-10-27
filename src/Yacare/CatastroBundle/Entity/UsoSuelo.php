@@ -215,6 +215,15 @@ class UsoSuelo
                 return 'Desconocido';
         }
     }
+    
+    
+    /**
+     * Devuelve el nombre de de suelo para una zona específica.
+     * @param int $zona La zona para la cual obtener el nombre de este uso.
+     */
+    public function UsoZonaNombre($zona) {
+        return UsoSuelo::UsoSueloNombre($this->getUsoZona($zona));
+    }
 
     /**
      * Getter grupal que identifica y devuelve la zona correspondiente.

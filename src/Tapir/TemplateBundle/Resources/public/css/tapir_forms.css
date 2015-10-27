@@ -3,6 +3,15 @@
     Author     : Ernesto Carrea <ernestocarrea@gmail.com>
     Description: Estilos para formularios y botones
 */
+
+.control-label-left {
+	padding-top: 7px;
+    margin-bottom: 0px;
+	color: #606060;
+	text-align: left;
+	line-height: 1.42857;
+}
+
 input, select, textarea {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	border-radius: 0px !important;
