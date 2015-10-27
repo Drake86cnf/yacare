@@ -1,0 +1,105 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+{% import 'YacareTramitesBundle:Tramite:macros.html.twig' as tm %}
+{% set porpartida = app.request.query.get('porpartida') %}
+
+{% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
+
+{% block pagina_inicio %}
+<form class="form-horizontal"
+	action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}"
+	method="post"  {{ form_enctype(edit_form) }}>
+{% endblock %}
+
+{% block pagina_contenido %}
+	<div class="container-fluid">
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Actividades comerciales</h3>
+			<p>Puede seleccionar hasta 6 actividades comerciales.</p>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad1) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad2) }}</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad3) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad4) }}</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad5) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad6) }}</div>
+	</div>
+	
+	{% if porpartida %}
+		<div class="row">
+    		<div class="col-xs-12">
+    			<h3>Seleccione la partida inmobiliaria</h3>
+    			<p>Es necesario que proporcione la partida inmobiliaria exacta, para poder conocer
+    				la zonificación y saber si la actividad que pretende desarrollar está permitida
+    				en la zona de la ciudad en la cual pretende ubicar el comercio.
+    			Si no sabe el número de partida, puede buscar por domicilio o por titular.</p>
+    		</div>
+    	</div>
+		<div class="row form-group">
+    		<div class="col-xs-12">{{ form_widget(edit_form.Partida) }}</div>
+    	</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Características del local</h3>
+				<p>Escriba la superficie total del local comercial en el primer cuadro,
+				y la superficie dedicada a depósito en el segundo, en metros cuadrados</p>
+			</div>
+		</div>
+		
+    	<div class="row form-group">
+    		<label class="col-xs-4 col-sm-2 control-label">Superficie total</label>
+    		<div class="col-xs-6 col-sm-2">{{ form_widget(edit_form.Superficie) }}</div>
+    		<label class="col-xs-4 col-sm-2 control-label">de los cuales</label>
+    		<div class="col-xs-4 col-sm-2">{{ form_widget(edit_form.SuperficieDeposito) }}</div>
+    		<div class="col-xs-4 col-sm-2 control-label-left"> son depósito</div>
+    	</div>
+	{% else %}
+		<div class="row">
+    		<div class="col-xs-12">
+    			<h3>Seleccione el local comercial</h3>
+				<p>Si el local comercial se encuentra empadronado, puede buscarlo
+				por domicilio o por titular. Si el local no se encuentra empadronado o los datos del
+				padrón no se corresponden, puede buscar por partida inmobiliaria.</p>
+			</div>
+		</div>
+		<div class="row form-group">
+    		<div class="col-xs-12">{{ form_widget(edit_form.Local) }}</div>
+    	</div>
+	{% endif %}
+	</div>
+	
+    {{ form_rest(edit_form) }}
+{% endblock %}
+
+{% block pagina_acciones2 %}
+	{% if porpartida %} Si el local está empadronado, utilice la búsqueda <a
+		data-toggle="ajax-link"
+		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por
+		local comercial</a>. {% else %} Si el local no está empadronado, puede
+	cambiar a la búsqueda <a data-toggle="ajax-link"
+		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por
+		domicilio</a>.
+	{% endif %}
+{% endblock %}
+
+{% block pagina_acciones %}
+    {% if create %}
+    <a class="btn btn-default hidden-print" data-togle="ajax-link"
+		href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+	<button type="submit" class="btn btn-primary hidden-print">
+		<i class="fa fa-info-circle"></i> Consultar
+	</button>
+	{% endif %}
+{% endblock %}
+
+{% block pagina_fin %}
+</form>
+{% endblock %}

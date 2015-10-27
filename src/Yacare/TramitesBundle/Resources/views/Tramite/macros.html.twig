@@ -1,0 +1,26 @@
+{% macro listarrequisitos(tramite, nivel) %}
+{% if tramite.EstadosRequisitos|length > 0 %}
+	<p>Para iniciar el trámite &quot;{{ tramite.TramiteTipo }}&quot; deberá
+		presentar la siguiente documentación:</p>
+<ol>
+	{% for EstadoRequisito in tramite.EstadosRequisitos %}
+		<li ><i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}</li>
+	    
+		
+	{% endfor %}
+	
+	{% for EstadoRequisito in tramite.EstadosRequisitos %}
+		<li ><i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}</li>
+	    
+	{% endfor %}
+</ol>
+{% endif %}
+{% endmacro %}
+
+{% macro mostrarrequisito(estadoreq) %}
+{% if estadoreq.AsociacionRequisito.Requisito.Obs %}<p>{{ estadoreq.AsociacionRequisito.Requisito.Obs }}</p>{% endif %}
+{% if estadoreq.AsociacionRequisito.Requisito.Lugar or estadoreq.AsociacionRequisito.Requisito.Url %}<p class="text-info">{% endif %}
+{% if estadoreq.AsociacionRequisito.Requisito.Lugar %}Se obtiene en <strong>{{ estadoreq.AsociacionRequisito.Requisito.Lugar }}</strong>{% endif %}
+{% if estadoreq.AsociacionRequisito.Requisito.Url %}[ {{ estadoreq.AsociacionRequisito.Requisito.Url }} ]{% endif %}
+{% if estadoreq.AsociacionRequisito.Requisito.Lugar or estadoreq.AsociacionRequisito.Requisito.Url %}</p>{% endif %}
+{% endmacro %}

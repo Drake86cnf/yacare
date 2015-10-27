@@ -1,18 +1,19 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Trámite Nº {{ entity.id }} <small> {{ entity }}</small>{% endblock %}
+{% block pagina_titulo %}Trámite Nº {{ entity.id }} <small>{{ entity }}</small>{% endblock %}
 
 {% block tramite_encab %}
 <div class="row">
 	<div class="col-lg-8">
 		<p>
-			El trámite fue presentado el {{ entity.createdAt|tapir_fecha('full',
-			'short')|lower }} ({{ entity.createdAt|tapir_hacetiempo }}) y está
-			actualmente en estado <strong>{{ entity.EstadoNombre|lower }}</strong>
-			{% if entity.Estado == 100 and entity.FechaTerminado %} . El trámite
-			finalizó el día {{ entity.FechaTerminado|tapir_fecha('full',
-			'short')|lower }}. {% else %} con un porcentaje completado de {{
-			entity.PorcentajeCompleto }}%. {% endif %}
+			El trámite fue presentado el {{ entity.createdAt|tapir_fecha('full', 'short')|lower }}
+			({{ entity.createdAt|tapir_hacetiempo }}) y está actualmente en estado
+			<strong>{{ entity.EstadoNombre|lower }}</strong>
+			{%- if entity.Estado == 100 and entity.FechaTerminado %}. El trámite finalizó el día
+			    {{ entity.FechaTerminado|tapir_fecha('full', 'short')|lower }}.
+			{% else %}
+				con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
+			{% endif %}
 		</p>
 	</div>
 	<div class="col-lg-4">
@@ -34,7 +35,8 @@
 				aria-valuemin="0" aria-valuemax="100"
 				style="width: {{ 100 - entity.PorcentajeCompleto }}%;"></div>
 		</div>
-		{% endblock %} {% elseif entity.EstaTerminado %}
+		{% endblock %}
+		{% elseif entity.EstaTerminado %}
 		<div class="panel panel-success">
 			<div class="panel-body">
 				<i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
@@ -176,6 +178,10 @@
         $('[data-toggle="requisitos_ocultables"]').hide();
     });
 </script>
+
+<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+	href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.Id }) }}"><i
+	class="fa fa-paperclip"></i> Archivos adjuntos</a>
 
 <a class="btn btn-default hidden-print"
 	onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i

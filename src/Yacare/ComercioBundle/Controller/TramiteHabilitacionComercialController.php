@@ -34,31 +34,54 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
      */
     public function consultarAction(Request $request)
     {
+        $em = $this->getEm();
         $porpartida = $this->ObtenerVariable($request, 'porpartida');
 
-        $editFormBuilder = $this->createFormBuilder()->add('Actividad1', 'entity_id', array(
-            'label' => 'Actividad principal',
-            'class' => 'Yacare\ComercioBundle\Entity\Actividad',
-            'required' => true));
+        $editFormBuilder = $this->createFormBuilder()
+            ->add('Actividad1', 'entity_id', array(
+                'label' => 'Actividad principal',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true))
+            ->add('Actividad2', 'entity_id', array(
+                'label' => 'Actividad adicional',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true))
+            ->add('Actividad3', 'entity_id', array(
+                'label' => 'Actividad adicional',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true))
+            ->add('Actividad4', 'entity_id', array(
+                'label' => 'Actividad adicional',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true))
+            ->add('Actividad5', 'entity_id', array(
+                'label' => 'Actividad adicional',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true))
+            ->add('Actividad6', 'entity_id', array(
+                'label' => 'Actividad adicional',
+                'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'required' => true));
         if ($porpartida) {
             $editFormBuilder
                 ->add('Partida', 'entity_id', array(
                     'label' => 'Partida', 'class' => 'Yacare\CatastroBundle\Entity\Partida'))
-                ->add('Tipo', 'choice', array(
+                /* ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                     'label' => 'Tipo',
+                    'data' => 'Local de ventas',
                     'required' => true,
                     'choices' => array(
                         'Local de ventas' => 'Local de ventas',
-                        'Oficina' => 'Oficina',
-                        'Galpón' => 'Galpón',
                         'Depósito' => 'Depósito',
                         'Otro' => 'Otro')))
                 ->add('DepositoClase', 'entity', array(
                     'label' => 'Tipo de depósito',
                     'placeholder' => '(sólo para depósitos)',
                     'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
-                    'required' => false))
-                ->add('Superficie', null, array('label' => 'Superficie (m²)'));
+                    'required' => false)) */
+                ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array('label' => 'Superficie total'))
+                ->add('SuperficieDeposito', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array('label' => 'Depósito'))
+                ;
         } else {
             $editFormBuilder
                 ->add('Local', 'entity_id', array(
@@ -69,50 +92,63 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
 
         if ($editForm->isValid()) {
             $data = $editForm->getData();
-            $Actividad = $data['Actividad1'];
 
             if (array_key_exists('Local', $data)) {
                 $Local = $data['Local'];
-                $Superficie = $Local->getSuperficie();
-                $Partida = $Local->getPartida();
-                $Tipo = $Local->getTipo();
             } else {
-                $Local = null;
-                $Superficie = $data['Superficie'];
-                $Partida = $data['Partida'];
-                $Tipo = $data['Tipo'];
+                $Local = new \Yacare\ComercioBundle\Entity\Local();
+                $Local->setSuperficie($data['Superficie']);
+                $Local->setPartida($data['Partida']);
+                //$Local->setTipo($data['Tipo']);
+                $Local->setTipo("Local de ventas");
             }
-            $em = $this->getEm();
+            
+            $Comercio = new \Yacare\ComercioBundle\Entity\Comercio();
+            $Comercio->setLocal($Local);
+            $Comercio->setActividad1($data['Actividad1']);
+            $Comercio->setActividad2($data['Actividad2']);
+            $Comercio->setActividad3($data['Actividad3']);
+            $Comercio->setActividad4($data['Actividad4']);
+            $Comercio->setActividad5($data['Actividad5']);
+            $Comercio->setActividad6($data['Actividad6']);
 
-            $ValorUsoSuelo = 0;
-            $UsoSuelo = $em->createQuery(
-                'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo
-                    AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
-                ->setParameter('codigo', $Actividad->getCodigoCpu())
-                ->setParameter('sup', $Superficie)
-                ->setMaxResults(1)
-                ->getResult();
-            if ($UsoSuelo && count($UsoSuelo) > 0) {
-                $UsoSuelo = $UsoSuelo[0];
+            $UsosSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')
+                                ->getResult();
+            
+            $PeorUsoSuelo = 0;
+            $Zona = $Local->getPartida()->getZona();
+            if($Zona) {
+                // Recorrer las actividades en buscar del peor uso de suelo
+                foreach($Comercio->getActividades() as $Actividad) {
+                    $CodigoCpu = $Actividad->getCodigoCpu();
+                    if($CodigoCpu) {
+                        foreach($UsosSuelo as $UsoSuelo) {
+                            if($UsoSuelo->getCodigo() == $CodigoCpu) {
+                                $Uso = $UsoSuelo->getUsoZona($Zona->getId());
+                                if($Uso > $PeorUsoSuelo) {
+                                    $PeorUsoSuelo = $Uso;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-            $Zona = $Partida->getZona();
-            if ($Zona && $UsoSuelo) {
-                $ValorUsoSuelo = $UsoSuelo->getUsoZona($Zona->getId());
-            } else {
-                $ValorUsoSuelo = 0;
-            }
+            
+            $Tramite = new \Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial();
+            $Tramite->setComercio($Comercio);
+            
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
+            $THelper->PreUpdatePersist($Tramite);
+            $THCHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
+            $THCHelper->PreUpdatePersist($Tramite);
 
             return $this->ArrastrarVariables($request, array(
-                'usosuelo' => $ValorUsoSuelo,
-                'usosuelo_nombre' => \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($ValorUsoSuelo),
-                'actividad' => $Actividad,
+                'peorusosuelo' => $PeorUsoSuelo,
+                'peorusosuelo_nombre' => \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($PeorUsoSuelo),
+                'usossuelo' => $UsosSuelo,
                 'porpartida' => $porpartida,
-                'local' => $Local,
-                'zona' => $Zona,
-                'partida' => $Partida,
-                'tipo' => $Tipo,
-                'superficie' => $Superficie,
+                'comercio' => $Comercio,
+                'tramite' => $Tramite,
                 'create' => 0,
                 'errors' => '',
                 'edit_form' => $editForm->createView()));
