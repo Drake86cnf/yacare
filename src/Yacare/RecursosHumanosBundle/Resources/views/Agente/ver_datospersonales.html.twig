@@ -1,0 +1,37 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}{% if entity %} {{ entity }} {% endif %}{% endblock %}
+
+{% block pagina_inicio %}
+	{% if entity %} 
+    {{ form_start(edit_form, {
+            'action': path(baseroute ~ '_ver_datospersonales', arrastre|merge({ 'id': id, 'hisapi': 0 })),
+            'method': 'POST',
+            'attr': { 'id': edit_form.vars.id }
+        }) }}
+    {% endif %}
+{% endblock %}
+
+{% block pagina_contenido %}
+	{{ bs_tabset(tabs) }}
+	&nbsp;
+	{{ parent() }}
+	{{ form_widget(edit_form) }}
+{% endblock %}
+
+{% block pagina_acciones %}
+    <button
+    	{% if tapir_modal is not defined or tapir_modal == 0 %}
+    		onclick="return tapirAtras();"
+    	{% else %}
+    	    data-dismiss="modal"
+    	{% endif %}
+    	class="btn btn-default">Cancelar</button>
+    <button type="submit" value="Guardar" class="btn btn-primary">
+    	<i class="fa fa-check"></i> Guardar
+    </button>
+{% endblock %}
+
+{% block pagina_fin %}
+    {{ form_end(edit_form) }}
+{% endblock %}

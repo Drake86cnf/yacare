@@ -27,8 +27,9 @@ class AgenteType extends AbstractType
                 'widget' => 'single_text', 
                 'format' => 'dd/MM/yyyy', 
                 'label' => 'Fecha de ingreso'))
-            ->add('Persona', new \Yacare\RecursosHumanosBundle\Form\PersonaAgenteType(), array(
-                'label' => 'Persona'));
+            //->add('Persona', new \Yacare\RecursosHumanosBundle\Form\PersonaAgenteType(), array(
+              //  'label' => 'Persona'))
+              ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
