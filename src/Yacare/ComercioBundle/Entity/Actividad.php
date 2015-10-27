@@ -127,6 +127,16 @@ class Actividad implements Tree\NodeInterface
      *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
      */
     protected $Requisitos;
+    
+    
+    public function ContieneEtiquetaPorCodigo($codigo) {
+        foreach($this->Etiquetas as $Etiqueta) {
+            if($Etiqueta->getCodigo() == $codigo) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public function _construct(){

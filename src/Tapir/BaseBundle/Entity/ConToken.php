@@ -38,7 +38,7 @@ trait ConToken
      */
     protected function GenerarToken()
     {
-        $this->Token = toupper(substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32));
+        $this->Token = strtoupper(substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32));
     }
 
     /**
