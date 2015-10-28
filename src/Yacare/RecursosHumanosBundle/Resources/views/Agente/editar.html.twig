@@ -1,9 +1,61 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %}
+{% extends 'TapirAbmBundle::editarbase.html.twig' %}
 
 {% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo agente{% endif %}{% endblock %}
 
 {% block pagina_contenido %}
-    {{ bs_tabset(tabs) }}
-	&nbsp;
-    {{ parent() }}
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#editar_agente">Editar agente</a></li>
+  <li><a data-toggle="tab" href="#editar_persona">Editar persona</a></li>
+</ul>
+&nbsp;
+<div class="container-fluid tab-content">
+	<div id="editar_agente" class="tab-pane fade in active">
+      	<div class="row form-group"> 
+            {{ form_label(edit_form.id) }}
+      		<div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.id) }} </div>
+      	</div>
+      	<div class="row form-group">
+      		{{ form_label(edit_form.Grupos) }}
+        	<div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Grupos) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.FechaIngreso) }}
+        	<div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.FechaIngreso) }}</div>
+        </div>
+    </div>
+    <div id="editar_persona" class="tab-pane fade">
+    	<div class="row form-group">
+      		{{ form_label(edit_form.Persona.Apellido) }}
+          	<div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Apellido) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Nombre) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Nombre) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Documento) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Documento) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Cuilt) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Cuilt) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Domicilio) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Domicilio) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.TelefonoNumero) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.TelefonoNumero) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Email) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Email) }} </div>
+        </div>
+        <div class="row form-group">
+        	{{ form_label(edit_form.Persona.Username) }}
+            <div class="col-xs-12 col-sm-10"> {{ form_widget(edit_form.Persona.Username) }} </div>
+        </div>
+	</div>
+</div>
 {% endblock %}

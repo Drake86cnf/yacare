@@ -6,12 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Yacare\RecursosHumanosBundle\Form\PersonaAgenteType;
 
 /**
  * Controlador de agentes.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *
  * @Route("agente/")
  */
@@ -27,83 +27,6 @@ class AgenteController extends \Tapir\AbmBundle\Controller\AbmController
         }
         
         $this->OrderBy = 'p.NombreVisible';
-    }
-
-    /**
-     * @Route("ver_datospersonales/")
-     * @Template()
-     */
-    public function ver_datospersonalesAction(Request $request)
-    {
-        $em = $this->getEm();
-        
-        $id = $this->ObtenerVariable($request, 'id');
-        $Persona = $this->ObtenerEntidadPorId($id)->getPersona();
-        
-        $FormEditar = $this->createForm(new PersonaAgenteType(), $Persona);
-        $FormEditar->handleRequest($request);
-        
-        if ($FormEditar->isValid()) {
-            $em->persist($Persona);
-            $em->flush();
-            $this->addFlash('success', 'Los cambios en "' . $Persona . '" fueron guardados.');
-            
-            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false));
-        }
-        return $this->ArrastrarVariables($request, array(
-            'id' => $id,
-            'entity' => $Persona, 
-            'edit_form' => $FormEditar->createView(), 
-            'tabs' => $this->ObtenerPestanias($request, 'ver_datospersonales', $id)));
-    }
-
-    /**
-     * @Route("ver_lugardetrabajo/")
-     * @Template()
-     */
-    public function ver_lugardetrabajoAction(Request $request)
-    {
-        return $this->verAction($request);
-    }
-
-    /**
-     * @Route("ver_familiares/")
-     * @Template()
-     */
-    public function ver_familiaresAction(Request $request)
-    {
-        return $this->verAction($request);
-    }
-
-    /**
-     * @Route("ver/")
-     * @Template()
-     */
-    public function verAction(Request $request)
-    {
-        $id = $this->ObtenerVariable($request, 'id');
-        $idPersona = $this->ObtenerEntidadPorId($id)->getPersona()->getId();
-        $res = parent::verAction($request);
-        
-        $res['tabs'] = $this->ObtenerPestanias($request, 'ver', $id, $idPersona);
-        
-        return $res;
-    }
-
-    /**
-     * @Route("editar/")
-     * @Template()
-     */
-    public function editarAction(Request $request)
-    {
-        $id = $this->ObtenerVariable($request, 'id');
-        $idPersona = $this->ObtenerEntidadPorId($id)->getPersona()->getId();
-        $res = parent::editarAction($request);
-        
-        $res['tabs'] = $this->ObtenerPestanias($request, 'editar', $id, $idPersona);
-        
-        return $res;
     }
 
     /**
@@ -141,25 +64,17 @@ class AgenteController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function guardarActionPostPersist($entity, $editForm)
     {
-        if ($entity->getId()) {
+        /*if ($entity->getId()) {
             $ldap = new \Yacare\MunirgBundle\Helper\LdapHelper($this->container);
             $ldap->AgregarOActualizarAgente($entity);
             $ldap = null;
-        }
+        }*/
         return;
     }
-
-    public function ObtenerPestanias($request, $actual, $id)
+    
+    protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return new \Tapir\TemplateBundle\Controls\TabSet(array(
-            new \Tapir\TemplateBundle\Controls\Tab('General', 
-                $this->generateUrl($this->ObtenerRutaBase('ver'), 
-                    $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver'), 
-            new \Tapir\TemplateBundle\Controls\Tab('Editar Agente', 
-                $this->generateUrl($this->ObtenerRutaBase('editar'), 
-                    $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'editar'), 
-            new \Tapir\TemplateBundle\Controls\Tab('Editar Persona', 
-                $this->generateUrl($this->ObtenerRutaBase('ver_datospersonales'), 
-                    $this->ArrastrarVariables($request, array('id' => $id), false)), $actual == 'ver_datospersonales')));
+        return $this->redirectToRoute($this->obtenerRutaBase('ver'),
+            $this->ArrastrarVariables($request, array('id' => $entity->getId()), false));
     }
 }
