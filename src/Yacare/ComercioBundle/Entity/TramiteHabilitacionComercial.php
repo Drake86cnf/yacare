@@ -40,7 +40,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      *
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $UsoSuelo;
+    private $UsoSuelo = null;
 
     /**
      * Devuelve el nombre de UsoSuelo normalizado.
@@ -62,7 +62,21 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      */
     public function EstaListoParaTerminar()
     {
-        return $this->getUsoSuelo() <= 3 && parent::EstaListoParaTerminar();
+        return $this->getUsoSuelo() <= 4 && parent::EstaListoParaTerminar();
+    }
+    
+    
+    /**
+     * Devuelve una lista de razones por las que no se puede terminar.
+     * @return string[] La lista.
+     */
+    public function QueImpideTerminar() {
+        $res = parent::QueImpideTerminar();
+        if($this->getUsoSuelo() > 4) {
+            $res[] = 'El uso de suelo no es admisible.';
+        }
+        
+        return $res;
     }
 
     /**

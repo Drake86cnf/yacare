@@ -8,14 +8,28 @@
 	<h2>Sobre el inmueble</h2>
 	<p>
 		{{ comercio.Local.Tipo }} ubicado en <strong>{{ comercio.Local.Partida.Domicilio }}</strong> de la
-		ciudad de Río Grande, con una superficie cubierta de {{ comercio.Local.Superficie }}
-		m². Datos catastrales: partida Nº {{ comercio.Local.Partida.Numero }}, denominación:
+		ciudad de Río Grande, con una superficie cubierta total de {{ comercio.Local.Superficie }} m²
+		{%- if comercio.Local.SuperficieDeposito -%}
+			, de los cuales {{ comercio.Local.SuperficieDeposito }} m² se usan como depósito
+		{%- endif -%}
+		. Datos catastrales: partida Nº {{ comercio.Local.Partida.Numero }}, denominación:
 		{{ comercio.Local.Partida.Smpu }}.
 	</p>
 	{% if comercio.Local.id > 0 %}
-	<p>
-		<i class="fa fa-info-circle"></i> El local se encuentra empadronado
-		con el Nº {{ comercio.Local.id }}.
+	<p class=">
+		<i class="fa fa-info-circle"></i> El inmueble se encuentra empadronado con el Nº {{ comercio.Local.id }}.
+	    {% if comercio.Local.VeredaMunicipal 
+		    or comercio.Local.Canaletas
+		    or comercio.Local.CestoBasura
+		    or comercio.Local.AnchoSalida > 0
+		%}
+    		El {{ comercio.Local.Tipo|lower }} cuenta con
+    		{% if comercio.Local.VeredaMunicipal %}vereda reglamentaria,{% endif %}
+            {% if comercio.Local.Canaletas %}canaletas,{% endif %}
+            {% if comercio.Local.CestoBasura %}cesto de basura,{% endif %}
+            {% if comercio.Local.AnchoSalida > 0 %}salida de emergencia (de {{ comercio.Local.AnchoSalida * 55 }} cm),{% endif %}
+            según la infomación del padrón que fue actualizada por última vez el día {{ comercio.Local.updatedAt|tapir_fecha('full', 'none')|lower }}.
+		{% endif %}
 	</p>
 	{% endif %}
 	
@@ -34,33 +48,30 @@
 	{% endif %}
 
 	<h2>Sobre el uso del suelo</h2>
-	<p>
-		El inmueble se encuentra en una zona
+	<p>El inmueble se encuentra en una zona
 		{% if comercio.Local.Partida.Zona %} 
 			catalogada como &quot;{{ comercio.Local.Partida.Zona|lower }}&quot;.
 		{% else %}
 			sin catalogar.
 		{% endif %}
-		El plan de desarrollo territorial dice que el uso del suelo para esta actividad en este sector de la ciudad
+		El plan de desarrollo territorial dice que el uso del suelo para las actividades declaradas,
+		en este sector de la ciudad
 		<strong>
-		    {%- if peorusosuelo == 1 %}es predominante <i class="fa fa-check"></i> </strong> (
-			{%- elseif peorusosuelo == 2 %}está permitido</strong> <i class="fa fa-check"></i> (uso compatible,
-			{%- elseif peorusosuelo == 3 %}está permitido en ciertas condiciones</strong><small>*</small> (uso condicional,
-			{%- elseif peorusosuelo == 9 %}está prohibido en todos los casos</strong><small>*</small> (
+		    {%- if tramite.UsoSuelo == 1 %}es predominante <i class="fa fa-check text-muted"></i> </strong> (
+			{%- elseif tramite.UsoSuelo == 2 %}está permitido</strong> <i class="fa fa-check text-muted"></i> (uso compatible,
+			{%- elseif tramite.UsoSuelo == 4 %}está permitido en ciertas condiciones</strong><span style="color: red">*</span> (uso condicional,
+			{%- elseif tramite.UsoSuelo == 9 %}está prohibido</strong><span style="color: red">*</span> (
 			{%- else %}es desconocido (no zonificado, </strong>{% endif -%}
 			según el Plan de Desarrollo Territorial, Anexo 4: Localización de usos por zona).
 		Para más información, ver la columna &quot;Uso suelo&quot; en la tabla de actividades a desarrollar.
 	</p>
 
-	{% if peorusosuelo == 3 %}
+	{% if tramite.UsoSuelo == 4 %}
+	<div class="container-fluid"><div class="row"><div class="col-sm-8 col-sm-offset-2">
 	<div class="panel panel-warning">
-		<div class="panel-heading">
-			<h3>
-				<small>*</small> Importante
-			</h3>
-		</div>
+		<div class="panel-heading"><span style="color: red">*</span> Importante</div>
 		<div class="panel-body">
-			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			<i class="fa fa-warning fa-4x pull-left text-danger"></i> Sobre los &quot;usos
 			condicionales&quot;, el mencionado anexo 4 dice que &quot;son
 			aquellos que para su posible implantación se requiere la presentación
 			de información adicional en cuanto a alguno de sus aspectos para que
@@ -78,25 +89,26 @@
 			ampliación de superficies.&quot;
 		</div>
 	</div>
-	{% elseif peorusosuelo == 9 %}
+	</div></div></div>
+	{% elseif tramite.UsoSuelo == 9 %}
+	<div class="container-fluid"><div class="row"><div class="col-sm-8 col-sm-offset-2">
 	<div class="panel panel-danger">
-		<div class="panel-heading">
-			<h3>
-				<small>*</small> Importante
-			</h3>
-		</div>
+		<div class="panel-heading"><span style="color: red">*</span> Importante</div>
 		<div class="panel-body">
-			<i class="fa fa-warning fa-4x pull-left"></i> Sobre los &quot;usos
+			<i class="fa fa-warning fa-4x pull-left text-danger"></i> Sobre los &quot;usos
 			prohibidos&quot;, el mencionado anexo 4 dice que &quot;son usos no
 			admitidos de forma expresa en esta normativa&quot; y por lo tanto el
-			ejercicio de la actividad está prohibido en esta zona de la ciudad.
+			ejercicio de las actividad declaradas está prohibido en esta zona de la ciudad.
 		</div>
 	</div>
+	</div></div></div>
 	{% endif %}
 
 	<h2>Sobre las actividades a desarrollar</h2>
 	
-	<p>La siguiente tabla enumera las actividades declaradas, con su descripción
+	<p>La siguiente tabla enumera las actividades declaradas, según el Clasificador Municipal de Actividades Económicas ClaMAE 2014,
+		con su descripción, categoriación y uso de suelo para la ubicación del inmueble.
+	</p>
 	
 	<table class="table">
 		<tr>
@@ -181,10 +193,10 @@
 	<h2>Conclusión</h2>
 	{% if comercio.ActividadesTodasExentas %}
 		<p>No es necesario tramitar una habilitación comercial para esta actividad.</p>
-	{% elseif (comercio.Local.Superficie == 0 or comercio.Local.Superficie >= 16) and (peorusosuelo <= 3) %}
+	{% elseif (comercio.Local.Superficie == 0 or comercio.Local.Superficie >= 16) and (tramite.UsoSuelo <= 3) %}
     	<p>
     		<i class="fa fa-check"></i> La habilitación comercial puede ser
-    		viable{% if peorusosuelo == 3 %} mediante la presentación de información
+    		viable{% if tramite.UsoSuelo == 4 %} mediante la presentación de información
     		adicional{% endif %}.
     	</p>
     	<a class="btn btn-primary hidden-print" data-toggle="ajax-link"

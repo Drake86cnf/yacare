@@ -1,7 +1,16 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Adjunto{% endblock %}
+{% block pagina_titulo %}Ver archivo adjunto{% endblock %}
 
 {% block pagina_contenido %}
-<img style="margin: auto;" lass="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />
+<div class="container-fluid">
+    <div class="row">
+    	<label class="col-sm-2 control-label">Nombre</label>
+    	<div class="col-sm-4">{{ entity.Nombre }}</div>
+    	<label class="col-sm-2 control-label">Tamaño</label>
+    	<div class="col-sm-4">{{ entity.Tamano }}</div>
+	</div>
+</div>
+
+<img class="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />
 {% endblock %}

@@ -20,22 +20,28 @@ class Adjunto
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
-    public function __construct($Entidad = null, $Archivo = null)
+    public function __construct($archivo = null, $entity = null, $id = null)
     {
         $this->Token = sha1(openssl_random_pseudo_bytes(256));
         
-        if ($Entidad) {
-            $this->setEntidadTipo(get_class($Entidad));
-            $this->setEntidadId($Entidad->getId());
+        if ($entity) {
+            if(is_string($entity)) {
+                $this->setEntidadTipo($entity);
+                if($id) {
+                    $this->setEntidadId($id);
+                }
+            } else {
+                $this->setEntidadTipo(get_class($entity));
+                $this->setEntidadId($entity->getId());
+            }
             
             // Genero un nombre de carpeta bundle/entidad ('Base/Persona', 'Organizacion/Departamento', etc.)
             $PartesNombreClase = explode('\\', $this->getEntidadTipo());
-            $this->setCarpeta(
-                strtolower(str_replace('Bundle', '', $PartesNombreClase[1]) . '/' . $PartesNombreClase[3]));
+            $this->setCarpeta(strtolower(str_replace('Bundle', '', $PartesNombreClase[1]) . '/' . $PartesNombreClase[3]));
         }
         
-        if ($Archivo) {
-            $this->SubirArchivo($Archivo);
+        if ($archivo) {
+            $this->SubirArchivo($archivo);
         }
     }
     
@@ -82,6 +88,13 @@ class Adjunto
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     private $TipoMime;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $Tamano;
     
     /**
      * @var string
@@ -250,6 +263,10 @@ class Adjunto
             mkdir($RutaFinal, 0775, true);
         }
         $Archivo->move($RutaFinal, $this->getToken());
+        $NombreArchivoFinal = $RutaFinal . $this->getToken();
+        if(file_exists($NombreArchivoFinal)) {
+            $this->setTamano(filesize($NombreArchivoFinal));
+        }
     }
 
     /**
@@ -347,4 +364,22 @@ class Adjunto
     {
         $this->Persona = $Persona;
     }
+
+    /**
+     * @ignore
+     */
+    public function getTamano()
+    {
+        return $this->Tamano;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTamano($Tamano)
+    {
+        $this->Tamano = $Tamano;
+        return $this;
+    }
+ 
 }

@@ -20,9 +20,6 @@ class TramitesListener implements EventSubscriber
         $this->container = $container;
     }
 
-    /**
-     * Interviene la creación de un trámite.
-     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -39,16 +36,7 @@ class TramitesListener implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        if ($entity instanceof ITramite) {
-            // Capturo los eventos si la entidad es un trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper();
-            $Helper->LifecycleEvent($args);
-        } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\IEstadoRequisito) {
-            // Capturo los eventos si la entidad es el estado de un requisito
-            $Helper = new \Yacare\TramitesBundle\Helper\EstadoRequisitoHelper();
-            $Helper->LifecycleEvent($args);
-        }
+        return $this->prePersist($args);
     }
 
     public function getSubscribedEvents()

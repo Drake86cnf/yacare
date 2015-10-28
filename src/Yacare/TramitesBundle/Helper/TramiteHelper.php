@@ -154,8 +154,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
      */
     public function ObtenerProximoNumeroComprobante($comprob)
     {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
+        $query = $this->em->createQuery(
             'SELECT MAX(c.Numero) FROM \Yacare\TramitesBundle\Entity\Comprobante c WHERE c.ComprobanteTipo=?1
             AND c.NumeroPrefijo=?2');
         $query->setParameter(1, $comprob->getComprobanteTipo());

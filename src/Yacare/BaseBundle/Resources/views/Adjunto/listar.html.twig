@@ -1,15 +1,148 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %}
+{% extends 'TapirAbmBundle::listar.html.twig' %}
 
-{% block pagina_titulo %}Adjuntos{% endblock %}
+{% block pagina_titulo %}Archivos adjuntos{% endblock %}
 
 {% block pagina_contenido %}
+<style>
+.dropzone {
+    border: 2px dashed #CCCCCC;
+    padding: 8px;
+    min-height: 80px;
+}
+
+.thumbnail-caption {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    aborder: 1px solid red;
+    overflow: hidden;
+}
+.thumbnail-caption-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    padding: 6px;
+    aborder: 1px solid blue;
+}
+</style>
+
+
+<form action="{{ path('yacare_base_adjunto_subir', arrastre|merge({ 'tipo': tipo, 'id': id })) }}" {{ form_enctype(edit_form) }} 
+	class="dropzone" id="subirArchivos" method="POST">
+
+    <div class="dz-message">
+    	<p class="text-center"><br />Haga clic o arrastre y suelte archivos aquí para añadir.<br /></p> 
+    </div>
+
+<div class="container-fluid" id="previews"><div class="row">
+	<div id="template" class="thumbnails col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        <div class="thumbnail">
+        	<div class="thumbnail-caption" style="display: block">
+        		<div class="thumbnail-caption-content">
+                	<strong><span data-dz-name></span></strong>, <span data-dz-size></span>
+                	<div class="pull-right btn-group btn-group-xs" role="group">
+                   		<a href="#" class="boton-info btn btn-default" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a>
+                   		<a href="#" class="boton-quitar btn btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                   		<a href="#" class="boton-descargar btn btn-default" target="_blank"><i class="fa fa-fw fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
+			<img class="img-responsive" src="{{  asset('/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/unknown.png') }}" data-dz-thumbnail />
+    	</div>
+    </div>
+</div></div>
+
+<script>
+$(function() {
+	Dropzone.autoDiscover = false;
+	
+	var previewNode = document.querySelector("#template");
+	previewNode.id = "";
+	var previewTemplate = previewNode.parentNode.innerHTML;
+	previewNode.parentNode.removeChild(previewNode);
+	Dropzone.options.subirArchivos = {
+        //paramName: "form[Nombre]",
+        uploadMultiple: false,
+        forceFallback: false,
+        maxFilesize: 250, // MB
+        previewTemplate: previewTemplate,
+        thumbnailWidth: 256,
+        thumbnailHeight: 256,
+        autoProcessQueue: true,
+        previewsContainer: "#previews",
+        init: function() {
+            this.on("success", function(file, response) {
+              // Cambio los enlaces de los botones del thumbnail
+              file.previewElement.id = response.adjunto.token;
+              href_info = "{{ path('yacare_base_adjunto_ver', { token: '__token__' }) }}".replace('__token__', response.adjunto.token);
+              $(file.previewElement).find('a.boton-info').attr('href', href_info);
+              href_down = "{{ path('yacare_base_adjunto_descargar', { token: '__token__' }) }}".replace('__token__', response.adjunto.token);
+              $(file.previewElement).find('a.boton-descargar').attr('href', href_down);
+              href_del = "{{ path('yacare_base_adjunto_eliminar', { token: '__token__' }) }}".replace('__token__', response.adjunto.token);
+              $(file.previewElement).find('a.boton-eliminar').attr('href', href_down);
+            });
+            this.on("failure", function(file, response) {
+              alert(response.error);
+              //$(file.previewElement).find('.boton-info').appendChild(document.createTextNode(responseText.id));
+            });
+        }
+	};
+
+	var myDropzone = new Dropzone("#subirArchivos");
+
+	$('.thumbnails .thumbnail').hover(
+        function() {
+            $(this).find('.thumbnail-caption').fadeIn(50);
+            $('.caption-btm').hide();
+        },
+        function() {
+            $(this).find('.thumbnail-caption').fadeOut(50);
+            $('.caption-btm').show();
+    });
+
+	$('#subirArchivos').submit(function(event) {
+		if (myDropzone.getQueuedFiles().length > 0) {
+			alert(myDropzone.getQueuedFiles().length);                        
+			myDropzone.processQueue();  
+		} 
+	});    
+});
+</script>
+
+    <div class="fallback form-horizontal">
+    	<input name="file" type="file" multiple />
+        {# form_widget(edit_form.Nombre) #}
+    </div>
+    {# form_rest(edit_form) #}
+</form>
+
+<br />
 
 {% if entities %}
 <div class="container-fluid"><div class="row">
     {% for entity in entities %}
-    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2" style="min-height: 256px; max-height: 256px; padding-bottom: 20px;">
-        <div class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><div class="img-thumbnail text-center center" target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}" style="overflow: hidden; min-height: 200px; max-height: 200px;">
+    <div class="thumbnails col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        <div class="thumbnail">
+        	<div class="thumbnail-caption">
+        		<div class="thumbnail-caption-content">
+                	<strong>{{ entity.Nombre }}</strong>
+                	<p class="small text-left">Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
+                	{% if entity.Persona %}
+                		por {{ entity.Persona }}.
+                	{% endif %}
+                	</p>
+                	<div class="pull-right btn-group btn-group-xs" role="group">
+                		<a href="{{ path('yacare_base_adjunto_ver', { 'token': entity.Token }) }}" class="btn btn-default" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a>
+                   		<a href="{{ path('yacare_base_adjunto_eliminar', { 'token': entity.Token, 'tipo': tipo, 'id': id  }) }}" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                   		<a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}" class="btn btn-default"><i class="fa fa-fw fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
             {% if entity.TieneMiniatura %}
             	<img src="{{ entity.NombreArchivoRelativo | imagine_filter('thumb256') }}" class="img-responsive"
             		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
@@ -19,25 +152,14 @@
             		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
             		alt="Miniatura de {{ entity.Nombre }}" />
             {% endif %}
-        	</div></a>
-            <ul class="dropdown-menu">
-                <li><a target="_blank" href="{{ asset('adjuntos/' ~ entity.Carpeta ~ '/' ~ entity.Token) }}"><i class="fa fa-folder-open-o fa-fw"></i> Abrir</a></li>
-                <li><a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}"><i class="fa fa-download fa-fw"></i> Descargar</a></li>
-            </ul>
-        </div>
-        <div class="text-muted"><small>Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
-            {% if entity.Persona %}
-                por {{ entity.Persona }}.
-            {% endif %}
-            </small></div>
+    	</div>
     </div>
     {% endfor %}
 </div></div>
 
 {% else %}
-
 <p>No hay archivos adjuntos.</p>
-
 {% endif %}
 
 {% endblock %}
+

@@ -24,47 +24,54 @@ class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helpe
         if (! $Comercio->getTitular()) {
             // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
             $Comercio->setTitular($tramite->getTitular());
+
             // También el apoderado
             $Comercio->setApoderado($tramite->getApoderado());
         
             $this->em->persist($Comercio);
         }
         
-        // Consolidar las actividades para que no queden campos en blanco
-        \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
-        
         $Local = $Comercio->getLocal();
         
-        // TODO: obtener el peor uso de suelo para las actividades
-        if ($Local && $tramite->getUsoSuelo() == null) {
-            // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
-            $Actividad = $Comercio->getActividad1();
-        
-            // Busco el uso del suelo para esa zona
-            $UsoSuelo = $this->em->createQuery(
-                'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u
-                    WHERE u.Codigo=:codigo AND u.SuperficieMaxima<:sup
-                    ORDER BY u.SuperficieMaxima DESC')
-                            ->setParameter('codigo', $Actividad->getCodigoCpu())
-                            ->setParameter('sup', $Local->getSuperficie())
-                            ->setMaxResults(1)
-                            ->getResult();
-                            // Si es un array tomo el primero
-                            if ($UsoSuelo && count($UsoSuelo) > 0) {
-                                $UsoSuelo = $UsoSuelo[0];
-                            }
-        
-                            if ($UsoSuelo) {
-                                $Partida = $Local->getPartida();
-                                if ($Partida) {
-                                    $Zona = $Partida->getZona();
-                                    if ($Zona) {
-                                        $tramite->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
-                                    }
-                                }
-                            }
-                             
+        // Actualizo el uso de suelo para el trámite
+        if ($Local) {
+            if($Local && $Local->getPartida()) {
+                $tramite->setUsoSuelo($this->ObtenerPeorUsoSuelo($Local->getPartida()->getZona(), $Comercio->getActividades()));
+            }
         }
         $tramite->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
+    }
+    
+    
+    /**
+     * Obtiene el peor uso de suelo para un conjunto de actividades en una zona determinada.
+     * 
+     * Se llama el peor uso de suelo al uso de suelo más restrictivo.
+     * 
+     * @param Yacare\CatastroBundle\Entity\Zona $Zona
+     * @param Yacare\ComercioBundle\Entity\Actividad[] $Actividades
+     */
+    public function ObtenerPeorUsoSuelo($Zona, $Actividades) {
+        $UsosSuelo = $this->em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')->getResult();
+        
+        $PeorUsoSuelo = 0;
+        if($Zona) {
+            // Recorrer las actividades en buscar del peor uso de suelo
+            foreach($Actividades as $Actividad) {
+                $CodigoCpu = $Actividad->getCodigoCpu();
+                if($CodigoCpu) {
+                    foreach($UsosSuelo as $UsoSuelo) {
+                        if($UsoSuelo->getCodigo() == $CodigoCpu) {
+                            $Uso = $UsoSuelo->getUsoZona($Zona->getId());
+                            if($Uso > $PeorUsoSuelo) {
+                                $PeorUsoSuelo = $Uso;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $PeorUsoSuelo;
     }
 }
