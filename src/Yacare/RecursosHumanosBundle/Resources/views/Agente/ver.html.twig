@@ -5,8 +5,6 @@
 {% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{%endif %}{% endblock pagina_titulo %}
 
 {% block pagina_contenido %}
-{{ bs_tabset(tabs) }}
-&nbsp;
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
@@ -73,12 +71,9 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-    {# <a data-toggle="ajax-link" class="btn btn-primary"
+    <a data-toggle="ajax-link" class="btn btn-primary"
     	href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}"><i
     	class="fa fa-edit"></i> Editar agente</a>
-    <a data-toggle="ajax-link" class="btn btn-primary"
-    	href="{{ path('yacare_base_persona_editar', arrastre|merge({ 'id': entity.Persona.Id })) }}"><i
-    	class="fa fa-edit"></i> Editar persona</a> #}
     {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
         {% if entity.Persona.Username %}
             <a data-toggle="ajax-link" class="btn btn-primary"
