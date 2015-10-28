@@ -207,7 +207,7 @@ class UsoSuelo
                 return 'Predominante';
             case 2:
                 return 'Compatible';
-            case 3:
+            case 4:
                 return 'Condicional';
             case 9:
                 return 'Prohibido';

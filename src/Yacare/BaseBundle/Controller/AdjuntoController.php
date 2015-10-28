@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controlador para gestionar archivos adjuntos asociados a otras entidades.
@@ -17,6 +18,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        //$this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
+        //$this->OrderBy = 'r.NombreVisible';
+        $this->ConservarVariables[] = 'tipo';
+        $this->ConservarVariables[] = 'id';
+    }
+    
     /**
      * Muestra una galería de adjuntos.
      *
@@ -25,121 +35,84 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      */
     public function listarAction(Request $request, $tipo)
     {
-        $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getEm();
+        
+        $id = $this->ObtenerVariable($request, 'id');
+        
+        $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto();
+        $AdjuntoNuevo->setEntidadTipo($tipo);
+        $AdjuntoNuevo->setEntidadId($id);
+        $FormEditar = $this->CrearFormularioSubir($AdjuntoNuevo);
 
         $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
-            array('EntidadTipo' => $tipo, 'EntidadId' => $id));
+            array('EntidadTipo' => $tipo, 'EntidadId' => $id, 'Suprimido' => 0));
 
-        return $this->ArrastrarVariables($request, array('entities' => $entities));
+        return $this->ArrastrarVariables($request, array(
+            'entities' => $entities,
+            'tipo' => $tipo,
+            'id' => $id,
+            'edit_form' => $FormEditar->createView(),
+        ));
+    }
+    
+    /**
+     * 
+     */
+    protected function CrearFormularioSubir($entity) {
+        $editFormBuilder = $this->createFormBuilder($entity);
+        $editFormBuilder->add('Nombre', 'file', array(
+            'label' => 'Adjuntar archivo',
+            'attr' => array('multiple' => 'multiple')
+        ));
+        
+        $editForm = $editFormBuilder->getForm();
+        return $editForm;
     }
 
     /**
-     * @Route("miniatura/{token}")
+     * Subir adjuntos.
      *
-     public function miniaturaAction(Request $request, $token, $ancho = null)
-     {
-     $em = $this->getDoctrine()->getManager();
-
-     $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
-
-     if (! $entity) {
-     throw $this->createNotFoundException('No se puede cargar la entidad.');
-     }
-
-     $imagen_tipo = $entity->getTipoMime();
-     switch ($entity->getTipoMime()) {
-     case 'image/jpg':
-     case 'image/jpeg':
-     case 'image/png':
-     case 'image/gif':
-     case 'image/svg':
-     // string to put directly in the "src" of the tag <img>
-     $cacheManager = $this->container->get('liip_imagine.cache.manager');
-     $ArchivoImagen = $cacheManager->getBrowserPath($entity->getRutaRelativa() . $entity->getToken(),
-     'thumb256');
-     $ArchivoImagen = str_replace('/app_dev.php', '', $ArchivoImagen);
-     $imagen_tipo = 'image/jpeg';
-     break;
-     case 'application/pdf':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-pdf.png';
-     break;
-     case 'text/plain':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-plain.png';
-     break;
-     default:
-     $Extension = strtolower(pathinfo($entity->getNombre(), PATHINFO_EXTENSION));
-     switch ($Extension) {
-     case 'pdf':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-pdf.png';
-     break;
-     case 'txt':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-plain.png';
-     break;
-     case 'doc':
-     case 'docx':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-msword.png';
-     break;
-     case 'rtf':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-rtf.png';
-     break;
-     case 'zip':
-     case 'rar':
-     case '7z':
-     case 'tgz':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-x-archive.png';
-     break;
-     case 'xml':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-xml.png';
-     break;
-     case 'wav':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/audio-x-wav.png';
-     break;
-     case 'csv':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-csv.png';
-     break;
-     case 'htm':
-     case 'html':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-html.png';
-     break;
-     case 'rtf':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/text-rtf.png';
-     break;
-     case 'xls':
-     case 'xlsx':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-vnd.ms-excel.png';
-     break;
-     case 'ods':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/x-office-spreadsheet.png';
-     break;
-     case 'odt':
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png';
-     break;
-     default:
-     $ArchivoImagen = '/bundles/yacarebase/img/oxygen/256x256/mimetypes/unknown.png';
-     break;
-     }
-     break;
-     }
-
-     $imagen_conenido = file_get_contents(
-     $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath() . $ArchivoImagen);
-
-     $response = new \Symfony\Component\HttpFoundation\Response($imagen_conenido, 200,
-     array(
-     'Content-Type' => $imagen_tipo,
-     'Content-Length' => strlen($imagen_conenido),
-     'Content-Disposition' => 'filename="' . $entity->getNombre() . '"'));
-
-     return $response;
-     }*/
-
+     * @Route("subir/{tipo}/")
+     * @Template()
+     */
+    public function subirAction(Request $request, $tipo)
+    {
+        $em = $this->getEm();
+        
+        $id = $this->ObtenerVariable($request, 'id');
+        $Archivos = $request->files;
+        
+        // $Archivo es una instancia de Symfony\Component\HttpFoundation\File\UploadedFile
+        $AdjuntoNuevo = null;
+        foreach ($Archivos as $Archivo) {
+            $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto($Archivo, $tipo, $id);
+            $em->persist($AdjuntoNuevo);
+            $em->flush();
+        }
+        
+        if($AdjuntoNuevo) {
+            return new JsonResponse(array('adjunto' => array(
+                'id' => $AdjuntoNuevo->getId(),
+                'token' => $AdjuntoNuevo->getToken()
+            )));
+        } else {
+            return new JsonResponse(array('error' => 'Error'));
+        }
+        
+        //return $this->ArrastrarVariables($request, array('tipo' => $tipo, 'id' => $id));
+        
+        
+        
+        //return $this->redirectToRoute($this->obtenerRutaBase('listar'),
+        //    $this->ArrastrarVariables($request, array('tipo' => $tipo, 'id' => $id), false));
+    }
+    
     /**
      * Descargar el archivo adjunto.
      *
      * @Route("descargar/{token}")
      */
-    public function descargarAction($token)
+    public function descargarAction(Request $request, $token)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -158,6 +131,83 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 
         return $response;
     }
+    
+    /**
+     * Eliminar el archivo adjunto.
+     *
+     * @Route("eliminar/{token}")
+     * @Template()
+     */
+    public function eliminarAction(Request $request, $token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $tipo = $this->ObtenerVariable($request, 'tipo');
+        $id = $this->ObtenerVariable($request, 'id');
+    
+        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
+        
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede cargar la entidad.');
+        }
+        
+        $formElminiar = $this->CrearFormEliminar($entity);
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity,
+            'tipo' => $tipo,
+            'id' => $id,
+            'delete_form' => $formElminiar->createView()
+        ));
+    }
+    
+    /**
+     * @Route("eliminar2/{token}")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
+     */
+    public function eliminar2Action(Request $request, $token)
+    {
+        $tipo = $this->ObtenerVariable($request, 'tipo');
+        $id = $this->ObtenerVariable($request, 'id');
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
+        
+        $formElminiar = $this->CrearFormEliminar($entity);
+        $formElminiar->handleRequest($request);
+    
+        if ($formElminiar->isValid()) {
+            if (in_array('Tapir\BaseBundle\Entity\Suprimible', class_uses($entity))) {
+                // Es suprimible (soft-deletable), lo marco como borrado, pero no lo borro
+                $entity->Suprimir();
+                $em->persist($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
+            } else {
+                if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
+                    // Es eliminable... lo elimino de verdad
+                    $em->remove($entity);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('info', 'Se eliminó el elemento "' . $entity . '".');
+                } else {
+                    // No es eliminable ni suprimible... no se puede borrar
+                    $this->get('session')->getFlashBag()->add('info',
+                        'No se puede eliminar el elemento "' . $entity . '".');
+                }
+            }
+        }
+        
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'),
+            $this->ArrastrarVariables($request, array('tipo' => $tipo, 'id' => $id), false));
+    }
+    
+    
+    protected function CrearFormEliminar($entity) {
+        return $this->createFormBuilder($entity)
+            ->add('id', 'hidden')
+            ->add('token', 'hidden')
+            ->getForm();
+    }
+    
 
     /**
      * Ver el adjunto.

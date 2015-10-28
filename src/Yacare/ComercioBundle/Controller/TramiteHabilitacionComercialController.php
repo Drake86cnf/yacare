@@ -112,39 +112,19 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $Comercio->setActividad5($data['Actividad5']);
             $Comercio->setActividad6($data['Actividad6']);
 
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
+            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
+            
             $UsosSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')
                                 ->getResult();
-            
-            $PeorUsoSuelo = 0;
-            $Zona = $Local->getPartida()->getZona();
-            if($Zona) {
-                // Recorrer las actividades en buscar del peor uso de suelo
-                foreach($Comercio->getActividades() as $Actividad) {
-                    $CodigoCpu = $Actividad->getCodigoCpu();
-                    if($CodigoCpu) {
-                        foreach($UsosSuelo as $UsoSuelo) {
-                            if($UsoSuelo->getCodigo() == $CodigoCpu) {
-                                $Uso = $UsoSuelo->getUsoZona($Zona->getId());
-                                if($Uso > $PeorUsoSuelo) {
-                                    $PeorUsoSuelo = $Uso;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             
             $Tramite = new \Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial();
             $Tramite->setComercio($Comercio);
             
-            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
             $THelper->PreUpdatePersist($Tramite);
-            $THCHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
-            $THCHelper->PreUpdatePersist($Tramite);
+            $ThcHelper->PreUpdatePersist($Tramite);
 
             return $this->ArrastrarVariables($request, array(
-                'peorusosuelo' => $PeorUsoSuelo,
-                'peorusosuelo_nombre' => \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($PeorUsoSuelo),
                 'usossuelo' => $UsosSuelo,
                 'porpartida' => $porpartida,
                 'comercio' => $Comercio,

@@ -14,6 +14,12 @@
 			{% else %}
 				con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
 			{% endif %}
+			
+			{% if entity.EsViable == false %}
+				<div class="alert alert-danger">
+                {{ entity.QueImpideTerminar|join('<br />')|raw }}
+                </div>
+			{% endif %}
 		</p>
 	</div>
 	<div class="col-lg-4">

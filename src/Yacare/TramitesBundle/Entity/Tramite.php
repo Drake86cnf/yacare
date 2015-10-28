@@ -128,6 +128,35 @@ abstract class Tramite implements ITramite
     {
         return $this->PorcentajeCompleto() >= 100 && $this->EstaEnCurso();
     }
+    
+    /**
+     * Devuelve una lista de razones por las que no se puede terminar, sin contar los requisitos.
+     * 
+     * @see EsViable()
+     * @return string[] La lista.
+     */
+    public function QueImpideTerminar() {
+        $res = array();
+        if($this->EstaEnCurso() == false) {
+            $res[] = 'El trámite no está en curso.';
+        }
+    
+        return $res;
+    }
+    
+    /**
+     * Devuelve true si el trámite se puede completar cuando estén todos los requisitos cumplidos.
+     * 
+     * El trámite puede tener condiciones adicionales a los requisitos. Esta función devuelve si estas
+     * condiciones se cumplen.
+     * 
+     * @see QueImpideTerminar()
+     * @return boolean
+     */
+    public function EsViable() {
+        return count($this->QueImpideTerminar()) == 0;
+    }
+    
 
     /**
      * Devuelve true si el trámite está terminado.

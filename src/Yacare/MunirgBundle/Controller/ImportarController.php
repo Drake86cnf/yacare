@@ -8,8 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
 use Yacare\MunirgBundle\Helper\ImportadorCalles;
 use Yacare\MunirgBundle\Helper\ImportadorPartidas;
+use Yacare\MunirgBundle\Helper\ImportadorPersonas;
 use Yacare\MunirgBundle\Helper\ImportadorActividades;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
 
 /**
  * Controlador para importar datos de otras DB, a la DB de Yacaré.
@@ -118,244 +118,29 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
      * @Route("personas/")
      * @Template("YacareMunirgBundle:Importar:importar.html.twig")
      */
-    public function importarPersonasAction(Request $request, $desde = 0)
+    public function importarPersonasAction(Request $request)
     {
-        $desde = (int) ($request->query->get('desde'));
-        $cant = 500;
-        
-        mb_internal_encoding('UTF-8');
-        set_time_limit(600);
-        ini_set('display_errors', 1);
-        ini_set('memory_limit', '1024M');
-        
-
-        
-        $Dbmunirg = $this->ConectarOracle();
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->getConnection()->beginTransaction();
-        
-        $GrupoContribuyentes = $em->getReference('YacareBaseBundle:PersonaGrupo', 3);
-        $importar_importados = 0;
-        $importar_actualizados = 0;
-        $importar_procesados = 0;
-        $log = array();
-        
-        $sql = "
-            SELECT * FROM (
-                SELECT a.*, ROWNUM rnum FROM (
-            SELECT
-                a.IND_LEYENDA,
-                a.IND_IDENTIFICACION,
-                a.NOMBRE,
-                a.TG06100_ID,
-                a.ALTA_FECHA,
-                a.TELEFONOS,
-                a.E_MAIL,
-                a.BAJA_FECHA,
-                a.BAJA_MOTIVO,
-                a.INDIVIDUO_TIPO,
-                a.TG06300_TG06300_ID,
-                a.TR02100_TR02100_ID,
-                a.TRIBUTARIA_ID,
-                p.APELLIDOS Q_APELLIDOS,
-                p.NOMBRES Q_NOMBRES,
-                p.SEXO Q_SEXO,
-                p.NACIMIENTO_FECHA Q_NACIMIENTO_FECHA,
-                p.NACIMIENTO_LUGAR Q_NACIMIENTO_LUGAR,
-                p.NACIONALIDAD Q_NACIONALIDAD,
-                j.RAZON_SOCIAL J_RAZON_SOCIAL,
-                j.TIPO_SOCIEDAD J_TIPO_SOCIEDAD,
-                j.NOMBRE_FANTASIA J_NOMBRE_FANTASIA,
-                j.IDENTIFICACION_TRIBUTARIA J_IDENTIFICACION_TRIBUTARIA,
-                d.PAIS,
-                d.PROVINCIA,
-                d.CODIGO_POSTAL,
-                d.LOCALIDAD,
-                d.CODIGO_CALLE,
-                d.CALLE,
-                d.NUMERO,
-                d.NUMERO_EXTENSION,
-                d.PISO,
-                d.DEPARTAMENTO,
-                d.LOCAL,
-                d.DOMICILIO_EXTENSION,
-                doc.DOCUMENTO_TIPO,
-                doc.DOCUMENTO_NRO
-            FROM TG06100X a
-                LEFT JOIN TG06110 p ON a.TG06100_ID = p.TG06100_TG06100_ID
-                LEFT JOIN TG06120 j ON a.TG06100_ID = j.TG06100_TG06100_ID
-                LEFT JOIN TG06300 d ON a.TG06300_TG06300_ID = d.TG06300_ID
-                LEFT JOIN TG06111 doc ON a.TG06100_ID = doc.TG06110_TG06100_TG06100_ID
-                JOIN TR02100 imp ON a.TG06100_ID = imp.TIT_TG06100_ID
-            WHERE a.BAJA_MOTIVO IS NULL
-                AND a.NOMBRE<>'NN'
-                AND imp.IMPONIBLE_TIPO='IND' AND imp.DEFINITIVO='D'
-                AND d.LOCALIDAD='RIO GRANDE' 
-                AND a.NOMBRE NOT LIKE '?%'
-            ORDER BY a.TG06100_ID
-            ) a 
-                WHERE ROWNUM <=" . ($desde + $cant) . ")
-            WHERE rnum >" . $desde . "
-            ";
-        
-        foreach ($Dbmunirg->query($sql) as $Row) {
-            $Documento = StringHelper::ObtenerDocumento($Row['IND_IDENTIFICACION']);
-            $Apellido = StringHelper::Desoraclizar($Row['Q_APELLIDOS']);
-            $Nombre = StringHelper::Desoraclizar($Row['Q_NOMBRES']);
-            $RazonSocial = StringHelper::Desoraclizar($Row['J_RAZON_SOCIAL']);
-            $PersJur = false;
+        $iniciar = (int) ($request->query->get('iniciar'));
+        if($iniciar) {
+            $desde = (int) ($request->query->get('desde'));
+            $cantidad = 100;
             
-            if ($Documento[0] == 'CUIL' && (substr($Documento[1], 0, 3) == '30-' || substr($Documento[1], 0, 3) == '33-')) {
-                $Documento[0] = 'CUIT';
-                $PersJur = true;
-            }
-            
-            if ($Row['DOCUMENTO_TIPO'] == 'DU') {
-                $Row['DOCUMENTO_TIPO'] = 'DNI';
-            }
-            
-            $Cuilt = '';
-            if ($Documento[0] == 'CUIL' || $Documento[0] == 'CUIT') {
-                $Cuilt = str_replace('-', '', $Documento[1]);
-                if ($Row['DOCUMENTO_TIPO'] && $Row['DOCUMENTO_NRO']) {
-                    $Documento[0] = $Row['DOCUMENTO_TIPO'];
-                    $Documento[1] = $Row['DOCUMENTO_NRO'];
-                }
-            } else 
-                if ($Row['DOCUMENTO_TIPO'] == 'CUIL' || $Row['DOCUMENTO_TIPO'] == 'CUIT') {
-                    $Cuilt = str_replace('-', '', $Row['DOCUMENTO_NRO']);
-                }
-            
-            if ($Documento[0] == 'CUIL') {
-                $Partes = explode('-', $Documento[1]);
-                if (count($Partes) == 3) {
-                    $Documento[0] = 'DNI';
-                    $Documento[1] = (int) ($Partes[1]);
-                }
-            }
-            
-            if (! $Documento[1]) {
-                // No tengo documento, utilizo el campo TRIBUTARIA_ID
-                $Documento[0] = 'DNI';
-                $Partes = explode('-', $Documento[1]);
-                if (count($Partes) == 3) {
-                    $Documento[1] = (int) ($Partes[1]);
-                } else {
-                    $Documento[1] = trim($Row['TRIBUTARIA_ID']);
-                }
-            }
-            
-            if (! $Nombre && ! $Apellido) {
-                $Apellido = StringHelper::Desoraclizar($Row['NOMBRE']);
-            }
-            
-            if (! $Nombre && $Apellido && strpos($Apellido, '.') === false) {
-                $a = explode(' ', $Apellido, 2)[0];
-                $b = trim(substr($Apellido, strlen($a)));
-                $Nombre = $b;
-                $Apellido = $a;
-            }
-            
-            if ($RazonSocial) {
-                $NombreVisible = $RazonSocial;
-            } else 
-                if ($Nombre) {
-                    $NombreVisible = $Apellido . ', ' . $Nombre;
-                } else {
-                    $NombreVisible = $Apellido;
-                }
-            
-            $Row['TG06100_ID'] = (int) ($Row['TG06100_ID']);
-            $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
-            
-            if (! $Cuilt) {
-                $Cuilt = str_replace(array(' ', '-', '.'), '', $Row['J_IDENTIFICACION_TRIBUTARIA']);
-            }
-            
-            $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                array('Tg06100Id' => $Row['TG06100_ID']));
-            
-            if ($entity == null && $Cuilt) {
-                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(array('Cuilt' => $Cuilt));
-            }
-            
-            if ($entity == null) {
-                $entity = $em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array(
-                    /* 'DocumentoTipo' => $TipoDocs[$Documento[0]], */
-                    'DocumentoNumero' => $Documento[1]));
-            }
-            
-            if ($entity == null) {
-                $entity = new \Yacare\BaseBundle\Entity\Persona();
-                $entity->setTg06100Id($Row['TG06100_ID']);
-                
-                $entity->setDomicilioCodigoPostal('9420');
-                if ($CodigoCalle) {
-                    $entity->setDomicilioCalle($em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
-                }
-                $entity->setDomicilioCalleNombre(StringHelper::Desoraclizar($Row['CALLE']));
-                $entity->setDomicilioNumero($Row['NUMERO']);
-                $entity->setDomicilioPiso($Row['PISO']);
-                $entity->setDomicilioPuerta($Row['DEPARTAMENTO']);
-                
-                // Si no está en el grupo Contribuyentes, lo agrego
-                if ($entity->getGrupos()->contains($GrupoContribuyentes) == false) {
-                    $entity->getGrupos()->add($GrupoContribuyentes);
-                }
-                if ($Row['Q_SEXO'] == 'F') {
-                    $entity->setGenero(2);
-                } else 
-                    if ($Row['Q_SEXO'] == 'M') {
-                        $entity->setGenero(1);
-                    }
-                
-                $em->persist($entity);
-                $importar_importados ++;
-            } else {
-                $entity->setTg06100Id($Row['TG06100_ID']);
-                // $entity->setRazonSocial($RazonSocial);
-                $importar_actualizados ++;
-            }
-            
-            $entity->setNombre($Nombre);
-            $entity->setApellido($Apellido);
-            $entity->setRazonSocial($RazonSocial);
-            $entity->setPersonaJuridica($PersJur);
-            $entity->setDocumentoNumero($Documento[1]);
-            if (! $entity->getCuilt() && $Cuilt) {
-                $entity->setCuilt($Cuilt);
-            }
-            
-            // Campos que se actualizan siempre
-            $entity->setDocumentoTipo($TipoDocs[$Documento[0]]);
-            
-            $log[] = $Cuilt . ' / ' . $Documento[0] . ' ' . $Documento[1] . ': ' . $NombreVisible . "\r\n";
-            $importar_procesados ++;
-            
-            $em->flush();
-            
-            if (($importar_procesados % 100) == 0) {
-                ob_flush();
-                flush();
-                
-                $em->getConnection()->commit();
-                $em->getConnection()->beginTransaction();
-            }
+            $importador = new ImportadorPersonas($this->container, $this->getDoctrine()->getManager());
+            $importador->Inicializar();
+            $resultado = $importador->Importar($desde, $cantidad);
+           
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'personas',
+                'url' => 'importarpersonas',
+                'resultado' => $resultado,
+                'cantidad' => $cantidad
+                ));
+        } else {
+            return $this->ArrastrarVariables($request, array(
+                'importando' => 'personas',
+                'url' => 'importarpersonas',
+            ));
         }
-        
-        ob_flush();
-        flush();
-        
-        $em->getConnection()->commit();
-        
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0), 
-            'log' => $log);
     }
 
 

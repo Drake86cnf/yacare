@@ -75,7 +75,7 @@ trait ConEliminar
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('info', 'Se suprimió el elemento "' . $entity . '".');
                 return $this->afterEliminar($request, $entity, true);
-            } else
+            } else {
                 if (in_array('Tapir\BaseBundle\Entity\Eliminable', class_uses($entity))) {
                     // Es eliminable... lo elimino de verdad
                     $em->remove($entity);
@@ -87,6 +87,7 @@ trait ConEliminar
                     $this->get('session')->getFlashBag()->add('info',
                         'No se puede eliminar el elemento "' . $entity . '".');
                 }
+            }
         }
         return $this->afterEliminar($request, $entity);
     }

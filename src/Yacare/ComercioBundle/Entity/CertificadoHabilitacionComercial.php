@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Comercio_CertificadoHabilitacionComercial")
  */
 class CertificadoHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Comprobante
+    implements ICertificadoHabilitacionComercial
 {
     use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
     

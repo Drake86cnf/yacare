@@ -1,0 +1,30 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Eliminar {% if entitylabel is defined %}{{ entitylabel|lower }}{% endif %}{% endblock %}
+
+{% block pagina_inicio %}
+    <form class="form-horizontal" action="{{ path(baseroute ~ '_eliminar2', arrastre|merge({ 'id': id, 'tipo': tipo, 'token': entity.Token })) }}" method="post">
+{% endblock %}
+
+{% block pagina_contenido %}
+{{ form_widget(delete_form) }}
+<div class="container-fluid"><div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+        <img class="img-responsive" src="{{ path(baseroute ~ '_descargar', { 'token': entity.Token }) }}" alt="{{ entity.Nombre }}" />    
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <p class="text text-danger"><strong>¡Atención!</strong> Por favor verifique la información antes de proceder.</p>
+        <p>Se va a eliminar el siguiente archivo de forma permanente:</p>
+        <p class="lead text-primary">{{ entity }}</p>
+        <p>¿Está seguro de que desea eliminar de forma permanente el elemento seleccionado?</p>
+
+        <a data-dismiss="modal" href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'id': id, 'tipo': tipo })) }}" class="btn btn-default"><i class="fa fa-reply"></i> No, quiero volver</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> Si, quiero eliminarlo</button>
+    </div>
+</div></div>
+{% endblock %}
+
+{% block pagina_fin %}
+    </form>
+{% endblock %}

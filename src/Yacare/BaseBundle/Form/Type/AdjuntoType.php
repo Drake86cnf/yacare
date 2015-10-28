@@ -15,6 +15,8 @@ class AdjuntoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return $builder
+            ->add('EntidadTipo', null)
+            ->add('EntidadId', 'file')
             ->add('NombreArchivo', 'file', array('label' => 'Archivo adjunto'));
     }
 
