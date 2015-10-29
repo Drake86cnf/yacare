@@ -1,17 +1,14 @@
-{% extends 'TapirTemplateBundle::blank.html.twig' %}
-
-{% block pagina_titulo %}Vista previa{% endblock %}
-
-{% block pagina_contenido %}
-{% if entity.EsTextoPlano -%}
+{% if entity.EsHtml %}
+<div style="padding: 20px;">	
+    {{ contenido|raw }}
+</div>
+{% elseif entity.EsTextoPlano -%}
 	<div style="padding: 20px;">
     	{{ contenido|nl2br }}
 	</div>
-{% elseif entity.EsHtml %}
-	{{ contenido }}
 {% elseif entity.EsPdf %}
-	<iframe src="{{ asset(entity.RutaRelativa ~ entity.Token) }}" style="width: 100%; height: 100%; min-height: 400px;">
-	</iframe>
+	<object data="{{ asset(entity.RutaRelativa ~ entity.Token) }}" style="width: 100%; height: 99%; min-height: 400px;">
+	</object>
 {% else %}
 	<div style="padding: 20px;">
 		<img src="{{ entity.Icono }}" alt="{{ entity.Nombre }}" class="img-responsive pull-left"
@@ -21,4 +18,3 @@
 		<p>Si lo desea, puede <a href="{{ asset(entity.RutaRelativa ~ entity.Token) }}">descargarlo</a> en su equipo y usar un programa para verlo o editarlo.
 	</div>
 {% endif %}	
-{% endblock %}
