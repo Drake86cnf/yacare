@@ -8,6 +8,8 @@
 {% block pagina_scripts %}
 <script>
 $(function() {
+
+	
     $('#yacare_tramitesbundle_requisitotype_Tipo').change(function() {
         if($('#yacare_tramitesbundle_requisitotype_Tipo').val() === 'int') {
         	$('#yacare_tramitesbundle_requisitotype_Departamento').prop('disabled', false);
