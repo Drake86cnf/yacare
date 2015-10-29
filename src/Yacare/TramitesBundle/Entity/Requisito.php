@@ -77,6 +77,16 @@ class Requisito
     private $Lugar;
     
     /**
+     * Indica el departamento al cual pertenece el requisito interno.
+     * 
+     * @var departamento
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     */
+    protected $Departamento;
+    
+    /**
      * La dirección web donde se obtiene información sobre este requisito.
      *
      * @var string 
@@ -216,4 +226,22 @@ class Requisito
     {
         $this->TramiteTipoEspejo = $TramiteTipoEspejo;
     }
+
+    /**
+     * @ignore
+     */
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
+    }
+ 
 }
