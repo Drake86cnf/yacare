@@ -17,7 +17,6 @@ use Ivory\GoogleMap\Helper\MapHelper;
  */
 class DispositivoRastreadorGpsController extends DispositivoController
 {
-
     /**
      * @Route("ver/")
      * @Template()
