@@ -1,33 +1,23 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %} {{ entity.Nombre }} {% else %} Nuevo
-requisito {% endif %}{% endblock %} {% block pagina_contenido %} {{
-parent() }}
+{% extends 'TapirAbmBundle::editar.html.twig' %}
 
-<script type="text/javascript">
-    function CambioTipo() {
-        var ValorTipo = $('#yacare_tramitesbundle_requisitoype_Tipo').val();
-        switch(ValorTipo) {
-            case 'compy':
-            case 'compo':
-                $('#yacare_tramitesbundle_requisitoype_Requisitos').removeAttr('disabled');
-                $('#yacare_tramitesbundle_requisitoype_Instancia').attr('disabled', true);
-                break;
-            case 'ext':
-                $('#yacare_tramitesbundle_requisitoype_Requisitos').attr('disabled', true);
-                $('#yacare_tramitesbundle_requisitoype_Instancia').removeAttr('disabled');
-                break;
-            default:
-                $('#yacare_tramitesbundle_requisitoype_Requisitos').attr('disabled', true);
-                $('#yacare_tramitesbundle_requisitoype_Instancia').attr('disabled', true);
-                break;
+{% block pagina_titulo %}{% if entity.id %}
+		{{ entity.Nombre }}
+{% else %}
+	Nuevo Requisito
+{% endif %}{% endblock %}
+{% block pagina_scripts %}
+<script>
+$(function() {
+    $('#yacare_tramitesbundle_requisitotype_Tipo').change(function() {
+        if($('#yacare_tramitesbundle_requisitotype_Tipo').val() === 'int') {
+        	$('#yacare_tramitesbundle_requisitotype_Departamento').prop('disabled', false);
+        } else {
+        	$('#yacare_tramitesbundle_requisitotype_Departamento').prop('disabled', true);
+            $('#yacare_tramitesbundle_requisitotype_Departamento').val('');
         }
-    }
-    
-    /* $(document).ready(function($) {
-        $('#yacare_tramitesbundle_requisitoype_Tipo').change(function() { CambioTipo(); });
-        CambioTipo();
-    }); */
-    
+    });
+    $('#yacare_tramitesbundle_requisitotype_Tipo').trigger('change');
+});
 </script>
-
 {% endblock %}
+

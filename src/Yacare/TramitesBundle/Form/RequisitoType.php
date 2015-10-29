@@ -4,6 +4,7 @@ namespace Yacare\TramitesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class RequisitoType extends AbstractType
 {
@@ -17,7 +18,7 @@ class RequisitoType extends AbstractType
             ->add('Url', null, array(
                 'label' => 'Web', 
                 'attr' => array('placeholder' => 'Sitio web con información')))
-            ->add('Tipo', 'choice', array(
+            ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                 'label' => 'Tipo', 
                 'required' => true, 
                 'choices' => array(
@@ -27,6 +28,14 @@ class RequisitoType extends AbstractType
                     'tra' => 'Trámite', 
                     'compy' => 'Compuesto Y', 
                     'compo' => 'Compuesto O')))
+            ->add('Departamento', null, array(
+                'label' => 'Sector',
+                'attr' => array('placeholder' => 'El sector al que pertenece el requisito'), 
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.MaterializedPath', 'ASC');
+                },
+                'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('Requiere', 'entity', array(
                 'label' => 'Sub-requisitos', 
                 'class' => 'YacareTramitesBundle:Requisito', 
@@ -34,6 +43,8 @@ class RequisitoType extends AbstractType
                 'property' => 'Nombre', 
                 'multiple' => true))
             ->add('Obs', null, array('label' => 'Obs.', 'required' => false));
+
+            
     }
 
     public function configureOptions(OptionsResolver $resolver)
