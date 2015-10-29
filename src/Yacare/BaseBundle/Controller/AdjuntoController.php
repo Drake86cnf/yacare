@@ -210,7 +210,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     
 
     /**
-     * Ver el adjunto.
+     * Ver detalles del adjunto.
      *
      * @Route("ver/{token}")
      * @Template()
@@ -226,5 +226,41 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         }
 
         return $this->ArrastrarVariables($request, array('entity' => $entity));
+    }
+    
+    
+    /**
+     * Vista previa del adjunto.
+     *
+     * @Route("vistaprevia/{token}")
+     * @Template()
+     */
+    public function vistapreviaAction(Request $request, $token)
+    {
+        $em = $this->getDoctrine()->getManager();
+    
+        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
+    
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede cargar la entidad.');
+        }
+        
+        
+        if($entity->EsTextoPlano() || $entity->EsHtml()) {
+            $adjunto_contenido = file_get_contents($entity->getRutaCompleta() . $entity->getToken());
+            return $this->ArrastrarVariables($request, array(
+                'entity' => $entity,
+                'contenido' => $adjunto_contenido
+            ));
+        } elseif($entity->SePuedeMostrarEnNavegador()) {
+            $adjunto_contenido = file_get_contents($entity->getRutaCompleta() . $entity->getToken());
+            $response = new \Symfony\Component\HttpFoundation\Response($adjunto_contenido, 200, array(
+                'Content-Type' => $entity->getTipoMime(),
+                'Content-Length' => strlen($adjunto_contenido),
+                'Content-Disposition' => 'filename="' . $entity->getNombre() . '"'));
+            return $response;
+        } else {
+            return $this->ArrastrarVariables($request, array('entity' => $entity));
+        }
     }
 }

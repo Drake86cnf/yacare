@@ -156,7 +156,6 @@ class Adjunto
     {
         switch ($this->getTipoMime()) {
             case 'image/jpg':
-            // no break
             case 'image/jpeg':
             case 'image/png':
             case 'image/gif':
@@ -169,11 +168,13 @@ class Adjunto
             case 'text/plain':
                 return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-plain.png';
                 break;
+            case 'application/vnd.oasis.opendocument.text':
+                return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png';
+                break;
             default:
                 $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
                 switch ($Extension) {
                     case 'pdf':
-                    // no break
                     case 'rtf':
                     case 'xml':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-' . $Extension . '.png';
@@ -182,12 +183,10 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-plain.png';
                         break;
                     case 'doc':
-                    // no break
                     case 'docx':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-msword.png';
                         break;
                     case 'zip':
-                    // no break
                     case 'rar':
                     case '7z':
                     case 'tgz':
@@ -200,12 +199,10 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-csv.png';
                         break;
                     case 'htm':
-                    // no break
                     case 'html':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/text-html.png';
                         break;
                     case 'xls':
-                    // no break
                     case 'xlsx':
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.ms-excel.png';
                         break;
@@ -213,8 +210,7 @@ class Adjunto
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/x-office-spreadsheet.png';
                         break;
                     case 'odt':
-                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.
-                            openxmlformats-officedocument.wordprocessingml.document.png';
+                        return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/application-vnd.openxmlformats-officedocument.wordprocessingml.document.png';
                         break;
                     default:
                         return '/bundles/tapirtemplate/img/oxygen/256x256/mimetypes/unknown.png';
@@ -225,15 +221,12 @@ class Adjunto
     }
 
     /**
-     * Comprueba si se trata de una imágen o no.
-     * 
-     * @return boolean
+     * Devuelve true si es un archivo de imagen.
      */
     public function EsImagen()
     {
         switch ($this->getTipoMime()) {
             case 'image/jpg':
-            // no break
             case 'image/jpeg':
             case 'image/png':
             case 'image/gif':
@@ -243,14 +236,94 @@ class Adjunto
                 return false;
         }
     }
+    
+    /**
+     * Devuelve true si es un archivo de texto plano. 
+     */
+    public function EsTextoPlano()
+    {
+        $TipoMime = $this->getTipoMime();
+        if(strlen($TipoMime) >= 5 && substr($TipoMime, 0, 5) == 'text/') {
+            return true;
+        }
+        $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
+        switch ($Extension) {
+            case 'txt':
+            case 'xml':
+            case 'csv':
+            case 'json':
+                return true;
+        }
+    }
 
     /**
-     * Devuelve TRUE si tiene miniatura.
+     * Devuelve true si tiene miniatura.
      */
     public function TieneMiniatura()
     {
         return $this->EsImagen();
     }
+    
+    
+    /**
+     * Devuelve true si es un archivo PDF.
+     */
+    public function EsPdf() {
+        return $this->getTipoMime() == 'application/pdf';
+    }
+    
+    /**
+     * Devuelve true si es HTML.
+     */
+    public function EsHtml() {
+        $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
+        return $this->getTipoMime() == 'text/html' || $Extension == 'htm' || $Extension == 'html';
+    }
+    
+    /**
+     * Devuelve true si el archivo se puede mostrar directamente en el navegador.
+     */
+    public function SePuedeMostrarEnNavegador() {
+        if($this->EsImagen() || $this->EsTextoPlano()) {
+            return true;
+        }
+
+        switch ($this->getTipoMime()) {
+            case 'image/jpg':
+            case 'image/jpeg':
+            case 'image/png':
+            case 'image/gif':
+            case 'image/svg':
+                return true;
+                break;
+            case 'application/pdf':
+                return false;
+                break;
+            case 'text/plain':
+                return true;
+                break;
+            default:
+                $Extension = strtolower(pathinfo($this->getNombre(), PATHINFO_EXTENSION));
+                switch ($Extension) {
+                    //case 'pdf':
+                    case 'rtf':
+                        return true;
+                        break;
+                    case 'xml':
+                    case 'txt':
+                    case 'csv':
+                        return true;
+                    case 'htm':
+                    case 'html':
+                        return true;
+                        break;
+                }
+                break;
+        }
+        
+        return false;
+    }
+    
 
     public function SubirArchivo($Archivo)
     {

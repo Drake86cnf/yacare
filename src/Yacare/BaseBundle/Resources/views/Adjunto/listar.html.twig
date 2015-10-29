@@ -10,6 +10,14 @@
     min-height: 80px;
 }
 
+div.thumbnail {
+    overflow: hidden;
+}
+
+a.thumbnail {
+    margin-bottom: 0;
+}
+
 .thumbnail-caption {
     display: none;
     position: absolute;
@@ -110,7 +118,9 @@ $(function() {
 			alert(myDropzone.getQueuedFiles().length);                        
 			myDropzone.processQueue();  
 		} 
-	});    
+	});
+
+	$('a.colorbox-adjunto').colorbox({ rel: 'colorbox-adjunto', width: '75%', height: '75%', maxWidth: '100%', fixed: true });    
 });
 </script>
 
@@ -128,23 +138,15 @@ $(function() {
     {% for entity in entities %}
     <div class="thumbnails col-xs-6 col-sm-4 col-md-4 col-lg-3">
         <div class="thumbnail">
-        	<div class="thumbnail-caption">
-        		<div class="thumbnail-caption-content">
-                	<strong>{{ entity.Nombre }}</strong>
-                	<p class="small text-left">Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
-                	{% if entity.Persona %}
-                		por {{ entity.Persona }}.
-                	{% endif %}
-                	</p>
-                	<div class="pull-right btn-group btn-group-xs" role="group">
-                		<a href="{{ path('yacare_base_adjunto_ver', { 'token': entity.Token }) }}" class="btn btn-default" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a>
-                   		<a href="{{ path('yacare_base_adjunto_eliminar', { 'token': entity.Token, 'tipo': tipo, 'id': id  }) }}" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a>
-                   		<a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}" class="btn btn-default"><i class="fa fa-fw fa-download"></i></a>
-                    </div>
-                </div>
-            </div>
+        	{% if entity.EsImagen %}
+            	<a href="{{ asset(entity.NombreArchivoRelativo) }}" class="colorbox thumbnail colorbox-adjunto colorbox-adjunto-imagen"
+            		title="{{ entity.Nombre }}" target="_blank">
+			{% else %}
+            	<a href="{{ path('yacare_base_adjunto_vistaprevia', { 'token': entity.Token }) }}" class="colorbox thumbnail colorbox-adjunto colorbox-adjunto-archivo"
+            		title="{{ entity.Nombre }}" target="_blank">
+        	{% endif %}
             {% if entity.TieneMiniatura %}
-            	<img src="{{ entity.NombreArchivoRelativo | imagine_filter('thumb256') }}" class="img-responsive"
+            	<img src="{{ entity.NombreArchivoRelativo|imagine_filter('thumb256') }}" class="img-responsive"
             		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
             		alt="Miniatura de {{ entity.Nombre }}" />
             {% else %}
@@ -152,6 +154,21 @@ $(function() {
             		data-toggle="tooltip" data-placement="top" title="{{ entity.Nombre }}"
             		alt="Miniatura de {{ entity.Nombre }}" />
             {% endif %}
+            </a>
+            <div class="caption">
+                <h3>{{ entity.Nombre }}
+                    <div class="pull-right btn-group btn-group-xs" role="group">
+                		<a href="{{ path('yacare_base_adjunto_ver', { 'token': entity.Token }) }}" class="btn btn-default" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a>
+                   		<a href="{{ path('yacare_base_adjunto_eliminar', { 'token': entity.Token, 'tipo': tipo, 'id': id  }) }}" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                   		<a href="{{ path('yacare_base_adjunto_descargar', { 'token': entity.Token }) }}" class="btn btn-default colorbox"><i class="fa fa-fw fa-download"></i></a>
+                    </div>
+                </h3>
+                <p class="small text-muted">Subido el {{ entity.createdAt|tapir_fecha('medium', 'none') }}
+                	{% if entity.Persona %}
+                		por {{ entity.Persona }}.
+                	{% endif %}</p>
+                
+            </div>
     	</div>
     </div>
     {% endfor %}
