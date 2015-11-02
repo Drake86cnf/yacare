@@ -150,9 +150,9 @@
 				{% endif %}
 			</td>
 			<td>{% if EstadoRequisito.EsNecesario %}
-			        {% if EstadoRequisito.AsociacionRequisito.Opcional %}<span class="label label-info">Opcional</span>{% endif %}
+			        {% if EstadoRequisito.AsociacionRequisito.EsOpcional %}<span class="label label-info">Opcional</span>{% endif %}
 			        {% if EstadoRequisito.Estado == 0 %}
-			            {% if EstadoRequisito.AsociacionRequisito.Opcional %} <span class="label label-default">
+			            {% if EstadoRequisito.AsociacionRequisito.EsOpcional %} <span class="label label-default">
 			            {% else %} <span class="label label-warning">
 			            {% endif %}
 			        {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %} <span class="label label-danger">

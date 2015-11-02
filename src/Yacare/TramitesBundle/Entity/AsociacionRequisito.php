@@ -63,14 +63,17 @@ class AsociacionRequisito
     private $Instancia;
     
     /**
-     * Si el requisito es opcional, indica que se puede completar el trámite
-     * aunque el requisito no haya sido cumplido.
-     *
-     * @var boolean 
+     * Tipo de asociación (0 = regular, 1 = opcional, 2 = condicional).
      * 
-     * @ORM\Column(type="boolean")
+     * Si el requisito es opcional, indica que se puede completar el trámite aunque el requisito,
+     * no haya sido cumplido. Si es condicional, siginifica que se debe completar sólo si se
+     * evalúa la condición, y si es regular significa que se debe completar siempre.
+     *
+     * @var int
+     * 
+     * @ORM\Column(type="integer")
      */
-    private $Opcional;
+    private $Tipo;
     
     /**
      * El "qué" de la condición.
@@ -116,6 +119,22 @@ class AsociacionRequisito
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionCuanto;
+    
+    
+    /**
+     * Devuelve true si esta asociación es opcional (Tipo = 1).
+     */
+    public function EsOpcional() {
+        return $this->getTipo() == 1;
+    }
+    
+    /**
+     * Devuelve true si esta asociación es condicional (Tipo = 2).
+     */
+    public function EsCondicional() {
+        return $this->getTipo() == 2;
+    }
+    
 
     /**
      * Devuelve una representación de cadena del valor Instancia.
@@ -299,22 +318,6 @@ class AsociacionRequisito
     /**
      * @ignore
      */
-    public function getOpcional()
-    {
-        return $this->Opcional;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setOpcional($Opcional)
-    {
-        $this->Opcional = $Opcional;
-    }
-
-    /**
-     * @ignore
-     */
     public function getPropiedad()
     {
         return $this->Propiedad;
@@ -358,5 +361,22 @@ class AsociacionRequisito
     public function setTramiteTipo($TramiteTipo)
     {
         $this->TramiteTipo = $TramiteTipo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getTipo()
+    {
+        return $this->Tipo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipo(int $Tipo)
+    {
+        $this->Tipo = $Tipo;
+        return $this;
     }
 }

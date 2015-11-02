@@ -10,7 +10,7 @@
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo == 'tra' %}
 		<li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}<small> (trámite
-			previo{% if AsocRequisito.Opcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
+			previo{% if AsocRequisito.EsOpcional %}, opcional{% endif %})</small></h{{ nivel }}></li>
 	        {% if AsocRequisito.Condicion %}
 				<p class="text-muted">Sólo si {{ AsocRequisito.Condicion }}.</p>
 	        {% endif %}
@@ -22,7 +22,7 @@
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo != 'tra' %}
 			<li><h{{ nivel }}><i class="fa fa-square-o"></i> {{ AsocRequisito }}
-			    {% if AsocRequisito.Opcional %}<small> (opcional)</small>{% endif %}
+			    {% if AsocRequisito.EsOpcional %}<small> (opcional)</small>{% endif %}
 				</h{{ nivel }}></li>
 	        {% if AsocRequisito.Condicion %}
 			<p class="text-muted">Sólo se requiere si

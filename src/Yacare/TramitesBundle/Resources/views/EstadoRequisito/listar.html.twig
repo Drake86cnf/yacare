@@ -20,7 +20,7 @@ block pagina_contenido %} {% if entities is empty %}
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-			<td>{% if entity.Opcional %}<span class="label label-info">Opcional</span>
+			<td>{% if entity.EsOpcional %}<span class="label label-info">Opcional</span>
 				{% endif %}{{ entity }}
 			</td>
 			<td>{{ entity.Condicion }}</td>
