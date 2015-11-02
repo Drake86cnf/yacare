@@ -17,17 +17,22 @@
 	<thead>
 		<tr>
 			<th>Requisito</th>
-			<th class="hidden-sm hidden-xs">Sólo se requiere si</th>
+			<th>De</th>
+			<th class="hidden-sm hidden-xs"></th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-			<td>{% if entity.EsOpcional %}<span class="label label-info">Opcional</span>
-				{% endif %}{{ entity }}
-			</td>
-			<td class="hidden-sm hidden-xs">{{ entity.Condicion }}</td>
+			<td>{{ entity.Requisito }}</td>
+			<td>{{ entity.Propiedad }}</td>
+			<td class="hidden-sm hidden-xs">
+				<span class="label label-default">{{ entity.InstanciaNombre }}</span>
+			
+		        {% if entity.EsOpcional %}<span class="label label-info">Opcional</span>
+			    {% elseif entity.EsCondicional %}<span class="label label-warning">Condicional</span>
+				{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
