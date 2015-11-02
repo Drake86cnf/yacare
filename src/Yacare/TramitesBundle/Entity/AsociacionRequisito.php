@@ -160,6 +160,7 @@ class AsociacionRequisito
                 return 'Copia legalizada';
         }
     }
+    
 
     /**
      * Devuelve una representación de cadena de la condición.

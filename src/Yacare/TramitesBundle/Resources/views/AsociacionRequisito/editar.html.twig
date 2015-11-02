@@ -19,29 +19,48 @@
 	<div class="row form-group">
 		<label class="hidden-xs col-xs-2 control-label">Tipo</label>
 		<div class="col-xs-10">{{ form_widget(edit_form.Tipo) }}</div>
-	</div>
 	
-	<div class="row form-group">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-2">
-			<h3>Condición</h3>
-			<p>Si este requisito se aplica sólo cuando se cumple cierta condición, debe 
-    			especificar la condición como una expresión lógica que pueda evaluarse
-    			como verdadera o falsa, por ejemplo "Titular.Edad es mayor que 18".
-    			También debe proporcionar una explicación textual de la condición, como
-    			"El titular es mayor de edad".</p>
+		<div class="container-fluid hidden" id="yacare_tramitesbundle_condicion_opcional">
+        	<div class="row form-group">
+        		<div class="col-xs-12 col-sm-10 col-sm-offset-2">
+        			<h3>Condición</h3>
+        			<p>Si este requisito se aplica sólo cuando se cumple cierta condición, debe 
+            			especificar la condición como una expresión lógica que pueda evaluarse
+            			como verdadera o falsa, por ejemplo "Titular.Edad es mayor que 18".
+            			También debe proporcionar una explicación textual de la condición, como
+            			"El titular es mayor de edad".</p>
+        		</div>
+    		</div>
+    		<div class="row form-group">
+        		<label class="hidden-xs col-xs-2 control-label">Sí</label>
+        		<div class="col-xs-4">{{ form_widget(edit_form.CondicionQue) }}</div>
+        		<div class="col-xs-2">{{ form_widget(edit_form.CondicionEs) }}</div>
+        		<div class="col-xs-4">{{ form_widget(edit_form.CondicionCuanto) }}</div>
+        	</div>
+        	<div class="row form-group">
+        		<label class="hidden-xs col-xs-2 control-label">Explicación</label>
+        		<div class="col-xs-10">{{ form_widget(edit_form.Obs) }}</div>
+        	</div>
+    		<hr />
 		</div>
 	</div>
-	<div class="row form-group">
-		<label class="hidden-xs col-xs-2 control-label">Sí</label>
-		<div class="col-xs-4">{{ form_widget(edit_form.CondicionQue) }}</div>
-		<div class="col-xs-2">{{ form_widget(edit_form.CondicionEs) }}</div>
-		<div class="col-xs-4">{{ form_widget(edit_form.CondicionCuanto) }}</div>
-	</div>
-	<div class="row form-group">
-		<label class="hidden-xs col-xs-2 control-label">Explicación</label>
-		<div class="col-xs-10">{{ form_widget(edit_form.Obs) }}</div>
-	</div>
 
-    {{ form_rest(edit_form) }}	
+    {{ form_rest(edit_form) }}
+    
+<script>
+$(function() {
+	$('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').change(function() {
+		if($('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').val() == 2) {
+			$('#yacare_tramitesbundle_condicion_opcional').removeClass('hidden');
+		} else {
+			$('#yacare_tramitesbundle_condicion_opcional').addClass('hidden');
+		}
+	});
+	$('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').trigger('change');
+});
+
+
+</script>
 {% endblock pagina_contenido %}
+
 
