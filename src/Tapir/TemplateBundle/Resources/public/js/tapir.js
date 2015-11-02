@@ -126,6 +126,8 @@ function tapirNavegarA(url, destino) {
 function tapirCambiarDireccion(url) {
 	if (url !== window.location && url.indexOf('hisapi=0') === -1
 			&& url.indexOf('/guardar/') === -1
+			&& url.indexOf('/eliminar/') === -1
+			&& url.indexOf('/eliminar2/') === -1
 			) {
 		//var err = new Error();
 		//alert('Cambiar ' + url + ', Error ' + err.stack);
