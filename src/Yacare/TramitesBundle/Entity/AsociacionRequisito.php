@@ -375,7 +375,7 @@ class AsociacionRequisito
     /**
      * @ignore
      */
-    public function setTipo(int $Tipo)
+    public function setTipo($Tipo)
     {
         $this->Tipo = $Tipo;
         return $this;
