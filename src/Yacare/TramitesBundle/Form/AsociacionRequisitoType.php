@@ -10,7 +10,7 @@ class AsociacionRequisitoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TramiteTipo', 'entity', array(
+            ->add('TramiteTipo', 'entity_hidden', array(
                 'label' => 'Tipo de trámite', 
                 'class' => 'YacareTramitesBundle:TramiteTipo', 
                 'required' => true, 
@@ -44,7 +44,15 @@ class AsociacionRequisitoType extends AbstractType
                     'cos' => 'Copia simple', 
                     'coc' => 'Copia certificada', 
                     'col' => 'Copia legalizada')))
-            ->add('Opcional', 'checkbox', array('label' => 'Opcional', 'required' => false))
+            ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                'label' => 'Tipo',
+                'required' => true,
+                'choices' => array(
+                    '0' => 'Fijo',
+                    '1' => 'Opcional',
+                    '2' => 'Condicional'
+                )
+            ))
             ->add('Notas', null, array('label' => 'Notas'))
             ->add('CondicionQue', 'text', array('label' => 'Sólo si', 'required' => false))
             ->add('CondicionEs', 'choice', array(
@@ -52,18 +60,18 @@ class AsociacionRequisitoType extends AbstractType
                 'required' => false, 
                 'placeholder' => 'n/a', 
                 'choices' => array(
-                    '==' => 'igual', 
-                    '>' => 'mayor', 
-                    '<' => 'menor', 
-                    '!=' => 'diferente', 
-                    '>=' => 'mayor o igual', 
-                    '<=' => 'menor o igual', 
+                    '==' => 'es igual que', 
+                    '>' => 'es mayor que', 
+                    '<' => 'es menor que', 
+                    '!=' => 'es diferente a', 
+                    '>=' => 'es mayor o igual que', 
+                    '<=' => 'es menor o igual que', 
                     'notnull' => 'existe', 
                     'null' => 'no existe', 
-                    'true' => 'verdadero', 
-                    'false' => 'falso', 
-                    'in' => 'incluido en', 
-                    'notin' => 'no incluido en')))
+                    'true' => 'es verdadero', 
+                    'false' => 'es falso', 
+                    'in' => 'está incluido en', 
+                    'notin' => 'no está incluido en')))
             ->add('CondicionCuanto', 'text', array('label' => 'A', 'required' => false))
             ->add('Obs', null, array('label' => 'Explicación de la condición', 'required' => false));
     }

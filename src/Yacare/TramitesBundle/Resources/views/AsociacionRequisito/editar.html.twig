@@ -1,3 +1,47 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %} {{ entity }} {% else %} Nueva
-asociación de requisito {% endif %}{% endblock %}
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva asociación de requisito{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+	<div class="row form-group">
+		<label class="col-xs-4 col-sm-2 control-label">Requisito</label>
+		<div class="col-xs-6 col-sm-10">{{ form_widget(edit_form.Requisito) }}</div>
+	</div>
+	
+	<div class="row form-group">
+		<label class="col-xs-4 col-sm-2 control-label">De</label>
+		<div class="col-xs-6 col-sm-4">{{ form_widget(edit_form.Propiedad) }}</div>
+		
+		<label class="col-xs-4 col-sm-2 control-label">Instancia</label>
+		<div class="col-xs-6 col-sm-4">{{ form_widget(edit_form.Instancia) }}</div>
+	</div>
+
+	<div class="row form-group">
+		<label class="hidden-xs col-xs-2 control-label">Tipo</label>
+		<div class="col-xs-10">{{ form_widget(edit_form.Tipo) }}</div>
+	</div>
+	
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-2">
+			<h3>Condición</h3>
+			<p>Si este requisito se aplica sólo cuando se cumple cierta condición, debe 
+    			especificar la condición como una expresión lógica que pueda evaluarse
+    			como verdadera o falsa, por ejemplo "Titular.Edad es mayor que 18".
+    			También debe proporcionar una explicación textual de la condición, como
+    			"El titular es mayor de edad".</p>
+		</div>
+	</div>
+	<div class="row form-group">
+		<label class="hidden-xs col-xs-2 control-label">Sí</label>
+		<div class="col-xs-4">{{ form_widget(edit_form.CondicionQue) }}</div>
+		<div class="col-xs-2">{{ form_widget(edit_form.CondicionEs) }}</div>
+		<div class="col-xs-4">{{ form_widget(edit_form.CondicionCuanto) }}</div>
+	</div>
+	<div class="row form-group">
+		<label class="hidden-xs col-xs-2 control-label">Explicación</label>
+		<div class="col-xs-10">{{ form_widget(edit_form.Obs) }}</div>
+	</div>
+
+    {{ form_rest(edit_form) }}	
+{% endblock pagina_contenido %}
+
