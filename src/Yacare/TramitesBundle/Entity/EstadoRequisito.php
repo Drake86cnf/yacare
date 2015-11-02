@@ -108,9 +108,9 @@ class EstadoRequisito implements IEstadoRequisito
     {
         if ($this->getEstadoRequisitoPadre()) {
             // Es un sub-requisito. Evaluo también si el parent es opcional.
-            return $this->getAsociacionRequisito()->getOpcional() || $this->getEstadoRequisitoPadre()->EsOpcional();
+            return $this->getAsociacionRequisito()->EsOpcional() || $this->getEstadoRequisitoPadre()->EsOpcional();
         } else {
-            return $this->getAsociacionRequisito()->getOpcional();
+            return $this->getAsociacionRequisito()->EsOpcional();
         }
     }
 
