@@ -274,12 +274,12 @@ class FormatExtension extends \Twig_Extension
     }
 
 
-    public function tapir_hacetiempo($value, $format = 'Y-m-d H:i:s')
+    public function tapir_hacetiempo($value, $mensaje = '')
     {
         if (! $value) {
-            return '';
+            return $mensaje;
         } elseif (! ($value instanceof \DateTime)) {
-            $transformer = new DateTimeToStringTransformer(null, null, $format);
+            $transformer = new DateTimeToStringTransformer(null, null, 'Y-m-d H:i:s');
             $value = $transformer->reverseTransform($value);
         }
         return $this->distanceOfTimeInWordsFilter($value);
