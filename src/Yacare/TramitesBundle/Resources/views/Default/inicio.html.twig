@@ -1,0 +1,57 @@
+{% extends "TapirAbmBundle::inicio.html.twig" %}
+
+{% block pagina_titulo %} Trámites {% endblock %}
+
+{% block pagina_contenido %}
+	<div class="container-fluid"> <div class="row">
+		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Tipos de trámites</h2>
+            </div>
+            <div class="panel-body">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
+                	tristique. Aliquam vel sapien metus.</p>
+            </div>
+            <ul class="list-group">
+                <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	Lista de trámites</a>
+                {#  <a class="list-group-item" href="#">Actas de infracción <span class="badge">5</span></a>
+                <a class="list-group-item" href="#">Actas de constatación</a>
+                <a class="list-group-item" href="#">Actas de suspensión</a>
+                <a class="list-group-item" href="#">Actas de compromiso</a>
+                <a class="list-group-item list-group-item-success" 
+                	href="{{ path('yacare_obrasparticulares_acta_editar_1', arrastre)  }}">
+                	<i class="fa fa-plus"></i> Ingresar acta nueva</a>
+            </ul> #}
+    	</div></div>
+		
+		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Requisitos</h2>
+            </div>
+            <div class="panel-body">
+	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
+	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
+	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
+                <input type="text" class="form-control pull-rigth" placeholder="Buscar por nombre." />
+            </div>
+            <ul class="list-group">
+            	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">Lista de requisitos</a>
+            </ul>
+        </div></div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Tipos de comprobante</h2>
+            </div>
+            <div class="panel-body">
+            	<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
+                	tristique. Aliquam vel sapien metus. </p>
+            </div>
+            <ul class="list-group">
+            	<a class="list-group-item" href="{{ path('yacare_tramites_comprobantetipo_listar') }}">Lista de comprobantes</a>
+            </ul>
+        </div></div>
+	</div></div>
+{% endblock %}
