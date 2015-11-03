@@ -135,6 +135,16 @@ class AsociacionRequisito
         return $this->getTipo() == 2;
     }
     
+    /**
+     * Devuelve una representación de cadena del valor Propiedad.
+     * 
+     * @see $Propiedad
+     */
+    public function getPropiedadNombre() {
+        $Partes = array_reverse(explode('.', $this->getPropiedad()));
+        return join(' de ', $Partes);
+    }
+    
 
     /**
      * Devuelve una representación de cadena del valor Instancia.

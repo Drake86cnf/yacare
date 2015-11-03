@@ -1,7 +1,7 @@
 {% macro listar_plano(listaasoc, nivel) %}
 <ul class="list-unstyled">
 {% for AsocRequisito in listaasoc %}
-	<li><h2><i class="fa fa-square-o text-muted"></i> {{ AsocRequisito }}</h2></li>
+	<li><h2><i class="fa fa-square-o text-muted"></i> {{ AsocRequisito.Requisito }}</h2></li>
 	{{ _self.mostrar_asociacion(AsocRequisito) }}
 {% endfor %}
 </ul>
@@ -31,7 +31,7 @@
 	<span class="text-muted">RQ{{ "%03d"|format(asoc.Requisito.id) }}</span>
 	{% if asoc.Requisito.Tipo == 'tra' %}Trámite interno.
 	{% elseif asoc.Requisito.Tipo == 'int' %}Comprobante interno.{% endif %}
-    {% if asoc.Propiedad %}De {{ asoc.Propiedad }}.{% endif %}
+    {% if asoc.Propiedad %}De {{ asoc.PropiedadNombre }}.{% endif %}
     {% if asoc.InstanciaNombre != 'n/a' %}{{ asoc.InstanciaNombre }}.{% endif %}
     {% if asoc.EsOpcional %}<strong>Opcional</strong>{% endif %}
     {% if asoc.EsCondicional %}
