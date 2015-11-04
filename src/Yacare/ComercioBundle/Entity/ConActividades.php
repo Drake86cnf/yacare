@@ -62,6 +62,9 @@ trait ConActividades
     protected $Actividad6;
     
     
+    /**
+     * Getter que devuelve un array, simulando una relación de muchos a muchos.
+     */
     public function getActividades() {
         $res = array();
         if($this->Actividad1 != null) { $res[] = $this->Actividad1; }
@@ -73,7 +76,22 @@ trait ConActividades
         return $res;
     }
 
-    
+    /**
+     * Devuelve el factor de riesgo más alto entre las actividades del comercio.
+     */
+    public function ActividadesRiesgoMayor() {
+        $res = 0;
+        foreach($this->getActividades() as $Actividad) {
+            if($Actividad->getNivelRiesgo() > $res) {
+                $res = $Actividad->getNivelRiesgo();
+            }
+        }
+        return $res;
+    }
+
+    /**
+     * Devuelve true si todas las actividades tienen la etiqueta buscada.
+     */
     public function ActividadesTodasTienenEtiqueta($etiq) {
         return ($this->Actividad1 == null || $this->Actividad1->ContieneEtiquetaPorCodigo($etiq))
             && ($this->Actividad2 == null || $this->Actividad2->ContieneEtiquetaPorCodigo($etiq))
@@ -83,22 +101,24 @@ trait ConActividades
             && ($this->Actividad6 == null || $this->Actividad6->ContieneEtiquetaPorCodigo($etiq));
     }
     
+
+    /**
+     * Devuelve true si al menos una de las actividades tiene la etiqueta buscada.
+     */
     public function ActividadesAlgunaTieneEtiqueta($etiq) {
-        return ($this->Actividad1 == null || $this->Actividad1->ContieneEtiquetaPorCodigo($etiq))
-        || ($this->Actividad2 == null || $this->Actividad2->ContieneEtiquetaPorCodigo($etiq))
-        || ($this->Actividad3 == null || $this->Actividad3->ContieneEtiquetaPorCodigo($etiq))
-        || ($this->Actividad4 == null || $this->Actividad4->ContieneEtiquetaPorCodigo($etiq))
-        || ($this->Actividad5 == null || $this->Actividad5->ContieneEtiquetaPorCodigo($etiq))
-        || ($this->Actividad6 == null || $this->Actividad6->ContieneEtiquetaPorCodigo($etiq));
+        return ($this->Actividad1 != null && $this->Actividad1->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad2 != null && $this->Actividad2->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad3 != null && $this->Actividad3->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad4 != null && $this->Actividad4->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad5 != null && $this->Actividad5->ContieneEtiquetaPorCodigo($etiq))
+        || ($this->Actividad6 != null && $this->Actividad6->ContieneEtiquetaPorCodigo($etiq));
     }
     
-    
+    /**
+     * Devuelve true si todas las actividades tienen la etiqueta "exenta".
+     */
     public function ActividadesTodasExentas() {
         return $this->ActividadesTodasTienenEtiqueta('exenta');
-    }
-    
-    public function ActividadesAlgunaRequiereDeyma() {
-        return $this->ActividadesAlgunaTieneEtiqueta('reqiere_deyma');
     }
     
     
