@@ -129,7 +129,7 @@ class Actividad implements Tree\NodeInterface
     protected $Requisitos;
     
     /**
-     *El nivel de riesgo que posee cada actividad comercial.
+     * El nivel de riesgo que posee cada actividad comercial.
      *
      * @var NivelRiesgo
      * 
