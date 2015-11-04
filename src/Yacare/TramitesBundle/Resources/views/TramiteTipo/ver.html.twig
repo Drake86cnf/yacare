@@ -4,7 +4,15 @@
 {% block pagina_titulo %}{{ entity }}{% endblock %}
 
 {% block pagina_contenido %}
-{{ ttm.listar(entity, 2) }}
+{% if entity.Obs %}
+	<p>{{ entity.Obs|raw }}</p>
+{% endif %}
+
+<p>Para iniciar el trámite de {{ entity }} deberá
+	presentar la siguiente documentación:</p>	
+
+{{ ttm.listar_plano(entity.ObtenerRequisitosLineales('ext'), 2) }}
+
 {% if entity.ComprobanteTipo %}
     <p>Al finalizar el trámite, se emitirá un comprobante tipo
     	<strong>{{ entity.ComprobanteTipo }}</strong>.</p>
@@ -19,6 +27,13 @@
 {% endif %}
 
 <hr />
+
+<h2>Descripción interna del trámite</h2>
+
+{{ ttm.listar(entity, 3) }}
+
+<hr />
+
 <footer>
 	<h4>Referencias</h4>
 	<dl class="dl-horizontal">
