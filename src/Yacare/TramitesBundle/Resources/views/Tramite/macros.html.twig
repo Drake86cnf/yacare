@@ -4,14 +4,23 @@
 		presentar la siguiente documentación:</p>
 <ul class="list-unstyled">
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
-		<li ><i class="fa fa-square-o"></i> 
-    		{% if EstadoRequisito.EsNecesario == false %}<del>{% endif %}		
-    	    {{ EstadoRequisito.AsociacionRequisito }}
-    	    {% if EstadoRequisito.EsNecesario == false %}</del>{% endif %}
+		{% if EstadoRequisito.EsNecesario %}
+		<li >
+			<i class="fa fa-square-o"></i>
+			{{ EstadoRequisito.AsociacionRequisito }}
 	    </li>
+	    {% endif %}
+	{% endfor %}
+	
+	<h3>Documentación no requisitoria</h3>
+	{% for EstadoRequisito in tramite.EstadosRequisitos %}
 	    {% if EstadoRequisito.EsNecesario == false %}
-	    	<p>{{ EstadoRequisito.AsociacionRequisito.Obs }}</p>
-		{% endif %}
+		<li >
+			<i class="fa fa-minus-square-o"></i> 
+    		<del>{{ EstadoRequisito.AsociacionRequisito }}</del>
+	    	<p class="help-text">{{ EstadoRequisito.AsociacionRequisito.Obs }}</p>
+	    </li>
+	    {% endif %}
 	{% endfor %}
 </ul>
 {% endif %}

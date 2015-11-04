@@ -204,6 +204,10 @@ class EstadoRequisito implements IEstadoRequisito
                 return $ValorQue == null;
             case 'not null':
                 return $ValorQue != null;
+            case 'in':
+                return in_array($ValorQue, explode(',', $ValorCuanto));
+            case 'not in':
+                return !in_array($ValorQue, explode(',', $ValorCuanto));
             case 'true':
                 return (bool) $ValorQue;
             case 'false':
