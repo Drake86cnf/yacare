@@ -29,8 +29,10 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         
         foreach ($entities as $entity) {
             $ultimaActualizacion = $entity->getUpdatedAt()->diff(new \DateTime());
-            if ($ultimaActualizacion->days <= 10) {
+            $limiteCantidad = 0;
+            if ($ultimaActualizacion->days <= 10 && $limiteCantidad <= 5) {
                 $entitiesRecientes[] = $entity;
+                $limiteCantidad++;
             }
         }
         $res['entities'] = $entitiesRecientes;
