@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Yacare\MunirgBundle\Helper\ImportadorPartidas;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorPartidas;
 use Yacare\MunirgBundle\Helper\ResultadoLote;
 
 class ImportarPartidasCommand extends ContainerAwareCommand
