@@ -8,16 +8,19 @@
             <div class="panel-heading">
             	<h2 class="panel-title">Requisitos</h2>
             </div>
-            <div class="form panel-body">
+            <div class="panel-body">
+                <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_tramites_requisito_listar')}}" 
+                	method="get">
 	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
 	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
 	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
-                <input type="text" class="form-control pull-rigth" placeholder="Buscar por nombre." />
+                <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
+                	placeholder="Buscar por nombre." />
+                </form>
             </div>
             <ul class="list-group">
             	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">
             		Lista de requisitos<span class="badge">{{ entitiesCantidad }}</span></a>
-            	
             </ul>
             <!-- Table -->
             <table class="table table-hovergreyselect">
@@ -68,4 +71,14 @@
             </ul>
         </div></div>
 	</div></div>
+	
+	<script>
+    	$('#consultar').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $('form#form_consulta').submit();
+                return false;
+            }
+        });
+	</script>
 {% endblock %}
