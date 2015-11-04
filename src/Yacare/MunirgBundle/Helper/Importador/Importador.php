@@ -1,7 +1,7 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
-use \Yacare\MunirgBundle\Helper\ResultadoImportacion;
+use \Yacare\MunirgBundle\Helper\Importador\ResultadoImportacion;
 
 /**
  * Clase abstracta para crear importadores de datos.

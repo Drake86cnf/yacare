@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
 /**
  * Trait que agrega funciones para los importadores que usan calles.
