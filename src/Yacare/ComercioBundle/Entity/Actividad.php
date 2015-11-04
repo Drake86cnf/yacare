@@ -128,22 +128,30 @@ class Actividad implements Tree\NodeInterface
      */
     protected $Requisitos;
     
-    
-    public function ContieneEtiquetaPorCodigo($codigo) {
-        foreach($this->Etiquetas as $Etiqueta) {
-            if($Etiqueta->getCodigo() == $codigo) {
+    /**
+     *El nivel de riesgo que posee cada actividad comercial.
+     *
+     * @var NivelRiesgo
+     * 
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $NivelRiesgo = 1;
+
+    public function ContieneEtiquetaPorCodigo($codigo)
+    {
+        foreach ($this->Etiquetas as $Etiqueta) {
+            if ($Etiqueta->getCodigo() == $codigo) {
                 return true;
             }
         }
         return false;
     }
 
-
-    public function _construct(){
+    public function _construct()
+    {
         $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Requisitos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
     
     /**
      * Texto que explica los alcances de la actividad.
@@ -492,5 +500,22 @@ class Actividad implements Tree\NodeInterface
         $this->Requisitos = $Requisitos;
         return $this;
     }
-   
+
+    /**
+     * @ignore
+     */
+    public function getNivelRiesgo()
+    {
+        return $this->NivelRiesgo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNivelRiesgo($NivelRiesgo)
+    {
+        $this->NivelRiesgo = $NivelRiesgo;
+        return $this;
+    }
+ 
 }
