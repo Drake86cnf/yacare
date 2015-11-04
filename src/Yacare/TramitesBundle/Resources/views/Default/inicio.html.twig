@@ -1,0 +1,84 @@
+{% extends "TapirAbmBundle::inicio.html.twig" %}
+
+{% block pagina_titulo %} Trámites {% endblock %}
+
+{% block pagina_contenido %}
+	<div class="container-fluid"> <div class="row">
+		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Requisitos</h2>
+            </div>
+            <div class="panel-body">
+                <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_tramites_requisito_listar')}}" 
+                	method="get">
+	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
+	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
+	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
+                <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
+                	placeholder="Buscar por nombre." />
+                </form>
+            </div>
+            <ul class="list-group">
+            	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">
+            		Lista de requisitos<span class="badge">{{ entitiesCantidad }}</span></a>
+            </ul>
+            <!-- Table -->
+            <table class="table table-hovergreyselect">
+            	<thead>
+            		<tr>
+            			<th>Nombre</th>
+            			<th>Última modificación</th>	
+            		</tr>
+            	</thead>
+            	<tbody>
+            	{% set contador = 0 %}
+            	{% for entity in entities %}
+            		<tr data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_editar', 
+            		    arrastre|merge({'id': entity.id})) }}">
+            			<td> {{ entity }} </td>
+            			<td> {{ entity.updatedAt|tapir_hacetiempo }} </td>
+            		</tr>
+            	{% endfor %}
+            	</tbody>
+            </table>
+        </div></div>
+	
+		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Tipos de trámites</h2>
+            </div>
+            <div class="panel-body">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
+                	tristique. Aliquam vel sapien metus.</p>
+            </div>
+            <ul class="list-group">
+                <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	
+                	Lista de tipos de trámites</a>
+    	</div></div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Tipos de comprobante</h2>
+            </div>
+            <div class="panel-body">
+            	<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
+                	tristique. Aliquam vel sapien metus. </p>
+            </div>
+            <ul class="list-group">
+            	<a class="list-group-item" href="{{ path('yacare_tramites_comprobantetipo_listar') }}">Lista de comprobantes</a>
+            </ul>
+        </div></div>
+	</div></div>
+	
+	<script>
+    	$('#consultar').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $('form#form_consulta').submit();
+                return false;
+            }
+        });
+	</script>
+{% endblock %}

@@ -20,10 +20,9 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
     {
         $em = $this->getEm();
         
-        $Tramites = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial r WHERE r.Estado<90')->getResult();
+        $Tramites = $em->createQuery(
+            'SELECT r FROM Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial r WHERE r.Estado<90')->getResult();
         
-        return $this->ArrastrarVariables($request, array(
-            'tramites' => $Tramites
-        ));
+        return $this->ArrastrarVariables($request, array('tramites' => $Tramites));
     }
 }
