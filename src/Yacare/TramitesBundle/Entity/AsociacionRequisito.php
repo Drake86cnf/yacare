@@ -71,9 +71,9 @@ class AsociacionRequisito
      *
      * @var int
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private $Tipo;
+    private $Tipo = 0;
     
     /**
      * El "qué" de la condición.
