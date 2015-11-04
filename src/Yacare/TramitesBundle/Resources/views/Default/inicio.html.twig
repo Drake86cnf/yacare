@@ -26,8 +26,7 @@
             <table class="table table-hovergreyselect">
             	<thead>
             		<tr>
-            			<th>Nombre</th>
-            			<th>Última modificación</th>	
+            			<th>Actividad reciente</th>	
             		</tr>
             	</thead>
             	<tbody>
@@ -36,7 +35,6 @@
             		<tr data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_editar', 
             		    arrastre|merge({'id': entity.id})) }}">
             			<td> {{ entity }} </td>
-            			<td> {{ entity.updatedAt|tapir_hacetiempo }} </td>
             		</tr>
             	{% endfor %}
             	</tbody>
