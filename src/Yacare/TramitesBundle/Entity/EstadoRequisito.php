@@ -140,7 +140,7 @@ class EstadoRequisito implements IEstadoRequisito
     {
         $Asoc = $this->getAsociacionRequisito();
 
-        if (! $Asoc->getCondicionQue()) {
+        if ( $Asoc->EsCondicional() == false ) {
             // No hay condición... lo doy siempre por cumplido
             return true;
         }

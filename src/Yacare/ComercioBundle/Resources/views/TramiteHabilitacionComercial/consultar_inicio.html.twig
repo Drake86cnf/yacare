@@ -11,8 +11,6 @@
 {% endblock %}
 
 {% block pagina_contenido %}
-	<div class="container-fluid">
-	
     {% if porpartida %}
 		<div class="row">
     		<div class="col-xs-12">
@@ -39,13 +37,23 @@
 			</div>
 		</div>
 		
-    	<div class="row form-group">
-    		<label class="col-xs-4 col-sm-2 control-label">Superficie total</label>
-    		<div class="col-xs-6 col-sm-2">{{ form_widget(edit_form.Superficie) }}</div>
-    		<label class="col-xs-4 col-sm-2 control-label">de los cuales</label>
-    		<div class="col-xs-4 col-sm-2">{{ form_widget(edit_form.SuperficieDeposito) }}</div>
-    		<div class="col-xs-4 col-sm-2 control-label-left"> son depósito</div>
-    	</div>
+        <div class="row form-group">
+        	<label class="col-xs-4 col-sm-2 control-label">Superficie total</label>
+        	<div class="col-xs-6 col-sm-2">
+        		<div class="input-group">
+        		    {{ form_widget(edit_form.Superficie) }}
+            	    <div class="input-group-addon">m2</div>
+        		</div>
+        	</div>
+        	<label class="col-xs-4 col-sm-2 control-label">de los cuales</label>
+        	<div class="col-xs-4 col-sm-2">
+        		<div class="input-group">
+                    {{ form_widget(edit_form.SuperficieDeposito) }}
+            	    <div class="input-group-addon">m2</div>
+        		</div>
+        	</div>
+        	<div class="col-xs-4 col-sm-2 control-label-left"> son depósito</div>
+        </div>
 	{% else %}
 		<div class="row">
     		<div class="col-xs-12">
@@ -62,26 +70,23 @@
     	</div>
 	{% endif %}
 	
-	
-		<div class="row">
-    		<div class="col-xs-12">
-    			<h3>Actividades comerciales</h3>
-    			<p>Puede seleccionar hasta 6 actividades comerciales.</p>
-    		</div>
-    	</div>
-    	<div class="row form-group">
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad1) }}</div>
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad2) }}</div>
-    	</div>
-    	<div class="row form-group">
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad3) }}</div>
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad4) }}</div>
-    	</div>
-    	<div class="row form-group">
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad5) }}</div>
-    		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad6) }}</div>
-    	</div>
-	
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Actividades comerciales</h3>
+			<p>Puede seleccionar hasta 6 actividades comerciales.</p>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad1) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad2) }}</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad3) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad4) }}</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad5) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad6) }}</div>
 	</div>
 	
     {{ form_rest(edit_form) }}

@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo")
  */
-class TramiteTipo
+class TramiteTipo implements ITramiteTipo
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
@@ -83,6 +83,32 @@ class TramiteTipo
      * )
      */
     private $AsociacionRequisitos;
+    
+    
+    /**
+     * Devuelve una lista plana (no jerárquica) de los requisitos de este trámite y todos los subtrámites.
+     */
+    public function ObtenerRequisitosLineales($tipo = null) {
+        $res = array();
+        $Reqs = $this->getAsociacionRequisitos();
+        foreach ($Reqs as $Asoc) {
+            if($tipo == null || $Asoc->getRequisito()->getTipo() == $tipo) {
+                $res[] = $Asoc;
+                
+            }
+            if($Asoc->getTipo() == 'tra') {
+                $Subtramite = $Asoc->getRequisito()->getTramiteTipoEspejo();
+                if($Subtramite) {
+                    $OtrosReqs = $Subtramite->ObtenerRequisitosLineales($tipo);
+                    $res = array_merge($res, $OtrosReqs);
+                }
+            }
+        }
+        
+
+        return $res;
+    }
+    
 
     /**
      * @ignore

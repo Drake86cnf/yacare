@@ -11,10 +11,10 @@ class TapirExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('tapir_cuiltesvalida',
-                array($this,'tapir_cuiltesvalida')));
+            new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida'))
+        );
     }
-
+    
     public function tapir_cuiltesvalida($Cuilt)
     {
         $CuiltSaneado = str_split(str_replace('-', '', trim($Cuilt)));
