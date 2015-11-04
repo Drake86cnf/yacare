@@ -154,18 +154,38 @@ class EstadoRequisito implements IEstadoRequisito
         $Propiedades = explode('.', $Asoc->getCondicionQue());
         $ValorQue = null;
         foreach ($Propiedades as $Propiedad) {
-            $NombreMetodo = 'get' . $Propiedad;
-            if (method_exists($Objeto, $NombreMetodo)) {
-                $ValorQue = $Objeto->$NombreMetodo();
+            $ValorCuanto = $Asoc->getCondicionCuanto();
+            //echo '->' . $Propiedad . '';
+            if(strstr($Propiedad, '(') !== false) {
+                $Parametro = trim(strstr($Propiedad, '('), '()');
+                $Propiedad = strstr($Propiedad, '(', true);
+            } else {
+                $Parametro = null;
+            }
+            
+            if (method_exists($Objeto, $Propiedad)) {
+                $Callable = array($Objeto, $Propiedad);
+            } elseif (method_exists($Objeto, 'get' . $Propiedad)) {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            } else {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            }
+            
+            if (is_callable($Callable)) {
+                //echo '()';
+                if($Parametro) {
+                    $ValorQue = call_user_func($Callable, $Parametro);
+                } else {
+                    $ValorQue = call_user_func($Callable);
+                }
                 $Objeto = $ValorQue;
             } else {
                 $ValorQue = null;
                 break;
             }
-            // echo $NombreMetodo . '()=' . $ValorQue . '; ';
         }
-
-        $ValorCuanto = $Asoc->getCondicionCuanto();
+        
+        //echo ' ' . $Asoc->getCondicionEs() . ' ' . $ValorQue; 
 
         switch ($Asoc->getCondicionEs()) {
             case '==':
