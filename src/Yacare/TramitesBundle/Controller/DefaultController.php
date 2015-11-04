@@ -25,12 +25,16 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         
         $entitiesRecientes = array();
         $em = $this->getEm();
-        $entities = $em->getRepository('YacareTramitesBundle:Requisito')->findBy(array('Tipo' => 'ext'));
+        $entities = $em->getRepository('YacareTramitesBundle:Requisito')->findBy(
+            array('Tipo' => array('cond', 'int', 'ext')), array('updatedAt' => 'DESC'));
+        
+        $limiteCantidad = 0;
         
         foreach ($entities as $entity) {
             $ultimaActualizacion = $entity->getUpdatedAt()->diff(new \DateTime());
-            if ($ultimaActualizacion->days <= 10) {
+            if ($ultimaActualizacion->days <= 10 && $limiteCantidad < 5) {
                 $entitiesRecientes[] = $entity;
+                $limiteCantidad ++;
             }
         }
         $res['entities'] = $entitiesRecientes;
