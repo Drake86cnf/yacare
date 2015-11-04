@@ -40,6 +40,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $editFormBuilder = $this->createFormBuilder()
             ->add('Actividad1', 'entity_id', array(
                 'label' => 'Actividad principal',
+                'required' => true,
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
             ->add('Actividad2', 'entity_id', array(
@@ -65,7 +66,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         if ($porpartida) {
             $editFormBuilder
                 ->add('Partida', 'entity_id', array(
-                    'label' => 'Partida', 'class' => 'Yacare\CatastroBundle\Entity\Partida'))
+                    'label' => 'Partida',
+                    'required' => true,
+                    'class' => 'Yacare\CatastroBundle\Entity\Partida'))
                 /* ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                     'label' => 'Tipo',
                     'data' => 'Local de ventas',
@@ -141,58 +144,4 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             'errors' => '',
             'edit_form' => $editForm->createView()));
     }
-
-    /* public function guardarActionPrePersist($entity, $editForm)
-    {
-        $em = $this->getEm();
-        $res = parent::guardarActionPrePersist($entity, $editForm);
-
-        $Comercio = $entity->getComercio();
-        if ($Comercio) {
-            if ($Comercio->getEstado() == 0) {
-                $Comercio->setEstado(1); // Habilitación en trámite
-            }
-            // Le doy al comercio el mismo titular y apoderado que inician trámite
-            $Comercio->setTitular($entity->getTitular());
-
-            $Comercio->setApoderado($entity->getApoderado());
-
-            // Reordeno las actividades ingresadas por formulario con espacios en blanco entre una y otra.
-            \Yacare\ComercioBundle\Controller\ComercioController::ReordenarActividades($Comercio);
-            $em->persist($Comercio);
-        }
-
-        // Obtengo el CPU correspondiente a la actividad, para la cantidad de m2 de este local
-        $Local = $Comercio->getLocal();
-        if ($Local) {
-            // $Superficie = $Local->getSuperficie();
-            $Actividad = $Comercio->getActividad1();
-
-            // Busco el uso del suelo para esa zona
-            $UsoSuelo = $em->createQuery(
-                'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.Codigo=:codigo
-                    AND u.SuperficieMaxima<:sup ORDER BY u.SuperficieMaxima DESC')
-                ->setParameter('codigo', $Actividad->getCodigoCpu())
-                ->setParameter('sup', $Local->getSuperficie())
-                ->setMaxResults(1)
-                ->getResult();
-            // Si es un array tomo el primero
-            if ($UsoSuelo && count($UsoSuelo) > 0) {
-                $UsoSuelo = $UsoSuelo[0];
-            }
-
-            if ($UsoSuelo) {
-                $Partida = $Local->getPartida();
-                if ($Partida) {
-                    $Zona = $Partida->getZona();
-                    if ($Zona) {
-                        $entity->setUsoSuelo($UsoSuelo->getUsoZona($Zona->getId()));
-                    }
-                }
-            }
-        }
-        $entity->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
-
-        return $res;
-    } */
 }
