@@ -2,18 +2,18 @@
 {% if tramite.EstadosRequisitos|length > 0 %}
 	<p>Para iniciar el trámite &quot;{{ tramite.TramiteTipo }}&quot; deberá
 		presentar la siguiente documentación:</p>
-<ol>
+<ul class="list-unstyled">
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
-		<li ><i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}</li>
-	    
-		
+		<li ><i class="fa fa-square-o"></i> 
+    		{% if EstadoRequisito.EsNecesario == false %}<del>{% endif %}		
+    	    {{ EstadoRequisito.AsociacionRequisito }}
+    	    {% if EstadoRequisito.EsNecesario == false %}</del>{% endif %}
+	    </li>
+	    {% if EstadoRequisito.EsNecesario == false %}
+	    	<p>{{ EstadoRequisito.AsociacionRequisito.Obs }}</p>
+		{% endif %}
 	{% endfor %}
-	
-	{% for EstadoRequisito in tramite.EstadosRequisitos %}
-		<li ><i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}</li>
-	    
-	{% endfor %}
-</ol>
+</ul>
 {% endif %}
 {% endmacro %}
 
