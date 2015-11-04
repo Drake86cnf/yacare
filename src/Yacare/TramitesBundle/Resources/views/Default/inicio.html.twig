@@ -4,6 +4,42 @@
 
 {% block pagina_contenido %}
 	<div class="container-fluid"> <div class="row">
+		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
+            <div class="panel-heading">
+            	<h2 class="panel-title">Requisitos</h2>
+            </div>
+            <div class="form panel-body">
+	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
+	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
+	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
+                <input type="text" class="form-control pull-rigth" placeholder="Buscar por nombre." />
+            </div>
+            <ul class="list-group">
+            	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">
+            		Lista de requisitos<span class="badge">{{ entitiesCantidad }}</span></a>
+            	
+            </ul>
+            <!-- Table -->
+            <table class="table table-hovergreyselect">
+            	<thead>
+            		<tr>
+            			<th>Nombre</th>
+            			<th>Última modificación</th>	
+            		</tr>
+            	</thead>
+            	<tbody>
+            	{% set contador = 0 %}
+            	{% for entity in entities %}
+            		<tr data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_editar', 
+            		    arrastre|merge({'id': entity.id})) }}">
+            			<td> {{ entity }} </td>
+            			<td> {{ entity.updatedAt|tapir_hacetiempo }} </td>
+            		</tr>
+            	{% endfor %}
+            	</tbody>
+            </table>
+        </div></div>
+	
 		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
             <div class="panel-heading">
             	<h2 class="panel-title">Tipos de trámites</h2>
@@ -14,31 +50,9 @@
                 	tristique. Aliquam vel sapien metus.</p>
             </div>
             <ul class="list-group">
-                <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	Lista de trámites</a>
-                {#  <a class="list-group-item" href="#">Actas de infracción <span class="badge">5</span></a>
-                <a class="list-group-item" href="#">Actas de constatación</a>
-                <a class="list-group-item" href="#">Actas de suspensión</a>
-                <a class="list-group-item" href="#">Actas de compromiso</a>
-                <a class="list-group-item list-group-item-success" 
-                	href="{{ path('yacare_obrasparticulares_acta_editar_1', arrastre)  }}">
-                	<i class="fa fa-plus"></i> Ingresar acta nueva</a>
-            </ul> #}
+                <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	
+                	Lista de tipos de trámites</a>
     	</div></div>
-		
-		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
-            <div class="panel-heading">
-            	<h2 class="panel-title">Requisitos</h2>
-            </div>
-            <div class="panel-body">
-	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
-	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
-	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
-                <input type="text" class="form-control pull-rigth" placeholder="Buscar por nombre." />
-            </div>
-            <ul class="list-group">
-            	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">Lista de requisitos</a>
-            </ul>
-        </div></div>
         
         <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
             <div class="panel-heading">
