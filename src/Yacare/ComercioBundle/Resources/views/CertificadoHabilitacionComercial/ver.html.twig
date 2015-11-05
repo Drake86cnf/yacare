@@ -1,6 +1,7 @@
 {% extends 'YacareTramitesBundle:Comprobante:ver.html.twig' %}
 
-{% block pagina_titulo %}{{ entity.Nombre }}{% endblock %}
+{% block pagina_titulo %}{{ res.Entidad.Nombre }}{% endblock %}
+
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}{% endblock %}
@@ -8,107 +9,103 @@
 {% block comprobante_contenido %}
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h1>{{ entity.Comercio }}</h1>
+		<h1>{{ res.Entidad.Comercio }}</h1>
 	</div>
 	
 	<div class="panel-body">
-	
-		<img src="data:image/jpeg;base64,{{ entity.YriConTokenQrBase64 }}" class="pull-right" alt="QR" />
-    	<p>Se extiende el presente Certificado de Habilitación Comercial a
-    	{{ entity.Comercio.Titular }}, CUIT/CUIL {{ entity.Comercio.Titular.Cuilt }},
-    	para el ejercicio de las actividades comerciales detalladas más abajo,
-    	bajo el nombre comercial de <em>&quot;{{ entity.Comercio.Nombre }}&quot;</em>,
-    	en el {{ entity.Comercio.Local.Tipo|lower }} con una superficie de
-    	{{ entity.Comercio.Local.Superficie }} m² ubicado en
-    	{{ entity.Comercio.Local.Partida.Domicilio }} de esta ciudad.</p>
+		<img src="data:image/jpeg;base64,{{ res.Entidad.YriConTokenQrBase64 }}" class="pull-right" alt="QR" />
+    	<p>
+        	Se extiende el presente Certificado de Habilitación Comercial a
+        	{{ res.Entidad.Comercio.Titular }}, CUIT/CUIL {{ res.Entidad.Comercio.Titular.Cuilt }},
+        	para el ejercicio de las actividades comerciales detalladas más abajo,
+        	bajo el nombre comercial de <em>&quot;{{ res.Entidad.Comercio.Nombre }}&quot;</em>,
+        	en el {{ res.Entidad.Comercio.Local.Tipo|lower }} con una superficie de
+        	{{ res.Entidad.Comercio.Local.Superficie }} m² ubicado en
+        	{{ res.Entidad.Comercio.Local.Partida.Domicilio }} de esta ciudad.
+        </p>
 	</div>
 	
-	<div class="panel-body">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-2 text-right">Titular</div>
-				<div class="col-xs-4"><strong>{{ entity.Comercio.Titular }}</strong></div>
-				<div class="col-xs-3 text-right">Fecha de emisión</div>
-				<div class="col-xs-3"><strong>{{ entity.createdAt|tapir_fecha('medium', 'none')|lower }}</strong></div>
-			</div>
-			<div class="row">
-				<div class="col-xs-2 text-right">CUIT</div>
-				<div class="col-xs-4"><strong>{{ entity.Comercio.Titular.Cuilt }}</strong></div>
-				<div class="col-xs-3 text-right">Válido hasta</div>
-				<div class="col-xs-3"><strong>{{ entity.FechaValidezHasta|tapir_fecha('medium', 'none')|lower }}</strong></div>
-			</div>
-			<div class="row">
-				<div class="col-xs-2 text-right">Domicilio</div>
-				<div class="col-xs-4"><strong>{{ entity.Comercio.Local.Partida.Domicilio }}</strong></div>
-				<div class="col-xs-3 text-right">Versión</div>
-				<div class="col-xs-3"><strong>{{ entity.Version }}</strong></div>
-				
-			</div>
+	<div class="panel-body"><div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2 text-right">Titular</div>
+			<div class="col-xs-4"><strong>{{ res.Entidad.Comercio.Titular }}</strong></div>
+			<div class="col-xs-3 text-right">Fecha de emisión</div>
+			<div class="col-xs-3"><strong>{{ res.Entidad.createdAt|tapir_fecha('medium', 'none')|lower }}</strong></div>
 		</div>
-	</div>
+		<div class="row">
+			<div class="col-xs-2 text-right">CUIT</div>
+			<div class="col-xs-4"><strong>{{ res.Entidad.Comercio.Titular.Cuilt }}</strong></div>
+			<div class="col-xs-3 text-right">Válido hasta</div>
+			<div class="col-xs-3"><strong>{{ res.Entidad.FechaValidezHasta|tapir_fecha('medium', 'none')|lower }}</strong></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 text-right">Domicilio</div>
+			<div class="col-xs-4"><strong>{{ res.Entidad.Comercio.Local.Partida.Domicilio }}</strong></div>
+			<div class="col-xs-3 text-right">Versión</div>
+			<div class="col-xs-3"><strong>{{ res.Entidad.Version }}</strong></div>
+		</div>
+	</div></div>
 
-
-<table class="table table-responsive">
-<thead>
-	<tr>
-		<th></th>
-		<th>Actividades</th>
-	</tr>
-</thead>
-<tbody>
-	<tr>
-		<td>{{ entity.Comercio.Actividad1.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad1 }}</td>
-	</tr>
-	{% if entity.Comercio.Actividad2 %}
-	<tr>
-		<td>{{ entity.Comercio.Actividad2.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad2 }}</td>
-	</tr>
-	{% endif %}
-	{% if entity.Comercio.Actividad3 %}
-	<tr>
-		<td>{{ entity.Comercio.Actividad3.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad3 }}</td>
-	</tr>
-	{% endif %}
-	{% if entity.Comercio.Actividad4 %}
-	<tr>
-		<td>{{ entity.Comercio.Actividad4.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad4 }}</td>
-	</tr>
-	{% endif %}
-	{% if entity.Comercio.Actividad5 %}
-	<tr>
-		<td>{{ entity.Comercio.Actividad5.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad5 }}</td>
-	</tr>
-	{% endif %}
-	{% if entity.Comercio.Actividad6 %}
-	<tr>
-		<td>{{ entity.Comercio.Actividad6.Clamae2014 }}</td>
-		<td>{{ entity.Comercio.Actividad6 }}</td>
-	</tr>
-	{% endif %}
-</tbody>
-</table>
+    <table class="table table-responsive">
+        <thead>
+        	<tr>
+        		<th></th>
+        		<th>Actividades</th>
+        	</tr>
+        </thead>
+        <tbody>
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad1.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad1 }}</td>
+        	</tr>
+        	{% if res.Entidad.Comercio.Actividad2 %}
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad2.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad2 }}</td>
+        	</tr>
+        	{% endif %}
+        	{% if res.Entidad.Comercio.Actividad3 %}
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad3.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad3 }}</td>
+        	</tr>
+        	{% endif %}
+        	{% if res.Entidad.Comercio.Actividad4 %}
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad4.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad4 }}</td>
+        	</tr>
+        	{% endif %}
+        	{% if res.Entidad.Comercio.Actividad5 %}
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad5.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad5 }}</td>
+        	</tr>
+        	{% endif %}
+        	{% if res.Entidad.Comercio.Actividad6 %}
+        	<tr>
+        		<td>{{ res.Entidad.Comercio.Actividad6.Clamae2014 }}</td>
+        		<td>{{ res.Entidad.Comercio.Actividad6 }}</td>
+        	</tr>
+        	{% endif %}
+        </tbody>
+    </table>
 
     <div class="panel-footer">
     	El presente certificado es intransferible, es válido solamente para
     	el ejercicio de las actividades mencionadas, solamente en el local comercial
-    	mencionado y es válido hasta el día {{ entity.FechaValidezHasta|tapir_fecha('full', 'none')|lower }} inclusive.
+    	mencionado y es válido hasta el día {{ res.Entidad.FechaValidezHasta|tapir_fecha('full', 'none')|lower }} inclusive.
     </div>
-	
 </div>
 {% endblock %}
 
 {% if app.request.get('imprimirahora') %}
-<script>
-$(function() {
-	window.print();
-	tapirAtras();
-});
-</script>
+    <script>
+        $(function() {
+        	window.print();
+        	tapirAtras();
+        });
+    </script>
 {% endif %}
 {% endblock %}
 
@@ -117,7 +114,7 @@ $(function() {
     	<button class="btn btn-default" data-dismiss="modal"
 			aria-hidden="true"><i class="fa fa-times"></i> Cerrar</button>
 		<a class="btn btn-default print-preview"
-			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id, 'imprimirahora': 1 }) }}">
+			href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': res.Entidad.Id, 'imprimirahora': 1 }) }}">
 			<i class="fa fa-print"></i> Imprimir</a>
     {% else %}
         <button class="btn btn-default print-preview"

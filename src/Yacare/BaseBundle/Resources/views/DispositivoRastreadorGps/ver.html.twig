@@ -1,25 +1,25 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 {% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as yacare %}
 
-{% block pagina_titulo %}{{ entity }}{% endblock %}
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
     <div class="row">
     	<div class="col-xs-12">
-    		{% if dispositivos is defined or ultimorastreo is defined %}
-    			{{  google_map_container(map) }}
+    		{% if res.Dispositivos is defined or res.UltimoRastreo is defined %}
+    			{{  google_map_container(res.map) }}
     		{% endif %}
     	</div>
     </div>
     <br>
     <div class="row">
-    	<div class= "{% if uno %} col-xs-10 {% else %} col-xs-8 {% endif %}">
+    	<div class= "{% if res.uno %} col-xs-10 {% else %} col-xs-8 {% endif %}">
     		<button type="button" class="btn btn-primary" id="start_btn">
     			<i class="fa fa-map-marker"></i> Comenzar Rastreo </button>
     		<button type="button" class="btn btn-primary" id="stop_btn">
     			<i class="fa fa-hand-paper-o"></i> Detener Rastreo </button>
     	</div>
-    	{% if not uno %}
+    	{% if not res.uno %}
         	<div class="col-xs-1">
     			<label class="control-label"> Centrar en: </label>
     		</div>
@@ -27,7 +27,7 @@
         		<select id="serie" class="form-control">
     				{% set i = 0 %}
     					<option> Ninguno </option>
-    				{% for dispositivo in dispositivos %}
+    				{% for dispositivo in res.Dispositivos %}
         				<option value="{{ i | raw }}">{{ dispositivo.getNumeroSerie() }}</option>
         				{% set i = i + 1 %}
         			{% endfor %}
@@ -48,16 +48,16 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_scripts %}
-	{{ js | raw }}
+	{{ res.js | raw }}
 	
     <script>
     $('document').ready(function() {
     	
     	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN DISPOSITIVO #}
-    		{% if uno %}
+    		{% if res.uno %}
     			function change(toSend, notFirst, polylines) {
     				$.ajax({
-    					url: '{{ path(baseroute ~ '_coordjson') }}',
+    					url: '{{ path(res.ObtenerRutaAccion('coordjson')) }}',
     					cache: false,
     					type: 'POST',
     					dataType: 'json',
@@ -108,11 +108,11 @@
     	{# ----> FIN DEL CODIGO PARA SOLO UN DISPOSITIVO #}
     
     	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA MAS DE UN DISPOSITIVO #}
-    		{% if not uno %}
+    		{% if not res.uno %}
     		centerOp = [false, null];
     			function change (toSend, notFirst) {
     				$.ajax( {
-    					url: '{{ path(baseroute ~ '_coordjson') }}',
+    					url: '{{ path(res.ObtenerRutaAccion('coordjson')) }}',
     					cache: false,
     					type: 'POST',
     					dataType: 'json',
@@ -155,7 +155,7 @@
     				}	
     			}
     		{% endif %}
-    	{# ----> FIN DEL CODIGO PARA VARIOS DISPOSITIVOS #}
+    	{# ----> FIN DEL CODIGO PARA VARIOS res.Dispositivos #}
     
     	{# CODIGO JS COMPARTIDO #}    	
     			function clear(interval) {
@@ -169,7 +169,7 @@
     			{% if id is defined %}
     				ids.push({{ id | raw }});
     			{% else %}
-    				{% for dispositivo in dispositivos %} ids.push({{ dispositivo.getId() | raw }}); {% endfor %}
+    				{% for dispositivo in res.Dispositivos %} ids.push({{ dispositivo.getId() | raw }}); {% endfor %}
     			{% endif %}
     
     			toSend = {id_ras: ids};
@@ -181,7 +181,7 @@
     				clear(interval);
         		});
         		
-    			{% if dispositivos is defined %}
+    			{% if res.Dispositivos is defined %}
     				$('#serie').change(function() {
     					center($(this), markers);
     				});
@@ -195,8 +195,8 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-	{% if uno %}
-    	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}" class="btn btn-default">
+	{% if res.uno %}
+    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" class="btn btn-default">
     		<i class="fa fa-edit"></i> Editar</a>
 	{% endif %}
 {% endblock pagina_acciones2 %}
