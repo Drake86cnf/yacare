@@ -2,64 +2,65 @@
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
 
-{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo requerimiento{% endif %}{% endblock pagina_titulo %}
+{% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Nuevo requerimiento{% endif %}{% endblock pagina_titulo %}
 
 {% block pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8">
-		    {% if entity.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
+		    {% if res.Entidad.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
 		    <div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
-		  		href="{{ path(baseroute ~ '_editarcampo', arrastre|merge({ 'id': entity.id, 'nombrecampo': 'Notas' })) }}">
-		  		<p>{{ entity.Notas }}</p>
+		  		href="{{ path(res.ObtenerRutaAccion('editarcampo'), res.Arrastre|merge({ 'id': res.Entidad.id, 'nombrecampo': 'Notas' })) }}">
+		  		<p>{{ res.Entidad.Notas }}</p>
 		    </div>
 
-		    <p class="help-block text-right"><span class="small">Creado por {% if entity.Usuario %}
-			        {{ entity.Usuario.NombreAmigable }}
-			    {% elseif entity.UsuarioNombre %}
-			    	usuario web identificado como {{ entity.UsuarioNombre }}
+		    <p class="help-block text-right"><span class="small">Creado por {% if res.Entidad.Usuario %}
+			        {{ res.Entidad.Usuario.NombreAmigable }}
+			    {% elseif res.Entidad.UsuarioNombre %}
+			    	usuario web identificado como {{ res.Entidad.UsuarioNombre }}
 			    {% else %}
 			    	un usuario anónimo vía web
-			    {% endif %} el {{ entity.createdAt|tapir_fecha|lower }}
+			    {% endif %} el {{ res.Entidad.createdAt|tapir_fecha|lower }}
 		  	</span></p>
 		  
-            <p>{% if entity.Estado == 0 %}El requerimiento aun no fue iniciado.
-                {% elseif entity.Estado == 10 %}El requerimiento está en curso y está pendiente de resolución.
-                {% elseif entity.Estado == 20 %}El requerimiento está en espera. Vea los comentarios para más
+            <p>{% if res.Entidad.Estado == 0 %}El requerimiento aun no fue iniciado.
+                {% elseif res.Entidad.Estado == 10 %}El requerimiento está en curso y está pendiente de resolución.
+                {% elseif res.Entidad.Estado == 20 %}El requerimiento está en espera. Vea los comentarios para más
                 información.
-                {% elseif entity.Estado == 90 %}El requerimiento fue terminado y la resolución está pendiente de
+                {% elseif res.Entidad.Estado == 90 %}El requerimiento fue terminado y la resolución está pendiente de
                 aprobación. Vea los comentarios para más información.
-                {% elseif entity.Estado == 99 %}El requerimiento fue cerrado y archivado.
+                {% elseif res.Entidad.Estado == 99 %}El requerimiento fue cerrado y archivado.
                 {% endif %}</p>
 		</div>
 		
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
-		  <div class="text-success"><strong>{% if entity.Categoria %}{{ entity.Categoria }}{% else %}Sin categoría {% endif %}</strong>
+		  <div class="text-success"><strong>{% if res.Entidad.Categoria %}{{ res.Entidad.Categoria }}{% else %}Sin categoría {% endif %}</strong>
 		      {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
     		  	  <a class="btn btn-link btn-xs showonhover"
-    		      href="{{ path(baseroute ~ '_modificardato', arrastre|merge({'id': entity.id, 'campo_nombre': 'Categoria'})) }}"
+    		      href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge({'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}"
     		      data-toggle="modal">
-    		      <i class="fa fa-edit"></i> {% if entity.Categoria %}Cambiar{% else %}Asignar{% endif %}</a>
+    		      <i class="fa fa-edit"></i> {% if res.Entidad.Categoria %}Cambiar{% else %}Asignar{% endif %}</a>
     		  {% endif %}
 		  </div>
 
 		  Estado: <span class="pull-right">
-              {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
-			  {% elseif entity.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
+              {% if res.Entidad.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-muted"></i>
+			  {% elseif res.Entidad.Estado == 10 %}<i class="fa fa-play fa-fw text-muted"></i>
+			  {% elseif res.Entidad.Estado == 20 %}<i class="fa fa-clock-o fa-fw text-muted"></i>
+			  {% elseif res.Entidad.Estado == 90 %}<i class="fa fa-check fa-fw text-muted"></i>
+			  {% elseif res.Entidad.Estado == 99 %}<i class="fa fa-flag-checkered fa-fw text-muted"></i>
 			  {% else %}<i class="fa fa-fw"></i>
 			  {% endif %}
 
-		      {{ entity.EstadoNombre }}</span><br />
+		      {{ res.Entidad.EstadoNombre }}</span><br />
 
-		  Encargado: <span class="pull-right">{{ entity.Encargado }}</span><br />
-		  Prioridad: <span class="pull-right">{{ entity.PrioridadNombre }}</span><br />
-		  {% if entity.Usuario is null %}
+		  Encargado: <span class="pull-right">{{ res.Entidad.Encargado }}</span><br />
+		  Prioridad: <span class="pull-right">{{ res.Entidad.PrioridadNombre }}</span><br />
+		  {% if res.Entidad.Usuario is null %}
 		  	Seguimiento web: <span class="pull-right">
-		  	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ entity.id }}-{{ entity.Token }}">
-		  	    {{ entity.id }}-{{ entity.Token }}</a></span><br />
+		  	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg=
+		  	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}">
+		  	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}</a></span><br />
 		  {% else %}
 		    <span class="small">Este requerimiento no tiene seguimiento web porque fue iniciado de forma interna.</span>
 		  {% endif %}
@@ -69,50 +70,61 @@
 
 {% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
 <div class="text-right">
-    {% if entity.Encargado and entity.Encargado == app.user and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_rechazar', arrastre|merge({ 'id': entity.id, 'hisapi': 0 })) }}"
+    {% if res.Entidad.Encargado and res.Entidad.Encargado == app.user and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0 })) }}"
         	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
-    {% elseif entity.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-        {% if entity.Encargado %}
-            <a class="btn btn-default" href="{{ path(baseroute ~ '_asignar', arrastre|merge({ 'id': entity.id })) }}"
+    {% elseif res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+        {% if res.Entidad.Encargado %}
+            <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('asignar'), 
+                res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
             	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Reasignar</a>
         {% else %}
-            <a class="btn btn-danger" href="{{ path(baseroute ~ '_asignar', arrastre|merge({ 'id': entity.id })) }}"
+            <a class="btn btn-danger" href="{{ path(res.ObtenerRutaAccion('asignar'), 
+                res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
             	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Asignar</a>
         {% endif %}
     {% endif %}
 
 
-    {% if entity.Estado == 0 %}
+    {% if res.Entidad.Estado == 0 %}
         {# Nuevo #}
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
             data-toggle="ajax-link" ><i class="fa fa-play"></i> Iniciar</a>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
+        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
             data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
     {% endif %}
-    {% if entity.Estado == 10 %}
+    {% if res.Entidad.Estado == 10 %}
         {# Iniciado #}
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
-       data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
-        <a class="btn btn-default" href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({'id': entity.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
-        data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
+       		data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
+        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
+        	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
     {% endif %}
-    {% if entity.Estado == 20 %}
+    {% if res.Entidad.Estado == 20 %}
         {# En espera #}
-        <a class="btn btn-default btn-warning"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
-        <a class="btn btn-default"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({'id': entity.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+        <a class="btn btn-default btn-warning"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+        	data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
+        <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
+        	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
     {% endif %}
-    {% if entity.Estado == 90 %}
+    {% if res.Entidad.Estado == 90 %}
         {# Terminado #}
-        <a class="btn btn-success"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
+        <a class="btn btn-success"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
+        	data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
     {% endif %}
-    {% if entity.Estado >= 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+    {% if res.Entidad.Estado >= 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
         {# Cerrado #}
-        <a class="btn btn-default"  href="{{ path(baseroute ~ '_cambiarestado', arrastre|merge({ 'id': entity.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
+        <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+        	data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
     {% endif %}
 </div>
 {% endif %}
@@ -153,11 +165,11 @@
     <hr />
 {% endif %}
 
-{% if entity.Novedades|length == 0 %}
+{% if res.Entidad.Novedades|length == 0 %}
     <p>No hay novedades ni comentarios. {% if form_novedad is defined %}Puede ser el primero en agregar una.{% endif %}</p>
 {% else %}
 	{% set ultimanovedad = false %}
-    {% for novedad in entity.Novedades|reverse %}
+    {% for novedad in res.Entidad.Novedades|reverse %}
     	{% if ultimanovedad == false or ultimanovedad.Usuario != novedad.Usuario %}
     	{% if ultimanovedad != false %}</div></div>{% endif %}
         <div class="row">
@@ -166,8 +178,8 @@
             		title="{% if novedad.Usuario %}{{ novedad.Usuario }}{% endif %}"></i><br />
             	<small title="{% if novedad.Usuario %}{{ novedad.Usuario }}{% endif %}">{% if novedad.Usuario %}
     			        {{ novedad.Usuario.NombreAmigableCorto }}
-    			    {% elseif entity.UsuarioNombre %}
-    			    	{{ entity.UsuarioNombre }}
+    			    {% elseif res.Entidad.UsuarioNombre %}
+    			    	{{ res.Entidad.UsuarioNombre }}
     			    {% else %}
     			    	Usuario anónimo vía web
     			    {% endif %}</small></div>
@@ -190,7 +202,7 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-    <a href="{{ path(baseroute ~ '_listar', arrastre) }}" class="btn btn-link"><i class="fa fa-list"></i> Listado</a>
+    <a href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre) }}" class="btn btn-link"><i class="fa fa-list"></i> Listado</a>
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
