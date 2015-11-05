@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\BaseBundle\Helper\Resultados;
 
 /**
@@ -7,10 +6,12 @@ namespace Tapir\BaseBundle\Helper\Resultados;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class ResultadoAction {
+abstract class ResultadoAction
+{
     public $Controlador;
-    
-    function __construct($controlador) {
+
+    function __construct($controlador)
+    {
         $this->Controlador = $controlador;
     }
 }
