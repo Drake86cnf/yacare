@@ -134,13 +134,12 @@ abstract class BaseController extends Controller
     {
         return $request->query->get($varName);
     }
-    
-    
-    
+
     /**
      * Construye una respuesta de una acción.
      */
-    public function ConstruirResultado($res, Request $request) {
+    public function ConstruirResultado($res, Request $request)
+    {
         $res->Vendor = $this->VendorName;
         $res->Bundle = $this->BundleName;
         
@@ -148,6 +147,7 @@ abstract class BaseController extends Controller
         $res->EntidadEtiqueta = $this->obtenerEtiquetaEntidad();
         $res->EntidadEtiquetaPlural = $this->obtenerEtiquetaEntidadPlural();
         $res->RutaBase = $this->obtenerRutaBase();
+        
         if (isset($this->Paginar)) {
             $res->Paginar = $this->Paginar;
         }
@@ -167,11 +167,9 @@ abstract class BaseController extends Controller
         $val = $request->query->get('page');
         if ($val && ((int) ($val)) > 1) {
             $res->Pagina = $val;
-        }
-
+        }        
         return $res;
     }
-    
 
     /**
      * Arrastra variables entre acciones.

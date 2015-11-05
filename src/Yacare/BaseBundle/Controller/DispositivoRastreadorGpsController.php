@@ -23,8 +23,16 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function verAction(Request $request)
     {
-        $res = parent::verAction($request);
-        $entity = $res['entity'];
+        $id = $this->ObtenerVariable($request, 'id');
+        if ($id) {
+            $entity = $this->ObtenerEntidadPorId($id);
+        }
+        if (! $entity) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+        $res = $this->ConstruirResultado(
+            new \Yacare\BaseBundle\Helper\Resultados\ResultadoVerActionDispositivoGps($this), $request);
+        $res->Entidad = $entity;
         
         if ($entity->getObs() == null) {
             $entity->setObs('Serie ' . $entity->getNumeroSerie());
@@ -38,7 +46,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
             // Si es un array de un 1 elemento, lo convierto en un elemento plano.
             $UltimoRastreo = $UltimoRastreo[0];
         }
-        $res['ultimorastreo'] = $UltimoRastreo;
+        $res->UltimoRastreo = $UltimoRastreo;
         
         $map = $this->CrearMapa();
         
@@ -71,12 +79,12 @@ class DispositivoRastreadorGpsController extends DispositivoController
         
         $output = $mapHelper->renderJavascripts($map);
         
-        $res['map'] = $map;
-        $res['js'] = $output;
-        $res['id'] = $entity->getId();
-        $res['uno'] = true;
+        $res->map = $map;
+        $res->js = $output;
+        $res->id = $entity->getId();
+        $res->uno = true;
         
-        return $res;
+        return array('res' => $res);
     }
 
     /**
@@ -152,8 +160,22 @@ class DispositivoRastreadorGpsController extends DispositivoController
             new \Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper());
         $output = $mapHelper->renderJavascripts($map);
         
-        return $this->ArrastrarVariables($request, 
-            array('entity' => $entity, 'dispositivos' => $Dispositivos, 'js' => $output, 'map' => $map, 'uno' => false));
+        $res = $this->ConstruirResultado(
+            new \Yacare\BaseBundle\Helper\Resultados\ResultadoVerActionDispositivoGps($this), $request);
+        
+        $res->Entidad = $entity;
+        $res->Dispositivos = $Dispositivos;
+        $res->js = $output;
+        $res->map = $map;
+        $res->uno = false;
+        
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'dispositivos' => $Dispositivos, 
+            'js' => $output, 
+            'map' => $map, 
+            'uno' => false, 
+            'res' => $res));
     }
 
     /**

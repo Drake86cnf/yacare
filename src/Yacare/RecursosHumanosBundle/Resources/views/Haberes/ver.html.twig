@@ -1,7 +1,8 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
 {% block pagina_titulo %}Recibo de remuneraciones del período
-    {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}{% endblock pagina_titulo %}
+    {{ ames|slice(4, 2) }}/{{ ames|slice(0, 4) }}
+{% endblock pagina_titulo %}
 
 {% block pagina_contenido %}
 <div class="panel panel-default center-block" style="max-width: 18cm">
@@ -126,7 +127,6 @@
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
-<a data-toggle="ajax-link" class="btn btn-link pull-right"
-	href="{{ path(baseroute ~ '_recibolistar', arrastre) }}"><i
-	class="fa fa-reply"></i> Volver</a>
+    <a data-toggle="ajax-link" class="btn btn-link pull-right"
+    	href="{{ path(res.ObtenerRutaAccion('recibolistar'), arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
 {% endblock pagina_acciones %}

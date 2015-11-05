@@ -4,11 +4,11 @@ namespace Tapir\AbmBundle\Helper\Resultados;
 /**
  * Describe el resultado de una acción de listar entidades.
  *  
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
-class ResultadoListarAction extends ResultadoActionAbmController
+class ResultadoVerAction extends ResultadoActionAbmController
 {
-    public $Entidades;
+    public $Entidad;
     
     function __construct($controlador)
     {

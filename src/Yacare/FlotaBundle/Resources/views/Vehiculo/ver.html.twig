@@ -2,20 +2,20 @@
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
 
-{% block pagina_titulo %}{{ entity }}{% endblock %}
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
-			{{ bs.grid_label_text('Marca y modelo', entity.Marca ~ ' ' ~ entity.Modelo) }}
-			{{ bs.grid_label_text('Año', entity.Anio) }}
-			{{ bs.grid_label_text('Color', entity.Color) }}
+			{{ bs.grid_label_text('Marca y modelo', res.Entidad.Marca ~ ' ' ~ res.Entidad.Modelo) }}
+			{{ bs.grid_label_text('Año', res.Entidad.Anio) }}
+			{{ bs.grid_label_text('Color', res.Entidad.Color) }}
 		</div>
 		<div class="col-sm-6 col-xs-12">
-    		{{ bs.grid_label_text('Patente', entity.Patente) }}
-    		{{ bs.grid_label_text('Código', entity.Codigo) }}
-			{{ bs.grid_label_text('Departamento', entity.Departamento) }}
+    		{{ bs.grid_label_text('Patente', res.Entidad.Patente) }}
+    		{{ bs.grid_label_text('Código', res.Entidad.Codigo) }}
+			{{ bs.grid_label_text('Departamento', res.Entidad.Departamento) }}
 		</div>
 	</div>
 </div>
@@ -34,7 +34,7 @@
     </thead>
     <tbody>
     {% set UltimaFecha = '-' %}
-    {% for carga in entity.Cargas %}
+    {% for carga in res.Entidad.Cargas %}
         <tr>
             <td>{% set FechaFormateada = carga.createdAt|tapir_fecha('long', 'none') %}
                 {% if FechaFormateada != UltimaFecha %}
@@ -55,11 +55,11 @@
 
 {% block pagina_acciones2 %}
     {% if is_granted('ROLE_FLOTA_ADMINISTRADOR') %}
-    	<a href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
     {% endif %}
     {% if is_granted('ROLE_FLOTA_CARGA') %}
-    	<a href="{{ path(baseroute ~'_carga', arrastre|merge({ 'vehiculo': entity.id })) }}"
+    	<a href="{{ path(res.ObtenerRutaAccion('carga'), res.Arrastre|merge({ 'vehiculo': res.Entidad.id })) }}"
     		class="btn btn-default"><i class="fa fa-tachometer"></i> Nueva carga</a>
     {% endif %}
 {% endblock pagina_acciones2 %}
