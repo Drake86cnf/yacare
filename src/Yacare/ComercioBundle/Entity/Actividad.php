@@ -118,17 +118,6 @@ class Actividad implements Tree\NodeInterface
     protected $Etiquetas;
     
     /**
-     * Requisitos particulares asociados a esta actividad.
-     *
-     * @var Yacare\TramitesBundle\Entity\Requisito
-     *
-     * @ORM\ManyToMany(targetEntity="Yacare\TramitesBundle\Entity\Requisito")
-     * @ORM\JoinTable(name="Comercio_Actividad_Requisito",
-     *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
-     */
-    protected $Requisitos;
-    
-    /**
      * El nivel de riesgo que posee cada actividad comercial.
      *
      * @var NivelRiesgo
@@ -137,6 +126,9 @@ class Actividad implements Tree\NodeInterface
      */
     private $NivelRiesgo = 1;
 
+    /*
+     * Devuelve true si la actividad contiene una etiqueta (buśqueda por código).
+     */
     public function ContieneEtiquetaPorCodigo($codigo)
     {
         foreach ($this->Etiquetas as $Etiqueta) {
@@ -481,23 +473,6 @@ class Actividad implements Tree\NodeInterface
     public function setEtiquetas($Etiquetas)
     {
         $this->Etiquetas = $Etiquetas;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getRequisitos()
-    {
-        return $this->Requisitos;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequisitos($Requisitos)
-    {
-        $this->Requisitos = $Requisitos;
         return $this;
     }
 
