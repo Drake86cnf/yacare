@@ -216,8 +216,6 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         $em = $this->getEm();
         $query = $em->createQuery($dql);
 
-        // echo '<pre>' . $dql . '</pre>';
-
         if ($this->Limit) {
             $query->setMaxResults($this->Limit);
         }
@@ -230,7 +228,19 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         } else {
             $entities = $query->getResult();
         }
-        return $this->ArrastrarVariables($request, array('entities' => $entities));
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoListarAction($this), $request);
+        $res->Entidades = $entities;
+        return $this->ArrastrarVariables($request, array('entities' => $entities, 'res' => $res));
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Tapir\BaseBundle\Controller\BaseController::ConstruirResultado()
+     */
+    public function ConstruirResultado($res, Request $request) {
+        $res = parent::ConstruirResultado($res, $request);
+        return $res;
     }
 
     /**
