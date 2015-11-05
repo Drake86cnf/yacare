@@ -35,15 +35,15 @@ trait ConPerfil
         }
 
         if ($entity->getUsername()) {
-            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
+            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
         } else {
-            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
+            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
         }
 
         if ($request->getMethod() === 'POST') {
-            $editForm->handleRequest($request);
+            $FormEditar->handleRequest($request);
 
-            if ($editForm->isValid()) {
+            if ($FormEditar->isValid()) {
                 if ($entity->getPasswordEnc()) {
                     // Genero una nueva sal
                     $entity->setSalt(md5(uniqid(null, true)));
@@ -58,26 +58,34 @@ trait ConPerfil
                 $em->persist($entity);
                 $em->flush();
 
-                $this->editarperfilActionPostPersist($entity, $editForm);
+                $this->editarperfilActionPostPersist($entity, $FormEditar);
 
                 $this->get('session')->getFlashBag()->add('success',
                     'Los cambios en "' . $entity . '" fueron guardados.');
-                $errors = null;
+                $Errores = null;
             } else {
                 $validator = $this->get('validator');
-                $errors = $validator->validate($entity);
+                $Errores = $validator->validate($entity);
             }
 
-            if ($errors) {
-                foreach ($errors as $error) {
+            if ($Errores) {
+                foreach ($Errores as $error) {
                     $this->get('session')->getFlashBag()->add('danger', $error);
                 }
+                
+                $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+                $res->Entidad = $entity;
+                $res->FormularioEditar = $FormEditar->createView();
+                $res->AccionGuardar = 'usuario_editarperfil';
+                $res->Errores = $Errores;
 
                 $res = $this->ArrastrarVariables($request, array(
                     'entity' => $entity,
-                    'errors' => $errors,
+                    'errors' => $Errores,
                     'create' => $id ? false : true,
-                    'edit_form' => $editForm->createView()));
+                    'edit_form' => $FormEditar->createView(),
+                    'res' => $res
+                ));
 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             } else {
@@ -86,11 +94,18 @@ trait ConPerfil
                 }
             }
         }
-
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+        $res->Entidad = $entity;
+        $res->FormularioEditar = $FormEditar->createView();
+        $res->AccionGuardar = 'usuario_editarperfil';
+        
         return $this->ArrastrarVariables($request, array(
             'entity' => $entity,
             'edit_form_action' => 'usuario_editarperfil',
-            'edit_form' => $editForm->createView()));
+            'edit_form' => $FormEditar->createView(),
+            'res' => $res
+        ));
     }
 
     /**
@@ -115,14 +130,14 @@ trait ConPerfil
 
         if ($entity->getId() == $user->getId()) {
             // Es el usuario conectado, muestro "cambiar contraseña"
-            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
+            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
         } else {
             // Es para otro usuario, muestro "crear contraseña"
-            $editForm = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCrearContrasenaType(), $entity);
+            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCrearContrasenaType(), $entity);
         }
-        $editForm->handleRequest($request);
+        $FormEditar->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($FormEditar->isValid()) {
             // TODO: si es "cambiar contraseña", hay que validar que haya puesto la contraseña actual.
             // TODO: validar que haya puesto dos veces la misma contraseña
 
@@ -143,17 +158,24 @@ trait ConPerfil
             $em->persist($entity);
             $em->flush();
 
-            $this->cambiarcontrasenaActionPostPersist($entity, $editForm);
+            $this->cambiarcontrasenaActionPostPersist($entity, $FormEditar);
         }
 
         if (isset($user)) {
             $em->refresh($user);
         }
 
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+        $res->Entidad = $entity;
+        $res->FormularioEditar = $FormEditar->createView();
+        $res->AccionGuardar = 'usuario_cambiarcontrasena';
+        
         return $this->ArrastrarVariables($request, array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'terminado' => $terminado));
+            'edit_form' => $FormEditar->createView(),
+            'terminado' => $terminado,
+            'res' => $res
+        ));
     }
 
     /**
