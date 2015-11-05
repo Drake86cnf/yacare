@@ -1,5 +1,4 @@
 <?php
-
 namespace Tapir\AbmBundle\Helper\Resultados;
 
 /**
@@ -7,10 +6,11 @@ namespace Tapir\AbmBundle\Helper\Resultados;
  *  
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class ResultadoListarAction extends ResultadoActionAbmController {
-    function __construct($controlador) {
+class ResultadoListarAction extends ResultadoActionAbmController
+{
+    function __construct($controlador)
+    {
         parent::__construct($controlador);
     }
-    
     public $Entidades;
 }

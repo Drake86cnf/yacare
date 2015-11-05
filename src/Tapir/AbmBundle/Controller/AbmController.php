@@ -20,47 +20,47 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
 {
     // use \Tapir\AbmBundle\Controller\ConBuscar;
-
+    
     /**
      * @see \Tapir\BaseBundle\Controller\BaseController::IniciarVariables()
      */
     function IniciarVariables()
     {
         parent::IniciarVariables();
-
+        
         if (! isset($this->Paginar)) {
             $this->Paginar = true;
         }
-
+        
         if (! isset($this->OrderBy)) {
-            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName,
+            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
                 'Tapir\BaseBundle\Entity\ConNombre')) {
                 $this->OrderBy = 'Nombre';
             } else {
                 $this->OrderBy = null;
             }
         }
-
+        
         if (! isset($this->Where)) {
             $this->Where = null;
         }
-
+        
         if (! isset($this->GroupBy)) {
             $this->GroupBy = null;
         }
-
+        
         if (! isset($this->Joins)) {
             $this->Joins = array();
         }
-
+        
         if (! isset($this->ExtraFields)) {
             $this->ExtraFields = array();
         }
-
+        
         if (! isset($this->Limit)) {
             $this->Limit = null;
         }
-
+        
         if (! isset($this->BuscarPor)) {
             $this->BuscarPor = 'Nombre';
         }
@@ -77,11 +77,11 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     public function obtenerCantidadRegistros($whereAdicional = null)
     {
         $dql = $this->obtenerComandoSelect(null, true, $whereAdicional);
-
+        
         $em = $this->getEm();
         $query = $em->createQuery($dql);
         $cant = $query->getSingleScalarResult();
-
+        
         return $cant;
     }
 
@@ -117,23 +117,23 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             }
         }
         $dql .= " FROM " . $this->CompleteEntityName . " r";
-
+        
         if (count($this->Joins) > 0) {
             $this->Joins = array_unique($this->Joins);
             foreach ($this->Joins as $join) {
                 $dql .= " " . $join;
             }
         }
-
+        
         $where = "";
-
-        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName,
+        
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($this->CompleteEntityName, 
             'Tapir\BaseBundle\Entity\Suprimible')) {
             $where = "r.Suprimido=0";
         } else {
             $where = "1=1";
         }
-
+        
         if ($filtro_buscar && $filtro_buscar != '%' && $this->BuscarPor) {
             // Busco por varias palabras
             // Cambio comas por espacios, quito espacios dobles y divido la cadena en los espacios
@@ -153,9 +153,9 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
                 $this->Where .= ')';
             }
         }
-
+        
         $dql .= " WHERE $where";
-
+        
         if ($this->Where) {
             $this->Where = trim($this->Where);
             if (substr($this->Where, 0, 4) != "AND ") {
@@ -163,7 +163,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             }
             $dql .= ' ' . $this->Where;
         }
-
+        
         if ($whereAdicional) {
             $whereAdicional = trim($whereAdicional);
             if (substr($whereAdicional, 0, 4) != "AND ") {
@@ -171,15 +171,15 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             }
             $dql .= ' ' . $whereAdicional;
         }
-
+        
         if ($this->GroupBy) {
             $dql .= ' GROUP BY ' . $this->GroupBy;
         }
-
+        
         if ($this->OrderBy && $soloContar == false) {
             $OrderByCampos = explode(',', $this->OrderBy);
             $OrderByCamposConTabla = array();
-
+            
             foreach ($OrderByCampos as $Campo) {
                 // Agrego "r." a los campos que no especifican una tabla
                 if (strpos($Campo, '.') === false) {
@@ -191,9 +191,9 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             }
             $dql .= " ORDER BY " . join(', ', $OrderByCamposConTabla);
         }
-
+        
         // echo '------------------------------------------------------------------- ' . $dql;
-
+        
         return $dql;
     }
 
@@ -212,14 +212,14 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         $dql = $this->obtenerComandoSelect($filtro_buscar);
-
+        
         $em = $this->getEm();
         $query = $em->createQuery($dql);
-
+        
         if ($this->Limit) {
             $query->setMaxResults($this->Limit);
         }
-
+        
         if ($this->Paginar) {
             $paginator = $this->get('knp_paginator');
             $entities = $paginator->paginate($query, $request->query->get('page', 1) /* page number */,
@@ -231,14 +231,16 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoListarAction($this), $request);
         $res->Entidades = $entities;
+        
         return $this->ArrastrarVariables($request, array('entities' => $entities, 'res' => $res));
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Tapir\BaseBundle\Controller\BaseController::ConstruirResultado()
      */
-    public function ConstruirResultado($res, Request $request) {
+    public function ConstruirResultado($res, Request $request)
+    {
         $res = parent::ConstruirResultado($res, $request);
         return $res;
     }
@@ -256,7 +258,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     protected function ObtenerFormType(Request $request)
     {
         $Form = $this->ObtenerVariable($request, 'form');
-
+        
         if ($Form) {
             // Persona
             // Base\Persona
@@ -307,11 +309,11 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     public function verAction(Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
-
+        
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
         }
-
+        
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
@@ -329,22 +331,22 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     public function editarcampoAction(Request $request, $nombrecampo)
     {
         $id = $this->ObtenerVariable($request, 'id');
-
+        
         $em = $this->getEm();
-
+        
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
         }
-
+        
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
-
+        
         $DataControl = $this->ObtenerVariable($request, 'data-control');
         if (! $DataControl) {
             $DataControl = 'text';
         }
-
+        
         $NombreGetter = 'get' . $nombrecampo;
         $ValorActual = $entity->$NombreGetter();
         $NuevoValor = $this->ObtenerVariable($request, 'nuevoValor');
@@ -354,15 +356,16 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             $em->persist($entity);
             $em->flush();
         }
-
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'errors' => '',
-            'data_control' => $DataControl,
-            'nombrecampo' => $nombrecampo,
-            'valoractual' => $ValorActual,
-            'nuevovalor' => $NuevoValor,
-            'id' => $id));
+        
+        return $this->ArrastrarVariables($request, 
+            array(
+                'entity' => $entity, 
+                'errors' => '', 
+                'data_control' => $DataControl, 
+                'nombrecampo' => $nombrecampo, 
+                'valoractual' => $ValorActual, 
+                'nuevovalor' => $NuevoValor, 
+                'id' => $id));
     }
 
     /**
@@ -386,17 +389,17 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     public function editarAction(Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
-
+        
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
         } else {
             $entity = $this->CrearNuevaEntidad($request);
         }
-
+        
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
-
+        
         $NombreFormType = $this->ObtenerFormType($request);
         $SinFormEliminar = $this->ObtenerVariable($request, 'noeliminar');
         $FormEditar = $this->createForm(new $NombreFormType(), $entity);
@@ -407,13 +410,14 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         } else {
             $FormEliminar = null;
         }
-
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'create' => $id ? false : true,
-            'errors' => '',
-            'edit_form' => $FormEditar->createView(),
-            'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+        
+        return $this->ArrastrarVariables($request, 
+            array(
+                'entity' => $entity, 
+                'create' => $id ? false : true, 
+                'errors' => '', 
+                'edit_form' => $FormEditar->createView(), 
+                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
     }
 
     /**
@@ -433,19 +437,19 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     public function guardarAction(Request $request)
     {
         $em = $this->getEm();
-
+        
         $id = $this->ObtenerVariable($request, 'id');
-
+        
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
         } else {
             $entity = $this->CrearNuevaEntidad($request);
         }
-
+        
         if (! $entity) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
-
+        
         $NombreFormType = $this->ObtenerFormType($request);
         $FormEditar = $this->createForm(new $NombreFormType(), $entity);
         $FormEditar->handleRequest($request);
@@ -454,9 +458,9 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         } else {
             $FormEliminar = null;
         }
-
+        
         $Errores = $this->guardarActionPreBind($entity);
-
+        
         if (! $Errores) {
             if ($FormEditar->isValid()) {
                 $Errores = $this->guardarActionPrePersist($entity, $FormEditar);
@@ -474,23 +478,24 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
                 $Errores = $validator->validate($entity);
             }
         }
-
+        
         if ($Errores) {
             $FormEliminar = $this->CrearFormEliminar($id);
-
+            
             /*
              * foreach ($Errores as $error) {
              * $this->addFlash('danger', $error);
              * }
              */
-
-            $res = $this->ArrastrarVariables($request, array(
-                'entity' => $entity,
-                'errors' => $Errores,
-                'create' => $id ? false : true,
-                'edit_form' => $FormEditar->createView(),
-                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
-
+            
+            $res = $this->ArrastrarVariables($request, 
+                array(
+                    'entity' => $entity, 
+                    'errors' => $Errores, 
+                    'create' => $id ? false : true, 
+                    'edit_form' => $FormEditar->createView(), 
+                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null));
+            
             return $this->render(
                 $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);
         } else {
@@ -500,7 +505,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return $this->redirectToRoute($this->obtenerRutaBase('listar'),
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
             $this->ArrastrarVariables($request, null, false));
     }
 
@@ -570,7 +575,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     {
         $entityName = $this->CompleteEntityName;
         $entity = new $entityName();
-
+        
         return $entity;
     }
 
@@ -586,7 +591,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
     protected function ObtenerEntidadPorId($id)
     {
         $em = $this->getEm();
-
+        
         return $em->getRepository($this->CompleteEntityName)->find($id);
     }
 }
