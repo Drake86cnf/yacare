@@ -22,31 +22,38 @@
             <a class="list-group-item" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', arrastre) }}"><i class="fa fa-plus fa-fw"></i> Ingresar nuevo trámite</a>
         </ul>
     </div></div>
-<div class ="panel-title">
-	<a class="col-md-4 col-sm-6 col-xs-12 panel panel-default" href="{{ path('yacare_comercio_comercio_listar') }}" >
-		<h2>Comercios</h2>
-        <p>Nómina de comercios habilitados, sin habilitación y con habilitación en trámite.
-           También tiene acceso al archivo de comercios cerrados.</p>
-	</a>
-	<a class="col-md-4 col-sm-6 col-xs-12 panel panel-default" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar') }}" >
- 		<h2>Trámites</h2>
-		<p>La lista de trámites de habilitación comercial en proceso, junto con sus requisitos particulares.
-		   También tiene acceso al archivo de trámites finalizados.</p>
- 	</a>
- 	<a class="col-md-4 col-sm-6 col-xs-12 panel panel-default" href="{{ path('yacare_comercio_local_listar') }}" >
-		<h2>Locales</h2>
-		<p>Nómina de locales de uso comercial. Antes de iniciar un trámite de habilitación,
-		   es necesario dar de alta el local comercial si aun no lo hizo.</p>
- 	</a>
-	<a class="col-md-4 col-sm-6 col-xs-12 panel panel-default" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar') }}" >
- 		<h2>Certificados</h2>
-       	<p>Ver o imprimir certificados de habilitación comercial
-       	   para aquellos comercios que hayan finalizado el
-           trámite.</p>
- 	</a>
- 	<a class="col-md-4 col-sm-6 col-xs-12 panel panel-default" href="{{ path('yacare_comercio_actividad_listar') }}" >
-		<h2>Actividades comerciales</h2>
-		<p>Acceso al Clasificador Municipal de Actividades Económicas (ClaMAE 2014).</p>
- 	</a>
- </div>
+    
+<div class="container-fluid"><div class="row">
+
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Comercios</h2>
+        </div>
+        <div class="panel-body">
+            <p>Lista de comercios y locales comerciales del municipio de rio grandee</p>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', arrastre) }}">Comercios <span class="badge">{{ comercios|length }}</span></a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', arrastre) }}"><i class="fa fa-question fa-fw"></i> Locales comerciales<span class="badge">{{ locales|length }}</span></a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', arrastre) }}"><i class="fa fa-plus fa-fw"></i> Certificados de habilitacion comercial</a>
+        </ul>
+    </div></div>
+    
+<div class="container-fluid"><div class="row">
+
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Actividades comerciales</h2>
+        </div>
+        <div class="panel-body">
+            <p>Busqueda de tramites de habilitacion comercial iniciados. 
+             Los tramites activos son aquellos que estan en estado de "en tramite",
+             Los tramites son instransferibles.</p>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_actividad_listar', arrastre) }}">Actividades comerciales</a>
+        </ul>
+    </div></div>
+</div></div>
+</div>
 {% endblock pagina_contenido %}
