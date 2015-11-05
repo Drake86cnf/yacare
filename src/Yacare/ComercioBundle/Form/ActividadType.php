@@ -26,9 +26,6 @@ class ActividadType extends AbstractType
             ->add('Etiquetas', null, array(
                 'label' => 'Etiquetas',
                 'multiple'=> true))
-            ->add('Requisitos', null, array(
-                'label' => 'Requisitos',
-                'multiple'=> true))
             ->add('Incluye', null, array('label' => 'Incluye'))
             ->add('NoIncluye', null, array('label' => 'No incluye'));
     }
