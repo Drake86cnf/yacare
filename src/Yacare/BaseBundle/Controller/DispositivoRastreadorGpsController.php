@@ -37,7 +37,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
             // Si es un array de un 1 elemento, lo convierto en un elemento plano.
             $UltimoRastreo = $UltimoRastreo[0];
         }
-        $res['UltimoRastreo'] = $UltimoRastreo;
+        $res['ultimo_rastreo'] = $UltimoRastreo;
         
         $Mapa = $this->CrearMapa();
         
@@ -68,8 +68,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
         
         $JavaScriptMapa = $MapHelper->renderJavascripts($Mapa);
         
-        $res['Mapa'] = $Mapa;
-        $res['JavaScriptMapa'] = $JavaScriptMapa;
+        $res['mapa'] = $Mapa;
+        $res['js_mapa'] = $JavaScriptMapa;
         
         return $res;
     }
@@ -145,7 +145,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         $JavaScriptMapa = $MapHelper->renderJavascripts($Mapa);
         
         return $this->ArrastrarVariables($request, 
-            array('Dispositivos' => $Dispositivos, 'Mapa' => $Mapa, 'JavaScriptMapa' => $JavaScriptMapa));
+            array('dispositivos' => $Dispositivos, 'mapa' => $Mapa, 'js_mapa' => $JavaScriptMapa));
     }
 
     /**

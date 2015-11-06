@@ -105,9 +105,11 @@
             	'attr': { 'id': 'form_novedad', 'adata-toggle': 'ajax-form', 'adata-target': '#nuevocomentario' } }) }}
             {{ form_errors(form_novedad) }}
             {{ form_widget(form_novedad._token) }}
-            {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
+            {{ form_widget(form_novedad.Notas, { 'attr': 
+                { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
             {{ form_rest(form_novedad) }}
-            <button type="submit" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
+            <button type="submit" class="btn btn-xs btn-default pull-right">
+            	<i class="fa fa-comment-o"></i> Publicar</button>
             <script>
                 $('#yacare_requerimientosbundle_novedadanonimatype_Notas').keypress(function (e) {
                     if (e.which === 13) {
@@ -144,10 +146,12 @@
     		<h1><i class="fa fa-ticket"></i> Consultar estado de un requerimiento</h1>
     	{% endif %}
     
-    	<p class="lead">Para consultar el estado de su solicitud, por favor escriba el número de seguimiento a continuación:</p>
+    	<p class="lead">Para consultar el estado de su solicitud, 
+    		por favor escriba el número de seguimiento a continuación:</p>
     
     	<form method="GET" class="form-inline">
-    		<input class="form-control" type="text" size="12" name="seg" value="{{ seg }}" style="width: 160px" autofocus>
+    		<input class="form-control" type="text" size="12" name="seg" value="{{ seg }}" 
+    			style="width: 160px" autofocus>
     		<button class="btn btn-success">Consultar <i class="fa fa-play"></i></button>
     	</form>
     
