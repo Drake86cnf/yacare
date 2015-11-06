@@ -8,8 +8,8 @@
 {% block pagina_contenido %}
     <div class="row">
     	<div class="col-xs-12">
-    		{% if Dispositivos is defined or UltimoRastreo is defined %}
-    			{{  google_map_container(Mapa) }}
+    		{% if dispositivos is defined or ultimo_rastreo is defined %}
+    			{{  google_map_container(mapa) }}
     		{% endif %}
     	</div>
     </div>
@@ -29,15 +29,15 @@
         		<select id="serie" class="form-control">
     				{% set i = 0 %}
     					<option> Ninguno </option>
-    				{% for Dispositivo in Dispositivos %}
-        				<option value="{{ i | raw }}">{{ Dispositivo.getNumeroSerie() }}</option>
+    				{% for dispositivo in dispositivos %}
+        				<option value="{{ i | raw }}">{{ dispositivo.getNumeroSerie() }}</option>
         				{% set i = i + 1 %}
         			{% endfor %}
     			</select>
     		</div>
         {% else %}
         	<div class="col-xs-2 text-right">
-        		<button type="button" class="btn btn-info" id="center_btn"> Centrar en Dispositivo </button>
+        		<button type="button" class="btn btn-info" id="center_btn"> Centrar en dispositivo </button>
         	</div>
         {% endif %}
     </div>
@@ -50,12 +50,12 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_scripts %}
-	{{ JavaScriptMapa | raw }}
+	{{ js_mapa | raw }}
 	
     <script>
     $('document').ready(function() {
     	
-    	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN Dispositivo #}
+    	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN dispositivo #}
     		{% if res.Entidad is defined %}
     			function change(toSend, notFirst, polylines) {
     				$.ajax({
@@ -107,7 +107,7 @@
     				window.map.setCenter(markers[0].getPosition());
     			}
     		{% endif %}
-    	{# ----> FIN DEL CODIGO PARA SOLO UN Dispositivo #}
+    	{# ----> FIN DEL CODIGO PARA SOLO UN dispositivo #}
     
     	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA MAS DE UN DISPOSITIVO #}
     		{% if not res.Entidad is defined %}
@@ -155,7 +155,7 @@
     				}	
     			}
     		{% endif %}
-    	{# ----> FIN DEL CODIGO PARA VARIOS Dispositivos #}
+    	{# ----> FIN DEL CODIGO PARA VARIOS dispositivos #}
     
     	{# CODIGO JS COMPARTIDO #}    	
     			function clear(interval) {
@@ -164,12 +164,12 @@
     			var ids = new Array();
     			
     			{# Si la variable res.Entidad esta definida, indica que fue pasada por slug, por ende que sólo
-    			 se solicitó un Dispositivo #}
+    			 se solicitó un dispositivo #}
     			 
     			{% if res.Entidad is defined %}
     				ids.push({{ res.Entidad.getId() | raw }});
     			{% else %}
-    				{% for Dispositivo in Dispositivos %} ids.push({{ Dispositivo.getId() | raw }}); {% endfor %}
+    				{% for dispositivo in dispositivos %} ids.push({{ dispositivo.getId() | raw }}); {% endfor %}
     			{% endif %}
     
     			toSend = {id_ras: ids};
@@ -181,7 +181,7 @@
     				clear(interval);
         		});
         		
-    			{% if Dispositivos is defined %}
+    			{% if dispositivos is defined %}
     				$('#serie').change(function() {
     					center($(this), markers);
     				});
