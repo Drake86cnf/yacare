@@ -2,7 +2,7 @@
 namespace Tapir\AbmBundle\Helper\Resultados;
 
 /**
- * Describe el resultado de una acción de listar entidades.
+ * Describe el resultado de una acción Ver entidad.
  *  
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
