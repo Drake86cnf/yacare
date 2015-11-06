@@ -69,22 +69,22 @@
   top: calc( 1.4em / 2 );
 }
 
-.wizard-steps-panel.steps-quantity-1 .step-number, .step-label {
+.wizard-steps-panel.steps-quantity-1 .step-number, .wizard-steps-panel.steps-quantity-1 .step-label {
   width: 99%;
 }
 
-.wizard-steps-panel.steps-quantity-2 .step-number, .step-label {
+.wizard-steps-panel.steps-quantity-2 .step-number, .wizard-steps-panel.steps-quantity-2 .step-label {
   width: 49%;
 }
 
-.wizard-steps-panel.steps-quantity-3 .step-number, .step-label {
+.wizard-steps-panel.steps-quantity-3 .step-number, .wizard-steps-panel.steps-quantity-3 .step-label {
   width: 32%;
 }
 
-.wizard-steps-panel.steps-quantity-4 .step-number, .step-label {
+.wizard-steps-panel.steps-quantity-4 .step-number, .wizard-steps-panel.steps-quantity-4 .step-label {
   width: 24%;
 }
 
-.wizard-steps-panel.steps-quantity-5 .step-number, .step-label {
+.wizard-steps-panel.steps-quantity-5 .step-number, .wizard-steps-panel.steps-quantity-5 .step-label {
   width: 19%;
 }
