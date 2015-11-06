@@ -1,4 +1,4 @@
-var nombreAplicacion, nombreCliente;
+	var nombreAplicacion, nombreCliente;
 
 tapirNombreAplicacion = 'Aplicación sin título';
 tapirNombreCliente = 'Cliente';
@@ -48,6 +48,7 @@ function tapirEnfocarControl(elemId) {
 function tapirEntityIdSeleccionarItem(destino, id, detalle) {
 	$(destino).val(id);
 	$(destino + '_Detalle').val(detalle);
+	$('.ocultar-al-seleccionar-item').addClass('hidden');
 }
 
 /**
@@ -165,7 +166,7 @@ function tapirCargarUrlEn(url, destino) {
 	});
 	
 	// Cerrar los select2 antes de recargar por AJAX
-	$(desintoFinal + '.select2-hidden-accessible').each(function() {
+	$(destinoFinal + '.select2-hidden-accessible').each(function() {
 		$(this).select2("close");
     });
 
