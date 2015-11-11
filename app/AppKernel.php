@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
 
             new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
 
