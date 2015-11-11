@@ -41,7 +41,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      *
      * @var PersonaGrupo
      *
-     * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas")
+     * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas", cascade={"detach", "merge"})
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo",
      *     joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)})
      */
@@ -52,7 +52,8 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      *
      * @var \Tapir\BaseBundle\Entity\PersonaRol
      *
-     * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol", inversedBy="Personas")
+     * @ORM\ManyToMany(targetEntity="Tapir\BaseBundle\Entity\PersonaRol", inversedBy="Personas",
+     *     cascade={"detach", "merge"})
      * @ORM\JoinTable(name="Base_Persona_PersonaRol",
      *     joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)})
      */
