@@ -1,0 +1,34 @@
+{% extends 'TapirAbmBundle::asistente.html.twig' %}
+
+{% block pagina_titulo %}Nuevo trámite de habilitación comercial{% endblock %}
+
+{% block pagina_contenido %}
+<div class="wizard">
+    <div class="wizard-steps-panel steps-quantity-{{ res.Asistente.count }}">
+        {% set i = 1 %}
+        {% for Paso in res.Asistente.all %}
+        	<div class="step-number step-{{ i }}{% if Paso.Name == res.Paso.Name %} doing{% endif %}"><div class="number">{{ i }}</div></div>
+            {% set i = i + 1 %}
+        {% endfor %}
+    </div>
+    <div class="wizard-steps-panel steps-quantity-{{ res.Asistente.count }} hidden-xs">
+    	{% for Paso in res.Asistente.all %}
+        	<div class="step-label"><div class="labe">{{ Paso.Name }}</div></div>
+        {% endfor %}
+    </div>
+</div>
+
+{{ form_errors(res.FormularioEditar) }}
+{{ form_rest(res.FormularioEditar) }}
+
+a{{ res.Entidad.createdAt|tapir_fecha }}n
+
+[[ {{ a }} / {{ res.Entidad.Comercio }} / {{ res.Entidad.Titular }}  
+	{% if res.Entidad.Comercio and res.Entidad.Comercio.Local %}
+	    / {{ res.Entidad.Comercio.Local.Nombre }}
+	{% endif %}
+]]
+
+{{ parent() }}
+
+{% endblock pagina_contenido %}
