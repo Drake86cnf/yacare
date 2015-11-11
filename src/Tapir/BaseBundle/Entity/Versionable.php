@@ -26,7 +26,7 @@ trait Versionable
      * @ORM\Column(name="Version", type="integer")
      * @ORM\Version
      */
-    private $Version;
+    protected $Version;
 
     /**
      * @ignore
