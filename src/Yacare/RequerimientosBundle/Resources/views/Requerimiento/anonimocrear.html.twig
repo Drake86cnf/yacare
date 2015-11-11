@@ -13,25 +13,22 @@
 </style>
 <div class="wr">
 
-{% if (edit_form_action is defined) == false %}
-    {% set edit_form_action = baseroute ~ '_anonimocrear' %}
-{% endif %}
-{{ form_start(edit_form, {
-        'action': path(edit_form_action, arrastre|merge({ 'id': entity.id })),
+{{ form_start(res.FormularioEditar, {
+        'action': path(res.ObtenerRutaAccion(res.AccionGuardar), res.Arrastre|merge({ 'id': res.Entidad.id })),
         'method': 'POST',
-        'attr': { 'id': edit_form.vars.id }
+        'attr': { 'id': res.FormularioEditar.vars.id }
     }) }}
 
 <h1>Sus comentarios, reclamos, denuncias, consultas o solicitudes son bienvenidos</h1>
 
-{{ form_errors(edit_form) }}
+{{ form_errors(res.FormularioEditar) }}
 
 <p class="small">
 	En caso de reclamos o solicitudes, por favor sea claro sobre el problema, la ubicación exacta y otros
 	datos que puedan ser de utilidad para identificar y solucionar el problema.
 </p>
 <p class="text-primary">Por favor describa su consulta o reclamo. Puede ser tan breve o extenso como considere necesario.</p>
-{{ form_widget(edit_form.Notas) }}
+{{ form_widget(res.FormularioEditar.Notas) }}
 
 &nbsp;<br />
 
@@ -39,7 +36,7 @@
 	Seleccione la categoría del solicitud.
 	Si no sabe qué categoría seleccionar, puede dejar este campo en blanco.
 </p>
-{{ form_widget(edit_form.Categoria) }}
+{{ form_widget(res.FormularioEditar.Categoria) }}
 
 &nbsp;<br />
 
@@ -51,12 +48,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
-            {{ form_widget(edit_form.UsuarioNombre) }}
-            {{ form_widget(edit_form.UsuarioEmail) }}
+            {{ form_widget(res.FormularioEditar.UsuarioNombre) }}
+            {{ form_widget(res.FormularioEditar.UsuarioEmail) }}
 		</div>
 		<div class="col-md-6 col-lg-6 col-xl-6 col-sm-12">
-            {{ form_widget(edit_form.UsuarioDireccion) }}
-            {{ form_widget(edit_form.UsuarioTelefono) }}
+            {{ form_widget(res.FormularioEditar.UsuarioDireccion) }}
+            {{ form_widget(res.FormularioEditar.UsuarioTelefono) }}
 		</div>
 	</div>
 </div>
@@ -67,7 +64,7 @@
 	<i class="fa fa-check"></i> Enviar
 </button>
 
-{{ form_rest(edit_form) }}
+{{ form_rest(res.FormularioEditar) }}
 
 </form>
 

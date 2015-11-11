@@ -322,7 +322,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
         $res->Entidad = $entity;
         
-        return array( 'res' => $res);
+        return array('res' => $res);
     }
 
     /**
@@ -362,15 +362,14 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             $em->flush();
         }
         
-        return $this->ArrastrarVariables($request, 
-            array(
-                'entity' => $entity, 
-                'errors' => '', 
-                'data_control' => $DataControl, 
-                'nombrecampo' => $nombrecampo, 
-                'valoractual' => $ValorActual, 
-                'nuevovalor' => $NuevoValor, 
-                'id' => $id));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'errors' => '', 
+            'data_control' => $DataControl, 
+            'nombrecampo' => $nombrecampo, 
+            'valoractual' => $ValorActual, 
+            'nuevovalor' => $NuevoValor, 
+            'id' => $id));
     }
 
     /**
@@ -422,14 +421,13 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         $res->FormularioEditar = $FormEditar->createView();
         $res->FormularioEliminar = $FormEliminar ? $FormEliminar->createView() : null;
         
-        return $this->ArrastrarVariables($request, 
-            array(
-                'entity' => $entity, 
-                'create' => $id ? false : true, 
-                'errors' => '', 
-                'edit_form' => $FormEditar->createView(), 
-                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null, 
-                'res' => $res));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity, 
+            'create' => $id ? false : true, 
+            'errors' => '', 
+            'edit_form' => $FormEditar->createView(), 
+            'delete_form' => $FormEliminar ? $FormEliminar->createView() : null, 
+            'res' => $res));
     }
 
     /**
@@ -507,14 +505,13 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
             $res->FormularioEliminar = $FormEliminar ? $FormEliminar->createView() : null;
             $res->Errores = $Errores;
             
-            $res = $this->ArrastrarVariables($request, 
-                array(
-                    'entity' => $entity, 
-                    'errors' => $Errores, 
-                    'create' => $id ? false : true, 
-                    'edit_form' => $FormEditar->createView(), 
-                    'delete_form' => $FormEliminar ? $FormEliminar->createView() : null, 
-                    'res' => $res));
+            $res = $this->ArrastrarVariables($request, array(
+                'entity' => $entity, 
+                'errors' => $Errores, 
+                'create' => $id ? false : true, 
+                'edit_form' => $FormEditar->createView(), 
+                'delete_form' => $FormEliminar ? $FormEliminar->createView() : null, 
+                'res' => $res));
             
             return $this->render(
                 $this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName . ':editar.html.twig', $res);

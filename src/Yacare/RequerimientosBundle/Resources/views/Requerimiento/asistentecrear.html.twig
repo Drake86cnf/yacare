@@ -21,7 +21,7 @@
     <div class="container-fluid"><div class="row"><div class="col-xs-12 col-md-10 col-md-offset-1">
     <div class="list-group">
     {% for categoria in categorias %}
-        <a href="{{ path(baseroute ~ '_asistentecrear', arrastre|merge({ 'cat': categoria.id })) }}" class="list-group-item">
+        <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'cat': categoria.id })) }}" class="list-group-item">
         	<i class="fa fa-fw fa-chevron-right fa-2x text-primary pull-right"></i>
         	<h2 class="list-group-item-heading"><strong>{{ categoria.Nombre }}</strong></h2>
         	<p class="list-group-item-text">{{ categoria.Obs }}
@@ -31,7 +31,7 @@
         	</p>
         </a>
     {% endfor %}
-    <a href="{{ path(baseroute ~ '_asistentecrear', arrastre|merge({ 'cat': 0 })) }}" class="list-group-item">
+    <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'cat': 0 })) }}" class="list-group-item">
     	<i class="fa fa-fw fa-question fa-2x text-warning pull-right"></i>
     	<h2 class="list-group-item-heading"><strong>Sin categoría</strong></h2>
     	<p class="list-group-item-text">Si no es ninguna de las anteriores o no sabe qué categoría elegir, puede dejar
@@ -41,22 +41,19 @@
 
 {% else %}
 
-    {% if (edit_form_action is defined) == false %}
-        {% set edit_form_action = baseroute ~ '_asistentecrear' %}
-    {% endif %}
-    {{ form_start(edit_form, {
-            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id })),
+    {{ form_start(res.FormularioEditar, {
+            'action': path(res.ObtenerRutaAccion(res.AccionGuardar), res.Arrastre|merge({ 'id': res.Entidad.id })),
             'method': 'POST',
-            'attr': { 'id': edit_form.vars.id }
+            'attr': { 'id': res.FormularioEditar.vars.id }
         }) }}
     
-    {{ form_errors(edit_form) }}
+    {{ form_errors(res.FormularioEditar) }}
     
     <p>Por favor describa su solicitud. Puede ser tan breve o extenso como considere necesario.
     	En caso de reclamos, por favor sea claro sobre el problema, la ubicación exacta y otros
     	datos que puedan ser de utilidad para identificar y solucionar el problema.
     </p>
-    {{ form_widget(edit_form.Notas) }}
+    {{ form_widget(res.FormularioEditar.Notas) }}
     
     &nbsp;<br />
     
@@ -64,7 +61,7 @@
     	Si aun no lo hizo, puede seleccionar una categoría para su requerimiento.
     	Si no sabe qué categoría seleccionar, puede dejar este campo en blanco y el administrador le asignará una.
     </p>
-    {{ form_widget(edit_form.Categoria) }}
+    {{ form_widget(res.FormularioEditar.Categoria) }}
     
     
     &nbsp;<br />
@@ -73,7 +70,7 @@
     	<i class="fa fa-check"></i> Enviar
     </button>
     
-    {{ form_rest(edit_form) }}
+    {{ form_rest(res.FormularioEditar) }}
     
     </form>
 

@@ -1,25 +1,27 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 {% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as yacare %}
 
-{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+{% block pagina_titulo %} 
+    {% if res.Entidad is defined %} {{ res.Entidad }} {% else %} Todos los dispositivos {% endif %} 
+{% endblock %}
 
 {% block pagina_contenido %}
     <div class="row">
     	<div class="col-xs-12">
-    		{% if res.Dispositivos is defined or res.UltimoRastreo is defined %}
-    			{{  google_map_container(res.map) }}
+    		{% if dispositivos is defined or ultimo_rastreo is defined %}
+    			{{  google_map_container(mapa) }}
     		{% endif %}
     	</div>
     </div>
     <br>
     <div class="row">
-    	<div class= "{% if res.uno %} col-xs-10 {% else %} col-xs-8 {% endif %}">
+    	<div class= "{% if res.Entidad is defined %} col-xs-10 {% else %} col-xs-8 {% endif %}">
     		<button type="button" class="btn btn-primary" id="start_btn">
     			<i class="fa fa-map-marker"></i> Comenzar Rastreo </button>
     		<button type="button" class="btn btn-primary" id="stop_btn">
     			<i class="fa fa-hand-paper-o"></i> Detener Rastreo </button>
     	</div>
-    	{% if not res.uno %}
+    	{% if not res.Entidad is defined %}
         	<div class="col-xs-1">
     			<label class="control-label"> Centrar en: </label>
     		</div>
@@ -27,7 +29,7 @@
         		<select id="serie" class="form-control">
     				{% set i = 0 %}
     					<option> Ninguno </option>
-    				{% for dispositivo in res.Dispositivos %}
+    				{% for dispositivo in dispositivos %}
         				<option value="{{ i | raw }}">{{ dispositivo.getNumeroSerie() }}</option>
         				{% set i = i + 1 %}
         			{% endfor %}
@@ -35,7 +37,7 @@
     		</div>
         {% else %}
         	<div class="col-xs-2 text-right">
-        		<button type="button" class="btn btn-info" id="center_btn"> Centrar en Dispositivo </button>
+        		<button type="button" class="btn btn-info" id="center_btn"> Centrar en dispositivo </button>
         	</div>
         {% endif %}
     </div>
@@ -48,13 +50,13 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_scripts %}
-	{{ res.js | raw }}
+	{{ js_mapa | raw }}
 	
     <script>
     $('document').ready(function() {
     	
-    	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN DISPOSITIVO #}
-    		{% if res.uno %}
+    	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA SOLO UN dispositivo #}
+    		{% if res.Entidad is defined %}
     			function change(toSend, notFirst, polylines) {
     				$.ajax({
     					url: '{{ path(res.ObtenerRutaAccion('coordjson')) }}',
@@ -105,14 +107,14 @@
     				window.map.setCenter(markers[0].getPosition());
     			}
     		{% endif %}
-    	{# ----> FIN DEL CODIGO PARA SOLO UN DISPOSITIVO #}
+    	{# ----> FIN DEL CODIGO PARA SOLO UN dispositivo #}
     
     	{# CODIGO JS QUE SE CARGA CUANDO SE SOLICITA MAS DE UN DISPOSITIVO #}
-    		{% if not res.uno %}
+    		{% if not res.Entidad is defined %}
     		centerOp = [false, null];
     			function change (toSend, notFirst) {
     				$.ajax( {
-    					url: '{{ path(res.ObtenerRutaAccion('coordjson')) }}',
+    					url: '{{ path(baseroute ~ '_coordjson') }}',
     					cache: false,
     					type: 'POST',
     					dataType: 'json',
@@ -137,13 +139,11 @@
     			}
     
     			function start(map, window) {
-    				firstGo();
-    				
+    				firstGo();    				
     				interval = setInterval(function() { change(toSend, true) }, 4000);
     			}
     
     			function center(value, markers) {
-    
     				var index = value.val();
     				
     				if(index === 'Ninguno') {
@@ -155,7 +155,7 @@
     				}	
     			}
     		{% endif %}
-    	{# ----> FIN DEL CODIGO PARA VARIOS res.Dispositivos #}
+    	{# ----> FIN DEL CODIGO PARA VARIOS dispositivos #}
     
     	{# CODIGO JS COMPARTIDO #}    	
     			function clear(interval) {
@@ -163,13 +163,13 @@
     			}
     			var ids = new Array();
     			
-    			{# Si la variable id esta definida, indica que fue pasada por slug, por ende que solo
-    			 se solicito un dispositivo #}
+    			{# Si la variable res.Entidad esta definida, indica que fue pasada por slug, por ende que sólo
+    			 se solicitó un dispositivo #}
     			 
-    			{% if id is defined %}
-    				ids.push({{ id | raw }});
+    			{% if res.Entidad is defined %}
+    				ids.push({{ res.Entidad.getId() | raw }});
     			{% else %}
-    				{% for dispositivo in res.Dispositivos %} ids.push({{ dispositivo.getId() | raw }}); {% endfor %}
+    				{% for dispositivo in dispositivos %} ids.push({{ dispositivo.getId() | raw }}); {% endfor %}
     			{% endif %}
     
     			toSend = {id_ras: ids};
@@ -181,7 +181,7 @@
     				clear(interval);
         		});
         		
-    			{% if res.Dispositivos is defined %}
+    			{% if dispositivos is defined %}
     				$('#serie').change(function() {
     					center($(this), markers);
     				});
@@ -195,7 +195,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-	{% if res.uno %}
+	{% if res.Entidad is defined %}
     	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" class="btn btn-default">
     		<i class="fa fa-edit"></i> Editar</a>
 	{% endif %}
