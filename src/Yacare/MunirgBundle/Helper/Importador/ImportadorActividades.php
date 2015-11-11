@@ -1,8 +1,8 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
-use Yacare\MunirgBundle\Helper\Importador;
-use Yacare\MunirgBundle\Helper\ResultadoLote;
+use Yacare\MunirgBundle\Helper\Importador\Importador;
+use Yacare\MunirgBundle\Helper\Importador\ResultadoLote;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**

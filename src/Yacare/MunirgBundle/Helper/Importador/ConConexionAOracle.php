@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
 /**
  * Trait que agrega la capacidad de conectar con la base de Oracle.

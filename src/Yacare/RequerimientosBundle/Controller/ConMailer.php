@@ -75,25 +75,4 @@ trait ConMailer
         
         $this->get('mailer')->send($mensaje);
     }
-
-    /**
-     * @Route("prueba/")
-     * @Template
-     */
-    public function pruebaAction(Request $request)
-    {
-        $contenido = $this->renderView('YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig', 
-            array('numero_seguimiento' => '1-4800', 'novedad_notas' => 'Esta es una novedad'));
-        
-        $mensaje = \Swift_Message::newInstance()
-            ->setSubject('Novedades de su solicitud')
-            ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
-            ->setTo('ecarrea@riogrande.gob.ar')
-            ->setBody($contenido, 'text/html');
-        
-        $this->get('mailer')->send($mensaje);
-        
-        return $this->render('YacareRequerimientosBundle:Requerimiento:prueba.html.twig', array());
-        // return $this->ArrastrarVariables($request, array());
-    }
 }

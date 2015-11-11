@@ -40,7 +40,7 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      *
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $UsoSuelo = null;
+    protected $UsoSuelo = null;
 
     /**
      * Devuelve el nombre de UsoSuelo normalizado.

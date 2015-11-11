@@ -21,7 +21,7 @@ trait ConNotas
      *
      * @ORM\Column(type="text", nullable=true)
      */
-    private $Notas;
+    protected $Notas;
 
     /**
      * @ignore

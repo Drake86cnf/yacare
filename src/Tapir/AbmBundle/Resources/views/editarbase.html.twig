@@ -3,13 +3,11 @@
 {% block pagina_titulo %}Solicitud de modificación{% endblock %}
 
 {% block pagina_inicio %}
-    {% if (edit_form_action is defined) == false %}
-        {% set edit_form_action = baseroute ~ '_guardar' %}
-    {% endif %}
-    {{ form_start(edit_form, {
-            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id, 'hisapi': 0, 'form': app.request.query.get('form') })),
+    {{ form_start(res.FormularioEditar, {
+            'action': path(res.ObtenerRutaAccionGuardar, res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0,
+            	'form': app.request.query.get('form') })),
             'method': 'POST',
-            'attr': { 'id': edit_form.vars.id }
+            'attr': { 'id': res.FormularioEditar.vars.id }
         }) }}
 {% endblock %}
 
@@ -27,13 +25,13 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-    {% if delete_form is defined and not delete_form is null and entity.id %}
+    {% if res.TieneEliminar and not res.EsCrear %}
         <a data-toggle="ajax-link" class="btn btn-danger"
-            href="{{ path(baseroute ~ '_eliminar', arrastre|merge({ 'id': entity.id })) }}">
+            href="{{ path(res.ObtenerRutaAccion('eliminar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}">
         <i class="fa fa-trash-o"></i> Eliminar </a>
     {% endif %}
 {% endblock %}
 
 {% block pagina_fin %}
-    {{ form_end(edit_form) }}
+{{ form_end(res.FormularioEditar, {'render_rest': false}) }}
 {% endblock %}

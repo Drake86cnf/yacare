@@ -16,24 +16,29 @@
 	$(function() { $('#filtro_buscar').focus(); });
 </script>
 
-{% if entities is defined and entities|length > 0 %}
-    {% if entities|length == 1 %}
-        {% set entity = entities|first %}
+{% if res.Entidades is defined and res.Entidades|length > 0 %}
+    {% if res.Entidades|length == 1 %}
+        {% set entidad = res.Entidades|first %}
+<div class="ocultar-al-seleccionar-item">
     <script type="text/javascript">
+    $(function() {
         $('#filtro_buscar').prop('disabled', true);
         setTimeout(function() {
-        	seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape("js") }}');
+        	seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape("js") }}');
+        	$('#filtro_buscar').prop('disabled', false);
         }, 3500);
+    });
     </script>
-    <hr />
+    <br />
     <div class="row">
         <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
         <div class="col-xs-8">
             <h1>¡Encontrado!</h1>
-            <p>Se va a seleccionar automáticamente <strong>{{ entity }}</strong>, DNI {{ entity.DocumentoNumero }},
+            <p>Se va a seleccionar automáticamente <strong>{{ entidad }}</strong>, DNI {{ entidad.DocumentoNumero }},
             porque es el único resultado que coincide con la búsqueda.</p>
         </div>
     </div>
+</div>
     {% endif %}
 
 
@@ -49,13 +54,13 @@
         </tr>
     </thead>
     <tbody>
-        {% for entity in entities %}
-            <tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.NombreVisible|escape('js') }}'); return false;">
+        {% for entidad in res.Entidades %}
+            <tr onclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape('js') }}'); return false;">
                 <td><i class="fa fa-caret-right showonhover"></i></td>
-                <td><span style="white-space: nowrap;">{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</span></td>
-                <td><span class="text-muted">{{ entity.CuiltODocumento }}</span></td>
-                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entity.Domicilio }}</span></td>
-                <td class="visible-lg"><small class="text-muted">{% for Nombre in entity.Grupos %}<span
+                <td><span style="white-space: nowrap;">{{ entidad.Apellido ~ ', ' ~ entidad.Nombre }}</span></td>
+                <td><span class="text-muted">{{ entidad.CuiltODocumento }}</span></td>
+                <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entidad.Domicilio }}</span></td>
+                <td class="visible-lg"><small class="text-muted">{% for Nombre in entidad.Grupos %}<span
                     class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</small></td>
             </tr>
         {% endfor %}

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_Tramite")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="TramiteTipo", type="string")
+ * @ORM\DiscriminatorColumn(name="TramiteTipoClase", type="string")
  * @ORM\DiscriminatorMap({
  *   "\Yacare\TramitesBundle\Entity\TramiteSimple" = "\Yacare\TramitesBundle\Entity\TramiteSimple",
  *   "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
@@ -44,7 +44,7 @@ abstract class Tramite implements ITramite
      *
      * @ORM\Column(type="integer")
      */
-    private $Estado = 0;
+    protected $Estado = 0;
 
     /**
      * Indica de qué tipo de trámite se trata (discriminador).
@@ -68,8 +68,10 @@ abstract class Tramite implements ITramite
      * @ORM\JoinTable(name="Tramites_Tramite_EstadoRequisito",
      *     joinColumns={@ORM\JoinColumn(name="Tramite_id", referencedColumnName="Tramite_id")}
      * )
+     * 
+     * @JMS\Serializer\Annotation\Exclude
      */
-    private $EstadosRequisitos;
+    protected $EstadosRequisitos;
 
     /**
      * Indica la fecha en la que terminó el trámite o null si aun está en curso
@@ -79,7 +81,7 @@ abstract class Tramite implements ITramite
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $FechaTerminado;
+    protected $FechaTerminado;
 
     /**
      * El comprobante que se emitió como resultado de este trámite o null si no

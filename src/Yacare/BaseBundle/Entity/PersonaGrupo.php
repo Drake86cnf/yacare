@@ -31,6 +31,8 @@ class PersonaGrupo
      * @var Persona
      *
      * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
+     * 
+     * @JMS\Serializer\Annotation\Exclude
      */
     protected $Personas;
     

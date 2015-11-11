@@ -29,7 +29,7 @@ class Actividad implements Tree\NodeInterface
      * @ORM\ManyToOne(targetEntity="Actividad", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $ParentNode;
+    protected $ParentNode;
     
     /**
      * Código correspondiente en el ClaNAE 1997 de INDEC.
@@ -38,7 +38,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $Clanae1997;
+    protected $Clanae1997;
     
     /**
      * Código correspondiente en el ClaNAE 2010 de INDEC.
@@ -47,7 +47,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $Clanae2010;
+    protected $Clanae2010;
     
     /**
      * Código correspondiente en la RG 3537/13 de AFIP.
@@ -58,7 +58,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $ClaeAfip;
+    protected $ClaeAfip;
     
     /**
      * Código correspondiente en la Ley 854/11 de la DGR de TDF.
@@ -69,7 +69,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $DgrTdf;
+    protected $DgrTdf;
     
     /**
      * Los códigos Clamae2014 tienen el siguiente formato: CDDGCSMM
@@ -86,7 +86,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $Clamae2014;
+    protected $Clamae2014;
     
     /**
      * Indica la categoría correspondiente en los rubros anteriores.
@@ -95,7 +95,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $CategoriaAntigua = 0;
+    protected $CategoriaAntigua = 0;
     
     /**
      * Código correspondiente en la tabla del CPU.
@@ -104,7 +104,7 @@ class Actividad implements Tree\NodeInterface
      *
      * @ORM\Column(type="string", nullable=true, length=50)
      */
-    private $CodigoCpu;
+    protected $CodigoCpu;
     
     /**
      * Las etiquetas asociadas a esta actividad..
@@ -118,25 +118,17 @@ class Actividad implements Tree\NodeInterface
     protected $Etiquetas;
     
     /**
-     * Requisitos particulares asociados a esta actividad.
-     *
-     * @var Yacare\TramitesBundle\Entity\Requisito
-     *
-     * @ORM\ManyToMany(targetEntity="Yacare\TramitesBundle\Entity\Requisito")
-     * @ORM\JoinTable(name="Comercio_Actividad_Requisito",
-     *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
-     */
-    protected $Requisitos;
-    
-    /**
      * El nivel de riesgo que posee cada actividad comercial.
      *
      * @var NivelRiesgo
      * 
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $NivelRiesgo = 1;
+    protected $NivelRiesgo = 1;
 
+    /*
+     * Devuelve true si la actividad contiene una etiqueta (buśqueda por código).
+     */
     public function ContieneEtiquetaPorCodigo($codigo)
     {
         foreach ($this->Etiquetas as $Etiqueta) {
@@ -160,7 +152,7 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="text", nullable=true)
      */
-    private $Incluye;
+    protected $Incluye;
     
     /**
      * Texto que explica aquellas cosas que esta actividad no contempla.
@@ -169,14 +161,14 @@ class Actividad implements Tree\NodeInterface
      * 
      * @ORM\Column(type="text", nullable=true)
      */
-    private $NoIncluye;
+    protected $NoIncluye;
     
     /**
      * @var string
      * 
      * @ORM\Column(type="string", nullable=true, length=255)
      */
-    private $Instructivos;
+    protected $Instructivos;
     
     /**
      * Indica si es una actividad (final = 1) o una categorización (final = 0).
@@ -186,7 +178,7 @@ class Actividad implements Tree\NodeInterface
      *
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $Final = false;
+    protected $Final = false;
 
     /**
      * Devuelve el nombre correspondiente de la categoría.
@@ -481,23 +473,6 @@ class Actividad implements Tree\NodeInterface
     public function setEtiquetas($Etiquetas)
     {
         $this->Etiquetas = $Etiquetas;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getRequisitos()
-    {
-        return $this->Requisitos;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setRequisitos($Requisitos)
-    {
-        $this->Requisitos = $Requisitos;
         return $this;
     }
 

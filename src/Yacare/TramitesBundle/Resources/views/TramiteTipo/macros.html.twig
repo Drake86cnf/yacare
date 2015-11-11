@@ -12,13 +12,13 @@
 <ul>
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo != 'tra' %}
-			<li><h{{ nivel }}> {{ AsocRequisito.Requisito }}</h{{ nivel }}></li>
+			<li>{{ AsocRequisito.Requisito }}</li>
 	    {% endif %}
 	{% endfor %}
 	
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo == 'tra' %}
-			<li><h{{ nivel }}> {{ AsocRequisito.Requisito }}</h{{ nivel }}></li>
+			<li>{{ AsocRequisito.Requisito }}</li>
 	        {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
 	    {% endif %}
 	{% endfor %}
@@ -35,8 +35,7 @@
     {% if asoc.InstanciaNombre != 'n/a' %}{{ asoc.InstanciaNombre }}.{% endif %}
     {% if asoc.EsOpcional %}<strong>Opcional</strong>{% endif %}
     {% if asoc.EsCondicional %}
-    	<strong>Condicional: </strong>
-    	Sólo se requiere si {{ asoc.Condicion }}.
+    	<strong>Condicional:</strong> {{ asoc.Condicion }}.
     {% endif %}
 
     {% if asoc.Requisito.Obs %}<br />{{ asoc.Requisito.Obs }}{% endif %}

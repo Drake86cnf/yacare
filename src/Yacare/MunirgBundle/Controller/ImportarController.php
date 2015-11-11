@@ -6,10 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tapir\BaseBundle\Helper\StringHelper;
-use Yacare\MunirgBundle\Helper\ImportadorCalles;
-use Yacare\MunirgBundle\Helper\ImportadorPartidas;
-use Yacare\MunirgBundle\Helper\ImportadorPersonas;
-use Yacare\MunirgBundle\Helper\ImportadorActividades;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorCalles;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorPartidas;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorPersonas;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorActividades;
 
 /**
  * Controlador para importar datos de otras DB, a la DB de Yacaré.
@@ -22,7 +22,7 @@ use Yacare\MunirgBundle\Helper\ImportadorActividades;
  */
 class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
 {
-    use \Yacare\MunirgBundle\Helper\ConConexionAOracle;
+    use \Yacare\MunirgBundle\Helper\Importador\ConConexionAOracle;
     
     /**
      * @Route("partidas/")

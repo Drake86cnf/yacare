@@ -136,6 +136,42 @@ abstract class BaseController extends Controller
     }
 
     /**
+     * Construye una respuesta de una acción.
+     */
+    public function ConstruirResultado($res, Request $request)
+    {
+        $res->Vendor = $this->VendorName;
+        $res->Bundle = $this->BundleName;
+        
+        $res->EntidadClase = $this->CompleteEntityName;
+        $res->EntidadEtiqueta = $this->obtenerEtiquetaEntidad();
+        $res->EntidadEtiquetaPlural = $this->obtenerEtiquetaEntidadPlural();
+        $res->RutaBase = $this->obtenerRutaBase();
+        
+        if (isset($this->Paginar)) {
+            $res->Paginar = $this->Paginar;
+        }
+        
+        if ($this->ConservarVariables) {
+            foreach ($this->ConservarVariables as $vr) {
+                $val = $request->query->get($vr);
+                if ($val) {
+                    if (key_exists($vr, $res->Arrastre) == false) {
+                        $res->Arrastre[$vr] = $val;
+                    }
+                }
+            }
+        }
+        
+        // Arrastro el valor de la variable page
+        $val = $request->query->get('page');
+        if ($val && ((int) ($val)) > 1) {
+            $res->Pagina = $val;
+        }        
+        return $res;
+    }
+
+    /**
      * Arrastra variables entre acciones.
      *
      * Obtiene un array con las variables necesarias para pasar de una acción a

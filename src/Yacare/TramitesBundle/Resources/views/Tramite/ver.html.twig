@@ -1,55 +1,55 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Trámite Nº {{ entity.id }} <small>{{ entity }}</small>{% endblock %}
+{% block pagina_titulo %}Trámite Nº {{ res.Entidad.id }} <small>{{ res.Entidad }}</small>{% endblock %}
 
 {% block tramite_encab %}
 <div class="row">
 	<div class="col-lg-8">
 		<p>
-			El trámite fue presentado el {{ entity.createdAt|tapir_fecha('full', 'short')|lower }}
-			({{ entity.createdAt|tapir_hacetiempo }}) y está actualmente en estado
-			<strong>{{ entity.EstadoNombre|lower }}</strong>
-			{%- if entity.Estado == 100 and entity.FechaTerminado %}. El trámite finalizó el día
-			    {{ entity.FechaTerminado|tapir_fecha('full', 'short')|lower }}.
+			El trámite fue presentado el {{ res.Entidad.createdAt|tapir_fecha('full', 'short')|lower }}
+			({{ res.Entidad.createdAt|tapir_hacetiempo }}) y está actualmente en estado
+			<strong>{{ res.Entidad.EstadoNombre|lower }}</strong>
+			{%- if res.Entidad.Estado == 100 and res.Entidad.FechaTerminado %}. El trámite finalizó el día
+			    {{ res.Entidad.FechaTerminado|tapir_fecha('full', 'short')|lower }}.
 			{% else %}
-				con un porcentaje completado de {{ entity.PorcentajeCompleto }}%.
+				con un porcentaje completado de {{ res.Entidad.PorcentajeCompleto }}%.
 			{% endif %}
 			
-			{% if entity.EsViable == false %}
+			{% if res.Entidad.EsViable == false %}
 				<div class="alert alert-danger">
-                {{ entity.QueImpideTerminar|join('<br />')|raw }}
+                {{ res.Entidad.QueImpideTerminar|join('<br />')|raw }}
                 </div>
 			{% endif %}
 		</p>
 	</div>
 	<div class="col-lg-4">
-		{% if entity.RequisitosFaltantesCantidad > 0 %}
+		{% if res.Entidad.RequisitosFaltantesCantidad > 0 %}
 		<p class="text-danger">
-			<strong>Faltan {{ entity.RequisitosFaltantesCantidad }} requisitos</strong>,
-			de un total de {{ entity.RequisitosObligatoriosCantidad }}
+			<strong>Faltan {{ res.Entidad.RequisitosFaltantesCantidad }} requisitos</strong>,
+			de un total de {{ res.Entidad.RequisitosObligatoriosCantidad }}
 			obligatorios.
 		</p>
 		{% block tramite_encab_progreso %}
 		<div class="progress hidden-print">
 			<div class="progress-bar progress-bar-success" role="progressbar"
-				aria-valuenow="{{ entity.PorcentajeCompleto }}" aria-valuemin="0"
-				aria-valuemax="100" style="width: {{ entity.PorcentajeCompleto }}%;">
-				<span class="sr-only">{{ entity.PorcentajeCompleto }}% completo</span>
+				aria-valuenow="{{ res.Entidad.PorcentajeCompleto }}" aria-valuemin="0"
+				aria-valuemax="100" style="width: {{ res.Entidad.PorcentajeCompleto }}%;">
+				<span class="sr-only">{{ res.Entidad.PorcentajeCompleto }}% completo</span>
 			</div>
 			<div class="progress-bar progress-bar-warning" role="progressbar"
-				aria-valuenow="{{ 100 - entity.PorcentajeCompleto }}"
+				aria-valuenow="{{ 100 - res.Entidad.PorcentajeCompleto }}"
 				aria-valuemin="0" aria-valuemax="100"
-				style="width: {{ 100 - entity.PorcentajeCompleto }}%;"></div>
+				style="width: {{ 100 - res.Entidad.PorcentajeCompleto }}%;"></div>
 		</div>
 		{% endblock %}
-		{% elseif entity.EstaTerminado %}
+		{% elseif res.Entidad.EstaTerminado %}
 		<div class="panel panel-success">
 			<div class="panel-body">
 				<i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
 				<p>El trámite está terminado.</p>
 			</div>
 		</div>
-		{% elseif entity.EstaListoParaTerminar %}
+		{% elseif res.Entidad.EstaListoParaTerminar %}
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
@@ -57,7 +57,7 @@
 					<strong>¡Listo!</strong> El trámite está listo para finalizar.
 				</p>
 				<a class="btn btn-success hidden-print"
-					href="{{ path(baseroute ~ '_terminar', arrastre|merge({ 'id': entity.id })) }}"><i
+					href="{{ path(res.ObtenerRutaAccion('terminar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"><i
 					class="fa fa-play"></i> Terminar ahora</a>
 			</div>
 		</div>
@@ -74,7 +74,6 @@
 </div>
 {% endblock %}
 
-
 {% block tramite_requisitos %}
 <table class="table table-hover">
 	<thead>
@@ -86,7 +85,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for EstadoRequisito in entity.EstadosRequisitos %}
+		{% for EstadoRequisito in res.Entidad.EstadosRequisitos %}
 		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" {% endif %}>
 			<td>
 				{% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %} <i class="fa fa-clipboard fa-fw"></i>
@@ -99,7 +98,7 @@
 				{% if EstadoRequisito.Obs %}<i class=" glyphicon glyphicon-info-sign" role="button" data-trigger="hover" data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"  data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
 				{% endif %}
 			</td>
-			<td>{% if entity.Estado < 90 %}
+			<td>{% if res.Entidad.Estado < 90 %}
 				<div class="btn-group hidden-print pull-right">
 					<a class="btn btn-default btn-sm dropdown-toggle"
 						data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i>
@@ -110,7 +109,7 @@
 								class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
 						{% if EstadoRequisito.Adjuntos|length %}
 						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i
+							href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i
 								class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos <span
 								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
 						{% endif %}
@@ -119,17 +118,17 @@
 							<i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
 					    {% if EstadoRequisito.Estado != 100 %}
 						<li><a data-toggle="ajax-link"
-							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
+							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
 								class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
 						{% endif %}
 						{% if EstadoRequisito.Estado != 15 %}
 						<li><a data-toggle="ajax-link"
-							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i
+							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i
 								class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
 						{% endif %}
 						{% if EstadoRequisito.Estado != 0 %}
 						<li><a data-toggle="ajax-link"
-							href="{{ path(baseroute ~ '_cambiarestado', { 'id': entity.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i
+							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i
 								class="fa fa-question fa-fw"></i> Marcar como faltante</a></li>
 						{% endif %}
 					</ul>
@@ -174,7 +173,7 @@
 
 {% block pagina_acciones %}
 <a class="btn btn-primary hidden-print"
-	href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-reply"></i>
+	href="{{ path(res.ObtenerRutaAccion('listar')) }}"><i class="fa fa-reply"></i>
 	Volver</a>
 {% endblock %}
 
@@ -186,7 +185,7 @@
 </script>
 
 <a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.Id }) }}"><i
+	href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\Tramite', 'id': res.Entidad.Id }) }}"><i
 	class="fa fa-paperclip"></i> Archivos adjuntos</a>
 
 <a class="btn btn-default hidden-print"
@@ -195,7 +194,9 @@
 {% endblock %}
 
 {% block pagina_acciones3 %}{{ parent() }}
-<li><a data-toggle="modal" data-target="#modal"
-	href="{{ path('yacare_base_comentario_listar', { 'tipo': 'Yacare\\TramitesBundle\\Entity\\Tramite', 'id': entity.id }) }}"><i
-	class="fa fa-comments-o"></i> Comentarios</a></li>
+    <li>
+    	<a data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_comentario_listar', 
+    	    { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\Tramite', 'id': res.Entidad.id }) }}">
+    	<i class="fa fa-comments-o"></i> Comentarios</a>
+    </li>
 {% endblock %}

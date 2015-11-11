@@ -47,11 +47,11 @@
 		"liip/imagine-bundle" : "~1",
 		"liuggio/excelbundle" : "~2",
 		"creof/doctrine2-spatial" : "dev-master",
-		"egeloen/google-map-bundle" : "~2.1"
+		"egeloen/google-map-bundle" : "~2.1",
+		"jms/serializer-bundle": "^1.1"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "~2",
-		"phpdocumentor/phpdocumentor" : "~2",
 		"phpunit/phpunit" : "~4",
 		"phpunit/dbunit" : ">=1.2"
 	},

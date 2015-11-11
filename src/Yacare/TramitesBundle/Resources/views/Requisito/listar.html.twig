@@ -1,5 +1,8 @@
-{% extends 'TapirAbmBundle::listar.html.twig' %} {% block
-pagina_titulo %}Requisitos{% endblock %} {% block pagina_contenido %}
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Requisitos{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -9,25 +12,28 @@ pagina_titulo %}Requisitos{% endblock %} {% block pagina_contenido %}
 		</tr>
 	</thead>
 	<tbody>
-		{% for entity in entities %}
+		{% for entidad in res.Entidades %}
 		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-			<td>&nbsp;{{ entity.Nombre }}</td>
-			<td class="hidden-xs">{{ entity.TipoNombre }}</td>
-			<td class="hidden-sm hidden-xs">{% for requiere in entity.Requiere %}
+			href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': entidad.Id })) }}">
+			<td>&nbsp;{{ entidad.Nombre }}</td>
+			<td class="hidden-xs">{{ entidad.TipoNombre }}</td>
+			<td class="hidden-sm hidden-xs">
+			    {% for requiere in entidad.Requiere %}
 				<span class="label label-info">{{ requiere.Nombre|length > 50 ?
-					requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span> {% endfor
-				%}
+					requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span>
+				{% endfor %}
 			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
-block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig'
-%}{% endblock pagina_buscar %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
 {% endblock %}

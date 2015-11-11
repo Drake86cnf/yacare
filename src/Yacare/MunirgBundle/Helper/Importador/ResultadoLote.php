@@ -1,22 +1,12 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
 /**
- * Describe el resutlado de un proceso de importación de registros. 
+ * Describe el resutlado de un lote de importación. 
  * 
  * @author Ernesto Nicolás Carrea <equistango@gmail.com>
  */
-class ResultadoImportacion {
-    /**
-     * El importador del cual provienen estos datos.
-     */
-    protected $Importador;
-    
-    /**
-     * El número de registro inicial de esta importación.
-     */
-    public $Desde = 0;
-    
+class ResultadoLote {
     /**
      * La cantidad registros que se agregaron durante esta importación. 
      */
@@ -33,22 +23,19 @@ class ResultadoImportacion {
     public $RegistrosIgnorados = 0;
 
     /**
-     * La cantidad total de registros disponibles en origen.
+     * Los registros originales que se importaron en este lote.
      */
-    public $RegistrosTotal = 0;
-
     public $Registros = array();
-    public $Mensajes = array();
-    
-    function __construct(Importador $importador) {
-        $this->Importador = $importador;
-        $this->RegistrosTotal = $this->Importador->ObtenerCantidadTotal();
-    }
     
     /**
-     * Incorpora el resultado de un lote al resultado de la importación.
+     * Los mensajes que se generaron durante el proceso de este lote.
+     */
+    public $Mensajes = array();
+    
+    /**
+     * Incorpora un resultado parcial dentro de otro resultado parcial o total.
      * 
-     * @param RestuladoLote $resultado
+     * @param ImportarResultado $resultado
      */
     public function AgregarResultadoLote($resultado) {
         $this->AgregarContadoresLote($resultado);
@@ -74,7 +61,7 @@ class ResultadoImportacion {
      * @param int $nuevos La cantidad de registros nuevos.
      * @param int $actualizados La cantidad de registros actualizados.
      */
-    public function IncrementarContadores($nuevos, $actualizados, $haymas) {
+    public function IncrementarContadores($nuevos, $actualizados) {
         $this->RegistrosNuevos += $nuevos;
         $this->RegistrosActualizados += $actualizados;
     }
@@ -105,19 +92,5 @@ class ResultadoImportacion {
      */
     public function TotalRegistrosProcesados() {
         return $this->RegistrosNuevos + $this->RegistrosActualizados + $this->RegistrosIgnorados;
-    }
-    
-    /**
-     * Devuelve la posición del cursor (el último registro procesado).
-     */
-    public function PosicionCursor() {
-        return $this->Desde + $this->TotalRegistrosProcesados();
-    }
-    
-    /**
-     * Devuelve true si hay más registros para importar.
-     */
-    public function HayMasRegistros() {
-        return $this->PosicionCursor() < $this->RegistrosTotal;
     }
 }
