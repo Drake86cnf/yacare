@@ -1,0 +1,54 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% set paso_siguiente = res.Asistente.NextStepByStep(res.Paso) %}
+{% set paso_anterior = res.Asistente.PreviousStepByStep(res.Paso) %}
+{% if paso_siguiente %}
+	{% set paso_siguiente_nombre = paso_siguiente.Name %}
+{% else %}
+	{% set paso_siguiente_nombre = 'fin' %}
+{% endif %}
+{% if paso_anterior %}
+	{% set paso_anterior_nombre = paso_anterior.Name %}
+{% else %}
+	{% set paso_anterior_nombre = 'inicio' %}
+{% endif %}
+
+
+{% block pagina_titulo %}Asistente{% endblock %}
+
+{% block pagina_inicio %}
+    {{ form_start(res.FormularioEditar, {
+        'action': path(res.ObtenerRutaAccion('asistente'), res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0,
+            'paso': paso_siguiente_nombre,
+        	'form': app.request.query.get('form'),
+        	'desdepaso': res.Paso.Name
+         })),
+        'method': 'POST',
+        'attr': { 'id': res.FormularioEditar.vars.id }
+    }) }}
+{% endblock %}
+
+{% block pagina_acciones %}
+    {% if paso_anterior %}
+    	<button value="Anterior" class="btn btn-default"
+    		onclick="$('#{{ res.FormularioEditar.vars.id }}').attr('action', '{{ path(res.ObtenerRutaAccion('asistente'), res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0,
+                'paso': paso_anterior_nombre,
+            	'form': app.request.query.get('form'),
+            	'desdepaso': res.Paso.Name
+             })) }}').submit();">
+        	<i class="fa fa-arrow-left"></i> Anterior</button>
+    {% else %}
+    	<button value="Anterior" class="btn btn-default" disabled><i class="fa fa-arrow-left"></i> Anteior</button>
+    {% endif %}
+    {% if paso_siguiente_nombre == 'fin' %}
+    	<button type="submit" value="Finalizar" class="btn btn-success">
+        	<i class="fa fa-arrow-right"></i> Finalizar</button>
+    {% else %}
+        <button type="submit" value="Siguiente" class="btn btn-primary">
+        	<i class="fa fa-arrow-right"></i> Siguiente</button>
+	{% endif %}
+{% endblock %}
+
+{% block pagina_fin %}
+{{ form_end(res.FormularioEditar, {'render_rest': false}) }}
+{% endblock %}
