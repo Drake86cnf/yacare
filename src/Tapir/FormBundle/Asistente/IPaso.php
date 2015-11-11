@@ -19,11 +19,6 @@ interface IPaso
 
     /**
      * @param object $entidad
-     */
-    public function process($entidad);
-
-    /**
-     * @param object $entidad
      * @return Boolean
      */
     public function isVisible($entidad);

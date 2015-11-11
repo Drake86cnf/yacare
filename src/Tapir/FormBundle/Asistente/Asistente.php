@@ -109,17 +109,6 @@ class Asistente implements IAsistente, \IteratorAggregate, \Countable
         return isset($this->steps[$identifier]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function process(IPaso $step)
-    {
-        $step->process($this->report);
-
-        while ($step = $this->getNextStepByStep($step)) {
-            $step->process($this->report);
-        }
-    }
 
     /**
      * @return IPaso
