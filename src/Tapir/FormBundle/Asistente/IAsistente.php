@@ -53,13 +53,4 @@ interface IAsistente
      * @param string $identifier
      */
     public function remove($identifier);
-
-    /**
-     * Run through all steps after and including `$step` and call `IPaso::process`.
-     * This makes it possible to cleanup values that have been defined when jumping back
-     * and forth between steps.
-     *
-     * @param IPaso $step
-     */
-    public function process(IPaso $step);
 }

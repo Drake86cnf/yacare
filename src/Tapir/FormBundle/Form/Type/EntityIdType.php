@@ -39,6 +39,8 @@ class EntityIdType extends AbstractType
         if (true === $options['hidden']) {
             $view->vars['type'] = 'hidden';
         }
+        
+        $view->vars['searchtype'] = $options['searchtype'];
 
         // Obtengo la ruta base desde el nombre de la entidad (class)
         // Por ejemplo, Yacare\CatastroBundle\Entity\Partida -> yacare_catastro_partida_*
@@ -68,6 +70,7 @@ class EntityIdType extends AbstractType
             'em' => null,
             'query_builder' => null,
             'filters' => null,
+            'searchtype' => 'modal',
             'hidden' => false,
             'multiple' => false));
     }

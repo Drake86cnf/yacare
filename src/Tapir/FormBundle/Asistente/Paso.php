@@ -18,14 +18,6 @@ abstract class Paso implements IPaso
     }
 
     /**
-     * Processing. If a previous step have altered a report and this step depends on it
-     * do the necesarry invalidation here.
-     */
-    public function process($entidad)
-    {
-    }
-
-    /**
      * @return Boolean
      */
     public function isVisible($entidad)
