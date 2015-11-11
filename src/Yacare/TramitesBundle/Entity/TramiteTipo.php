@@ -34,7 +34,7 @@ class TramiteTipo implements ITramiteTipo
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Clase;
+    protected $Clase;
     
     /**
      * El tipo de comprobante que se emite al finalizar un trámite de este tipo.
@@ -82,7 +82,7 @@ class TramiteTipo implements ITramiteTipo
      *     joinColumns={@ORM\JoinColumn(name="TramiteTipo_id", referencedColumnName="id")}
      * )
      */
-    private $AsociacionRequisitos;
+    protected $AsociacionRequisitos;
     
     
     /**

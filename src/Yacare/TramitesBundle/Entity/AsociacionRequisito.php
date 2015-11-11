@@ -125,14 +125,14 @@ class AsociacionRequisito
      * Devuelve true si esta asociación es opcional (Tipo = 1).
      */
     public function EsOpcional() {
-        return $this->getTipo() == 1;
+        return ($this->getTipo() & 1) == 1;
     }
     
     /**
      * Devuelve true si esta asociación es condicional (Tipo = 2).
      */
     public function EsCondicional() {
-        return $this->getTipo() == 2;
+        return ($this->getTipo() & 2) == 2;
     }
     
     /**
@@ -220,7 +220,7 @@ class AsociacionRequisito
                 case 'null':
                     $res .= ' es nulo';
                     break;
-                case 'notnull':
+                case 'not null':
                     $res .= '';
                     break;
                 case 'true':
@@ -232,7 +232,7 @@ class AsociacionRequisito
                 case 'in':
                     $res .= ' incluido en';
                     break;
-                case 'notint':
+                case 'not in':
                     $res .= ' no incluido en';
                     break;
                 default:

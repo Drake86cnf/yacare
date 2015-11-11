@@ -13,32 +13,32 @@
 </style>
 <div class="wr">
 
-{% if entity is defined and entity %}
+{% if res.Entidad is defined and res.Entidad %}
 
     <h1><i class="fa fa-ticket"></i> Estado del requerimiento</h1>
 
-    <p class="lead">Descripción de la solicitud: <e class="text-info">{{ entity.Notas }}</e></p>
+    <p class="lead">Descripción de la solicitud: <e class="text-info">{{ res.Entidad.Notas }}</e></p>
 
     <p>
-    {% if entity.Estado == 0 %}{# Nuevo #}
+    {% if res.Entidad.Estado == 0 %}{# Nuevo #}
 
         <strong>La solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
         correspondiente.</strong>
 
-    {% elseif entity.Estado == 10 %}{# Iniciado #}
+    {% elseif res.Entidad.Estado == 10 %}{# Iniciado #}
 
 		<strong>La solicitud está siendo atendida.</strong> El último movimiento al respecto
-			fue {{ entity.updatedAt|tapir_hacetiempo }}.
+			fue {{ res.Entidad.updatedAt|tapir_hacetiempo }}.
 
-	{% elseif entity.Estado == 20 %}{# En espera #}
+	{% elseif res.Entidad.Estado == 20 %}{# En espera #}
 
 		<strong>La solicitud fue puesta en espera.</strong>
 
-	{% elseif entity.Estado == 80 %}{# Cancelado #}
+	{% elseif res.Entidad.Estado == 80 %}{# Cancelado #}
 
 		<strong>La solicitud fue cancelada.</strong>
 
-	{% elseif entity.Estado == 90 %}{# Terminado #}
+	{% elseif res.Entidad.Estado == 90 %}{# Terminado #}
 
 		<strong>La solicitud fue cursada y llegó a una solución exitosa.</strong>
 
@@ -50,29 +50,29 @@
     {%- endif %}.
 
     Si aun no lo hizo, tome nota del número de seguimiento para su solicitud:
-        	<strong>{{ entity.id }}-{{ entity.Token }}</strong>
+        	<strong>{{ res.Entidad.id }}-{{ res.Entidad.Token }}</strong>
 
     </p>
 
-    {% if entity.Encargado %}
+    {% if res.Entidad.Encargado %}
     	<p>En encargado de atender su solicitud
-    	{% if entity.EstaPendiente %}
+    	{% if res.Entidad.EstaPendiente %}
     	es
     	{% else %}
     	fue
     	{% endif %}
-        {{ entity.Encargado.NombreAmigable }}.
+        {{ res.Entidad.Encargado.NombreAmigable }}.
     {% endif %}
 
     <hr />
 
-    {% if entity.Novedades|length > 0 %}
+    {% if res.Entidad.Novedades|length > 0 %}
     	<div class="container-fluid"><div class="row">
 			<div class="col-sm-2 col-xs-12">
 				<h2 class="text-primary">Registro de novedades y comentarios</h2>
 			</div>
 			<div class="col-sm-10 col-xs-12">
-    	{% for novedad in entity.Novedades|reverse %}
+    	{% for novedad in res.Entidad.Novedades|reverse %}
     		{% if novedad.Privada == 0 %}<p>
     			    {% if novedad.Automatica == 0 %}<i class="fa fa-comment-o text-muted"></i><strong>{% endif %}
     			    {{ novedad.Notas }}
@@ -80,8 +80,8 @@
     			    <span class="small text-muted">({{ novedad.createdAt|tapir_hacetiempo }}, por
     			    {% if novedad.Usuario %}
     			        {{ novedad.Usuario.NombreAmigable }}
-    			    {% elseif entity.UsuarioNombre %}
-    			    	{{ entity.UsuarioNombre }}
+    			    {% elseif res.Entidad.UsuarioNombre %}
+    			    	{{ res.Entidad.UsuarioNombre }}
     			    {% else %}
     			    	usuario anónimo vía web
     			    {% endif %})</span></p>
@@ -89,71 +89,76 @@
     	{% endfor %}
    			</div>
     	</div></div>
-    	<p>Esta solicitud fue ingresada {{ entity.createdAt|tapir_hacetiempo }}. El último movimiento fue
-    	    {{ entity.updatedAt|tapir_hacetiempo }}.</p>
+    	<p>Esta solicitud fue ingresada {{ res.Entidad.createdAt|tapir_hacetiempo }}. El último movimiento fue
+    	    {{ res.Entidad.updatedAt|tapir_hacetiempo }}.</p>
     {% endif %}
 
 
-{% if form_novedad is defined %}
-<hr />
-<div class="container-fluid"><div class="row">
-	<div class="col-sm-2 col-xs-12">
-		<h2 class="text-primary">Publicar un comentario</h2>
-	</div>
-	<div class="col-sm-10 col-xs-12">
-        {{ form_start(form_novedad, { 'method': 'POST',
-        	'attr': { 'id': 'form_novedad', 'adata-toggle': 'ajax-form', 'adata-target': '#nuevocomentario' } }) }}
-        {{ form_errors(form_novedad) }}
-        {{ form_widget(form_novedad._token) }}
-        {{ form_widget(form_novedad.Notas, { 'attr': { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
-        {{ form_rest(form_novedad) }}
-        <button type="submit" class="btn btn-xs btn-default pull-right"><i class="fa fa-comment-o"></i> Publicar</button>
-        <script>
-            $('#yacare_requerimientosbundle_novedadanonimatype_Notas').keypress(function (e) {
-                if (e.which === 13) {
-                    e.preventDefault();
-                    $('form#form_novedad').submit();
-                    return false;
-                }
-            });
-        </script>
-        {{ form_end(form_novedad) }}
-    </div>
-</div></div>
-{% endif %}
-
+    {% if form_novedad is defined %}
     <hr />
-
-    <p>La dirección de la página para consultas es la siguiente:
-    	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ entity.id }}-{{ entity.Token }}"
-    		>http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ entity.id }}-{{ entity.Token }}</a>.
-        {% if entity.UsuarioEmail %}
-        	Además, se envia copia de las novedades a la dirección de correo electrónico proporcionada.
-        {% endif %}
-    </p>
-
+    <div class="container-fluid"><div class="row">
+    	<div class="col-sm-2 col-xs-12">
+    		<h2 class="text-primary">Publicar un comentario</h2>
+    	</div>
+    	<div class="col-sm-10 col-xs-12">
+            {{ form_start(form_novedad, { 'method': 'POST',
+            	'attr': { 'id': 'form_novedad', 'adata-toggle': 'ajax-form', 'adata-target': '#nuevocomentario' } }) }}
+            {{ form_errors(form_novedad) }}
+            {{ form_widget(form_novedad._token) }}
+            {{ form_widget(form_novedad.Notas, { 'attr': 
+                { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
+            {{ form_rest(form_novedad) }}
+            <button type="submit" class="btn btn-xs btn-default pull-right">
+            	<i class="fa fa-comment-o"></i> Publicar</button>
+            <script>
+                $('#yacare_requerimientosbundle_novedadanonimatype_Notas').keypress(function (e) {
+                    if (e.which === 13) {
+                        e.preventDefault();
+                        $('form#form_novedad').submit();
+                        return false;
+                    }
+                });
+            </script>
+            {{ form_end(form_novedad) }}
+        </div>
+    </div></div>
+    {% endif %}
+    
+        <hr />
+    
+        <p>La dirección de la página para consultas es la siguiente:
+        	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg=
+        	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}"> 
+        	    http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg=
+        	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}</a>.
+            {% if res.Entidad.UsuarioEmail %}
+            	Además, se envia copia de las novedades a la dirección de correo electrónico proporcionada.
+            {% endif %}
+        </p>
+    
 {% else %}
-
-	{% set seg = app.request.query.get('seg') %}
-
-	{% if seg is defined and seg %}
-		<h1><i class="fa fa-ticket"></i> No se puede tener acceso al requerimiento</h1>
-	{% else %}
-		<h1><i class="fa fa-ticket"></i> Consultar estado de un requerimiento</h1>
-	{% endif %}
-
-	<p class="lead">Para consultar el estado de su solicitud, por favor escriba el número de seguimiento a continuación:</p>
-
-	<form method="GET" class="form-inline">
-		<input class="form-control" type="text" size="12" name="seg" value="{{ seg }}" style="width: 160px" autofocus>
-		<button class="btn btn-success">Consultar <i class="fa fa-play"></i></button>
-	</form>
-
-	<p>Si hizo un reclamo o una consulta, puede ver el avance de su solicitud. Para ello necesita el
-		número de seguimiento que se le informó al realizar el reclamo. Si nos proporcionó una dirección de correo
-		electrónico (e-mail), recibió el número de seguimiento en su bandeja de entrada.</p>
-
-{% endif %}
-
+    
+    	{% set seg = app.request.query.get('seg') %}
+    
+    	{% if seg is defined and seg %}
+    		<h1><i class="fa fa-ticket"></i> No se puede tener acceso al requerimiento</h1>
+    	{% else %}
+    		<h1><i class="fa fa-ticket"></i> Consultar estado de un requerimiento</h1>
+    	{% endif %}
+    
+    	<p class="lead">Para consultar el estado de su solicitud, 
+    		por favor escriba el número de seguimiento a continuación:</p>
+    
+    	<form method="GET" class="form-inline">
+    		<input class="form-control" type="text" size="12" name="seg" value="{{ seg }}" 
+    			style="width: 160px" autofocus>
+    		<button class="btn btn-success">Consultar <i class="fa fa-play"></i></button>
+    	</form>
+    
+    	<p>Si hizo un reclamo o una consulta, puede ver el avance de su solicitud. Para ello necesita el
+    		número de seguimiento que se le informó al realizar el reclamo. Si nos proporcionó una dirección de correo
+    		electrónico (e-mail), recibió el número de seguimiento en su bandeja de entrada.</p>
+    
+    {% endif %}
 </div>
 {% endblock %}

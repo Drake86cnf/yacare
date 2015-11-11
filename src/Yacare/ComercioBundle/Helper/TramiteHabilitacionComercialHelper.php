@@ -21,25 +21,30 @@ class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helpe
     public function PreUpdatePersist($tramite, $args = null) {
         $Comercio = $tramite->getComercio();
         
-        if (! $Comercio->getTitular()) {
-            // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
-            $Comercio->setTitular($tramite->getTitular());
-
-            // También el apoderado
-            $Comercio->setApoderado($tramite->getApoderado());
-        
-            $this->em->persist($Comercio);
-        }
-        
-        $Local = $Comercio->getLocal();
-        
-        // Actualizo el uso de suelo para el trámite
-        if ($Local) {
-            if($Local && $Local->getPartida()) {
-                $tramite->setUsoSuelo($this->ObtenerPeorUsoSuelo($Local->getPartida()->getZona(), $Comercio->getActividades()));
+        if ($Comercio) {
+            if(!$Comercio->getTitular()) {
+                // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
+                $Comercio->setTitular($tramite->getTitular());
+    
+                // También el apoderado
+                $Comercio->setApoderado($tramite->getApoderado());
+            
+                $this->em->persist($Comercio);
             }
+            
+            $Local = $Comercio->getLocal();
+            
+            // Actualizo el uso de suelo para el trámite
+            if ($Local) {
+                if($Local && $Local->getPartida()) {
+                    $tramite->setUsoSuelo($this->ObtenerPeorUsoSuelo($Local->getPartida()->getZona(), $Comercio->getActividades()));
+                }
+            }
+            
+            $tramite->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
+        } else {
+            $tramite->setNombre('Trámite de habilitación');
         }
-        $tramite->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
     }
     
     

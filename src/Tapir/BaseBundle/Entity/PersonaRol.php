@@ -52,6 +52,8 @@ class PersonaRol implements RoleInterface
      * @var PersonaInterface
      *
      * @ORM\ManyToMany(targetEntity="PersonaInterface", mappedBy="UsuarioRoles", cascade={"persist"})
+     * 
+     * @JMS\Serializer\Annotation\Exclude
      */
     protected $Personas;
 

@@ -1,8 +1,8 @@
 <?php
-namespace Yacare\MunirgBundle\Helper;
+namespace Yacare\MunirgBundle\Helper\Importador;
 
-use Yacare\MunirgBundle\Helper\Importador;
-use Yacare\MunirgBundle\Helper\ResultadoLote;
+use Yacare\MunirgBundle\Helper\Importador\Importador;
+use Yacare\MunirgBundle\Helper\Importador\ResultadoLote;
 use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
@@ -11,8 +11,8 @@ use Tapir\BaseBundle\Helper\StringHelper;
  * @author Ernesto Nicolás Carrea <equistango@gmail.com>
  */
 class ImportadorPartidas extends Importador {
-    use \Yacare\MunirgBundle\Helper\ConConexionAOracle;
-    use \Yacare\MunirgBundle\Helper\ConCalles;
+    use \Yacare\MunirgBundle\Helper\Importador\ConConexionAOracle;
+    use \Yacare\MunirgBundle\Helper\Importador\ConCalles;
     
     function __construct($container, $em) {
         parent::__construct($container, $em);

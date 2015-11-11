@@ -3,6 +3,6 @@
 {% block pagina_titulo %}Ver archivo adjunto{% endblock %}
 
 {% block pagina_contenido %}
-<iframe src="{{ asset(entity.NombreArchivoRelativo) }}
-{{ asset(entity.NombreArchivoRelativo) }}
+    <iframe src="{{ asset(res.Entidad.NombreArchivoRelativo) }}
+    {{ asset(res.Entidad.NombreArchivoRelativo) }}
 {% endblock %}

@@ -33,5 +33,6 @@ trait ConTitular
     public function setTitular($Titular)
     {
         $this->Titular = $Titular;
+        return $this;
     }
 }

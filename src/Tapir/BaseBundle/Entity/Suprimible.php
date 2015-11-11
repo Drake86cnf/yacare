@@ -22,7 +22,7 @@ trait Suprimible
      *
      * @ORM\Column(type="boolean")
      */
-    private $Suprimido = 0;
+    protected $Suprimido = 0;
 
     /**
      * Marca la entidad como suprimida.

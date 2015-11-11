@@ -6,8 +6,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Yacare\MunirgBundle\Helper\ImportadorCalles;
-use Yacare\MunirgBundle\Helper\ResultadoImportacion;
+use Yacare\MunirgBundle\Helper\Importador\ImportadorCalles;
+use Yacare\MunirgBundle\Helper\Importador\Importador\ResultadoImportacion;
 
 class ImportarCallesCommand extends ContainerAwareCommand
 {
