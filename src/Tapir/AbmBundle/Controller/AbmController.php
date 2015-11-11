@@ -438,7 +438,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @see editarAction()
+     * @see editarAction() @see editarAction()
      *
      * @Route("guardar/")
      * @Method("POST")
