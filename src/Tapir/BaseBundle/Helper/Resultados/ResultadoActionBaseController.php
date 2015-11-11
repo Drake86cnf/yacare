@@ -19,14 +19,6 @@ class ResultadoActionBaseController extends ResultadoAction
     }
 
     /**
-     * Magic setter para las variables del arrastre (cualquier propiedad no definida explícitamente).
-     */
-    public function __set($name, $value)
-    {
-        $this->Arrastre[$name] = $value;
-    }
-
-    /**
      * Obtiene el nombre de la entidad gestionada (sin espacio de nombres).
      */
     public function EntidadNombre()
