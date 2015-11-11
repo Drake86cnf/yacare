@@ -11,9 +11,7 @@
             <div class="panel-body">
                 <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_tramites_requisito_listar')}}" 
                 	method="get">
-	            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. 
-	            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi 
-	            vulputate fringilla. Donec lacinia congue felis in faucibus. </p>
+	            <p>Definición de los requisitos (documentación) que pueden estar asociados a un trámite. </p>
                 <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
                 	placeholder="Buscar por nombre." />
                 </form>
@@ -46,9 +44,8 @@
             	<h2 class="panel-title">Tipos de trámites</h2>
             </div>
             <div class="panel-body">
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
-                	tristique. Aliquam vel sapien metus.</p>
+                <p> Definición y parametrización de los tipos de trámite que pueden gestionarse
+                	mediante esta aplicación.</p>
             </div>
             <ul class="list-group">
                 <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	
@@ -60,9 +57,8 @@
             	<h2 class="panel-title">Tipos de comprobante</h2>
             </div>
             <div class="panel-body">
-            	<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
-                	tristique. Aliquam vel sapien metus. </p>
+            	<p> Definición y parametrización de los tipos de comprobante que pueden emitirse
+            		desde esta aplicación. </p>
             </div>
             <ul class="list-group">
             	<a class="list-group-item" href="{{ path('yacare_tramites_comprobantetipo_listar') }}">Lista de comprobantes</a>
