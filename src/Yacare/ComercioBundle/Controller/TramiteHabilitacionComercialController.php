@@ -144,4 +144,134 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             'errors' => '',
             'edit_form' => $editForm->createView()));
     }
+    
+    /**
+     * @Route("asistente/")
+     * @Template()
+     */
+    public function asistenteAction(Request $request) {
+        $em = $this->getEm();
+        
+        $Sesion = $request->getSession();
+        $Asistente = new \Yacare\ComercioBundle\Helper\Asistentes\NuevoTramiteHabilitacionComercial();
+
+        $NombrePasoActual = $this->ObtenerVariable($request, 'paso');
+        if(!$NombrePasoActual) {
+            $NombrePasoActual = $Asistente->first()->getName();
+            $EstadoActual = $Sesion->set('Asistente_NuevoTramiteHabilitacionComercial', null);
+        } else {
+            if($NombrePasoActual == 'fin') {
+                $NombrePasoActual = $Asistente->last()->getName();
+            } elseif($NombrePasoActual == 'inicio') {
+                $NombrePasoActual = $Asistente->first()->getName();
+            }
+        }
+        $PasoActual = $Asistente->get($NombrePasoActual);
+        
+        $a = '';
+        $EstadoActual = $Sesion->get('Asistente_NuevoTramiteHabilitacionComercial', null);
+        if($EstadoActual) {
+            $serializer = $this->container->get('jms_serializer');
+            $Tramite = $serializer->deserialize($EstadoActual, 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial', 'json');
+            //$Titular = $serializer->deserialize($Sesion->get('Asistente_NuevoTramite_Titular', null), 'Yacare\BaseBundle\Entity\Persona', 'json');
+            $Titular = $Tramite->getTitular();
+            
+            //echo ''. $serializer->serialize($Tramite, 'json'); 
+            if(!$Titular) {
+                $Titular = new \Yacare\BaseBundle\Entity\Persona();
+                $Titular->setNombre('(busque un contribuyente existente o deje en blanco para cargar uno nuevo)');
+            } else {
+                $em->merge($Titular);
+                if($Titular->getGrupos()) {
+                    foreach($Titular->getGrupos() as $Grupo) {
+                        //echo $serializer->serialize($Grupo, 'json');
+                        $em->merge($Grupo);
+                    }
+                }
+            }
+            
+            $Tramite->setTitular($Titular);
+            
+            $Comercio = $Tramite->getComercio();
+            $Local = $Comercio->getLocal();
+        } else {
+            // Parece que recién entro en el asistente
+            $Comercio = new \Yacare\ComercioBundle\Entity\Comercio();
+            $Comercio->setNombre('Comercio de prueba');
+            
+            $Titular = new \Yacare\BaseBundle\Entity\Persona();
+            $Titular->setNombre('(busque un contribuyente existente o deje en blanco para cargar uno nuevo)');
+            
+            $Local = new \Yacare\ComercioBundle\Entity\Local();
+            $Local->setNombre('(busque un local existente o deje en blanco para cargar uno nuevo)');
+            
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
+            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
+            
+            $Tramite = new \Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial();
+            $Tramite->setComercio($Comercio);
+            //$Tramite->getComercio()->setTitular($Titular);
+            $Tramite->getComercio()->setLocal($Local);
+            $Tramite->setTitular($Titular);
+            
+            $THelper->PreUpdatePersist($Tramite);
+            $ThcHelper->PreUpdatePersist($Tramite);
+            $a .= 'new';
+        }
+       
+
+        $NombreDesdePaso = $this->ObtenerVariable($request, 'desdepaso');
+        if($NombreDesdePaso) {
+            //$a .= '--settit' . serialize($Tramite->getTitular());
+            $DesdePaso = $Asistente->get($NombreDesdePaso);
+            $FormEditarAnterior = $this->createForm($DesdePaso->getFormType(), $Tramite);
+            $FormEditarAnterior->handleRequest($request);
+            $serializer = $this->container->get('jms_serializer');
+            
+            $Titular = $Tramite->getTitular();
+            //$em->detach($Tramite);
+            if($Titular && $Titular->getId()) {
+                //$em->detach($Titular);
+            }
+            $Sesion->set('Asistente_NuevoTramiteHabilitacionComercial', $serializer->serialize($Tramite, 'json'));
+            $Sesion->set('Asistente_NuevoTramite_Titular', $serializer->serialize($Titular, 'json'));
+            //$Sesion->set('Asistente_NuevoTramite_Titular', serialize($Tramite->getTitular()));
+            //$a .= '--settit' . serialize($Tramite->getTitular());
+        } 
+        
+        if(isset($DesdePaso) && $DesdePaso == $PasoActual) {
+            $a .= '--fin!';
+        }
+
+        $FormEditar = $this->createForm($PasoActual->getFormType(), $Tramite);
+        //$FormEditar->handleRequest($request);
+        
+        if ($FormEditar->isValid()) {
+            // Si es el último paso, guardar
+            //$em->detach($Tramite->getTitular());
+            //$Sesion->set('Asistente_NuevoTramiteHabilitacionComercial_Titular', serialize($Tramite->getTitular()));
+            //$em->detach($Tramite);
+            //$Sesion->set('Asistente_NuevoTramiteHabilitacionComercial', serialize($Tramite));
+            $a .= '--fet';
+        } else {
+            $validator = $this->get('validator');
+            $Errores = $validator->validate($Tramite);
+            foreach($Errores as $Error) {
+                $a .= 'err:' . $Error;
+            }
+        }
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoAsistenteAction($this),
+            $request);
+        $res->Entidad = $Tramite;
+        $res->FormularioEditar = $FormEditar->createView();
+        $res->Asistente = $Asistente;
+        $res->Paso = $PasoActual;
+        
+        //$a .= ' --- tra:' . $Sesion->get('Asistente_NuevoTramiteHabilitacionComercial', '');
+        //$a .= ' --- tit:' . $Sesion->get('Asistente_NuevoTramite_Titular', '');
+        //$a .= ' --- com:' . $Sesion->get('Asistente_NuevoTramiteHabilitacionComercial_Comercio', '');
+               
+        return array('res' => $res, 'a' => $a);
+    }
 }
