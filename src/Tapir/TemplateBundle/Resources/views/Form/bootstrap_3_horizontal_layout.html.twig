@@ -85,7 +85,6 @@
     {% endfor %}
 {%- endblock buttongroup_widget_options %}
 
-
 {% block entity_id_widget %}
 <div class="input-group">
 	<input {{ block('widget_attributes') }} type="hidden" value="{% if (value is iterable) and (value|length>0) %}{{ value['id'] }}{% else %}{{ value }}{% endif %}" />
@@ -98,18 +97,47 @@
     	{% set full_name = 'Detalle_' ~ full_name %}
     	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
     		value="{% if (value is iterable) and (value|length>1) %}{{ value['text'] }}{% endif %}"
+    		{% if searchtype == 'modal' %}
     		data-toggle="modal"
     		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
+    		{% endif %}
     		style="cursor: pointer;" />
         {% set id = old_id %}
         {% set full_name = old_full_name %}
         <span class="input-group-btn">
+        	{% if searchtype == 'modal' %}
+        		{# Es con buscador modal #}
     		<button class="btn btn-default" type="button" data-toggle="modal"
     			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
     			<i class="fa fa-search"></i>
     		</button>
+    		{% elseif searchtype == 'inline' %}
+    			{# Buscador inline #}
+    			<script>
+    				$(function() {
+    					tapirCargarUrlEn('{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id, 'sinencab': 1})|raw }}', '#{{ id }}_Desplegable');
+    				});
+    			</script>
+    			<button class="btn btn-default" type="button" href="#"
+    				onclick="$('#{{ id }}_Desplegable').toggleClass('hidden');
+        				return false;"><i class="fa fa-caret-up"></i></button>
+    		{% else %}
+    			{# Buscador dropdown #}
+        		<button class="btn btn-default" type="button" href="#"
+        			onclick="
+        				$('#{{ id }}_Desplegable').toggleClass('hidden');
+        				tapirCargarUrlEn('{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id, 'sinencab': 1 })|raw }}', '#{{ id }}_Desplegable');
+        				return false;">
+        			<i class="fa fa-caret-down"></i>
+        		</button>
+    		{% endif %}
     	</span>
     {% endif %}
+</div>
+<div class="{% if searchtype != 'inline' %}hidden ocultar-al-seleccionar-item{% endif %}"
+	style="padding-top: 16px; abackground-color: #fefefe; border-bottom: 1px solid red;"
+	id="{{ id }}_Desplegable">
+Cargando...
 </div>
 {% endblock %}
 
