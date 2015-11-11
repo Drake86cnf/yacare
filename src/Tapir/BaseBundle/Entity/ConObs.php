@@ -19,7 +19,7 @@ trait ConObs
      * 
      * @ORM\Column(type="text", nullable=true)
      */
-    private $Obs;
+    protected $Obs;
 
     /**
      * @ignore

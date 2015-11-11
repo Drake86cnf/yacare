@@ -24,14 +24,14 @@ trait ConNombre
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Debe proporcionar un nombre.")
      */
-    private $Nombre;
+    protected $Nombre;
 
     /**
      * @ignore
      */
     public function __toString()
     {
-        if (isset($this->Nombre)) {
+        if (isset($this->Nombre) && $this->getNombre()) {
             return $this->Nombre;
         } else {
             return '';
