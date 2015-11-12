@@ -4,7 +4,7 @@
 
 {% block tramite_encab %}
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-md-8">
 		<p>
 			El trámite fue presentado el {{ res.Entidad.createdAt|tapir_fecha('full', 'short')|lower }}
 			({{ res.Entidad.createdAt|tapir_hacetiempo }}) y está actualmente en estado
@@ -22,7 +22,7 @@
 			{% endif %}
 		</p>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-md-4">
 		{% if res.Entidad.RequisitosFaltantesCantidad > 0 %}
 		<p class="text-danger">
 			<strong>Faltan {{ res.Entidad.RequisitosFaltantesCantidad }} requisitos</strong>,
@@ -70,8 +70,14 @@
 			</div>
 		</div>
 		{% endif %}
+		
+		<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+        	href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}"><i
+        	class="fa fa-paperclip"></i> Adjuntos</a>
+
 	</div>
 </div>
+<hr />
 {% endblock %}
 
 {% block tramite_requisitos %}
@@ -183,10 +189,6 @@
         $('[data-toggle="requisitos_ocultables"]').hide();
     });
 </script>
-
-<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\Tramite', 'id': res.Entidad.Id }) }}"><i
-	class="fa fa-paperclip"></i> Archivos adjuntos</a>
 
 <a class="btn btn-default hidden-print"
 	onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i
