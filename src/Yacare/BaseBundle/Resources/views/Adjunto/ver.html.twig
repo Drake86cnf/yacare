@@ -3,6 +3,24 @@
 {% block pagina_titulo %}Ver archivo adjunto{% endblock %}
 
 {% block pagina_contenido %}
-    <iframe src="{{ asset(res.Entidad.NombreArchivoRelativo) }}
-    {{ asset(res.Entidad.NombreArchivoRelativo) }}
+<div class="container-fluid"><div class="row">
+	<div class="col-md-4 col-sm-12">
+		Nombre: {{ res.Entidad }}<br />
+		Tamaño: {{ res.Entidad.Tamano }} bytes<br />
+		Subido {% if res.Entidad.Persona %}por {{ res.Entidad.Persona.NombreAmigable }},{% endif %}
+			el {{ res.Entidad.createdAt|tapir_fecha('full', 'none')|lower }}
+			a las {{ res.Entidad.createdAt|tapir_fecha('none', 'full') }}</br>
+		
+		<br />
+		<a href="{{ path('yacare_base_adjunto_descargar', { 'token': res.Entidad.Token }) }}"
+			class="btn btn-primary"><i class="fa fa-fw fa-download"></i> Descargar</a>
+		<a href="{{ path('yacare_base_adjunto_eliminar', { 'token': res.Entidad.Token, 'tipo': res.Entidad.EntidadTipo,
+			'id': res.Entidad.EntidadId }) }}" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i> Eliminar</a>
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<object data="{{ path('yacare_base_adjunto_vistaprevia', { 'token': res.Entidad.Token }) }}"
+			style="width: 100%; height: 99%; min-height: 320px;">
+		</object>
+	</div>
+</div></div>
 {% endblock %}

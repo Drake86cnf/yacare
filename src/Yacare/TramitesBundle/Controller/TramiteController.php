@@ -82,28 +82,42 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
                 'rutacomprob' => $resultado['rutacomprobante']
             ));
     }
+
     
-
-    /* public function guardarActionPrePersist($entity, $editForm)
+    /**
+     * @Route("adjuntos/")
+     * @Template("YacareBaseBundle:Adjunto:listar.html.twig")
+     */
+    public function adjuntoslistarAction(Request $request)
     {
-        $res = parent::guardarActionPrePersist($entity, $editForm);
+        $em = $this->getEm();
+        
+        $id = $this->ObtenerVariable($request, 'id');
+        $Entidad = $this->ObtenerEntidadPorId($id);
+        
+        $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto();
+        $AdjuntoNuevo->setEntidadTipo(get_class($Entidad));
+        $AdjuntoNuevo->setEntidadId($Entidad->getId());
+        
+        $FormSubirBuilder = $this->createFormBuilder($Entidad);
+        $FormSubirBuilder->add('Nombre', 'file', array(
+            'label' => 'Adjuntar archivo',
+            'data_class' => null,
+            'attr' => array('multiple' => 'multiple')
+        ));
+        
+        $FormSubir = $FormSubirBuilder->getForm();
 
-        if (! $entity->getTramiteTipo()) {
-            // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
-            // Busco el TramiteTipo que corresponde a la clase y lo guardo
-            $em = $this->getDoctrine()->getManager();
+        $Entidades = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
+            array('EntidadTipo' => get_class($Entidad), 'EntidadId' => $Entidad->getId(), 'Suprimido' => 0));
 
-            $NombreClase = '\\' . get_class($entity);
-            $TramiteTipo = $em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
-                array('Clase' => $NombreClase));
-
-            $entity->setTramiteTipo($TramiteTipo);
-        }
-
-        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());
-
-        return $res;
-    } */
-
-
+        $res = $this->ConstruirResultado(new \Yacare\BaseBundle\Helper\Resultados\ResultadoAdjuntosListarAction($this), $request);
+        $res->Entidad = $Entidad;
+        $res->EntidadTipo = get_class($Entidad);
+        $res->EntidadId = $Entidad->getId();
+        $res->Entidades = $Entidades;
+        $res->FormularioSubir = $FormSubir->createView();
+        
+        return array('res' => $res);
+    }
 }
