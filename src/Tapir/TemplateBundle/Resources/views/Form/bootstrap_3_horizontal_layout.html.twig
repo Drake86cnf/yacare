@@ -58,7 +58,8 @@
 
 {% block buttongroup_widget %}
     {% spaceless %}
-        <div class="btn-group" role="group" id="{{ id }}_Group">
+        <div class="btn-group {% if attr['vertical'] is defined and attr['vertical'] %} btn-group-vertical{% endif %}"
+        	role="group" id="{{ id }}_Group">
             {% set options = choices -%}
             {{- block('buttongroup_widget_options') -}}
         </div>
@@ -78,6 +79,7 @@
         	    {% set bgclass = attr['class']|split(' ') %}
                 {% if 'btn-xs' in bgclass %}btn-xs{% endif %}{% if 'btn-sm' in bgclass %}btn-sm{% endif %}
             {% endif %}
+            {% if attr['vertical'] is defined and attr['vertical'] %} text-left{% endif %}
         	btn-default {% if choice is selectedchoice(value) %} active{% endif %}"
             value="{{ choice.value }}">
             <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
