@@ -11,8 +11,14 @@ class TapirExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida'))
+            new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida')),
+            new \Twig_SimpleFilter('tapir_array_shuffle', array($this,'tapir_array_shuffle'))
         );
+    }
+    
+    public function tapir_array_shuffle($array) {
+        shuffle($array);
+        return $array;
     }
     
     public function tapir_cuiltesvalida($Cuilt)
