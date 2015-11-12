@@ -44,9 +44,5 @@ doctrine:
         entity_managers:
             haberes:
                 connection: haberes
-            glpi:
-                connection: glpi
-                mappings:
-                    IndepnetGlpiBundle: ~
         resolve_target_entities:
             Tapir\BaseBundle\Entity\PersonaInterface: Yacare\BaseBundle\Entity\Persona
