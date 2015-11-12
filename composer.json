@@ -10,14 +10,19 @@
 			"role" : "Developer"
 		}, {
 			"name" : "Alejandro Diaz",
-			"email" : "alediaz.rc@gmail.com"
+			"email" : "alediaz.rc@gmail.com",
+			"role" : "developer"
 		}, {
 			"name" : "Ezequiel Riquelme",
-			"email" : "rezequiel.tdf@gmail.com"
+			"email" : "rezequiel.tdf@gmail.com",
+			"role" : "developer"
 		}
 	],
 	"support" : {
-		"email" : "ecarrea@riogrande.gob.ar"
+		"email" : "ecarrea@riogrande.gob.ar",
+		"source" : "https://github.com/municipioriogrande/yacare",
+		"issues" : "https://github.com/municipioriogrande/yacare/issues",
+		"wiki" : "https://github.com/municipioriogrande/yacare/wiki"
 	},
 	"autoload" : {
 		"psr-0" : {
@@ -48,7 +53,7 @@
 		"liuggio/excelbundle" : "~2",
 		"creof/doctrine2-spatial" : "dev-master",
 		"egeloen/google-map-bundle" : "~2.1",
-		"jms/serializer-bundle": "^1.1"
+		"jms/serializer-bundle" : "^1.1"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "~2",
@@ -87,5 +92,6 @@
 		"branch-alias" : {
 			"dev-master" : "2.5-dev"
 		}
-	}
+	},
+	"homepage" : "https://github.com/municipioriogrande/yacare"
 }
