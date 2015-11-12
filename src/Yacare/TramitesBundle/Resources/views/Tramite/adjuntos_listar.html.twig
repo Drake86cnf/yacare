@@ -1,0 +1,7 @@
+{% extends 'YacareBaseBundle:Adjunto:listar.html.twig' %}
+
+
+{% block pagina_acciones %}
+	<a href="{{ path('yacare_tramites_tramite_adjuntosasociar', { 'id': res.EntidadId }) }}" class="btn btn-primary"><i
+		class="fa fa-link"></i> Asociar</a>
+{% endblock %}

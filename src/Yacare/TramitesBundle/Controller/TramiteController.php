@@ -82,11 +82,20 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
                 'rutacomprob' => $resultado['rutacomprobante']
             ));
     }
+    
+    /**
+     * @Route("adjuntos/asociar/")
+     * @Template("YacareTramitesBundle:Tramite:adjuntos_asociar.html.twig")
+     */
+    public function adjuntosasociarAction(Request $request)
+    {
+        
+    }
 
     
     /**
-     * @Route("adjuntos/")
-     * @Template("YacareBaseBundle:Adjunto:listar.html.twig")
+     * @Route("adjuntos/listar/")
+     * @Template("YacareTramitesBundle:Tramite:adjuntos_listar.html.twig")
      */
     public function adjuntoslistarAction(Request $request)
     {
