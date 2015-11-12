@@ -12,6 +12,7 @@
 	    {% endif %}
 	{% endfor %}
 	
+	{#
 	<h3>Documentación no requisitoria</h3>
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
 	    {% if EstadoRequisito.EsNecesario == false %}
@@ -22,6 +23,7 @@
 	    </li>
 	    {% endif %}
 	{% endfor %}
+	#}
 </ul>
 {% endif %}
 {% endmacro %}

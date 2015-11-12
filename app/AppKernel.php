@@ -27,8 +27,6 @@ class AppKernel extends Kernel
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
 
-            new Indepnet\GlpiBundle\IndepnetGlpiBundle(),
-
             new Tapir\BaseBundle\TapirBaseBundle(),
             new Tapir\ChartsBundle\TapirChartsBundle(),
         	new Tapir\AnnotationBundle\TapirAnnotationBundle(),

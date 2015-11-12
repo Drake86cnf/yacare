@@ -69,7 +69,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         }
 
         if ($filtro_macizo) {
-            $this->Where .= " AND r.Macizo LIKE '$filtro_macizo'";
+            $this->Where .= " AND CONCAT(r.MacizoAlfa, r.MacizoNum) LIKE '$filtro_macizo'";
             $this->BuscarPor = null;
         }
 
