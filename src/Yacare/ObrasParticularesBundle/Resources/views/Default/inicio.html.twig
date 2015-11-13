@@ -8,31 +8,37 @@
 
 	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
         <div class="panel-heading">
-        	<h2 class="panel-title">Actas</h2>
+        	<h2 class="panel-title">Actas de obra</h2>
         </div>
         <div class="panel-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            	Nam tincidunt nisl eget lacus feugiat, a pretium tortor
-            	tristique. Aliquam vel sapien metus.</p>
+            <p>Acceso a la nómina de actas de obra realizadas.</p>
             <input type="text" class="form-control pull-rigth" placeholder="buscar por apellido o número de acta" />
         </div>
         <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_obrasparticulares_acta_inicio', arrastre) }}">Actas de notificación <span class="badge">14</span></a>
-            <a class="list-group-item" href="#">Actas de infracción <span class="badge">5</span></a>
-            <a class="list-group-item" href="#">Actas de constatación</a>
-            <a class="list-group-item" href="#">Actas de suspensión</a>
-            <a class="list-group-item" href="#">Actas de compromiso</a>
-            <a class="list-group-item list-group-item-success" href="{{ path('yacare_obrasparticulares_acta_editar_1', arrastre)  }}"><i class="fa fa-plus"></i> Ingresar acta nueva</a>
+            <a class="list-group-item" data-toggle="ajax-link"
+            	href="{{ path('yacare_obrasparticulares_actaobra_listar', res.Arrastre) }}">Actas
+            	de obra <span class="badge">{{ res.Contadores['ActaObra'] }}</span></a>
+            <a class="list-group-item list-group-item-success" data-toggle="ajax-link"
+            	href="{{ path('yacare_obrasparticulares_actaobra_editar_1', res.Arrastre) }}"><i
+            	class="fa fa-plus"></i> Ingresar acta nueva</a>
         </ul>
     </div></div>
     
     <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
         <div class="panel-heading">
-        	<h2 class="panel-title">Comercios</h2>
+        	<h2 class="panel-title">Trámites</h2>
         </div>
         <div class="panel-body">
-        	<a href="#">Lista de comercios</a>
+        	Trámites en curso y archivo histórico.
         </div>
+        <ul class="list-group">
+        	<a class="list-group-item" data-toggle="ajax-link"
+        		href="{{ path('yacare_obrasparticulares_tramitecat_listar', res.Arrastre)  }}">CAT edilicia
+        		<span class="badge">{{ res.Contadores['TramiteCat'] }}</span></a>
+        	<a class="list-group-item" data-toggle="ajax-link"
+        		href="{{ path('yacare_obrasparticulares_tramiteplanos_listar', res.Arrastre)  }}">Aprobación de planos
+        		<span class="badge">{{ res.Contadores['TramitePlanos'] }}</span></a>
+        </ul>
     </div></div>
     
     <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-info">
@@ -40,8 +46,16 @@
         	<h2 class="panel-title">Matriculados</h2>
         </div>
         <div class="panel-body">
-        	<a href="#">Lista de matriculados</a>
+        	Profesionales matriculados y empresas de construcción. 
         </div>
+        <ul class="list-group">
+        	<a class="list-group-item" data-toggle="ajax-link"
+        		href="{{ path('yacare_obrasparticulares_matriculado_listar', res.Arrastre)  }}">Profesionales
+        		matriculados <span class="badge">{{ res.Contadores['Matriculado'] }}</span></a>
+        	<a class="list-group-item" data-toggle="ajax-link"
+        		href="{{ path('yacare_obrasparticulares_empresaconstructora_listar', res.Arrastre)  }}">Empresas
+        		constructoras <span class="badge">{{ res.Contadores['EmpresaConstructora'] }}</span></a>
+        </ul>
     </div></div>
 
 </div></div>
