@@ -11,10 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Inspeccion_Acta")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="ActaTipo", type="string")
+ * @ORM\DiscriminatorColumn(name="ActaTipoClase", type="string")
  * @ORM\DiscriminatorMap({
- *     "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
- *     "\Yacare\ObrasParticularesBundle\Entity\Acta" = "\Yacare\ObrasParticularesBundle\Entity\Acta"
+ *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra"
  * })
  */
 abstract class Acta
@@ -27,11 +26,10 @@ abstract class Acta
     /**
      * El tipo de acta.
      * 
-     * @var integer
-     * 
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $Tipo;
+    private $ActaTipo;
     
     /*
      * Un talonario.
@@ -46,7 +44,7 @@ abstract class Acta
     /**
      * @var string
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $SubTipo;
     
@@ -98,6 +96,7 @@ abstract class Acta
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Obs;
+    
 
     /**
      * Devuelve el nombre normalizado del tipo de acta.
@@ -108,73 +107,31 @@ abstract class Acta
     }
     
     /**
-     * Normaliza el nombre del tipo de acta.
-     * 
-     * @param  integer $rango
-     * @return string
-     */
-    public static function ActaTipoNombres($rango)
-    {
-        switch($rango) {
-            case 0:
-                return 'Notificación';
-            case 1:
-                return 'Infracción';
-            case 2:
-                return 'Compromiso';
-            case 3:
-                return 'Constatación';
-            case 4:
-                return 'Inspección';
-            case 5:
-                return 'Infracción/Suspesión';
-            default:
-                return '';
-        }
-    }
-    
-    /**
      * Genera el nombre a mostrar.
      * 
      * @return string
      */
     public function ConstruirNombre()
     {
-        $res = 'Acta ' . $this->getSubTipo() . ' Nº ' . $this->getNumero();
+        $res = $this->getTipo()->getNombre() . ' Nº ' . $this->getNumero();
         return $res;
     }
 
     /**
      * @ignore
      */
-    public function getTipo()
+    public function getActaTipo()
     {
-        return $this->Tipo;
-    }
-    
-    /**
-     * @ignore
-     */
-    public function setTipo($tipo)
-    {
-        $this->Tipo = $tipo;
-    }
-    
-    /**
-     * @ignore
-     */
-    public function getTalonario()
-    {
-        return $this->Talonario;
+        return $this->ActaTipo;
     }
 
     /**
      * @ignore
      */
-    public function setTalonario($Talonario)
+    public function setActaTipo($ActaTipo)
     {
-        $this->Talonario = $Talonario;
-        $this->setNombre($this->ConstruirNombre());
+        $this->ActaTipo = $ActaTipo;
+        return $this;
     }
 
     /**
@@ -191,7 +148,7 @@ abstract class Acta
     public function setSubTipo($SubTipo)
     {
         $this->SubTipo = $SubTipo;
-        $this->setNombre($this->ConstruirNombre());
+        return $this;
     }
 
     /**
@@ -208,7 +165,7 @@ abstract class Acta
     public function setNumero($Numero)
     {
         $this->Numero = $Numero;
-        $this->setNombre($this->ConstruirNombre());
+        return $this;
     }
 
     /**
@@ -222,9 +179,10 @@ abstract class Acta
     /**
      * @ignore
      */
-    public function setFecha(\DateTime $Fecha)
+    public function setFecha($Fecha)
     {
         $this->Fecha = $Fecha;
+        return $this;
     }
 
     /**
@@ -241,6 +199,7 @@ abstract class Acta
     public function setFuncionarioPrincipal($FuncionarioPrincipal)
     {
         $this->FuncionarioPrincipal = $FuncionarioPrincipal;
+        return $this;
     }
 
     /**
@@ -257,6 +216,7 @@ abstract class Acta
     public function setFuncionarioSecundario($FuncionarioSecundario)
     {
         $this->FuncionarioSecundario = $FuncionarioSecundario;
+        return $this;
     }
 
     /**
@@ -273,6 +233,7 @@ abstract class Acta
     public function setResponsableNombre($ResponsableNombre)
     {
         $this->ResponsableNombre = $ResponsableNombre;
+        return $this;
     }
 
     /**
@@ -289,6 +250,7 @@ abstract class Acta
     public function setDetalle($Detalle)
     {
         $this->Detalle = $Detalle;
+        return $this;
     }
 
     /**
@@ -305,5 +267,6 @@ abstract class Acta
     public function setObs($Obs)
     {
         $this->Obs = $Obs;
+        return $this;
     }
 }
