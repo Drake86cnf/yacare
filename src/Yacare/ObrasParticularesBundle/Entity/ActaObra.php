@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
  */
 class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
 {
+    use \Yacare\CatastroBundle\Entity\ConPartida;
+    
     /**
      * La falta tipificada, o null si no está tipificada.
      *
@@ -23,16 +25,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\JoinColumn(nullable=true)
      */
     protected $TipoFalta;
-    
-    /**
-     * La partida asociada al acta.
-     * 
-     * @var \Yacare\CatastroBundle\Entity\Partida
-     *
-     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $Partida;
     
     /**
      * Tipo de obra.
@@ -106,22 +98,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
     public function setComercio($Comercio)
     {
         $this->Comercio = $Comercio;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getPartida()
-    {
-        return $this->Partida;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPartida($Partida)
-    {
-        $this->Partida = $Partida;
     }
 
     /**
