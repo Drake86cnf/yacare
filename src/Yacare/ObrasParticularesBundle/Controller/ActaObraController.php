@@ -5,14 +5,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador de actas.
+ * Controlador de actas de obra.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
- * @Route("acta/")
+ * @Route("actaobra/")
  * @Template()
  */
-class ActaController extends \Tapir\AbmBundle\Controller\AbmController
+class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Tapir\AbmBundle\Controller\ConEliminar;
 } 

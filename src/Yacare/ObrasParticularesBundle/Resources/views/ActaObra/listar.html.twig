@@ -9,12 +9,8 @@
     			<th>Nº</th>
     			<th>Tipo</th>
     			<th>Fecha</th>
-    			<th>Plazo</th>
     			<th>Partida</th>
     			<th>Inspector</th>
-    			<th>Responsable</th>
-    			<th>Detalle</th>
-    			<th>Observaciones</th>
     		</tr>
     	</thead>
     	<tbody>
@@ -23,12 +19,8 @@
     			<td class="text-right">{{ entidad.Numero }}</td>
     			<td>{{ entidad.ActaTipoNombre }}</td>
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
-    			<td>{{ entidad.Plazo }} días</td>
     			<td>{{ entidad.Partida }}</td>
-    			<td>{{ entidad.Inspector }}</td>
-    			<td>{{ entidad.ResponsableNombre }}</td>
-    			<td>{{ entidad.Detalle }}</td>
-    			<td>{{ entidad.Obs }}</td>
+    			<td>{{ entidad.FuncionarioPrincipal }}</td>
     		</tr>
     		{% endfor %}
     	</tbody>
