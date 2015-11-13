@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra"
  * })
  */
-abstract class Acta
+abstract class Acta implements IActa
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
