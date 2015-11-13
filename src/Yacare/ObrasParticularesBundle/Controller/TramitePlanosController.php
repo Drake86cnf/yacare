@@ -6,12 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador de trámites para certificados de aptitud técnica.
+ * Controlador de trámites de aprobación de planos.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
- * @Route("tramitecat/")
+ * @Route("tramiteplanos/")
  */
-class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
+class TramitePlanosController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
 }
