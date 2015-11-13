@@ -2,6 +2,7 @@
 namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Representa un acta de inspección, infracción, notificación o compromiso.
@@ -13,6 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Acta extends \Yacare\InspeccionBundle\Entity\Acta
 {
+    /**
+     * El inspector asociado.
+     * 
+     * @var \Yacare\BaseBundle\Entity\Persona
+     * 
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     * @JoinColumn(nullable=false)
+     */
+    protected $Inspector;
+    
     /**
      * La falta tipificada, o null si no está tipificada.
      *
@@ -48,7 +59,7 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      *
      * @var integer 
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $EstadoAvance;
     
@@ -57,7 +68,7 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      *
      * @var integer 
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $Estado;
     
@@ -198,4 +209,22 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
         $this->Estado = $Estado;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getInspector()
+    {
+        return $this->Inspector;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setInspector($Inspector)
+    {
+        $this->Inspector = $Inspector;
+        return $this;
+    }
+ 
 }

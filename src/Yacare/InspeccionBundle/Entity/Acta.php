@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "\Yacare\ObrasParticularesBundle\Entity\Acta" = "\Yacare\ObrasParticularesBundle\Entity\Acta"
  * })
  */
-class Acta
+abstract class Acta
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
@@ -25,19 +25,28 @@ class Acta
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**
+     * El tipo de acta.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $Tipo;
+    
+    /*
      * Un talonario.
      * 
      * @var ActaTalonario
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")
      * @ORM\JoinColumn(nullable=false)
-     */
-    protected $Talonario;
+     
+    protected $Talonario;*/
     
     /**
      * @var string
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $SubTipo;
     
@@ -91,6 +100,40 @@ class Acta
     protected $Obs;
 
     /**
+     * Devuelve el nombre normalizado del tipo de acta.
+     */
+    public function getActaTipoNombre()
+    {
+        return self::ActaTipoNombres($this->getTipo());
+    }
+    
+    /**
+     * Normaliza el nombre del tipo de acta.
+     * 
+     * @param  integer $rango
+     * @return string
+     */
+    public static function ActaTipoNombres($rango)
+    {
+        switch($rango) {
+            case 0:
+                return 'Notificación';
+            case 1:
+                return 'Infracción';
+            case 2:
+                return 'Compromiso';
+            case 3:
+                return 'Constatación';
+            case 4:
+                return 'Inspección';
+            case 5:
+                return 'Infracción/Suspesión';
+            default:
+                return '';
+        }
+    }
+    
+    /**
      * Genera el nombre a mostrar.
      * 
      * @return string
@@ -101,6 +144,22 @@ class Acta
         return $res;
     }
 
+    /**
+     * @ignore
+     */
+    public function getTipo()
+    {
+        return $this->Tipo;
+    }
+    
+    /**
+     * @ignore
+     */
+    public function setTipo($tipo)
+    {
+        $this->Tipo = $tipo;
+    }
+    
     /**
      * @ignore
      */
