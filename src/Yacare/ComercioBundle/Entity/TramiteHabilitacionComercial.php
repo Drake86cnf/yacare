@@ -51,6 +51,19 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
     {
         return \Yacare\CatastroBundle\Entity\UsoSuelo::UsoSueloNombre($this->getUsoSuelo());
     }
+    
+    /**
+     * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
+     * que refleja a cada uno.
+     */
+    public function Actores() {
+        $res = parent::Actores();
+        return array_merge($res, array(
+            'Apoderado' => 'Apoderado',
+            'Comercio' => 'Comercio',
+            'Local' => 'Local comercial'
+        ));
+    }
 
     /**
      * Devuelve true si el trámite está listo para ser terminado (es decir,

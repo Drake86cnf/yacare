@@ -42,21 +42,22 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto();
         $AdjuntoNuevo->setEntidadTipo($tipo);
         $AdjuntoNuevo->setEntidadId($id);
-        $FormEditar = $this->CrearFormularioSubir($AdjuntoNuevo);
+        $FormSubir = $this->CrearFormularioSubir($AdjuntoNuevo);
 
-        $entities = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
+        $Entidades = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
             array('EntidadTipo' => $tipo, 'EntidadId' => $id, 'Suprimido' => 0));
 
-        return $this->ArrastrarVariables($request, array(
-            'entities' => $entities,
-            'tipo' => $tipo,
-            'id' => $id,
-            'edit_form' => $FormEditar->createView(),
-        ));
+        $res = $this->ConstruirResultado(new \Yacare\BaseBundle\Helper\Resultados\ResultadoAdjuntosListarAction($this), $request);
+        $res->EntidadTipo = $tipo;
+        $res->EntidadId = $id;
+        $res->Entidades = $Entidades;
+        $res->FormularioSubir = $FormSubir->createView();
+        
+        return array('res' => $res);
     }
     
     /**
-     * 
+     * Crea un formulario para subir archivos.
      */
     protected function CrearFormularioSubir($entity) {
         $editFormBuilder = $this->createFormBuilder($entity);
@@ -86,6 +87,10 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
         $AdjuntoNuevo = null;
         foreach ($Archivos as $Archivo) {
             $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto($Archivo, $tipo, $id);
+            if($this->container->get('security.token_storage')->getToken()) {
+                // Lo asocio al usuario conectado, si hay uno
+                $AdjuntoNuevo->setPersona($this->container->get('security.token_storage')->getToken()->getUser());
+            }
             $em->persist($AdjuntoNuevo);
             $em->flush();
         }
@@ -219,13 +224,16 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
+        $Entidad = $em->getRepository('YacareBaseBundle:Adjunto')->findOneBy(array('Token' => $token));
 
-        if (! $entity) {
+        if (! $Entidad) {
             throw $this->createNotFoundException('No se puede cargar la entidad.');
         }
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
+        $res->Entidad = $Entidad;
 
-        return $this->ArrastrarVariables($request, array('entity' => $entity));
+        return array('res' => $res);
     }
     
     

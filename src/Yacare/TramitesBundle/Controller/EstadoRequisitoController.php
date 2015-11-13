@@ -10,8 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class EstadoRequisitoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Yacare\BaseBundle\Controller\ConAdjuntos;
-
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -29,7 +27,7 @@ class EstadoRequisitoController extends \Tapir\AbmBundle\Controller\AbmControlle
         $parent_id = $this->ObtenerVariable($request, 'parent_id');
         
         if ($parent_id) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEm();
             // $parent_id = $request->query->get('parent_id');
             $Tramite = $em->getReference('YacareTramitesBundle:Tramite', $parent_id);
             
@@ -45,23 +43,6 @@ class EstadoRequisitoController extends \Tapir\AbmBundle\Controller\AbmControlle
         return $res;
     }
 
-    public function guardarActionPrePersist($entity, $editForm)
-    {
-        if ($entity->getEstado() == 100) {
-            // Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
-            $entity->setFechaAprobado(new \DateTime());
-        }
-        
-        if ($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
-            // Doy el trámite por iniciado
-            $em = $this->getDoctrine()->getManager();
-            
-            $entity->getTramite()->setEstado(10);
-            $em->persist($entity->getTramite());
-        } /*
-           * else if ($entity->getTramite()->getEstado() != 100 && $entity->getTramite()->RequisitosFaltantesCantidad() == 0) { // Doy el trámite por terminado $em = $this->getDoctrine()->getManager(); $entity->getTramite()->setEstado(100); $em->persist($entity->getTramite()); }
-           */
-    }
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
