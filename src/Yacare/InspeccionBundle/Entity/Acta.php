@@ -2,6 +2,7 @@
 namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Acta.
@@ -20,6 +21,7 @@ abstract class Acta implements IActa
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBUndle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
@@ -42,6 +44,8 @@ abstract class Acta implements IActa
     protected $Talonario;*/
     
     /**
+     * Tipo de acta (Infracción, Constatación, etc) para cualquiera de la áreas.
+     * 
      * @var string
      * 
      * @ORM\Column(type="string", nullable=false)
@@ -49,6 +53,8 @@ abstract class Acta implements IActa
     private $SubTipo;
     
     /**
+     * El número de acta manuscrita.
+     * 
      * @var int
      * 
      * @ORM\Column(type="integer")
@@ -56,6 +62,8 @@ abstract class Acta implements IActa
     private $Numero;
     
     /**
+     * La fecha de redactada el acta.
+     * 
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime")
@@ -63,13 +71,18 @@ abstract class Acta implements IActa
     private $Fecha;
     
     /**
+     * El agente inspector que redacta el acta.
+     * 
      * @var \Yacare\BaseBundle\Entity\Persona
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @JoinColumn(nullable=false)
      */
     protected $FuncionarioPrincipal;
     
     /**
+     * El agente inspector adjunto (opcional)
+     * 
      * @var \Yacare\BaseBundle\Entity\Persona
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
@@ -77,6 +90,8 @@ abstract class Acta implements IActa
     protected $FuncionarioSecundario;
     
     /**
+     * Responsable a quién se le hace la notificación en caso de ausencia del propietario de la partida.
+     * 
      * @var string
      * 
      * @ORM\Column(type="string")
@@ -89,14 +104,6 @@ abstract class Acta implements IActa
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Detalle;
-    
-    /**
-     * @var string
-     * 
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $Obs;
-    
 
     /**
      * Devuelve el nombre normalizado del tipo de acta.
