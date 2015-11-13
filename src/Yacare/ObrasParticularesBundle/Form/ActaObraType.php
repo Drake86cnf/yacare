@@ -6,24 +6,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Formulario de actas.
+ * Formulario de actas de obra.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class ActaType extends AbstractType
+class ActaObraType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             //->add('Talonario', null, array('label' => 'Talonario'))
             ->add('Numero', null, array('label' => 'Numero', 'required' => true))
-            ->add('Tipo', 'choice', array(
+            ->add('SubTipo', 'choice', array(
                 'choices' => array(
-                    0 => 'Notificación', 
-                    1 => 'Infracción', 
-                    3 => 'Constatación', 
-                    3 => 'Inspección', 
-                    5 => 'Infración/Suspensión'), 
+                    'Notificación' => 'Notificación', 
+                    'Infracción' => 'Infracción', 
+                    'Constatación' => 'Constatación', 
+                    'Inspección' => 'Inspección', 
+                    'Suspensión' => 'Suspensión'), 
                 'required' => true, 
                 'label' => 'Tipo de acta'))
             ->add('Fecha', 'date', array(
@@ -32,13 +32,13 @@ class ActaType extends AbstractType
                 'format' => 'dd/MM/yyyy', 
                 'widget' => 'single_text', 
                 'label' => 'Fecha'))
-            ->add('Plazo', null, array('label' => 'El plazo', 'required' => true))
+            ->add('Plazo', null, array('label' => 'Plazo', 'required' => true))
             ->add('Partida', 'entity_id', array(
-                'label' => 'La partida asociada', 
+                'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => false))
-            ->add('Inspector', 'entity', array(
-                'label' => 'Inspector asociado',
+            ->add('FuncionarioPrincipal', 'entity', array(
+                'label' => 'Inspector',
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
@@ -69,11 +69,11 @@ class ActaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Acta'));
+            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\ActaObra'));
     }
 
     public function getName()
     {
-        return 'yacare_bromatologiabundle_actarutinacomerciotype';
+        return 'yacare_bromatologiabundle_actaobratype';
     }
 }
