@@ -11,6 +11,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 abstract class Helper implements IHelper
 {
     protected $em;
+    protected $Entidad;
+    protected $EsActualizacion;
+    protected $Argumentos;
     
     function __construct($em = null) {
         if($em) {
@@ -18,11 +21,17 @@ abstract class Helper implements IHelper
         }
     }
     
+    /**
+     * Atrapa llamadas de lifecycle, extrae la entidad y el EM y llama a una función propia.
+     * @param LifecycleEventArgs $args
+     */
     public function LifecycleEvent(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
         $this->em = $args->getEntityManager();
-    
-        $this->PreUpdatePersist($entity, $args);
+        $this->Entidad = $args->getEntity();
+        $this->Argumentos = $args;
+        $this->EsActualizacion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
+        
+        $this->PreUpdatePersist($this->Entidad, $args);
     }
 }

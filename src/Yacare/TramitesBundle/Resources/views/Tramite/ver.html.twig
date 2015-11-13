@@ -100,8 +100,14 @@
 				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'col' or EstadoRequisito.AsociacionRequisito.Instancia == 'coc' %} <i class="fa fa-legal fa-fw"></i>
 				{% else %} <i class="fa fa-circle-o fa-fw"></i>
 				{% endif %}
-				{% if EstadoRequisito.Adjuntos|length > 0 %}<i class="fa fa-paperclip fa-fw"></i>{% endif %}
-				{% if EstadoRequisito.Obs %}<i class=" glyphicon glyphicon-info-sign" role="button" data-trigger="hover" data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"  data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
+				{% if EstadoRequisito.Adjuntos|length > 0 %}
+					<a href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}" data-toggle="modal">
+					<i class="fa fa-paperclip fa-fw"></i>
+					</a>
+				{% endif %}
+				{% if EstadoRequisito.Obs %}<i class=" glyphicon glyphicon-info-sign" role="button" data-trigger="hover"
+					data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"
+					data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
 				{% endif %}
 			</td>
 			<td>{% if res.Entidad.Estado < 90 %}
@@ -115,13 +121,10 @@
 								class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
 						{% if EstadoRequisito.Adjuntos|length %}
 						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i
+							href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}"><i
 								class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos <span
 								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
 						{% endif %}
-						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}">
-							<i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
 					    {% if EstadoRequisito.Estado != 100 %}
 						<li><a data-toggle="ajax-link"
 							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
@@ -168,7 +171,6 @@
 				{% else %}
 					<span class="text text-muted">N/A</span>
 				{% endif %} 
-			
 			</td>
 			<td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
 		</tr>
