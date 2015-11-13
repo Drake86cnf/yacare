@@ -1,32 +1,38 @@
 {% extends 'TapirAbmBundle::listar.html.twig' %}
 
 {% block pagina_titulo %}Actas de Obras Particulares{% endblock %}
-<table class="table table-hoverselect">
-	<thead>
-		<tr>
-			<th>Nº</th>
-			<th>Tipo</th>
-			<th>Fecha</th>
-			<th>Comercio</th>
-			<th>Persona</th>
-			<th>Funcionario principal</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for entity in entities %}
-		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
-			<td class="text-right">{{ entity.Numero }}</td>
-			<td>{{ entity.SubTipo }}</td>
-			<td>{{ entity.Fecha|date("d/m/Y") }}</td>
-			<td>{{ entity.Comercio }}</td>
-			<td>{{ entity.Persona }}</td>
-			<td>{{ entity.FuncionarioPrincipal }}</td>
-			<td>
-		
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
+
+{% block pagina_contenido %}
+    <table class="table table-hoverselect">
+    	<thead>
+    		<tr>
+    			<th>Nº</th>
+    			<th>Tipo</th>
+    			<th>Fecha</th>
+    			<th>Plazo</th>
+    			<th>Partida</th>
+    			<th>Inspector</th>
+    			<th>Responsable</th>
+    			<th>Detalle</th>
+    			<th>Observaciones</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% for entidad in res.Entidades %}
+    		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entidad.Id }) }}">
+    			<td class="text-right">{{ entidad.Numero }}</td>
+    			<td>{{ entidad.ActaTipoNombre }}</td>
+    			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
+    			<td>{{ entidad.Plazo }} días</td>
+    			<td>{{ entidad.Partida }}</td>
+    			<td>{{ entidad.Inspector }}</td>
+    			<td>{{ entidad.ResponsableNombre }}</td>
+    			<td>{{ entidad.Detalle }}</td>
+    			<td>{{ entidad.Obs }}</td>
+    		</tr>
+    		{% endfor %}
+    	</tbody>
+    </table>
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
@@ -34,6 +40,6 @@
 
 {% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
+	href="{{ path(res.ObtenerRutaAccion('editar_1'), res.Arrastre) }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
 {% endblock %}
