@@ -4,7 +4,7 @@
 
 {% block tramite_encab %}
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-md-8">
 		<p>
 			El trámite fue presentado el {{ res.Entidad.createdAt|tapir_fecha('full', 'short')|lower }}
 			({{ res.Entidad.createdAt|tapir_hacetiempo }}) y está actualmente en estado
@@ -22,7 +22,7 @@
 			{% endif %}
 		</p>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-md-4">
 		{% if res.Entidad.RequisitosFaltantesCantidad > 0 %}
 		<p class="text-danger">
 			<strong>Faltan {{ res.Entidad.RequisitosFaltantesCantidad }} requisitos</strong>,
@@ -70,8 +70,14 @@
 			</div>
 		</div>
 		{% endif %}
+		
+		<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+        	href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}"><i
+        	class="fa fa-paperclip"></i> Adjuntos</a>
+
 	</div>
 </div>
+<hr />
 {% endblock %}
 
 {% block tramite_requisitos %}
@@ -94,8 +100,14 @@
 				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'col' or EstadoRequisito.AsociacionRequisito.Instancia == 'coc' %} <i class="fa fa-legal fa-fw"></i>
 				{% else %} <i class="fa fa-circle-o fa-fw"></i>
 				{% endif %}
-				{% if EstadoRequisito.Adjuntos|length > 0 %}<i class="fa fa-paperclip fa-fw"></i>{% endif %}
-				{% if EstadoRequisito.Obs %}<i class=" glyphicon glyphicon-info-sign" role="button" data-trigger="hover" data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"  data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
+				{% if EstadoRequisito.Adjuntos|length > 0 %}
+					<a href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}" data-toggle="modal">
+					<i class="fa fa-paperclip fa-fw"></i>
+					</a>
+				{% endif %}
+				{% if EstadoRequisito.Obs %}<i class=" glyphicon glyphicon-info-sign" role="button" data-trigger="hover"
+					data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"
+					data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
 				{% endif %}
 			</td>
 			<td>{% if res.Entidad.Estado < 90 %}
@@ -109,13 +121,10 @@
 								class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
 						{% if EstadoRequisito.Adjuntos|length %}
 						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\EstadoRequisito', 'id': EstadoRequisito.Id }) }}"><i
+							href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}"><i
 								class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos <span
 								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
 						{% endif %}
-						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}">
-							<i class="fa fa-paperclip fa-fw"></i> Adjuntar archivos</a></li>
 					    {% if EstadoRequisito.Estado != 100 %}
 						<li><a data-toggle="ajax-link"
 							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
@@ -162,7 +171,6 @@
 				{% else %}
 					<span class="text text-muted">N/A</span>
 				{% endif %} 
-			
 			</td>
 			<td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
 		</tr>
@@ -183,10 +191,6 @@
         $('[data-toggle="requisitos_ocultables"]').hide();
     });
 </script>
-
-<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path('yacare_base_adjunto_listar', { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\Tramite', 'id': res.Entidad.Id }) }}"><i
-	class="fa fa-paperclip"></i> Archivos adjuntos</a>
 
 <a class="btn btn-default hidden-print"
 	onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i

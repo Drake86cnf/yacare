@@ -38,4 +38,8 @@ class ResultadoActionBaseController extends ResultadoAction
         }
         return $this->RutaBase . '_' . $accion;
     }
+    
+    public function PaginaSiguiente() {
+        return $this->Pagina + 1;
+    }
 }

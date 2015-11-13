@@ -102,6 +102,7 @@ class Adjunto
      * @ORM\Column(type="string", length=255)
      */
     private $Token;
+    
 
     /**
      * Devuelve la ruta raíz de la carpeta de adjuntos.

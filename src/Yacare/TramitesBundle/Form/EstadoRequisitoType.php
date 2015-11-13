@@ -10,9 +10,10 @@ class EstadoRequisitoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Estado', 'choice', array(
+            ->add('Estado', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
                 'label' => 'Estado', 
-                'required' => true, 
+                'required' => true,
+                'attr' => array('vertical' => true, 'class' => 'tapir-input-320'),
                 'choices' => array(
                     '0' => 'Faltante', 
                     '10' => 'Observado', 
@@ -21,11 +22,7 @@ class EstadoRequisitoType extends AbstractType
                     '95' => 'Presentado pendiente de aprobación', 
                     '100' => 'Aprobado')))
             ->add('Obs', null, array('label' => 'Obs.'))
-            ->add('Adjuntos', 'adjuntos', array(
-                'label' => 'Adjuntar archivos', 
-                'required' => false, 
-                'class' => 'Yacare\BaseBundle\Entity\Adjunto', 
-                'data_class' => null));
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
