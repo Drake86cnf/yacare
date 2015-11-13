@@ -10,20 +10,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="ObrasParticulares_Acta")
+ * @ORM\Table(name="ObrasParticulares_ActaObra")
  */
-class Acta extends \Yacare\InspeccionBundle\Entity\Acta
+class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
 {
-    /**
-     * El inspector asociado.
-     * 
-     * @var \Yacare\BaseBundle\Entity\Persona
-     * 
-     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
-     * @JoinColumn(nullable=false)
-     */
-    protected $Inspector;
-    
     /**
      * La falta tipificada, o null si no está tipificada.
      *
@@ -33,16 +23,6 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\JoinColumn(nullable=true)
      */
     protected $TipoFalta;
-    
-    /**
-     * El comercio asociado al acta, en caso de ser un acta de comercio o null si es un acta de obra.
-     * 
-     * @var \Yacare\ComercioBundle\Entity\Comercio
-     *
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $Comercio;
     
     /**
      * La partida asociada al acta.
@@ -55,6 +35,15 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
     protected $Partida;
     
     /**
+     * Tipo de obra.
+     *
+     * @var integer 
+     * 
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $TipoObra;
+    
+    /**
      * El estado de avance la obra para las actas de obra o 0 para las actas de comercio.
      *
      * @var integer 
@@ -62,15 +51,6 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $EstadoAvance;
-    
-    /**
-     * Indica si todas las observaciones del acta en cuestion fueron cumplidas.
-     *
-     * @var integer 
-     * 
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $Estado;
     
     /**
      * El plazo para la regularización, si corresponde.
