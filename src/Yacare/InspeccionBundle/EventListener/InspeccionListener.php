@@ -23,11 +23,11 @@ class InspeccionListener implements EventSubscriber
     {
         $entity = $args->getEntity();
         if ($entity instanceof \Yacare\InspeccionBundle\Entity\IActa) {
-            // Capturo los eventos si la entidad es un trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper();
+            // Capturo los eventos si la entidad es un acta.
+            $Helper = new \Yacare\InspeccionBundle\Helper\ActaHelper();
             $Helper->LifecycleEvent($args);
         /* } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\IActaTipo) {
-            // Capturo los eventos si la entidad es un tipo de trámite
+            // Capturo los eventos si la entidad es un tipo de acta.
             $Helper = new \Yacare\TramitesBundle\Helper\TramiteTipoHelper();
             $Helper->LifecycleEvent($args); */
         }

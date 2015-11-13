@@ -1,6 +1,11 @@
 <?php
 namespace Yacare\InspeccionBundle\Entity;
 
-interface IActaTipo {
-
+/**
+ * Interface para ActaTipo.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
+interface IActaTipo
+{
 }
