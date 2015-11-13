@@ -15,4 +15,8 @@ class ResultadoAdjuntosListarAction extends \Tapir\AbmBundle\Helper\Resultados\R
     {
         parent::__construct($controlador);
     }
+    
+    public function Adjuntos() {
+        return $this->Entidades;
+    }
 }

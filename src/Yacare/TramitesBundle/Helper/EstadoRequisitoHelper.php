@@ -10,10 +10,25 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class EstadoRequisitoHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
+
+    function __construct($em = null)
+    {
         parent::__construct($em);
     }
-    
-    public function PreUpdatePersist($entity, $args = null) {
+
+    public function PreUpdatePersist($entity, $args = null)
+    {
+        if($this->EsActualizacion && $args->hasChangedField('Estado')) {
+            if ($entity->getEstado() == 100) {
+                // Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
+                $entity->setFechaAprobado(new \DateTime());
+            }
+        }
+        
+        if ($entity->getEstado() > 0 && $entity->getTramite()->getEstado() == 0) {
+            // Doy el trámite por iniciado
+            $entity->getTramite()->setEstado(10);
+            $this->em->persist($entity->getTramite());
+        }
     }
 }

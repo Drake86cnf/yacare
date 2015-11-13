@@ -66,9 +66,8 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function terminarAction(Request $request)
     {
+        $em = $this->getEm();
         $id = $this->ObtenerVariable($request, 'id');
-        $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
         
         $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
@@ -89,7 +88,51 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function adjuntosasociarAction(Request $request)
     {
+        $em = $this->getEm();
+        $id = $this->ObtenerVariable($request, 'id');
         
+        $Tramite = $this->ObtenerEntidadPorId($id);
+        
+        $Adjuntos = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
+            array('EntidadTipo' => get_class($Tramite), 'EntidadId' => $Tramite->getId(), 'Suprimido' => 0));
+        
+        // Veo si hay requisitos que asociar
+        $RequisitoId = $this->ObtenerVariable($request, 'req');
+        $AdjuntoId = $this->ObtenerVariable($request, 'adj');
+        if($RequisitoId > 0 && $AdjuntoId > 0) {
+            $Requisito = $em->getRepository('YacareTramitesBundle:EstadoRequisito')->find($RequisitoId);
+            if($Requisito) {
+                $HuboCambios = false;
+                
+                foreach($Adjuntos as $Adjunto) {
+                    if($Adjunto->getId() == $AdjuntoId) {
+                        $this->addFlash('info', 'Se asoció ' . $Adjunto . ' con ' . $Requisito);
+                        if($Requisito->getAdjuntos()->contains($Adjunto) == false) {
+                            $Requisito->getAdjuntos()->add($Adjunto);
+                            if($Requisito->getEstado() < 95) {
+                                // Lo marco como presentado
+                                $Requisito->setEstado(95);
+                            }
+                            $em->persist($Requisito);
+                            $HuboCambios = true;
+                        }
+                        break;
+                    }
+                }
+
+                if($HuboCambios) {
+                    $em->flush();
+                }
+            }
+        }
+        
+        $res = $this->ConstruirResultado(new \Yacare\BaseBundle\Helper\Resultados\ResultadoAdjuntosListarAction($this), $request);
+        $res->Entidad = $Tramite;
+        $res->EntidadTipo = get_class($Tramite);
+        $res->EntidadId = $Tramite->getId();
+        $res->Entidades = $Adjuntos;
+        
+        return array('res' => $res);
     }
 
     
@@ -100,15 +143,15 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
     public function adjuntoslistarAction(Request $request)
     {
         $em = $this->getEm();
-        
         $id = $this->ObtenerVariable($request, 'id');
-        $Entidad = $this->ObtenerEntidadPorId($id);
+        
+        $Tramite = $this->ObtenerEntidadPorId($id);
         
         $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto();
-        $AdjuntoNuevo->setEntidadTipo(get_class($Entidad));
-        $AdjuntoNuevo->setEntidadId($Entidad->getId());
+        $AdjuntoNuevo->setEntidadTipo(get_class($Tramite));
+        $AdjuntoNuevo->setEntidadId($Tramite->getId());
         
-        $FormSubirBuilder = $this->createFormBuilder($Entidad);
+        $FormSubirBuilder = $this->createFormBuilder($Tramite);
         $FormSubirBuilder->add('Nombre', 'file', array(
             'label' => 'Adjuntar archivo',
             'data_class' => null,
@@ -117,16 +160,26 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         
         $FormSubir = $FormSubirBuilder->getForm();
 
-        $Entidades = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
-            array('EntidadTipo' => get_class($Entidad), 'EntidadId' => $Entidad->getId(), 'Suprimido' => 0));
+        $RequisitoId = $this->ObtenerVariable($request, 'req');
+        if($RequisitoId > 0) {
+            foreach($Tramite->getEstadosRequisitos() as $Requisito) {
+                if($Requisito->getId() == $RequisitoId) {
+                    $Adjuntos = $Requisito->getAdjuntos();
+                    break;
+                }
+            }
+        } else {
+            $Adjuntos = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
+                array('EntidadTipo' => get_class($Tramite), 'EntidadId' => $Tramite->getId(), 'Suprimido' => 0));
+        }
 
         $res = $this->ConstruirResultado(new \Yacare\BaseBundle\Helper\Resultados\ResultadoAdjuntosListarAction($this), $request);
-        $res->Entidad = $Entidad;
-        $res->EntidadTipo = get_class($Entidad);
-        $res->EntidadId = $Entidad->getId();
-        $res->Entidades = $Entidades;
+        $res->Entidad = $Tramite;
+        $res->EntidadTipo = get_class($Tramite);
+        $res->EntidadId = $Tramite->getId();
+        $res->Entidades = $Adjuntos;
         $res->FormularioSubir = $FormSubir->createView();
-        
+
         return array('res' => $res);
     }
 }

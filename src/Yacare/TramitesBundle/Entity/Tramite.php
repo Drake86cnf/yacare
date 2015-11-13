@@ -93,6 +93,55 @@ abstract class Tramite implements ITramite
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Comprobante;
+    
+    
+    /**
+     * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
+     * que refleja a cada uno.
+     */
+    public function Actores() {
+        return array(
+            'Titular' => 'Titular'
+        );
+    }
+    
+    
+    public function ObtenerActor($actorPropiedad) {
+        $Propiedades = explode('.', $actorPropiedad);
+        $ValorQue = null;
+        $Objeto = $this;
+        foreach ($Propiedades as $Propiedad) {
+            if(strstr($Propiedad, '(') !== false) {
+                $Parametro = trim(strstr($Propiedad, '('), '()');
+                $Propiedad = strstr($Propiedad, '(', true);
+            } else {
+                $Parametro = null;
+            }
+        
+            if (method_exists($Objeto, $Propiedad)) {
+                $Callable = array($Objeto, $Propiedad);
+            } elseif (method_exists($Objeto, 'get' . $Propiedad)) {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            } else {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            }
+        
+            if (is_callable($Callable)) {
+                if($Parametro) {
+                    $ValorQue = call_user_func($Callable, $Parametro);
+                } else {
+                    $ValorQue = call_user_func($Callable);
+                }
+                $Objeto = $ValorQue;
+            } else {
+                $ValorQue = null;
+                break;
+            }
+        }
+        
+        return $ValorQue;
+    }
+    
 
     /**
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).

@@ -24,6 +24,11 @@ class EstadoRequisito implements IEstadoRequisito
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
+    
+    public function __construct()
+    {
+        $this->Adjuntos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * El trámite al cual está asociado este requisito.
@@ -47,6 +52,15 @@ class EstadoRequisito implements IEstadoRequisito
      * @ORM\JoinColumn(nullable=false)
      */
     protected $AsociacionRequisito;
+    
+    /**
+     * Los adjuntos asociado con este requisito.
+     *
+     * @var \Yacare\BaseBundle\Entity\Adjunto
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Adjunto")
+     */
+    protected $Adjuntos;
 
     /**
      * El requisito padre, en caso de que este no sea un requisito directo, sino
@@ -239,7 +253,7 @@ class EstadoRequisito implements IEstadoRequisito
             case 90:
                 return 'Desestimado';
             case 95:
-                return 'Presentado, aprobación pendiente';
+                return 'Presentado';
             case 99:
                 return 'No es necesario';
             case 100:
@@ -267,7 +281,7 @@ class EstadoRequisito implements IEstadoRequisito
             case 90:
                 return 'Desestimado';
             case 95:
-                return 'Aprob. pend.';
+                return 'Presentado';
             case 99:
                 return 'No necesario';
             case 100:
@@ -376,4 +390,22 @@ class EstadoRequisito implements IEstadoRequisito
     {
         $this->FechaAprobado = $FechaAprobado;
     }
+
+    /**
+     * @ignore
+     */
+    public function getAdjuntos()
+    {
+        return $this->Adjuntos;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setAdjuntos($Adjuntos)
+    {
+        $this->Adjuntos = $Adjuntos;
+        return $this;
+    }
+ 
 }
