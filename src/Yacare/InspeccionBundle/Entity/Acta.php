@@ -94,7 +94,7 @@ abstract class Acta implements IActa
      * 
      * @var string
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ResponsableNombre;
     
@@ -104,14 +104,6 @@ abstract class Acta implements IActa
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Detalle;
-
-    /**
-     * Devuelve el nombre normalizado del tipo de acta.
-     */
-    public function getActaTipoNombre()
-    {
-        return self::ActaTipoNombres($this->getTipo());
-    }
     
     /**
      * Genera el nombre a mostrar.

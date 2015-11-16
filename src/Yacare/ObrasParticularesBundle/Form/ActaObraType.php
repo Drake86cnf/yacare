@@ -15,7 +15,7 @@ class ActaObraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('Talonario', null, array('label' => 'Talonario'))
+            //->add('Nombre', null, array('label' => 'Nombre del acta', 'required' => true))
             ->add('Numero', null, array('label' => 'Numero', 'required' => true))
             ->add('SubTipo', 'choice', array(
                 'choices' => array(
@@ -36,33 +36,19 @@ class ActaObraType extends AbstractType
             ->add('Partida', 'entity_id', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
-                'required' => false))
+                'required' => true))
             ->add('FuncionarioPrincipal', 'entity', array(
                 'label' => 'Inspector',
                 'property' => 'NombreVisible',
+                'placeholder' => 'Seleccione al inspector que intervino.',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
-                return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
+                    return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => true))
-            /*->add('Persona', 'entity_id', array(
-                'label' => 'Persona', 
-                'class' => 'Yacare\BaseBundle\Entity\Persona', 
-                'filters' => array('filtro_grupo' => 1), 
-                'required' => false))*/
             ->add('Detalle', null, array('label' => 'Detalle'))
             ->add('Obs', null, array('label' => 'Observaciones'))
-            /*->add('FuncionarioPrincipal', 'entity_id', array(
-                'label' => 'Funcionario Principal', 
-                'class' => 'Yacare\BaseBundle\Entity\Persona', 
-                'filters' => array('filtro_grupo' => 1), 
-                'required' => true))
-            ->add('FuncionarioSecundario', 'entity_id', array(
-                'label' => 'Funcionario Secundario', 
-                'class' => 'Yacare\BaseBundle\Entity\Persona', 
-                'filters' => array('filtro_grupo' => 1), 
-                'required' => false))*/
-            ->add('ResponsableNombre', null, array('label' => 'Responsable'))
+            ->add('ResponsableNombre', null, array('label' => 'Responsable', 'required' => false))
             ;
     }
 
@@ -74,6 +60,6 @@ class ActaObraType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_bromatologiabundle_actaobratype';
+        return 'yacare_obrasparticularesbundle_actaobratype';
     }
 }

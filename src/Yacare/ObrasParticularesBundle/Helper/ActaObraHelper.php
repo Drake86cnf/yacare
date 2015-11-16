@@ -1,14 +1,7 @@
 <?php
-namespace Yacare\InspeccionBundle\Helper;
+namespace Yacare\ObrasParticularesBundle\Helper;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-
-/**
- * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en las actas.
- *
- * @author Ernesto Carrea <ernestocarrea@gmail.com>
- */
-class ActaHelper extends \Yacare\BaseBundle\Helper\Helper
+class ActaObraHelper extends \Yacare\BaseBundle\Helper\Helper
 {
     function __construct($em = null)
     {
@@ -26,6 +19,13 @@ class ActaHelper extends \Yacare\BaseBundle\Helper\Helper
                 array('Clase' => $NombreClase));
             
             $entity->setActaTipo($ActaTipo);
+            $entity->setNombre('Acta de Obra Nº ' . $entity->getNumero());
+        } else {
+            $entity->setNombre('Acta de Obra');
         }
+        $entity->setNombre('Acta de Obra Nº ' . $entity->getNumero());
+        var_dump($entity->getNOmbre());
+        echo 'estoy aca';
+        print_r('prueba de prin_r');
     }
 }

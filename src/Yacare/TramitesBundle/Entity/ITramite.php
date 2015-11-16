@@ -1,6 +1,11 @@
 <?php
 namespace Yacare\TramitesBundle\Entity;
 
-interface ITramite {
-
+/**
+ * Interface para trámite.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
+interface ITramite
+{
 }

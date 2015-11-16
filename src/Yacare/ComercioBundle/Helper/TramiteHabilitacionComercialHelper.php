@@ -1,12 +1,6 @@
 <?php
 namespace Yacare\ComercioBundle\Helper;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-
 /**
  * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en los trámites de habilitación comercial.
  *
@@ -14,21 +8,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
+    function __construct($em = null)
+    {
         parent::__construct($em);
     }
-    
-    public function PreUpdatePersist($tramite, $args = null) {
+
+    public function PreUpdatePersist($tramite, $args = null)
+    {
         $Comercio = $tramite->getComercio();
         
         if ($Comercio) {
-            if(!$Comercio->getTitular()) {
+            if (! $Comercio->getTitular()) {
                 // Si el comercio no tiene un titular, le asigno el mismo titular que el trámite de habilitación
                 $Comercio->setTitular($tramite->getTitular());
-    
+                
                 // También el apoderado
                 $Comercio->setApoderado($tramite->getApoderado());
-            
+                
                 $this->em->persist($Comercio);
             }
             
@@ -36,18 +32,18 @@ class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helpe
             
             // Actualizo el uso de suelo para el trámite
             if ($Local) {
-                if($Local && $Local->getPartida()) {
-                    $tramite->setUsoSuelo($this->ObtenerPeorUsoSuelo($Local->getPartida()->getZona(), $Comercio->getActividades()));
+                if ($Local && $Local->getPartida()) {
+                    $tramite->setUsoSuelo(
+                        $this->ObtenerPeorUsoSuelo($Local->getPartida()
+                            ->getZona(), $Comercio->getActividades()));
                 }
-            }
-            
+            }            
             $tramite->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
         } else {
             $tramite->setNombre('Trámite de habilitación');
         }
     }
-    
-    
+
     /**
      * Obtiene el peor uso de suelo para un conjunto de actividades en una zona determinada.
      * 
@@ -56,27 +52,28 @@ class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helpe
      * @param Yacare\CatastroBundle\Entity\Zona $Zona
      * @param Yacare\ComercioBundle\Entity\Actividad[] $Actividades
      */
-    public function ObtenerPeorUsoSuelo($Zona, $Actividades) {
-        $UsosSuelo = $this->em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')->getResult();
+    public function ObtenerPeorUsoSuelo($Zona, $Actividades)
+    {
+        $UsosSuelo = $this->em->createQuery(
+            'SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')->getResult();
         
         $PeorUsoSuelo = 0;
-        if($Zona) {
+        if ($Zona) {
             // Recorrer las actividades en buscar del peor uso de suelo
-            foreach($Actividades as $Actividad) {
+            foreach ($Actividades as $Actividad) {
                 $CodigoCpu = $Actividad->getCodigoCpu();
-                if($CodigoCpu) {
-                    foreach($UsosSuelo as $UsoSuelo) {
-                        if($UsoSuelo->getCodigo() == $CodigoCpu) {
+                if ($CodigoCpu) {
+                    foreach ($UsosSuelo as $UsoSuelo) {
+                        if ($UsoSuelo->getCodigo() == $CodigoCpu) {
                             $Uso = $UsoSuelo->getUsoZona($Zona->getId());
-                            if($Uso > $PeorUsoSuelo) {
+                            if ($Uso > $PeorUsoSuelo) {
                                 $PeorUsoSuelo = $Uso;
                             }
                         }
                     }
                 }
             }
-        }
-        
+        }        
         return $PeorUsoSuelo;
     }
 }
