@@ -14,15 +14,17 @@ abstract class Helper implements IHelper
     protected $Entidad;
     protected $EsActualizacion;
     protected $Argumentos;
-    
-    function __construct($em = null) {
-        if($em) {
+
+    function __construct($em = null)
+    {
+        if ($em) {
             $this->em = $em;
         }
     }
-    
+
     /**
      * Atrapa llamadas de lifecycle, extrae la entidad y el EM y llama a una función propia.
+     * 
      * @param LifecycleEventArgs $args
      */
     public function LifecycleEvent(LifecycleEventArgs $args)

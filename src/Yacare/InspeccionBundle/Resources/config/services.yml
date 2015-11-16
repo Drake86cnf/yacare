@@ -1,0 +1,7 @@
+services:
+    yacare.inspeccion.inspeccion_listener:
+        class: Yacare\InspeccionBundle\EventListener\InspeccionListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+            - { name: doctrine.event_subscriber }

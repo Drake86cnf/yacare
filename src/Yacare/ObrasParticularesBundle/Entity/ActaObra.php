@@ -12,9 +12,14 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_ActaObra")
  */
-class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
+class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 {
     use \Yacare\CatastroBundle\Entity\ConPartida;
+    
+    public function __construct()
+    {
+        $this->Nombre = 'Acta de obra nueva';
+    }
     
     /**
      * La falta tipificada, o null si no está tipificada.
