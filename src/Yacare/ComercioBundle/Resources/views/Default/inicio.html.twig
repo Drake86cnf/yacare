@@ -5,6 +5,77 @@
 {% block pagina_contenido %}
 <div class="container-fluid"><div class="row">
 
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Comercios</h2>
+        </div>
+        <div class="panel-body">
+            <p>Búsqueda de comercios habilitados, no habilitados, con habilitación en trámite
+             y otros.</p>
+            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_comercio_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar comercio" />
+            </form>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', res.Arrastre) }}">Listado de comercios
+            	{% if res.Comercios|length > 0 %}<span class="badge">{{ res.Comercios|length }}</span>{% endif %}</a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Locales comerciales<span class="badge">{{ res.Locales|length }}</span></a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', res.Arrastre) }}">Certificados de habilitación</a>
+        </ul>
+    </div></div>
+    
+    
+    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-red">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Contribuyentes</h2>
+        </div>
+        <div class="panel-body">
+            <p>Búsqueda de personas físicas y jurídicas.</p>
+            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_base_persona_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar persona" />
+            </form>
+        </div>
+    </div></div>
+    
+    
+    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Locales</h2>
+        </div>
+        <div class="panel-body">
+            <p>Búsqueda de locales de uso comercial.</p>
+            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_local_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar local" />
+            </form>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Ver todos los
+            	locales</a>
+        </ul>
+    </div></div>
+    
+    
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Actividades económicas</h2>
+        </div>
+        <div class="panel-body">
+            <p>Busqueda de actividades económicas por código de ClaNAE o por nombre.</p>
+            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_actividad_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar actividad" />
+            </form>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_actividad_listar', res.Arrastre) }}">Nomenclador
+            	completo</a>
+        </ul>
+    </div></div>
+    
+
 	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
         <div class="panel-heading">
         	<h2 class="panel-title">Trámites</h2>
@@ -21,41 +92,8 @@
             <a class="list-group-item" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', res.Arrastre) }}"><i class="fa fa-play fa-fw"></i> Iniciar un trámite nuevo</a>
         </ul>
     </div></div>
-    
-<div class="container-fluid"><div class="row">
 
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Comercios</h2>
-        </div>
-        <div class="panel-body">
-            <p>Búsqueda de comercios habilitados, no habilitados, con habilitación en trámite
-             y otros.</p>
-            <input type="text" class="form-control pull-rigth" placeholder="buscar comercio" />
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', res.Arrastre) }}">Listado de comercios
-            	{% if res.Comercios|length > 0 %}<span class="badge">{{ res.Comercios|length }}</span>{% endif %}</a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Locales comerciales<span class="badge">{{ res.Locales|length }}</span></a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', res.Arrastre) }}">Certificados de habilitación</a>
-        </ul>
-    </div></div>
-    
-<div class="container-fluid"><div class="row">
 
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Actividades económicas</h2>
-        </div>
-        <div class="panel-body">
-            <p>Busqueda de tramites de habilitacion comercial iniciados. 
-             Los tramites activos son aquellos que estan en estado de "en tramite",
-             Los tramites son instransferibles.</p>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_actividad_listar', res.Arrastre) }}">Actividades comerciales</a>
-        </ul>
-    </div></div>
+
 </div></div>
-</div>
 {% endblock pagina_contenido %}
