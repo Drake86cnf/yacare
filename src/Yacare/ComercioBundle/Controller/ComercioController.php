@@ -3,9 +3,7 @@ namespace Yacare\ComercioBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use Yacare\ComercioBundle\Entity\Actividad;
 
 /**
  * Controlador de comercio.
@@ -23,7 +21,7 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
      * @Route("altamanual/")
      * @Template()
      */
-    function altaManualAction(Request $request)
+    function altamanualAction(Request $request)
     {
         return $this->ArrastrarVariables($request);
     }
