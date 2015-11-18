@@ -10,6 +10,7 @@
 			<th>S</th>
 			<th>M</th>
 			<th>P</th>
+			<th>SP</th>
 			<th>UF</th>
 			<th>Zona</th>
 			<th>Detalle</th>
@@ -23,10 +24,10 @@
 			<td class="text-muted">{{ entity.Numero }}</td>
 			<td>{{ entity.Seccion }}</td>
 			<td>{{ entity.Macizo }}</td>
-			<td>{{ entity.Parcela }}</td>
-			<td class="text-muted">{{ entity.UnidadFuncional }}</td>
-			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{%
-				endif %}</td>
+			<td>{% if entity.Parcela != 0 %}{{ entity.Parcela }}{% endif %}</td>
+			<td>{% if entity.SubParcela != 0 %}{{ entity.SubParcela }}{% endif %}</td>
+			<td class="text-muted">{% if entity.UnidadFuncional != 0 %}{{ entity.UnidadFuncional }}{% endif %}</td>
+			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
 			<td class="text-muted">{{ entity.Domicilio }}</td>
 			<td class="text-muted">{{ entity.Titular }}</td>
 		</tr>

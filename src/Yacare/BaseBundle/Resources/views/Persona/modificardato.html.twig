@@ -3,18 +3,17 @@
 {% block pagina_titulo %}Solicitud de modificación{% endblock %}
 
 {% block pagina_inicio %}
-    {% set edit_form_action = baseroute ~ '_modificardato' %}
-    {{ form_start(edit_form, {
-            'action': path(edit_form_action, arrastre|merge({ 'id': entity.id, 'hisapi': 0, 'form': app.request.query.get('form') })),
+    {{ form_start(res.FormularioEditar, {
+            'action': path(res.ObtenerRutaAccionGuardar, res.Arrastre|merge({ 'id': res.Entidad.id, 
+            	'campo_nombre': campo_nombre, 'hisapi': 0 })),
             'method': 'POST',
-            'attr': { 'id': edit_form.vars.id }
+            'attr': { 'id': res.FormularioEditar.vars.id }
         }) }}
 {% endblock %}
 
 {% block pagina_contenido %}
-    {{ form_errors(edit_form) }}
-    {{ form_widget(edit_form) }}
-    {{ form_rest(edit_form) }}
+    {{ form_errors(res.FormularioEditar) }}
+    {{ form_rest(res.FormularioEditar) }}
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones %}
@@ -22,5 +21,5 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_fin %}
-    {{ form_end(edit_form) }}
+    {{ form_end(res.FormularioEditar, {'render_rest': false}) }}
 {% endblock %}
