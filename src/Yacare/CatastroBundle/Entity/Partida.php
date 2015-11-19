@@ -193,6 +193,23 @@ class Partida
         }
         return $res;
     }
+    
+    /**
+     * Devuevle una descripción textual abreviada de sección, macizo, parcela, subparcela, unidad funcional.
+     * @return string
+     */
+    public function getSmpuCorto()
+    {
+        $res = $this->getSeccion() . ' ' . $this->getMacizo() . ', parc. ' . $this->getParcela();
+        if ($this->getSubparcela()) {
+            $res .= ', subp. ' . $this->getSubparcela();
+        }
+        if ($this->UnidadFuncional > 0) {
+            $res .= ', UF ' . $this->UnidadFuncional;
+        }
+        return $res;
+    }
+    
 
     /**
      * Establece inteligentemente el nombre completo de la partida.
