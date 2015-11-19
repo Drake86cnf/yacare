@@ -10,118 +10,87 @@ use Tapir\BaseBundle\Helper\StringHelper;
  * 
  * @author Ernesto Nicolás Carrea <equistango@gmail.com>
  */
-class ImportadorPersonas extends Importador {
+class ImportadorPersonas extends Importador
+{
     use \Yacare\MunirgBundle\Helper\Importador\ConConexionAOracle;
+    use \Yacare\MunirgBundle\Helper\Importador\ConCalles;
     
-    function __construct($container, $em) {
+    public $GrupoContribuyentes;
+
+    function __construct($container, $em)
+    {
         parent::__construct($container, $em);
     }
 
-    public function Inicializar() {
+    public function Inicializar()
+    {
         parent::Inicializar();
         
         $this->ObtenerConexionAOracle();
+        
+        $this->GrupoContribuyentes = $this->em->getReference('YacareBaseBundle:PersonaGrupo', 3);
     }
-    
-    public function ObtenerRegistros($desde, $cantidad) {
-        $sql = $this->OracleVentana(
-            'SELECT * FROM RGR.VVU$INDIVIDUO', $desde, $cantidad);
+
+    public function ObtenerRegistros($desde, $cantidad)
+    {
+        $sql = $this->OracleVentana('SELECT * FROM RGR.VVU$INDIVIDUO I LEFT JOIN RGR.VVU$DOMICILIO D
+                ON I.DPOST_TG06300_ID=D.TG06300_ID', $desde, $cantidad);
         return $this->Dbmunirg->query($sql);
     }
-    
-    
-    public function ObtenerCantidadTotal() {
+
+    public function ObtenerCantidadTotal()
+    {
         $sql = 'SELECT COUNT(TG06100_ID) CANT FROM RGR.VVU$INDIVIDUO';
         $Registro = $this->Dbmunirg->query($sql)->fetch();
-        if($Registro) {
-            return (int)($Registro['CANT']); 
+        if ($Registro) {
+            return (int) ($Registro['CANT']);
         } else {
             return 0;
         }
     }
-    
-    
-    public function ImportarRegistro($Row) {
+
+    public function ImportarRegistro($Row)
+    {
         $resultado = new ResultadoLote();
         $resultado->Registros[] = $Row;
         
-        $Documento = StringHelper::ObtenerDocumento($Row['IND_IDENTIFICACION']);
-        $Apellido = StringHelper::Desoraclizar($Row['Q_APELLIDOS']);
-        $Nombre = StringHelper::Desoraclizar($Row['Q_NOMBRES']);
-        $RazonSocial = StringHelper::Desoraclizar($Row['J_RAZON_SOCIAL']);
-        $PersJur = false;
-        
-        if ($Documento[0] == 'CUIL' && (substr($Documento[1], 0, 3) == '30-' || substr($Documento[1], 0, 3) == '33-')) {
-            $Documento[0] = 'CUIT';
-            $PersJur = true;
+
+        if ($Row['INDIVIDUO_TIPO'] != 'PE' && $Row['INDIVIDUO_TIPO'] != 'PJ') {
+            $resultado->RegistrosIgnorados++;
+            return $resultado;
         }
         
-        if ($Row['DOCUMENTO_TIPO'] == 'DU') {
-            $Row['DOCUMENTO_TIPO'] = 'DNI';
+        $Documento = StringHelper::ObtenerDocumento($Row['TRIBUTARIA_ID']);
+        $Apellido = StringHelper::Desoraclizar($Row['APELLIDOS']);
+        $Nombre = StringHelper::Desoraclizar($Row['NOMBRES']);
+        $RazonSocial = StringHelper::Desoraclizar($Row['RAZON_SOCIAL']);
+        
+        if (! $Nombre && ! $Apellido && ! $RazonSocial) {
+            $resultado->RegistrosIgnorados++;
+            return $resultado;
         }
+        
+        //echo ($Nombre .'/'. $Apellido .'/'. $RazonSocial);
+        //echo "\n";
+        
+        $Row['TG06100_ID'] = (int) ($Row['TG06100_ID']);
+        $entity = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
+            array('Tg06100Id' => $Row['TG06100_ID']));
         
         $Cuilt = '';
         if ($Documento[0] == 'CUIL' || $Documento[0] == 'CUIT') {
             $Cuilt = str_replace('-', '', $Documento[1]);
-            if ($Row['DOCUMENTO_TIPO'] && $Row['DOCUMENTO_NRO']) {
-                $Documento[0] = $Row['DOCUMENTO_TIPO'];
-                $Documento[1] = $Row['DOCUMENTO_NRO'];
-            }
-        } else 
-            if ($Row['DOCUMENTO_TIPO'] == 'CUIL' || $Row['DOCUMENTO_TIPO'] == 'CUIT') {
-                $Cuilt = str_replace('-', '', $Row['DOCUMENTO_NRO']);
-            }
+        }
         
         if ($Documento[0] == 'CUIL') {
+            // Intento obtener el DNI del CUIL
             $Partes = explode('-', $Documento[1]);
             if (count($Partes) == 3) {
                 $Documento[0] = 'DNI';
                 $Documento[1] = (int) ($Partes[1]);
             }
         }
-        
-        if (! $Documento[1]) {
-            // No tengo documento, utilizo el campo TRIBUTARIA_ID
-            $Documento[0] = 'DNI';
-            $Partes = explode('-', $Documento[1]);
-            if (count($Partes) == 3) {
-                $Documento[1] = (int) ($Partes[1]);
-            } else {
-                $Documento[1] = trim($Row['TRIBUTARIA_ID']);
-            }
-        }
-        
-        if (! $Nombre && ! $Apellido) {
-            $Apellido = StringHelper::Desoraclizar($Row['NOMBRE']);
-        }
-        
-        if (! $Nombre && $Apellido && strpos($Apellido, '.') === false) {
-            $a = explode(' ', $Apellido, 2)[0];
-            $b = trim(substr($Apellido, strlen($a)));
-            $Nombre = $b;
-            $Apellido = $a;
-        }
-        
-        if ($RazonSocial) {
-            $NombreVisible = $RazonSocial;
-        } else {
-            if ($Nombre) {
-                $NombreVisible = $Apellido . ', ' . $Nombre;
-            } else {
-                $NombreVisible = $Apellido;
-            }
-        }
-        
-        $Row['TG06100_ID'] = (int) ($Row['TG06100_ID']);
-        $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
-        
-        if (! $Cuilt) {
-            $Cuilt = str_replace(array(' ', '-', '.'), '', $Row['J_IDENTIFICACION_TRIBUTARIA']);
-        }
-        
-        $entity = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-            array('Tg06100Id' => $Row['TG06100_ID']));
-        
+
         if ($entity == null && $Cuilt) {
             $entity = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(array('Cuilt' => $Cuilt));
         }
@@ -129,42 +98,85 @@ class ImportadorPersonas extends Importador {
         if ($entity == null) {
             $entity = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
                 array(
-                /* 'DocumentoTipo' => $TipoDocs[$Documento[0]], */
-                'DocumentoNumero' => $Documento[1]));
+                    /* 'DocumentoTipo' => $TipoDocs[$Documento[0]], */
+                    'DocumentoNumero' => $Documento[1]));
         }
         
         if ($entity == null) {
             $entity = new \Yacare\BaseBundle\Entity\Persona();
             $entity->setTg06100Id($Row['TG06100_ID']);
-            
-            $entity->setDomicilioCodigoPostal('9420');
-            if ($CodigoCalle) {
-                $entity->setDomicilioCalle($this->em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
-            }
-            $entity->setDomicilioCalleNombre(StringHelper::Desoraclizar($Row['CALLE']));
-            $entity->setDomicilioNumero($Row['NUMERO']);
-            $entity->setDomicilioPiso($Row['PISO']);
-            $entity->setDomicilioPuerta($Row['DEPARTAMENTO']);
-            
-            // Si no está en el grupo Contribuyentes, lo agrego
-            if ($entity->getGrupos()->contains($GrupoContribuyentes) == false) {
-                $entity->getGrupos()->add($GrupoContribuyentes);
-            }
-            if ($Row['Q_SEXO'] == 'F') {
-                $entity->setGenero(2);
-            } else 
-                if ($Row['Q_SEXO'] == 'M') {
-                    $entity->setGenero(1);
-                }
-            
-            $this->em->persist($entity);
-            $resultado->RegistrosNuevos++;
+            $resultado->RegistrosNuevos ++;
         } else {
-            $entity->setTg06100Id($Row['TG06100_ID']);
-            // $entity->setRazonSocial($RazonSocial);
-            $resultado->RegistrosActualizados++;
+            $resultado->RegistrosActualizados ++;
         }
         
+        if ($Documento[0] == 'CUIL' && (substr($Documento[1], 0, 3) == '30-' || substr($Documento[1], 0, 3) == '33-' ||
+             substr($Documento[1], 0, 3) == '34-')) {
+            $Documento[0] = 'CUIT';
+        }
+        
+        if(!$entity->getCuilt() && $Cuilt) {
+            $entity->setCuilt($Cuilt);
+        }
+        
+        if(!$entity->getDocumentoNumero()) {
+            $entity->setDocumentoNumero($Documento[1]);
+        }
+        
+        if(!$entity->getDocumentoTipo()) {
+            $entity->setDocumentoTipo(1);
+        }
+       
+        if(!$entity->getNombre()) {
+            $entity->setNombre($Nombre);
+        }
+        if(!$entity->getApellido()) {
+            $entity->setApellido($Apellido);
+        }
+        if(!$entity->getRazonSocial()) {
+            $entity->setRazonSocial($RazonSocial);
+        }
+
+        if(!$entity->getDomicilioCodigoPostal()) {
+            $entity->setDomicilioCodigoPostal('9420');
+        }
+        $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
+        if ($CodigoCalle && !$entity->getDomicilioCalle()) {
+            $Calle = $this->em->find('YacareCatastroBundle:Calle', $CodigoCalle);
+            if($Calle) {
+                $entity->setDomicilioCalle($Calle);
+            }
+        }
+        if(!$entity->getDomicilioCalleNombre()) {
+            $entity->setDomicilioCalleNombre(StringHelper::Desoraclizar($Row['CALLE']));
+        }
+        if(!$entity->getDomicilioNumero()) {
+            $entity->setDomicilioNumero($Row['NUMERO']);
+        }
+        if(!$entity->getDomicilioPiso()) {
+            $entity->setDomicilioPiso($Row['PISO']);
+        }
+        if(!$entity->getDomicilioPuerta()) {
+            $entity->setDomicilioPuerta($Row['DEPTO']);
+        }
+
+        $entity->getNombreVisible();
+        
+        // Si no está en el grupo Contribuyentes, lo agrego
+        //if ($entity->getGrupos()->contains($this->GrupoContribuyentes) == false) {
+        //    $entity->getGrupos()->add($this->GrupoContribuyentes);
+        //}
+        if ($Row['SEXO'] == 'F') {
+            $entity->setGenero(2);
+        } elseif ($Row['SEXO'] == 'M') {
+            $entity->setGenero(1);
+        }
+
+            
+        $entity->setTg06100Id($Row['TG06100_ID']);
+
+        $this->em->persist($entity);
+        $this->em->flush();
         
         return $resultado;
     }

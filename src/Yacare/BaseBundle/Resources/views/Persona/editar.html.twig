@@ -2,10 +2,130 @@
 
 {% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nueva persona{% endif %}{% endblock %}
 
+{% block pagina_contenido %}
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#persona_basicos" aria-controls="persona_basicos" role="tab" data-toggle="tab">Generales</a></li>
+    <li role="presentation"><a href="#persona_contacto" aria-controls="persona_contacto" role="tab" data-toggle="tab">Contacto</a></li>
+    <li role="presentation"><a href="#persona_grupos" aria-controls="persona_grupos" role="tab" data-toggle="tab">Grupos</a></li>
+    <li role="presentation"><a href="#persona_otros" aria-controls="persona_otros" role="tab" data-toggle="tab">Otros datos</a></li>
+  </ul>
+&nbsp;
+  <!-- Tab panes -->
+  <div class="tab-content" style="min-height: 320px">
+    <div role="tabpanel" class="tab-pane active" id="persona_basicos">
+
+{# ***************************************************************************************************************** 
+   *** Tab 1: básicos #}
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Tipo</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.TipoSociedad) }}</div>
+    <label class="col-sm-2 control-label" id="persona_cuilt">CUIL</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.Cuilt) }}</div>
+</div>
+
+
+<div class="row form-group mostrar-persona-fisica" id="persona_nombre_apellido">
+	<label class="col-sm-2 control-label">Nombres</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.Nombre) }}</div>
+    <label class="col-sm-2 control-label">Apellidos</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.Apellido) }}</div>
+</div>
+
+<div class="row form-group mostrar-persona-fisica">
+	<label class="col-sm-2 control-label">Nacionalidad</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.Pais) }}</div>
+	<label class="col-sm-2 control-label">Fecha de nacimiento</label>
+    <div class="col-sm-4">{{ form_widget(edit_form.FechaNacimiento) }}</div>
+</div>
+
+<div class="row form-group mostrar-persona-fisica">
+	<label class="col-sm-2 control-label">Género</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Genero) }}</div>
+</div>
+
+<div class="row form-group mostrar-persona-fisica">
+	<label class="col-sm-2 control-label">Documento</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Documento) }}</div>
+</div>
+
+<div class="row form-group mostrar-persona-juridica" id="persona_razonsocial">
+	<label class="col-sm-2 control-label">Razón social</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.RazonSocial) }}</div>
+</div>
+
+<div class="row form-group" id="persona_razonsocial">
+	<label class="col-sm-2 control-label">Ingresos Brutos</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Nib) }}</div>
+</div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="persona_contacto">
+{# ***************************************************************************************************************** 
+   *** Tab 2: Contacto #} 
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Dimicilio</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Domicilio) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Teléfonos</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.TelefonoNumero) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Correo electrónico</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Email) }}</div>
+</div>
+
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="persona_grupos">
+{# ***************************************************************************************************************** 
+   *** Tab 3: Grupos y roles #}
+   
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Grupos</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.Grupos) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Roles</label>
+    <div class="col-sm-10">{{ form_widget(edit_form.UsuarioRoles) }}</div>
+</div>
+
+	</div>
+    <div role="tabpanel" class="tab-pane" id="persona_otros">
+{# ***************************************************************************************************************** 
+   *** Tab 4: otros #}
+{{ form_rest(edit_form) }}
+    </div>
+  </div>
+
+</div>
+{% endblock pagina_contenido %}
+
 {% block pagina_scripts %}
 {{ parent() }}
     
 <script>
+$(function() {
+	$('#yacare_basebundle_personatype_TipoSociedad').change(function() {
+		if($('#yacare_basebundle_personatype_TipoSociedad').val() > 0) {
+			$('#persona_cuilt').text("CUIT");
+			$('.mostrar-persona-fisica').hide();
+			$('.mostrar-persona-juridica').show();
+		} else {
+			$('#persona_cuilt').text("CUIL");
+			$('.mostrar-persona-fisica').show();
+			$('.mostrar-persona-juridica').hide();
+		}
+	});
+
     $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change(function() {
         if($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val()) {
             $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').hide();
@@ -14,6 +134,8 @@
         }
     });
     
+    $('#yacare_basebundle_personatype_TipoSociedad').change();
     $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change();
+});
 </script>
 {% endblock %}

@@ -32,7 +32,7 @@
 			<h2>Por calle y altura</h2>
 			<div class="form-group form-inline">
 				<select class="form-control tapir-input-320" id="filtro_calle" name="filtro_calle"
-					placeholder="Nombre de la calle">
+					placeholder="Nombre de la calle" data-toggle="select">
 					<option value="0">Seleccione una calle</option> {% for entity in
 					calles %}
 					<option value="{{ entity.id }}"
@@ -89,14 +89,14 @@
 
 {% if entities is defined and entities|length > 0 %}
 &nbsp;
-<table class="table table-condensed table-hoverselect">
+<table class="table table-hoverselect">
 	<tbody>
 		{% for entity in entities %}
-		<tr
-			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
+		<tr onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
 			<td><i class="fa fa-angle-right"></i></td>
 			<td>{{ entity.Numero }}</td>
-			<td>{{ entity.Nombre }}</td>
+			<td>{{ entity.Domicilio }}</td>
+			<td class="text-muted">{{ entity.SmpuCorto }}</td>
 			<td><small class="text-muted">{{ entity.Titular }}</small></td>
 		</tr>
 		{% endfor %}

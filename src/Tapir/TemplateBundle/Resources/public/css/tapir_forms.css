@@ -12,8 +12,12 @@
 	line-height: 1.42857;
 }
 
+.form-control {
+	font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 11pt;
+}
+
 input, select, textarea {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	border-radius: 0px !important;
 	/* vertical-align: middle;
     border: 1px solid rgb(204, 204, 204);
