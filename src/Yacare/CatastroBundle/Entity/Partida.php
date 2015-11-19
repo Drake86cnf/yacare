@@ -155,6 +155,16 @@ class Partida
     private $Legajo;
     
     /**
+     * El id original en la tabla del SiGeMI.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Tg06100Id;
+    
+    
+    /**
      * Devuelve el combinado de MacizoAlfa y MacizoNum.
      */
     public function getMacizo()
@@ -502,6 +512,22 @@ class Partida
         $this->Personas = $Personas;
         return $this;
     }
- 
- 
+
+    /**
+     * @ignore
+     */
+    public function getTg06100Id()
+    {
+        return $this->Tg06100Id;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTg06100Id($Tg06100Id)
+    {
+        $this->Tg06100Id = $Tg06100Id;
+        return $this;
+    }
+
 }

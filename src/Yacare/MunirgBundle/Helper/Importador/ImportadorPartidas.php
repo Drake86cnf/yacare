@@ -67,9 +67,9 @@ class ImportadorPartidas extends Importador {
     
     public function ObtenerRegistros($desde, $cantidad) {
         $sql = $this->OracleVentana(
-            'SELECT * FROM RGR.VVU$CATASTRO 
-                LEFT JOIN RGR.VVU$DOMICILIO
-                    ON RGR.VVU$DOMICILIO.TG06300_ID=RGR.VVU$CATASTRO.DPROP_TG06300_ID'
+            'SELECT C.*, D.*, I.TG06100_TG06100_ID FROM RGR.VVU$CATASTRO C
+                LEFT JOIN RGR.VVU$DOMICILIO D ON D.TG06300_ID=C.DPROP_TG06300_ID
+                LEFT JOIN RGR.VVU$REL_CAT_IND I ON I.TR3A100_ID=C.TR3A100_ID'
             , $desde, $cantidad);
         return $this->Dbmunirg->query($sql);
     }
@@ -196,6 +196,16 @@ class ImportadorPartidas extends Importador {
             $entity->setDomicilioPiso(trim($Row['PISO']));
             $entity->setDomicilioPuerta(trim($Row['DEPTO']));
             $entity->setNumero((int) ($Row['PARTIDA']));
+            
+            $Tg06100Id = trim($Row['TG06100_TG06100_ID']);
+            $Tg06100IdActual = $entity->getTg06100Id();
+            if($Tg06100IdActual) {
+                if(strpos($Tg06100IdActual, $Tg06100Id) === false) {
+                    $entity->setTg06100Id($Tg06100IdActual . ','. $Tg06100Id);
+                }
+            } else {
+                $entity->setTg06100Id($Tg06100Id);
+            }
         
             // $entity->setImportSrc('dbmunirg.TR3A100');
             // $entity->setImportId($Row['TR3A100_ID']);
