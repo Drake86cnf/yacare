@@ -31,7 +31,7 @@
 			<td class="text-muted">{{ entity.Domicilio }}</td>
 			<td class="text-muted">{% if entity.Titular %}
 			    {{ entity.Titular }}
-			{% else %}
+			{% elseif entity.Tg06100Id %}
 				TG06100 {{ entity.Tg06100Id }}
 			{% endif %}</td>
 		</tr>
