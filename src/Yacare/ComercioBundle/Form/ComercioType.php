@@ -17,17 +17,18 @@ class ComercioType extends ComercioSimpleType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+            ->add('Titular', 'entity_id', array(
                 'label' => 'Titular',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
             ->add('Estado', 'choice', array(
                 'label' => 'Estado',
                 'required' => true,
                 'choices' => array(
                     0 => 'No habilitado',
-                    1 => 'Habilitación en trámite',
+                    1 => 'Hab. en trámite',
                     90 => 'Cerrado',
-                    91 => 'Habilitación vencida',
+                    91 => 'Hab. vencida',
                     100 => 'Habilitado')));
     }
 
