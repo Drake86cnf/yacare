@@ -550,4 +550,8 @@ $(document).ready(function() {
 			$(this).remove();
 		});
 	}, 15000);
+	
+	// Fix para búsqueda en Select2 en un modal de Bootstrap 3.3.5.
+	// Quitar cuando bootstrap solucione el problema
+	$.fn.modal.Constructor.prototype.enforceFocus =function(){};
 });
