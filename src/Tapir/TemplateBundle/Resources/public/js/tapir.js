@@ -399,7 +399,7 @@ function tapirEntitySelect(element) {
         placeholder: function(element) {
             return $(element).data('placeholder');
         },
-        width: 'style',
+        width: 'resolve',
         allowClear: allowclear,
         multiple: allowmultiple,
         ajax: {
