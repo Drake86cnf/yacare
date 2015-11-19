@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  */
 class StringHelper
 {
+
     /**
      * Devuelve el nombre, normalizado, de un mes.
      * 
@@ -70,7 +71,7 @@ class StringHelper
         if (strlen($res[1]) > 10 && substr($res[1], - 10) == 'Controller') {
             // Quitar la palabra 'Controller' del nombre del controlador
             $res[1] = substr($res[1], 0, strlen($res[1]) - 10);
-        }        
+        }
         return $res;
     }
 
@@ -124,20 +125,18 @@ class StringHelper
             } else 
                 if ($v == 'DU') {
                     $Tipo = 'DNI';
-                } else 
-                    if ($v == 'DU' || $v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
-                        $Tipo = $v;
-                    } else {
-                        $Numero = $v;
-                    }
+                } elseif ($v == 'SC' || $v == 'CI' || $v == 'LC' || $v == 'LE') {
+                    $Tipo = $v;
+                } else {
+                    $Numero = $v;
+                }
             
             if (strpos($Numero, '-')) {
                 $Tipo = 'CUIL';
-            } else 
-                if (! $Tipo || $Tipo = 'SC') {
-                    $Tipo = 'DNI';
-                }
-        }        
+            } elseif (! $Tipo || $Tipo = 'SC') {
+                $Tipo = 'DNI';
+            }
+        }
         return array($Tipo, ltrim($Numero, '0'));
     }
 
@@ -217,7 +216,7 @@ class StringHelper
                 array_push($newwords, $word);
             }
             $string = join($delimiter, $newwords);
-        }        
+        }
         return $string;
     }
 
@@ -294,7 +293,7 @@ class StringHelper
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
-        }        
+        }
         return trim(str_replace('  ', ' ', $text));
     }
 
@@ -483,7 +482,7 @@ class StringHelper
         
         foreach ($remplazos as $buscar => $remplazar) {
             $text = str_ireplace(' ' . $buscar . ' ', ' ' . $remplazar . ' ', $text);
-        }        
+        }
         return trim($text);
     }
 
@@ -539,7 +538,7 @@ class StringHelper
         if (count($PartesNumero) == 2) {
             $PartesNombre[1] = trim($PartesNumero[0]);
             $PartesNombre[2] = trim($PartesNumero[1]);
-        }       
+        }
         return $PartesNombre;
     }
 }
