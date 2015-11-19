@@ -142,7 +142,11 @@ class ImportadorPersonas extends Importador
         }
         $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
         if ($CodigoCalle && !$entity->getDomicilioCalle()) {
-            $entity->setDomicilioCalle($this->em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
+            $Calle = $this->em->find('YacareCatastroBundle:Calle', $CodigoCalle);
+            if($Calle) {
+                echo $CodigoCalle . '=' . $Calle;
+                $entity->setDomicilioCalle($Calle);
+            }
         }
         if(!$entity->getDomicilioCalleNombre()) {
             $entity->setDomicilioCalleNombre(StringHelper::Desoraclizar($Row['CALLE']));
