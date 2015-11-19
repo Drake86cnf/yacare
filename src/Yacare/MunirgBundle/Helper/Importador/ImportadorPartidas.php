@@ -86,6 +86,27 @@ class ImportadorPartidas extends Importador {
     }
     
     
+    public function ObtenerTitularesPorId($tr3a100_id) {
+        $res = array();
+        
+        $sql = 'SELECT * FROM RGR.VVU$REL_CAT_IND WHERE TR3A100_ID=' . $tr3a100_id;
+        $RegistrosTitulares = $this->Dbmunirg->query($sql);
+        foreach ($RegistrosTitulares as $RegistroTitular) {
+            if($RegistroTitular['ASOCIACION_TIPO'] == 'TIT') {
+                $tg06100_id = (int)($RegistroTitular['TG06100_TG06100_ID']);
+                $Persona = $this->em->getRepository('Yacare\BaseBundle\Entity\Persona')->findOneBy(array(
+                    'Tg06100Id' => $tg06100_id 
+                ));
+                
+                if($Persona) {
+                    $res[] = $Persona;
+                }
+            }
+        }
+        return $res;
+    }
+    
+    
     public function ImportarRegistro($Row) {
         $resultado = new ResultadoLote();
         $resultado->Registros[] = $Row;
@@ -161,42 +182,15 @@ class ImportadorPartidas extends Importador {
             } else {
                 $entity->setZona(null);
             }
-        
-            /* $Row['DOCUMENTO_NRO'] = str_replace(array(' ', '-', '.'), '', $Row['DOCUMENTO_NRO']);
-            $Row['IDENTIFICACION_TRIBUTARIA'] = str_replace(array(' ', '-', '.'), '',
-                $Row['IDENTIFICACION_TRIBUTARIA']);
-        
-            if ($Row['TIT_TG06100_ID'] || $Row['DOCUMENTO_NRO'] || $Row['IDENTIFICACION_TRIBUTARIA']) {
-                $titular = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                    array('Tg06100Id' => $Row['TIT_TG06100_ID']));
-                if (! $titular && $Row['DOCUMENTO_NRO']) {
-                    $titular = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                        array('DocumentoNumero' => $Row['DOCUMENTO_NRO']));
-                    if (! $titular) {
-                        $titular = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('Cuilt' => $Row['DOCUMENTO_NRO']));
-                    }
-                }
-                if (! $titular && $Row['IDENTIFICACION_TRIBUTARIA']) {
-                    $titular = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                        array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
-                    if (! $titular) {
-                        $titular = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
-                            array('Cuilt' => $Row['IDENTIFICACION_TRIBUTARIA']));
-                    }
-                }
-                $entity->setTitular($titular);
-                if ($titular) {
-                        $resultado->AgregarMensaje("Titular encontrado " . $Row['TIT_TG06100_ID'] . ': ' . $titular);
-                } else {
-                        $resultado->AgregarMensaje("Titular NO encontrado " . $Row['TIT_TG06100_ID'] . ', doc ' . $Row['DOCUMENTO_NRO'] .
-                            ', it ' . $Row['IDENTIFICACION_TRIBUTARIA']);
-                }
+            
+            $Titulares = $this->ObtenerTitularesPorId($Row['TR3A100_ID']);
+            if(count($Titulares) >= 1) {
+                $entity->setTitular($Titulares[0]);
             } else {
-                $resultado->AgregarMensaje("*** Sin titular " . $Row['TIT_TG06100_ID']);
                 $entity->setTitular(null);
-            } */
+            }
         
+
             $entity->setUnidadFuncional($UnidadFuncional);
             $entity->setDomicilioNumero((int) ($Row['NUMERO']));
             $entity->setDomicilioPiso(trim($Row['PISO']));
