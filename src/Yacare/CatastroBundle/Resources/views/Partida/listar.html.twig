@@ -29,7 +29,11 @@
 			<td class="text-muted">{% if entity.UnidadFuncional != 0 %}{{ entity.UnidadFuncional }}{% endif %}</td>
 			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
 			<td class="text-muted">{{ entity.Domicilio }}</td>
-			<td class="text-muted">{{ entity.Titular }}</td>
+			<td class="text-muted">{% if entity.Titular %}
+			    {{ entity.Titular }}
+			{% else %}
+				TG06100 {{ entity.Tg06100Id }}
+			{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
