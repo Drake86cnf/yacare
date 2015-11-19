@@ -22,12 +22,13 @@ class ComercioSimpleType extends AbstractType
             ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), array(
                 'label' => 'Expediente',
                 'required' => false))
-            ->add('Apoderado', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+            ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
-                'placeholder' => 'Apoderado',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => false))
-            ->add('Local', new \Yacare\ComercioBundle\Form\Type\LocalType(), array(
+            ->add('Local', 'entity_id', array(
                 'label' => 'Local',
+                'class' => 'Yacare\ComercioBundle\Entity\Local',
                 'required' => false))
             ->add('Actividad1', 'entity_id', array(
                 'label' => 'Actividad 1',

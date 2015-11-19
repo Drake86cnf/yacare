@@ -32,14 +32,15 @@ class LocalController extends \Tapir\AbmBundle\Controller\AbmController
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
 
         if ($filtro_buscar) {
-            $this->Joins[] = " JOIN r.Partida p";
-            $this->Joins[] = " JOIN p.Titular t";
+            $this->Joins[] = " LEFT JOIN r.Partida p";
+            $this->Joins[] = " LEFT JOIN p.Titular t";
 
             // Busco por varias palabras
             // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
             foreach ($palabras as $palabra) {
-                $this->Where .= " AND (p.Nombre LIKE '%$palabra%'
+                $this->Where .= " AND (r.Nombre LIKE '%$palabra%'
+                    OR p.Nombre LIKE '%$palabra%'
                     OR t.NombreVisible LIKE '%$palabra%'
                     OR t.RazonSocial LIKE '%$palabra%'
                     OR t.DocumentoNumero LIKE '%$palabra%'
