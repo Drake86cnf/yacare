@@ -97,7 +97,7 @@
 			<td>{{ entity.Numero }}</td>
 			<td>{{ entity.Domicilio }}</td>
 			<td class="text-muted">{{ entity.SmpuCorto }}</td>
-			<td><small class="text-muted">{{ entity.Titular }}</small></td>
+			<td class="text-muted">{{ entity.Titular }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -136,7 +136,7 @@
     }
 
     function buscarCalleAltura(a, b) {
-        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1 }))|raw }}', 'filtro_calle', a);
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1, 'filtro_macizo': null, 'filtro_seccion': null, 'filtro_partida': null }))|raw }}', 'filtro_calle', a);
         url = tapirAgregarElementoUri(url, 'filtro_calle_altura', b);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
             tapirCambiarDireccion(url);
@@ -147,7 +147,7 @@
     }
 
     function buscarSeccionMacizo(a, b) {
-        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1 }))|raw }}', 'filtro_seccion', a);
+        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null, "buscar": 1, 'filtro_calle': null, 'filtro_partida': null }))|raw }}', 'filtro_seccion', a);
         url = tapirAgregarElementoUri(url, 'filtro_macizo', b);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
             tapirCambiarDireccion(url);
