@@ -144,7 +144,6 @@ class ImportadorPersonas extends Importador
         if ($CodigoCalle && !$entity->getDomicilioCalle()) {
             $Calle = $this->em->find('YacareCatastroBundle:Calle', $CodigoCalle);
             if($Calle) {
-                echo $CodigoCalle . '=' . $Calle;
                 $entity->setDomicilioCalle($Calle);
             }
         }
