@@ -15,7 +15,7 @@
     	</thead>
     	<tbody>
     		{% for entidad in res.Entidades %}
-    		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entidad.Id }) }}">
+    		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': entidad.Id }) }}">
     			<td class="text-right">{{ entidad.Numero }}</td>
     			<td>{{ entidad.Subtipo }}</td>
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
