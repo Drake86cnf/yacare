@@ -487,7 +487,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      */
     public function getNombreVisible()
     {
-        if ($this->RazonSocial) {
+        /* if ($this->RazonSocial) {
             $this->NombreVisible = $this->RazonSocial;
         } else {
             if ($this->Apellido && $this->Nombre) {
@@ -499,8 +499,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
                     $this->NombreVisible = $this->Apellido;
                 }
             }
-        }
-        $this->NombreVisible = trim($this->NombreVisible, ',');
+        } */
         return $this->NombreVisible;
     }
 
