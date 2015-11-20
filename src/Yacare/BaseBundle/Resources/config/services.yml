@@ -9,3 +9,10 @@ services:
         arguments: [ '@doctrine' ]
         tags:
             - { name: form.type, alias: adjuntos }
+            
+    yacare.base.base_listener:
+        class: Yacare\BaseBundle\EventListener\BaseListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+            - { name: doctrine.event_subscriber }

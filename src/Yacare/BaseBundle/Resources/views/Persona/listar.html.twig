@@ -21,7 +21,7 @@
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
-			<td>{{ entity.Apellido ~ ', ' ~ entity.Nombre }}</td>
+			<td>{{ entity.NombreVisible }}</td>
 			<td class="hidden-print hidden-sm hidden-xs">{{ entity.CuiltODocumento }}</td>
 			<td>{{ entity.TelefonoNumero }}</td>
 			<td>{{ entity.Domicilio }}</td>
