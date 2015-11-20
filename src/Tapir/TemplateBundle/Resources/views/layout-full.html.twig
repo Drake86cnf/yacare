@@ -66,7 +66,8 @@
 
 			{% block pagina_inicio %}{% endblock %}
 			{% if not app.request.get('sinencab') %}
-			<div id="content-header" class="content-bar-row">
+			<div id="content-header" class="content-bar-row
+			    {% if tapir_titulo_noimprimible is defined and tapir_titulo_noimprimible %}hidden-print{% endif %}">
 				{% set block_pagina_titulo = block('pagina_titulo') %}
 				{% if block_pagina_titulo is not empty %}
 				<div class="content-bar-block-first pull-left">
