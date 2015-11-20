@@ -393,6 +393,8 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
                 return 'Asociación Sin Fines de Lucro';
             case '11':
                 return 'Entidad Gubernamental';
+            case '99':
+                return 'Otra persona jurídica';
             default:
                 return '???';
         }
@@ -477,49 +479,21 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
         }
         return $this->NombreAmigable();
     }
-
+    
     /**
-     * Construye un nombre visible.
-     *
-     * @see $NombreVisible $NombreVisible
-     *
-     * @return string
+     * Calcula un nombre para presentar, dependiendo de si es una persona física o jurídica.
      */
-    public function getNombreVisible()
-    {
-        /* if ($this->RazonSocial) {
-            $this->NombreVisible = $this->RazonSocial;
-        } else {
-            if ($this->Apellido && $this->Nombre) {
-                $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
-            } else {
-                if ($this->Nombre) {
-                    $this->NombreVisible = $this->Nombre;
-                } else {
-                    $this->NombreVisible = $this->Apellido;
-                }
-            }
-        } */
-        return $this->NombreVisible;
-    }
-
-    /**
-     * Establece el nombre visible.
-     *
-     * @param string $NombreVisible el nombre de preferencia para mostrar.
-     */
-    public function setNombreVisible($NombreVisible)
-    {
-        if ($this->RazonSocial) {
-            $this->NombreVisible = $this->RazonSocial;
+    public function CalcularNombreVisible() {
+        if ($this->getTipoSociedad() > 0 && $this->RazonSocial) {
+            $res = $this->RazonSocial;
         } elseif ($this->Apellido && $this->Nombre) {
-            $this->NombreVisible = $this->Apellido . ', ' . $this->Nombre;
+            $res = $this->Apellido . ', ' . $this->Nombre;
         } elseif ($this->Nombre) {
-            $this->NombreVisible = $this->Nombre;
+            $res = $this->Nombre;
         } else {
-            $this->NombreVisible = $this->Apellido;
+            $res = $this->Apellido;
         }
-        $this->NombreVisible = trim($this->NombreVisible, ',');
+        return trim($res, ", \t\0\x0B\r\n");
     }
 
     /**
@@ -1090,4 +1064,22 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
         $this->TipoSociedad = $TipoSociedad;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getNombreVisible()
+    {
+        return $this->NombreVisible;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNombreVisible($NombreVisible)
+    {
+        $this->NombreVisible = $NombreVisible;
+        return $this;
+    }
+ 
 }
