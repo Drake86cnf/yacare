@@ -57,7 +57,7 @@
         {% for entidad in res.Entidades %}
             <tr onclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape('js') }}'); return false;">
                 <td><i class="fa fa-caret-right showonhover"></i></td>
-                <td><span style="white-space: nowrap;">{{ entidad.Apellido ~ ', ' ~ entidad.Nombre }}</span></td>
+                <td><span style="white-space: nowrap;">{{ entidad.NombreVisible }}</span></td>
                 <td><span class="text-muted">{{ entidad.CuiltODocumento }}</span></td>
                 <td class="hidden-xs hidden-sm"><span class="text-muted">{{ entidad.Domicilio }}</span></td>
                 <td class="visible-lg"><small class="text-muted">{% for Nombre in entidad.Grupos %}<span
