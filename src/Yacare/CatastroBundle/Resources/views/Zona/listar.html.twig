@@ -11,8 +11,9 @@ pagina_titulo %}Zonas{% endblock %} {% block pagina_contenido %}
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
+		<tr {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO_EDITAR')") %}
+			data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"{% endif %}>
 			<td>{{ entity.Codigo }}</td>
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.Fos|number_format }}</td>
@@ -21,10 +22,14 @@ pagina_titulo %}Zonas{% endblock %} {% block pagina_contenido %}
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
-endblock %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_expr_granted("hasAnyRole('ROLE_CATASTRO_EDITAR')") %}
 <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva zona</a>
+{% endif %}
 {% endblock %}

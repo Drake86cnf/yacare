@@ -11,21 +11,24 @@
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="modal"
-			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+    		href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td>{{ entity.SangriaDeEspaciosDuros }} {{ entity.Nombre }}</td>
-			<td><ll
-					class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}">{{
-				entity.RangoNombre }}</ll></td>
+			<td><ll class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}"
+				>{{ entity.RangoNombre }}</ll></td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
 
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
-endblock %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
 <a data-toggle="ajax-link"
 	href="{{ path('yacare_organizacion_departamento_editar_1') }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo departamento</a>
+{% endif %}
 {% endblock %}

@@ -10,8 +10,8 @@ pagina_contenido %}
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}">
+		<tr {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO_ADMINISTRADOR')") %}data-toggle="ajax-link"
+			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"{% endif %}>
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.NombreAlternativo }}</td>
 		</tr>
