@@ -36,7 +36,10 @@ class PersonaType extends AbstractType
             ))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
             ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array('label' => 'Documento'))
-            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array('label' => 'CUIL/CUIT'))
+            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
+                'label' => 'CUIL/CUIT',
+                'required' => false
+            ))
             ->add('Nib',  null, array('label' => 'Ingresos Brutos'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
