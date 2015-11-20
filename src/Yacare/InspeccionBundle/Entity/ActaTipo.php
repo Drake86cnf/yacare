@@ -37,6 +37,11 @@ class ActaTipo implements IActaTipo
      */
     private $Clase;
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+    
     /**
      * @ignore
      */

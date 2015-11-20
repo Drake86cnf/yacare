@@ -15,7 +15,6 @@ class ActaObraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('Nombre', null, array('label' => 'Nombre del acta', 'required' => true))
             ->add('Numero', null, array('label' => 'Numero', 'required' => true))
             ->add('SubTipo', 'choice', array(
                 'choices' => array(
@@ -26,16 +25,24 @@ class ActaObraType extends AbstractType
                     'Suspensión' => 'Suspensión'), 
                 'required' => true, 
                 'label' => 'Tipo de acta'))
+            ->add('Profesional', 'entity_id', array(
+                'label' => 'Profesional',
+                'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
+                'required' => false))
             ->add('Fecha', 'date', array(
-                'years' => range(1900, 2099), 
+                'years' => range(2014, 2099), 
                 'input' => 'datetime', 
                 'format' => 'dd/MM/yyyy', 
-                'widget' => 'single_text', 
+                'widget' => 'choice', 
                 'label' => 'Fecha'))
-            ->add('Plazo', null, array('label' => 'Plazo', 'required' => true))
             ->add('Partida', 'entity_id', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
+                'required' => true))
+            ->add('TipoFalta', 'entity', array(
+                'class' => 'Yacare\ObrasParticularesBundle\Entity\Tipofalta',
+                'label' => 'El tipo de falta',
+                'placeholder' => 'Seleccione la falta',
                 'required' => true))
             ->add('FuncionarioPrincipal', 'entity', array(
                 'label' => 'Inspector',
@@ -46,16 +53,24 @@ class ActaObraType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => true))
+            ->add('Plazo', 'choice', array(
+                'choices' => array(
+                    '1' => '1 día',
+                    '5' => '5 días',
+                    '10' => '10 días',
+                    '30' => '30 días',
+                    '60' => '60 días',
+                    '90' => '90 días'
+                ),
+                'label' => 'Plazo'))
             ->add('Detalle', null, array('label' => 'Detalle'))
             ->add('Obs', null, array('label' => 'Observaciones'))
-            ->add('ResponsableNombre', null, array('label' => 'Responsable', 'required' => false))
             ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\ActaObra'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\ActaObra'));
     }
 
     public function getName()

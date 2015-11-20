@@ -1,4 +1,4 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %}
+{% extends 'TapirAbmBundle::imprimir.html.twig' %}
 
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
@@ -26,7 +26,15 @@
         	<div class="col-xs-3">{{ res.Entidad.Partida.Numero }}</div>
         	<div class="col-xs-4 text-right"><strong>Parcela:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Partida.Parcela }}</div>
-        </div> 
+        </div>
+        {% if res.Entidad.Profesional.Id is defined %}
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Profesional:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Persona.NombreVisible }}</div>
+        	<div class="col-xs-4 text-right"><strong>Mátricula:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Id }}</div>
+        </div>
+        {% endif %}
 	</div>
 	<ul class="list-group">
 		<li class="list-group-item"><h3 class="text-center">ACTA DE {{ res.Entidad.Subtipo|upper }}</h3></li>
@@ -45,13 +53,14 @@
     			<div class="row">
     				<div class="col-xs-12">
 						La {{ res.Entidad.Subtipo|lower }} detectó las siguientes Observaciones:
+						<p><strong>{{ res.Entidad.Tipofalta|upper }}</strong></p>
 					</div>
-				</div><br /><br /><br />
+				</div><br /><br /><br /><br />
 				<div class="row">
         			<div class="col-xs-12 col-sm-8 col-md-8"></div>
         			<div class="col-xs-12 col-sm-4 col-md-4">
-        				<div class="panel-wborder panel-default">
-        					<div class="panel-body">
+        				<div class="pull-right">
+        					<div class="center">
         						<p class="text-center">{{ firma }}<br /> FIRMA Y SELLO DEL INSPECTOR</p>
         					</div>
         				</div>
@@ -63,18 +72,17 @@
     		<div class="panel-body">
     			<div class="row">
     				<div class="col-xs-12">
-					Al haber tomado conocimeinto de las observaciones realizadas por el Depto. de Inspección de Obras 
+					Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección de Obras 
 					Particulares me comprometo en un plazo maximo de {{ res.Entidad.Plazo }} días a cumplimentar con lo
 					que se detalla a continuación:
+					<p><strong>{{ res.Entidad.TipoFalta.FaltaCompromiso|upper }}</strong</strong></p>
 					</div>
-				</div> <br /><br /><br />
+				</div> <br /><br /><br /><br />
 				<div class="row">
         			<div class="col-xs-12 col-sm-8 col-md-8"></div>
         			<div class="col-xs-12 col-sm-4 col-md-4">
-        				<div class="panel-wborder panel-default">
-        					<div class="panel-body">
-        						<p class="text-center">{{ firma }}<br /> PROPIETARIO / APODERADO</p>
-        					</div>
+        				<div class="pull-right">
+    						<p class="text-center">{{ firma }}<br /> PROPIETARIO / APODERADO</p>
         				</div>
         			</div>
         		</div>

@@ -90,15 +90,6 @@ abstract class Acta implements IActa
     protected $FuncionarioSecundario;
     
     /**
-     * Responsable a quién se le hace la notificación en caso de ausencia del propietario de la partida.
-     * 
-     * @var string
-     * 
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $ResponsableNombre;
-    
-    /**
      * @var string
      * 
      * @ORM\Column(type="text", nullable=true)

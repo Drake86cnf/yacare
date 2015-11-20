@@ -17,4 +17,30 @@ class TipoFalta
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
+    /**
+     * Representa el compromiso asumido, en base a la falta cometida.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $FaltaCompromiso;
+
+    /**
+     * @ignore
+     */
+    public function getFaltaCompromiso()
+    {
+        return $this->FaltaCompromiso;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFaltaCompromiso($FaltaCompromiso)
+    {
+        $this->FaltaCompromiso = $FaltaCompromiso;
+        return $this;
+    }
 }
