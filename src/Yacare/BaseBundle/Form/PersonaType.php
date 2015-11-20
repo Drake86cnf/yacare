@@ -30,7 +30,8 @@ class PersonaType extends AbstractType
                      '7' => 'Sociedad en Comandita Simple',
                      '9' => 'Cooperativa',
                      '10' => 'Asociación Sin Fines de Lucro',
-                     '11' => 'Entidad Gubernamental' 
+                     '11' => 'Entidad Gubernamental',
+                     '99' => 'Otra persona jurídica'
                  )
             ))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
