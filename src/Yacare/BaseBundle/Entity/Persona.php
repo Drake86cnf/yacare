@@ -22,7 +22,8 @@ use Tapir\BaseBundle\Entity\PersonaInterface;
  *         @ORM\Index(name="Base_Persona_ImportSrcId", columns={"ImportSrc", "ImportId"}),
  *         @ORM\Index(name="Base_Persona_Documento", columns={"DocumentoTipo", "DocumentoNumero"}),
  *         @ORM\Index(name="Base_Persona_Cuilt", columns={"Cuilt"}),
- *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"})
+ *         @ORM\Index(name="Base_Persona_NombreVisible", columns={"NombreVisible"}),
+ *         @ORM\Index(name="Base_Persona_Tg06100Id", columns={"Tg06100Id"})
  * })
  */
 class Persona implements PersonaInterface, UserInterface, \Serializable
