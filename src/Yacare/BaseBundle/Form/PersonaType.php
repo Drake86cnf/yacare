@@ -29,7 +29,9 @@ class PersonaType extends AbstractType
                      '6' => 'Sociedad Accidental o en Participación',
                      '7' => 'Sociedad en Comandita Simple',
                      '9' => 'Cooperativa',
-                     '10' => 'Asociación Sin Fines de Lucro')
+                     '10' => 'Asociación Sin Fines de Lucro',
+                     '11' => 'Entidad Gubernamental' 
+                 )
             ))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
             ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array('label' => 'Documento'))

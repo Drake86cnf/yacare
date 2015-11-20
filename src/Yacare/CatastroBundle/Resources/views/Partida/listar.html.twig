@@ -24,14 +24,14 @@
 			<td class="text-muted">{{ entity.Numero }}</td>
 			<td>{{ entity.Seccion }}</td>
 			<td>{{ entity.Macizo }}</td>
-			<td>{% if entity.Parcela != 0 %}{{ entity.Parcela }}{% endif %}</td>
-			<td>{% if entity.SubParcela != 0 %}{{ entity.SubParcela }}{% endif %}</td>
-			<td class="text-muted">{% if entity.UnidadFuncional != 0 %}{{ entity.UnidadFuncional }}{% endif %}</td>
+			<td>{% if entity.Parcela %}{{ entity.Parcela }}{% endif %}</td>
+			<td>{% if entity.SubParcela %}{{ entity.SubParcela }}{% endif %}</td>
+			<td class="text-muted">{% if entity.UnidadFuncional %}{{ entity.UnidadFuncional }}{% endif %}</td>
 			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
 			<td class="text-muted">{{ entity.Domicilio }}</td>
 			<td class="text-muted">{% if entity.Titular %}
 			    {{ entity.Titular }}
-			{% else %}
+			{% elseif entity.Tg06100Id %}
 				TG06100 {{ entity.Tg06100Id }}
 			{% endif %}</td>
 		</tr>
@@ -44,20 +44,20 @@
 {% if secciones %}
 {% set filtro_seccion = app.request.query.get('filtro_seccion') %}
 {% set filtro_macizo = app.request.query.get('filtro_macizo') %}
-{% set filtro_partida = app.request.query.get('filtro_partida') %}
+{% set filtro_buscar = app.request.query.get('filtro_buscar') %}
 <div class="input-group">
-	{% if not filtro_seccion %} <label class="sr-only" for="filtro_partida">Número de partida</label>
-		<input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_partida"
-		name="filtro_partida" placeholder="partida" value="{{ filtro_partida }}" style="max-width: 64px" />
-		{% if filtro_partida %}
+	{% if not filtro_seccion %} <label class="sr-only" for="filtro_buscar">Buscar</label>
+		<input class="form-control input-sm" type="text" size="10" maxlength="300" id="filtro_buscar"
+			name="filtro_buscar" placeholder="buscar" value="{{ filtro_buscar }}" style="max-width: 100px" />
+		{% if filtro_buscar %}
         	<button class="btn btn-primary btn-sm" type="button"
-        		onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_partida': '', 'page': null })) }}');">
+        		onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_buscar': '', 'page': null })) }}');">
         		<i class="fa fa-times-circle"></i>
         	</button>
     	{% endif %}
 	{% endif %}
 	&nbsp;
-	{% if not filtro_partida %}
+	{% if not filtro_buscar %}
 	<div class="btn-group">
 		<button type="button" class="btn btn-default btn-sm dropdown-toggle"
 			data-toggle="dropdown">
@@ -104,17 +104,17 @@
 </div>
 
 <script>
-$(document).ready(function() {
+$(function() {
     $("#filtro_macizo").keyup(function (e) {
         if (e.which === 13) {
             e.preventDefault();
             parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
         }
     });
-    $("#filtro_partida").keyup(function (e) {
+    $("#filtro_buscar").keyup(function (e) {
         if (e.which === 13) {
             e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_partida=' + $("#filtro_partida").val();
+            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_buscar=' + $("#filtro_buscar").val();
         }
     });
 });
