@@ -123,7 +123,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-    {% if is_granted('ROLE_ADMINISTRADOR') %}
+    {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
         <a data-toggle="ajax-link" class="btn btn-default hidden-print"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
         	<i class="fa fa-edit"></i> Editar</a>
