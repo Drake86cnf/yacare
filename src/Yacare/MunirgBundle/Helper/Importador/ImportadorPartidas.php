@@ -197,6 +197,7 @@ class ImportadorPartidas extends Importador {
             $entity->setDomicilioPuerta(trim($Row['DEPTO']));
             $entity->setNumero((int) ($Row['PARTIDA']));
             
+            // Guardo los TG06100_ID de los titulares de las partidas, para debug
             $Tg06100Id = trim($Row['TG06100_TG06100_ID']);
             $Tg06100IdActual = $entity->getTg06100Id();
             if($Tg06100IdActual) {

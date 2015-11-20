@@ -24,7 +24,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
 
         $this->ConservarVariables[] = 'filtro_seccion';
         $this->ConservarVariables[] = 'filtro_macizo';
-        $this->ConservarVariables[] = 'filtro_partida';
+        $this->ConservarVariables[] = 'filtro_buscar';
         $this->BuscarPor = 'Numero, Nombre';
         $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
@@ -60,48 +60,49 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         $filtro_calle_altura = $this->ObtenerVariable($request, 'filtro_calle_altura');
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
 
-        if ($filtro_seccion == '-') {
-            $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
-            $this->BuscarPor = null;
-        } elseif ($filtro_seccion) {
-            $this->Where .= " AND r.Seccion='$filtro_seccion'";
-            $this->BuscarPor = null;
-        }
-
-        if ($filtro_macizo) {
-            $this->Where .= " AND CONCAT(r.MacizoAlfa, r.MacizoNum) LIKE '$filtro_macizo'";
-            $this->BuscarPor = null;
-        }
-
-        if ($filtro_partida) {
-            $this->Where .= " AND r.Numero='$filtro_partida'";
-            $this->BuscarPor = null;
-        }
-
-        if ($filtro_calle) {
-            $this->Where .= " AND r.DomicilioCalle=$filtro_calle";
-            if ($filtro_calle_altura) {
-                $altura1 = $filtro_calle_altura - 30;
-                $altura2 = $filtro_calle_altura + 30;
-                $this->Where .= " AND r.DomicilioNumero BETWEEN $altura1 AND $altura2";
-            }
-            $this->BuscarPor = null;
-        }
-
         if ($filtro_buscar) {
             $this->Joins[] = " JOIN r.Titular p";
-
+        
             // Busco por varias palabras
             // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
             $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
             foreach ($palabras as $palabra) {
                 $this->Where .= " AND (p.NombreVisible LIKE '%$palabra%'
-                    OR p.RazonSocial LIKE '%$palabra%'
-                    OR p.DocumentoNumero LIKE '%$palabra%'
-                    OR p.Cuilt LIKE '%$palabra%')";
+                OR p.RazonSocial LIKE '%$palabra%'
+                OR p.DocumentoNumero LIKE '%$palabra%'
+                OR p.Cuilt LIKE '%$palabra%')";
             }
             $this->BuscarPor = null;
+        } else {
+            if ($filtro_seccion == '-') {
+                $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
+                $this->BuscarPor = null;
+            } elseif ($filtro_seccion) {
+                $this->Where .= " AND r.Seccion='$filtro_seccion'";
+                $this->BuscarPor = null;
+            }
+    
+            if ($filtro_macizo) {
+                $this->Where .= " AND CONCAT(r.MacizoAlfa, r.MacizoNum) LIKE '$filtro_macizo'";
+                $this->BuscarPor = null;
+            }
+    
+            if ($filtro_partida) {
+                $this->Where .= " AND r.Numero='$filtro_partida'";
+                $this->BuscarPor = null;
+            }
+    
+            if ($filtro_calle) {
+                $this->Where .= " AND r.DomicilioCalle=$filtro_calle";
+                if ($filtro_calle_altura) {
+                    $altura1 = $filtro_calle_altura - 30;
+                    $altura2 = $filtro_calle_altura + 30;
+                    $this->Where .= " AND r.DomicilioNumero BETWEEN $altura1 AND $altura2";
+                }
+                $this->BuscarPor = null;
+            }
         }
+        
 
         $res = parent::listarAction($request);
 
