@@ -55,7 +55,19 @@ class ImportadorPersonas extends Importador
         $resultado->Registros[] = $Row;
         
 
-        if ($Row['INDIVIDUO_TIPO'] != 'PE' && $Row['INDIVIDUO_TIPO'] != 'PJ') {
+        if ($Row['INDIVIDUO_TIPO'] != 'PE' && $Row['INDIVIDUO_TIPO'] != 'PJ'
+            && $Row['INDIVIDUO_TIPO'] != 'EN' && $Row['INDIVIDUO_TIPO'] != 'OT') {
+            $resultado->RegistrosIgnorados++;
+            return $resultado;
+        }
+        
+        if ($Row['NOMBRE_IND'] != 'NRO.DE CUENTA CEMENTERIO' || $Row['NOMBRE_IND'] != 'NN' 
+            || SUBSTR($Row['NOMBRE_IND'], 0, 3) != '???') {
+            $resultado->RegistrosIgnorados++;
+            return $resultado;
+        }
+        
+        if ((int)$Row['TRIBUTARIA_ID'] > 0 || (int)$Row['TRIBUTARIA_ID'] <= 9999) {
             $resultado->RegistrosIgnorados++;
             return $resultado;
         }
@@ -108,6 +120,37 @@ class ImportadorPersonas extends Importador
             $resultado->RegistrosNuevos ++;
         } else {
             $resultado->RegistrosActualizados ++;
+        }
+        
+        if($Row['TIPO_SOCIEDAD']) {
+            switch($Row['TIPO_SOCIEDAD']) {
+                case 'SA':
+                    $entity->setTipoSociedad(1);
+                    break;
+                case 'SRL':
+                    $entity->setTipoSociedad(8);
+                    break;
+                case 'SC':
+                    $entity->setTipoSociedad(2);
+                    break;
+                case 'SCA':
+                    $entity->setTipoSociedad(4);
+                    break;
+                case 'SH':
+                    $entity->setTipoSociedad(3);
+                    break;
+                case 'SD':
+                    if(strpos($RazonSocial, 'S.A.') !== false || strpos($RazonSocial, ' SA') !== false) {
+                        $entity->setTipoSociedad(1);
+                    } elseif(strpos($RazonSocial, 'S.R.L.') !== false || strpos($RazonSocial, ' SRL') !== false) {
+                        $entity->setTipoSociedad(8);
+                    } elseif(strpos($RazonSocial, 'S/H') !== false || strpos($RazonSocial, ' S.DE H.') !== false || strpos($RazonSocial, ' S. DE H.') !== false || strpos($RazonSocial, ' S.H') !== false) {
+                        $entity->setTipoSociedad(3);
+                    }
+                    break;
+            }
+        } elseif ($Row['INDIVIDUO_TIPO'] != 'EN') {
+            $entity->setTipoSociedad(11);
         }
         
         if ($Documento[0] == 'CUIL' && (substr($Documento[1], 0, 3) == '30-' || substr($Documento[1], 0, 3) == '33-' ||
