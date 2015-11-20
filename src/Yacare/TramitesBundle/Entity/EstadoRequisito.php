@@ -22,7 +22,6 @@ class EstadoRequisito implements IEstadoRequisito
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConObs;
-    use \Yacare\BaseBundle\Entity\ConAdjuntos;
     use \Yacare\BaseBundle\Entity\ConFechaValidezHasta;
     
     public function __construct()
