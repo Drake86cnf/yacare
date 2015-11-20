@@ -73,6 +73,13 @@ class Comercio implements IComercio
         return self::NombreEstado($this->Estado);
     }
 
+    public function DomicilioLegalAmbulante()
+    {
+        if ($this->getLocal()) {
+            return false;
+        }
+    }
+
     /**
      * @ignore
      */
@@ -99,6 +106,4 @@ class Comercio implements IComercio
         $this->CertificadoHabilitacion = $CertificadoHabilitacion;
         return $this;
     }
- 
-
 }
