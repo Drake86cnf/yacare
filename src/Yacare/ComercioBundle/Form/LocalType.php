@@ -62,7 +62,7 @@ class LocalType extends AbstractType
                 'label' => 'Salida de emergencia',
                 'required' => false,
                 'attr' => array(
-                    'help' => "El valor corresponde a la cantidad de anchos (de 55 cm) que suman todas las salidas de emergencia."),
+                    'help' => "El valor corresponde a la cantidad de anchos (de 90 cm) que suman todas las salidas de emergencia."),
                 'choices' => array(
                     null => 'Sin información',
                     0 => 'No',
