@@ -20,6 +20,7 @@ class ComercioType extends ComercioSimpleType
             ->add('Titular', 'entity_id', array(
                 'label' => 'Titular',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'property' => 'NombreVisible',
                 'required' => true))
             ->add('Estado', 'choice', array(
                 'label' => 'Estado',
