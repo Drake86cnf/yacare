@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 {
     use \Yacare\CatastroBundle\Entity\ConPartida;
-    
+
     public function __construct()
     {
         $this->Nombre = 'Acta de obra nueva';
@@ -71,7 +71,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Profesional;
-    
 
     /**
      * @ignore
@@ -187,5 +186,21 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
         $this->Inspector = $Inspector;
         return $this;
     }
- 
+
+    /**
+     * @ignore
+     */
+    public function getTipoObra()
+    {
+        return $this->TipoObra;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipoObra($TipoObra)
+    {
+        $this->TipoObra = $TipoObra;
+        return $this;
+    }
 }
