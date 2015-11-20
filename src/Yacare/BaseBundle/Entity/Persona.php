@@ -391,6 +391,8 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
                 return 'Cooperativa';
             case '10':
                 return 'Asociación Sin Fines de Lucro';
+            case '11':
+                return 'Entidad Gubernamental';
             default:
                 return '???';
         }
