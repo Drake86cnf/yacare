@@ -21,6 +21,7 @@ class RechazarType extends AbstractType
                 'label' => 'Motivo del rechazo',
                 'required' => true))
             ->add('Usuario', 'entity_hidden', array(
+                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona'))
             ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));

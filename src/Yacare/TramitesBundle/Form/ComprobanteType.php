@@ -9,8 +9,11 @@ class ComprobanteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Titular', 'entity_id', 
-            array('label' => 'Titular', 'class' => 'Yacare\BaseBundle\Entity\Persona', 'required' => true));
+        $builder->add('Titular', 'entity_id', array(
+            'label' => 'Titular',
+            'property' => 'NombreVisible',
+            'class' => 'Yacare\BaseBundle\Entity\Persona',
+            'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

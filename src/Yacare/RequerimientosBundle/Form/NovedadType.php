@@ -27,6 +27,7 @@ class NovedadType extends AbstractType
                         comentarios privados los ven sólo los usuarios que intervienen en el requerimiento.'),
                 'required' => true))
             ->add('Usuario', 'entity_hidden', array(
+                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona'))
             ->add('Requerimiento', 'entity_hidden', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
