@@ -18,10 +18,12 @@
             </form>
         </div>
         <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', res.Arrastre) }}">Listado de comercios
-            	{% if res.Comercios|length > 0 %}<span class="badge">{{ res.Comercios|length }}</span>{% endif %}</a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Locales comerciales<span class="badge">{{ res.Locales|length }}</span></a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', res.Arrastre) }}">Certificados de habilitación</a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', res.Arrastre) }}">Listado de
+            	comercios <span class="badge">{{ res.Contadores['Comercio'] }}</span></a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Locales
+            	comerciales<span class="badge">{{ res.Contadores['Local'] }}</span></a>
+            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', 
+                res.Arrastre) }}">Certificados de habilitación</a>
         </ul>
     </div></div>
     
