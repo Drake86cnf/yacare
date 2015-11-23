@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ActaTipoClase", type="string")
  * @ORM\DiscriminatorMap({
- *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra"
+ *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra",
+ *     "\Yacare\ComercioBundle\Entity\ActaComercio" = "\Yacare\ComercioBundle\Entity\ActaComercio"
  * })
  */
 abstract class Acta implements IActa
@@ -24,6 +25,11 @@ abstract class Acta implements IActa
     use \Tapir\BaseBUndle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
+    
+    public function __construct()
+    {
+        $this->Fecha = new \DateTime();
+    }
     
     /**
      * El tipo de acta.
@@ -94,7 +100,7 @@ abstract class Acta implements IActa
      * 
      * @var string
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ResponsableNombre;
     
@@ -104,15 +110,31 @@ abstract class Acta implements IActa
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Detalle;
-
+    
     /**
-     * Devuelve el nombre normalizado del tipo de acta.
+     * Al cambiar el tipo o el número, genero el nombre.
      */
-    public function getActaTipoNombre()
+    public function setActaTipo($ActaTipo)
     {
-        return self::ActaTipoNombres($this->getTipo());
+        $this->ActaTipo = $ActaTipo;
+        $this->GenerarNombre();
+        return $this;
     }
     
+    /**
+     * Al cambiar el tipo o el número, genero el nombre.
+     */
+    public function setNumero($Numero)
+    {
+        $this->Numero = $Numero;
+        $this->GenerarNombre();
+        return $this;
+    }
+    
+    protected function GenerarNombre() {
+        $this->setNombre($this->getActaTipo() . ' Nº ' . $this->getNumero());
+    }
+
     /**
      * Genera el nombre a mostrar.
      * 
@@ -130,15 +152,6 @@ abstract class Acta implements IActa
     public function getActaTipo()
     {
         return $this->ActaTipo;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setActaTipo($ActaTipo)
-    {
-        $this->ActaTipo = $ActaTipo;
-        return $this;
     }
 
     /**
@@ -164,15 +177,6 @@ abstract class Acta implements IActa
     public function getNumero()
     {
         return $this->Numero;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setNumero($Numero)
-    {
-        $this->Numero = $Numero;
-        return $this;
     }
 
     /**

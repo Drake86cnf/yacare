@@ -25,6 +25,11 @@ class Comercio implements IComercio
     use \Yacare\TramitesBundle\Entity\ConTitular;
     use \Yacare\TramitesBundle\Entity\ConApoderado;
     
+    public function __construct()
+    {
+        $this->Actas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * @var string
      *
@@ -58,6 +63,17 @@ class Comercio implements IComercio
      * @ORM\JoinColumn(nullable=true)
      */
     protected $CertificadoHabilitacion;
+    
+    /**
+     * Las actas asociadas a este comercio.
+     *
+     * @var ActaComercio
+     *
+     * @ORM\OneToMany(targetEntity="ActaComercio", mappedBy="Comercio")
+     *
+     * @JMS\Serializer\Annotation\Exclude
+     */
+    protected $Actas;
 
     /**
      * Devuelve nombres de estado normalizados.
@@ -177,5 +193,23 @@ class Comercio implements IComercio
         $this->FechaBaja = $FechaBaja;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getActas()
+    {
+        return $this->Actas;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setActas(ActaComercio $Actas)
+    {
+        $this->Actas = $Actas;
+        return $this;
+    }
+ 
  
 }

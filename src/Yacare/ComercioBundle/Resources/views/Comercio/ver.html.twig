@@ -126,11 +126,44 @@
         emitido en el sistema actual.        
 	</div></div>
 </div>
+
+<h2>Actas</h2>
+<table class="table table-reponsive table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nº</th>
+			<th>Tipo</th>
+			<th>Fecha</th>
+			<th>Comercio</th>
+			<th>Inspector</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entidad in res.Entidad.Actas %}
+		<tr data-toggle="ajax-link" href="{{ path('yacare_comercio_actacomercio_ver', { 'id': entidad.Id }) }}">
+			<td class="text-right">{{ entidad.Numero }}</td>
+			<td>{{ entidad.SubTipo }}</td>
+			<td>{{ entidad.Fecha|tapir_fecha('medium', 'none') }}</td>
+			<td>{{ entidad.Comercio }}</td>
+			<td>{{ entidad.FuncionarioPrincipal }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if res.Entidad.Actas|length == 0 %}
+	<p>Aun no se cargaron actas para este comercio.</p>
+{% endif %}
 {% endblock %}
 
 {% block pagina_acciones2 %}
+    {% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
+        <a data-toggle="ajax-link" class="btn btn-primary hidden-print"
+        	href="{{ path('yacare_comercio_actacomercio_editar_1', { 'comercio': res.Entidad.Id }) }}">
+        	<i class="fa fa-plus"></i> Nueva acta</a>
+    {% endif %}
     {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
-        <a data-toggle="ajax-link" class="btn btn-default hidden-print"
+        <a data-toggle="ajax-link" class="btn btn-default hidden-print pull-right"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
         	<i class="fa fa-edit"></i> Editar</a>
     {% endif %}
