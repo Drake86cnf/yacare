@@ -25,5 +25,10 @@ class ActaHelper extends \Yacare\BaseBundle\Helper\Helper
         
             $entity->setActaTipo($ActaTipo);
         }
+        
+        if (! $entity->getNombre()) {
+            $Nombre = $entity->getActaTipo() . ' Nº ' . $entity->getNumero();
+            $entity->setNombre($Nombre);
+        }
     }
 }
