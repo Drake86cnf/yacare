@@ -58,7 +58,9 @@
             	locales</a>
         </ul>
     </div></div>
-    
+
+
+</div><div class="row">
     
 	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
         <div class="panel-heading">
@@ -103,8 +105,9 @@
         <div class="panel-body">
             <form id ="form_acta_buscar" class="form-horizontal"
             	action="{{ path('yacare_comercio_actacomercio_listar')}}" method="get">
-            <input type="text" class="form-control pull-rigth" placeholder="buscar acta" />
+            <input type="text" class="form-control pull-rigth" placeholder="buscar acta por número" />
             </form>
+            <p>Para ver una lista de actas para un comercio determinado, ingrese mediante el listado de comercios.</p>
         </div>
         <ul class="list-group">
             <a class="list-group-item" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
