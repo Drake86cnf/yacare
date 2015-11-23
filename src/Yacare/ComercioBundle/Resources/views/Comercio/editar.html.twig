@@ -5,30 +5,51 @@
 {% block pagina_contenido %}
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Nombre de fantasía</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Nombre) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Nombre) }}</div>
 </div>
 
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Titular</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Titular) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Titular) }}</div>
 </div>
 
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Apoderado</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Apoderado) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Apoderado) }}</div>
 </div>
 
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Local comercial</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Local) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Local) }}</div>
 </div>
 
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Expendiente</label>
-    <div class="col-sm-4">{{ form_widget(edit_form.ExpedienteNumero) }}</div>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ExpedienteNumero) }}</div>
 
-	<label class="col-sm-1 control-label">Estado</label>
-    <div class="col-sm-5">{{ form_widget(edit_form.Estado) }}</div>
+	<label class="col-sm-2 control-label">Estado</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Estado) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Resolución</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoNumero) }}</div>
+
+	<label class="col-sm-2 control-label">Fecha de hab.</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaHabilitacion) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Pos. archivo</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.PosicionArchivo) }}</div>
+
+	<label class="col-sm-2 control-label">Fecha de baja</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaBaja) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Obs.</label>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
 </div>
 
 <div class="row">
@@ -38,17 +59,17 @@
 	</div>
 </div>
 <div class="row form-group">
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad1) }}</div>
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad2) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad1) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad2) }}</div>
 </div>
 <div class="row form-group">
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad3) }}</div>
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad4) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad3) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad4) }}</div>
 </div>
 <div class="row form-group">
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad5) }}</div>
-	<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad6) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad5) }}</div>
+	<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad6) }}</div>
 </div>
 
-{{ form_rest(edit_form) }}
+{{ form_rest(res.FormularioEditar) }}
 {% endblock pagina_contenido %}

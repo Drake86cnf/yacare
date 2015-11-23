@@ -22,6 +22,14 @@ class ComercioSimpleType extends AbstractType
             ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), array(
                 'label' => 'Expediente',
                 'required' => false))
+            ->add('ActoAdministrativoNumero', new \Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType(), array(
+                'label' => 'Acto administrativo',
+                'required' => false
+            ))
+            ->add('PosicionArchivo', null, array(
+                'label' => 'Posición en archivo',
+                'required' => false
+            ))
             ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',

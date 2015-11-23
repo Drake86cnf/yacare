@@ -20,7 +20,13 @@
 		<div class="col-sm-4 col-xs-12">
 			{{ bs.grid_label_text('Expediente', '<strong>' ~ res.Entidad.ExpedienteNumero ~ '</strong>') }}
 			{{ bs.grid_label_text('Resolución', res.Entidad.ActoAdministrativoNumero) }}
+			{{ bs.grid_label_text('Archivo', res.Entidad.PosicionArchivo) }}
 			{{ bs.grid_label_text('Estado', res.Entidad.EstadoNombre) }}
+			{% if res.Entidad.FechaBaja %}
+				{{ bs.grid_label_text('Fecha de baja', res.Entidad.FechaBaja|tapir_fecha('medium', 'none')) }}
+			{% else %}
+				{{ bs.grid_label_text('Fecha de hab.', res.Entidad.FechaHabilitacion|tapir_fecha('medium', 'none')) }}
+			{% endif %}
 		</div>
 	</div>
 	

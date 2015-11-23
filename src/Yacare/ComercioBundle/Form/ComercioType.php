@@ -22,6 +22,14 @@ class ComercioType extends ComercioSimpleType
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'property' => 'NombreVisible',
                 'required' => true))
+            ->add('FechaHabilitacion', new \Tapir\BaseBundle\Form\Type\FechaType(), array(
+                'label' => 'Fecha de habilitación',
+                'required' => false
+            ))
+            ->add('FechaBaja', new \Tapir\BaseBundle\Form\Type\FechaType(), array(
+                'label' => 'Fecha de baja',
+                'required' => false
+            ))
             ->add('Estado', 'choice', array(
                 'label' => 'Estado',
                 'required' => true,
@@ -30,7 +38,9 @@ class ComercioType extends ComercioSimpleType
                     1 => 'Hab. en trámite',
                     90 => 'Cerrado',
                     91 => 'Hab. vencida',
-                    100 => 'Habilitado')));
+                    100 => 'Habilitado')))
+            ->add('Obs', null, array('label' => 'Obs.'))
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
