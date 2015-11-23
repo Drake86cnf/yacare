@@ -46,13 +46,13 @@
         	</div>
         </div>
 	</div>
-	<ul class="list-group">
+	{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
+    	<ul class="list-group">
             <li class="list-group-item">
-            	{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
-            		{{ res.Entidad.Obs }}
-            	{% endif %}
+        		{{ res.Entidad.Obs }}
             </li>
         </ul>
+    {% endif %}
 </div>
 {% endblock %}
 
