@@ -11,7 +11,8 @@ class TramiteType extends AbstractType
     {
         $builder
             ->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
-                'label' => 'Titular', 
+                'label' => 'Titular',
+                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true));
     }

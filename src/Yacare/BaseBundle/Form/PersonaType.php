@@ -29,11 +29,20 @@ class PersonaType extends AbstractType
                      '6' => 'Sociedad Accidental o en Participación',
                      '7' => 'Sociedad en Comandita Simple',
                      '9' => 'Cooperativa',
-                     '10' => 'Asociación Sin Fines de Lucro')
+                     '10' => 'Asociación Sin Fines de Lucro',
+                     '11' => 'Entidad Gubernamental',
+                     '99' => 'Otra persona jurídica'
+                 )
             ))
             ->add('RazonSocial', null, array('label' => 'Razón social'))
-            ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array('label' => 'Documento'))
-            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array('label' => 'CUIL/CUIT'))
+            ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
+                'label' => 'Documento',
+                'required' => false
+            ))
+            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
+                'label' => 'CUIL/CUIT',
+                'required' => false
+            ))
             ->add('Nib',  null, array('label' => 'Ingresos Brutos'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',

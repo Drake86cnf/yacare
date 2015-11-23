@@ -1,6 +1,4 @@
-{# /** * @file * Plantilla de paginación para KnpPaginationBundle. *
-@author Ernesto Carrea <ernestocarrea@gmail.com> */ #} {% if pageCount > 1
-%}
+{% if pageCount > 1 %}
 <div class="modal paginar-modal" id="paginar_modal" tabindex="-1"
 	role="dialog" aria-labelledby="paginar_modal_title" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
@@ -25,40 +23,41 @@
                             + $('#paginar_numero_ir').val()); $('#paginar_modal').modal('hide');">Ir</button>
 					</span>
 				</div>
-				<!-- /input-group -->
 
-				<p>
-					<a data-toggle="ajax-link"
+				<p><a data-toggle="ajax-link" data-dismiss="modal"
 						href="{{ path(route, query|merge({(pageParameterName): 1})) }}">Ir
-						a la primera página</a>
-				</p>
-				<p>
-					<a data-toggle="ajax-link"
+						a la primera página</a></p>
+				<p><a data-toggle="ajax-link" data-dismiss="modal"
 						href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">Ir
-						a la última página ({{ pageCount }})</a>
-				</p>
+						a la última página ({{ pageCount }})</a></p>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="btn-group pull-right">
-	{% if previous is defined %} <a class="btn btn-sm btn-default"
-		data-toggle="ajax-link"
-		href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i
-		class="fa fa-backward fa-fw"></i></a> {% else %} <span
-		class="btn btn-sm btn-default disabled"><i
-		class="fa fa-backward fa-fw"></i></span> {% endif %}
+	{% if previous is defined %}
+		<a class="btn btn-sm btn-default"
+    		data-toggle="ajax-link"
+    		href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i
+    		class="fa fa-backward fa-fw"></i></a>
+	{% else %}
+		<span
+    		class="btn btn-sm btn-default disabled"><i
+    		class="fa fa-backward fa-fw"></i></span>
+    {% endif %}
 
 	<button class="btn btn-sm btn-default" data-toggle="modal"
 		data-target="#paginar_modal">
 		Pág. {{ current }} <span class="caret"></span>
 	</button>
 
-	{% if next is defined %} <a class="btn btn-sm btn-default"
-		data-toggle="ajax-link"
-		href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i
-		class="fa fa-forward fa-fw"></i></a> {% else %} <span
-		class="btn btn-sm btn-default disabled"><i class="fa fa-forward fa-fw"></i></span>
+	{% if next is defined %}
+		<a class="btn btn-sm btn-default"
+    		data-toggle="ajax-link"
+    		href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i
+    		class="fa fa-forward fa-fw"></i></a> {% else %} <span
+    		class="btn btn-sm btn-default disabled"><i class="fa fa-forward fa-fw"></i></span>
 	{% endif %}
 </div>
 {% endif %}

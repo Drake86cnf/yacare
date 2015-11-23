@@ -21,7 +21,7 @@ class ActaTalonarioType extends AbstractType
             ->add('NumeroHasta', null, array('label' => 'hasta'))
             ->add('EnPoderDe', 'entity_id', array(
                 'label' => 'En poder de', 
-                // 'property' => 'NombreVisible', 
+                'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'filters' => array('filtro_grupo' => 1), 
                 'required' => false));
