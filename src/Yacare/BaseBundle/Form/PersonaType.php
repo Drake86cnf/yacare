@@ -43,7 +43,7 @@ class PersonaType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
-            ->add('Nib',  null, array('label' => 'Ingresos Brutos'))
+            ->add('Nib',  null, array('label' => 'Nº de Ingresos Brutos'))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
