@@ -8,6 +8,8 @@ namespace Tapir\AbmBundle\Helper\Resultados;
  */
 class ResultadoInicioAction extends ResultadoActionAbmController
 {
+    public $Contadores = array();
+    
     function __construct($controlador)
     {
         parent::__construct($controlador);
