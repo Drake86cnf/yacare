@@ -90,13 +90,6 @@ abstract class Acta implements IActa
     protected $FuncionarioSecundario;
     
     /**
-     * @var string
-     * 
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $Detalle;
-    
-    /**
      * Genera el nombre a mostrar.
      * 
      * @return string
@@ -223,40 +216,6 @@ abstract class Acta implements IActa
     public function setResponsableNombre($ResponsableNombre)
     {
         $this->ResponsableNombre = $ResponsableNombre;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getDetalle()
-    {
-        return $this->Detalle;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setDetalle($Detalle)
-    {
-        $this->Detalle = $Detalle;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getObs()
-    {
-        return $this->Obs;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setObs($Obs)
-    {
-        $this->Obs = $Obs;
         return $this;
     }
 }
