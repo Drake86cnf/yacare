@@ -21,13 +21,15 @@
 {{ form_errors(res.FormularioEditar) }}
 {{ form_rest(res.FormularioEditar) }}
 
-a{{ res.Entidad.createdAt|tapir_fecha }}n
 
-[[ {{ a }} / {{ res.Entidad.Comercio }} / {{ res.Entidad.Titular }}  
+
+{# 
+{{ res.Entidad.createdAt|tapir_fecha }}
+{{ a }} / {{ res.Entidad.Comercio }} / {{ res.Entidad.Titular }}  
 	{% if res.Entidad.Comercio and res.Entidad.Comercio.Local %}
 	    / {{ res.Entidad.Comercio.Local.Nombre }}
 	{% endif %}
-]]
+#}
 
 {{ parent() }}
 

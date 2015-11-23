@@ -16,6 +16,7 @@ class Comercio implements IComercio
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
@@ -23,6 +24,25 @@ class Comercio implements IComercio
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\TramitesBundle\Entity\ConTitular;
     use \Yacare\TramitesBundle\Entity\ConApoderado;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $PosicionArchivo = null;
+    
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date(message="Por favor proporcione una fecha de habilitación válida.")
+     */
+    protected $FechaHabilitacion = null;
+    
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date(message="Por favor proporcione una fecha de baja válida.")
+     */
+    protected $FechaBaja;
     
     /**
      * @var integer
@@ -106,4 +126,56 @@ class Comercio implements IComercio
         $this->CertificadoHabilitacion = $CertificadoHabilitacion;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getPosicionArchivo()
+    {
+        return $this->PosicionArchivo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setPosicionArchivo($PosicionArchivo)
+    {
+        $this->PosicionArchivo = $PosicionArchivo;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getFechaHabilitacion()
+    {
+        return $this->FechaHabilitacion;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaHabilitacion($FechaHabilitacion)
+    {
+        $this->FechaHabilitacion = $FechaHabilitacion;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getFechaBaja()
+    {
+        return $this->FechaBaja;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaBaja($FechaBaja)
+    {
+        $this->FechaBaja = $FechaBaja;
+        return $this;
+    }
+ 
 }
