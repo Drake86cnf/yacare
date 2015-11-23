@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-trait ConPartida
+trait ConPartidaOpcional
 {
     /**
      * La partida inmobiliaria.
@@ -16,7 +16,7 @@ trait ConPartida
      * @var Partida
      * 
      * @ORM\ManyToOne(targetEntity="\Yacare\CatastroBundle\Entity\Partida")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $Partida;
 

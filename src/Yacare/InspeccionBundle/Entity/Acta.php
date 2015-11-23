@@ -2,6 +2,7 @@
 namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Acta.
@@ -11,37 +12,49 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Inspeccion_Acta")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="ActaTipo", type="string")
+ * @ORM\DiscriminatorColumn(name="ActaTipoClase", type="string")
  * @ORM\DiscriminatorMap({
- *     "\Yacare\InspeccionBundle\Entity\Acta" = "\Yacare\InspeccionBundle\Entity\Acta",
- *     "\Yacare\ObrasParticularesBundle\Entity\Acta" = "\Yacare\ObrasParticularesBundle\Entity\Acta"
+ *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra"
  * })
  */
-class Acta
+abstract class Acta implements IActa
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
+    use \Tapir\BaseBUndle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     /**
+     * El tipo de acta.
+     * 
+     * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTipo")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ActaTipo;
+    
+    /*
      * Un talonario.
      * 
      * @var ActaTalonario
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\InspeccionBundle\Entity\ActaTalonario")
      * @ORM\JoinColumn(nullable=false)
-     */
-    protected $Talonario;
+     
+    protected $Talonario;*/
     
     /**
+     * Tipo de acta (Infracción, Constatación, etc) para cualquiera de la áreas.
+     * 
      * @var string
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      */
     private $SubTipo;
     
     /**
+     * El número de acta manuscrita.
+     * 
      * @var int
      * 
      * @ORM\Column(type="integer")
@@ -49,6 +62,8 @@ class Acta
     private $Numero;
     
     /**
+     * La fecha de redactada el acta.
+     * 
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime")
@@ -56,13 +71,18 @@ class Acta
     private $Fecha;
     
     /**
+     * El agente inspector que redacta el acta.
+     * 
      * @var \Yacare\BaseBundle\Entity\Persona
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @JoinColumn(nullable=false)
      */
     protected $FuncionarioPrincipal;
     
     /**
+     * El agente inspector adjunto (opcional)
+     * 
      * @var \Yacare\BaseBundle\Entity\Persona
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
@@ -70,6 +90,8 @@ class Acta
     protected $FuncionarioSecundario;
     
     /**
+     * Responsable a quién se le hace la notificación en caso de ausencia del propietario de la partida.
+     * 
      * @var string
      * 
      * @ORM\Column(type="string")
@@ -82,14 +104,15 @@ class Acta
      * @ORM\Column(type="text", nullable=true)
      */
     protected $Detalle;
-    
-    /**
-     * @var string
-     * 
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $Obs;
 
+    /**
+     * Devuelve el nombre normalizado del tipo de acta.
+     */
+    public function getActaTipoNombre()
+    {
+        return self::ActaTipoNombres($this->getTipo());
+    }
+    
     /**
      * Genera el nombre a mostrar.
      * 
@@ -97,25 +120,25 @@ class Acta
      */
     public function ConstruirNombre()
     {
-        $res = 'Acta ' . $this->getSubTipo() . ' Nº ' . $this->getNumero();
+        $res = $this->getTipo()->getNombre() . ' Nº ' . $this->getNumero();
         return $res;
     }
 
     /**
      * @ignore
      */
-    public function getTalonario()
+    public function getActaTipo()
     {
-        return $this->Talonario;
+        return $this->ActaTipo;
     }
 
     /**
      * @ignore
      */
-    public function setTalonario($Talonario)
+    public function setActaTipo($ActaTipo)
     {
-        $this->Talonario = $Talonario;
-        $this->setNombre($this->ConstruirNombre());
+        $this->ActaTipo = $ActaTipo;
+        return $this;
     }
 
     /**
@@ -132,7 +155,7 @@ class Acta
     public function setSubTipo($SubTipo)
     {
         $this->SubTipo = $SubTipo;
-        $this->setNombre($this->ConstruirNombre());
+        return $this;
     }
 
     /**
@@ -149,7 +172,7 @@ class Acta
     public function setNumero($Numero)
     {
         $this->Numero = $Numero;
-        $this->setNombre($this->ConstruirNombre());
+        return $this;
     }
 
     /**
@@ -163,9 +186,10 @@ class Acta
     /**
      * @ignore
      */
-    public function setFecha(\DateTime $Fecha)
+    public function setFecha($Fecha)
     {
         $this->Fecha = $Fecha;
+        return $this;
     }
 
     /**
@@ -182,6 +206,7 @@ class Acta
     public function setFuncionarioPrincipal($FuncionarioPrincipal)
     {
         $this->FuncionarioPrincipal = $FuncionarioPrincipal;
+        return $this;
     }
 
     /**
@@ -198,6 +223,7 @@ class Acta
     public function setFuncionarioSecundario($FuncionarioSecundario)
     {
         $this->FuncionarioSecundario = $FuncionarioSecundario;
+        return $this;
     }
 
     /**
@@ -214,6 +240,7 @@ class Acta
     public function setResponsableNombre($ResponsableNombre)
     {
         $this->ResponsableNombre = $ResponsableNombre;
+        return $this;
     }
 
     /**
@@ -230,6 +257,7 @@ class Acta
     public function setDetalle($Detalle)
     {
         $this->Detalle = $Detalle;
+        return $this;
     }
 
     /**
@@ -246,5 +274,6 @@ class Acta
     public function setObs($Obs)
     {
         $this->Obs = $Obs;
+        return $this;
     }
 }

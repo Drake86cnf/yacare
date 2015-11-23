@@ -22,7 +22,7 @@ class Domicilio
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\ConVerificacion;
-    use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\CatastroBundle\Entity\ConPartidaOpcional;
     
     /**
      * El tipo de domicilio.

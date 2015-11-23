@@ -1,3 +1,5 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %}{{ entity.Nombre }}{% else %}Nueva
-asignación de calle{% endif %}{% endblock %}
+{% extends 'TapirAbmBundle::editar.html.twig' %} 
+
+{% block pagina_titulo %}
+    {% if res.Entidad.id %}{{ res.Entidad.Nombre }}{% else %}Nueva asignación de calle{% endif %}
+{% endblock %}

@@ -114,10 +114,10 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
         }
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'Type';
-        $editForm = $this->createForm(new $typeName(), $entity);
-        $editForm->handleRequest($request);
+        $FormEditar = $this->createForm(new $typeName(), $entity);
+        $FormEditar->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($FormEditar->isValid()) {
             $em->persist($entity);
 
             // Guardo un cookie para que el formulario conserve la última información
@@ -190,7 +190,7 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
 
         // $this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
         return $this->ArrastrarVariables($request,
-            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
+            array('entity' => $entity, 'create' => true, 'edit_form' => $FormEditar->createView()));
     }
 
     /**
@@ -217,11 +217,15 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
         }
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'CalleType';
-        $editForm = $this->createForm(new $typeName(), $entity);
+        $FormEditar = $this->createForm(new $typeName(), $entity);
         // $deleteForm = $this->CrearFormEliminar($id);
 
-        return $this->ArrastrarVariables($request,
-            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+            $request);
+        $res->Entidad = $entity;
+        $res->FormularioEditar = $FormEditar->createView();
+        
+        return array('res' => $res);
     }
 
     /**
@@ -252,9 +256,13 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
         }
 
         $typeName = 'Yacare\\' . $this->BundleName . 'Bundle\\Form\\' . $this->EntityName . 'MacizoType';
-        $editForm = $this->createForm(new $typeName(), $entity);
+        $FormEditar = $this->createForm(new $typeName(), $entity);
 
-        return $this->ArrastrarVariables($request,
-            array('entity' => $entity, 'create' => true, 'edit_form' => $editForm->createView()));
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+            $request);
+        $res->Entidad = $entity;
+        $res->FormularioEditar = $FormEditar->createView();
+        
+        return array('res' => $res);
     }
 }

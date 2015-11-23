@@ -1,0 +1,37 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Actas de Obras Particulares{% endblock %}
+
+{% block pagina_contenido %}
+    <table class="table table-hoverselect">
+    	<thead>
+    		<tr>
+    			<th>Nº</th>
+    			<th>Tipo</th>
+    			<th>Fecha</th>
+    			<th>Partida</th>
+    			<th>Inspector</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% for entidad in res.Entidades %}
+    		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entidad.Id }) }}">
+    			<td class="text-right">{{ entidad.Numero }}</td>
+    			<td>{{ entidad.ActaTipoNombre }}</td>
+    			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
+    			<td>{{ entidad.Partida }}</td>
+    			<td>{{ entidad.FuncionarioPrincipal }}</td>
+    		</tr>
+    		{% endfor %}
+    	</tbody>
+    </table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(res.ObtenerRutaAccion('editar_1'), res.Arrastre) }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+{% endblock %}

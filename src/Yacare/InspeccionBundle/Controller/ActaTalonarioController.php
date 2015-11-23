@@ -2,7 +2,6 @@
 namespace Yacare\InspeccionBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Controlador para talonario de actas.
@@ -16,11 +15,11 @@ class ActaTalonarioController extends \Tapir\AbmBundle\Controller\AbmController
     /**
      * @Route("ajax_persona", name="ajax_persona")
      */
-    public function ajaxPersonaAction(Request $request)
+    public function ajaxPersonaAction(\Symfony\Component\HttpFoundation\Request $request)
     {
         $value = $request->get('term');
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getEm();
         $members = $em->getRepository('YacareBaseBundle:Persona')
             ->createQueryBuilder('o')
             ->where('o.NombreVisible = :nombrevisible')
@@ -33,7 +32,7 @@ class ActaTalonarioController extends \Tapir\AbmBundle\Controller\AbmController
             $json[] = array('label' => $member->getNombreVisible(), 'value' => $member->getId());
         }
         
-        $response = new Response();
+        $response = new \Symfony\Component\HttpFoundation\Response();
         $response->setContent(json_encode($json));
         
         return $response;

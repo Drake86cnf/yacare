@@ -2,6 +2,7 @@
 namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Representa un acta de inspección, infracción, notificación o compromiso.
@@ -9,10 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="ObrasParticulares_Acta")
+ * @ORM\Table(name="ObrasParticulares_ActaObra")
  */
-class Acta extends \Yacare\InspeccionBundle\Entity\Acta
+class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
 {
+    use \Yacare\CatastroBundle\Entity\ConPartida;
+    
     /**
      * La falta tipificada, o null si no está tipificada.
      *
@@ -24,42 +27,22 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
     protected $TipoFalta;
     
     /**
-     * El comercio asociado al acta, en caso de ser un acta de comercio o null si es un acta de obra.
-     * 
-     * @var \Yacare\ComercioBundle\Entity\Comercio
+     * Tipo de obra.
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Comercio")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $Comercio;
-    
-    /**
-     * La partida asociada al acta.
+     * @var integer 
      * 
-     * @var \Yacare\CatastroBundle\Entity\Partida
-     *
-     * @ORM\ManyToOne(targetEntity="Yacare\CatastroBundle\Entity\Partida")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected $Partida;
+    protected $TipoObra;
     
     /**
      * El estado de avance la obra para las actas de obra o 0 para las actas de comercio.
      *
      * @var integer 
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $EstadoAvance;
-    
-    /**
-     * Indica si todas las observaciones del acta en cuestion fueron cumplidas.
-     *
-     * @var integer 
-     * 
-     * @ORM\Column(type="integer")
-     */
-    protected $Estado;
     
     /**
      * El plazo para la regularización, si corresponde.
@@ -115,22 +98,6 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
     public function setComercio($Comercio)
     {
         $this->Comercio = $Comercio;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getPartida()
-    {
-        return $this->Partida;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPartida($Partida)
-    {
-        $this->Partida = $Partida;
     }
 
     /**
@@ -198,4 +165,22 @@ class Acta extends \Yacare\InspeccionBundle\Entity\Acta
         $this->Estado = $Estado;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getInspector()
+    {
+        return $this->Inspector;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setInspector($Inspector)
+    {
+        $this->Inspector = $Inspector;
+        return $this;
+    }
+ 
 }
