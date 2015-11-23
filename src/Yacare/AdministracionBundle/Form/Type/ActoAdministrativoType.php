@@ -17,8 +17,7 @@ class ActoAdministrativoType extends AbstractType
             'label' => 'Acto admin.', 
             'maxlength' => 13, 
             'attr' => array(
-                'class' => 'yacare-input-acad', 
-                'class' => 'tapir-input-240', 
+                'class' => 'yacare-input-acad tapir-input-240 tapir-input-mayus', 
                 'data-type' => 'yacare_acad', 
                 'maxlength' => '11')));
     }
