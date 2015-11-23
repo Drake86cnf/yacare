@@ -64,7 +64,6 @@ class ActaObraType extends AbstractType
                     '90' => '90 días'
                 ),
                 'label' => 'Plazo'))
-            ->add('Detalle', null, array('label' => 'Detalle'))
             ->add('Obs', null, array('label' => 'Observaciones'))
             ;
     }

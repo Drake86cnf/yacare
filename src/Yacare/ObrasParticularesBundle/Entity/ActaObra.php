@@ -213,4 +213,21 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
         $this->TipoFaltas = $TipoFaltas;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getFechaDescargo()
+    {
+        return $this->FechaDescargo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaDescargo(\DateTime $FechaDescargo)
+    {
+        $this->FechaDescargo = $FechaDescargo;
+        return $this;
+    } 
 }
