@@ -169,7 +169,7 @@ class Partida
      */
     public function getMacizo()
     {
-        return $this->getMacizoAlfa() . $this->getMacizoNum();
+        return $this->getMacizoNum() . $this->getMacizoAlfa();
     }
     
     /**
@@ -177,7 +177,7 @@ class Partida
      */
     public function getParcela()
     {
-        return $this->getParcelaAlfa() . $this->getParcelaNum();
+        return $this->getParcelaNum() . $this->getParcelaAlfa();
     }
     
     /**
@@ -185,7 +185,7 @@ class Partida
      */
     public function getSubparcela()
     {
-        return $this->getSubparcelaAlfa() . $this->getSubparcelaNum();
+        return $this->getSubparcelaNum() . $this->getSubparcelaAlfa();
     }
 
     /**
