@@ -1,6 +1,7 @@
 <?php
 namespace Yacare\ObrasParticularesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -29,5 +30,18 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         }
         
         $this->OrderBy = 'r.Fecha DESC';
+    }
+    
+    /**
+     * Ver el descargo de un acta.
+     *
+     * @see verAction() verAction()
+     *
+     * @Route("verdescargo/")
+     * @Template()
+     */
+    function verdescargoAction(Request $request)
+    {
+        return parent::verAction($request);
     }
 }
