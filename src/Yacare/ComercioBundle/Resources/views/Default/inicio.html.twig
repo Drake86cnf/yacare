@@ -96,6 +96,21 @@
     </div></div>
 
 
+	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
+        <div class="panel-heading">
+        	<h2 class="panel-title">Actas</h2>
+        </div>
+        <div class="panel-body">
+            <form id ="form_acta_buscar" class="form-horizontal"
+            	action="{{ path('yacare_comercio_actacomercio_listar')}}" method="get">
+            <input type="text" class="form-control pull-rigth" placeholder="buscar acta" />
+            </form>
+        </div>
+        <ul class="list-group">
+            <a class="list-group-item" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
+            	de actas <span class="badge">{{ res.Contadores['ActaComercio'] }}</span></a></a>
+        </ul>
+    </div></div>
 
 </div></div>
 {% endblock pagina_contenido %}
