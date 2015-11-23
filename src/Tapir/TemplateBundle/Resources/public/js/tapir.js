@@ -381,6 +381,23 @@ function MejorarElementos(destino) {
 	$('.tinymce').each(function() {
 		tinymce.execCommand('mceAddEditor', true, this.id);
 	});
+
+	$(desintoFinal + 'input[type=text]').blur(function(e) {
+		var currVal = $(this).val();
+		if(currVal.toLowerCase() == currVal || currVal.toUpperCase() == currVal) {
+			// Si el usuario ingresó todo mayúsculas o todo minúsculas, cambio a algo más apropiado (mayúsculas
+			// iniciales en cada palabra)
+			currVal = currVal.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
+				return txtVal.toUpperCase();
+			});
+			$(this).val(currVal);
+		}
+	});
+	$(desintoFinal + '.tapir-input-mayus').blur(function(e) {
+		// Campos de texto de mayúsculas obligatorias
+		var currVal = $(this).val();
+		$(this).val(currVal.toUpperCase());
+	});
 }
 
 
@@ -549,7 +566,7 @@ $(document).ready(function() {
 		$('.alert-dismissable').fadeTo(500, 0).slideUp(500, function() {
 			$(this).remove();
 		});
-	}, 15000);
+	}, 60000);
 	
 	// Fix para búsqueda en Select2 en un modal de Bootstrap 3.3.5.
 	// Quitar cuando bootstrap solucione el problema
