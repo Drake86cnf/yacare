@@ -25,6 +25,7 @@ class ComercioSimpleType extends AbstractType
             ->add('Apoderado', 'entity_id', array(
                 'label' => 'Apoderado',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'property' => 'NombreVisible',
                 'required' => false))
             ->add('Local', 'entity_id', array(
                 'label' => 'Local',

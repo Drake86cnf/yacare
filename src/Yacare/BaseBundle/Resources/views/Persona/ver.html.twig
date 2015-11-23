@@ -11,7 +11,7 @@
 			<td class="grilladatos-etiqueta text-muted text-right">Documento</td>
 			<td>
 			    {{ res.Entidad.documentoNumero }} 
-    			{% if is_granted('ROLE_PERSONAS') %} 
+    			{% if is_granted('ROLE_PERSONAS_EDITAR') %} 
         			<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
         			    { 'id': res.Entidad.id, 'campo_nombre': 'DocumentoNumero' })) }}" data-toggle="modal" 
         			    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
@@ -27,7 +27,7 @@
     			{% if not res.Entidad.Cuilt|tapir_cuiltesvalida %}
     				<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>
     			{% endif %} 
-    			{% if is_granted('ROLE_PERSONAS') %} 
+    			{% if is_granted('ROLE_PERSONAS_EDITAR') %} 
     				<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
     				    { 'id': res.Entidad.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" 
     				    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
@@ -41,7 +41,7 @@
 				<i class="fa fa-home text-muted"></i>&nbsp;Domicilio</td>
 			<td>
 			    {{ res.Entidad.domicilio }} 
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Domicilio' })) }}" data-toggle="modal" 
 			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
@@ -57,7 +57,7 @@
 			    {% if res.Entidad.TelefonoNumero %}
 			        {{ yacare.verificacion_icono(res.Entidad.TelefonoVerificacionNivel) }}
 			    {% endif %} {{ res.Entidad.TelefonoNumero }} 
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'TelefonoNumero' })) }}" data-toggle="modal" 
 			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
@@ -73,7 +73,7 @@
 			    {% if res.Entidad.Email %}
 			        {{ yacare.verificacion_icono(res.Entidad.EmailVerificacionNivel)|raw }}
 			    {% endif %} {{ res.Entidad.Email }}
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Email' })) }}" data-toggle="modal" 
 			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
@@ -86,7 +86,7 @@
 			<td class="grilladatos-etiqueta text-muted text-right">Nacionalidad</td>
 			<td>
 			    {{ res.Entidad.Pais }}
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Pais' })) }}" data-toggle="modal" 
 			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
@@ -99,7 +99,7 @@
 			<td class="grilladatos-etiqueta text-muted text-right">Fecha de nacimiento</td>
 			<td>
 			    {{ res.Entidad.FechaNacimiento|tapir_fecha('medium', 'none') }}
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'FechaNacimento' })) }}" data-toggle="modal" 
 			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
@@ -112,11 +112,11 @@
 			<td class="grilladatos-etiqueta text-muted text-right">Género</td>
 			<td>
 			    {{ res.Entidad.GeneroNombre }}
-			    {% if is_granted('ROLE_PERSONAS') %} 
+			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
 			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
 			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Genero' })) }}" data-toggle="modal" 
 			    		class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
-			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Agregar{% endif %}
+			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Cambiar{% endif %}
 			       </a>
 			    {% endif %}
 			</td>
@@ -145,10 +145,12 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-    {% if is_granted('ROLE_IDDQD') %}
-        <a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-        	class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
-        <a href="{{ path('usuario_editarperfil', res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-        	class="btn btn-default"><i class="fa fa-user"></i> Perfil</a>
-    {% endif %}
+{% if is_expr_granted("hasAnyRole('ROLE_PERSONAS_EDITAR', 'ROLE_IDDQD')") %}
+    <a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    	class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+{% endif %}
+{% if is_expr_granted("hasAnyRole('ROLE_IDDQD')") %}
+    <a href="{{ path('usuario_editarperfil', res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    	class="btn btn-default"><i class="fa fa-user"></i> Perfil</a>
+{% endif %}
 {% endblock pagina_acciones2 %}

@@ -10,11 +10,12 @@
     		<div class="col-sm-8 col-xs-12">
     		    {{ bs.grid_label_text('Sección', res.Entidad.Seccion) }} 
     		    {{ bs.grid_label_text('Macizo', res.Entidad.Macizo) }}
-    			{{ bs.grid_label_text('Parcela', res.Entidad.Parcela) }} 
+    			{{ bs.grid_label_text('Parcela', res.Entidad.Parcela) }}
+    			{{ bs.grid_label_text('Subparcela', res.Entidad.Subparcela) }}  
     			{{ bs.grid_label_text('Unidad funcional', res.Entidad.UnidadFuncional) }} 
     			{{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
     			{% if res.Entidad.Titular %} 
-    			    {{ bs.grid_label_text('Titular', '<a data-toggle="ajax-link" href="' ~ 
+    			    {{ bs.grid_label_text('Titular', '<a data-dismiss="modal" data-toggle="ajax-link" href="' ~ 
     			        path('yacare_base_persona_ver', { 'id': res.Entidad.Titular.id }) ~ '">' ~ 
     			        res.Entidad.Titular ~ '</a>') }} 
     			{% endif %} 
@@ -34,6 +35,6 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-    <a data-toggle="ajax-link" class="btn btn-link pull-right" href="{{ path(res.ObtenerRutaAccion('listar'), 
-        res.Arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
+    <a data-dismiss="modal" data-toggle="ajax-link" class="btn btn-link pull-right"
+    	href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
 {% endblock %}

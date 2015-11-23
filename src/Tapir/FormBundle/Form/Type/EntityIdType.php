@@ -69,6 +69,7 @@ class EntityIdType extends AbstractType
         $resolver->setDefaults(array(
             'em' => null,
             'query_builder' => null,
+            'property' => 'Nombre',
             'filters' => null,
             'searchtype' => 'modal',
             'hidden' => false,

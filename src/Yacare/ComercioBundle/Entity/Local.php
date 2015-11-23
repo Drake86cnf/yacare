@@ -44,7 +44,7 @@ class Local
      *
      * @var float
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     protected $SuperficieDeposito;
     
@@ -121,6 +121,26 @@ class Local
     {
         return $this->ConstruirNombre();
     }
+    
+    
+    /**
+     * Intervengo el setter de partida para ponerle un nombre al local.
+     */
+    public function setPartida($partida) {
+        $this->Partida = $partida;
+        $this->ConstruirNombre();
+    }
+
+    /**
+     * Intervengo el setter de nombre para ponerle un nombre al local.
+     */
+    public function setTipo($Tipo)
+    {
+        $this->Tipo = $Tipo;
+        $this->ConstruirNombre();
+    }
+    
+    
 
     /**
      * Establece el nombre que se mostrará.
@@ -141,15 +161,6 @@ class Local
         $this->setNombre($res);
         
         return $res;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setTipo($Tipo)
-    {
-        $this->Tipo = $Tipo;
-        $this->ConstruirNombre();
     }
     
     // *** Getters y setters
