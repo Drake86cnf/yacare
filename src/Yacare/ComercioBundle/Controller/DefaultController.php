@@ -21,13 +21,11 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
     {
         $em = $this->getEm();
         
-        $res = $this->ConstruirResultado(new \Yacare\ComercioBundle\Helper\Resultados\ResultadoInicioAction($this), 
+        $res = $this->ConstruirResultado(new \Yacare\ComercioBundle\Helper\Resultados\ResultadoInicioAction($this),
             $request);
         
-        $res->Tramites = $em->createQuery(
-            'SELECT r FROM Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial r WHERE r.Estado<90')->getResult();
-        $res->Comercios = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Comercio r WHERE r.Estado=1')->getResult();
-        $res->Locales = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Local r')->getResult();
+        $res->Contadores['Local'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ComercioBundle\Entity\Local r WHERE r.Suprimido=0')->getSingleScalarResult();
+        $res->Contadores['Comercio'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ComercioBundle\Entity\Comercio r WHERE r.Suprimido=0')->getSingleScalarResult();
         
         return array('res' => $res);
     }
