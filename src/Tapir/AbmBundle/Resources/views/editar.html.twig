@@ -1,6 +1,6 @@
 {% extends 'TapirAbmBundle::editarbase.html.twig' %}
 
-{% block pagina_fin %}
-{{ form_rest(res.FormularioEditar) }}
+{% block pagina_contenido %}
 {{ parent() }}
-{% endblock pagina_fin %}
+{{ form_rest(res.FormularioEditar) }}
+{% endblock pagina_contenido %}
