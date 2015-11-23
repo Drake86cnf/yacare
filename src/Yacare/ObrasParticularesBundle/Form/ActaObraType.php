@@ -39,8 +39,9 @@ class ActaObraType extends AbstractType
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
-            ->add('TipoFalta', 'entity', array(
+            ->add('TipoFaltas', 'entity', array(
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Tipofalta',
+                'multiple' => true,
                 'label' => 'El tipo de falta',
                 'placeholder' => 'Seleccione la falta',
                 'required' => true))

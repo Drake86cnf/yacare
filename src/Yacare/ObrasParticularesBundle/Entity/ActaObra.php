@@ -18,6 +18,7 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 
     public function __construct()
     {
+        $this->TipoFaltas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Nombre = 'Acta de obra nueva';
     }
     
@@ -26,10 +27,10 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      *
      * @var \Yacare\ObrasParticularesBundle\Entity\TipoFalta
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\TipoFalta")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity="Yacare\ObrasParticularesBundle\Entity\TipoFalta")
+     * @ORM\JoinTable(name="ObrasParticulares_ActaObra_TipoFalta")
      */
-    protected $TipoFalta;
+    protected $TipoFaltas;
     
     /**
      * Tipo de obra.
@@ -71,6 +72,15 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Profesional;
+    
+    /**
+     * La fecha de descargo del acta.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $FechaDescargo;
 
     /**
      * @ignore
@@ -137,23 +147,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     }
 
     /**
-     * @return the TipoFalta
-     */
-    public function getTipoFalta()
-    {
-        return $this->TipoFalta;
-    }
-
-    /**
-     * @param  $TipoFalta
-     */
-    public function setTipoFalta($TipoFalta)
-    {
-        $this->TipoFalta = $TipoFalta;
-        return $this;
-    }
-
-    /**
      * @return the integer
      */
     public function getEstado()
@@ -201,6 +194,23 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     public function setTipoObra($TipoObra)
     {
         $this->TipoObra = $TipoObra;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getTipoFaltas()
+    {
+        return $this->TipoFaltas;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipoFaltas($TipoFaltas)
+    {
+        $this->TipoFaltas = $TipoFaltas;
         return $this;
     }
 }
