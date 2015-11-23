@@ -33,6 +33,17 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     }
     
     /**
+     * Emite el descargo de un acta en particular.
+     * 
+     * @Route("emitirdescargo/")
+     * @Template()
+     */
+    public function emitirdescargoAction() 
+    {
+        return array();
+    }
+    
+    /**
      * Ver el descargo de un acta.
      *
      * @see verAction() verAction()
@@ -40,7 +51,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
      * @Route("verdescargo/")
      * @Template()
      */
-    function verdescargoAction(Request $request)
+    public function verdescargoAction(Request $request)
     {
         return parent::verAction($request);
     }

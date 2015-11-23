@@ -53,7 +53,11 @@
     			<div class="row">
     				<div class="col-xs-12">
 						La {{ res.Entidad.Subtipo|lower }} detectó las siguientes Observaciones: <br><br/>
-						<p><strong>{{ res.Entidad.Tipofalta|upper }}</strong></p>
+						<p><strong>
+						{% for tipofalta in res.Entidad.TipoFaltas %}				
+        					{{ tipofalta|upper }}<br />
+        				{% endfor %}
+        				</strong></p>
 					</div>
 				</div><br /><br /><br /><br />
 				<div class="row">
@@ -75,7 +79,11 @@
 					Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección de Obras 
 					Particulares me comprometo en un plazo maximo de <strong>{{ res.Entidad.Plazo }} días</strong> 
 					a cumplimentar con lo que se detalla a continuación: <br><br/>
-					<p><strong>{{ res.Entidad.TipoFalta.FaltaCompromiso|upper }}</strong</strong></p>
+					<p><strong>
+                        {% for compromiso in res.Entidad.TipoFaltas %}				
+        					{{ compromiso.FaltaCompromiso|upper }}<br />
+        				{% endfor %}
+					</strong</strong></p>
 					</div>
 				</div> <br /><br /><br /><br />
 				<div class="row">
@@ -92,10 +100,3 @@
 	<div class="panel-footer"><h2 class="text-center">VENCIMIENTO:</h2></div>
 </div>
 {% endblock %}
-
-{% block pagina_acciones2 %}
-    {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-    		class="btn btn-default"><i class="fa fa-edit"></i> Editar acta</a>
-    {% endif %}
-{% endblock pagina_acciones2 %}
