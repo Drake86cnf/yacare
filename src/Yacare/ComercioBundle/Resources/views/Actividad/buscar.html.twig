@@ -15,31 +15,30 @@
 {% if entities is defined and entities|length > 0 %}
 &nbsp;
 <div class="container-fluid">
-	{% for entity in entities %}
+	{% for entidad in res.Entidades %}
 	<div class="row">
 		<div class="col-md-12"
-			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">
-			<span class="small text-muted">{{ entity.Ruta|raw }}</span><br />
-			<h2>
-				<a href="#"
-					onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre }}'); return false;">{{
-					entity.Nombre }}</a>
-			</h2>
+			onclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}'); return false;">
+			<span class="small text-muted">{{ entidad.Ruta|raw }}</span><br />
+			<h2><a href="#" onclick="seleccionarItem('{{ entidad.id }}',
+				'{{ entidad.Nombre }}'); return false;">{{ entidad.Nombre }}</a></h2>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4">
 			<p>
-				Código ClaMAE <span style="white-space: nowrap;">{{
-					entity.Clamae2014|slice(0,5) }}-{{ entity.Clamae2014|slice(4,2) }}</span>
+			<span class="text-muted">ClaMAE: </span>{{ entidad.Clamae2014 }}<br />
+			<span class="text-muted">AFIP: </span>{{ entidad.Clamae2014|slice(0, 6) }}<br />
+				<span class="text-muted">DGR: </span>{{ entidad.DgrTdf }}<br />
+				<span class="text-muted">INDEC: </span>{{ entidad.Clamae2014|slice(0, 5) }}<br />
 			</p>
-			<span class="label label-default">Cat. {{ entity.CategoriaAntigua }}</span>
+			<span class="label label-default">Cat. {{ entidad.CategoriaAntigua }}</span>
 		</div>
 		<div class="col-md-8">
-			{% if entity.Incluye %} <span class="text-success"><small><strong>Incluye</strong>
-				{{ entity.Incluye }}</small></span>{% endif %}
-			{% if entity.NoIncluye %} <span class="text-danger"><small><strong>No
-				incluye</strong> {{ entity.NoIncluye }}</small></span>{% endif %}
+			{% if entidad.Incluye %} <span class="text-success"><small><strong>Incluye</strong>
+				{{ entidad.Incluye }}</small></span>{% endif %}
+			{% if entidad.NoIncluye %} <span class="text-danger"><small><strong>No
+				incluye</strong> {{ entidad.NoIncluye }}</small></span>{% endif %}
 		</div>
 	</div>
 	<hr />
