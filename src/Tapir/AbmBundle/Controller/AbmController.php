@@ -420,7 +420,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         $res->Entidad = $entity;
         $res->FormularioEditar = $FormEditar->createView();
         $res->FormularioEliminar = $FormEliminar ? $FormEliminar->createView() : null;
-        
+
         return $this->ArrastrarVariables($request, array(
             'entity' => $entity, 
             'create' => $id ? false : true, 
@@ -492,11 +492,10 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         if ($Errores) {
             $FormEliminar = $this->CrearFormEliminar($id);
             
-            /*
-             * foreach ($Errores as $error) {
-             * $this->addFlash('danger', $error);
-             * }
-             */
+            foreach ($Errores as $error) {
+                $this->addFlash('danger', $error->getMessage());
+            }
+
             
             $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
                 $request);
