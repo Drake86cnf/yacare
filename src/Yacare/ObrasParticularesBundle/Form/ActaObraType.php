@@ -74,6 +74,6 @@ class ActaObraType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_bromatologiabundle_actaobratype';
+        return 'yacare_comerciobundle_actaobratype';
     }
 }
