@@ -29,8 +29,8 @@
 			</td>
 			<td>{{ entity.Nombre }}</td>
 			<td class="hidden-xs">
-			    {% if entity.Local and entity.Local.Partida and entity.Local.Partida.Domicilio %}
-			        {{ entity.Local.Partida.Domicilio }}
+			    {% if entity.Local %}
+                    {{ entity.Domicilio }}
 			    {% else %}
 			    	(ambulante)
 			    {% endif %}</td>

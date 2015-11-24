@@ -12,9 +12,9 @@
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
 			{% if res.Entidad.Local %}
-			    {{ bs.grid_label_text('Local comercial', res.Entidad.Local) }}
+			    {{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
 			{% else %}
-				{{ bs.grid_label_text('Local comercial', 'Ambulante') }}
+				{{ bs.grid_label_text('Domicilio', 'n/a') }}
 			{% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12">
