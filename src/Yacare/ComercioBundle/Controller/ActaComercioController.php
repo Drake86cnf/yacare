@@ -13,6 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class ActaComercioController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
+        $this->OrderBy = 'Fecha DESC';
+    }
+    
     protected function CrearNuevaEntidad(Request $request)
     {
         $em = $this->getEm();

@@ -50,6 +50,11 @@ class Comercio implements IComercio
     protected $FechaBaja;
     
     /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $FechaUltimaActa;
+    
+    /**
      * @var integer
      * 
      * @ORM\Column(type="integer")
@@ -220,6 +225,21 @@ class Comercio implements IComercio
         $this->Actas = $Actas;
         return $this;
     }
- 
- 
+
+    /**
+     * @ignore
+     */
+    public function getFechaUltimaActa()
+    {
+        return $this->FechaUltimaActa;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaUltimaActa($FechaUltimaActa)
+    {
+        $this->FechaUltimaActa = $FechaUltimaActa;
+        return $this;
+    }
 }

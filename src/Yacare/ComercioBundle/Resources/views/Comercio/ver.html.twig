@@ -131,11 +131,10 @@
 <table class="table table-reponsive table-hoverselect">
 	<thead>
 		<tr>
-			<th>Nº</th>
+			<th class="text-right">Nº</th>
 			<th>Tipo</th>
 			<th>Fecha</th>
-			<th>Comercio</th>
-			<th>Inspector</th>
+			<th>Etiquetas</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -144,8 +143,9 @@
 			<td class="text-right">{{ entidad.Numero }}</td>
 			<td>{{ entidad.SubTipo }}</td>
 			<td>{{ entidad.Fecha|tapir_fecha('medium', 'none') }}</td>
-			<td>{{ entidad.Comercio }}</td>
-			<td>{{ entidad.FuncionarioPrincipal }}</td>
+			<td>{% for etiqueta in entidad.Etiquetas %}
+			    <mark>{{ etiqueta }}</mark>
+			{% endfor %}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
