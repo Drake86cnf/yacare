@@ -12,19 +12,25 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="ObrasParticulares_ActaObra")
  */
-class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
+class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 {
     use \Yacare\CatastroBundle\Entity\ConPartida;
+
+    public function __construct()
+    {
+        $this->TipoFaltas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Nombre = 'Acta de obra nueva';
+    }
     
     /**
      * La falta tipificada, o null si no está tipificada.
      *
      * @var \Yacare\ObrasParticularesBundle\Entity\TipoFalta
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\TipoFalta")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity="Yacare\ObrasParticularesBundle\Entity\TipoFalta")
+     * @ORM\JoinTable(name="ObrasParticulares_ActaObra_TipoFalta")
      */
-    protected $TipoFalta;
+    protected $TipoFaltas;
     
     /**
      * Tipo de obra.
@@ -67,6 +73,14 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
      */
     protected $Profesional;
     
+    /**
+     * La fecha de descargo del acta.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $FechaDescargo;
 
     /**
      * @ignore
@@ -133,23 +147,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
     }
 
     /**
-     * @return the TipoFalta
-     */
-    public function getTipoFalta()
-    {
-        return $this->TipoFalta;
-    }
-
-    /**
-     * @param  $TipoFalta
-     */
-    public function setTipoFalta($TipoFalta)
-    {
-        $this->TipoFalta = $TipoFalta;
-        return $this;
-    }
-
-    /**
      * @return the integer
      */
     public function getEstado()
@@ -182,5 +179,55 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta
         $this->Inspector = $Inspector;
         return $this;
     }
- 
+
+    /**
+     * @ignore
+     */
+    public function getTipoObra()
+    {
+        return $this->TipoObra;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipoObra($TipoObra)
+    {
+        $this->TipoObra = $TipoObra;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getTipoFaltas()
+    {
+        return $this->TipoFaltas;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTipoFaltas($TipoFaltas)
+    {
+        $this->TipoFaltas = $TipoFaltas;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getFechaDescargo()
+    {
+        return $this->FechaDescargo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaDescargo(\DateTime $FechaDescargo)
+    {
+        $this->FechaDescargo = $FechaDescargo;
+        return $this;
+    } 
 }

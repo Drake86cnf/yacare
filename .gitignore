@@ -4,3 +4,4 @@ composer.lock
 .settings
 vendor
 *.md.html
+.rules

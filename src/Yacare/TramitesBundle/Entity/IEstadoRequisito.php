@@ -1,6 +1,11 @@
 <?php
 namespace Yacare\TramitesBundle\Entity;
 
-interface IEstadoRequisito {
-
+/**
+ * Interace para un estado de requisito.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
+ */
+interface IEstadoRequisito
+{
 }

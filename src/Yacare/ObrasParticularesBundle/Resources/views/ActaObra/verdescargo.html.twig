@@ -1,0 +1,102 @@
+{% extends 'TapirAbmBundle::imprimir.html.twig' %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="panel panel-default">
+	{% set firma ='----------------------------------------------------------' %}
+	<div class="panel-heading">
+		<h1 class="text-center">DESCARGO DE ACTA</h1>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+        	<div class="col-xs-2 text-right"><strong>Propietario:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Titular }}</div>
+        	<div class="col-xs-4 text-right"><strong>Sección:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Seccion }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Domicilio:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Domicilio }}</div>
+        	<div class="col-xs-4 text-right"><strong>Macizo:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Macizo }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Partida:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Numero }}</div>
+        	<div class="col-xs-4 text-right"><strong>Parcela:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Parcela }}</div>
+        </div>
+        {% if res.Entidad.Profesional.Id is defined and res.Entidad.Profesional.Id%}
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Profesional:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Persona.NombreVisible }}</div>
+        	<div class="col-xs-4 text-right"><strong>Mátricula:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Id }}</div>
+        </div>
+        {% endif %}
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item"><h3 class="text-center">ACTA DE {{ res.Entidad.Subtipo|upper }}</h3></li>
+		<div class="panel-body">
+    		<div class="row">
+            	<div class="col-xs-2 text-right"><strong>NÚMERO:</strong></div> 
+            	<div class="col-xs-4">{{ res.Entidad.Numero }}</div>
+            	<div class="col-xs-3 text-right"><strong>FECHA:</strong></div> 
+            	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
+            &nbsp;
+            </div>
+        	<div class="col-xs-12 text-left">Inspección realizada por {{ res.Entidad.FuncionarioPrincipal }}.</div>
+		</div>
+    	<li class="list-group-item">
+    		<div class="panel-body">
+    			<div class="row">
+    				<div class="col-xs-12">
+						La {{ res.Entidad.Subtipo|lower }} detectó las siguientes Observaciones: <br><br/>
+						<p><strong>
+						{% for tipofalta in res.Entidad.TipoFaltas %}				
+        					{{ tipofalta|upper }}<br />
+        				{% endfor %}
+        				</strong></p>
+					</div>
+				</div><br /><br /><br /><br />
+				<div class="row">
+        			<div class="col-xs-12 col-sm-8 col-md-8"></div>
+        			<div class="col-xs-12 col-sm-4 col-md-4">
+        				<div class="pull-right">
+        					<div class="center">
+        						<p class="text-center">{{ firma }}<br /> FIRMA Y SELLO DEL INSPECTOR</p>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+			</div>
+		</li>
+		<li class="list-group-item">
+    		<div class="panel-body">
+    			<div class="row">
+    				<div class="col-xs-12">
+					Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección de Obras 
+					Particulares me comprometo en un plazo maximo de <strong>{{ res.Entidad.Plazo }} días</strong> 
+					a cumplimentar con lo que se detalla a continuación: <br><br/>
+					<p><strong>
+                        {% for compromiso in res.Entidad.TipoFaltas %}				
+        					{{ compromiso.FaltaCompromiso|upper }}<br />
+        				{% endfor %}
+					</strong</strong></p>
+					</div>
+				</div> <br /><br /><br /><br />
+				<div class="row">
+        			<div class="col-xs-12 col-sm-8 col-md-8"></div>
+        			<div class="col-xs-12 col-sm-4 col-md-4">
+        				<div class="pull-right">
+    						<p class="text-center">{{ firma }}<br /> PROPIETARIO / APODERADO</p>
+        				</div>
+        			</div>
+        		</div>
+			</div>
+		</li>
+	</ul>
+	<div class="panel-footer"><h2 class="text-center">VENCIMIENTO:</h2></div>
+</div>
+{% endblock %}
