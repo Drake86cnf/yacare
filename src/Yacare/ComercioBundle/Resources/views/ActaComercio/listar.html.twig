@@ -10,7 +10,7 @@
     			<th>Tipo</th>
     			<th>Fecha</th>
     			<th>Comercio</th>
-    			<th>Inspector</th>
+    			<th>Etiquetas</th>
     		</tr>
     	</thead>
     	<tbody>
@@ -20,7 +20,9 @@
     			<td>{{ entidad.SubTipo }}</td>
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
     			<td>{{ entidad.Comercio }}</td>
-    			<td>{{ entidad.FuncionarioPrincipal }}</td>
+    			<td>{% for etiqueta in entidad.Etiquetas %}
+    			    <mark>{{ etiqueta }}</mark>
+    			{% endfor %}</td>
     		</tr>
     		{% endfor %}
     	</tbody>
