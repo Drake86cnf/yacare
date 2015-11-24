@@ -112,6 +112,9 @@
         <ul class="list-group">
             <a class="list-group-item" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
             	de actas <span class="badge">{{ res.Contadores['ActaComercio'] }}</span></a></a>
+            <a class="list-group-item" data-toggle="ajax-link"
+            	href="{{ path('yacare_comercio_actaetiqueta_listar', res.Arrastre) }}"><i
+            	class="fa fa-fw fa-tag"></i> Gestión de etiquetas</a>
         </ul>
     </div></div>
 
