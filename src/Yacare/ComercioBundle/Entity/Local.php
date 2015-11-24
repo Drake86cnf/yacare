@@ -28,7 +28,7 @@ class Local
      * 
      * @ORM\Column(type="string", length=255)
      */
-    protected $Tipo = 'Local de ventas';
+    protected $Tipo = 'Local comercial';
     
     /**
      * La superficie en metros cuadrados.

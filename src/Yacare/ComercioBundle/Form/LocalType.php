@@ -24,7 +24,7 @@ class LocalType extends AbstractType
                 'label' => 'Tipo',
                 'required' => true,
                 'choices' => array(
-                    'Local de ventas' => 'Local de ventas',
+                    'Local comercial' => 'Local comercial',
                     'Depósito' => 'Depósito',
                     'Otro' => 'Otro')))
             ->add('DepositoClase', 'entity', array(
