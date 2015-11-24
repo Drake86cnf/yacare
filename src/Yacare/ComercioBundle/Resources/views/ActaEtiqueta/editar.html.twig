@@ -1,0 +1,6 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %} 
+
+{% block pagina_titulo %}
+    {% if entity.id %}{{ entity.Nombre }}
+    {% else %}Nueva etiqueta{% endif %}
+{% endblock %}
