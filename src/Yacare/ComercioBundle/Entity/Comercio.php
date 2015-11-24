@@ -74,6 +74,25 @@ class Comercio implements IComercio
      * @JMS\Serializer\Annotation\Exclude
      */
     protected $Actas;
+    
+    /**
+     * Setter con sanitización.
+     */
+    public function setPosicionArchivo($PosicionArchivo)
+    {
+        if($PosicionArchivo) {
+            $PosicionArchivo = strtoupper(trim($PosicionArchivo, "-. \t\n\r\0\x0B"));
+            
+            $Letra = substr($PosicionArchivo, 0, 1);
+            $Numero = substr($PosicionArchivo, 1);
+            if($Numero > 0) {
+                $PosicionArchivo = $Letra . str_pad($Numero, 3, '0', STR_PAD_LEFT);
+            }
+        }
+        $this->PosicionArchivo = $PosicionArchivo;
+        
+        return $this;
+    }
 
     /**
      * Devuelve nombres de estado normalizados.
@@ -149,15 +168,6 @@ class Comercio implements IComercio
     public function getPosicionArchivo()
     {
         return $this->PosicionArchivo;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPosicionArchivo($PosicionArchivo)
-    {
-        $this->PosicionArchivo = $PosicionArchivo;
-        return $this;
     }
 
     /**
