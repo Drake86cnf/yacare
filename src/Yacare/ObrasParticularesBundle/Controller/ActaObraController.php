@@ -21,7 +21,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         parent::IniciarVariables();
         
         // TODO: Implementar que filtre por fecha
-        $this->BuscarPor = 'Numero, Fecha, fp.NombreVisible';
+        $this->BuscarPor = 'Numero, SubTipo, Fecha, fp.NombreVisible';
         
         if (in_array('r.FuncionarioPrincipal fp', $this->Joins) == false) {
             $this->Joins[] = 'JOIN r.FuncionarioPrincipal fp';
