@@ -14,6 +14,12 @@ use Doctrine\ORM\Mapping\JoinColumn;
  */
 class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
 {
+    public function __construct()
+    {
+        $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Nombre = 'Acta de comercio';
+    }
+    
     /**
      * El comercio asociado a esta acta.
      * 
@@ -23,6 +29,16 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Comercio;
+    
+    /**
+     * Las etiquetas asociadas al acta.
+     *
+     * @var \Yacare\ComercioBundle\Entity\ActaEtiqueta
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActaEtiqueta")
+     * @ORM\JoinTable(name="ObrasParticulares_ActaComercio_ActaEtiqueta")
+     */
+    protected $Etiquetas;
     
 
     /**
@@ -40,5 +56,23 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
     {
         $this->Comercio = $Comercio;
         return $this;
-    } 
+    }
+
+    /**
+     * @ignore
+     */
+    public function getEtiquetas()
+    {
+        return $this->Etiquetas;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setEtiquetas($Etiquetas)
+    {
+        $this->Etiquetas = $Etiquetas;
+        return $this;
+    }
+  
 }
