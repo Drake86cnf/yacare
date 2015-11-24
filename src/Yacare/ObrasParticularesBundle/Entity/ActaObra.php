@@ -78,6 +78,15 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $FechaDescargo;
+    
+    /**
+     * El plazo de cumplimiento, en un descargo.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Plazo;
 
     public function getEstadoAvanceNombre()
     {
@@ -209,4 +218,21 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
         $this->FechaDescargo = $FechaDescargo;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getPlazo()
+    {
+        return $this->Plazo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setPlazo($Plazo)
+    {
+        $this->Plazo = $Plazo;
+        return $this;
+    } 
 }
