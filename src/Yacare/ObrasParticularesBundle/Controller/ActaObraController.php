@@ -67,7 +67,11 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
                     '90' => '90 días'
                 ),
                 'label' => 'Plazo',
-                'required' => true));
+                'required' => true))
+            ->add('Profesional', 'entity_id', array(
+                'label' => 'Profesional',
+                'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
+                'required' => false));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
