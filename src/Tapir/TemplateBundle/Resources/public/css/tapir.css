@@ -16,9 +16,9 @@ body {
 }
 
 body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
-	font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica,
-		Arial, sans-serif;
-	font-weight: 300;
+    font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica,
+        Arial, sans-serif;
+    font-weight: 400;
 }
 
 a.btn-link {
@@ -55,6 +55,10 @@ label, .text-label {
 	color: #606060;
 }
 
+.text-value {
+	
+}
+
 .link {
 	cursor: pointer !important;
 }
@@ -63,7 +67,7 @@ a, button {
 	cursor: pointer !important;
 	font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica,
 		Arial, sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 }
 
 a.disabled {
@@ -145,7 +149,7 @@ legend small {
 	.label {
 		font-size: 7pt !important;
 		padding: 2px;
-		font-weight: 300;
+		font-weight: 400;
 		border: 1px solid gray;
 	}
 	abbr:after {
