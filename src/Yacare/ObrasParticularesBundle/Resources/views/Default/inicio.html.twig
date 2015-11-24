@@ -12,7 +12,11 @@
         </div>
         <div class="panel-body">
             <p>Acceso a la nómina de actas de obra realizadas.</p>
-            <input type="text" class="form-control pull-rigth" placeholder="buscar por apellido o número de acta" />
+            <form id ="form_consulta" class="form-horizontal" 
+            	action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" method="get">
+                <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
+                	placeholder="Buscar por inspector, número o tipo de acta." />
+            </form>
         </div>
         <ul class="list-group">
             <a class="list-group-item" data-toggle="ajax-link"
@@ -59,4 +63,16 @@
     </div></div>
 
 </div></div>
+{% endblock pagina_contenido%}
+
+{% block pagina_scripts %}
+    <script>
+    	$('#consultar').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $('form#form_consulta').submit();
+                return false;
+            }
+        });
+    </script>
 {% endblock %}
