@@ -25,19 +25,19 @@ trait ConExpediente
     protected $ExpedienteNumero;
 
     /**
+     * Setter con sanitización.
+     */
+    public function setExpedienteNumero($ExpedienteNumero)
+    {
+        $this->ExpedienteNumero = trim($ExpedienteNumero);
+        return $this;
+    }
+    
+    /**
      * @ignore
      */
     public function getExpedienteNumero()
     {
         return $this->ExpedienteNumero;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setExpedienteNumero($ExpedienteNumero)
-    {
-        $this->ExpedienteNumero = $ExpedienteNumero;
-        return $this;
     }
 }

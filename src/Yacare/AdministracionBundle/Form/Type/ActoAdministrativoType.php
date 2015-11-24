@@ -15,11 +15,12 @@ class ActoAdministrativoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'label' => 'Acto admin.', 
-            'maxlength' => 13, 
+            'maxlength' => 13,
+            'placeholder' => 'XX-1234/' . date('Y'),
             'attr' => array(
-                'class' => 'yacare-input-acad tapir-input-240 tapir-input-mayus', 
+                'class' => 'yacare-input-acad tapir-input-240 tapir-input-mayus',
                 'data-type' => 'yacare_acad', 
-                'maxlength' => '11')));
+                'maxlength' => '13')));
     }
 
     public function getParent()
