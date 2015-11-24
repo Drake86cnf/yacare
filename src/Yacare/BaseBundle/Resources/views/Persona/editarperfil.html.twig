@@ -4,6 +4,7 @@
 
 {% block pagina_acciones2 %}
 {% if entity.Username %}
-    <a data-toggle="modal" data-target="#modal" class="btn btn-link" href="{{ path('usuario_cambiarcontrasena', arrastre|merge({ 'id': entity.id })) }}">Cambiar contraseña</a>
+    <a data-toggle="modal" data-target="#modal" class="btn btn-link"
+    	href="{{ path('usuario_cambiarcontrasena', arrastre|merge({ 'id': entity.id })) }}">Cambiar contraseña</a>
 {% endif %}
 {% endblock %}
