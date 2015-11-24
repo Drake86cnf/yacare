@@ -98,6 +98,15 @@ class Comercio implements IComercio
         
         return $this;
     }
+    
+    /**
+     * Devuelve el domicilio, en caso de que tenga uno.
+     */
+    public function getDomicilio() {
+        if($this->getLocal() && $this->getLocal()->getPartida()) {
+            return $this->getLocal()->getPartida()->getDomicilio();
+        }
+    }
 
     /**
      * Devuelve nombres de estado normalizados.
