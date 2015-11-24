@@ -95,7 +95,7 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
     /**
      * @ignore
      */
-    public function setHora(String $Hora)
+    public function setHora($Hora)
     {
         $this->Hora = $Hora;
         return $this;
