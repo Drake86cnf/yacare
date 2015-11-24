@@ -11,7 +11,7 @@
 			<th> </th>
 			<th>Nombre</th>
 			<th class="hidden-xs">Local</th>
-			<th class="hidden-sm hidden-xs">Actividad</th>
+			<th class="hidden-sm hidden-xs">Última acta</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,12 +29,12 @@
 			</td>
 			<td>{{ entity.Nombre }}</td>
 			<td class="hidden-xs">
-			    {% if entity.Local %}
-			        {{ entity.Local }}
+			    {% if entity.Local and entity.Local.Partida and entity.Local.Partida.Domicilio %}
+			        {{ entity.Local.Partida.Domicilio }}
 			    {% else %}
 			    	(ambulante)
 			    {% endif %}</td>
-			<td class="hidden-sm hidden-xs">{{ entity.Actividad1}}</td>
+			<td class="hidden-sm hidden-xs">{{ entity.FechaUltimaActa|tapir_hacetiempo }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>

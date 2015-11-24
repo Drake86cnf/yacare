@@ -6,22 +6,22 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row">
-        	<div class="col-xs-2 text-right"><strong>Inspector:</strong></div> 
+        	<div class="col-xs-2 text-right"><strong>Inspector</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
-        	<div class="col-xs-4 text-right"><strong>Fecha del acta:</strong></div> 
+        	<div class="col-xs-4 text-right"><strong>Fecha del acta</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
         </div><br />
 		<div class="row">
-        	<div class="col-xs-2 text-right"><strong>Comercio:</strong></div> 
+        	<div class="col-xs-2 text-right"><strong>Comercio</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Comercio }}</div>
-        	<div class="col-xs-4 text-right"><strong>Local:</strong></div> 
+        	<div class="col-xs-4 text-right"><strong>Local</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Comercio.Local }}</div>
         </div>
         <div class="row">
         	<div class="col-xs-2 text-right"><strong>Etiquetas:</strong></div> 
         	<div class="col-xs-10">
         		{% for etiqueta in res.Entidad.Etiquetas %}
-        			<span class="label label-info">{{ etiqueta }}</span> 
+        			<mark>{{ etiqueta }}</span> 
         		{% endfor %}
         	</div>
         </div>
