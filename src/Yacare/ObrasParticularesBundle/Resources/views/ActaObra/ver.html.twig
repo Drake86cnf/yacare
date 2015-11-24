@@ -1,0 +1,66 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+        	<div class="col-xs-2 text-right"><strong>Propietario:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Titular }}</div>
+        	<div class="col-xs-4 text-right"><strong>Sección:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Seccion }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Domicilio:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Domicilio }}</div>
+        	<div class="col-xs-4 text-right"><strong>Macizo:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Macizo }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Partida:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Numero }}</div>
+        	<div class="col-xs-4 text-right"><strong>Parcela:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Partida.Parcela }}</div>
+        </div>
+        {% if res.Entidad.Profesional.Id is defined and res.Entidad.Profesional.Id%}
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Profesional:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Persona.NombreVisible }}</div>
+        	<div class="col-xs-4 text-right"><strong>Mátricula:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Profesional.Id }}</div>
+        </div> <br />
+        {% endif %}
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Inspector:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
+        	<div class="col-xs-4 text-right"><strong>Fecha del acta:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Falta incurrida:</strong></div> 
+        	<div class="col-xs-3">
+        		{% for tipofalta in res.Entidad.TipoFaltas %}
+        			<span class="label label-info">{{ tipofalta }}</span> 
+        		{% endfor %}
+        	</div>
+        </div>
+	</div>
+	{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
+    	<ul class="list-group">
+            <li class="list-group-item">
+        		{{ res.Entidad.Obs }}
+            </li>
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block pagina_acciones2 %}
+    {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
+    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+    	<a href="{{ path(res.ObtenerRutaAccion('verdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    		class="btn btn-success pull-right"><i class="fa fa-edit"></i> Realizar descargo</a>
+    {% endif %}
+{% endblock pagina_acciones2 %}

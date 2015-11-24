@@ -1,0 +1,7 @@
+services:
+    yacare.obrasparticulares.obrasparticulares_listener:
+        class: Yacare\ObrasParticularesBundle\EventListener\ObrasParticularesListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+            - { name: doctrine.event_subscriber }

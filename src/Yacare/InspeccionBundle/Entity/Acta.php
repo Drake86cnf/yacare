@@ -96,15 +96,6 @@ abstract class Acta implements IActa
     protected $FuncionarioSecundario;
     
     /**
-     * Responsable a quién se le hace la notificación en caso de ausencia del propietario de la partida.
-     * 
-     * @var string
-     * 
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $ResponsableNombre;
-    
-    /**
      * @var string
      * 
      * @ORM\Column(type="text", nullable=true)
@@ -227,57 +218,6 @@ abstract class Acta implements IActa
     public function setFuncionarioSecundario($FuncionarioSecundario)
     {
         $this->FuncionarioSecundario = $FuncionarioSecundario;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getResponsableNombre()
-    {
-        return $this->ResponsableNombre;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setResponsableNombre($ResponsableNombre)
-    {
-        $this->ResponsableNombre = $ResponsableNombre;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getDetalle()
-    {
-        return $this->Detalle;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setDetalle($Detalle)
-    {
-        $this->Detalle = $Detalle;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getObs()
-    {
-        return $this->Obs;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setObs($Obs)
-    {
-        $this->Obs = $Obs;
         return $this;
     }
 }

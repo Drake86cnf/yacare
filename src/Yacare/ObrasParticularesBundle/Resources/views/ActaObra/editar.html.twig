@@ -1,3 +1,61 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} 
+{% extends 'TapirAbmBundle::editarbase.html.twig' %} 
 
 {% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Nueva acta{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+    <div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Numero) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Numero) }}</div>
+    </div>
+    <div class="row form-group">
+    	{{ form_label(res.FormularioEditar.SubTipo) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.SubTipo) }}</div>
+    </div>
+    <div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Profesional) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Profesional) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Partida) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Partida) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Fecha) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.TipoFaltas) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoFaltas) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.FuncionarioPrincipal) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.FuncionarioPrincipal) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Plazo) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Plazo) }}</div>
+	</div>
+	<span id="adicional" style="display:none">
+        <div class="row form-group">
+        	{{ form_label(res.FormularioEditar.Obs) }}
+        	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
+        </div>
+	</span>
+    {{ form_rest(res.FormularioEditar) }}	
+	<a id="linkMostrar" href="#" onclick="mostrarOculto()">Agregar observaciones</a>
+	
+    <script type="text/javascript">
+        function mostrarOculto(flag) {
+        	var elemento = document.getElementById("adicional");
+        
+            if (elemento.style.display == "" || elemento.style.display == "block") {
+        		elemento.style.display = "none";
+              	linkMostrar.innerHTML = 'Agregar observaciones'
+            }
+            else {
+            	elemento.style.display = "block";
+            	linkMostrar.innerHTML = 'Ocultar observaciones'
+            }
+        }
+    </script>
+{% endblock %}
