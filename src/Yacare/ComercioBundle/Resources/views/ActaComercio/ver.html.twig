@@ -1,38 +1,57 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}Acta de {{ res.Entidad.SubTipo }} Nº {{ res.Entidad.Numero }}{% endblock %}
 
 {% block pagina_contenido %}
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row">
-        	<div class="col-xs-2 text-right"><strong>Inspector</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
-        	<div class="col-xs-4 text-right"><strong>Fecha del acta</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
-        </div><br />
-		<div class="row">
-        	<div class="col-xs-2 text-right"><strong>Comercio</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.Comercio }}</div>
-        	<div class="col-xs-4 text-right"><strong>Local</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.Comercio.Local }}</div>
+			<div class="col-sm-6 col-xs-12">
+        	    {{ bs.grid_label_text('Comercio', res.Entidad.Comercio) }}
+        	    {{ bs.grid_label_text('Domicilio', res.Entidad.Comercio.Domicilio) }}
+			    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
+			    {% if res.Entidad.OtrosFuncionarios|length > 0 %}
+    			    {% set OtrosFunc = '' %}
+    			    {% for funcionario in res.Entidad.OtrosFuncionarios %}
+    			    	{% set OtrosFunc = OtrosFunc + ' ' + funcionario %}
+    			    {% endfor %}
+    			    {{ bs.grid_label_text('Otros funcionarios', OtrosFunc) }}
+			    {% endif %}
+        	</div>
+        	<div class="col-sm-6 col-xs-12">
+        	    {{ bs.grid_label_text('Número', res.Entidad.Numero) }}
+        	    {{ bs.grid_label_text('Tipo', res.Entidad.SubTipo) }}
+			    {{ bs.grid_label_text('Fecha', res.Entidad.Fecha|tapir_fecha('medium', 'none')) }}
+			    {{ bs.grid_label_text('Hora', res.Entidad.Hora) }}
+        	</div>
         </div>
         <div class="row">
-        	<div class="col-xs-2 text-right"><strong>Etiquetas:</strong></div> 
+        	<div class="col-xs-2 text-label text-right">Etiquetas</div>
         	<div class="col-xs-10">
         		{% for etiqueta in res.Entidad.Etiquetas %}
         			<mark>{{ etiqueta }}</span> 
         		{% endfor %}
         	</div>
         </div>
+        
+        {% if res.Entidad.Detalle %}
+        <hr />
+        <div class="row">
+        	<div class="col-xs-2 text-label text-right">Detalle</div>
+        	<div class="col-xs-10">{{ res.Entidad.Detalle }}</div>
+        </div>
+        {% endif %}
+        
+        {% if res.Entidad.Obs %}
+        <hr />
+        <div class="row">
+        	<div class="col-xs-2 text-label text-right">Observaciones</div>
+        	<div class="col-xs-10">{{ res.Entidad.Obs }}</div>
+        </div>
+        {% endif %}
 	</div>
-	{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
-    	<ul class="list-group">
-            <li class="list-group-item">
-        		{{ res.Entidad.Obs }}
-            </li>
-        </ul>
-    {% endif %}
 </div>
 {% endblock %}
 
