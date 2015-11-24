@@ -1,0 +1,44 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+        	<div class="col-xs-2 text-right"><strong>Inspector:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
+        	<div class="col-xs-4 text-right"><strong>Fecha del acta:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
+        </div><br />
+		<div class="row">
+        	<div class="col-xs-2 text-right"><strong>Comercio:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Comercio }}</div>
+        	<div class="col-xs-4 text-right"><strong>Local:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Comercio.Local }}</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-2 text-right"><strong>Etiquetas:</strong></div> 
+        	<div class="col-xs-10">
+        		{% for etiqueta in res.Entidad.Etiquetas %}
+        			<span class="label label-info">{{ etiqueta }}</span> 
+        		{% endfor %}
+        	</div>
+        </div>
+	</div>
+	{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
+    	<ul class="list-group">
+            <li class="list-group-item">
+        		{{ res.Entidad.Obs }}
+            </li>
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
+	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+		class="btn btn-default pull-right"><i class="fa fa-edit"></i> Editar</a>
+{% endif %}
+{% endblock pagina_acciones2 %}

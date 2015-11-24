@@ -1,3 +1,23 @@
 {% extends 'TapirAbmBundle::editar.html.twig' %} 
 
 {% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Nueva acta{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Tipo</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.SubTipo) }}</div>
+
+	<label class="col-sm-2 control-label">Número</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Numero) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Fecha</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
+
+	<label class="col-sm-2 control-label">Ahora</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Hora) }}</div>
+</div>
+
+{{ parent() }}
+{% endblock pagina_contenido %}
