@@ -20,11 +20,6 @@ class ActaComercioType extends AbstractType
                 'label' => 'Comercio', 
                 'class' => 'Yacare\ComercioBundle\Entity\Comercio', 
                 'required' => false))
-            ->add('Numero', null, array(
-                'label' => 'Numero',
-                'attr' => array ('class' => 'tapir-input-160'),
-                'required' => true
-            ))
             ->add('SubTipo', 'choice', array(
                 'choices' => array(
                     'Inspección de rutina' => 'Inspección de rutina',
@@ -38,13 +33,16 @@ class ActaComercioType extends AbstractType
                 ), 
                 'required' => true,
                 'label' => 'Tipo de acta'))
-            ->add('Etiquetas', 'entity', array(
-                'class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta',
-                'multiple' => true,
-                'label' => 'Etiquetas',
-                'placeholder' => 'Seleccione una o más etiquetas',
-                'required' => false))
+            ->add('Numero', null, array(
+                'label' => 'Numero',
+                'attr' => array ('class' => 'tapir-input-160'),
+                'required' => true
+            ))
             ->add('Fecha', new \Tapir\BaseBundle\Form\Type\FechaType(), array('label' => 'Fecha'))
+            ->add('Hora', null, array(
+                'label' => 'Hora',
+                'attr' => array('class' => 'tapir-input-120')
+            ))
             ->add('FuncionarioPrincipal', 'entity', array(
                 'label' => 'Inspector',
                 'property' => 'NombreVisible',
@@ -53,6 +51,21 @@ class ActaComercioType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => true))
+            ->add('OtrosFuncionarios', 'entity', array(
+                'multiple' => true,
+                'label' => 'Otros funcionarios',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
+                    return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
+                },
+                'required' => false))
+            ->add('Etiquetas', 'entity', array(
+                'class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta',
+                'multiple' => true,
+                'label' => 'Etiquetas',
+                'placeholder' => 'Seleccione una o más etiquetas',
+                'required' => false))
             ->add('Detalle', null, array('label' => 'Detalle'))
             ->add('Obs', null, array('label' => 'Observaciones'))
             ;

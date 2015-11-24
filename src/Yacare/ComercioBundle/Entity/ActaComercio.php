@@ -40,6 +40,15 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
      */
     protected $Etiquetas;
     
+    /**
+     * La hora del acta.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $Hora;
+    
 
     /**
      * @ignore
@@ -74,5 +83,23 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
         $this->Etiquetas = $Etiquetas;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getHora()
+    {
+        return $this->Hora;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setHora(String $Hora)
+    {
+        $this->Hora = $Hora;
+        return $this;
+    }
+ 
   
 }
