@@ -398,6 +398,11 @@ function MejorarElementos(destino) {
 		var currVal = $(this).val();
 		$(this).val(currVal.toUpperCase());
 	});
+	$(desintoFinal + '.tapir-input-minus').blur(function(e) {
+		// Campos de texto de minúsculas obligatorias
+		var currVal = $(this).val();
+		$(this).val(currVal.toLowerCase());
+	});
 }
 
 
