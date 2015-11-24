@@ -12,28 +12,32 @@
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.SubTipo) }}</div>
     </div>
     <div class="row form-group">
-    	{{ form_label(res.FormularioEditar.Profesional) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Profesional) }}</div>
+    	{{ form_label(res.FormularioEditar.Fecha) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
 	</div>
 	<div class="row form-group">
     	{{ form_label(res.FormularioEditar.Partida) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Partida) }}</div>
 	</div>
 	<div class="row form-group">
-    	{{ form_label(res.FormularioEditar.Fecha) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
-	</div>
-	<div class="row form-group">
     	{{ form_label(res.FormularioEditar.TipoFaltas) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoFaltas) }}</div>
 	</div>
 	<div class="row form-group">
-    	{{ form_label(res.FormularioEditar.FuncionarioPrincipal) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.FuncionarioPrincipal) }}</div>
+    	{{ form_label(res.FormularioEditar.TipoConstruccion) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoConstruccion) }}</div>
 	</div>
 	<div class="row form-group">
-    	{{ form_label(res.FormularioEditar.Plazo) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Plazo) }}</div>
+    	{{ form_label(res.FormularioEditar.EstadoAvance) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.EstadoAvance) }}</div>
+	</div>
+    <div class="row form-group">
+    	{{ form_label(res.FormularioEditar.Profesional) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Profesional) }}</div>
+	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.FuncionarioPrincipal) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.FuncionarioPrincipal) }}</div>
 	</div>
 	<span id="adicional" style="display:none">
         <div class="row form-group">
@@ -41,11 +45,14 @@
         	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
         </div>
 	</span>
-    {{ form_rest(res.FormularioEditar) }}	
-	<a id="linkMostrar" href="#" onclick="mostrarOculto()">Agregar observaciones</a>
+    {{ form_rest(res.FormularioEditar) }}
+	<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">Agregar observaciones</a>
+{% endblock pagina_contenido %}
 	
+{% block pagina_scripts %}
+	{{ parent() }}		
     <script type="text/javascript">
-        function mostrarOculto(flag) {
+        function mostrarOculto() {
         	var elemento = document.getElementById("adicional");
         
             if (elemento.style.display == "" || elemento.style.display == "block") {
@@ -58,4 +65,4 @@
             }
         }
     </script>
-{% endblock %}
+{% endblock pagina_scripts %}

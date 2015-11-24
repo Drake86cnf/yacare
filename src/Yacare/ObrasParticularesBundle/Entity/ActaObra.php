@@ -2,7 +2,6 @@
 namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Representa un acta de inspección, infracción, notificación o compromiso.
@@ -39,27 +38,25 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * 
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $TipoObra;
+    private $TipoObra;
     
     /**
-     * El estado de avance la obra para las actas de obra o 0 para las actas de comercio.
-     *
-     * @var integer 
+     * El tipo de la construcción.
      * 
-     * @ORM\Column(type="integer", nullable=true)
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=false)
      */
-    protected $EstadoAvance;
+    private $TipoConstruccion;
     
     /**
-     * El plazo para la regularización, si corresponde.
+     * El estado de avance de la obra.
      *
-     * Se aplica a todos los subtipos excepto "inspección".
-     *
-     * @var integer 
+     * @var integer
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      */
-    protected $Plazo;
+    private $EstadoAvance;
     
     /**
      * El profesional a cargo de la obra, en caso que corresponda.
@@ -82,101 +79,49 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      */
     private $FechaDescargo;
 
-    /**
-     * @ignore
-     */
-    public function getProfesional()
+    public function getEstadoAvanceNombre()
     {
-        return $this->Profesional;
+        return self::EstadoAvanceNombres($this->getEstadoAvance());
+    }
+    
+    public static function EstadoAvanceNombres($rango)
+    {
+        switch ($rango) {
+            case 1:
+                return 'Replanteo y fundaciones';
+            case 5:
+                return 'Mampostería en planta baja';
+            case 6:
+                return 'Estructura en planta baja';
+            case 10:
+                return 'Encadenado superior en planta baja';
+            case 15:
+                return 'Entrepiso';
+            case 20:
+                return 'Mampostería en planta alta';
+            case 25:
+                return 'Encadenado superior en planta alta';
+            case 30:
+                return 'Estructura de techo';
+            case 35:
+                return 'Techado';
+        }
     }
 
     /**
      * @ignore
      */
-    public function setProfesional($Profesional)
+    public function getTipoFaltas()
     {
-        $this->Profesional = $Profesional;
+        return $this->TipoFaltas;
     }
 
     /**
      * @ignore
      */
-    public function getComercio()
+    public function setTipoFaltas($TipoFaltas)
     {
-        return $this->Comercio;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setComercio($Comercio)
-    {
-        $this->Comercio = $Comercio;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getEstadoAvance()
-    {
-        return $this->EstadoAvance;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getPlazo()
-    {
-        return $this->Plazo;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setEstadoAvance($EstadoAvance)
-    {
-        $this->EstadoAvance = $EstadoAvance;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setPlazo($Plazo)
-    {
-        $this->Plazo = $Plazo;
-    }
-
-    /**
-     * @return the integer
-     */
-    public function getEstado()
-    {
-        return $this->Estado;
-    }
-
-    /**
-     * @param  $Estado
-     */
-    public function setEstado($Estado)
-    {
-        $this->Estado = $Estado;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getInspector()
-    {
-        return $this->Inspector;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setInspector($Inspector)
-    {
-        $this->Inspector = $Inspector;
+        $this->TipoFaltas = $TipoFaltas;
         return $this;
     }
 
@@ -200,17 +145,51 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     /**
      * @ignore
      */
-    public function getTipoFaltas()
+    public function getTipoConstruccion()
     {
-        return $this->TipoFaltas;
+        return $this->TipoConstruccion;
     }
 
     /**
      * @ignore
      */
-    public function setTipoFaltas($TipoFaltas)
+    public function setTipoConstruccion($TipoConstruccion)
     {
-        $this->TipoFaltas = $TipoFaltas;
+        $this->TipoConstruccion = $TipoConstruccion;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getEstadoAvance()
+    {
+        return $this->EstadoAvance;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setEstadoAvance($EstadoAvance)
+    {
+        $this->EstadoAvance = $EstadoAvance;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getProfesional()
+    {
+        return $this->Profesional;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setProfesional($Profesional)
+    {
+        $this->Profesional = $Profesional;
         return $this;
     }
 
@@ -225,9 +204,9 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     /**
      * @ignore
      */
-    public function setFechaDescargo(\DateTime $FechaDescargo)
+    public function setFechaDescargo($FechaDescargo)
     {
         $this->FechaDescargo = $FechaDescargo;
         return $this;
-    } 
+    }
 }

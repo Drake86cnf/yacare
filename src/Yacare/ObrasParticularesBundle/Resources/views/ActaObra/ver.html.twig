@@ -6,6 +6,12 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row">
+        	<div class="col-xs-2 text-right"><strong>Inspector:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
+        	<div class="col-xs-4 text-right"><strong>Fecha del acta:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
+        </div><br />
+		<div class="row">
         	<div class="col-xs-2 text-right"><strong>Propietario:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Partida.Titular }}</div>
         	<div class="col-xs-4 text-right"><strong>Sección:</strong></div> 
@@ -22,24 +28,24 @@
         	<div class="col-xs-3">{{ res.Entidad.Partida.Numero }}</div>
         	<div class="col-xs-4 text-right"><strong>Parcela:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Partida.Parcela }}</div>
-        </div>
+        </div><br />
         {% if res.Entidad.Profesional.Id is defined and res.Entidad.Profesional.Id%}
         <div class="row">
         	<div class="col-xs-2 text-right"><strong>Profesional:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Profesional.Persona.NombreVisible }}</div>
         	<div class="col-xs-4 text-right"><strong>Mátricula:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.Profesional.Id }}</div>
-        </div> <br />
-        {% endif %}
+        </div> 
+        {% endif %} 
         <div class="row">
-        	<div class="col-xs-2 text-right"><strong>Inspector:</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.FuncionarioPrincipal }}</div>
-        	<div class="col-xs-4 text-right"><strong>Fecha del acta:</strong></div> 
-        	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
+        	<div class="col-xs-2 text-right"><strong>Tipo de construcción:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.TipoConstruccion }}</div>
+        	<div class="col-xs-4 text-right"><strong>Estado de la obra:</strong></div> 
+        	<div class="col-xs-3">{{ res.Entidad.EstadoAvanceNombre }}</div>
         </div>
         <div class="row">
         	<div class="col-xs-2 text-right"><strong>Falta incurrida:</strong></div> 
-        	<div class="col-xs-3">
+        	<div class="col-xs-10">
         		{% for tipofalta in res.Entidad.TipoFaltas %}
         			<span class="label label-info">{{ tipofalta }}</span> 
         		{% endfor %}
