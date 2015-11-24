@@ -82,16 +82,6 @@ class ActaObraType extends AbstractType
                 },
                 'required' => true))
             ->add('Obs', null, array('label' => 'Observaciones'))
-            /*->add('Plazo', 'choice', array(
-                'choices' => array(
-                    '1' => '1 día',
-                    '5' => '5 días',
-                    '10' => '10 días',
-                    '30' => '30 días',
-                    '60' => '60 días',
-                    '90' => '90 días'
-                ),
-                'label' => 'Plazo'))*/
             ;
     }
 
