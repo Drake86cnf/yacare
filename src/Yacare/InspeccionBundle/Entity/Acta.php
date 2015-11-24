@@ -28,6 +28,7 @@ abstract class Acta implements IActa
     
     public function __construct()
     {
+        $this->OtrosFuncionarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Fecha = new \DateTime();
     }
     
@@ -87,13 +88,14 @@ abstract class Acta implements IActa
     protected $FuncionarioPrincipal;
     
     /**
-     * El agente inspector adjunto (opcional)
-     * 
+     * Otros funcionarios que participan del acta.
+     *
      * @var \Yacare\BaseBundle\Entity\Persona
-     * 
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     *
+     * @ORM\ManyToMany(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\JoinTable(name="Inspeccion_Acta_OtrosFuncionarios")
      */
-    protected $FuncionarioSecundario;
+    protected $OtrosFuncionarios;
     
     /**
      * @var string
@@ -207,23 +209,6 @@ abstract class Acta implements IActa
     /**
      * @ignore
      */
-    public function getFuncionarioSecundario()
-    {
-        return $this->FuncionarioSecundario;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setFuncionarioSecundario($FuncionarioSecundario)
-    {
-        $this->FuncionarioSecundario = $FuncionarioSecundario;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
     public function getDetalle()
     {
         return $this->Detalle;
@@ -237,4 +222,22 @@ abstract class Acta implements IActa
         $this->Detalle = $Detalle;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getOtrosFuncionarios()
+    {
+        return $this->OtrosFuncionarios;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setOtrosFuncionarios($OtrosFuncionarios)
+    {
+        $this->OtrosFuncionarios = $OtrosFuncionarios;
+        return $this;
+    }
+ 
 }
