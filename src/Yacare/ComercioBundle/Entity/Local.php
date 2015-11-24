@@ -28,7 +28,7 @@ class Local
      * 
      * @ORM\Column(type="string", length=255)
      */
-    protected $Tipo = 'Local de ventas';
+    protected $Tipo = 'Local comercial';
     
     /**
      * La superficie en metros cuadrados.
@@ -69,34 +69,34 @@ class Local
      *
      * @ORM\Column(type="integer",nullable=true)
      */
-    protected $VeredaMunicipal;
+    protected $VeredaMunicipal = null;
     
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
      * 
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected $Canaletas;
+    protected $Canaletas = -1;
     
     /**
      * Indica si el local comercial posee cesto de basura.
      * 
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected $CestoBasura;
+    protected $CestoBasura = -1;
     
     /**
      * Indica si el local comercial tiene salidas de emergencia.
      * 
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected $PuertaEmergencia;
+    protected $PuertaEmergencia = -1;
     
     /**
      * Indica la cantidad de anchos de salidas que tiene un local comercial.
@@ -106,7 +106,7 @@ class Local
      * 
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $AnchoSalida;
+    protected $AnchoSalida = -1;
     
     /**
      * Indica si es o no en parque industrial.
