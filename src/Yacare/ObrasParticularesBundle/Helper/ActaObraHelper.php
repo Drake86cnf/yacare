@@ -19,10 +19,10 @@ class ActaObraHelper extends \Yacare\BaseBundle\Helper\Helper
                 array('Clase' => $NombreClase));
             
             $entity->setActaTipo($ActaTipo);
-            $entity->setNombre('Acta de '. $entity->getSubtipo() . ' Nº ' . $entity->getNumero());
+            $entity->setNombre('Acta de ' . $entity->getSubtipo() . ' Nº ' . $entity->getNumero());
         } else {
             $entity->setNombre('Acta de Obra');
         }
-        $entity->setNombre('Acta de '. $entity->getSubtipo() . ' Nº ' . $entity->getNumero());
+        $entity->setNombre('Acta de ' . $entity->getSubtipo() . ' Nº ' . $entity->getNumero());
     }
 }

@@ -220,4 +220,21 @@ abstract class Acta implements IActa
         $this->FuncionarioSecundario = $FuncionarioSecundario;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getDetalle()
+    {
+        return $this->Detalle;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDetalle($Detalle)
+    {
+        $this->Detalle = $Detalle;
+        return $this;
+    }
 }
