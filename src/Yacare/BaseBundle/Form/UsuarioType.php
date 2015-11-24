@@ -16,7 +16,9 @@ class UsuarioType extends AbstractType
     {
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', null, array('label' => 'Correo electrónico'))
+            ->add('Email', null, array(
+                'label' => 'Correo electrónico', 
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')))
             ->add('UsuarioRoles', 'entity', array(
                 'label' => 'Roles', 
                 'class' => 'YacareBaseBundle:PersonaRol', 
@@ -25,7 +27,7 @@ class UsuarioType extends AbstractType
             ->add('Username', null, array(
                 'label' => 'Usuario', 
                 'required' => false, 
-                'attr' => array('autocomplete' => 'off')))
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')))
             ->add('PasswordEnc', 'password', array(
                 'label' => 'Contraseña', 
                 'required' => false, 

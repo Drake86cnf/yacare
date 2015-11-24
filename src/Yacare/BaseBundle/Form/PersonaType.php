@@ -58,7 +58,11 @@ class PersonaType extends AbstractType
                 'required' => false))
             ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array('label' => 'Domicilio'))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
-            ->add('Email', 'email', array('label' => 'Correo electrónico', 'required' => false))
+            ->add('Email', 'email', array(
+                'label' => 'Correo electrónico',
+                'required' => false,
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
+            ))
             ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaNacimientoType(), array(
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))

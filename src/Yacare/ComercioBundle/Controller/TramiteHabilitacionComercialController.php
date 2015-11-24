@@ -103,7 +103,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                 $Local->setSuperficie($data['Superficie']);
                 $Local->setPartida($data['Partida']);
                 //$Local->setTipo($data['Tipo']);
-                $Local->setTipo("Local de ventas");
+                $Local->setTipo("Local comercial");
             }
             
             $Comercio = new \Yacare\ComercioBundle\Entity\Comercio();

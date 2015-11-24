@@ -16,7 +16,10 @@ class PersonaPerfilType extends AbstractType
     {
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', null, array('label' => 'Correo electrónico'))
+            ->add('Email', 'email', array(
+                'label' => 'Correo electrónico',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
+            ))
             ->add('Username', null, array('label' => 'Nombre de usuario', 'required' => false));
     }
 
