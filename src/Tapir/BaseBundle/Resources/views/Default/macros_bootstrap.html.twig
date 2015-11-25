@@ -21,14 +21,14 @@
 
 {% macro grid_label_text(label, text, class) %}
 <div class="row">
-	<div class="col-xs-3 text-label text-nowrap">{{ label|raw }}</div>
+	<label class="col-xs-3 text-label">{{ label|raw }}</label>
 	<div class="col-xs-9 text-value {{ class|default('') }}">{{ text|raw }}</div>
 </div>
 {% endmacro %} 
 
 {% macro grid_label_text66(label, text, class) %}
 <div class="row">
-	<label class="col-xs-6 text-label text-nowrap">{{ label|raw }}</label>
+	<label class="col-xs-6 text-label">{{ label|raw }}</label>
 	<div class="col-xs-6 text-value {{ class|default('') }}">{{ text|raw }}</div>
 </div>
 {% endmacro %} 
