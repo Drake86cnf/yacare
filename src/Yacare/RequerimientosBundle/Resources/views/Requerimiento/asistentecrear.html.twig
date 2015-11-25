@@ -12,7 +12,7 @@
     }
 </style>
 
-{% if cat is null %}
+{% if res.Categoria is null %}
 
     <p>Bienvenido, le agradecemos que se tome el tiempo para ponerse en contacto. Aquí se reciben
 		solicitudes y reclamos para ser derivadas y atendidas por el área correpondiente.
@@ -20,7 +20,7 @@
     
     <div class="container-fluid"><div class="row"><div class="col-xs-12 col-md-10 col-md-offset-1">
     <div class="list-group">
-    {% for categoria in categorias %}
+    {% for categoria in res.Categorias %}
         <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'cat': categoria.id })) }}" class="list-group-item">
         	<i class="fa fa-fw fa-chevron-right fa-2x text-primary pull-right"></i>
         	<h2 class="list-group-item-heading"><strong>{{ categoria.Nombre }}</strong></h2>
@@ -31,7 +31,7 @@
         	</p>
         </a>
     {% endfor %}
-    <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'cat': 0 })) }}" class="list-group-item">
+    <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'catid': 0 })) }}" class="list-group-item">
     	<i class="fa fa-fw fa-question fa-2x text-warning pull-right"></i>
     	<h2 class="list-group-item-heading"><strong>Sin categoría</strong></h2>
     	<p class="list-group-item-text">Si no es ninguna de las anteriores o no sabe qué categoría elegir, puede dejar

@@ -6,11 +6,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Formulario para requerimientos internos.
+ * Formulario para reportar problema.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class RequerimientoType extends AbstractType
+class ReportarProblemaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,14 +19,16 @@ class RequerimientoType extends AbstractType
         $builder
             ->add('Notas', null, array(
                 'label' => 'Asunto',
-                'attr' => array('placeholder' => 'Describa su solicitud'),
+                'attr' => array('autofocus' => 'autofocus'),
                 'required' => true))
-            ->add('Categoria', null, array(
+            ->add('Categoria', 'entity_hidden', array(
                 'label' => 'Categoría',
+                'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
                 'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
                 'required' => false))
-            ->add('Obs', null, array(
+            ->add('Obs', 'hidden', array(
                 'label' => 'Observaciones',
+                'read_only' => true,
                 'required' => false));
     }
 
@@ -38,6 +40,6 @@ class RequerimientoType extends AbstractType
 
     public function getName()
     {
-        return 'yacare_requerimientosbundle_requerimientotype';
+        return 'yacare_requerimientosbundle_reportarproblematype';
     }
 }

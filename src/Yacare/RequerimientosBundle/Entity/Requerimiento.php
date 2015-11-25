@@ -21,6 +21,7 @@ class Requerimiento
     use \Tapir\BaseBundle\Entity\ConTokenSimple;
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\ConNotas;
+    use \Tapir\BaseBundle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;

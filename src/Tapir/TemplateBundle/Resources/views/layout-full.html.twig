@@ -115,14 +115,13 @@
 			{% if block_pagina_acciones3 is not empty or 1 %}
 				<div class="form-actions3 hidden-print">
     				<span class="dropup">
-                      <button class="btn btn-primary btn-lg btn-circle dropdown-toggle" type="button" id="dropdownMenu2"
+                      <button class="btn btn-primary btn-lg btn-circle dropdown-toggle" type="button" id="dropDownAydua"
                       		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       	<i class="fa fa-lightbulb-o"></i>
                       </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><a href="#" data-toggle="modal"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
-                        <li><a href="#" data-toggle="modal"><i class="fa fa-smile-o fa-fw"></i> Me gusta</a></li>
-                        <li><a href="#" data-toggle="modal"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
+                      <ul class="dropdown-menu" aria-labelledby="dropDownAydua">
+                        <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
+                        <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
                         {% if block_pagina_acciones3 is not empty %}
                             <li><a href="#"><li role="separator" class="divider"></li></a></li>
                             {{ block_pagina_acciones3|raw }}
@@ -158,6 +157,17 @@
 
 <script type="text/javascript">
     tapirIniciar('{{ tapir_nombreaplicacion }}', '{{ tapir_cliente }}');
+
+    function tapirReportarProblema() {
+    	url = "{{ path('tapir_reportar_problema', { 'tipo': 'problema' }) }}&obs=" + window.location;
+    	tapirNavegarA(url);
+    }
+
+    function tapirEnviarComentario() {
+    	url = "{{ path('tapir_enviar_comentario', { 'tipo': 'comentario' }) }}&obs=" + window.location;
+    	tapirNavegarA(url);
+    }
+
 
     tinymce.init({
         selector: '.tinymce',

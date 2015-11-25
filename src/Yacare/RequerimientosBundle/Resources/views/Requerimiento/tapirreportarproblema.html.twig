@@ -1,0 +1,54 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% set tapir_editar_nombreguadar = 'Enviar' %}
+
+{% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Enviar comentario{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+
+<div class="row form-group">
+	<label class="col-sm-2 text-right"><i class="fa fa-comment-o fa-4x text-warning"></i></label>
+    <div class="col-sm-8">
+    	<p>Le agradecemos que se tome el tiempo para ponerse en contacto con nosotros.
+        {% if app.request.get('tipo') == 'problema' %}
+        	Por favor describa su problema con el mayor detalle posible. De ser posible, responda en orden las
+        	siguientes preguntas sobre el problema:
+        	<ol>
+        		<li>¿Qué intentaba hacer cuando encontró un problema?</li>
+        		<li>¿Qué sucedió que le impidió hacer lo que intentaba?</li>
+        		<li>¿Hubo algún mensaje de error?</li>
+        	</ol>
+        	Incluya también cualquier otra información que considere relevante.
+        {% else %}
+        	Recibimos sus comentarios, consultas y sugerencias con entusiasmo y queremos conocer las cosas que
+        	se pueden mejorar.
+       	{% endif %}
+   		</p>
+    </div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">
+		{% if app.request.get('tipo') == 'problema' %}
+			Descripción del problema 
+		{% else %}
+			Comentario
+		{% endif %}
+	</label>
+    <div class="col-sm-8">{{ form_widget(res.FormularioEditar.Notas) }}</div>
+</div>
+
+
+<div class="row form-group">
+	<label class="col-sm-2 text-right"></label>
+    <div class="col-sm-8">
+    	<p>Cuando esté listo, haga clic en el botón &quot;Enviar&quot;.
+        {% if app.request.get('tipo') == 'problema' and res.Entidad.Categoria and res.Entidad.Categoria.Encargado %}
+    		Su requerimiento será atendido por {{ res.Entidad.Categoria.Encargado.NombreAmigable }}.
+    	{% endif %}
+    	</p>
+    </div>
+</div>
+
+{{ parent() }}
+{% endblock pagina_contenido %}
