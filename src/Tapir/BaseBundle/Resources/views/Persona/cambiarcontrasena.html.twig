@@ -1,0 +1,95 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% block pagina_titulo %}Cambiar contraseña{% endblock %}
+
+{% block pagina_contenido %}
+
+{% if res.Terminado %}
+
+	
+    <div class="row form-group panel">
+        <div class="col-sm-8 col-sm-offset-2">
+        	<h2>Confirmación</h2>
+        	<p>Su contraseña fue cambiada. La próxima vez que ingrese al sistema
+        		deberá hacerlo con su nueva contraseña.</p>
+        </div>
+    </div>
+
+{% else %}
+
+	<input style="display:none" type="password" name="foilautofill"/>
+
+    <div class="row form-group panel">
+        <div class="col-sm-8 col-sm-offset-2"><p>Al cambiar la contraseña, elija una contraseña segura y que pueda recordar. Utilice 8
+        	caracteres como mínimo y no utilice algo que sea demasiado obvio, como su número de documento o el nombre de su
+        	mascota.</p></div>
+    </div>
+    
+    
+    
+    <div class="row form-group">
+    	<label class="col-sm-4 control-label">Contraseña actual</label>
+        <div class="col-sm-8">{{ form_widget(res.FormularioEditar.ContrasenaActual) }}</div>
+    </div>
+    
+    
+    <div class="row form-group">
+        <div class="col-sm-8 col-sm-offset-2"><p id="cambiarcontrasena_advertencia"></p></div>
+    </div>
+    <div class="row form-group">
+    	<label class="col-sm-4 control-label">Contraseña nueva</label>
+        <div class="col-sm-8">{{ form_widget(res.FormularioEditar.PasswordEnc) }}</div>
+    </div>
+    <div class="row form-group">
+    	<label class="col-sm-4 control-label">Confirmar contraseña nueva</label>
+        <div class="col-sm-8">{{ form_widget(res.FormularioEditar.PasswordEnc2) }}</div>
+    </div>
+    
+    <div class="row form-group">
+        <div class="col-sm-8 col-sm-offset-4"><button type="submit" value="Guardar" class="btn btn-success tapir-button-accept">
+        	<i class="fa fa-check"></i> Guardar
+        </button></div>
+    </div>
+    
+    
+    {{ parent() }}
+{% endif %}
+
+{% endblock pagina_contenido %}
+
+
+{% block pagina_scripts %}
+{% if res.Terminado == 0 %}
+<script>
+$(function() {
+	$('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc').on('change textInput input', VerificarContrasenias);
+	$('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc2').on('change textInput input', VerificarContrasenias);
+	VerificarContrasenias();
+});
+
+function VerificarContrasenias() {
+	Con1 = $('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc').val();
+	Con2 = $('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc2').val();
+	if(Con1.length == 0) {
+		$('#cambiarcontrasena_advertencia').text('Por favor escriba la nueva contraseña dos veces.');
+		$('button[type="submit"]').prop('disabled', true);
+	} else if(Con1.length < 8) {
+		$('#cambiarcontrasena_advertencia').text('La contraseña es demasiado corta.');
+		$('button[type="submit"]').prop('disabled', true);
+	} else if(Con2.length == 0) {
+		$('#cambiarcontrasena_advertencia').text('Por razones de seguridad, por favor escriba nuevamente la misma contraseña.');
+		$('button[type="submit"]').prop('disabled', true);
+	} else if(Con1 != Con2) {
+		$('#cambiarcontrasena_advertencia').text('Las contraseñas no coinciden. Por razones de seguridad, debe escribir dos veces la misma contraseña.');
+		$('button[type="submit"]').prop('disabled', true);
+	} else {
+		$('#cambiarcontrasena_advertencia').text('Haga clic en el botón "Guardar" para cambiar su contraseña.');
+		$('button[type="submit"]').prop('disabled', false);
+	}
+}
+</script>
+{% endif %}
+{% endblock pagina_scripts %}
+
+{% block pagina_acciones %}
+{% endblock pagina_acciones %}

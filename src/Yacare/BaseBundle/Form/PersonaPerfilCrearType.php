@@ -16,9 +16,31 @@ class PersonaPerfilCrearType extends AbstractType
     {
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', null, array('label' => 'Correo electrónico'))
-            ->add('Username', null, array('label' => 'Nombre de usuario', 'required' => false))
-            ->add('PasswordEnc', 'password', array('label' => 'Contraseña', 'required' => false));
+            ->add('Email', 'email', array(
+                'label' => 'Correo electrónico',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
+            ))
+            ->add('Username', null, array(
+                'label' => 'Nombre de usuario',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus tapir-input-240'),
+                'required' => false))
+            ->add('PasswordEnc', 'password', array(
+                'label' => 'Contraseña',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus tapir-input-240'),
+                'required' => false))
+            ->add('Grupos', 'entity', array(
+                'label' => 'Grupos',
+                'class' => 'YacareBaseBundle:PersonaGrupo',
+                'attr' => array('style' => 'width: 100%'),
+                'multiple' => true,
+                'required' => false))
+            ->add('UsuarioRoles', 'entity', array(
+                'label' => 'Roles',
+                'class' => 'TapirBaseBundle:PersonaRol',
+                'attr' => array('style' => 'width: 100%'),
+                'multiple' => true,
+                'required' => false))
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
