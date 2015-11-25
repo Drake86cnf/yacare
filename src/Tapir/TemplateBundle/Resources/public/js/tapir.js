@@ -403,6 +403,10 @@ function MejorarElementos(destino) {
 		var currVal = $(this).val();
 		$(this).val(currVal.toLowerCase());
 	});
+	
+	setTimeout(function() {
+		$("[autofocus]").focus(); 
+	}, 100);
 }
 
 
@@ -538,7 +542,6 @@ function tapirFormatearCbu(cbu) {
 		return cbu;
 	}
 }
-
 
 $(document).ready(function() {
     // Capturo los botones "atrás" y "adelante" del navegador y para funcionar via AJAX
