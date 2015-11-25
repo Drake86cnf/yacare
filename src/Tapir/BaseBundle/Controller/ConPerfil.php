@@ -60,8 +60,7 @@ trait ConPerfil
 
                 $this->editarperfilActionPostPersist($entity, $FormEditar);
 
-                $this->get('session')->getFlashBag()->add('success',
-                    'Los cambios en "' . $entity . '" fueron guardados.');
+                $this->addFlash('success', 'Los cambios en "' . $entity . '" fueron guardados.');
                 $Errores = null;
             } else {
                 $validator = $this->get('validator');
@@ -70,7 +69,7 @@ trait ConPerfil
 
             if ($Errores) {
                 foreach ($Errores as $error) {
-                    $this->get('session')->getFlashBag()->add('danger', $error);
+                    $this->addFlash('danger', $error->getMessage());
                 }
                 
                 $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
@@ -113,7 +112,7 @@ trait ConPerfil
      * @Route("cambiarcontrasena/", name="usuario_cambiarcontrasena_actual")
      * @Template()
      */
-    public function cambiarContrasenaAction(Request $request)
+    public function cambiarcontrasenaAction(Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
         $terminado = 0;
@@ -138,8 +137,8 @@ trait ConPerfil
         $FormEditar->handleRequest($request);
 
         if ($FormEditar->isValid()) {
-            // TODO: si es "cambiar contraseña", hay que validar que haya puesto la contraseña actual.
-            // TODO: validar que haya puesto dos veces la misma contraseña
+            // TODO: hay que validar que haya puesto la contraseña actual.
+            //$factory = $this->get('security.encoder_factory');
 
             // Guardo el password con hash
             if ($entity->getPasswordEnc()) {
@@ -154,28 +153,37 @@ trait ConPerfil
                 $entity->setPassword();
             }
 
-            $terminado = 1;
+            $Terminado = 1;
             $em->persist($entity);
             $em->flush();
+            
+            if (isset($user)) {
+                $em->refresh($user);
+            }
+            
+            $Errores = null;
 
             $this->cambiarcontrasenaActionPostPersist($entity, $FormEditar);
+        } else {
+            $validator = $this->get('validator');
+            $Errores = $validator->validate($entity);
+            $Terminado = 0;
         }
 
-        if (isset($user)) {
-            $em->refresh($user);
+        if ($Errores) {
+            foreach ($Errores as $error) {
+                $this->addFlash('danger', $error->getMessage());
+            }
         }
 
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
         $res->Entidad = $entity;
+        $res->Errores = $Errores;
         $res->FormularioEditar = $FormEditar->createView();
         $res->AccionGuardar = 'usuario_cambiarcontrasena';
+        $res->Terminado = $Terminado;
         
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'edit_form' => $FormEditar->createView(),
-            'terminado' => $terminado,
-            'res' => $res
-        ));
+        return array('res' => $res);
     }
 
     /**

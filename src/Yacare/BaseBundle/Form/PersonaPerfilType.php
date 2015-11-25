@@ -20,7 +20,17 @@ class PersonaPerfilType extends AbstractType
                 'label' => 'Correo electrónico',
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
             ))
-            ->add('Username', null, array('label' => 'Nombre de usuario', 'required' => false));
+            ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
+            ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
+                'required' => false,
+                'label' => 'Fecha de nacimiento'))
+            ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array('label' => 'Género', 'required' => true))
+            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
+                'label' => 'CUIL/CUIT',
+                'required' => false
+            ))
+            //->add('Username', null, array('label' => 'Nombre de usuario', 'required' => false))
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -15,9 +15,13 @@ class PersonaCrearContrasenaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('PasswordEnc', 'password', array('label' => 'Contraseña nueva', 'required' => true))
-            ->add('ContrasenaNueva2', 'password', array(
-                'label' => 'Repetir contraseña', 
+            ->add('PasswordEnc', 'password', array(
+                'label' => 'Contraseña nueva',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-240'),
+                'required' => true))
+            ->add('PasswordEnc2', 'password', array(
+                'label' => 'Repetir contraseña',
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-240'),
                 'required' => true, 
                 'mapped' => false));
     }

@@ -9,7 +9,7 @@
     'method': 'POST',
     'attr': { 'id': res.FormularioEditar.vars.id }
 }) }}
-{% endblock %}
+{% endblock pagina_inicio %}
 
 {% block pagina_acciones %}
 <button
@@ -19,10 +19,10 @@
 	    data-dismiss="modal"
 	{% endif %}
 	class="btn btn-default">Cancelar</button>
-<button type="submit" value="Guardar" class="btn btn-primary">
+<button type="submit" value="Guardar" class="btn btn-primary tapir-button-accept">
 	<i class="fa fa-check"></i> Guardar
 </button>
-{% endblock %}
+{% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
 {% if res.TieneEliminar and not res.EsCrear %}
@@ -34,5 +34,5 @@
 
 {% block pagina_fin %}
 {{ form_end(res.FormularioEditar, {'render_rest': false}) }}
-{% endblock %}
+{% endblock pagina_fin %}
 
