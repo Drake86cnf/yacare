@@ -4,9 +4,9 @@
 
 {% block pagina_contenido %}
 	{% if data_control == 'textarea' %}
-    	<textarea style="height: 100%; min-height: 80px;" id="inplace-edit-input" class="inplace-edit-control">{{ valoractual }}</textarea>
+    	<textarea style="height: 100%; min-height: 80px;" id="inplace-edit-input" autofocus="autofocus" class="inplace-edit-control">{{ valoractual }}</textarea>
     {% else %}
-    	<input style="height: 100%; min-height: 24px;" id="inplace-edit-input" type="text" class="inplace-edit" lenght="32" value="{{ valoractual }}" />
+    	<input style="height: 100%; min-height: 24px;" id="inplace-edit-input" autofocus="autofocus" type="text" class="inplace-edit" lenght="32" value="{{ valoractual }}" />
     {% endif %}
     <span><small>Edición rápida </small></span>
     <span class="text-muted"><small>(pulse Intro para aceptar o Esc para cancelar)</small></span>

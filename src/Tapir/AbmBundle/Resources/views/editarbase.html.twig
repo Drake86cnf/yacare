@@ -20,7 +20,12 @@
 	{% endif %}
 	class="btn btn-default">Cancelar</button>
 <button type="submit" value="Guardar" class="btn btn-primary tapir-button-accept">
-	<i class="fa fa-check"></i> Guardar
+	<i class="fa fa-check"></i>
+	    {% if tapir_editar_nombreguadar is defined %}
+	        {{ tapir_editar_nombreguadar }}
+	    {% else %}
+	    	Guardar
+	    {% endif %}
 </button>
 {% endblock pagina_acciones %}
 

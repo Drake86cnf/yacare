@@ -139,6 +139,55 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         }
         return $res;
     }
+    
+    
+    /**
+     * Reportar un problema. Ruta estándar de Tapir.
+     *
+     * @Route("tapirreportarproblema/", name="tapir_reportar_problema")
+     * @Template()
+     */
+    public function tapirreportarproblemaAction(Request $request)
+    {
+        $request->query->set('catid', 1);
+        $request->query->set('form', 'ReportarProblema');
+        return $this->editarAction($request);
+    }
+    
+    /**
+     * Enviar un comentario. Ruta estándar de Tapir.
+     *
+     * @Route("tapirenviarcomentario/", name="tapir_enviar_comentario")
+     * @Template()
+     */
+    public function tapirenviarcomentarioAction(Request $request)
+    {
+        $request->query->set('catid', 1);
+        $request->query->set('form', 'ReportarProblema');
+        return $this->editarAction($request);
+    }
+
+
+    protected function CrearNuevaEntidad(Request $request) {
+        $Entidad = parent::CrearNuevaEntidad($request);
+        
+        $CategoriaId = $this->ObtenerVariable($request, 'catid');
+        if ($CategoriaId > 0) {
+            $em = $this->getEm();
+            $Categoria = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')->find($CategoriaId);
+            if ($Categoria) {
+                $Entidad->setCategoria($Categoria);
+            }
+        }
+        
+        $Obs = $this->ObtenerVariable($request, 'obs');
+        if($Obs) {
+            $Entidad->setObs($Obs);
+        }
+        
+        return $Entidad;
+    }
+    
 
     /**
      * Crear un reclamo mediante un asistente.
@@ -153,12 +202,14 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $em = $this->getEm();
         $Requerimiento = new \Yacare\RequerimientosBundle\Entity\Requerimiento();
         
-        $CategoriaId = $this->ObtenerVariable($request, 'cat');
+        $CategoriaId = $this->ObtenerVariable($request, 'catid');
         if ($CategoriaId > 0) {
             $Categoria = $em->getRepository('\Yacare\RequerimientosBundle\Entity\Categoria')->find($CategoriaId);
             if ($Categoria) {
                 $Requerimiento->setCategoria($Categoria);
             }
+        } else {
+            $Categoria = null;
         }
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         $Requerimiento->setUsuario($UsuarioConectado);
@@ -188,8 +239,10 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $res->FormularioEditar = $FormEditar->createView();
         $res->AccionGuardar = 'asistentecrear';
         $res->Errores = $Errores;
+        $res->Categoria = $Categoria;
+        $res->Categorias = $this->ObtenerCategorias();
         
-        return array('res' => $res, 'cat' => $CategoriaId, 'categorias' => $this->ObtenerCategorias());
+        return array('res' => $res);
     }
 
     /**
