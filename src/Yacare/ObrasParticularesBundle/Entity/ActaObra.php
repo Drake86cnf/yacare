@@ -87,6 +87,15 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Plazo;
+    
+    /**
+     * Detalles adicionales al momento de emitir un descargo.
+     * 
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $DescargoDetalle;
 
     public function getEstadoAvanceNombre()
     {
@@ -234,5 +243,22 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     {
         $this->Plazo = $Plazo;
         return $this;
-    } 
+    }
+
+    /**
+     * @ignore
+     */
+    public function getDescargoDetalle()
+    {
+        return $this->DescargoDetalle;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDescargoDetalle($DescargoDetalle)
+    {
+        $this->DescargoDetalle = $DescargoDetalle;
+        return $this;
+    }  
 }
