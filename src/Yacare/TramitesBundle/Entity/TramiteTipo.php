@@ -86,20 +86,39 @@ class TramiteTipo implements ITramiteTipo
     
     
     /**
-     * Devuelve una lista plana (no jerárquica) de los requisitos de este trámite y todos los subtrámites.
+     * Devuelve una lista de asociaciones de requisitos según el tipo de requisito.
+     * @param string $tipoRequisito
+     * @return \Yacare\TramitesBundle\Entity\AsociacionRequisito[]
      */
-    public function ObtenerRequisitosLineales($tipo = null) {
+    public function ObtenerRequisitosPorTipo($tipoRequisito) {
         $res = array();
         $Reqs = $this->getAsociacionRequisitos();
         foreach ($Reqs as $Asoc) {
-            if($tipo == null || $Asoc->getRequisito()->getTipo() == $tipo) {
+            if($Asoc->getRequisito()->getTipo() == $tipoRequisito) {
+                $res[] = $Asoc;
+            }
+        }
+        return $res;
+    }
+    
+    
+    /**
+     * Devuelve una lista plana (no jerárquica) de los requisitos de este trámite y todos los subtrámites.
+     * @param string $tipoRequisito
+     * @return \Yacare\TramitesBundle\Entity\AsociacionRequisito[]
+     */
+    public function ObtenerRequisitosLineales($tipoRequisito = null) {
+        $res = array();
+        $Reqs = $this->getAsociacionRequisitos();
+        foreach ($Reqs as $Asoc) {
+            if($tipoRequisito == null || $Asoc->getRequisito()->getTipo() == $tipoRequisito) {
                 $res[] = $Asoc;
                 
             }
             if($Asoc->getTipo() == 'tra') {
                 $Subtramite = $Asoc->getRequisito()->getTramiteTipoEspejo();
                 if($Subtramite) {
-                    $OtrosReqs = $Subtramite->ObtenerRequisitosLineales($tipo);
+                    $OtrosReqs = $Subtramite->ObtenerRequisitosLineales($tipoRequisito);
                     $res = array_merge($res, $OtrosReqs);
                 }
             }
