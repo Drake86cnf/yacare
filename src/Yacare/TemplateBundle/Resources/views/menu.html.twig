@@ -80,22 +80,6 @@
 		</ul></li>
 {% endif %}
 
-{% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES')") %}
-	<li class="dropdown keep-open"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown"><i class="fa fa-building-o fa-fw"></i> Obras
-			particulares <b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<li><a data-toggle="ajax-link"
-				href="{{ path('yacare_obrasparticulares_matriculado_listar') }}">Matriculados</a></li>
-			<li><a data-toggle="ajax-link"
-				href="{{ path('yacare_obrasparticulares_empresaconstructora_listar') }}">Empresas</a></li>
-			<li><a data-toggle="ajax-link"
-				href="{{ path('yacare_obrasparticulares_tramitecat_listar') }}">Trámites de CAT</a></li>
-			<li><a data-toggle="ajax-link"
-				href="{{ path('yacare_obrasparticulares_cat_listar') }}">CAT</a></li>
-		</ul></li> 
-{% endif %}
-
 	<li class="divider"></li>
 	<li class="dropdown keep-open"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown"><i class="fa fa-wrench fa-fw"></i>
@@ -115,6 +99,5 @@
 					(agentes)</a></li>
 {% endif %}
 		</ul></li>
-
 </ul>
 <!-- left menu ends -->
