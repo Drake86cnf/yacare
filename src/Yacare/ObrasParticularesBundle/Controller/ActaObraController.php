@@ -44,10 +44,10 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
             
-            if ($entity->getPlazo() || $entity->getFechaDescargo()) {
+            /*if ($entity->getPlazo() || $entity->getFechaDescargo()) {
                 return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'),
                     $this->ArrastrarVariables($request, array('id' => $id), false)));
-            }
+            }*/
         }
         
         if (! $entity) {
@@ -63,7 +63,8 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             ->add('Profesional', 'entity_id', array(
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
-                'required' => false));
+                'required' => false))
+            ->add('DescargoDetalle', null, array('label' => 'Detalles adicionales'));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);

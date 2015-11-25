@@ -52,12 +52,16 @@
     		<div class="panel-body">
     			<div class="row">
     				<div class="col-xs-12">
-						La {{ res.Entidad.Subtipo|lower }} detectó las siguientes Observaciones: <br><br/>
+						La {{ res.Entidad.Subtipo|lower }} detectó las siguientes faltas: <br><br/>
 						<p><strong>
 						{% for tipofalta in res.Entidad.TipoFaltas %}				
         					{{ tipofalta|upper }}<br />
         				{% endfor %}
-        				</strong></p>
+        				</strong></p><br />
+        				{% if res.Entidad.Obs is defined and res.Entidad.Obs %} 
+            				Además, las siguientes Observaciones:<br />    
+            				<em>{{ res.Entidad.Obs|upper }}</em>        				
+        				{% endif %}
 					</div>
 				</div><br /><br /><br /><br />
 				<div class="row">
@@ -77,13 +81,20 @@
     			<div class="row">
     				<div class="col-xs-12">
 					Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección de Obras 
-					Particulares me comprometo en un plazo maximo de <strong>{{ res.Entidad.Plazo }} días</strong> 
+					Particulares me comprometo en un plazo maximo de 
+					<strong>
+					    {% if res.Entidad.Plazo == 1 %} {{ res.Entidad.Plazo }} día {% else %} días {% endif %}
+					</strong>
 					a cumplimentar con lo que se detalla a continuación: <br><br/>
-					<p><strong>
-                        {% for compromiso in res.Entidad.TipoFaltas %}				
-        					{{ compromiso.FaltaCompromiso|upper }}<br />
+					<p>
+                        {% for compromiso in res.Entidad.TipoFaltas %}
+        					<strong>{{ compromiso.FaltaCompromiso|upper }}</strong><br />
         				{% endfor %}
-					</strong</strong></p>
+					</p><br />
+					{% if res.Entidad.DescargoDetalle is defined and res.Entidad.DescargoDetalle %} 
+            				A continuación se especifican detalles adicionales: <br />
+            				<em>{{ res.Entidad.DescargoDetalle|upper }}</em>
+        			{% endif %}
 					</div>
 				</div> <br /><br /><br /><br />
 				<div class="row">
@@ -109,7 +120,7 @@
 
 {% block pagina_acciones %}
     {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     		class="btn btn-warning hidden-print"><i class="fa fa-edit"></i> Editar</a>
     {% endif %}
 {% endblock pagina_acciones %}

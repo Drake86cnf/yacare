@@ -18,7 +18,7 @@ class ActaObraType extends AbstractType
         $builder
             ->add('Numero', null, array('label' => 'Numero', 'required' => true))
             ->add('SubTipo', 'choice', array(
-                'placeholder' => 'Seleccione el tipo de acta.',
+                'placeholder' => 'Seleccione el tipo de acta',
                 'choices' => array(
                     'Notificación' => 'Notificación', 
                     'Infracción' => 'Infracción', 
