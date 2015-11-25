@@ -111,25 +111,25 @@
 			{% if block_pagina_acciones2 is not empty %}
 			<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
 			{% endif %}
+
 			{% set block_pagina_acciones3 = block('pagina_acciones3') %}
-			{% if block_pagina_acciones3 is not empty or 1 %}
-				<div class="form-actions3 hidden-print">
-    				<span class="dropup">
-                      <button class="btn btn-primary btn-lg btn-circle dropdown-toggle" type="button" id="dropDownAydua"
-                      		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      	<i class="fa fa-lightbulb-o"></i>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropDownAydua">
-                        <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
-                        <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
-                        {% if block_pagina_acciones3 is not empty %}
-                            <li><a href="#"><li role="separator" class="divider"></li></a></li>
-                            {{ block_pagina_acciones3|raw }}
-                        {% endif %}
-                      </ul>
-    			    </span>
-    			</div>
-			{% endif %}
+			<div class="form-actions3 hidden-print">
+				<span class="dropup">
+                  <button class="btn btn-primary btn-lg btn-circle dropdown-toggle" type="button" id="dropDownAydua"
+                  		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  	<i class="fa fa-lightbulb-o"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropDownAydua">
+                    <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
+                    <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
+                    {% if block_pagina_acciones3 is not empty %}
+                        <li><a href="#"><li role="separator" class="divider"></li></a></li>
+                        {{ block_pagina_acciones3|raw }}
+                    {% endif %}
+                  </ul>
+			    </span>
+			</div>
+			
 			{% block pagina_fin %}{% endblock %}
 		</div>
 		<!-- /#page-wrapper -->
