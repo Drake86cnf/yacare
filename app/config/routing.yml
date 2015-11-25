@@ -3,6 +3,11 @@ tapir_template:
     type:     annotation
     prefix:   /tapir/template
 
+tapir_ayuda:
+    resource: "@TapirAyudaBundle/Controller/"
+    type:     annotation
+    prefix:   /tapir/ayuda/
+
 tapir_base:
     resource: "@TapirBaseBundle/Controller/"
     type:     annotation
