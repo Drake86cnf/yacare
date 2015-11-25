@@ -55,8 +55,34 @@ label, .text-label {
 	color: #606060;
 }
 
+.text-label {
+	a-border: 1px solid red;
+	padding-right: 8px;
+	padding-bottom: 2px;
+	margin-bottom: 8px;
+	font-weight: 500;
+    text-align: left;
+    color: #808080;
+}
+
 .text-value {
-	
+    padding-left: 2px;
+	a-border: 1px solid blue;
+	padding-bottom: 2px;
+	margin-bottom: 8px;
+	border-bottom: 1px solid transparent;
+}
+
+.text-value-strong {
+	font-weight: 700;
+}
+
+.text-value:hover {
+    border-bottom: 1px dotted #f0f0f0;
+}
+
+.text-value:empty {
+	border-bottom: none;
 }
 
 .link {
@@ -352,10 +378,12 @@ div:hover > .showonhover {
     opacity: 1.0 !important;
 }
 
-.row h2.row-header {
-    font-weight: 400;
-	padding: 4px;
-	border-bottom: 1px dotted silver;
+h2.row-header {
+    color: #539BDA;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 4px;
+	margin-top: 8xp;
+	margin-bottom: 8xp;
 }
 
 .btn-circle {

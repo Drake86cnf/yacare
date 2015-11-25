@@ -6,9 +6,10 @@
 
 {% block pagina_contenido %}
 <div class="container-fluid">
+
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
-			{{ bs.grid_label_text('Nombre de fantasía', res.Entidad.Nombre) }}
+			{{ bs.grid_label_text('Nombre de fantasía', res.Entidad.Nombre, 'text-value-strong') }}
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
 			{% if res.Entidad.Local %}
@@ -18,28 +19,21 @@
 			{% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12">
-			{{ bs.grid_label_text('Expediente', '<strong>' ~ res.Entidad.ExpedienteNumero ~ '</strong>') }}
-			{{ bs.grid_label_text('Resolución', res.Entidad.ActoAdministrativoNumero) }}
-			{{ bs.grid_label_text('Archivo', res.Entidad.PosicionArchivo) }}
-			{{ bs.grid_label_text('Estado', res.Entidad.EstadoNombre) }}
+			{{ bs.grid_label_text66('Expediente', res.Entidad.ExpedienteNumero) }}
+			{{ bs.grid_label_text66('Resolución', res.Entidad.ActoAdministrativoNumero) }}
+			{{ bs.grid_label_text66('Archivo', res.Entidad.PosicionArchivo) }}
+			{{ bs.grid_label_text66('Estado', res.Entidad.EstadoNombre) }}
 			{% if res.Entidad.FechaBaja %}
-				{{ bs.grid_label_text('Fecha de baja', res.Entidad.FechaBaja|tapir_fecha('medium', 'none')) }}
+				{{ bs.grid_label_text66('Fecha de baja', res.Entidad.FechaBaja|tapir_fecha('medium', 'none')) }}
 			{% else %}
-				{{ bs.grid_label_text('Fecha de hab.', res.Entidad.FechaHabilitacion|tapir_fecha('medium', 'none')) }}
+				{{ bs.grid_label_text66('Fecha de habilitación', res.Entidad.FechaHabilitacion|tapir_fecha('medium', 'none')) }}
 			{% endif %}
 		</div>
 	</div>
 	
-	<div class="row"><h2 class="row-header">Actividades
-		<div class="hidden pull-right hidden-print">
-    		<a class="btn btn-sm btn-info" data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'),
-    		    { 'id': res.Entidad.Id, 'form': 'ComercioDatos' }) }}"><i class="fa fa-edit"></i> Cambiar datos de comercio</a>
-    		&nbsp;<a class="btn btn-sm btn-info" data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'),
-    		    { 'id': res.Entidad.Id, 'form': 'ComercioActividad' }) }}"><i class="fa fa-edit"></i> Cambiar actividades</a>
-		</div></h2></div>
-		
+	<h2 class="row-header">Actividades</h2>
 	<div class="row">
-		<div class="col-sm-8 col-xs-12">
+		<div class="col-xs-12">
 			{{ bs.grid_label_text(res.Entidad.Actividad1.Clamae2014, res.Entidad.Actividad1) }}
 			{% if res.Entidad.Actividad2 %}
                 {{ bs.grid_label_text(res.Entidad.Actividad2.Clamae2014, res.Entidad.Actividad2) }}
@@ -60,21 +54,16 @@
 	</div>
 
 	{% if res.Entidad.local %}
-	<div class="row"><h2 class="row-header">Local comercial
-		<div class="pull-right hidden-print">
-    		<a class="btn btn-sm btn-info pull-right" data-toggle="ajax-link" href="{{ path('yacare_comercio_local_editar',
-    		    { 'id': res.Entidad.Local.Id, 'noeliminar': true }) }}"><i class="fa fa-edit"></i> Cambiar datos del local</a>
-		</div></h2></div>
-		
+	<h2 class="row-header">Local comercial</h2>
 	<div class="row">
-		<div class="col-sm-6 col-xs-12">
-	        {{ bs.grid_label_text('Tipo', res.Entidad.Local.Tipo) }}
-	        {{ bs.grid_label_text('Clase', res.Entidad.Local.DepositoClase) }}
-	        {{ bs.grid_label_text('Superficie', res.Entidad.Local.Superficie ~ ' m²') }}
+		<div class="col-sm-4 col-xs-12">
+	        {{ bs.grid_label_text66('Tipo', res.Entidad.Local.Tipo) }}
+	        {{ bs.grid_label_text66('Clase', res.Entidad.Local.DepositoClase) }}
+	        {{ bs.grid_label_text66('Superficie', res.Entidad.Local.Superficie ~ ' m²') }}
 	        	        
 	        {% if res.Entidad.Local.Partida %}
     	    </div>
-    	    <div class="col-sm-6 col-xs-12">
+    	    <div class="col-sm-8 col-xs-12">
                 {{ bs.grid_label_text('Propietario', res.Entidad.Local.Partida.Titular) }}
     	        {{ bs.grid_label_text('Domicilio', res.Entidad.Local.Partida.Domicilio) }}
     	    	{{ bs.grid_label_text('Partida', res.Entidad.Local.Partida.Smpu) }}
@@ -106,8 +95,6 @@
 	</div>
 	{% endif %}
 	
-	<hr />
-	
 	<div class="row"><div class="col-xs-12">
     	<p>
     	{% if res.Entidad.Estado == 100 %}La habilitación está vigente.
@@ -120,14 +107,14 @@
     	El comercio
         {% if res.Entidad.CertificadoHabilitacion %}cuenta con un certificado de habilitación con vencimiento el día
             {{ res.Entidad.CertificadoHabilitacion.FechaValidezHasta|tapir_fecha('full', 'none')|lower }}
-        {% elseif res.Entidad.Estado == 100 %}fue dado de alta de oficio y no cuenta con un certificado de habilitación
+        {% elseif res.Entidad.Estado == 100 %}fue dado de alta manualmente y no cuenta con un certificado de habilitación
         {% else %}no cuenta con un certificado de habilitación
         {% endif %}
         emitido en el sistema actual.        
 	</div></div>
-</div>
 
-<h2>Actas</h2>
+
+<h2 class="row-header">Actas</h2>
 <table class="table table-reponsive table-hoverselect">
 	<thead>
 		<tr>
@@ -154,6 +141,8 @@
 {% if res.Entidad.Actas|length == 0 %}
 	<p>Aun no se cargaron actas para este comercio.</p>
 {% endif %}
+
+</div>
 {% endblock %}
 
 {% block pagina_acciones2 %}
@@ -163,8 +152,15 @@
         	<i class="fa fa-plus"></i> Nueva acta</a>
     {% endif %}
     {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
-        <a data-toggle="ajax-link" class="btn btn-default hidden-print pull-right"
+    	<div class="pull-right">
+        <a data-toggle="ajax-link" class="btn btn-default"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
         	<i class="fa fa-edit"></i> Editar</a>
+        {% if res.Entidad.Local %}
+        	<a class="btn btn-default" data-toggle="ajax-link" href="{{ path('yacare_comercio_local_editar',
+    		    { 'id': res.Entidad.Local.Id, 'noeliminar': true }) }}"><i class="fa fa-edit"></i> Cambiar datos del
+    		    local</a>
+    	{% endif %}
+    	</div>
     {% endif %}
 {% endblock %}
