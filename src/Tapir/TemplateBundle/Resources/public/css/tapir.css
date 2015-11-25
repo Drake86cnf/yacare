@@ -106,10 +106,6 @@ h1, legend {
 	font-weight: 400;
 	color: gray;
 	margin: 2px 0px;
-	/*
-    color: rgb(38, 121, 181);
-    border-bottom: 1px dotted rgb(226, 226, 226);
-     */
 }
 
 h1 a {
@@ -150,8 +146,9 @@ legend small {
 		/* min-width: 768px; */
 		
 	}
-	body, p, span, div, td {
+	body, p, label, span, div, td {
 		font-size: 9pt;
+		white-space: initial;
 	}
 	@page {
 		margin-top: 10mm !important;
@@ -173,9 +170,7 @@ legend small {
 		content: none !important;
 	}
 	.label {
-		font-size: 7pt !important;
 		padding: 2px;
-		font-weight: 400;
 		border: 1px solid gray;
 	}
 	abbr:after {
@@ -380,10 +375,14 @@ div:hover > .showonhover {
 
 h2.row-header {
     color: #539BDA;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #d0d0d0;
     padding-bottom: 4px;
 	margin-top: 8xp;
 	margin-bottom: 8xp;
+}
+
+.col-separator-left {
+    border-left: 1px solid #d0d0e0;
 }
 
 .btn-circle {

@@ -18,7 +18,7 @@
 				{{ bs.grid_label_text('Domicilio', 'n/a') }}
 			{% endif %}
 		</div>
-		<div class="col-sm-4 col-xs-12">
+		<div class="col-sm-4 col-xs-12 col-separator-left">
 			{{ bs.grid_label_text66('Expediente', res.Entidad.ExpedienteNumero) }}
 			{{ bs.grid_label_text66('Resolución', res.Entidad.ActoAdministrativoNumero) }}
 			{{ bs.grid_label_text66('Archivo', res.Entidad.PosicionArchivo) }}
@@ -63,7 +63,7 @@
 	        	        
 	        {% if res.Entidad.Local.Partida %}
     	    </div>
-    	    <div class="col-sm-8 col-xs-12">
+    	    <div class="col-sm-8 col-xs-12 col-separator-left">
                 {{ bs.grid_label_text('Propietario', res.Entidad.Local.Partida.Titular) }}
     	        {{ bs.grid_label_text('Domicilio', res.Entidad.Local.Partida.Domicilio) }}
     	    	{{ bs.grid_label_text('Partida', res.Entidad.Local.Partida.Smpu) }}
