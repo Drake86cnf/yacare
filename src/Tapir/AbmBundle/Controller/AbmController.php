@@ -215,7 +215,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         
         $em = $this->getEm();
         $query = $em->createQuery($dql);
-        
+        //echo $dql;
         if ($this->Limit) {
             $query->setMaxResults($this->Limit);
         }
