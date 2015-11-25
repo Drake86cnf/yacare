@@ -61,7 +61,7 @@ class Requisito
      *
      * @var string
      * 
-     * @see getTipoNombre() getTipoNombre()
+     * @see getTipoNombre()
      * 
      * @ORM\Column(type="string", length=50)
      */
