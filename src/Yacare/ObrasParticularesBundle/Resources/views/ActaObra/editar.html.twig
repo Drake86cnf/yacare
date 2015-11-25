@@ -55,15 +55,28 @@
 	
 {% block pagina_scripts %}
 	{{ parent() }}		
+    <!-- Muestro el campo para observaciones -->
     <script type="text/javascript">
         function mostrarOculto() {
         	var elemento = document.getElementById("adicional");
         
             if (elemento.style.display == "none") {
             	elemento.style.display = "block";
-            	linkMostrar.style.display = 'none'
-            	linkMostrar.innerHTML = 'Ocultar observaciones'
+            	linkMostrar.style.display = 'none';
             }
         }
+	</script>
+	<!-- Prevengo el ingreso de opciones para tipo de obra Seca -->
+	<script>
+        $(function() {
+            $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').change(function() {
+            	if ($('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').val() === 'Seca') {
+					$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').prop('disabled', true);
+                } else {
+					$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').prop('disabled', false)
+                }
+            });
+            $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').trigger('change');
+        });
     </script>
 {% endblock pagina_scripts %}

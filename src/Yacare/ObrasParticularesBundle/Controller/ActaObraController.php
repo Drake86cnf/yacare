@@ -43,11 +43,6 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
-            
-            /*if ($entity->getPlazo() || $entity->getFechaDescargo()) {
-                return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'),
-                    $this->ArrastrarVariables($request, array('id' => $id), false)));
-            }*/
         }
         
         if (! $entity) {
