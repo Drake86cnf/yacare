@@ -31,12 +31,7 @@ class ActaObraType extends AbstractType
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => false))
-            ->add('Fecha', 'date', array(
-                'years' => range(2014, 2099), 
-                'input' => 'datetime', 
-                'format' => 'dd/MM/yyyy', 
-                'widget' => 'choice', 
-                'label' => 'Fecha'))
+            ->add('Fecha', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array('label' => 'Fecha'))
             ->add('Partida', 'entity_id', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
@@ -75,7 +70,7 @@ class ActaObraType extends AbstractType
             ->add('FuncionarioPrincipal', 'entity', array(
                 'label' => 'Inspector',
                 'property' => 'NombreVisible',
-                'placeholder' => 'Seleccione al inspector que intervino.',
+                'placeholder' => 'Seleccione al inspector que intervino',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');

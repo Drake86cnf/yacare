@@ -9,8 +9,9 @@
     			<th>Nº</th>
     			<th>Tipo</th>
     			<th>Fecha</th>
-    			<th>Partida</th>
-    			<th>Inspector</th>
+    			<th class="hidden-xs">Partida</th>
+    			<th class="hidden-xs">Inspector</th>
+    			<th></th>
     		</tr>
     	</thead>
     	<tbody>
@@ -19,8 +20,9 @@
     			<td>{{ entidad.Numero }}</td>
     			<td>{{ entidad.Subtipo }}</td>
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
-    			<td>{{ entidad.Partida }}</td>
-    			<td>{{ entidad.FuncionarioPrincipal }}</td>
+    			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}</td>
+    			<td class="hidden-xs">{{ entidad.FuncionarioPrincipal }}</td>
+    			<td>{% if entidad.Plazo is not null %} <span class="label label-success">D</span> {% endif %}</td>
     		</tr>
     		{% endfor %}
     	</tbody>

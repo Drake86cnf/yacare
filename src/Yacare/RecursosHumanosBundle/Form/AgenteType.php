@@ -21,7 +21,7 @@ class AgenteType extends AbstractType
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
-            ->add('FechaIngreso', new \Tapir\BaseBundle\Form\Type\FechaNacimientoType(), array(
+            ->add('FechaIngreso', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
                 'required' => true,
                 'label' => 'Fecha de ingreso'))
             ->add('Persona', new \Yacare\RecursosHumanosBundle\Form\PersonaAgenteType(), array(

@@ -105,4 +105,11 @@
 		</div>
 	</div>
 </div>
-{% endblock %}
+{% endblock pagina_contenido%}
+
+{% block pagina_acciones %}
+    {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
+    	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    		class="btn btn-warning hidden-print"><i class="fa fa-edit"></i> Editar</a>
+    {% endif %}
+{% endblock pagina_acciones %}

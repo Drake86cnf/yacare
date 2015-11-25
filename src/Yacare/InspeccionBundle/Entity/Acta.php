@@ -3,6 +3,7 @@ namespace Yacare\InspeccionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Acta.
@@ -74,6 +75,12 @@ abstract class Acta implements IActa
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime")
+     * @Assert\Range(
+     *     min = "-7 days",
+     *     max = "now",
+     *     minMessage = "Debe ingresar una fecha dentro de la última semana.",
+     *     maxMessage = "Debe ingresar una fecha dentro de la última semana." 
+     * )
      */
     private $Fecha;
     

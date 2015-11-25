@@ -46,7 +46,11 @@
         </div>
 	</span>
     {{ form_rest(res.FormularioEditar) }}
-	<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">Agregar observaciones</a>
+    <div class="row form-group">
+        	<div class="col-xs-2 text-right">
+        		<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">Incluir observaciones</a>
+        	</div>
+    </div>
 {% endblock pagina_contenido %}
 	
 {% block pagina_scripts %}
@@ -55,12 +59,9 @@
         function mostrarOculto() {
         	var elemento = document.getElementById("adicional");
         
-            if (elemento.style.display == "" || elemento.style.display == "block") {
-        		elemento.style.display = "none";
-              	linkMostrar.innerHTML = 'Agregar observaciones'
-            }
-            else {
+            if (elemento.style.display == "none") {
             	elemento.style.display = "block";
+            	linkMostrar.style.display = 'none'
             	linkMostrar.innerHTML = 'Ocultar observaciones'
             }
         }

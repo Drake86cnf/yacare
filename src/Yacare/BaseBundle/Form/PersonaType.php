@@ -63,7 +63,7 @@ class PersonaType extends AbstractType
                 'required' => false,
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
             ))
-            ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaNacimientoType(), array(
+            ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))
             ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array('label' => 'Género', 'required' => true))
