@@ -26,9 +26,14 @@
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
             tapirCambiarDireccion(url);
         }
-        url = tapirAgregarElementoUri(url, 'sinencab', 1);
-        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
-        tapirCargarUrlEn(url, '#resultadosbuscar');
+        {% if app.request.get('tapir_modal') %}
+            url = tapirAgregarElementoUri(url, 'sinencab', 1);
+            url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+            tapirCargarUrlEn(url, '#resultadosbuscar');
+        {% else %}
+            url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+            tapirCargarUrlEn(url);
+        {% endif %}
     }
 
     tapirEnfocarControl('#filtro_buscar');
