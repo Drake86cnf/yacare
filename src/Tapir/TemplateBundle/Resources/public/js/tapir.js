@@ -155,6 +155,7 @@ function tapirCargarUrlEn(url, destino) {
 
 	//var err = new Error();
 	//alert('Cargar ' + url);// + ', Error ' + err.stack);
+	var destinoFinal;
 	if (destino === undefined || destino === '') {
 		destinoFinal = '#ajax-wrapper';
 	} else {
@@ -266,6 +267,7 @@ function tapirFechaEsValida(fecha) {
 function MejorarElementos(destino) {
 	//alert('Mejorar ' + destino);
 	
+	var desintoFinal;
 	if (destino) {
 		desintoFinal = destino + ' ';
 	} else {
