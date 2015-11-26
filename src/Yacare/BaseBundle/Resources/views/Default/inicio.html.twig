@@ -9,35 +9,17 @@
 	<p>Bievenido al sistema de gestión del Municipio de Río Grande.</p>
 </div>
 
+
 <div class="row">
+
 {% if is_expr_granted("hasAnyRole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR')") %}
-	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-red">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-shopping-cart fa-5x"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div class="huge">Comercio</div>
-                    <div> </div>
-                </div>
-            </div>
-        </div>
-        <a href="{{ path('yacare_comercio_default_inicio') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Inicio</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-        <a href="{{ path('yacare_comercio_comercio_listar') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Listado de comercios</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div></div>
+	<div class="col-sm-4 inicio-mini" id="inicio_comercio">
+	<script>
+	$(function() {
+		tapirCargarUrlEn('{{ path('yacare_comercio_default_miniinicio') }}', '#inicio_comercio');
+	});
+	</script>
+	</div>
 {% endif %}
 
 
