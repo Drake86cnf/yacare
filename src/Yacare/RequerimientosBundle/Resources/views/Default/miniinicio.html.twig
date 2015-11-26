@@ -1,0 +1,16 @@
+{% extends 'TapirTemplateBundle::empty.html.twig' %}
+
+{% block pagina_contenido %}
+<h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Requerimientos</h2>
+<ul class="inicio-mini-menu">
+	{% for req in res.Recientes['RequerimientosUsuario'] %}
+		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
+	{% endfor %}
+	{% for req in res.Recientes['RequerimientosEncargado'] %}
+		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
+	{% endfor %}
+	<li class="divider"></li>
+	<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link">
+		Todos los requerimientos</a></li>
+</ul>
+{% endblock pagina_contenido %}

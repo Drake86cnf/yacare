@@ -14,7 +14,7 @@
 				<li class="dropdown-header">Yacaré</li>
 				
                 {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO', 'ROLE_COMERCIO_ADMINISTRADOR')") %}
-				<li><a href="{{ path('yacare_catastro_partida_listar') }}" data-toggle="ajax-link"><i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
+				<li><a href="{{ path('yacare_catastro_default_inicio') }}" data-toggle="ajax-link"><i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
 				{% endif %}
 				
 				{% if is_expr_granted("hasAnyRole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR')") %}
