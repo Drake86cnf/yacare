@@ -5,118 +5,82 @@
 {% block pagina_contenido %}
 <div class="container-fluid"><div class="row">
 
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Comercios</h2>
-        </div>
-        <div class="panel-body">
-            <p>Búsqueda de comercios habilitados, no habilitados, con habilitación en trámite
-             y otros.</p>
-            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_comercio_listar')}}" 
+<div class="col-sm-4">
+    <h2><i class="fa fa-fw fa-home text-muted"></i> Comercios</h2>
+    <ul class="inicio-mini-menu">
+    	{% for comercio in res.Recientes['Comercio'] %}
+    		<li><a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ id: comercio.id })) }}" data-toggle="ajax-link">{{ comercio }}</a></li>
+    	{% endfor %}
+    
+    	<li class="destacado"><a href="{{ path('yacare_comercio_comercio_listar') }}" data-toggle="ajax-link">
+    		Todos los comercios</a></li>
+    	
+    	<li><form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_comercio_listar')}}" 
                 	method="get">
             <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar comercio" />
-            </form>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_comercio_listar', res.Arrastre) }}">Listado de
-            	comercios <span class="badge">{{ res.Contadores['Comercio'] }}</span></a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Locales
-            	comerciales<span class="badge">{{ res.Contadores['Local'] }}</span></a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_certificadohabilitacioncomercial_listar', 
-                res.Arrastre) }}">Certificados de habilitación</a>
-        </ul>
-    </div></div>
+            </form></li>
+    </ul>
+</div>
+
+<div class="col-sm-4">
+    <h2> Locales</h2>
+    <ul class="inicio-mini-menu">
+    	{% for local in res.Recientes['Local'] %}
+    		<li><a href="{{ path('yacare_comercio_local_editar', res.Arrastre|merge({ id: local.id })) }}" data-toggle="ajax-link">{{ local }}</a></li>
+    	{% endfor %}
     
-    
-    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-red">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Contribuyentes</h2>
-        </div>
-        <div class="panel-body">
-            <p>Búsqueda de personas físicas y jurídicas.</p>
-            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_base_persona_listar')}}" 
-                	method="get">
+    	<li class="destacado"><a href="{{ path('yacare_comercio_local_listar') }}" data-toggle="ajax-link">
+    		Todos los locales</a></li>
+    </ul>
+</div>
+
+<div class="col-sm-4">
+    <h2>Personas</h2>
+    <ul class="inicio-mini-menu">
+    	<p>El titular de un comercio, su apoderado o el titular de un local comercial deben existir como persona
+    		(física o jurídica) en el sistema.</p>
+    	<li><form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_base_persona_listar')}}" method="get">
             <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar persona" />
-            </form>
-        </div>
-    </div></div>
-    
-    
-    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Locales</h2>
-        </div>
-        <div class="panel-body">
-            <p>Búsqueda de locales de uso comercial.</p>
-            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_local_listar')}}" 
-                	method="get">
-            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar local" />
-            </form>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_local_listar', res.Arrastre) }}">Ver todos los
-            	locales</a>
-        </ul>
-    </div></div>
+            </form></li>
+    </ul>
+</div>
 
-
-</div><div class="row">
-    
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Actividades económicas</h2>
-        </div>
-        <div class="panel-body">
-            <p>Busqueda de actividades económicas por código de ClaNAE o por nombre.</p>
-            <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_actividad_listar')}}" 
+<div class="col-sm-4">
+    <h2>Actividades económicas</h2>
+    <ul class="inicio-mini-menu">
+    	<p>Busqueda de actividades económicas por código de ClaNAE, código de DGR o por nombre.</p>
+    	<li><form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_actividad_listar')}}" 
                 	method="get">
             <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar actividad" />
-            </form>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_actividad_listar', res.Arrastre) }}">Nomenclador
-            	completo</a>
-        </ul>
-    </div></div>
-    
+            </form></li>
+    </ul>
+</div>
 
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Trámites</h2>
-        </div>
-        <div class="panel-body">
-            <p>Búsqueda de trámites de habilitación comercial en curso o terminados. Puede buscar
+<div class="col-sm-4">
+    <h2>Trámites</h2>
+    <ul class="inicio-mini-menu">
+    	<p>Búsqueda de trámites de habilitación comercial en curso o terminados. Puede buscar
             por titular o nombre del comercio.</p>
-            <input type="text" class="form-control pull-rigth" placeholder="buscar trámite" />
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar', res.Arrastre) }}">Listado de trámites
-            {% if res.Tramites|length > 0 %}<span class="badge">{{ res.Tramites|length }}</span>{% endif %}</a></a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_consultar', res.Arrastre) }}"><i class="fa fa-question fa-fw"></i> Consulta de factibilidad</a>
-            <a class="list-group-item" href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', res.Arrastre) }}"><i class="fa fa-play fa-fw"></i> Iniciar un trámite nuevo</a>
-        </ul>
-    </div></div>
+    	<li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar', res.Arrastre) }}">Listado de trámites</a></li>
+        <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_consultar', res.Arrastre) }}"><i class="fa fa-question fa-fw"></i> Consulta de factibilidad</a></li>
+        <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', res.Arrastre) }}"><i class="fa fa-play fa-fw"></i> Iniciar un trámite nuevo</a></li>
+    </ul>
+</div>
 
-
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Actas</h2>
-        </div>
-        <div class="panel-body">
-            <form id ="form_acta_buscar" class="form-horizontal"
+<div class="col-sm-4">
+    <h2>Actas</h2>
+    <ul class="inicio-mini-menu">
+    	<p>Para ver una lista de actas para un comercio determinado, ingrese mediante el listado de comercios.</p>
+    	<li><form id ="form_acta_buscar" class="form-horizontal"
             	action="{{ path('yacare_comercio_actacomercio_listar')}}" method="get">
             <input type="text" class="form-control pull-rigth" placeholder="buscar acta por número" />
-            </form>
-            <p>Para ver una lista de actas para un comercio determinado, ingrese mediante el listado de comercios.</p>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
-            	de actas <span class="badge">{{ res.Contadores['ActaComercio'] }}</span></a></a>
-            <a class="list-group-item" data-toggle="ajax-link"
-            	href="{{ path('yacare_comercio_actaetiqueta_listar', res.Arrastre) }}"><i
-            	class="fa fa-fw fa-tag"></i> Gestión de etiquetas</a>
-        </ul>
-    </div></div>
+            </form></li>
+    	<li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
+            	de actas</a></li>
+        <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actaetiqueta_listar', res.Arrastre) }}"><i
+            	class="fa fa-fw fa-tag"></i> Gestión de etiquetas</a></li>
+    </ul>
+</div>
 
 </div></div>
 {% endblock pagina_contenido %}
