@@ -1,0 +1,82 @@
+<div class="btn-group hidden-print dropdown dropdown-large">
+    <button class="btn btn-default dropdown-toggle" type="button" id="tapirStartMenu"
+    	data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+    	aonclick="window.location='{{ path('inicio') }}'; return false;">
+    	<i class="fa fa-fw fa-th"></i> <span class="hidden-xs">Menú</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-large row" aria-labelledby="tapirStartMenu">
+		<li class="col-sm-6">
+			<ul>
+				<li><a href="{{ path('inicio') }}"><i class="fa fa-fw fa-home text-primary"></i> Inicio</a></li>
+				<li><a href="{{ path('yacare_base_persona_listar') }}" data-toggle="ajax-link"><i class="fa fa-user fa-fw text-muted"></i> Personas</a></li>
+				<li><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link"><i class="fa fa-ticket fa-fw text-muted"></i> Requerimientos</a></li>
+				<li class="divider"></li>
+				<li class="dropdown-header">Yacaré</li>
+				
+                {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO', 'ROLE_COMERCIO_ADMINISTRADOR')") %}
+				<li><a href="{{ path('yacare_catastro_partida_listar') }}" data-toggle="ajax-link"><i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
+				{% endif %}
+				
+				{% if is_expr_granted("hasAnyRole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR')") %}
+				<li><a href="{{ path('yacare_comercio_default_inicio') }}" data-toggle="ajax-link"><i class="fa fa-shopping-cart fa-fw text-muted"></i> Comercio</a></li>
+				{% endif %}
+				
+				{% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES')") %}
+            	<li><a href="{{ path('yacare_obrasparticulares_default_inicio') }}" data-toggle="ajax-link"><i class="fa fa-building-o fa-fw text-muted"></i> Obras particulares</a></li>
+                {% endif %}
+                
+				<li class="dropdown-header">Trámites</li>
+				{% if is_expr_granted("hasAnyRole('ROLE_TRAMITES')") %}
+				<li><a href="{{ path('yacare_tramites_default_inicio') }}" data-toggle="ajax-link"><i class="fa fa-suitcase fa-fw text-muted"></i> Trámites</a></li>
+                {% endif %}
+
+			</ul>
+		</li>
+		<li class="col-sm-6">
+			<ul>
+				{% set block_pagina_menuprincipal = block('pagina_menuprincipal') %}
+    			{% if block_pagina_menuprincipal is not empty %}
+                    {{ block_pagina_menuprincipal|raw }}
+                	<li><a href="#"><li role="separator" class="divider"></li></a></li>
+                {% endif %}
+                <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
+                <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
+                
+                <li class="dropdown-header">Administración</li>
+    			<li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
+
+                {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+    			<li><a data-toggle="ajax-link" href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
+    			<li><a data-toggle="ajax-link" href="{{ path('tapir_base_personarol_listar') }}">Roles</a></li>
+    			<li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_listar') }}">Agentes</a></li>
+    			<li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agentegrupo_listar') }}">Grupos (agentes)</a></li>
+                {% endif %}
+
+			</ul>
+		</li>
+	</ul>
+    <button class="btn btn-default" type="button" id="tapirBackButton" onclick="return tapirAtras();">
+    	<i class="fa fa-fw fa-chevron-left"></i>
+    </button>
+</div>
+
+<script>
+$(function(){
+    $('#tapirStartMenu,.dropdown-menu').hover(function() {
+        $(this).parent().addClass('open');
+    },
+    function() {
+        $(this).parent().removeClass('open');
+    });
+});
+</script>
+<style>
+#content-header .form-control {
+    border: 1px solid transparent;
+    aborder-bottom: 1px solid silver;
+    box-shadow: none;
+}
+#content-header .form-control:hover {
+    border: 1px solid silver;
+}
+</style>

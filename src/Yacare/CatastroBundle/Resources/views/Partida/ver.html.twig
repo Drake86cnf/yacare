@@ -33,8 +33,3 @@
     	Estos datos fueron importados desde el SiGeMI y sólo pueden ser modificados mediante dicho sistema.
     </p>
 {% endblock %}
-
-{% block pagina_acciones %}
-    <a data-dismiss="modal" data-toggle="ajax-link" class="btn btn-link pull-right"
-    	href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre) }}"><i class="fa fa-reply"></i> Volver</a>
-{% endblock %}

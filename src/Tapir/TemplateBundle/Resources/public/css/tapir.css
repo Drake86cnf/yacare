@@ -21,6 +21,95 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
     font-weight: 400;
 }
 
+@media (max-width: 767px) {
+    #wrapper {
+        padding-left: 0;
+    }
+    #content-header {
+        margin: 6px 8px;
+        min-height: 32px;
+    }
+    #content-header .content-bar-block {
+        padding-top: 4px;
+    }
+    #page-wrapper {
+        width: 100%;
+        padding: 10px 6px;
+    }
+}
+
+@media (min-width: 768px) {
+    /* Pantallas medias y grandex */
+    #wrapper {
+        padding: 0px;
+    }
+    #content-header {
+        padding: 12px 16px;
+        min-height: 32px;
+        background-color: white; 
+    }
+    #page-title {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    #content-header .content-bar-block {
+        padding-top: 4px;
+    }
+    #page-wrapper {
+        padding: 20px 96px;
+    }
+}
+
+@media (min-width: 1280px) {
+    #page-wrapper {
+        padding: 32px 160px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    body, p, label, span, div, td {
+        font-size: 10pt;
+    }
+}
+
+@media print {
+    body {
+        /* min-width: 768px; */
+        
+    }
+    body, p, label, span, div, td {
+        font-size: 9pt;
+        white-space: initial;
+    }
+    @page {
+        margin-top: 10mm !important;
+        margin-right: 10mm !important;
+        margin-bottom: 20mm !important;
+        margin-left: 25mm !important;
+        padding: 0px;
+    }
+    #wrapper {
+        margin: 0px;
+        padding: 0px !important;
+        padding-left: 0px !important;
+    }
+    #page-wrapper {
+        margin: 0px;
+        padding: 0px !important;
+    }
+    a[href]:after {
+        content: none !important;
+    }
+    .label {
+        padding: 2px;
+        border: 1px solid gray;
+    }
+    abbr:after {
+        display: none;
+        visibility: hidden;
+        text-decoration: none;
+    }
+}
+
 a.btn-link {
     cursor: pointer !important;
 }
@@ -135,51 +224,6 @@ legend small {
 	color: rgb(153, 153, 153);
 }
 
-@media screen and (max-width: 767px) {
-	body, p, label, span, div, td {
-		font-size: 10pt;
-	}
-}
-
-@media print {
-	body {
-		/* min-width: 768px; */
-		
-	}
-	body, p, label, span, div, td {
-		font-size: 9pt;
-		white-space: initial;
-	}
-	@page {
-		margin-top: 10mm !important;
-		margin-right: 10mm !important;
-		margin-bottom: 20mm !important;
-		margin-left: 25mm !important;
-		padding: 0px;
-	}
-	#wrapper {
-		margin: 0px;
-		padding: 0px !important;
-		padding-left: 0px !important;
-	}
-	#page-wrapper {
-		margin: 0px;
-		padding: 0px !important;
-	}
-	a[href]:after {
-		content: none !important;
-	}
-	.label {
-		padding: 2px;
-		border: 1px solid gray;
-	}
-	abbr:after {
-		display: none;
-		visibility: hidden;
-		text-decoration: none;
-	}
-}
-
 .nav-search {
 	position: absolute;
 	top: 18px;
@@ -202,7 +246,7 @@ legend small {
 
 .form-actions3 {
 	position: fixed;
-	left: 16px;
+	right: 16px;
 	a-max-width: 200px;
 	bottom: 18px;
 	z-index: 99999;
@@ -210,7 +254,7 @@ legend small {
 	a-background-color: rgba(255, 255, 255, 0.1);
 	a-overflow: auto;
 	a-overflow-y: hidden;
-	opacity: 0.9;
+	opacity: 0.8;
 }
 
 .pagina-pie {
@@ -362,6 +406,7 @@ legend small {
 
 .showonhover {
     opacity: 0.0;
+    display: none;
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
     -ms-transition: all 200ms ease-in-out;
@@ -369,8 +414,9 @@ legend small {
     transition: all 200ms ease-in-out;
 }
 
-div:hover > .showonhover {
+div:hover > .showonhover, button:hover > .showonhover {
     opacity: 1.0 !important;
+    display: initial;
 }
 
 h2.row-header {
@@ -381,8 +427,10 @@ h2.row-header {
 	margin-bottom: 8xp;
 }
 
-.col-separator-left {
-    border-left: 1px solid #d0d0e0;
+@media (min-width: 768px) {
+	.col-separator-left {
+	    border-left: 1px solid #d0d0e0;
+	}
 }
 
 .btn-circle {
@@ -409,4 +457,112 @@ h2.row-header {
   font-size: 24px;
   line-height: 1.33;
   border-radius: 35px !important;
+}
+
+.btn-start {
+    min-width: 24px;
+    min-height: 30px; 
+    max-height: 30px;
+}
+
+#content-header {
+    margin-right: 8px;
+}
+
+#content-header .btn-default {
+    padding: 6px 6px;
+    border-radius: 0 !important;
+    border: 1px solid transparent;
+}
+
+#content-header .btn-default:hover {
+    background-color: #d0d0d0;
+    color: black;
+}
+
+#content-header .btn-default {
+    color: #606060;
+}
+
+#page-title {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #539BDA;
+}
+
+
+.dropdown .dropdown-menu {
+    margin-top: 0; /* remove the gap so it doesn't close */
+    border-radius: 0px;
+    margin-left: 0;
+}
+
+.dropdown-start {
+    border-radius: 0px;
+}
+
+.dropdown-large {
+    a-position: static !important;
+}
+.dropdown-menu-large {
+    margin-left: 16px;
+    margin-right: 16px;
+    padding: 20px 0px;
+    min-width: 456px;
+}
+.dropdown-menu-large > li > ul {
+    padding: 0;
+    margin: 0;
+}
+.dropdown-menu-large > li > ul > li {
+    list-style: none;
+    font-size: 11pt;
+}
+.dropdown-menu-large > li > ul > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: normal;
+}
+.dropdown-menu-large > li ul > li > a:hover,
+.dropdown-menu-large > li ul > li > a:focus {
+    text-decoration: none;
+    color: #262626;
+    background-color: #f5f5f5;
+}
+.dropdown-menu-large .disabled > a,
+.dropdown-menu-large .disabled > a:hover,
+.dropdown-menu-large .disabled > a:focus {
+    olor: #999999;
+}
+.dropdown-menu-large .disabled > a:hover,
+.dropdown-menu-large .disabled > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    cursor: not-allowed;
+}
+.dropdown-menu-large .dropdown-header {
+    color: #428bca;
+    font-size: 18px;
+}
+@media (max-width: 768px) {
+
+    .dropdown-menu-large {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .dropdown-menu-large > li {
+        margin-bottom: 30px;
+    }
+    .dropdown-menu-large > li:last-child {
+        margin-bottom: 0;
+    }
+    .dropdown-menu-large .dropdown-header {
+        padding: 3px 15px !important;
+    }
 }

@@ -179,12 +179,6 @@
 </table>
 {% endblock %}
 
-{% block pagina_acciones %}
-<a class="btn btn-primary hidden-print"
-	href="{{ path(res.ObtenerRutaAccion('listar')) }}"><i class="fa fa-reply"></i>
-	Volver</a>
-{% endblock %}
-
 {% block pagina_acciones2 %}
 <script>
     $(document).ready(function(){
@@ -197,7 +191,7 @@
 	class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</a>
 {% endblock %}
 
-{% block pagina_acciones3 %}{{ parent() }}
+{% block pagina_menuprincipal %}{{ parent() }}
     <li>
     	<a data-toggle="modal" data-target="#modal" href="{{ path('yacare_base_comentario_listar', 
     	    { 'tipo': 'Yacare\\TramitesBundle\\res.Entidad\\Tramite', 'id': res.Entidad.id }) }}">

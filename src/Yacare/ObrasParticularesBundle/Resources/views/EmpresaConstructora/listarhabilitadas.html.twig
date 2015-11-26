@@ -1,6 +1,8 @@
-{% extends 'TapirAbmBundle::listar.html.twig' %} {% block
-pagina_titulo %}Obras Particulares - Empresas constructoras{% endblock
-%} {% block pagina_contenido %}
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Empresas constructoras{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-condensed table-stripped">
 	<thead>
 		<tr>
@@ -24,8 +26,4 @@ pagina_titulo %}Obras Particulares - Empresas constructoras{% endblock
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_acciones %}
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_listar', arrastre) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-reply"></i> Volver</a>
-{% endblock pagina_acciones %}
+{% endblock %}

@@ -21,11 +21,17 @@
 {% endif %}
 
 <p class="clearfix"></p>
-{% endblock %} {% block pagina_acciones %} {% if comprob %}
+{% endblock %}
+
+{% block pagina_acciones %}
+{% if comprob %}
 <a class="btn btn-primary hidden-print" data-toggle="ajax-link"
 	href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}"><i
 	class="fa fa-file-o"></i> Ver el comprobante</a>
-{% endif %} {% endblock %} {% block pagina_acciones2 %}
+{% endif %}
+{% endblock %}
+
+{% block pagina_acciones2 %}
 <a class="btn btn-default hidden-print" data-toggle="ajax-link"
 	href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i
 	class="fa fa-reply"></i> Volver al trámite</a>

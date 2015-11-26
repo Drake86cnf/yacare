@@ -1,7 +1,8 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Cálculo del valor del pliego{% endblock %} {% block pagina_contenido
-%}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo %}Cálculo del valor del pliego{% endblock %}
+
+{% block pagina_contenido %}
 <p>El valor del pliego se calcula como un porcentaje del Presupuesto
 	oficial. El porcentaje varía según la "Complejidad final computada" de
 	la licitación.</p>
@@ -305,12 +306,10 @@
 			</tr>
 		</tbody>
 	</table>
+{% endblock %}
 
-
-	{% endblock %} {% block pagina_acciones %}
+{% block pagina_acciones %}
 	<a class="btn btn-default"
 		href="javascript:tapirImprimir(); return false;"><i
 		class="fa fa-print"></i> Imprimir</a>
-	<a class="btn btn-default" href="{{ path(baseroute ~ '_listar') }}"><i
-		class="fa fa-reply"></i> Volver</a> {% endblock pagina_acciones %} {%
-	block pagina_pie %}{% endblock pagina_pie %}
+{% endblock pagina_acciones %}

@@ -55,21 +55,6 @@
 <hr />
 {% endblock pagina_contenido %}
 
-{% block pagina_acciones %}
-    {% if app.request.get('tapir_modal') %}
-        <a data-toggle="ajax-link" class="btn btn-link"
-        	href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': res.Entidad.Id })) }}"><i
-        	class="fa fa-print"></i> Versión para imprimir</a>
-        <button data-dismiss="modal" class="btn btn-link pull-right">
-        	<i class="fa fa-reply"></i> Volver
-        </button>
-    {% else %}
-        <a data-toggle="ajax-link" class="btn btn-link pull-right"
-        	href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre) }}"><i
-        	class="fa fa-reply"></i> Volver</a>
-    {% endif %}
-{% endblock pagina_acciones %}
-
 {% block pagina_acciones2 %}
     <a data-toggle="ajax-link" class="btn btn-primary"
     	href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.Id })) }}"><i

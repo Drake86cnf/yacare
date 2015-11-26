@@ -12,16 +12,16 @@
     {% set pagina_buscar_destino_final = pagina_buscar_destino_final ~ '?' %}
 {% endif %}
 <div class="input-group">
-	<input class="form-control input-sm tapir-input-minus" type="text" autocomplete="off"
-		autofocus size="50" maxlength="100" id="filtro_buscar"
-		name="filtro_buscar" placeholder="Buscar..."
-		value="{{ filtro_buscar }}" style="max-width: 140px" />
-    {% if filtro_buscar %}
-	<button id="tapir_buscar_todo" class="btn btn-sm btn-primary"
+	{% if filtro_buscar %}
+	<button id="tapir_buscar_todo" class="btn btn-sm btn-default"
 		onclick="tapirNavegarA('{{ pagina_buscar_destino_final|raw }}filtro_buscar=');">
 		<i class="fa fa-times-circle"></i>
 	</button>
 	{% endif %}
+	<input class="form-control input-sm tapir-input-minus" type="text" autocomplete="off"
+		autofocus size="50" maxlength="100" id="filtro_buscar"
+		name="filtro_buscar" placeholder="buscar..."
+		value="{{ filtro_buscar }}" style="max-width: 140px" />
 </div>
 
 <script type="text/javascript">

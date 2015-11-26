@@ -69,8 +69,6 @@
     <a class="btn btn-primary"
     	href="{{ path(res.ObtenerRutaAccion('imprimir'), { 'id': res.Entidad.Id, 'fmt': 'application/pdf' }) }}">
     	<i class="fa fa-file-pdf-o"></i> Descargar PDF</a>
-    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('listar')) }}">
-    	<i class="fa fa-reply"></i> Volver</a>
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}

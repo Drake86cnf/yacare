@@ -1,0 +1,34 @@
+{% set block_pagina_menuprincipal = block('pagina_menuprincipal') %}
+<div class="startbutton hidden-print dropdown dropdown-large container-fluid">
+    <button class="btn btn-start dropdown-toggle" type="button" id="dropDownAydua"
+    	data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	<i class="fa fa-fw fa-th"></i> <span class="showonhover">Menú</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-large row" aria-labelledby="dropDownAydua">
+		<li class="col-sm-6">
+			<ul class="list-unstyled">
+				<li><a href="{{ path('inicio') }}"><i class="fa fa-fw fa-home text-primary"></i> Inicio</a></li>
+				<li class="dropdown-header">Yacaré</li>
+				<li><a href="#">How to use</a></li>
+				<li><a href="#">Examples</a></li>
+				<li class="divider"></li>
+				<li class="dropdown-header">Dropdowns</li>
+				<li><a href="#">Example</a></li>
+				<li><a href="#">Aligninment options</a></li>
+				<li><a href="#">Headers</a></li>
+				<li><a href="#">Disabled menu items</a></li>
+			</ul>
+		</li>
+		<li class="col-sm-6">
+			<ul class="list-unstyled">
+    			<li class="dropdown-header">Button groups</li>
+    			{% if block_pagina_menuprincipal is not empty %}
+                    {{ block_pagina_menuprincipal|raw }}
+                	<li><a href="#"><li role="separator" class="divider"></li></a></li>
+                {% endif %}
+                <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
+                <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
