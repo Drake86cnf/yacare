@@ -83,7 +83,7 @@
 					Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección de Obras 
 					Particulares me comprometo en un plazo maximo de 
 					<strong>
-					    {% if res.Entidad.Plazo == 1 %} {{ res.Entidad.Plazo }} día {% else %} días {% endif %}
+					    {{ res.Entidad.Plazo }} {% if res.Entidad.Plazo == 1 %} día {% else %} días {% endif %}
 					</strong>
 					a cumplimentar con lo que se detalla a continuación: <br><br/>
 					<p>
