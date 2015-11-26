@@ -1,0 +1,11 @@
+{% extends 'TapirTemplateBundle::empty.html.twig' %}
+
+{% block pagina_contenido %}
+<h2><i class="fa fa-fw fa-home text-muted"></i> Catastro</h2>
+<ul class="inicio-mini-menu">
+	<li class="destacado"><a href="{{ path('yacare_catastro_partida_listar') }}" data-toggle="ajax-link">
+		Partidas</a></li>
+	<li class="destacado"><a href="{{ path('yacare_catastro_calle_listar') }}" data-toggle="ajax-link">Calles</a></li>
+	<li class="destacado"><a href="{{ path('yacare_catastro_zona_listar') }}" data-toggle="ajax-link">Zonas</a></li>
+</ul>
+{% endblock pagina_contenido %}
