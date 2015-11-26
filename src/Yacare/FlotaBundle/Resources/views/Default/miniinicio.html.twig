@@ -1,0 +1,13 @@
+{% extends 'TapirTemplateBundle::empty.html.twig' %}
+
+{% block pagina_contenido %}
+<h2><i class="fa fa-fw fa-car text-muted"></i> Flota</h2>
+<ul class="inicio-mini-menu">
+	{% for vehiculo in res.Recientes['Vehiculo'] %}
+		<li><a href="{{ path('yacare_flota_vehiculo_ver', res.Arrastre|merge({ id: vehiculo.id })) }}" data-toggle="ajax-link">{{ vehiculo }}</a></li>
+	{% endfor %}
+	<li class="divider"></li>
+	<li class="destacado"><a href="{{ path('yacare_flota_vehiculo_listar') }}" data-toggle="ajax-link">
+		Todos los vehículos</a></li>
+</ul>
+{% endblock pagina_contenido %}

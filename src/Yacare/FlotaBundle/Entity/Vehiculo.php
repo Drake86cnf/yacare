@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
 {
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    
     public function __construct()
     {
         $this->Cargas = new \Doctrine\Common\Collections\ArrayCollection();
