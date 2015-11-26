@@ -168,7 +168,8 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                 $FormEditarBuilder->add('Pais', 'entity', array(
                     'label' => 'Nacionalidad', 
                     'placeholder' => 'Sin especificar', 
-                    'class' => 'YacareBaseBundle:Pais', 
+                    'class' => 'YacareBaseBundle:Pais',
+                    'attr' => array('class' => 'tapir-input-320'),
                     'required' => false, 
                     'preferred_choices' => $em->getRepository($this->CompleteEntityName)->findById(
                         array(1, 2, 11, 15))));
