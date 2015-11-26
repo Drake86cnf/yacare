@@ -23,6 +23,7 @@ class AsignarType extends AbstractType
             ->add('Usuario', 'entity', array(
                 'label' => 'Encargado',
                 'property' => 'NombreVisible',
+                'attr' => array('class' => 'tapir-input-320'),
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');

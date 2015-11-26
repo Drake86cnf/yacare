@@ -624,7 +624,8 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             case 'Categoria':
                 $FormEditarBuilder->add($campoNombre, 'entity', array(
                     'label' => 'Categoría', 
-                    'placeholder' => 'Sin categoría', 
+                    'placeholder' => 'Sin categoría',
+                    'attr' => array('class' => 'tapir-input-320'),
                     'class' => 'YacareRequerimientosBundle:Categoria', 
                     'required' => false));
                 $NuevaNovedad->setAutomatica(1);

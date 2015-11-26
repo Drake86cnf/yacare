@@ -10,11 +10,11 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8">
 		    {% if res.Entidad.Prioridad == 2 %}<span class="label label-danger">Prioridad alta</span>{% endif %}
-		    <div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
+		    {#<div id="edit-inplace-notas" data-toggle="inplace-edit" class="inplace-edit-text" data-control="textarea"
 		  		href="{{ path(res.ObtenerRutaAccion('editarcampo'), res.Arrastre|merge(
-		  		    { 'id': res.Entidad.id, 'nombrecampo': 'Notas' })) }}">
-		  		<p>{{ res.Entidad.Notas }}</p>
-		    </div>
+		  		    { 'id': res.Entidad.id, 'nombrecampo': 'Notas' })) }}"> #}
+	  		
+	  		<p class="lead">{{ res.Entidad.Notas }}</p>
 
 		    <p class="help-block text-right"><span class="small">Creado por {% if res.Entidad.Usuario %}
 			        {{ res.Entidad.Usuario.NombreAmigable }}
@@ -33,13 +33,86 @@
                 aprobación. Vea los comentarios para más información.
                 {% elseif res.Entidad.Estado == 99 %}El requerimiento fue cerrado y archivado.
                 {% endif %}</p>
+		
+		
+            {% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+            &nbsp;<br /><div class="text-center">
+                {% if res.Entidad.Encargado and res.Entidad.Encargado == app.user 
+                    and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0 })) }}"
+                    	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
+                {% elseif res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                    {% if res.Entidad.Categoria %}
+                    	<a class="btn btn-default" data-toggle="modal"
+                     		href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge({'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}">
+                     		<i class="fa fa-hand-o-left"></i> Categoría</a>
+                    {% else %}
+                     	<a class="btn btn-warning" data-toggle="modal"
+                     		href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge({'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}">
+                     		<i class="fa fa-hand-o-left"></i> Categoría</a>
+                    {% endif %}
+            
+                    {% if res.Entidad.Encargado %}
+                        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('asignar'), 
+                            res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+                        	data-toggle="modal"><i class="fa fa-user"></i> Encargado</a>
+                    {% else %}
+                        <a class="btn btn-warning" href="{{ path(res.ObtenerRutaAccion('asignar'), 
+                            res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+                        	data-toggle="modal"><i class="fa fa-user"></i> Encargado</a>
+                    {% endif %}
+                {% endif %}
+            
+                {% if res.Entidad.Estado == 0 %}
+                    {# Nuevo #}
+                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+                        data-toggle="ajax-link" ><i class="fa fa-play"></i> Iniciar</a>
+                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
+                        data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
+                {% endif %}
+                {% if res.Entidad.Estado == 10 %}
+                    {# Iniciado #}
+                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
+                   		data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
+                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
+                    	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+                {% endif %}
+                {% if res.Entidad.Estado == 20 %}
+                    {# En espera #}
+                    <a class="btn btn-default btn-warning"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+                    	data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
+                    <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
+                    	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+                {% endif %}
+                {% if res.Entidad.Estado == 90 %}
+                    {# Terminado #}
+                    <a class="btn btn-success"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
+                    	data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
+                {% endif %}
+                {% if res.Entidad.Estado >= 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                    {# Cerrado #}
+                    <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
+                        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
+                    	data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
+                {% endif %}
+            </div>
+            {% endif %}
+		
 		</div>
 		
 		<div class="col-xs-12 col-sm-12 col-md-4"><div class="panel panel-default"><div class="panel-body">
 		  <div class="text-success"><strong>{% if res.Entidad.Categoria %}
 		      {{ res.Entidad.Categoria }}{% else %}Sin categoría {% endif %}</strong>
 		      {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-    		  	  <a class="btn btn-link btn-xs showonhover"
+    		  	  <a class="btn btn-link btn-sm showonhover"
     		      href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
     		          {'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}"
     		      data-toggle="modal">
@@ -62,8 +135,7 @@
 		  Prioridad: <span class="pull-right">{{ res.Entidad.PrioridadNombre }}</span><br />
 		  {% if res.Entidad.Usuario is null %}
 		  	Seguimiento web: <span class="pull-right">
-		  	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg=
-		  	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}">
+		  	<a href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ res.Entidad.id }}-{{ res.Entidad.Token }}">
 		  	    {{ res.Entidad.id }}-{{ res.Entidad.Token }}</a></span><br />
 		  {% else %}
 		    <span class="small">Este requerimiento no tiene seguimiento web porque fue iniciado de forma interna.</span>
@@ -72,68 +144,9 @@
 	</div>
 </div>
 
-{% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-<div class="text-right">
-    {% if res.Entidad.Encargado and res.Entidad.Encargado == app.user 
-        and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0 })) }}"
-        	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
-    {% elseif res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-        {% if res.Entidad.Encargado %}
-            <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('asignar'), 
-                res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-            	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Reasignar</a>
-        {% else %}
-            <a class="btn btn-danger" href="{{ path(res.ObtenerRutaAccion('asignar'), 
-                res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-            	data-toggle="ajax-link"><i class="fa fa-hand-o-left"></i> Asignar</a>
-        {% endif %}
-    {% endif %}
+&nbsp;<br />
 
-    {% if res.Entidad.Estado == 0 %}
-        {# Nuevo #}
-        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-            data-toggle="ajax-link" ><i class="fa fa-play"></i> Iniciar</a>
-        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
-            data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
-    {% endif %}
-    {% if res.Entidad.Estado == 10 %}
-        {# Iniciado #}
-        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
-       		data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
-        <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
-        	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
-    {% endif %}
-    {% if res.Entidad.Estado == 20 %}
-        {# En espera #}
-        <a class="btn btn-default btn-warning"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        	data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
-        <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-        	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
-    {% endif %}
-    {% if res.Entidad.Estado == 90 %}
-        {# Terminado #}
-        <a class="btn btn-success"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
-        	data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
-    {% endif %}
-    {% if res.Entidad.Estado >= 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-        {# Cerrado #}
-        <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-            res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        	data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
-    {% endif %}
-</div>
-{% endif %}
-
-<h2>Novedades</h2>
+<h2 class="row-header">Novedades</h2>
 <div class="container-fluid">
 {% if form_novedad is defined and app.user is defined %}
 {{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 
