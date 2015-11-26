@@ -2,7 +2,17 @@
 
 {% set tapir_editar_nombreguadar = 'Enviar' %}
 
-{% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Enviar comentario{% endif %}{% endblock %}
+{% block pagina_titulo %}
+    {% if res.Entidad.id %}
+        {{ res.Entidad }}
+    {% else %}
+    	{% if app.request.get('tipo') == 'problema' %}
+    		Reportar problema
+    	{% else %}
+    		Enviar comentario
+    	{% endif %}
+    {% endif %}
+{% endblock %}
 
 {% block pagina_contenido %}
 
