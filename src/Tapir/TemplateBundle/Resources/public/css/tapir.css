@@ -566,3 +566,33 @@ h2.row-header {
         padding: 3px 15px !important;
     }
 }
+
+li.divider {
+	height: 1px;
+	margin: 9px 0px;
+	overflow: hidden;
+	background-color: #E5E5E5;
+}
+
+.inicio-mini-menu {
+    list-style: none;
+    padding-left: 0;
+}
+.inicio-mini-menu li a {
+    color: #606060;
+    width: 100%;
+    display: block;
+    padding: 3px 3px 3px 8px;
+}
+.inicio-mini-menu li.destacado a {
+    color: #337AB7;
+}
+.inicio-mini-menu li.destacado a:hover {
+    color: #23527C;
+}
+.inicio-mini-menu li:empty {
+    padding: 0;
+}
+.inicio-mini-menu li:hover {
+    background-color: #f0f0f0;
+}
