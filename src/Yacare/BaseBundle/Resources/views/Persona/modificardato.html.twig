@@ -23,3 +23,19 @@
 {% block pagina_fin %}
     {{ form_end(res.FormularioEditar, {'render_rest': false}) }}
 {% endblock %}
+
+{% block pagina_scripts %}
+{{ parent() }}
+
+<script>
+$(function() {
+	$('#form_Domicilio_DomicilioCalle').change(function(e) {
+		if($('#form_Domicilio_DomicilioCalle').val() > 0) {
+			$('#form_Domicilio_DomicilioCalleNombre').hide();
+		} else {
+			$('#form_Domicilio_DomicilioCalleNombre').show();
+		}
+	}).change();
+});
+</script>
+{% endblock %}

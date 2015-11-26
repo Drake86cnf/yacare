@@ -122,21 +122,21 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="grilladatos-etiqueta text-muted text-right">Vínculos</td>
-			<td>
+			<td colspan="2">
 			    {% for Grupo in res.Entidad.Grupos %}
-			    	<span class="label label-info">{{ Grupo }}</span> 
-			    {% endfor %} 
-			    {% if res.Entidad.PuedeAcceder %} <br />
-					<span class="label label-success">Usuario {{ res.Entidad.Username }}</span>
-    				{% for Rol in res.Entidad.UsuarioRoles %}
-    					<span class="label label-warning">Rol {{ Rol }}</span> 
-    				{% endfor %}
-				{% endif %}
+                	<span class="label label-info">{{ Grupo }}</span> 
+                {% endfor %} 
+                {% if res.Entidad.PuedeAcceder %} <br />
+                	<span class="label label-success">Usuario {{ res.Entidad.Username }}</span>
+                	{% for Rol in res.Entidad.UsuarioRoles %}
+                		<span class="label label-warning">{{ Rol }}</span>   
+                	{% endfor %}
+                {% endif %}
 			</td>
 		</tr>
 	</tbody>
 </table>
+
 {% endblock pagina_contenido %}
 
 {% block pagina_acciones2 %}

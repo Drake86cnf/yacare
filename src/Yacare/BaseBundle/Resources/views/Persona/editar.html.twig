@@ -124,18 +124,16 @@ $(function() {
 			$('.mostrar-persona-fisica').show();
 			$('.mostrar-persona-juridica').hide();
 		}
-	});
+	}).change();
 
-    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change(function() {
-        if($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val()) {
+    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').change(function() {
+    	alert($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val());
+        if($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val() > 0) {
             $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').hide();
         } else {
             $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').show();
         }
-    });
-    
-    $('#yacare_basebundle_personatype_TipoSociedad').change();
-    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle_Group').change();
+    }).change();
 });
 </script>
 {% endblock %}
