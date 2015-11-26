@@ -1,28 +1,26 @@
-{% set tapir_modal = 0 %}
-
 {% block pagina_inicio %}{% endblock %}
-{% if not app.request.get('sinencab') %}
-<div id="content-header" class="content-bar-row">
+{% if not app.request.get('sinencab') and not tapir_sinencab is defined %}
+<div id="content-header" class="content-bar-row"
+    {% if tapir_titulo_noimprimible is defined and tapir_titulo_noimprimible %}hidden-print{% endif %}">
+    
+    <div class="content-bar-block-first pull-left hidden-print">
+    {% include 'TapirTemplateBundle::startmenu.html.twig' %}
+    </div>
+    
 	{% set block_pagina_titulo = block('pagina_titulo') %}
 	{% if block_pagina_titulo is not empty %}
-	<div class="content-bar-block-first pull-left">
-		<h1 id="page-title">
-			<a href="#" onclick="return tapirAtras();"><i
-				class="fa fa-chevron-left hidden-print"></i> {{ block_pagina_titulo|raw }}</a>
-		</h1>
+	<div class="content-bar-block pull-left">
+		<h1 id="page-title">{{ block_pagina_titulo|raw }}</h1>
 	</div>
 	{% endif %}
-
 	{% set block_pagina_buscar = block('pagina_buscar') %}
 	{% if block_pagina_buscar is not empty %}
 	<div class="content-bar-block pull-right hidden-print">{{ block_pagina_buscar|raw }}</div>
 	{% endif %}
-
 	{% set block_pagina_paginar = block('pagina_paginar') %}
 	{% if block_pagina_paginar is not empty %}
 	<div class="content-bar-block pull-right hidden-print">{{ block_pagina_paginar|raw }}</div>
 	{% endif %}
-
 	{% set block_pagina_acciones = block('pagina_acciones') %}
 	{% if block_pagina_acciones is not empty %}
 	<div class="content-bar-block pull-right hidden-print">{{ block_pagina_acciones|raw }}</div>
@@ -30,19 +28,24 @@
 </div>
 {% endif %}
 
-{% block pagina_contenido %}{% endblock %}
-{% block pagina_pie %}{% endblock %}
+<div id="page-wrapper">
+	{% for type, flashMessages in app.session.flashbag.all() %}
+		{% for flashMessage in flashMessages %}
+			<div class="alert alert-{{ type }}" role="alert">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				{{ flashMessage|raw }}
+			</div>
+		{% endfor %}
+	{% endfor %}
 
-{% set block_pagina_acciones2 = block('pagina_acciones2') %}
-{% if block_pagina_acciones2 is not empty %}
+	{% block pagina_contenido %}{% endblock %}
+
+	{% block pagina_pie %}{% endblock %}
+
+	{% set block_pagina_acciones2 = block('pagina_acciones2') %}
+	{% if block_pagina_acciones2 is not empty %}
 	<div class="form-actions2 hidden-print">{{ block_pagina_acciones2|raw }}</div>
-{% endif %}
-
-{% set block_pagina_acciones3 = block('pagina_acciones3') %}
-{% if block_pagina_acciones3 is not empty %}
-	<div class="form-actions3 hidden-print">{{ block_pagina_acciones3|raw }}</div>
-{% endif %}
-
-{% block pagina_fin %}{% endblock %}
-
-{% block pagina_scripts %}{% endblock %}
+	{% endif %}
+	
+	{% block pagina_fin %}{% endblock %}
+</div><!-- /#page-wrapper -->

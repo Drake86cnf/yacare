@@ -22,7 +22,7 @@ class ObrasParticularesListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof \Yacare\ObrasParticularesBundle\Entity\IActaObra) {
+        if (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\ActaObra')) {
             // Capturo los eventos si la entidad es un acta.
             $Helper = new \Yacare\ObrasParticularesBundle\Helper\ActaObraHelper();
             $Helper->LifecycleEvent($args);

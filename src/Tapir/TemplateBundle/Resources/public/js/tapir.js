@@ -141,7 +141,7 @@ function tapirCambiarDireccion(url) {
 }
 
 /**
- * Carga una URL en un elemento mediante AJAX. Si no se pasa un elemento destino, se toma "page-wrapper" que es el
+ * Carga una URL en un elemento mediante AJAX. Si no se pasa un elemento destino, se toma "ajax-wrapper" que es el
  * contenedor principal.
  * 
  * @see tapirNavegarA()
@@ -156,7 +156,7 @@ function tapirCargarUrlEn(url, destino) {
 	//var err = new Error();
 	//alert('Cargar ' + url);// + ', Error ' + err.stack);
 	if (destino === undefined || destino === '') {
-		destinoFinal = '#page-wrapper';
+		destinoFinal = '#ajax-wrapper';
 	} else {
 		destinoFinal = destino + '';
 	}
