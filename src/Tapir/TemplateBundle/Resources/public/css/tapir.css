@@ -404,7 +404,7 @@ legend small {
     color: #712E00;
 }
 
-.showonhover {
+div > .showonhover, button > .showonhover {
     opacity: 0.0;
     display: none;
     -webkit-transition: all 200ms ease-in-out;
