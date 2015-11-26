@@ -64,12 +64,13 @@
 
 {% block pagina_acciones2 %}
     {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-    	{% if res.Entidad.Plazo is not null %} {% set descargo_ruta = 'verdescargo' %} 
-    	{% else %} {% set descargo_ruta = 'emitirdescargo' %} {% endif %}
     	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+    	{% if res.Entidad.Plazo is not null %} {% set descargo_ruta = 'verdescargo' %} 
+    	{% else %} {% set descargo_ruta = 'emitirdescargo' %} {% endif %}
     	<a href="{{ path(res.ObtenerRutaAccion(descargo_ruta), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
-    		class="btn btn-success pull-right"><i class="fa fa-edit"></i> 
-    		{% if res.Entidad.Plazo is null %} Realizar descargo {% else %} Ver descargo {% endif %}</a>
+    		{% if res.Entidad.Plazo is null %} class="btn btn-warning pull-right">
+    		<i class="fa fa-mail-forward"></i> Realizar descargo	
+    		{% else %} class="btn btn-success pull-right"> <i class="fa fa-file-text-o"></i> Ver descargo {% endif %}</a>
     {% endif %}
 {% endblock pagina_acciones2 %}

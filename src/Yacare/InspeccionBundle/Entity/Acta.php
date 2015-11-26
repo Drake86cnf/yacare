@@ -18,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "\Yacare\ObrasParticularesBundle\Entity\ActaObra" = "\Yacare\ObrasParticularesBundle\Entity\ActaObra",
  *     "\Yacare\ComercioBundle\Entity\ActaComercio" = "\Yacare\ComercioBundle\Entity\ActaComercio"
  * })
+ * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(
+ *     fields={"Numero"}, message="El número de acta ya se encuentra cargado.")
  */
 abstract class Acta implements IActa
 {
@@ -66,6 +68,7 @@ abstract class Acta implements IActa
      * @var int
      * 
      * @ORM\Column(type="integer")
+     * 
      */
     private $Numero;
     
