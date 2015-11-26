@@ -11,7 +11,7 @@
 			<td class="grilladatos-etiqueta text-muted text-right">Documento</td>
 			<td>
 			    {{ res.Entidad.documentoNumero }} 
-    			{% if is_granted('ROLE_PERSONAS_EDITAR') %} 
+    			{% if is_granted('ROLE_PERSONAS_EDITAR') %}
         			<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
         			    { 'id': res.Entidad.id, 'campo_nombre': 'DocumentoNumero' })) }}" data-toggle="modal" 
         			    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
