@@ -22,48 +22,13 @@
 	</div>
 {% endif %}
 
-
-	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-green">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-home fa-5x"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div class="huge">Catastro</div>
-                    <div> </div>
-                </div>
-            </div>
-        </div>
-        <a href="{{ path('yacare_catastro_calle_listar') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Calles</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-        <a href="{{ path('yacare_catastro_barrio_listar') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Barrios</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-        <a href="{{ path('yacare_catastro_zona_listar') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Zonificación</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-        <a href="{{ path('yacare_catastro_partida_listar') }}">
-            <div class="panel-footer link">
-                <span class="pull-left">Partidas</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div></div>
+	<div class="col-sm-4 inicio-mini" id="inicio_catastro">
+	<script>
+	$(function() {
+		tapirCargarUrlEn('{{ path('yacare_catastro_default_miniinicio') }}', '#inicio_catastro');
+	});
+	</script>
+	</div>
 
 {% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR', 'ROLE_FLOTA_CARGA')") %}
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="panel panel-yellow">
