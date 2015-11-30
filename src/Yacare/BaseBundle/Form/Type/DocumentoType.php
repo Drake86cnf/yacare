@@ -26,7 +26,7 @@ class DocumentoType extends AbstractType
             ->add('DocumentoNumero', null, array(
                 'label' => false,
                 'attr' => array(
-                    'class' => 'tapir-input-documento',
+                    'class' => 'tapir-input-documento tapir-input-sinespacios',
                     'placeholder' => 'Número')))
             ->setAttribute('widget', 'form_horizontal');
     }

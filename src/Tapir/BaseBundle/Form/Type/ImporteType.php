@@ -17,7 +17,7 @@ class ImporteType extends \Tapir\TemplateBundle\Form\Type\IntegerType
             array(
                 'maxlength' => 6,
                 'attr' => array(
-                    'class' => 'tapir-input-160',
+                    'class' => 'tapir-input-160 tapir-input-sinespacios',
                     'data-type' => 'number',
                     'maxlength' => '16',
                     'prefix' => '$')));

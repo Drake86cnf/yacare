@@ -26,22 +26,22 @@ class DomicilioType extends AbstractType
                 }))
             ->add('DomicilioCalleNombre', null, array(
                 'label' => false,
-                'attr' => array('placeholder' => 'Calle'),
+                'attr' => array('placeholder' => 'Calle', 'class' => 'tapir-input-maymin'),
                 'required' => false))
             ->add('DomicilioNumero', null, array(
                 'label' => false,
                 'trim' => true,
-                'attr' => array('placeholder' => 'Nº', 'style' => 'width: 64px;'),
+                'attr' => array('placeholder' => 'Nº', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'),
                 'required' => false))
             ->add('DomicilioPiso', null, array(
                 'label' => false,
                 'trim' => true,
-                'attr' => array('placeholder' => 'piso', 'style' => 'width: 64px;'),
+                'attr' => array('placeholder' => 'piso', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'),
                 'required' => false))
             ->add('DomicilioPuerta', null, array(
                 'label' => false,
                 'trim' => true,
-                'attr' => array('placeholder' => 'puerta', 'style' => 'width: 64px;'),
+                'attr' => array('placeholder' => 'puerta', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'),
                 'required' => false))
             ->setAttribute('widget', 'form_horizontal');
     }

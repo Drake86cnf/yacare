@@ -16,7 +16,7 @@ class CuiltType extends AbstractType
         $resolver->setDefaults(array(
             'label' => 'CUIL/CUIT', 
             'maxlength' => 13, 
-            'attr' => array('class' => 'tapir-input-cuilt', 'data-type' => 'cuilt', 'maxlength' => '13')));
+            'attr' => array('class' => 'tapir-input-cuilt tapir-input-sinespacios', 'data-type' => 'cuilt', 'maxlength' => '13')));
     }
 
     public function getParent()

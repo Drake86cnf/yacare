@@ -21,7 +21,7 @@ class FechaType extends AbstractType
                 'maxlength' => 10,
                 'attr' => array(
                     'placeholder' => 'día / mes / año',
-                    'class' => 'tapir-input-160',
+                    'class' => 'tapir-input-160 tapir-input-sinespacios tapir-input-fecha',
                     'data-type' => 'date',
                     'maxlength' => '10')));
     }

@@ -15,8 +15,14 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Apellido', null, array('label' => 'Apellido'))
-            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Apellido', null, array(
+                'label' => 'Apellido',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
+            ->add('Nombre', null, array(
+                'label' => 'Nombre',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('TipoSociedad', 'choice', array('label' => 'Tipo',
                  'choices' => array(
                      0 => 'Persona física',
@@ -34,7 +40,10 @@ class PersonaType extends AbstractType
                      '99' => 'Otra persona jurídica'
                  )
             ))
-            ->add('RazonSocial', null, array('label' => 'Razón social'))
+            ->add('RazonSocial', null, array(
+                'label' => 'Razón social',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
                 'label' => 'Documento',
                 'required' => false
@@ -43,7 +52,10 @@ class PersonaType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
-            ->add('Nib',  null, array('label' => 'Nº de Ingresos Brutos'))
+            ->add('Nib',  null, array(
+                'label' => 'Nº de Ingresos Brutos',
+                'attr' => array('class' => 'tapir-input-sinespacios')
+            ))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
@@ -56,12 +68,17 @@ class PersonaType extends AbstractType
                 'attr' => array('style' => 'width: 100%'),
                 'multiple' => true,
                 'required' => false))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array('label' => 'Domicilio'))
-            ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
+            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
+                'label' => 'Domicilio'
+            ))
+            ->add('TelefonoNumero', null, array(
+                'label' => 'Teléfonos',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('Email', 'email', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
+                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus tapir-input-sinespacios')
             ))
             ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
                 'required' => false,

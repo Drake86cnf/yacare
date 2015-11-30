@@ -69,7 +69,7 @@ class Local
      *
      * @ORM\Column(type="integer",nullable=true)
      */
-    protected $VeredaMunicipal = null;
+    protected $VeredaMunicipal = -1;
     
     /**
      * Indica si el local comercial tiene canaletas reglamentarias.
