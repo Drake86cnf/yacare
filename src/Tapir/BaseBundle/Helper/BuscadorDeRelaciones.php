@@ -35,7 +35,7 @@ class BuscadorDeRelaciones
                         if ($asociacion['type'] == 8) {
                             $hayRelacion = $this->construirDQL($entidadASuprimir, $asociacion['sourceEntity'], 
                                 $asociacion['fieldName']);
-                        } elseif (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($nombreEntidad, 
+                        } elseif (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($asociacion['sourceEntity'], 
                             'Tapir\BaseBundle\Entity\Suprimible')) {
                             $hayRelacion = $this->em->getRepository($asociacion['sourceEntity'])->findOneBy(
                                 array($asociacion['fieldName'] => $entidadASuprimir->getId(), 'Suprimido' => 0));
