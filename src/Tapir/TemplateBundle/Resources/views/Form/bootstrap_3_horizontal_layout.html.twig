@@ -97,13 +97,13 @@
     	{% set old_full_name = full_name %}
     	{% set id = id ~ '_Detalle' %}
     	{% set full_name = 'Detalle_' ~ full_name %}
-    	<input readonly="readonly" class="form-control" {{ block('widget_attributes') }} type="text"
+    	<input readonly="readonly" class="form-control" tabindex="-1" {{ block('widget_attributes') }} type="text"
     		value="{% if (value is iterable) and (value|length>1) %}{{ value['text'] }}{% endif %}"
     		{% if searchtype == 'modal' %}
     		data-toggle="modal"
     		href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ old_id }) }}"
     		{% endif %}
-    		style="cursor: pointer;" />
+    		style="cursor: pointer !important; background-color: white;" />
         {% set id = old_id %}
         {% set full_name = old_full_name %}
         <span class="input-group-btn">
