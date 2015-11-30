@@ -18,7 +18,7 @@ class ActoAdministrativoType extends AbstractType
             'maxlength' => 13,
             'placeholder' => 'XX-1234/' . date('Y'),
             'attr' => array(
-                'class' => 'yacare-input-acad tapir-input-240 tapir-input-mayus',
+                'class' => 'yacare-input-acad tapir-input-240 tapir-input-mayus tapir-input-sinespacios yacare-input-acad',
                 'data-type' => 'yacare_acad', 
                 'maxlength' => '13')));
     }
