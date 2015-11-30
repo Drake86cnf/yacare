@@ -50,7 +50,10 @@ class RequerimientoAnonimoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
+        $resolver->setDefaults(array(
+            'csrf_protection'   => false,
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'
+        ));
     }
 
     public function getName()
