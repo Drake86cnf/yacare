@@ -57,11 +57,10 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($Requerimiento);
             $em->flush();
             $this->InformarNovedad($Requerimiento, $this->vistaMailNuevoRequerimiento, 
-                $Requerimiento->getId() . '-' . $Requerimiento->getToken());
+                $Requerimiento->getSeguimientoNumero());
             
-            return $this->redirectToRoute($this->obtenerRutaBase('anonimover'), 
-                $this->ArrastrarVariables($request, 
-                    array('seg' => $Requerimiento->getSeguimientoNumero()), false));
+            return $this->redirectToRoute($this->obtenerRutaBase('anonimover_1'),
+                array('seg' => $Requerimiento->getSeguimientoNumero()));
         } else {
             $validator = $this->get('validator');
             $Errores = $validator->validate($Requerimiento);
