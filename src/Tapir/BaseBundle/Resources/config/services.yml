@@ -8,6 +8,7 @@ services:
             
     tapirbasebundle.twig.tapir_extension:
         class: Tapir\BaseBundle\Twig\TapirExtension
+        arguments: [ '@service_container' ]
         tags:
           - { name: twig.extension }
         
