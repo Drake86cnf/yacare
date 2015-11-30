@@ -55,9 +55,25 @@
 			</ul>
 		</li>
 	</ul>
-    <button class="btn btn-default" type="button" id="tapirBackButton" onclick="return tapirAtras();">
+	{% if res is defined and res.ObtenerRutaInicio is defined and res.ObtenerRutaInicio|tapir_ruta_existe %}
+    	<a class="btn btn-default" id="tapirUpButton"
+    		{% if res.ObtenerRutaInicio == app.request.attributes.get('_route') %}
+    			href="{{ path('inicio') }}"
+    		{% else %} 
+    			href="{{ path(res.ObtenerRutaInicio) }}"
+    		{% endif %}
+    		data-toggle="ajax-link">
+        	<i class="fa fa-fw fa-arrow-up"></i>
+        </a>
+    {% else %}
+    	<a class="btn btn-default disabled" id="tapirUpButton" href="#" data-toggle="ajax-link">
+        	<i class="fa fa-fw fa-arrow-up"></i>
+        </a>
+    {% endif %}
+    <button class="btn btn-default hidden" type="button" id="tapirBackButton" onclick="return tapirAtras();">
     	<i class="fa fa-fw fa-chevron-left"></i>
     </button>
+    
 </div>
 
 <script>
