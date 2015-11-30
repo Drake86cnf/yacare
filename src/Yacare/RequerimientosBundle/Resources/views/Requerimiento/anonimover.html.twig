@@ -14,6 +14,8 @@
 <div class="wr">
 
 {% if res.Entidad is defined and res.Entidad %}
+	<span id="requerimiento_token" value="{{ res.Entidad.SeguimientoNumero }}"
+		class="hidden">##REQ-TOKEN:{{ res.Entidad.SeguimientoNumero }}                    ##</span>
 
     <h1><i class="fa fa-ticket"></i> Estado del requerimiento</h1>
 
@@ -50,7 +52,7 @@
     {%- endif %}.
 
     Si aun no lo hizo, tome nota del número de seguimiento para su solicitud:
-        	<span id="requerimiento_token" class="text-primary">{{ res.Entidad.id }}-{{ res.Entidad.Token }}</span>
+        	<span class="text-primary">{{ res.Entidad.SeguimientoNumero }}</span>
 
     </p>
 

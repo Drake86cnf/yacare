@@ -25,7 +25,7 @@ class RequerimientoType extends AbstractType
                 'label' => 'Categoría',
                 'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
                 'required' => false))
-            ->add('Obs', null, array(
+            ->add('Obs', 'hidden', array(
                 'label' => 'Observaciones',
                 'required' => false));
     }

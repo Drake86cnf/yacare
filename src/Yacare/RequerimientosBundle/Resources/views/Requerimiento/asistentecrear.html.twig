@@ -21,7 +21,7 @@
     <div class="container-fluid"><div class="row"><div class="col-xs-12 col-md-10 col-md-offset-1">
     <div class="list-group">
     {% for categoria in res.Categorias %}
-        <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'cat': categoria.id })) }}" class="list-group-item">
+        <a href="{{ path(res.ObtenerRutaAccion('asistentecrear'), res.Arrastre|merge({ 'catid': categoria.id })) }}" class="list-group-item">
         	<i class="fa fa-fw fa-chevron-right fa-2x text-primary pull-right"></i>
         	<h2 class="list-group-item-heading"><strong>{{ categoria.Nombre }}</strong></h2>
         	<p class="list-group-item-text">{{ categoria.Obs }}
