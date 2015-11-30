@@ -113,6 +113,9 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Formatea un importe monetario.
+     */
     public function tapir_importe($number, $option = '')
     {
         if ($number == null) {
@@ -143,6 +146,9 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Evalúa un valor booleano y devuelve la palabra "Sí" o "No".
+     */
     public function tapir_sino($valor)
     {
         if ($valor) {
@@ -153,6 +159,10 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Convierte un número a su representación en letras.
+     * Por ejemplo para el valor 123 devuelve "ciento veintitrés".
+     */
     public function tapir_numerosaletras($valor)
     {
         $Conversor = new NumerosALetras();
@@ -160,6 +170,9 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Devuelve una cadena recortada en caso de que supere cierta longitud.
+     */
     public function tapir_abreviar($texto, $largo = 20)
     {
         if(strlen($texto) > $largo + 3) {
@@ -182,6 +195,9 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Formatea (convierte en una representación de texto) una fecha.
+     */
     public function tapir_fecha($date, $dateFormat = 'full', $timeFormat = 'medium', $emptyMessage = '')
     {
         if ($date == null) {
@@ -274,6 +290,10 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Devuelve un texto que describe la cantidad de tiempo transcurrido entre una fecha y ahora. 
+     * Devuelve textos como "hace una hora", "hace 4 días", "hace un año y 3 meses", etc.
+     */
     public function tapir_hacetiempo($value, $mensaje = '')
     {
         if (! $value) {
@@ -286,6 +306,9 @@ class FormatExtension extends \Twig_Extension
     }
 
 
+    /**
+     * Devuelve la cantidad de días que transcurrieron desde una fecha hasta hoy.
+     */
     public function tapir_cantidaddedias($value, $format = 'Y-m-d H:i:s')
     {
         if (! $value) {
