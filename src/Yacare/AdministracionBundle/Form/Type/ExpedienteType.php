@@ -17,7 +17,7 @@ class ExpedienteType extends AbstractType
             'label' => 'Expediente', 
             'maxlength' => 13, 
             'attr' => array(
-                'class' => 'tapir-input-240 yacare-input-expediente tapir-input-mayus', 
+                'class' => 'tapir-input-240 yacare-input-expediente tapir-input-mayus tapir-input-sinespacios yacare-input-expediente', 
                 'data-type' => 'yacare_expediente', 
                 'maxlength' => '13')));
     }
