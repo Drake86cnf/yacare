@@ -17,7 +17,7 @@ class SuperficieType extends \Tapir\TemplateBundle\Form\Type\IntegerType
             array(
                 'maxlength' => 6,
                 'attr' => array(
-                    'class' => 'tapir-input-120',
+                    'class' => 'tapir-input-120 tapir-input-sinespacios',
                     'data-type' => 'number',
                     'maxlength' => '6',
                     'suffix' => 'm²')));

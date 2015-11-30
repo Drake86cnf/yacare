@@ -211,33 +211,36 @@ function tapirCargarUrlEn(url, destino) {
 }
 
 /**
- * Esta funcion le da el formato DD/MM/AAAA o DD/MM/AA dependiendo de como lo
- * halla ingresado el usuario
+ * Formatea y sanitiza una fecha.
+ * 
+ * Acepta varios formatos como DD/MM/AA, DD-MM-AAAA, DD-MM, etc. y devuelve siempre DD/MM/AAAA.
  * 
  * @param fecha
  * @returns {String}
  */
-function tapirFormatoFecha(fecha) {
-	var partes;
-	var fechaaux = fecha;
-	if (fecha.indexOf('-') > 0) {
-		partes = fecha.split("-");
-		fecha = partes[0] + "/" + partes[1] + "/" + partes[2];
-		return fecha;
-	} else {
-		if (fecha.indexOf('.') > 0) {
-			partes = fecha.split('.');
-			fecha = partes[0] + "/" + partes[1] + "/" + partes[2];
-			return fecha;
-		} else {
-			if (fecha.indexOf('/') < 0) {
-				fechaaux = fecha.substring(0, 2) + "/" + fecha.substring(2, 4)
-						+ "/" + fecha.substring(4);
-				return fechaaux;
+function tapirFormatearFecha(fecha) {
+	var FechaAux = fecha.replace(/ /g, '').replace(/-/g, '/').replace(/\./g, '/').replace(/\/\//g, '/');
+	var Partes = FechaAux.split('/');
+	if(Partes.length < 2) {
+		return '';
+	} else if(Partes.length == 2) {
+		Partes[2] = new Date().getFullYear();
+	} else if(Partes.length == 3) {
+		if(Partes[0].length == 1) {
+			Partes[0] = '0' + Partes[0];
+		}
+		if(Partes[1].length == 1) {
+			Partes[1] = '0' + Partes[1];
+		}
+		if(Partes[2].length == 2) {
+			if(Partes[2] > 30) {
+				Partes[2] = '19' + Partes[2];
+			} else {
+				Partes[2] = '20' + Partes[2];
 			}
 		}
 	}
-	return fechaaux;
+	return Partes[0] + '/' + Partes[1] + '/' + Partes[2];;
 }
 
 /**
@@ -245,18 +248,10 @@ function tapirFormatoFecha(fecha) {
  * Los separadores aceptados son "/", "." y "-".
  */
 function tapirFechaEsValida(fecha) {
-	if ((fecha.length > 4) && (fecha.indexOf("-") < 0)
-			&& (fecha.indexOf(".") < 0) && (fecha.indexOf("/") < 0))
-		fecha = fecha.substring(0, 2) + "/" + fecha.substring(2, 4) + "/"
-				+ fecha.substring(4);
-	var er = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-	// var er=/^(\d{2})(\/|-)(\d{2})(\/|-)(\d{2,4})$/;
-	if (fecha.match(er)) {
-		return true;
-	} else {
-		return false;
-	}
-
+	var FechaFormateada = tapirFormatearFecha(fecha);
+	var Partes = FechaFormateada.split('/');
+    var Fecha = new Date(Partes[2], Partes[1] - 1, Partes[0]);
+    return Fecha && Fecha.getFullYear() == Partes[2] && (Fecha.getMonth() + 1) == Partes[1] && Fecha.getDate() == Number(Partes[0]);
 }
 
 
@@ -347,12 +342,53 @@ function MejorarElementos(destino) {
 		}
 	});
 
-	/* $(desintoFinal + '.input-daterange').datepicker({
-		todayBtn : "linked",
-		todayHighlight : true,
-		language : 'es',
-		autoclose : true
-	}); */
+	// Dar tratamiento especial a los campos de fecha
+	// (validar y formatear la fecha ingresada al perder el foco)
+	$(desintoFinal + '[data-type="date"]').blur(function(e) {
+		var fecha = $.trim($(this).val());
+		$(this).val(tapirFormatearFecha(fecha));
+		if (tapirFechaEsValida(fecha)) {
+			$(this).parent().removeClass('has-error');
+		} else {
+			$(this).parent().addClass('has-error');
+		}
+	});
+
+	// Todos los campos de texto eliminan espacios antes y después
+	$(desintoFinal + 'input[type=text]').blur(function(e) {
+		var currVal = $.trim($(this).val());
+		if(currVal != $(this).val()) {
+			$(this).val(currVal);
+		}
+	});
+	// Campos de texto de mayúsculas y minúsculas obligatorias
+	$(desintoFinal + '.tapir-input-maymin').blur(function(e) {
+		var currVal = $(this).val().replace(/  /g, ' ').toTitleCase();
+		if(currVal != $(this).val()) {
+			$(this).val(currVal);
+		}
+	});
+	// Campos de texto de mayúsculas obligatorias
+	$(desintoFinal + '.tapir-input-mayus').blur(function(e) {
+		var currVal = $(this).val().replace(/  /g, ' ').toUpperCase();
+		if(currVal != $(this).val()) {
+			$(this).val(currVal);
+		}
+	});
+	// Campos de texto de minúsculas obligatorias
+	$(desintoFinal + '.tapir-input-minus').blur(function(e) {
+		var currVal = $(this).val().replace(/  /g, ' ').toLowerCase();
+		if(currVal != $(this).val()) {
+			$(this).val(currVal);
+		}
+	});
+	// Campos de texto que no admiten espacios
+	$(desintoFinal + '.tapir-input-sinespacios').blur(function(e) {
+		var currVal = $(this).val().replace(/ /g, '');
+		if(currVal != $(this).val()) {
+			$(this).val(currVal);
+		}
+	});
 	
 	// Tooltips de Bootstrap
 	$(desintoFinal + '[data-toggle="tooltip"]').tooltip()
@@ -368,47 +404,8 @@ function MejorarElementos(destino) {
 	// El resto de los <select> con Select2
 	$(desintoFinal + '[data-toggle="select"]').select2()
 
-	// Dar tratamiento especial a los campos de fecha
-	// (validar y formatear la fecha ingresada al perder el foco)
-	$(desintoFinal + '.valirdar-fecha').blur(function(e) {
-		var fecha = this.value;
-		if (tapirFechaEsValida(fecha)) {
-			fecha = tapirFormatoFecha(fecha);
-			this.value = fecha;
-		} else {
-			this.value = '';
-		}
-	});
-
 	$('.tinymce').each(function() {
 		tinymce.execCommand('mceAddEditor', true, this.id);
-	});
-
-	$(desintoFinal + 'input[type=text]').blur(function(e) {
-		var currVal = $.trim($(this).val());
-		if(currVal.toLowerCase() == currVal || currVal.toUpperCase() == currVal) {
-			// Si el usuario ingresó todo mayúsculas o todo minúsculas, cambio a algo más apropiado (mayúsculas
-			// iniciales en cada palabra)
-			currVal = currVal.toTitleCase();
-		}
-		if(currVal != $(this).val()) {
-			$(this).val(currVal);
-		}
-	});
-	$(desintoFinal + '.tapir-input-mayus').blur(function(e) {
-		// Campos de texto de mayúsculas obligatorias
-		var currVal = $(this).val();
-		$(this).val(currVal.toUpperCase());
-	});
-	$(desintoFinal + '.tapir-input-minus').blur(function(e) {
-		// Campos de texto de minúsculas obligatorias
-		var currVal = $(this).val();
-		$(this).val(currVal.toLowerCase());
-	});
-	$(desintoFinal + '.tapir-input-sinespacios').blur(function(e) {
-		// Campos de texto sin espacios
-		var currVal = $(this).val();
-		$(this).val(currVal.replace(' ', ''));
 	});
 	
 	setTimeout(function() {
