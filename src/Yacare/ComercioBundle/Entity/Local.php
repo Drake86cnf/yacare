@@ -149,13 +149,19 @@ class Local
      */
     private function ConstruirNombre()
     {
-        $res = $this->getTipo();
+        $res= '';
+        if($this->getTipo() != 'Local comercial') {
+            $res = $this->getTipo();
+        }
         if ($this->getTipo() == 'Depósito' && $this->getDepositoClase()) {
             $res .= ' clase ' . $this->getDepositoClase()->getTipo();
         }
         
         if ($this->getPartida()) {
-            $res .= ' en ' . $this->getPartida()->getDomicilio();
+            if($res) {
+                $res .= ' en ';
+            }
+            $res .= $this->getPartida()->getDomicilio();
         }
         
         $this->setNombre($res);

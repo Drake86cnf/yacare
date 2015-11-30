@@ -8,14 +8,15 @@
 <div class="col-sm-4">
     <h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Comercios</h2>
     <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente en comercios</p></li>
     	{% for comercio in res.Recientes['Comercio'] %}
     		<li><a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ id: comercio.id })) }}" data-toggle="ajax-link">{{ comercio }}</a></li>
     	{% endfor %}
-    
+
     	<li class="destacado"><a href="{{ path('yacare_comercio_comercio_listar') }}" data-toggle="ajax-link">
     		Todos los comercios</a></li>
     	
-    	<li><form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_comercio_listar')}}" 
+    	<li><form id ="form_comercio_buscar" class="form-horizontal" action="{{ path('yacare_comercio_comercio_listar')}}" 
                 	method="get">
             <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar comercio" />
             </form></li>
@@ -23,14 +24,19 @@
 </div>
 
 <div class="col-sm-4">
-    <h2> Locales</h2>
+    <h2>Locales</h2>
     <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente en locales</p></li>
     	{% for local in res.Recientes['Local'] %}
     		<li><a href="{{ path('yacare_comercio_local_editar', res.Arrastre|merge({ id: local.id })) }}" data-toggle="ajax-link">{{ local }}</a></li>
     	{% endfor %}
     
     	<li class="destacado"><a href="{{ path('yacare_comercio_local_listar') }}" data-toggle="ajax-link">
     		Todos los locales</a></li>
+		<li><form id ="form_local_buscar" class="form-horizontal" action="{{ path('yacare_comercio_local_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar local" />
+            </form></li>
     </ul>
 </div>
 
@@ -45,10 +51,14 @@
     </ul>
 </div>
 
+</div><div class="row">
+
 <div class="col-sm-4">
     <h2>Actividades económicas</h2>
     <ul class="inicio-mini-menu">
     	<p>Busqueda de actividades económicas por código de ClaNAE, código de DGR o por nombre.</p>
+        <li class="destacado"><a href="{{ path('yacare_comercio_actividad_listar') }}" data-toggle="ajax-link">
+    		Nomenclador de actividades</a></li>
     	<li><form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_comercio_actividad_listar')}}" 
                 	method="get">
             <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar actividad" />
@@ -61,7 +71,7 @@
     <ul class="inicio-mini-menu">
     	<p>Búsqueda de trámites de habilitación comercial en curso o terminados. Puede buscar
             por titular o nombre del comercio.</p>
-    	<li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar', res.Arrastre) }}">Listado de trámites</a></li>
+    	<li class="destacado"><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_listar', res.Arrastre) }}">Listado de trámites</a></li>
         <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_consultar', res.Arrastre) }}"><i class="fa fa-question fa-fw"></i> Consulta de factibilidad</a></li>
         <li><a href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', res.Arrastre) }}"><i class="fa fa-play fa-fw"></i> Iniciar un trámite nuevo</a></li>
     </ul>
@@ -71,12 +81,13 @@
     <h2>Actas</h2>
     <ul class="inicio-mini-menu">
     	<p>Para ver una lista de actas para un comercio determinado, ingrese mediante el listado de comercios.</p>
+    	<li class="destacado"><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
+            	de todas las actas</a></li>
     	<li><form id ="form_acta_buscar" class="form-horizontal"
             	action="{{ path('yacare_comercio_actacomercio_listar')}}" method="get">
             <input type="text" class="form-control pull-rigth" placeholder="buscar acta por número" />
             </form></li>
-    	<li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
-            	de actas</a></li>
+    	
         <li><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actaetiqueta_listar', res.Arrastre) }}"><i
             	class="fa fa-fw fa-tag"></i> Gestión de etiquetas</a></li>
     </ul>
