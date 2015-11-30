@@ -38,6 +38,9 @@
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
+			class="{% if entity.updatedAt|tapir_cantidaddedias > 3 %}danger
+			    {% elseif entity.updatedAt|tapir_cantidaddedias > 2 %}warning
+			    {% endif %}"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td>
 			  {% if entity.Estado == 0 %}<i class="fa fa-asterisk fa-fw text-danger" title="{{ entity.EstadoNombre }}"></i>
@@ -70,7 +73,8 @@
     			    <span class="text-muted small">(creado por {{ entity.Usuario }})</span>
 			    {% endif %}
 			</td>
-			<td class="text-nowrap">
+			<td class="text-nowrap
+			    ">
 			    <span title="{{ entity.updatedAt|tapir_fecha }}">{{ entity.updatedAt|tapir_hacetiempo }}</span>
 			    <br />
 				<span class="text-muted small" title="{{ entity.createdAt|tapir_fecha }}">(creado {{ entity.createdAt|tapir_hacetiempo }})</span>
