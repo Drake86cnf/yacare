@@ -156,11 +156,6 @@
         <a data-toggle="ajax-link" class="btn btn-default"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
         	<i class="fa fa-edit"></i> Editar</a>
-        {% if res.Entidad.Local %}
-        	<a class="btn btn-default" data-toggle="ajax-link" href="{{ path('yacare_comercio_local_editar',
-    		    { 'id': res.Entidad.Local.Id, 'noeliminar': true }) }}"><i class="fa fa-edit"></i> Cambiar datos del
-    		    local</a>
-    	{% endif %}
     	</div>
     {% endif %}
 {% endblock %}
