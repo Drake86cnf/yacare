@@ -165,7 +165,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      *
      * @see $DocumentoTipo $DocumentoTipo
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\Length(min = "3", max="10")
      */
     private $DocumentoNumero;
