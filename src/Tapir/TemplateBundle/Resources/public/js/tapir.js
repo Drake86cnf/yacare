@@ -385,13 +385,13 @@ function MejorarElementos(destino) {
 	});
 
 	$(desintoFinal + 'input[type=text]').blur(function(e) {
-		var currVal = $(this).val();
+		var currVal = $.trim($(this).val());
 		if(currVal.toLowerCase() == currVal || currVal.toUpperCase() == currVal) {
 			// Si el usuario ingresó todo mayúsculas o todo minúsculas, cambio a algo más apropiado (mayúsculas
 			// iniciales en cada palabra)
-			currVal = currVal.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
-				return txtVal.toUpperCase();
-			});
+			currVal = currVal.toTitleCase();
+		}
+		if(currVal != $(this).val()) {
 			$(this).val(currVal);
 		}
 	});
@@ -405,12 +405,42 @@ function MejorarElementos(destino) {
 		var currVal = $(this).val();
 		$(this).val(currVal.toLowerCase());
 	});
+	$(desintoFinal + '.tapir-input-sinespacios').blur(function(e) {
+		// Campos de texto sin espacios
+		var currVal = $(this).val();
+		$(this).val(currVal.replace(' ', ''));
+	});
 	
 	setTimeout(function() {
 		$("[autofocus]").focus(); 
 	}, 100);
 }
 
+
+String.prototype.toTitleCase = function() {
+	  var i, j, str, lowers, uppers;
+	  str = this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
+	    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	  });
+
+	  // Certain minor words should be left lowercase unless 
+	  // they are the first or last words in the string
+	  lowers = ['Y', 'De', 'Del', 'A', 'Al', 'Con', 'Sin', 'En', 'E', 'O', 'U', 'Por', 'Para'];
+	  for (i = 0, j = lowers.length; i < j; i++)
+	    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), 
+	      function(txt) {
+	        return txt.toLowerCase();
+	      });
+
+	  // Certain words such as initialisms or acronyms should be left uppercase
+	  uppers = ['Dvd', 'Ara', 'Agp', 'Ypf', 'Ycf', 'Ipv', 'Cap', 'Ii', 'Iii', 'Iv', 'Vi', 'Vii', 'Viii', 'Ix', 'Xi',
+	            'Xii', 'Xiii', 'Xiv', 'Xv', 'Xvi', 'Sa', 'Srl', 'Sh', 'Sdh', 'S.a', 'S.r.l', 'S.h', 'S.d.h'];
+	  for (i = 0, j = uppers.length; i < j; i++)
+	    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), 
+	      uppers[i].toUpperCase());
+
+	  return str;
+	}
 
 /**
  * Prepara un elemento <select> para utilizar Select2 con AJAX.
