@@ -578,11 +578,18 @@ li.divider {
     list-style: none;
     padding-left: 0;
 }
+.inicio-mini-menu li p {
+    padding: 3px 3px 3px 8px;
+    margin: 0;
+}
 .inicio-mini-menu li a {
     color: #606060;
     width: 100%;
     display: block;
     padding: 3px 3px 3px 8px;
+}
+.inicio-mini-menu li.destacado p {
+    font-weight: 600;
 }
 .inicio-mini-menu li.destacado a {
     color: #337AB7;
@@ -593,6 +600,6 @@ li.divider {
 .inicio-mini-menu li:empty {
     padding: 0;
 }
-.inicio-mini-menu li:hover {
+.inicio-mini-menu li:hover a {
     background-color: #f0f0f0;
 }
