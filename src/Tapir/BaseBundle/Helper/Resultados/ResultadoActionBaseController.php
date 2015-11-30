@@ -27,6 +27,15 @@ class ResultadoActionBaseController extends ResultadoAction
         
         return $Partes[count($Partes) - 1];
     }
+    
+    /**
+     * Obtiene el nombre de la ruta al inicio del bundle.
+     */
+    public function ObtenerRutaInicio()
+    {
+        return strtolower($this->Vendor) . '_' . strtolower($this->Bundle) . '_default_inicio';
+    }
+    
 
     /**
      * Obtiene el nombre de una ruta a una acción dentro de este controlador.

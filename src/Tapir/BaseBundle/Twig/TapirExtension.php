@@ -2,23 +2,28 @@
 namespace Tapir\BaseBundle\Twig;
 
 use Twig_Extension;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TapirExtension extends \Twig_Extension
 {
+    protected $container;
+    
+    public function __construct(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
 
     public function getFilters()
     {
         return array(
             new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida')),
-            new \Twig_SimpleFilter('tapir_array_shuffle', array($this,'tapir_array_shuffle'))
+            new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe'))
         );
     }
     
-    public function tapir_array_shuffle($array) {
-        shuffle($array);
-        return $array;
+    public function tapir_ruta_existe($nombreRuta) {
+        $router = $this->container->get('router');
+        return (null === $router->getRouteCollection()->get($nombreRuta)) ? false : true;
     }
     
     public function tapir_cuiltesvalida($Cuilt)
