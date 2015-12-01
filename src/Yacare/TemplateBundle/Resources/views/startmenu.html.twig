@@ -55,22 +55,25 @@
 			</ul>
 		</li>
 	</ul>
-	{% if res is defined and res.ObtenerRutaInicio is defined and res.ObtenerRutaInicio|tapir_ruta_existe %}
+	{% if res is defined %}
     	<a class="btn btn-default" id="tapirUpButton"
-    	    data-toggle="ajax-link"
-    		{% if res.ObtenerRutaInicio == app.request.attributes.get('_route') %}
-    			href="{{ path('inicio') }}"
-    			title="Ir al inicio general">
-    			<i class="fa fa-fw fa-home"></i>
-    		{% else %} 
+    	    {% if res.ObtenerRutaAccion('listar')|tapir_ruta_existe and res.ObtenerRutaAccion('listar') != app.request.attributes.get('_route') %}
+    	        href="{{ path(res.ObtenerRutaAccion('listar')) }}"
+    		{% elseif res.ObtenerRutaInicio|tapir_ruta_existe and res.ObtenerRutaInicio != app.request.attributes.get('_route') %}
     			href="{{ path(res.ObtenerRutaInicio) }}"
-    			title="Ir al inicio de la sección">
-    			<i class="fa fa-fw fa-arrow-up"></i>
+    		{% else %} 
+    			href="{{ path('inicio') }}"
     		{% endif %}
+    		data-toggle="ajax-link">
+        	<i class="fa fa-fw fa-arrow-up"></i>
+        </a>
+    {% elseif app.request.attributes.get('_route') != 'inicio' %}
+    	<a class="btn btn-default" id="tapirUpButton" href="{{ path('inicio') }}" data-toggle="ajax-link">
+        	<i class="fa fa-fw fa-arrow-up"></i>
         </a>
     {% else %}
     	<a class="btn btn-default disabled" id="tapirUpButton" href="#" data-toggle="ajax-link">
-        	<i class="fa fa-fw fa-home"></i>
+        	<i class="fa fa-fw fa-arrow-up"></i>
         </a>
     {% endif %}
     <button class="btn btn-default hidden" type="button" id="tapirBackButton" onclick="return tapirAtras();">
