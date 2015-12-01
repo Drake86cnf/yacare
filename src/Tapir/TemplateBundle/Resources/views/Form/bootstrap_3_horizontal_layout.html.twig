@@ -109,10 +109,16 @@
         <span class="input-group-btn">
         	{% if searchtype == 'modal' %}
         		{# Es con buscador modal #}
-    		<button class="btn btn-default" type="button" data-toggle="modal"
-    			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
-    			<i class="fa fa-search"></i>
-    		</button>
+        		{% if not required %}
+            	<button class="btn btn-default showonhover" type="button" title="Doble clic para borrar"
+            		ondblclick="$('#{{ id }}').val(''); $('#{{ id }}_Detalle').val(''); return false;">
+        			<i class="fa fa-eraser"></i>
+        		</button>
+        		{% endif %}
+        		<button class="btn btn-default" type="button" data-toggle="modal"
+        			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
+        			<i class="fa fa-search"></i>
+        		</button>
     		{% elseif searchtype == 'inline' %}
     			{# Buscador inline #}
     			<script>
