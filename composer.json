@@ -1,97 +1,100 @@
 {
-	"name" : "yacare/yacare",
-	"license" : "MIT",
-	"type" : "project",
-	"description" : "Sistema de gestión municipal Yacaré",
-	"version" : "0.1",
-	"authors" : [{
-			"name" : "Ernesto Nicolás Carrea",
-			"email" : "equistango@gmail.com",
-			"role" : "Developer"
-		}, {
-			"name" : "Alejandro Diaz",
-			"email" : "alediaz.rc@gmail.com",
-			"role" : "developer"
-		}, {
-			"name" : "Ezequiel Riquelme",
-			"email" : "rezequiel.tdf@gmail.com",
-			"role" : "developer"
-		}
-	],
-	"support" : {
-		"email" : "ecarrea@riogrande.gob.ar",
-		"source" : "https://github.com/municipioriogrande/yacare",
-		"issues" : "https://github.com/municipioriogrande/yacare/issues",
-		"wiki" : "https://github.com/municipioriogrande/yacare/wiki"
-	},
-	"autoload" : {
-		"psr-0" : {
-			"" : "src/",
-			"SymfonyStandard" : "app/"
-		}
-	},
-	"require" : {
-		"php" : ">=5.3.3",
-		"symfony/symfony" : "~2",
-		"doctrine/orm" : "~2",
-		"doctrine/doctrine-bundle" : "~1",
-		"twig/extensions" : "~1",
-		"symfony/assetic-bundle" : "~2",
-		"symfony/swiftmailer-bundle" : "~2",
-		"symfony/monolog-bundle" : "~2",
-		"sensio/distribution-bundle" : "~3",
-		"sensio/framework-extra-bundle" : "~3",
-		"incenteev/composer-parameter-handler" : "~2",
-		"knplabs/knp-paginator-bundle" : "2.4.*@dev",
-		"knplabs/knp-components" : "~1",
-		"knplabs/knp-snappy-bundle" : "~1",
-		"knplabs/doctrine-behaviors" : "~1",
-		"kriswallsmith/assetic" : "~1",
-		"jms/security-extra-bundle" : "~1",
-		"aferrandini/phpqrcode" : "~1",
-		"liip/imagine-bundle" : "~1",
-		"liuggio/excelbundle" : "~2",
-		"creof/doctrine2-spatial" : "dev-master",
-		"egeloen/google-map-bundle" : "~2.1",
-		"jms/serializer-bundle" : "^1.1"
-	},
-	"require-dev" : {
-		"sensio/generator-bundle" : "~2",
-		"phpunit/phpunit" : "~4",
-		"phpunit/dbunit" : ">=1.2"
-	},
-	"scripts" : {
-		"post-install-cmd" : [
-			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-		],
-		"post-update-cmd" : [
-			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-		]
-	},
-	"config" : {
-		"bin-dir" : "bin"
-	},
-	"extra" : {
-		"symfony-app-dir" : "app",
-		"symfony-bin-dir" : "bin",
-		"symfony-var-dir" : "var",
-		"symfony-web-dir" : "web",
-		"incenteev-parameters" : {
-			"file" : "app/config/parameters.yml"
-		},
-		"branch-alias" : {
-			"dev-master" : "2.5-dev"
-		}
-	},
-	"homepage" : "https://github.com/municipioriogrande/yacare"
+    "name" : "yacare/yacare",
+    "license" : "MIT",
+    "type" : "project",
+    "description" : "Sistema de gestión municipal Yacaré",
+    "version" : "0.1",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "files": [
+            "app/AppKernel.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors" : [{
+            "name" : "Ernesto Nicolás Carrea",
+            "email" : "equistango@gmail.com",
+            "role" : "Developer"
+        }, {
+            "name" : "Alejandro Diaz",
+            "email" : "alediaz.rc@gmail.com",
+            "role" : "developer"
+        }, {
+            "name" : "Ezequiel Riquelme",
+            "email" : "rezequiel.tdf@gmail.com",
+            "role" : "developer"
+        }
+    ],
+    "support" : {
+        "email" : "ecarrea@riogrande.gob.ar",
+        "source" : "https://github.com/municipioriogrande/yacare",
+        "issues" : "https://github.com/municipioriogrande/yacare/issues",
+        "wiki" : "https://github.com/municipioriogrande/yacare/wiki"
+    },
+    "require" : {
+        "php" : ">=5.5",
+        "symfony/symfony" : "~2",
+        "doctrine/orm" : "~2",
+        "doctrine/doctrine-bundle" : "~1",
+        "twig/extensions" : "~1",
+        "symfony/assetic-bundle" : "~2",
+        "symfony/swiftmailer-bundle" : "~2",
+        "symfony/monolog-bundle" : "~2",
+        "sensio/framework-extra-bundle" : "~3",
+        "incenteev/composer-parameter-handler" : "~2",
+        "knplabs/knp-paginator-bundle" : "~2",
+        "knplabs/knp-components" : "~1",
+        "knplabs/knp-snappy-bundle" : "~1",
+        "knplabs/doctrine-behaviors" : "~1",
+        "kriswallsmith/assetic" : "~1",
+        "jms/security-extra-bundle" : "^1.5",
+        "aferrandini/phpqrcode" : "~1",
+        "liip/imagine-bundle" : "~1",
+        "liuggio/excelbundle" : "~2",
+        "creof/doctrine2-spatial" : "dev-master",
+        "egeloen/google-map-bundle" : "~2",
+        "jms/serializer-bundle" : "^1.1",
+        "sensio/distribution-bundle" : "~4"
+    },
+    "require-dev" : {
+        "sensio/generator-bundle" : "~2",
+        "phpunit/phpunit" : "~4",
+        "phpunit/dbunit" : "~2"
+    },
+    "scripts" : {
+        "post-install-cmd" : [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd" : [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ]
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    },
+    "homepage" : "https://github.com/municipioriogrande/yacare"
 }
