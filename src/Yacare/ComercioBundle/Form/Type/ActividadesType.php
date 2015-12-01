@@ -15,15 +15,15 @@ class ActividadesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ActividadPrincipal', 'entity_id', array(
+            ->add('ActividadPrincipal', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad principal', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('ActividadSecundaria', 'entity_id', array(
+            ->add('ActividadSecundaria', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad secundaria', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
-            ->add('ActividadTerciaria', 'entity_id', array(
+            ->add('ActividadTerciaria', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad terciaria', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
@@ -33,10 +33,5 @@ class ActividadesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
-    }
-
-    public function getName()
-    {
-        return 'form_horizontal';
     }
 }

@@ -18,7 +18,7 @@ class RequisitoType extends AbstractType
             ->add('Url', null, array(
                 'label' => 'Web', 
                 'attr' => array('placeholder' => 'Sitio web con información')))
-            ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Tipo', 
                 'required' => true, 
                 'choices' => array(
@@ -50,10 +50,5 @@ class RequisitoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\Requisito'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_requisitotype';
     }
 }

@@ -31,7 +31,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
         
         $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
         
-        $editForm = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+        $editForm = $this->createForm('Yacare\RequerimientosBundle\Form\NovedadType', $NuevaNovedad);
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {

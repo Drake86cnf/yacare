@@ -13,11 +13,6 @@ class ButtonGroupType extends AbstractType
 {
     public function getParent()
     {
-        return 'choice';
-    }
-
-    public function getName()
-    {
-        return 'buttongroup';
+        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 }

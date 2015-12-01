@@ -15,12 +15,12 @@ class CargaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Vehiculo', 'entity_hidden', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 'required' => false))
+            ->add('Vehiculo', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 'required' => false))
             ->add('Combustible', 'hidden')
-            ->add('Litros', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array('label' => 'Litros'))
-            ->add('Importe', new \Tapir\BaseBundle\Form\Type\ImporteType(), array(
+            ->add('Litros', 'Tapir\TemplateBundle\Form\Type\IntegerType', array('label' => 'Litros'))
+            ->add('Importe', 'Tapir\BaseBundle\Form\Type\ImporteType', array(
                 'label' => 'Importe'))
-            ->add('Kilometraje', new \Tapir\TemplateBundle\Form\Type\IntegerType(), array(
+            ->add('Kilometraje', 'Tapir\TemplateBundle\Form\Type\IntegerType', array(
                 'label' => 'Kilometraje', 
                 'required' => true, 
                 'attr' => array(
@@ -32,10 +32,5 @@ class CargaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\FlotaBundle\Entity\Carga'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_flotabundle_cargatype';
     }
 }

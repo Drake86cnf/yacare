@@ -24,9 +24,4 @@ class CalleType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\CatastroBundle\Entity\Calle'));
     }
-
-    public function getName()
-    {
-        return 'yacare_catastrobundle_calletype';
-    }
 }

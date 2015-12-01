@@ -15,7 +15,7 @@ class BuscarTitularType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Titular', 'entity_id', array(
+            ->add('Titular', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Titular',
                 'property_path' => 'Titular',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
@@ -27,10 +27,5 @@ class BuscarTitularType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_asistentes_buscartitulartype';
     }
 }

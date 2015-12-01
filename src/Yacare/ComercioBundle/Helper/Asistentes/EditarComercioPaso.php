@@ -12,6 +12,6 @@ class EditarComercioPaso extends Paso
 {
     public function getFormType()
     {
-        return new \Yacare\ComercioBundle\Form\Asistentes\EditarComercioType();
+        return 'Yacare\ComercioBundle\Form\Asistentes\EditarComercioType';
     }
 }

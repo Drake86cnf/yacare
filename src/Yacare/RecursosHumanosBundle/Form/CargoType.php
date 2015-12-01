@@ -15,9 +15,4 @@ class CargoType extends AbstractType
             ->add('Obs', null, array(
                 'label' => 'Obs.'));
     }
-
-    public function getName()
-    {
-        return 'yacare_recursoshumanosbundle_cargotype';
-    }
 }

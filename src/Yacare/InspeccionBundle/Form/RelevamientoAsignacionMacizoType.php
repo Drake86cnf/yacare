@@ -22,7 +22,7 @@ class RelevamientoAsignacionMacizoType extends AbstractType
                 'read_only' => true, 
                 'placeholder' => false, 
                 'property' => 'Nombre'))
-            ->add('Encargado', 'entity_id', array(
+            ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
                 // 'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
@@ -35,10 +35,5 @@ class RelevamientoAsignacionMacizoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoAsignacion'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_inspeccionbundle_relevamientoasignaciontype';
     }
 }

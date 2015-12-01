@@ -21,10 +21,10 @@ class AgenteType extends AbstractType
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
-            ->add('FechaIngreso', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
+            ->add('FechaIngreso', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => true,
                 'label' => 'Fecha de ingreso'))
-            ->add('Persona', new \Yacare\RecursosHumanosBundle\Form\PersonaAgenteType(), array(
+            ->add('Persona', 'Yacare\RecursosHumanosBundle\Form\PersonaAgenteType', array(
                 'label' => 'Persona'));
     }
 
@@ -32,10 +32,5 @@ class AgenteType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RecursosHumanosBundle\Entity\Agente'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_recursoshumanosbundle_agentetype';
     }
 }

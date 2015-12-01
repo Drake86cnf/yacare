@@ -28,11 +28,6 @@ class FechaType extends AbstractType
 
     public function getParent()
     {
-        return 'date';
-    }
-
-    public function getName()
-    {
-        return 'fecha';
+        return 'Symfony\Component\Form\Extension\Core\Type\DateType';
     }
 }

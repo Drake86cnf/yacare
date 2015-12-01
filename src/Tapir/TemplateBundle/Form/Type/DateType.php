@@ -20,11 +20,6 @@ class DateType extends AbstractType
 
     public function getParent()
     {
-        return 'date';
-    }
-
-    public function getName()
-    {
-        return 'date';
+        return 'Symfony\Component\Form\Extension\Core\Type\DateType';
     }
 }

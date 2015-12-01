@@ -15,7 +15,7 @@ class EditarComercioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Comercio', new \Yacare\ComercioBundle\Form\ComercioSimpleType(), array(
+            ->add('Comercio', 'Yacare\ComercioBundle\Form\ComercioSimpleType', array(
                 'label' => 'Comercio'))
             ;
     }
@@ -26,10 +26,5 @@ class EditarComercioType extends AbstractType
             'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial',
             'validation_groups' => false
         ));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_asistentes_editartitulartype';
     }
 }

@@ -12,6 +12,6 @@ class BuscarTitularPaso extends Paso
 {
     public function getFormType()
     {
-        return new \Yacare\ComercioBundle\Form\Asistentes\BuscarTitularType();
+        return 'Yacare\ComercioBundle\Form\Asistentes\BuscarTitularType';
     }
 }

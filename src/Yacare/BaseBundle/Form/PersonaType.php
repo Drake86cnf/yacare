@@ -23,7 +23,7 @@ class PersonaType extends AbstractType
                 'label' => 'Nombre',
                 'attr' => array('class' => 'tapir-input-maymin')
             ))
-            ->add('TipoSociedad', 'choice', array('label' => 'Tipo',
+            ->add('TipoSociedad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array('label' => 'Tipo',
                  'choices' => array(
                      0 => 'Persona física',
                      '1' => 'Sociedad Anónima',
@@ -44,11 +44,11 @@ class PersonaType extends AbstractType
                 'label' => 'Razón social',
                 'attr' => array('class' => 'tapir-input-maymin')
             ))
-            ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
+            ->add('Documento', 'Yacare\BaseBundle\Form\Type\DocumentoType', array(
                 'label' => 'Documento',
                 'required' => false
             ))
-            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
+            ->add('Cuilt',  'Tapir\BaseBundle\Form\Type\CuiltType', array(
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
@@ -68,22 +68,22 @@ class PersonaType extends AbstractType
                 'attr' => array('style' => 'width: 100%'),
                 'multiple' => true,
                 'required' => false))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
+            ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioType', array(
                 'label' => 'Domicilio'
             ))
             ->add('TelefonoNumero', null, array(
                 'label' => 'Teléfonos',
                 'attr' => array('class' => 'tapir-input-maymin')
             ))
-            ->add('Email', 'email', array(
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus tapir-input-sinespacios')
             ))
-            ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
+            ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))
-            ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array('label' => 'Género', 'required' => true))
+            ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => true))
             ->add('Pais', 'entity', array(
                 'label' => 'Nacionalidad',
                 'placeholder' => 'Sin especificar',
@@ -95,10 +95,5 @@ class PersonaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_personatype';
     }
 }

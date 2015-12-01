@@ -38,38 +38,38 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $porpartida = $this->ObtenerVariable($request, 'porpartida');
 
         $editFormBuilder = $this->createFormBuilder()
-            ->add('Actividad1', 'entity_id', array(
+            ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad principal',
                 'required' => true,
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad2', 'entity_id', array(
+            ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad3', 'entity_id', array(
+            ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad4', 'entity_id', array(
+            ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad5', 'entity_id', array(
+            ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad6', 'entity_id', array(
+            ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true));
         if ($porpartida) {
             $editFormBuilder
-                ->add('Partida', 'entity_id', array(
+                ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                     'label' => 'Partida',
                     'required' => true,
                     'class' => 'Yacare\CatastroBundle\Entity\Partida'))
-                /* ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+                /* ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                     'label' => 'Tipo',
                     'data' => 'Local de ventas',
                     'required' => true,
@@ -82,12 +82,12 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                     'placeholder' => '(sólo para depósitos)',
                     'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
                     'required' => false)) */
-                ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array('label' => 'Superficie total'))
-                ->add('SuperficieDeposito', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array('label' => 'Depósito'))
+                ->add('Superficie', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Superficie total'))
+                ->add('SuperficieDeposito', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Depósito'))
                 ;
         } else {
             $editFormBuilder
-                ->add('Local', 'entity_id', array(
+                ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                     'label' => 'Local', 'class' => 'Yacare\ComercioBundle\Entity\Local'));
         }
         $editForm = $editFormBuilder->getForm();

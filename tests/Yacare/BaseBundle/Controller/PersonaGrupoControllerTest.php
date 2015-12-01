@@ -28,7 +28,7 @@ class PersonaGrupoControllerTest extends \Tapir\AbmBundle\Controller\AbmControll
         $form = $crawler->selectButton('Guardar')->form();
         
         // set some values
-        $form['yacare_basebundle_personagrupotype[Nombre]'] = 'Grupo de pruebas';
+        $form['persona_grupo[Nombre]'] = 'Grupo de pruebas';
         
         // submit the form
         $crawler = $this->client->submit($form);
@@ -53,7 +53,7 @@ class PersonaGrupoControllerTest extends \Tapir\AbmBundle\Controller\AbmControll
         $form = $crawler->selectButton('Guardar')->form();
         
         // set some values        
-        $form['yacare_basebundle_personagrupotype[Nombre]'] = 'Grupo de pruebas modificado ' . date('r');
+        $form['persona_grupo[Nombre]'] = 'Grupo de pruebas modificado ' . date('r');
 
         // submit the form
         $crawler = $this->client->submit($form);

@@ -23,7 +23,7 @@ class VehiculoType extends AbstractType
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('Anio', null, array('label' => 'Año'))
             ->add('Color', null, array('label' => 'Color'))
-            ->add('Combustible', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Combustible', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Combustible',
                 'required' => false,
                 'choices' => array(
@@ -51,10 +51,5 @@ class VehiculoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\FlotaBundle\Entity\Vehiculo'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_flotabundle_vehiculotype';
     }
 }

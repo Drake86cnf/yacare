@@ -15,7 +15,7 @@ class RelevamientoResultadoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Grupo', 'choice', array(
+            ->add('Grupo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
                     'Obras particulares' => 'Obras particulares', 
                     'Ecología' => 'Ecología', 
@@ -31,10 +31,5 @@ class RelevamientoResultadoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\InspeccionBundle\Entity\RelevamientoResultado'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_inspeccionbundle_relevamientoresultadotype';
     }
 }

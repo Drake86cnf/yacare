@@ -21,7 +21,7 @@ class DepartamentoType extends AbstractType
             ->add('Nombre', null, array(
                 'label' => 'Nombre', 
                 'required' => true))
-            ->add('Rango', 'choice', array(
+            ->add('Rango', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
                     '1' => 'Ejecutivo', 
                     '20' => 'Ministerio', 
@@ -46,10 +46,5 @@ class DepartamentoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\OrganizacionBundle\Entity\Departamento'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_organizacionbundle_departamentotype';
     }
 }

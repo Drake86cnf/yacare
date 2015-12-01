@@ -17,27 +17,27 @@ class ComercioActividadType extends AbstractType
         parent::buildForm($builder, $options);
         
         $builder
-            ->add('Actividad1', 'entity_id', array(
+            ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 1', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad2', 'entity_id', array(
+            ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 2', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
-            ->add('Actividad3', 'entity_id', array(
+            ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 3', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
-            ->add('Actividad4', 'entity_id', array(
+            ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 4', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
-            ->add('Actividad5', 'entity_id', array(
+            ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 5', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false))
-            ->add('Actividad6', 'entity_id', array(
+            ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 6', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => false));
@@ -46,10 +46,5 @@ class ComercioActividadType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_comercioactividadtype';
     }
 }

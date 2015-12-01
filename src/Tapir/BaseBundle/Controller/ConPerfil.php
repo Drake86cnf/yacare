@@ -35,9 +35,9 @@ trait ConPerfil
         }
 
         if ($entity->getUsername()) {
-            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilType(), $entity);
+            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilType', $entity);
         } else {
-            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaPerfilCrearType(), $entity);
+            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilCrearType', $entity);
         }
 
         if ($request->getMethod() === 'POST') {
@@ -129,10 +129,10 @@ trait ConPerfil
 
         if ($entity->getId() == $user->getId()) {
             // Es el usuario conectado, muestro "cambiar contraseña"
-            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCambiarContrasenaType(), $entity);
+            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCambiarContrasenaType', $entity);
         } else {
             // Es para otro usuario, muestro "crear contraseña"
-            $FormEditar = $this->createForm(new \Yacare\BaseBundle\Form\PersonaCrearContrasenaType(), $entity);
+            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCrearContrasenaType', $entity);
         }
         $FormEditar->handleRequest($request);
 

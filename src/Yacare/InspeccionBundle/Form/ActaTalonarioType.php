@@ -19,7 +19,7 @@ class ActaTalonarioType extends AbstractType
                 'label' => 'Tipo', 'class' => 'YacareInspeccionBundle:ActaTipo', 'required' => true))
             ->add('NumeroDesde', null, array('label' => 'Numeración desde'))
             ->add('NumeroHasta', null, array('label' => 'hasta'))
-            ->add('EnPoderDe', 'entity_id', array(
+            ->add('EnPoderDe', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'En poder de', 
                 'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
@@ -30,10 +30,5 @@ class ActaTalonarioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\InspeccionBundle\Entity\ActaTalonario'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_inspeccionbundle_actatalonariotype';
     }
 }

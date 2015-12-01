@@ -15,7 +15,7 @@ class BuscarLocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Local', 'entity_id', array(
+            ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Local',
                 'property_path' => 'Comercio.Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',
@@ -27,10 +27,5 @@ class BuscarLocalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_asistentes_buscarlocaltype';
     }
 }

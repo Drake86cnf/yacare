@@ -26,9 +26,4 @@ class ZonaType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\CatastroBundle\Entity\Zona'));
     }
-
-    public function getName()
-    {
-        return 'yacare_catastrobundle_zonatype';
-    }
 }

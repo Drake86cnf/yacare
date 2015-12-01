@@ -20,7 +20,7 @@ abstract class DispositivoType extends AbstractType
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('NumeroSerie', null, array('label' => 'Número de serie'))
             ->add('IdentificadorUnico', null, array('label' => 'Identificador único'))
-            ->add('Encargado', 'entity_id', array(
+            ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => false))
@@ -31,10 +31,5 @@ abstract class DispositivoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Dispositivo'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_dispositivotype';
     }
 }

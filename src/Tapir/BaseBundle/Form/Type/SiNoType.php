@@ -18,11 +18,6 @@ class SiNoType extends ButtonGroupType
 
     public function getParent()
     {
-        return 'buttongroup';
-    }
-
-    public function getName()
-    {
-        return 'sino';
+        return 'Tapir\BaseBundle\Form\Type\ButtonGroupType';
     }
 }

@@ -26,9 +26,4 @@ class BarrioType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\CatastroBundle\Entity\Barrio'));
     }
-
-    public function getName()
-    {
-        return 'yacare_catastrobundle_barriotype';
-    }
 }

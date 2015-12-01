@@ -42,9 +42,4 @@ class DomicilioLocalType extends AbstractType
     {
         $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
     }
-
-    public function getName()
-    {
-        return 'form_horizontal';
-    }
 }

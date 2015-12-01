@@ -27,11 +27,6 @@ class FechaPasadoPresenteType extends AbstractType
 
     public function getParent()
     {
-        return 'date';
-    }
-
-    public function getName()
-    {
-        return 'fechanacimiento';
+        return 'Symfony\Component\Form\Extension\Core\Type\DateType';
     }
 }
