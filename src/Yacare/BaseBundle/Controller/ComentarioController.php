@@ -31,7 +31,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         $NuevoComentario->setEntidadTipo($tipo);
         $NuevoComentario->setEntidadId($id);
         
-        $editForm = $this->createForm(new \Yacare\BaseBundle\Form\ComentarioType(), $NuevoComentario);
+        $editForm = $this->createForm('Yacare\BaseBundle\Form\ComentarioType', $NuevoComentario);
         
         $entity = $em->getRepository($tipo)->find($id);
         
@@ -53,7 +53,7 @@ class ComentarioController extends \Tapir\BaseBundle\Controller\BaseController
         
         $NuevoComentario = new \Yacare\BaseBundle\Entity\Comentario();
         
-        $editForm = $this->createForm(new \Yacare\BaseBundle\Form\ComentarioType(), $NuevoComentario);
+        $editForm = $this->createForm('Yacare\BaseBundle\Form\ComentarioType', $NuevoComentario);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $NuevoComentario->setPersona(

@@ -24,9 +24,4 @@ class ComentarioType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Comentario'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_comentariotype';
-    }
 }

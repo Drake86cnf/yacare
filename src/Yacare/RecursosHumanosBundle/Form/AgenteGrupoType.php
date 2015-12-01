@@ -21,9 +21,4 @@ class AgenteGrupoType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RecursosHumanosBundle\Entity\AgenteGrupo'));
     }
-
-    public function getName()
-    {
-        return 'yacare_recursoshumanosbundle_agentegrupotype';
-    }
 }

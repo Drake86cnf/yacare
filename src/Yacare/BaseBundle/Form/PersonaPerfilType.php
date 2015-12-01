@@ -21,11 +21,11 @@ class PersonaPerfilType extends AbstractType
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
             ))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
-            ->add('FechaNacimiento', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array(
+            ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))
-            ->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), array('label' => 'Género', 'required' => true))
-            ->add('Cuilt',  new \Tapir\BaseBundle\Form\Type\CuiltType(), array(
+            ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => true))
+            ->add('Cuilt',  'Tapir\BaseBundle\Form\Type\CuiltType', array(
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
@@ -36,10 +36,5 @@ class PersonaPerfilType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_personaperfiltype';
     }
 }

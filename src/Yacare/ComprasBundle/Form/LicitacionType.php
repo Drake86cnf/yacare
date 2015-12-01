@@ -29,15 +29,15 @@ class LicitacionType extends AbstractType
             ->add('Numero', null, array('label' => 'Número'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('PresupuestoOficial', null, array('label' => 'Presupuesto oficial'))
-            ->add('Complejidad1', 'choice', array(
+            ->add('Complejidad1', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Cantidad de renglones', 
                 'required' => true, 
                 'choices' => array('0' => 'Baja: de 1 a 20', '1' => 'Media: de 21 a 40', '2' => 'Alta: más de 40')))
-            ->add('Complejidad2', 'choice', array(
+            ->add('Complejidad2', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Cantidad de ítem de E.T.', 
                 'required' => true, 
                 'choices' => array('0' => 'Baja: de 1 a 5', '1' => 'Media: de 6 a 10', '2' => 'Alta: más de 10')))
-            ->add('Complejidad3', 'choice', array(
+            ->add('Complejidad3', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Presupuesto oficial', 
                 'required' => true, 
                 'choices' => array(
@@ -53,10 +53,5 @@ class LicitacionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComprasBundle\Entity\Licitacion'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comprasbundle_licitaciontype';
     }
 }

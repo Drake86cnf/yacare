@@ -24,9 +24,4 @@ class TramiteHabilitacionComercialType extends \Yacare\TramitesBundle\Form\Trami
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial'));
     }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_tramitehabilitacioncomercialtype';
-    }
 }

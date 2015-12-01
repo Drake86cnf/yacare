@@ -20,16 +20,16 @@ class NovedadType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Descripción',
                 'required' => true))
-            ->add('Privada', new \Tapir\BaseBundle\Form\Type\PrivadoType(), array(
+            ->add('Privada', 'Tapir\BaseBundle\Form\Type\PrivadoType', array(
                 'label' => 'Visibilidad',
                 'attr' => array(
                     'help' => 'Los comentarios públicos se muestran a todos los usuarios, incluso los anónimos. Los
                         comentarios privados los ven sólo los usuarios que intervienen en el requerimiento.'),
                 'required' => true))
-            ->add('Usuario', 'entity_hidden', array(
+            ->add('Usuario', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona'))
-            ->add('Requerimiento', 'entity_hidden', array(
+            ->add('Requerimiento', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 
@@ -37,10 +37,5 @@ class NovedadType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_novedadtype';
     }
 }

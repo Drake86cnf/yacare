@@ -23,9 +23,4 @@ class DispositivoRastreadorGpsType extends DispositivoType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_dispositivorastreadorgpstype';
-    }
 }

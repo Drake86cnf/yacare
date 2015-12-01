@@ -24,11 +24,6 @@ class EmailType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'email';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

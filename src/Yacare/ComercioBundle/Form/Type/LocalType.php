@@ -23,11 +23,6 @@ class LocalType extends AbstractType
 
     public function getParent()
     {
-        return 'tapir_ajax_entity';
-    }
-
-    public function getName()
-    {
-        return 'yacare_comercio_local';
+        return 'Tapir\FormBundle\Form\Type\AjaxEntityType';
     }
 }

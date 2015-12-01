@@ -16,11 +16,11 @@ class LocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Partida', 'entity_id', array(
+            ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida',
                 'class' => 'Yacare\CatastroBundle\Entity\Partida',
                 'required' => true))
-            ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Tipo',
                 'required' => true,
                 'choices' => array(
@@ -32,33 +32,33 @@ class LocalType extends AbstractType
                 'placeholder' => '(sólo para depósitos)',
                 'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
                 'required' => false))
-            ->add('Superficie', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
+            ->add('Superficie', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                 'label' => 'Superficie total (m²)'))
-            ->add('SuperficieDeposito', new \Tapir\BaseBundle\Form\Type\SuperficieType(), array(
+            ->add('SuperficieDeposito', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                 'label' => 'Depósito (m²)',
                 'required' => false,
                 'attr' => array('help' => 'Indicar cuántos metros cuadrados de la superficie total están dedicados a depósito.')
             ))
-            ->add('CestoBasura', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('CestoBasura', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Cesto de basura',
                 'required' => false,
                 'choices' => array(
                     -1 => 'Sin información',
                     0 => 'No',
                     1 => 'Sí')))
-            ->add('Canaletas', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Canaletas', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'required' => false,
                 'choices' => array(
                     -1 => 'Sin información',
                     0 => 'No',
                     1 => 'Sí')))
-            ->add('VeredaMunicipal', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('VeredaMunicipal', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'required' => false,
                 'choices' => array(
                     -1 => 'Sin información',
                     0 => 'No',
                     1 => 'Sí')))
-            ->add('AnchoSalida', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('AnchoSalida', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Salida de emergencia',
                 'required' => false,
                 'attr' => array(
@@ -78,10 +78,5 @@ class LocalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Local'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_localtype';
     }
 }

@@ -21,7 +21,7 @@ class ReportarProblemaType extends AbstractType
                 'label' => 'Asunto',
                 'attr' => array('autofocus' => 'autofocus'),
                 'required' => true))
-            ->add('Categoria', 'entity_hidden', array(
+            ->add('Categoria', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'label' => 'Categoría',
                 'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
                 'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
@@ -36,10 +36,5 @@ class ReportarProblemaType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_reportarproblematype';
     }
 }

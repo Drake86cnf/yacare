@@ -19,10 +19,10 @@ class ComercioSimpleType extends AbstractType
         $builder
             ->add('Nombre', null, array(
                 'label' => 'Nombre de fantasía'))
-            ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), array(
+            ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
                 'label' => 'Expediente',
                 'required' => false))
-            ->add('ActoAdministrativoNumero', new \Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType(), array(
+            ->add('ActoAdministrativoNumero', 'Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType', array(
                 'label' => 'Acto administrativo',
                 'required' => false
             ))
@@ -30,36 +30,36 @@ class ComercioSimpleType extends AbstractType
                 'label' => 'Posición en archivo',
                 'required' => false
             ))
-            ->add('Apoderado', 'entity_id', array(
+            ->add('Apoderado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Apoderado',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'property' => 'NombreVisible',
                 'required' => false))
-            ->add('Local', 'entity_id', array(
+            ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',
                 'required' => false))
-            ->add('Actividad1', 'entity_id', array(
+            ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 1',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => true))
-            ->add('Actividad2', 'entity_id', array(
+            ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 2',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('Actividad3', 'entity_id', array(
+            ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 3',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('Actividad4', 'entity_id', array(
+            ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 4',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('Actividad5', 'entity_id', array(
+            ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 5',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false))
-            ->add('Actividad6', 'entity_id', array(
+            ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 6',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
                 'required' => false));
@@ -68,10 +68,5 @@ class ComercioSimpleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_comerciosimpletype';
     }
 }

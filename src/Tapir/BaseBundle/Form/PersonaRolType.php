@@ -21,9 +21,4 @@ class PersonaRolType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Tapir\BaseBundle\Entity\PersonaRol'));
     }
-
-    public function getName()
-    {
-        return 'tapir_basebundle_personaroltype';
-    }
 }

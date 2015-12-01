@@ -16,11 +16,11 @@ class ActaComercioType extends AbstractType
     {
         $builder
             //->add('Talonario', null, array('label' => 'Talonario'))
-            ->add('Comercio', 'entity_hidden', array(
+            ->add('Comercio', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'label' => 'Comercio', 
                 'class' => 'Yacare\ComercioBundle\Entity\Comercio', 
                 'required' => false))
-            ->add('SubTipo', 'choice', array(
+            ->add('SubTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
                     'Inspección de rutina' => 'Inspección de rutina',
                     'Inspección con tasa' => 'Inspección con tasa',
@@ -38,7 +38,7 @@ class ActaComercioType extends AbstractType
                 'attr' => array ('class' => 'tapir-input-160'),
                 'required' => true
             ))
-            ->add('Fecha', new \Tapir\BaseBundle\Form\Type\FechaType(), array('label' => 'Fecha'))
+            ->add('Fecha', 'Tapir\BaseBundle\Form\Type\FechaType', array('label' => 'Fecha'))
             ->add('Hora', null, array(
                 'label' => 'Hora',
                 'attr' => array('class' => 'tapir-input-120')
@@ -75,10 +75,5 @@ class ActaComercioType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\ComercioBundle\Entity\ActaComercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_actacomerciotype';
     }
 }

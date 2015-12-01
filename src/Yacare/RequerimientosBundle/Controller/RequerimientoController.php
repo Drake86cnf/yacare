@@ -44,7 +44,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $Requerimiento = new \Yacare\RequerimientosBundle\Entity\Requerimiento();
         
-        $FormEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\RequerimientoAnonimoType(), 
+        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\RequerimientoAnonimoType', 
             $Requerimiento);
         $FormEditar->handleRequest($request);
         
@@ -122,7 +122,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                     $NuevaNovedad->setRequerimiento($Requerimiento);
                     $NuevaNovedad->setUsuario(null);
                     
-                    $FormularioEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadAnonimaType(), 
+                    $FormularioEditar = $this->createForm('Yacare\RequerimientosBundle\Form\NovedadAnonimaType', 
                         $NuevaNovedad);
                     $FormularioEditar->handleRequest($request);
                     
@@ -213,7 +213,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         $Requerimiento->setUsuario($UsuarioConectado);
         
-        $FormEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\RequerimientoType(), $Requerimiento);
+        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\RequerimientoType', $Requerimiento);
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {
@@ -353,7 +353,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                 $NuevaNovedad->setPrivada(1);
                 $NuevaNovedad->setRequerimiento($res['res']->Entidad);
                 $NuevaNovedad->setUsuario($UsuarioConectado);
-                $FormEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\NovedadType(), $NuevaNovedad);
+                $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\NovedadType', $NuevaNovedad);
                 $res['form_novedad'] = $FormEditar->createView();
             }
         }
@@ -470,7 +470,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $NuevaNovedad->setRequerimiento($entity);
         $NuevaNovedad->setUsuario($UsuarioConectado);
         
-        $FormEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\RechazarType(), $NuevaNovedad);
+        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\RechazarType', $NuevaNovedad);
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {
@@ -539,7 +539,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $NuevaNovedad->setRequerimiento($entity);
         $NuevaNovedad->setUsuario($UsuarioConectado);
         
-        $FormEditar = $this->createForm(new \Yacare\RequerimientosBundle\Form\AsignarType(), $NuevaNovedad);
+        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\AsignarType', $NuevaNovedad);
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {

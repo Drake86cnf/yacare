@@ -31,7 +31,7 @@ class CategoriaType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
                 },
                 'required' => false))
-            ->add('PermiteAnonimos', new \Tapir\BaseBundle\Form\Type\SiNoType(), array(
+            ->add('PermiteAnonimos', 'Tapir\BaseBundle\Form\Type\SiNoType', array(
                 'label' => 'Admite anónimos',
                 'required' => true));
     }
@@ -40,10 +40,5 @@ class CategoriaType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Categoria'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_categoriatype';
     }
 }

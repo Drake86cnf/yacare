@@ -27,9 +27,4 @@ class CertificadoHabilitacionComercialType extends \Yacare\TramitesBundle\Form\C
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial'));
     }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_certificadohabilitacioncomercialtype';
-    }
 }

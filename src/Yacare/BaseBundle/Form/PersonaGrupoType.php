@@ -21,9 +21,4 @@ class PersonaGrupoType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\PersonaGrupo'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_personagrupotype';
-    }
 }

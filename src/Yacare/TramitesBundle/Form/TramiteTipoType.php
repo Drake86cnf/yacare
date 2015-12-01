@@ -35,9 +35,4 @@ class TramiteTipoType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\TramiteTipo'));
     }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_tramitetipotype';
-    }
 }

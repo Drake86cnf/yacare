@@ -78,12 +78,7 @@ class EntityIdType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'entity_id';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 
     // Devuelve el nombre de la ruta para una acción determinada o la base para conformar las rutas

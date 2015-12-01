@@ -140,28 +140,28 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
         
         switch ($campoNombre) {
             case 'Cuilt':
-                $FormEditarBuilder->add($campoNombre, new \Tapir\BaseBundle\Form\Type\CuiltType(), 
+                $FormEditarBuilder->add($campoNombre, 'Tapir\BaseBundle\Form\Type\CuiltType', 
                     array('label' => 'CUIL/CUIT', 'required' => true));
                 break;
             case 'DocumentoNumero':
-                $FormEditarBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DocumentoType(), 
+                $FormEditarBuilder->add($campoNombre, 'Yacare\BaseBundle\Form\Type\DocumentoType', 
                     array('label' => 'Documento'));
                 break;
             case 'Domicilio':
-                $FormEditarBuilder->add($campoNombre, new \Yacare\BaseBundle\Form\Type\DomicilioType(), 
+                $FormEditarBuilder->add($campoNombre, 'Yacare\BaseBundle\Form\Type\DomicilioType', 
                     array('label' => 'Domicilio', 'required' => true));
                 break;
             case 'TelefonoNumero':
                 $FormEditarBuilder
-                    ->add($campoNombre, 'text', array('label' => 'Teléfono(s)', 'required' => true))
+                    ->add($campoNombre, 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Teléfono(s)', 'required' => true))
                     ->add('TelefonoVerificacionNivel', 
-                        new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
+                        'Tapir\BaseBundle\Form\Type\VerificacionNivelType', 
                         array('label' => 'Nivel', 'required' => true));
                 break;
             case 'Email':
                 $FormEditarBuilder
-                    ->add($campoNombre, 'text', array('label' => 'E-mail', 'required' => true))
-                    ->add($campoNombre . 'VerificacionNivel', new \Tapir\BaseBundle\Form\Type\VerificacionNivelType(), 
+                    ->add($campoNombre, 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'E-mail', 'required' => true))
+                    ->add($campoNombre . 'VerificacionNivel', 'Tapir\BaseBundle\Form\Type\VerificacionNivelType', 
                         array('label' => 'Nivel', 'required' => true));
                 break;
             case 'Pais':
@@ -175,7 +175,7 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                         array(1, 2, 11, 15))));
                 break;
             case 'Genero':
-                $FormEditarBuilder->add('Genero', new \Tapir\BaseBundle\Form\Type\GeneroType(), 
+                $FormEditarBuilder->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', 
                     array('label' => 'Género', 'required' => true));
                 break;
         }

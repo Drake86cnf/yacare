@@ -138,14 +138,14 @@
         
     </div>
     <script>
-        $('#yacare_requerimientosbundle_novedadtype_Notas').keypress(function (e) {
+        $('#novedad_Notas').keypress(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 $('form#form_novedad').submit();
                 return false;
             }
         });
-        $('#yacare_requerimientosbundle_novedadtype_Privada').change(function(e) {
+        $('#novedad_Privada').change(function(e) {
             if($(this).val() == 1) { 
             	$('#advertencia_publico').hide();
             } else {

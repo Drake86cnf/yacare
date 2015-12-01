@@ -72,7 +72,7 @@ class VehiculoController extends \Tapir\AbmBundle\Controller\AbmController
             $NuevaCarga->setVehiculo($Vehiculo);
         }
 
-        $editForm = $this->createForm(new \Yacare\FlotaBundle\Form\CargaType(), $NuevaCarga);
+        $editForm = $this->createForm('Yacare\FlotaBundle\Form\CargaType', $NuevaCarga);
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {

@@ -12,6 +12,6 @@ class EditarLocalPaso extends Paso
 {
     public function getFormType()
     {
-        return new \Yacare\ComercioBundle\Form\Asistentes\EditarLocalType();
+        return 'Yacare\ComercioBundle\Form\Asistentes\EditarLocalType';
     }
 }

@@ -28,7 +28,7 @@ class AsignarType extends AbstractType
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
                 }))
-            ->add('Requerimiento', 'entity_hidden', array(
+            ->add('Requerimiento', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 
@@ -36,10 +36,5 @@ class AsignarType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_asignartype';
     }
 }

@@ -114,8 +114,8 @@
     
 <script>
 $(function() {
-	$('#yacare_basebundle_personatype_TipoSociedad').change(function() {
-		if($('#yacare_basebundle_personatype_TipoSociedad').val() > 0) {
+	$('#persona_TipoSociedad').change(function() {
+		if($('#persona_TipoSociedad').val() > 0) {
 			$('#persona_cuilt').text("CUIT");
 			$('.mostrar-persona-fisica').hide();
 			$('.mostrar-persona-juridica').show();
@@ -126,11 +126,11 @@ $(function() {
 		}
 	}).change();
 
-    $('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').change(function() {
-        if($('#yacare_basebundle_personatype_Domicilio_DomicilioCalle').val() > 0) {
-            $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').hide();
+    $('#persona_Domicilio_DomicilioCalle').change(function() {
+        if($('#persona_Domicilio_DomicilioCalle').val() > 0) {
+            $('#persona_Domicilio_DomicilioCalleNombre').hide();
         } else {
-            $('#yacare_basebundle_personatype_Domicilio_DomicilioCalleNombre_Group').show();
+            $('#persona_Domicilio_DomicilioCalleNombre').show();
         }
     }).change();
 });
