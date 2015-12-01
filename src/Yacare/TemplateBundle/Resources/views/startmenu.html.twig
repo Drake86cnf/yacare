@@ -55,14 +55,20 @@
 			</ul>
 		</li>
 	</ul>
-	{% if res is defined and res.ObtenerRutaInicio is defined and res.ObtenerRutaInicio|tapir_ruta_existe %}
+	{% if res is defined %}
     	<a class="btn btn-default" id="tapirUpButton"
-    		{% if res.ObtenerRutaInicio == app.request.attributes.get('_route') %}
-    			href="{{ path('inicio') }}"
-    		{% else %} 
+    	    {% if res.ObtenerRutaAccion('listar')|tapir_ruta_existe and res.ObtenerRutaAccion('listar') != app.request.attributes.get('_route') %}
+    	        href="{{ path(res.ObtenerRutaAccion('listar')) }}"
+    		{% elseif res.ObtenerRutaInicio|tapir_ruta_existe and res.ObtenerRutaInicio != app.request.attributes.get('_route') %}
     			href="{{ path(res.ObtenerRutaInicio) }}"
+    		{% else %} 
+    			href="{{ path('inicio') }}"
     		{% endif %}
     		data-toggle="ajax-link">
+        	<i class="fa fa-fw fa-arrow-up"></i>
+        </a>
+    {% elseif app.request.attributes.get('_route') != 'inicio' %}
+    	<a class="btn btn-default" id="tapirUpButton" href="{{ path('inicio') }}" data-toggle="ajax-link">
         	<i class="fa fa-fw fa-arrow-up"></i>
         </a>
     {% else %}
