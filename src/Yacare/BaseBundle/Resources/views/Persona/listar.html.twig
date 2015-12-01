@@ -11,10 +11,9 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th class="hidden-print hidden-sm hidden-xs">Documento</th>
-			<th>Teléfono</th>
-			<th>Domicilio</th>
-			<th>Grupos</th>
+			<th class="hidden-print">Documento</th>
+			<th class="hidden-xs hidden-sm">Teléfono</th>
+			<th class="hidden-xs">Domicilio</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,10 +21,9 @@
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.id })) }}">
 			<td>{{ entity.NombreVisible }}</td>
-			<td class="hidden-print hidden-sm hidden-xs">{{ entity.CuiltODocumento }}</td>
-			<td>{{ entity.TelefonoNumero }}</td>
-			<td>{{ entity.Domicilio }}</td>
-			<td>{% for Nombre in entity.Grupos %}<span class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}
+			<td class="hidden-print">{{ entity.CuiltODocumento }}</td>
+			<td class="hidden-xs hidden-sm">{{ entity.TelefonoNumero }}</td>
+			<td class="hidden-xs">{{ entity.Domicilio }}</td>
 			</td>
 		</tr>
 		{% endfor %}
