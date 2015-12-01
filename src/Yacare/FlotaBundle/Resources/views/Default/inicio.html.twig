@@ -1,0 +1,11 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Flota{% endblock %}
+
+{% block pagina_contenido %}
+<h2><i class="fa fa-fw fa-car text-muted"></i> Flota</h2>
+<ul class="inicio-mini-menu">
+	<li class="destacado"><a href="{{ path('yacare_flota_vehiculo_listar') }}" data-toggle="ajax-link">
+		Vehículos</a></li>
+</ul>
+{% endblock pagina_contenido %}
