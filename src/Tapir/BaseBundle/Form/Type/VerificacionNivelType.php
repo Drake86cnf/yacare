@@ -48,11 +48,6 @@ class VerificacionNivelType extends ButtonGroupType
 
     public function getParent()
     {
-        return 'buttongroup';
-    }
-
-    public function getName()
-    {
-        return 'verificacion_nivel';
+        return 'Tapir\BaseBundle\Form\Type\ButtonGroupType';
     }
 }

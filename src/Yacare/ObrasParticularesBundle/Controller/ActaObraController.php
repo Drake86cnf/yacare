@@ -52,10 +52,10 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
         $FormEditarBuilder
-            ->add('Plazo', new \Yacare\ObrasParticularesBundle\Form\Type\PlazoType(), array(
+            ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
                 'label' => 'Plazo',
                 'required' => true))
-            ->add('Profesional', 'entity_id', array(
+            ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => false))

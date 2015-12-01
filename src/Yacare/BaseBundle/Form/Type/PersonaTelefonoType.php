@@ -15,8 +15,8 @@ class PersonaTelefonoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TelefonoNumero', 'text', array('label' => 'Número', 'required' => true))
-            ->add('TelefonoVerificacionNivel', 'choice', array(
+            ->add('TelefonoNumero', null, array('label' => 'Número', 'required' => true))
+            ->add('TelefonoVerificacionNivel', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
                     '0' => 'Sin confirmar', 
                     '10' => 'Confirmado', 
@@ -30,10 +30,5 @@ class PersonaTelefonoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
-    }
-
-    public function getName()
-    {
-        return 'form_horizontal';
     }
 }

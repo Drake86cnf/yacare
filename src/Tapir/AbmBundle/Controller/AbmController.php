@@ -406,7 +406,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         
         $NombreFormType = $this->ObtenerFormType($request);
         $SinFormEliminar = $this->ObtenerVariable($request, 'noeliminar');
-        $FormEditar = $this->createForm(new $NombreFormType(), $entity);
+        $FormEditar = $this->createForm($NombreFormType, $entity);
         if ($SinFormEliminar) {
             $FormEliminar = null;
         } elseif ($id) {

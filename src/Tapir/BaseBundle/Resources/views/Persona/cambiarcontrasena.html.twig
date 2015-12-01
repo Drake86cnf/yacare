@@ -62,14 +62,14 @@
 {% if res.Terminado == 0 %}
 <script>
 $(function() {
-	$('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc').on('change textInput input', VerificarContrasenias);
-	$('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc2').on('change textInput input', VerificarContrasenias);
+	$('#persona_cambiar_contrasena_PasswordEnc').on('change textInput input', VerificarContrasenias);
+	$('#persona_cambiar_contrasena_PasswordEnc2').on('change textInput input', VerificarContrasenias);
 	VerificarContrasenias();
 });
 
 function VerificarContrasenias() {
-	Con1 = $('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc').val();
-	Con2 = $('#yacare_basebundle_personacambiarcontrasenatype_PasswordEnc2').val();
+	Con1 = $('#persona_cambiar_contrasena_PasswordEnc').val();
+	Con2 = $('#persona_cambiar_contrasena_PasswordEnc2').val();
 	if(Con1.length == 0) {
 		$('#cambiarcontrasena_advertencia').text('Por favor escriba la nueva contraseña dos veces.');
 		$('button[type="submit"]').prop('disabled', true);

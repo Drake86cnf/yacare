@@ -32,9 +32,4 @@ class ActaTipoType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\InspeccionBundle\Entity\ActaTipo'));
     }
-
-    public function getName()
-    {
-        return 'yacare_inspeccionbundle_actatipotype';
-    }
 }

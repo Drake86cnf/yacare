@@ -47,9 +47,4 @@ class PersonaPerfilCrearType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Persona'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_personaperfilcreartype';
-    }
 }

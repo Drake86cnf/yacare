@@ -28,9 +28,4 @@ class RelevamientoType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\InspeccionBundle\Entity\Relevamiento'));
     }
-
-    public function getName()
-    {
-        return 'yacare_inspeccionbundle_relevamientotype';
-    }
 }

@@ -12,6 +12,6 @@ class EditarTitularPaso extends Paso
 {
     public function getFormType()
     {
-        return new \Yacare\ComercioBundle\Form\Asistentes\EditarTitularType();
+        return 'Yacare\ComercioBundle\Form\Asistentes\EditarTitularType';
     }
 }

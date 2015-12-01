@@ -57,8 +57,6 @@ class AjaxEntityController
                 $dqlQuery->setParameter('query', '%' . $QueryText . '%');
                 $dqlQuery->setMaxResults(10);
                 $results = $dqlQuery->getResult();
-
-                //$results[] = array('id' => 999, 'text' => $sql);
             } elseif ($RepoMethodName) {
                 try {
                     $repo = $this->registry->getRepository($EntityClassName);

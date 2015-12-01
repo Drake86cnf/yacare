@@ -17,20 +17,20 @@ class ComercioType extends ComercioSimpleType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Titular', 'entity_id', array(
+            ->add('Titular', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Titular',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'property' => 'NombreVisible',
                 'required' => true))
-            ->add('FechaHabilitacion', new \Tapir\BaseBundle\Form\Type\FechaType(), array(
+            ->add('FechaHabilitacion', 'Tapir\BaseBundle\Form\Type\FechaType', array(
                 'label' => 'Fecha de habilitación',
                 'required' => false
             ))
-            ->add('FechaBaja', new \Tapir\BaseBundle\Form\Type\FechaType(), array(
+            ->add('FechaBaja', 'Tapir\BaseBundle\Form\Type\FechaType', array(
                 'label' => 'Fecha de baja',
                 'required' => false
             ))
-            ->add('Estado', 'choice', array(
+            ->add('Estado', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Estado',
                 'required' => true,
                 'choices' => array(
@@ -46,10 +46,5 @@ class ComercioType extends ComercioSimpleType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_comerciotype';
     }
 }

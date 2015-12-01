@@ -25,11 +25,6 @@ class SuperficieType extends \Tapir\TemplateBundle\Form\Type\IntegerType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'superficie';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

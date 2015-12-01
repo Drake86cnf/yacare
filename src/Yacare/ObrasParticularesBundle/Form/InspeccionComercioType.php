@@ -15,13 +15,13 @@ class InspeccionComercioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Partida', 'entity_id', array(
+            ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
             ->add('TitularNombre', null, array(
                 'label' => 'Propietario'))
-            ->add('Actividades', new \Yacare\ComercioBundle\Form\Type\ActividadesType(), array(
+            ->add('Actividades', 'Yacare\ComercioBundle\Form\Type\ActividadesType', array(
                 'label' => 'Actividades ClaMAE 2014'))
             ->add('ActividadNombre', null, array(
                 'label' => 'Actividades'))
@@ -31,7 +31,7 @@ class InspeccionComercioType extends AbstractType
                 'label' => 'Nº de expediente'))
             ->add('Obs', null, array(
                 'label' => 'Obs.'))
-            ->add('EstadoTramite', 'choice', array(
+            ->add('EstadoTramite', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Instancia del trámite', 
                 'required' => true, 
                 'choices' => array(
@@ -44,10 +44,5 @@ class InspeccionComercioType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\ObrasParticularesBundle\Entity\InspeccionComercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_obrasparticularesbundle_inspeccioncomerciotype';
     }
 }

@@ -20,20 +20,15 @@ class RechazarType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Motivo del rechazo',
                 'required' => true))
-            ->add('Usuario', 'entity_hidden', array(
+            ->add('Usuario', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona'))
-            ->add('Requerimiento', 'entity_hidden', array(
+            ->add('Requerimiento', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_rechazartype';
     }
 }

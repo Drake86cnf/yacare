@@ -30,11 +30,6 @@ class AdjuntosType extends AbstractType
 
     public function getParent()
     {
-        return 'file';
-    }
-
-    public function getName()
-    {
-        return 'adjuntos';
+        return 'Symfony\Component\Form\Extension\Core\Type\FileType';
     }
 }

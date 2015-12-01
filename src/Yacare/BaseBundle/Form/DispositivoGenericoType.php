@@ -21,9 +21,4 @@ class DispositivoGenericoType extends DispositivoType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoGenerico'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_dispositivogenericotype';
-    }
 }

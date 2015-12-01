@@ -17,7 +17,7 @@ class ActaObraType extends AbstractType
     {
         $builder
             ->add('Numero', null, array('label' => 'Numero', 'required' => true))
-            ->add('SubTipo', 'choice', array(
+            ->add('SubTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el tipo de acta',
                 'choices' => array(
                     'Notificación' => 'Notificación', 
@@ -27,12 +27,12 @@ class ActaObraType extends AbstractType
                     'Suspensión' => 'Suspensión'), 
                 'required' => true, 
                 'label' => 'Tipo de acta'))
-            ->add('Profesional', 'entity_id', array(
+            ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => false))
-            ->add('Fecha', new \Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType(), array('label' => 'Fecha'))
-            ->add('Partida', 'entity_id', array(
+            ->add('Fecha', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array('label' => 'Fecha'))
+            ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
@@ -42,7 +42,7 @@ class ActaObraType extends AbstractType
                 'label' => 'El tipo de falta',
                 'placeholder' => 'Seleccione la falta',
                 'required' => true))
-            ->add('TipoConstruccion', 'choice', array(
+            ->add('TipoConstruccion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el tipo de la obra',
                 'choices' => array(
                     'Húmeda' => 'Húmeda',
@@ -52,7 +52,7 @@ class ActaObraType extends AbstractType
                 ),
                 'label' => 'Tipo de construcción',
                 'required' => true))
-            ->add('EstadoAvance', 'choice', array(
+            ->add('EstadoAvance', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
                     1 => 'Replanteo y fundaciones',
@@ -83,10 +83,5 @@ class ActaObraType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\ActaObra'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_obrasparticularesbundle_actaobratype';
     }
 }

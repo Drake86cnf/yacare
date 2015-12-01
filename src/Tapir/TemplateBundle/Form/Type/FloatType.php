@@ -20,11 +20,6 @@ class FloatType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'float';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

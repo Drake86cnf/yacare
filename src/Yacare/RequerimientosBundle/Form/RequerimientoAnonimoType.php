@@ -55,9 +55,4 @@ class RequerimientoAnonimoType extends AbstractType
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'
         ));
     }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_requerimientoanonimotype';
-    }
 }

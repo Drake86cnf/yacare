@@ -15,7 +15,7 @@ class EditarTitularType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /* ->add('Titular', new \Yacare\BaseBundle\Form\PersonaType(), array(
+            /* ->add('Titular', 'Yacare\BaseBundle\Form\PersonaType', array(
                 'label' => 'Titular')) */
             ->add('TitularNombre', null, array(
                 'property_path' => 'Titular.Nombre',
@@ -32,10 +32,5 @@ class EditarTitularType extends AbstractType
             'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial',
             'validation_groups' => false
         ));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_asistentes_editartitulartype';
     }
 }

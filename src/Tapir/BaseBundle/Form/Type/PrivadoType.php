@@ -18,11 +18,6 @@ class PrivadoType extends ButtonGroupType
 
     public function getParent()
     {
-        return 'buttongroup';
-    }
-
-    public function getName()
-    {
-        return 'privado';
+        return 'Tapir\BaseBundle\Form\Type\ButtonGroupType';
     }
 }
