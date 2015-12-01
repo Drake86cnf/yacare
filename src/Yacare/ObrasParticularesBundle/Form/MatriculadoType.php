@@ -17,12 +17,12 @@ class MatriculadoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Persona', 'entity_id', array(
+            ->add('Persona', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Persona',
                 // 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
-            ->add('Profesion', 'choice', array(
+            ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Profesion',
                 'required' => true,
                 'choices' => array(
@@ -44,10 +44,5 @@ class MatriculadoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_obrasparticularesbundle_matriculadotype';
     }
 }

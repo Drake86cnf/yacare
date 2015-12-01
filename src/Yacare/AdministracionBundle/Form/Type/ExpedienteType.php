@@ -24,11 +24,6 @@ class ExpedienteType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'yacare_expediente';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

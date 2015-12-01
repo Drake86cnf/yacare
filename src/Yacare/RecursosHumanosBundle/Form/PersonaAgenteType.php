@@ -14,13 +14,13 @@ class PersonaAgenteType extends AbstractType
                 'label' => 'Apellido'))
             ->add('Nombre', null, array(
                 'label' => 'Nombre'))
-            ->add('Documento', new \Yacare\BaseBundle\Form\Type\DocumentoType(), array(
+            ->add('Documento', 'Yacare\BaseBundle\Form\Type\DocumentoType', array(
                 'label' => 'Documento'))
             ->add('Username', null, array(
                 'label' => 'Usuario'))
             ->add('Cuilt', null, array(
                 'label' => 'CUIL/CUIT'))
-            ->add('Domicilio', new \Yacare\BaseBundle\Form\Type\DomicilioType(), array(
+            ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioType', array(
                 'label' => 'Domicilio'))
             ->add('TelefonoNumero', null, array(
                 'label' => 'Teléfono(s)'))
@@ -32,10 +32,5 @@ class PersonaAgenteType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\BaseBundle\Entity\Persona'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_recursoshumanosbundle_personaagentetype';
     }
 }

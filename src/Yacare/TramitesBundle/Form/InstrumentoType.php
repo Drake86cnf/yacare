@@ -12,7 +12,7 @@ class InstrumentoType extends AbstractType
         $builder
             ->add('Codigo', null, array('label' => 'Código'))
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Tipo', 'choice', array(
+            ->add('Tipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Tipo', 
                 'required' => true, 
                 'choices' => array(
@@ -26,10 +26,5 @@ class InstrumentoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\Instrumento'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_instrumentotype';
     }
 }

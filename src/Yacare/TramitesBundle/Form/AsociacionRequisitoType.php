@@ -10,7 +10,7 @@ class AsociacionRequisitoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TramiteTipo', 'entity_hidden', array(
+            ->add('TramiteTipo', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'label' => 'Tipo de trámite', 
                 'class' => 'YacareTramitesBundle:TramiteTipo', 
                 'required' => true, 
@@ -24,7 +24,7 @@ class AsociacionRequisitoType extends AbstractType
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
-            ->add('Propiedad', 'choice', array(
+            ->add('Propiedad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'De', 
                 'required' => false, 
                 'placeholder' => 'n/a', 
@@ -34,7 +34,7 @@ class AsociacionRequisitoType extends AbstractType
                     'Inmueble' => 'Inmueble', 
                     'Inmueble.Titular' => 'Titular del inmueble', 
                     'ReponsableTecnico' => 'Reponsable técnico')))
-            ->add('Instancia', 'choice', array(
+            ->add('Instancia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Instancia', 
                 'required' => true, 
                 'choices' => array(
@@ -44,7 +44,7 @@ class AsociacionRequisitoType extends AbstractType
                     'cos' => 'Copia simple', 
                     'coc' => 'Copia certificada', 
                     'col' => 'Copia legalizada')))
-            ->add('Tipo', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Tipo',
                 'required' => true,
                 'choices' => array(
@@ -55,8 +55,8 @@ class AsociacionRequisitoType extends AbstractType
                 )
             ))
             ->add('Notas', null, array('label' => 'Notas'))
-            ->add('CondicionQue', 'text', array('label' => 'Sólo si', 'required' => false))
-            ->add('CondicionEs', 'choice', array(
+            ->add('CondicionQue', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Sólo si', 'required' => false))
+            ->add('CondicionEs', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Es', 
                 'required' => false, 
                 'placeholder' => 'n/a', 
@@ -73,17 +73,12 @@ class AsociacionRequisitoType extends AbstractType
                     'false' => 'es falso', 
                     'in' => 'está incluido en', 
                     'not in' => 'no está incluido en')))
-            ->add('CondicionCuanto', 'text', array('label' => 'A', 'required' => false))
+            ->add('CondicionCuanto', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'A', 'required' => false))
             ->add('Obs', null, array('label' => 'Explicación de la condición', 'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\AsociacionRequisito'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_asociacionrequisitoype';
     }
 }

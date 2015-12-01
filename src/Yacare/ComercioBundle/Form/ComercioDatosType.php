@@ -20,9 +20,9 @@ class ComercioDatosType extends AbstractType
 
         $builder
             ->add('Nombre', null, array('label' => 'Nombre de fantasía'))
-            ->add('ExpedienteNumero', new \Yacare\AdministracionBundle\Form\Type\ExpedienteType(), array(
+            ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
                 'label' => 'Expediente', 'required' => false))
-            ->add('Apoderado', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+            ->add('Apoderado', 'Yacare\BaseBundle\Form\Type\PersonaType', array(
                 'label' => 'Apoderado',
                 'placeholder' => 'Apoderado',
                 'required' => false));
@@ -31,10 +31,5 @@ class ComercioDatosType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Comercio'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_comerciodatostype';
     }
 }

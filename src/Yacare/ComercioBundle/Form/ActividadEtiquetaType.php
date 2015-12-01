@@ -28,9 +28,4 @@ class ActividadEtiquetaType extends AbstractType
                 'required' => false))
             ;
     }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_actividadetiquetatype';
-    }
 }

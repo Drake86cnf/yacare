@@ -35,9 +35,4 @@ class RequerimientoType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_requerimientotype';
-    }
 }

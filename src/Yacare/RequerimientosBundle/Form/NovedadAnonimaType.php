@@ -20,7 +20,7 @@ class NovedadAnonimaType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Descripción',
                 'required' => true))
-            ->add('Requerimiento', 'entity_hidden', array(
+            ->add('Requerimiento', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 
@@ -28,10 +28,5 @@ class NovedadAnonimaType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Yacare\RequerimientosBundle\Entity\Novedad'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_requerimientosbundle_novedadanonimatype';
     }
 }

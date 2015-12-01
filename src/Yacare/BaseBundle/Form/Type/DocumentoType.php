@@ -15,7 +15,7 @@ class DocumentoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DocumentoTipo', 'choice', array(
+            ->add('DocumentoTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
                     '1' => 'DNI',
                     '2' => 'LE',
@@ -34,10 +34,5 @@ class DocumentoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
-    }
-
-    public function getName()
-    {
-        return 'form_horizontal';
     }
 }

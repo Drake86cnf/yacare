@@ -25,11 +25,6 @@ class PersonaType extends AbstractType
 
     public function getParent()
     {
-        return 'tapir_ajax_entity';
-    }
-
-    public function getName()
-    {
-        return 'yacare_persona';
+        return 'Tapir\FormBundle\Form\Type\AjaxEntityType';
     }
 }

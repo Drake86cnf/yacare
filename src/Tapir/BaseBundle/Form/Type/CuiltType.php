@@ -21,11 +21,6 @@ class CuiltType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'cuilt';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

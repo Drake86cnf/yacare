@@ -10,7 +10,7 @@ class EstadoRequisitoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Estado', new \Tapir\BaseBundle\Form\Type\ButtonGroupType(), array(
+            ->add('Estado', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Estado', 
                 'required' => true,
                 'attr' => array('vertical' => true, 'class' => 'tapir-input-320'),
@@ -28,10 +28,5 @@ class EstadoRequisitoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\EstadoRequisito'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_estadorequisitoype';
     }
 }

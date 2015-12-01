@@ -25,11 +25,6 @@ class ImporteType extends \Tapir\TemplateBundle\Form\Type\IntegerType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'importe';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

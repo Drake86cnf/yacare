@@ -100,11 +100,6 @@ class AjaxEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
-    }
-
-    public function getName()
-    {
-        return 'tapir_ajax_entity';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 }

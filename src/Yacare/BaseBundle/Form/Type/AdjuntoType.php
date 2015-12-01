@@ -29,9 +29,4 @@ class AdjuntoType extends AbstractType
             'mapped' => false, 
             'intention' => 'file'));
     }
-
-    public function getName()
-    {
-        return 'yacare_basebundle_adjuntotype';
-    }
 }

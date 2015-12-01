@@ -23,11 +23,6 @@ class GeneroType extends ButtonGroupType
 
     public function getParent()
     {
-        return 'buttongroup';
-    }
-
-    public function getName()
-    {
-        return 'genero';
+        return 'Tapir\BaseBundle\Form\Type\ButtonGroupType';
     }
 }

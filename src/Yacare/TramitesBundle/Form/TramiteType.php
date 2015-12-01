@@ -10,7 +10,7 @@ class TramiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Titular', new \Yacare\BaseBundle\Form\Type\PersonaType(), array(
+            ->add('Titular', 'Yacare\BaseBundle\Form\Type\PersonaType', array(
                 'label' => 'Titular',
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
@@ -20,10 +20,5 @@ class TramiteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\Tramite'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_tramitetype';
     }
 }

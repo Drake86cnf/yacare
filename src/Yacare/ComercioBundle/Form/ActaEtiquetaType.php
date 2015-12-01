@@ -25,9 +25,4 @@ class ActaEtiquetaType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta'));
     }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_actaetiquetatype';
-    }
 }

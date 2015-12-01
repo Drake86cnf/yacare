@@ -25,9 +25,4 @@ class TipoFaltaType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ObrasParticularesBundle\Entity\TipoFalta'));
     }
-
-    public function getName()
-    {
-        return 'yacare_obrasparticularesbundle_tipofaltatype';
-    }
 }

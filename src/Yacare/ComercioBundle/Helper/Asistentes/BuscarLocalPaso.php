@@ -12,6 +12,6 @@ class BuscarLocalPaso extends Paso
 {
     public function getFormType()
     {
-        return new \Yacare\ComercioBundle\Form\Asistentes\BuscarLocalType();
+        return 'Yacare\ComercioBundle\Form\Asistentes\BuscarLocalType';
     }
 }

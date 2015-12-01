@@ -15,7 +15,7 @@ class EditarLocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Local', new \Yacare\ComercioBundle\Form\LocalType(), array(
+            ->add('Local', 'Yacare\ComercioBundle\Form\LocalType', array(
                 'label' => 'Local',
                 'property_path' => 'Comercio.Local'
             ))
@@ -28,10 +28,5 @@ class EditarLocalType extends AbstractType
             'data_class' => 'Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial',
             'validation_groups' => false
         ));
-    }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_asistentes_editarlocaltype';
     }
 }

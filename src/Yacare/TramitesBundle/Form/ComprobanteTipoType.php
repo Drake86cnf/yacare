@@ -13,7 +13,7 @@ class ComprobanteTipoType extends AbstractType
             ->add('Codigo', null, array('label' => 'Codigo'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('Clase', null, array('label' => 'Clase'))
-            ->add('PeriodoValidez', 'choice', array(
+            ->add('PeriodoValidez', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Período de validez', 
                 'required' => false, 
                 'placeholder' => 'Sin vencimiento', 
@@ -50,10 +50,5 @@ class ComprobanteTipoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\TramitesBundle\Entity\ComprobanteTipo'));
-    }
-
-    public function getName()
-    {
-        return 'yacare_tramitesbundle_comprobantetipotype';
     }
 }

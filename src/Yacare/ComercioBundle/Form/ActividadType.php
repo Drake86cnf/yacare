@@ -34,9 +34,4 @@ class ActividadType extends AbstractType
     {
         $resolver->setDefaults(array('data_class' => 'Yacare\ComercioBundle\Entity\Actividad'));
     }
-
-    public function getName()
-    {
-        return 'yacare_comerciobundle_categoriatype';
-    }
 }

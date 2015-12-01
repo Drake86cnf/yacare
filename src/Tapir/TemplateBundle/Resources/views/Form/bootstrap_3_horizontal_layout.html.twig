@@ -5,7 +5,7 @@
         <select data-toggle="entity-select" {{ block('widget_attributes') }} style="min-width: 480px; width: 100%" >
         </select>
     {% endspaceless %}
-{% endblock %}
+{% endblock tapir_ajax_entity_widget %}
 
 {% block choice_widget %}{% spaceless %}
 	{% set attr = attr|merge({ 'data-toggle': 'select' }) %}
@@ -53,21 +53,21 @@
 	       </div>
 	   {% endfor %}
 </div>
-{% endblock %}
+{% endblock form_horizontal_widget %}
 
 
-{% block buttongroup_widget %}
+{% block button_group_widget %}
     {% spaceless %}
         <div class="btn-group {% if attr['vertical'] is defined and attr['vertical'] %} btn-group-vertical{% endif %}"
         	role="group" id="{{ id }}_Group">
             {% set options = choices -%}
-            {{- block('buttongroup_widget_options') -}}
+            {{- block('button_group_widget_options') -}}
         </div>
         <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
     {% endspaceless %}
-{% endblock %}
+{% endblock button_group_widget %}
 
-{% block buttongroup_widget_options -%}
+{% block button_group_widget_options -%}
     {% for group_label, choice in options %}
         <button type="button" onclick="$('#{{ id }}').val('{{ choice.value }}');
         	$('#{{ id }}_Group :button').removeClass('active'); $('#{{ id }}_Group i').hide();
@@ -85,7 +85,7 @@
             <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
             {{ choice.label }}</button>
     {% endfor %}
-{%- endblock buttongroup_widget_options %}
+{%- endblock button_group_widget_options %}
 
 {% block entity_id_widget %}
 <div class="input-group">
@@ -141,13 +141,13 @@
 	id="{{ id }}_Desplegable">
 Cargando...
 </div>
-{% endblock %}
+{% endblock entity_id_widget %}
 
 {% block adjuntos_widget %}
     {% set aid = 'Adjuntos' %}
     {% set full_name = full_name ~ '[]' %}
     <input {{ block('widget_attributes') }} type="file"	multiple="multiple"></input>
-{% endblock %}
+{% endblock adjuntos_widget %}
 
 {#
 {%- block form_widget_compound -%}
