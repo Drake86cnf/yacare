@@ -1,0 +1,49 @@
+{% extends 'TapirAbmBundle::inicio.html.twig' %}
+
+{% block pagina_titulo %}Requerimientos{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid"><div class="row">
+
+{% if res.Recientes['RequerimientosUsuario']|length > 0 %}
+<div class="col-sm-4">
+    <h2><i class="fa fa-fw fa-ticket text-muted"></i> Mis requerimientos</h2>
+    <ul class="inicio-mini-menu">
+    	<li><p>Actividad reciente en requerimientos que yo inicié:</p></li>
+    	{% for requerimiento in res.Recientes['RequerimientosUsuario'] %}
+    		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: requerimiento.id })) }}" data-toggle="ajax-link">{{ requerimiento }}</a></li>
+    	{% endfor %}
+
+    	<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link">
+    		Todos mis requerimientos</a></li>
+    </ul>
+</div>
+{% endif %}
+
+{% if res.Recientes['RequerimientosEncargado']|length > 0 %}
+<div class="col-sm-4">
+    <h2><i class="fa fa-fw fa-ticket text-muted"></i> Requerimientos asignados</h2>
+    <ul class="inicio-mini-menu">
+    	<li><p>Actividad reciente en requerimientos que me asignaron y de los cuales estoy encargado:</p></li>
+    	{% for requerimiento in res.Recientes['RequerimientosEncargado'] %}
+    		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: requerimiento.id })) }}" data-toggle="ajax-link">{{ requerimiento }}</a></li>
+    	{% endfor %}
+    	
+    	<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link">
+    		Todos los requerimientos que tengo asignados</a></li>
+    </ul>
+</div>
+{% endif %}
+
+{% if is_expr_granted("hasAnyRole('ROLE_REQUERIMIENTOS_ADMINISTRADOR')") %}
+<div class="col-sm-4">
+    <h2>Administración</h2>
+    <ul class="inicio-mini-menu">
+    	<li class="destacado"><a href="{{ path('yacare_requerimientos_categoria_listar') }}" data-toggle="ajax-link">
+    		Categorías</a></li>
+    </ul>
+</div>
+{% endif %}
+
+</div></div>
+{% endblock pagina_contenido %}

@@ -404,8 +404,8 @@ legend small {
     color: #712E00;
 }
 
-div > .showonhover, button > .showonhover {
-    opacity: 0.0;
+div > .showonhover, span > .showonhover {
+    a-opacity: 0.0;
     display: none;
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
@@ -414,8 +414,8 @@ div > .showonhover, button > .showonhover {
     transition: all 200ms ease-in-out;
 }
 
-div:hover > .showonhover, button:hover > .showonhover {
-    opacity: 1.0 !important;
+div:hover > .showonhover, span:hover > .showonhover {
+    a-opacity: 1.0 !important;
     display: initial;
 }
 
