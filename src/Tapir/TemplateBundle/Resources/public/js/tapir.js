@@ -1,7 +1,30 @@
-	var nombreAplicacion, nombreCliente;
+var nombreAplicacion, nombreCliente;
 
 tapirNombreAplicacion = 'Aplicación sin título';
 tapirNombreCliente = 'Cliente';
+
+String.prototype.toTitleCase = function() {
+	var i, j, str, lowers, uppers;
+	str = this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
+	
+	// Certain minor words should be left lowercase unless 
+	// they are the first or last words in the string
+	lowers = ['Y', 'De', 'Del', 'A', 'Al', 'Con', 'Sin', 'En', 'E', 'O', 'U', 'Por', 'Para'];
+	for (i = 0, j = lowers.length; i < j; i++) {
+		str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), function(txt) { return txt.toLowerCase(); });
+	}
+	
+	// Certain words such as initialisms or acronyms should be left uppercase
+	uppers = ['Dvd', 'Ara', 'Agp', 'Ypf', 'Ycf', 'Ipv', 'Cap', 'Ii', 'Iii', 'Iv', 'Vi', 'Vii', 'Viii', 'Ix', 'Xi',
+	    'Xii', 'Xiii', 'Xiv', 'Xv', 'Xvi', 'Sa', 'Srl', 'Sh', 'Sdh', 'S.a', 'S.r.l', 'S.h', 'S.d.h'];
+	for (i = 0, j = uppers.length; i < j; i++) {
+		str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), uppers[i].toUpperCase());
+	}
+	
+	return str;
+}
 
 function tapirIniciar(nombreAplicacion, nombreCliente) {
 	tapirNombreAplicacion = nombreAplicacion;
@@ -363,7 +386,11 @@ function MejorarElementos(destino) {
 	});
 	// Campos de texto de mayúsculas y minúsculas obligatorias
 	$(desintoFinal + '.tapir-input-maymin').blur(function(e) {
-		var currVal = $(this).val().replace(/  /g, ' ').toTitleCase();
+		var currVal = $(this).val().replace(/  /g, ' ');
+		if(currVal == currVal.toLowerCase() || currVal == currVal.toUpperCase()) {
+			// Sólo cambios a TitleCase si escribió todo en mayúsculas o todo en minúsculas
+			currVal = currVal.toTitleCase();
+		}
 		if(currVal != $(this).val()) {
 			$(this).val(currVal);
 		}
@@ -413,31 +440,6 @@ function MejorarElementos(destino) {
 	}, 100);
 }
 
-
-String.prototype.toTitleCase = function() {
-	  var i, j, str, lowers, uppers;
-	  str = this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
-	    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-	  });
-
-	  // Certain minor words should be left lowercase unless 
-	  // they are the first or last words in the string
-	  lowers = ['Y', 'De', 'Del', 'A', 'Al', 'Con', 'Sin', 'En', 'E', 'O', 'U', 'Por', 'Para'];
-	  for (i = 0, j = lowers.length; i < j; i++)
-	    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), 
-	      function(txt) {
-	        return txt.toLowerCase();
-	      });
-
-	  // Certain words such as initialisms or acronyms should be left uppercase
-	  uppers = ['Dvd', 'Ara', 'Agp', 'Ypf', 'Ycf', 'Ipv', 'Cap', 'Ii', 'Iii', 'Iv', 'Vi', 'Vii', 'Viii', 'Ix', 'Xi',
-	            'Xii', 'Xiii', 'Xiv', 'Xv', 'Xvi', 'Sa', 'Srl', 'Sh', 'Sdh', 'S.a', 'S.r.l', 'S.h', 'S.d.h'];
-	  for (i = 0, j = uppers.length; i < j; i++)
-	    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), 
-	      uppers[i].toUpperCase());
-
-	  return str;
-	}
 
 /**
  * Prepara un elemento <select> para utilizar Select2 con AJAX.
