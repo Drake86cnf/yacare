@@ -12,7 +12,7 @@
 {% endblock pagina_inicio %}
 
 {% block pagina_acciones %}
-<button
+<button type="button"
 	{% if tapir_modal is not defined or tapir_modal == 0 %}
 		onclick="return tapirAtras();"
 	{% else %}
