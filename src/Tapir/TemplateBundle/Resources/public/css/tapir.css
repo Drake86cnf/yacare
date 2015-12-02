@@ -108,6 +108,9 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
         visibility: hidden;
         text-decoration: none;
     }
+	h4.small-text {
+	  font-size: 90%;
+	}
 }
 
 a.btn-link {
@@ -120,6 +123,12 @@ a.btn-link:hover, a:hover {
 
 hr {
 	border-color: #D0D0D0 -moz-use-text-color -moz-use-text-color !important;
+}
+
+hr.firma {
+	border-color: none !important;
+	border-bottom: 1px dashed #1C1C1C !important;
+	width: 100%; 
 }
 
 .inplace-edit-control {
@@ -428,12 +437,15 @@ div:hover > .showonhover, span:hover > .showonhover {
     display: initial;
 }
 
-h2.row-header {
-    color: #539BDA;
+h2.row-header, h3.row-header {
     border-bottom: 1px solid #d0d0d0;
     padding-bottom: 4px;
 	margin-top: 8xp;
 	margin-bottom: 8xp;
+}
+
+h2.row-header {
+    color: #539BDA;
 }
 
 @media (min-width: 768px) {
