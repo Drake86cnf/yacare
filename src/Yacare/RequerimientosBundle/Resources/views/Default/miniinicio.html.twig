@@ -3,13 +3,27 @@
 {% block pagina_contenido %}
 <h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Requerimientos</h2>
 <ul class="inicio-mini-menu">
+	{% if is_expr_granted("hasAnyRole('ROLE_REQUERIMIENTOS_ADMINISTRADOR')") and res.Recientes['RequerimientosSinEncargado'] %}
+		<li><p class="text-danger">Los siguientes requerimientos deben ser atendidos inmediatamente:</p></li>
+		{% for req in res.Recientes['RequerimientosSinEncargado'] %}
+    		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
+    	{% endfor %}
+    	<li><p class="text-justified small">Usted, como administrador de requerimientos debería asignar un encargado a cada uno de ellos o puede
+    		atenderlos personalmente.</p></li>
+    	<li class="divider" role="separator"></li>
+    	
+    	{% if res.Recientes['RequerimientosUsuario'] or res.Recientes['RequerimientosEncargado'] %}
+    		<li class="destacado"><p>Otros requerimientos:</p></li>
+    	{% endif %}
+	{% endif %}
+
 	{% for req in res.Recientes['RequerimientosUsuario'] %}
 		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
 	{% endfor %}
 	{% for req in res.Recientes['RequerimientosEncargado'] %}
 		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
 	{% endfor %}
-	<li class="divider"></li>
+	<li class="divider" role="separator"></li>
 	<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link">
 		Todos los requerimientos</a></li>
 </ul>

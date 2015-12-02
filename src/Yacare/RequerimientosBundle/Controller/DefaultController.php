@@ -44,15 +44,21 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
     
     public function ObtenerContadoresYRecientes($resultado) {
         $em = $this->getEm();
+        
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
+        if($this->get('security.authorization_checker')->isGranted('ROLE_REQUERIMIENTOS_ADMINISTRADOR')) {
+            $resultado->Recientes['RequerimientosSinEncargado'] = $em->createQuery('SELECT r FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Encargado IS NULL AND r.Estado < 50')
+                ->setMaxResults(10)
+                ->getResult();
+        }
         
         //$resultado->Contadores['Requerimiento'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Estado<50')->getSingleScalarResult();
         
-        $resultado->Recientes['RequerimientosUsuario'] = $em->createQuery('SELECT r FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Encargado=:encargado AND r.Estado<50')
+        $resultado->Recientes['RequerimientosUsuario'] = $em->createQuery('SELECT r FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Encargado = :encargado AND r.Estado < 50')
             ->setParameter('encargado', $UsuarioConectado)
             ->setMaxResults(10)
             ->getResult();
-        $resultado->Recientes['RequerimientosEncargado'] = $em->createQuery('SELECT r FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Usuario=:usuario AND r.Estado<50')
+        $resultado->Recientes['RequerimientosEncargado'] = $em->createQuery('SELECT r FROM Yacare\RequerimientosBundle\Entity\Requerimiento r WHERE r.Usuario = :usuario AND r.Estado < 50')
             ->setParameter('usuario', $UsuarioConectado)
             ->setMaxResults(10)
             ->getResult();
