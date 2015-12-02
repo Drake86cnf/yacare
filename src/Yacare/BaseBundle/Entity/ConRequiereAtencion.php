@@ -17,7 +17,16 @@ trait ConRequiereAtencion
      * 
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $RequiereAtencion = false;
+    protected $RequiereAtencion = false;
+    
+    /**
+     * Indica la razón de la solicitud de atención.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $RequiereAtencionObs = null;
 
     /**
      * @ignore
@@ -35,4 +44,22 @@ trait ConRequiereAtencion
         $this->RequiereAtencion = $RequiereAtencion;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getRequiereAtencionObs()
+    {
+        return $this->RequiereAtencionObs;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setRequiereAtencionObs($RequiereAtencionObs)
+    {
+        $this->RequiereAtencionObs = $RequiereAtencionObs;
+        return $this;
+    }
+
  }
