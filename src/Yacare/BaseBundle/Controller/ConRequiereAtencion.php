@@ -25,9 +25,9 @@ trait ConRequiereAtencion
         $entity = $this->ObtenerEntidadPorId($id);
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
-        $FormEditarBuilder->add('RequiereAtencion', 'hidden', array(
+        /* $FormEditarBuilder->add('RequiereAtencion', 'hidden', array(
             'label' => null,
-            'required' => true));
+            'required' => true)); */
         $FormEditarBuilder->add('RequiereAtencionObs', null, array(
             'label' => 'Razón',
             'required' => true));
@@ -35,7 +35,12 @@ trait ConRequiereAtencion
         $FormEditar->handleRequest($request);
 
         if ($FormEditar->isValid()) {
-            // Es archivable
+            // Invertir el estado y guardar.
+            if($entity->getRequiereAtencion()) {
+                $entity->setRequiereAtencion(0);
+            } else{
+                $entity->setRequiereAtencion(1);
+            }
             $em->persist($entity);
             $em->flush();
             return $this->guardarActionAfterSuccess($request, $entity);
