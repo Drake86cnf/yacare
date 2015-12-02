@@ -256,6 +256,17 @@ class Actividad implements Tree\NodeInterface
         return $res;
     }
 
+    public function getNivelRiesgoValor(){
+        switch ($this->getNivelRiesgo()) {
+            case 0: 
+                return 'Bajo';    
+            case 1:
+                return 'Medio';
+            case 2:
+                return 'Alto';
+        }
+    }
+    
     /**
      * Devuelve 'Clamae2014'.
      * 
