@@ -30,20 +30,6 @@ trait ConRequiereAtencion
             $em->flush();
         }
         
-        $accion = $this->ObtenerVariable($request, 'accion');
-        if(!$accion) {
-            $accion = 'listar';
-        }
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase($accion), $this->ArrastrarVariables($request, array('id' => $id), false)));
-    }
-
-    /**
-     * Este método se dispara después de marcar o desmarcar una entidad.
-     */
-    public function afterRequiereAtencion($request, $entity, $requierAtencion = false)
-    {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
+        return $this->guardarActionAfterSuccess($request, $entity);
     }
 }
