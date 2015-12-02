@@ -23,10 +23,19 @@
 
 {% block pagina_scripts %}
 <script>
+	var form_RequiereAtencionObs_changed = false;
+    $(function() {
+    	$('#form_RequiereAtencionObs').change(function() {
+    		form_RequiereAtencionObs_changed = true;
+    	});
+    });
+
 	function RequiereAtencion(valor) {
 		if($('#form_RequiereAtencion').val() != valor) {
     		$('#form_RequiereAtencion').val(valor);
-    		$('#form_RequiereAtencionObs').val('');
+    		if(form_RequiereAtencionObs_changed == false) {
+    			$('#form_RequiereAtencionObs').val('');
+    		}
     		if(valor) {
     			$('#form_RequiereAtencion_Boton0').removeClass('active btn-success');	
     			$('#form_RequiereAtencion_Boton1').addClass('active btn-danger');
