@@ -25,9 +25,9 @@
 			    {% elseif entity.Estado == 100 %}<span class="label label-success">HA</span>
 			    {% endif %}
 			</td>
-			<td>{% if entity.RequiereAtencion %}
-					<span class="label label-danger" title="¡Atención!"><i class="fa fa-fw fa-warning"></i></span>
-                {% endif %}{{ entity.Nombre }}</td>
+			<td>{{ entity.Nombre }}{% if entity.RequiereAtencion %}
+					<i class="fa fa-fw fa-warning text-danger"></i>
+                {% endif %}</td>
 			<td class="hidden-xs">
 			    {% if entity.Local %}
                     {{ entity.Domicilio }}
