@@ -16,7 +16,10 @@ class ActaObraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Numero', null, array('label' => 'Numero', 'required' => true))
+            ->add('Numero', null, array(
+                'label' => 'Número',
+                'attr' => array('class' => 'tapir-input-160'),
+                'required' => true))
             ->add('SubTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el tipo de acta',
                 'choices' => array(
@@ -39,17 +42,17 @@ class ActaObraType extends AbstractType
             ->add('TipoFaltas', 'entity', array(
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Tipofalta',
                 'multiple' => true,
-                'label' => 'El tipo de falta',
-                'placeholder' => 'Seleccione la falta',
+                'label' => 'Faltas',
+                'placeholder' => 'Seleccione las faltas',
                 'required' => true))
             ->add('TipoConstruccion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-                'placeholder' => 'Seleccione el tipo de la obra',
                 'choices' => array(
+                    'Mixta' => 'Mixta',
                     'Húmeda' => 'Húmeda',
                     'Seca' => 'Seca',
-                    'Mixta' => 'Mixta',
-                    'Industrializada en chapa y/o madera' => 'Industrializada en chapa y/o madera'
+                    'Industrializada de chapa y/o madera' => 'Industrializada de chapa y/o madera'
                 ),
+                'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Tipo de construcción',
                 'required' => true))
             ->add('EstadoAvance', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
@@ -65,6 +68,7 @@ class ActaObraType extends AbstractType
                     30 => 'Estructura de techo',
                     35 => 'Techado'
                 ),
+                'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Estado de la obra',
                 'required' => false))
             // Solución temporal para los tipos de obra Seca.
@@ -77,6 +81,8 @@ class ActaObraType extends AbstractType
                     30 => 'Estructura de techo',
                     35 => 'Techado'
                 ),
+                'attr' => array('class' => 'tapir-input-320'),
+                'mapped' => false,
                 'label' => 'Estado de la obra',
                 'required' => false))
             // Fin solución temporal
