@@ -39,7 +39,10 @@ class ComercioType extends ComercioSimpleType
                     90 => 'Hab., sin actividad',
                     91 => 'Hab. vencida',
                     100 => 'Habilitado')))
-            ->add('Obs', null, array('label' => 'Observaciones'))
+            ->add('Obs', null, array(
+                'label' => 'Observaciones',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ;
     }
 
