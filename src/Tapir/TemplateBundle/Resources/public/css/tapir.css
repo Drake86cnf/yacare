@@ -118,6 +118,10 @@ a.btn-link:hover, a:hover {
     text-decoration: none !important;
 }
 
+hr {
+	border-color: #D0D0D0 -moz-use-text-color -moz-use-text-color !important;
+}
+
 .inplace-edit-control {
     border: none;
     padding: 4px;
