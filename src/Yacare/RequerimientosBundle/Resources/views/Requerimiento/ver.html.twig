@@ -14,7 +14,13 @@
 		  		href="{{ path(res.ObtenerRutaAccion('editarcampo'), res.Arrastre|merge(
 		  		    { 'id': res.Entidad.id, 'nombrecampo': 'Notas' })) }}"> #}
 	  		
+	  		<h3>Descripción</h3>
 	  		<p class="lead">{{ res.Entidad.Notas }}</p>
+	  		
+	  		{% if res.Entidad.Obs %}
+	  			<h3>Observaciones</h3>
+	  			<p>{{ res.Entidad.Obs }}</p>
+	  		{% endif %}
 
 		    <p class="help-block">Creado por {% if res.Entidad.Usuario %}
 			        {{ res.Entidad.Usuario.NombreAmigable }}
@@ -28,10 +34,10 @@
 		
             {% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
             &nbsp;<br />
-            <div class="atext-center">
+            <div class="hidden-print">
                 {% if res.Entidad.Encargado and res.Entidad.Encargado == app.user 
                     and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-                    <a class="btn btn-default" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
+                    <a class="btn btn-default hidden-print" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
                         res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0 })) }}"
                     	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
                 {% elseif res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
@@ -42,13 +48,13 @@
                     {% endif %}
             
                     {% if not res.Entidad.Encargado %}
-                        <a class="btn btn-warning" href="{{ path(res.ObtenerRutaAccion('asignar'), 
+                        <a class="btn btn-warning hidden-print" href="{{ path(res.ObtenerRutaAccion('asignar'), 
                             res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
                         	data-toggle="modal"><i class="fa fa-user"></i> Asignar encargado</a>
                     {% endif %}
                 {% endif %}
-    			{% if not res.Entidad.Encargado and not res.Entidad.Encargado %}
-    				<p class="small">Es preferible asignar una categoría antes de asignar un encargado. Al asignar una
+    			{% if not res.Entidad.Encargado and not res.Entidad.Encargado and not res.Entidad.Categoria %}
+    				<p class="small hidden-print">Es preferible asignar una categoría antes de asignar un encargado. Al asignar una
     					categoría, el sistema puede asignar un encargado automáticamente, siempre que se haya definido
     					un encargado para la categoría seleccionada.</p>
     			{% endif %}
@@ -57,17 +63,21 @@
 		</div>
 		
 		<div class="col-xs-12 col-sm-12 col-md-4 col-separator-left">
-			<div class="col-xs-12 text-value text-primary">{% if res.Entidad.Categoria %}
-                {{ res.Entidad.Categoria }}{% else %}Sin categoría {% endif %}
+			<div class="text-value text-primary">
+			    {% if res.Entidad.Categoria %}
+                    <span class="hidden-md hidden-lg">Categoría: </span> {{ res.Entidad.Categoria }}
+                {% else %}
+                	Sin categoría
+                {% endif %}
                 {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-                  <a class="btn btn-link btn-sm showonhover" data-toggle="modal"
+                  <a class="btn btn-link btn-sm showonhover hidden-print" data-toggle="modal"
                   	href="{{ path(res.ObtenerRutaAccion('modificardato'),
                   	    res.Arrastre|merge({ 'id': res.Entidad.id, 'campo_nombre': 'Categoria' })) }}">
                   	<i class="fa fa-edit"></i> {% if res.Entidad.Categoria %}Cambiar{% else %}Asignar{% endif %}</a>
                 {% endif %}
 			</div>
 
-			<div class="col-xs-12 text-value">{% if res.Entidad.Estado == 0 %}<i class="fa fa-fw fa-asterisk text-danger"></i>
+			<div class="text-value">{% if res.Entidad.Estado == 0 %}<i class="fa fa-fw fa-asterisk text-danger"></i>
                 {% elseif res.Entidad.Estado == 10 %}<i class="fa fa-fw fa-play text-success"></i>
                 {% elseif res.Entidad.Estado == 20 %}<i class="fa fa-fw fa-clock-o text-danger"></i>
                 {% elseif res.Entidad.Estado == 90 %}<i class="fa fa-fw fa-check text-muted"></i>
@@ -78,23 +88,23 @@
 				prioridad {{ res.Entidad.PrioridadNombre }}.</div>
 
             {% if res.Entidad.Encargado %}
-            	<div class="col-xs-12 text-value">El encargado es {{ res.Entidad.Encargado }}.</div>
+            	<div class="text-value">El encargado es {{ res.Entidad.Encargado }}.</div>
             {% else %}
-            	<div class="col-xs-12 text-value"><span class="text-danger"><i class="fa fa-fw fa-warning"></i>
+            	<div class="text-value"><span class="text-danger"><i class="fa fa-fw fa-warning"></i>
             		El requerimiento no tiene un encargado.</span>
             		{% if res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-            			<p class="text-info small">Debe asignar una categoría o un encargado cuanto antes para que la
+            			<p class="text-info small hidden-print">Debe asignar {% if not res.Entidad.Categoria %}una categoría o{% endif %} un encargado cuanto antes para que la
             			solicitud pueda ser atendida o usted -como administrador- puede atender la solicitud
             			personalmente.</p> 
             		{% endif %}
             		</div>
             {% endif %}
             
-            <div class="col-xs-12 text-value small">{% if res.Entidad.Usuario is null %}
+            <div class="text-value small">{% if res.Entidad.Usuario is null %}
             	Esta solicitud puede ser monitoreada de forma anónima desde el sitio web del Municipio, con el número de
             	seguimiento: <a target="_blank" href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ res.Entidad.SeguimientoNumero }}">{{ res.Entidad.SeguimientoNumero }}</a>
             {% else %}
-            <div class="col-xs-12 text-value small">La solicitud no tiene seguimiento desde la web porque fue iniciada
+            <div class="text-value small">La solicitud no tiene seguimiento desde la web porque fue iniciada
             	por un usuario interno.</div>
             {% endif %}</div>
 		</div>
@@ -102,14 +112,13 @@
 	</div>
 </div>
 
-&nbsp;<br />
 
 <h2 class="row-header">Novedades</h2>
 <div class="container-fluid">
 {% if form_novedad is defined and app.user is defined %}
 {{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 
     'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
-    <div class="row">
+    <div class="row hidden-print">
         <div class="col-xs-2 text-center">
         	<i class="fa fa-comment fa-2x text-left text-info"></i>
         	<br />
@@ -154,7 +163,7 @@
         }).change();
     </script>
     {{ form_end(form_novedad) }}
-    <hr />
+    <hr class="hidden-print" />
 {% endif %}
 
 {% if res.Entidad.Novedades|length == 0 %}

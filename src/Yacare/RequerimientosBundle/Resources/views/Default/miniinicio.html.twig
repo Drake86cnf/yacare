@@ -8,8 +8,8 @@
 		{% for req in res.Recientes['RequerimientosSinEncargado'] %}
     		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>
     	{% endfor %}
-    	<li><p class="text-justified small">Usted, como administrador de requerimientos debería asignar un encargado a cada uno de ellos o puede
-    		atenderlos personalmente.</p></li>
+    	<li><p class="text-justified small">Usted, como administrador de requerimientos debería asignar un encargado a
+    		cada uno de ellos o puede atenderlos personalmente.</p></li>
     	<li class="divider" role="separator"></li>
     	
     	{% if res.Recientes['RequerimientosUsuario'] or res.Recientes['RequerimientosEncargado'] %}
