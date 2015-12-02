@@ -27,9 +27,13 @@
     	{{ form_label(res.FormularioEditar.TipoConstruccion) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoConstruccion) }}</div>
 	</div>
-	<div class="row form-group">
+	<div class="row form-group" id="EstadoAvance">
     	{{ form_label(res.FormularioEditar.EstadoAvance) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.EstadoAvance) }}</div>
+	</div>
+	<div class="row form-group" id="EstadoAvance2">
+    	{{ form_label(res.FormularioEditar.EstadoAvance2) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.EstadoAvance2) }}</div>
 	</div>
     <div class="row form-group">
     	{{ form_label(res.FormularioEditar.Profesional) }}
@@ -65,18 +69,21 @@
             	linkMostrar.style.display = 'none';
             }
         }
-	</script>
-	<!-- Prevengo el ingreso de opciones para tipo de obra Seca -->
-	<script>
-        $(function() {
-            $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').change(function() {
-            	if ($('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').val() === 'Seca') {
-					$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').prop('disabled', true);
-                } else {
-					$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').prop('disabled', false)
-                }
-            });
-            $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').trigger('change');
-        });
     </script>
+    <!-- Prevengo el ingreso de opciones para tipo de obra Seca -->
+    <script>
+    $(function() {
+        $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').change(function() {
+            if($('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').val() !== 'Seca') {
+            	$('#EstadoAvance').show();
+                $('#EstadoAvance2').hide();
+                $('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance2').val('');
+            } else {
+        		$('#EstadoAvance').hide;
+            	$('#EstadoAvance2').show;
+            	$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').val('');
+            }
+        }).change();
+	});
+	</script>
 {% endblock pagina_scripts %}

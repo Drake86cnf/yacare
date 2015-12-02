@@ -54,9 +54,20 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      *
      * @var integer
      * 
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $EstadoAvance;
+    
+    /**
+     * Réplica temporal de avance de obra.
+     * 
+     * Para solventar el "contratiempo" al momento que el usuario seleccione un tipo de construcción Seca.
+     *
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $EstadoAvance2;
     
     /**
      * El profesional a cargo de la obra, en caso que corresponda.
@@ -109,8 +120,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
                 return 'Replanteo y fundaciones';
             case 5:
                 return 'Mampostería en planta baja';
-            case 6:
-                return 'Estructura en planta baja';
             case 10:
                 return 'Encadenado superior en planta baja';
             case 15:
@@ -123,6 +132,33 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
                 return 'Estructura de techo';
             case 35:
                 return 'Techado';
+            default:
+                return '';
+        }
+    }
+    
+    // Las siguientes dos funciones van destinadas a solventar "momentaneamente" el dilema de seleccionar estados de obra
+    // para tipo construcción Seca.
+    public function getEstadoAvanceNombre2()
+    {
+        return self::EstadoAvanceNombres2($this->getEstadoAvance2());
+    }
+    
+    public static function EstadoAvanceNombres2($rango)
+    {
+        switch ($rango) {
+            case 6:
+                return 'Estructura en planta baja';
+            case 15:
+                return 'Entrepiso';
+            case 20:
+                return 'Estructura en planta alta';
+            case 30:
+                return 'Estructura de techo';
+            case 35:
+                return 'Techado';
+            default:
+                return '';
         }
     }
 
@@ -260,5 +296,22 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     {
         $this->DescargoDetalle = $DescargoDetalle;
         return $this;
-    }  
+    }
+
+    /**
+     * @ignore
+     */
+    public function getEstadoAvance2()
+    {
+        return $this->EstadoAvance2;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setEstadoAvance2($EstadoAvance2)
+    {
+        $this->EstadoAvance2 = $EstadoAvance2;
+        return $this;
+    }   
 }
