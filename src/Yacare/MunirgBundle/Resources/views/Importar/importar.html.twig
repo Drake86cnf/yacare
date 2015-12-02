@@ -1,6 +1,6 @@
 {% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}Importar {{ importando }}{% endblock %}
+{% block pagina_titulo %}Importar{% endblock %}
 
 {% block pagina_contenido %}
     {% if resultado is defined %}
@@ -37,9 +37,9 @@
     	{% if resultado.HayMasRegistros %}
     	<script>
     		if(window.YacareImportarDetener === true) {
-        		window.location = '{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}';
+        		window.location = '{{ path(res.ObtenerRutaAccion(), res.Arrastre()|merge({ 'iniciar': 0 })) }}';
         	} else {
-    			tapirNavegarA("{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 1, 'desde': resultado.PosicionCursor }))|raw }}");
+    			tapirNavegarA("{{ path(res.ObtenerRutaAccion(), res.Arrastre()|merge({ 'iniciar': 1, 'desde': resultado.PosicionCursor }))|raw }}");
         	}
     	</script>
     	{% endif %}
@@ -54,11 +54,11 @@
 {% block pagina_acciones %}
 {% if resultado is defined %}
     {% if resultado.HayMasRegistros == false %}
-		<a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-danger"><i class="fa fa-stop"></i> Detener</a>
+		<a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(res.ObtenerRutaAccion(url), arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-danger"><i class="fa fa-stop"></i> Detener</a>
 	{% else %}
-		<a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+		<a data-toggle="ajax-link" onclick="window.YacareImportarDetener=true; return false;" href="{{ path(res.ObtenerRutaAccion(url), arrastre|merge({ 'iniciar': 0 })) }}" class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
 	{% endif %}
 {% else %}
-    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_' ~ url, arrastre|merge({ 'iniciar': 1 })) }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar</a>
+    <a data-toggle="ajax-link" href="{{ path(('yacare_comercio_actividad_listar'), res.Arrastre|merge({ 'iniciar': 1 })) }}" class="btn btn-success"><i class="fa fa-play"></i> Iniciar</a>
 {% endif %}
 {% endblock %}
