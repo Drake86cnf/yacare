@@ -10,7 +10,10 @@
     <ul class="inicio-mini-menu">
     	<li class="destacado"><p>Actividad reciente en comercios</p></li>
     	{% for comercio in res.Recientes['Comercio'] %}
-    		<li><a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ id: comercio.id })) }}" data-toggle="ajax-link">{{ comercio }}</a></li>
+    		<li><a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ id: comercio.id })) }}"
+    			data-toggle="ajax-link">{{ comercio }} {% if comercio.RequiereAtencion %}
+					<i class="fa fa-fw fa-warning text-danger"></i>
+                {% endif %}</a></li>
     	{% endfor %}
 
     	<li class="destacado"><a href="{{ path('yacare_comercio_comercio_listar') }}" data-toggle="ajax-link">
@@ -28,7 +31,7 @@
     <ul class="inicio-mini-menu">
     	<li class="destacado"><p>Actividad reciente en locales</p></li>
     	{% for local in res.Recientes['Local'] %}
-    		<li><a href="{{ path('yacare_comercio_local_editar', res.Arrastre|merge({ id: local.id })) }}" data-toggle="ajax-link">{{ local }}</a></li>
+    		<li><a href="{{ path('yacare_comercio_local_ver', res.Arrastre|merge({ id: local.id })) }}" data-toggle="ajax-link">{{ local }}</a></li>
     	{% endfor %}
     
     	<li class="destacado"><a href="{{ path('yacare_comercio_local_listar') }}" data-toggle="ajax-link">

@@ -1,0 +1,78 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+{% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as my %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{% if res.Entidad.Partida %}
+			    {% if res.Entidad.Partida.Domicilio %}
+			        {{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
+    			{% else %}
+    				{{ bs.grid_label_text('Domicilio', 'n/a') }}
+    			{% endif %}
+			    {{ bs.grid_label_text('Titular', res.Entidad.Partida.Titular) }}
+			{% endif %}
+			
+			{% if res.Entidad.VeredaMunicipal > 0 %}
+                <span class="label label-info label-lg">Vereda municipal</span>
+            {% endif %}
+            {% if res.Entidad.Canaletas > 0 %}
+                <span class="label label-info label-lg">Canaletas</span>
+            {% endif %}
+            {% if res.Entidad.CestoBasura > 0 %}
+                <span class="label label-info label-lg">Cesto de basura</span>
+            {% endif %}
+            {% if res.Entidad.AnchoSalida > 0 %}
+                <span class="label label-info label-lg">Salida de emergencia ({{ res.Entidad.AnchoSalida * 90}} cm)</span>
+            {% endif %}
+		</div>
+		<div class="col-sm-4 col-xs-12 col-separator-left">
+			{{ bs.grid_label_text66('Tipo', res.Entidad.Tipo) }}
+			{{ bs.grid_label_text66('Superficie', res.Entidad.Superficie ~ ' m²') }}
+			{{ bs.grid_label_text66('Depósito', res.Entidad.SuperficieDeposito ~ ' m²') }}
+		</div>
+		
+		{% if res.Entidad.Obs %}
+		<div class="col-sm-12">
+			<h2 class="row-header">Observaciones</h2>
+			<p>{{ res.Entidad.Obs }}</p>
+		</div>
+		{% endif %}
+	</div>
+
+<h2 class="row-header">Comercios</h2>
+<p>Los siguientes comercios tienen o tuvieron su actividad comercial en este local:</p>
+<table class="table table-reponsive table-hoverselect">
+	<tbody>
+		{% for entidad in res.Entidad.Comercios %}
+		<tr data-toggle="ajax-link" href="{{ path('yacare_comercio_comercio_ver', { 'id': entidad.Id }) }}">
+			<td>{{ entidad }}</td>
+			<td>{{ entidad.EstadoNombre }}</td>
+			<td>{{ entidad.ExpedienteNumero }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if res.Entidad.Comercios|length == 0 %}
+	<p>No hay comercios en este local.</p>
+{% endif %}
+
+</div>
+{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
+	<div class="pull-right">
+    <a data-toggle="ajax-link" class="btn btn-default"
+    	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
+    	<i class="fa fa-edit"></i> Editar</a>
+	</div>
+{% endif %}
+{% endblock %}
