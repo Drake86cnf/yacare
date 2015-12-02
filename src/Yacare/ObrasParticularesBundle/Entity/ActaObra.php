@@ -47,27 +47,16 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * 
      * @ORM\Column(type="string", nullable=false)
      */
-    private $TipoConstruccion;
+    private $TipoConstruccion = '';
     
     /**
      * El estado de avance de la obra.
      *
      * @var integer
      * 
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private $EstadoAvance;
-    
-    /**
-     * Réplica temporal de avance de obra.
-     * 
-     * Para solventar el "contratiempo" al momento que el usuario seleccione un tipo de construcción Seca.
-     *
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $EstadoAvance2;
+    private $EstadoAvance = 0;
     
     /**
      * El profesional a cargo de la obra, en caso que corresponda.
@@ -297,21 +286,4 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
         $this->DescargoDetalle = $DescargoDetalle;
         return $this;
     }
-
-    /**
-     * @ignore
-     */
-    public function getEstadoAvance2()
-    {
-        return $this->EstadoAvance2;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setEstadoAvance2($EstadoAvance2)
-    {
-        $this->EstadoAvance2 = $EstadoAvance2;
-        return $this;
-    }   
 }

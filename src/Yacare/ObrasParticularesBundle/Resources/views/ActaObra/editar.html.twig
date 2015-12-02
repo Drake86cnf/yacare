@@ -75,15 +75,17 @@
     $(function() {
         $('#acta_obra_TipoConstruccion').change(function() {
             if($('#acta_obra_TipoConstruccion').val() === 'Seca') {
-            	$('#EstadoAvance').hide;
-            	$('#EstadoAvance2').show;
-            	$('#acta_obra_EstadoAvance').val('');            	
+            	$('#EstadoAvance').hide();
+            	$('#EstadoAvance2').show();
             } else {
             	$('#EstadoAvance').show();
                 $('#EstadoAvance2').hide();
-                $('#acta_obra_EstadoAvance2').val('');
             }
         }).change();
+
+        $('#acta_obra_EstadoAvance2').change(function() {
+        	$('#acta_obra_EstadoAvance').val($('#acta_obra_EstadoAvance2').val()).change();
+        });
 	});
 	</script>
 {% endblock pagina_scripts %}
