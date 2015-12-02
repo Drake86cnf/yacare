@@ -22,6 +22,22 @@ class Local
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
+    public function __construct()
+    {
+        $this->Comercios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Los comercios que usan o usaron este local.
+     *
+     * @var Comercio
+     *
+     * @ORM\OneToMany(targetEntity="Comercio", mappedBy="Local")
+     *
+     * @JMS\Serializer\Annotation\Exclude
+     */
+    protected $Comercios;
+    
     /**
      * El tipo de local (local, oficina, depósito, etc.).
      *
@@ -327,6 +343,22 @@ class Local
 		$this->EnParqueIndustrial = $EnParqueIndustrial;
 		return $this;
 	}
-	
+
+    /**
+     * @ignore
+     */
+    public function getComercios()
+    {
+        return $this->Comercios;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComercios(Comercio $Comercios)
+    {
+        $this->Comercios = $Comercios;
+        return $this;
+    }
 
 }

@@ -39,7 +39,10 @@ class LocalType extends AbstractType
                 'required' => false,
                 'attr' => array('help' => 'Indicar cuántos metros cuadrados de la superficie total están dedicados a depósito.')
             ))
-            ->add('Obs', null, array('label' => 'Observaciones'))
+            ->add('Obs', null, array(
+                'label' => 'Observaciones',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('CestoBasura', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Cesto de basura',
                 'required' => false,

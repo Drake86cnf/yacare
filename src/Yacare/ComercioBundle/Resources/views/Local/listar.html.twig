@@ -15,7 +15,7 @@
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}">
+			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
 			<td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
 			<td class="hidden-xs">{{ entity.Tipo }}</td>
 			<td>{{ entity.Superficie }} m²</td>
