@@ -23,6 +23,15 @@ class ActividadType extends AbstractType
                     'help' => 'No es necesario escribir los guiones. 
                         Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
             ->add('Nombre',null, array('label' => 'Nombre'))
+            ->add('NivelRiesgo','Tapir\BaseBundle\Form\Type\ButtonGroupType',array(
+                'label'=>'Nivel de Riego',
+                'required' => true,
+                'disabled'=>true,
+                'choices' => array(
+                     0  => 'Bajo',
+                     1  => 'Medio',
+                     2  => 'Alto',
+            )))
             ->add('Etiquetas', null, array(
                 'label' => 'Etiquetas',
                 'multiple'=> true))
