@@ -23,7 +23,7 @@ use Yacare\MunirgBundle\Helper\Importador\ImportadorActividades;
 class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
 {
     use \Yacare\MunirgBundle\Helper\Importador\ConConexionAOracle;
-    
+
     /**
      * @Route("partidas/")
      * @Template("YacareMunirgBundle:Importar:importar.html.twig")
@@ -31,29 +31,25 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
     public function importarPartidasAction(Request $request)
     {
         $iniciar = (int) ($request->query->get('iniciar'));
-        if($iniciar) {
+        if ($iniciar) {
             $desde = (int) ($request->query->get('desde'));
             $cantidad = 100;
             
             $importador = new ImportadorPartidas($this->container, $this->getDoctrine()->getManager());
             $importador->Inicializar();
             $resultado = $importador->Importar($desde, $cantidad);
-           
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'partidas',
-                'url' => 'importarpartidas',
-                'resultado' => $resultado,
-                'cantidad' => $cantidad
-                ));
+            
+            return $this->ArrastrarVariables($request, 
+                array(
+                    'importando' => 'partidas', 
+                    'url' => 'importarpartidas', 
+                    'resultado' => $resultado, 
+                    'cantidad' => $cantidad));
         } else {
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'partidas',
-                'url' => 'importarpartidas'
-            ));
+            return $this->ArrastrarVariables($request, array('importando' => 'partidas', 'url' => 'importarpartidas'));
         }
     }
-    
-    
+
     /**
      * @Route("calles/")
      * @Template("YacareMunirgBundle:Importar:importar.html.twig")
@@ -61,58 +57,51 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
     public function importarCallesAction(Request $request)
     {
         $iniciar = (int) ($request->query->get('iniciar'));
-        if($iniciar) {
+        if ($iniciar) {
             $desde = (int) ($request->query->get('desde'));
             $cantidad = 100;
-    
+            
             $importador = new ImportadorCalles($this->container, $this->getDoctrine()->getManager());
             $importador->Inicializar();
             $resultado = $importador->Importar($desde, $cantidad);
-             
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'calles',
-                'cantidad' => $cantidad,
-                'url' => 'importarcalles',
-                'resultado' => $resultado
-            ));
+            
+            return $this->ArrastrarVariables($request, 
+                array(
+                    'importando' => 'calles', 
+                    'cantidad' => $cantidad, 
+                    'url' => 'importarcalles', 
+                    'resultado' => $resultado));
         } else {
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'calles',
-                'url' => 'importarcalles'
-            ));
+            return $this->ArrastrarVariables($request, array('importando' => 'calles', 'url' => 'importarcalles'));
         }
     }
-    
-    
+
     /**
      * @Route("actividades/")
      * @Template("YacareMunirgBundle:Importar:importar.html.twig")
      */
     public function importarActividadesAction(Request $request)
     {
-    $iniciar = (int) ($request->query->get('iniciar'));
-        if($iniciar) {
+        $iniciar = (int) ($request->query->get('iniciar'));
+        if ($iniciar) {
             $desde = (int) ($request->query->get('desde'));
             $cantidad = 100;
             
             $importador = new ImportadorActividades($this->container, $this->getDoctrine()->getManager());
             $importador->Inicializar();
             $resultado = $importador->Importar($desde, $cantidad);
-           
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'actividades',
-                'url' => 'importaractividades',
-                'resultado' => $resultado,
-                'cantidad' => $cantidad
-                ));
+            
+            return $this->ArrastrarVariables($request, 
+                array(
+                    'importando' => 'actividades', 
+                    'url' => 'importaractividades', 
+                    'resultado' => $resultado, 
+                    'cantidad' => $cantidad));
         } else {
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'actividades',
-                'url' => 'importaractividades'
-            ));
+            return $this->ArrastrarVariables($request, 
+                array('importando' => 'actividades', 'url' => 'importaractividades'));
         }
     }
-    
 
     /**
      * @Route("personas/")
@@ -121,28 +110,24 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
     public function importarPersonasAction(Request $request)
     {
         $iniciar = (int) ($request->query->get('iniciar'));
-        if($iniciar) {
+        if ($iniciar) {
             $desde = (int) ($request->query->get('desde'));
             $cantidad = 100;
             
             $importador = new ImportadorPersonas($this->container, $this->getDoctrine()->getManager());
             $importador->Inicializar();
             $resultado = $importador->Importar($desde, $cantidad);
-           
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'personas',
-                'url' => 'importarpersonas',
-                'resultado' => $resultado,
-                'cantidad' => $cantidad
-                ));
+            
+            return $this->ArrastrarVariables($request, 
+                array(
+                    'importando' => 'personas', 
+                    'url' => 'importarpersonas', 
+                    'resultado' => $resultado, 
+                    'cantidad' => $cantidad));
         } else {
-            return $this->ArrastrarVariables($request, array(
-                'importando' => 'personas',
-                'url' => 'importarpersonas',
-            ));
+            return $this->ArrastrarVariables($request, array('importando' => 'personas', 'url' => 'importarpersonas'));
         }
     }
-
 
     /**
      * @Route("departamentos/")
@@ -285,11 +270,13 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
                  $nombreBueno;
         }
         
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'log' => $log);
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
     }
 
     /**
@@ -484,7 +471,7 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
             if ($Agente['decreto2']) {
                 $entity->setBajaDecreto(\Yacare\MunirgBundle\Helper\StringHelper::FormatearDecreto($Agente['decreto2']));
             }
-
+            
             $entity->setSuprimido(false);
             
             $em->persist($entity);
@@ -495,12 +482,13 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
                  (string) $entity->getDepartamento();
         }
         
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0), 
-            'log' => $log);
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
     }
 
     /**
@@ -539,21 +527,18 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
             }
         }
         log($MovimAgente['legajo']);
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            // 'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0),
-            'log' => $log);
-    }
-
-    
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);    }
 
     protected function ConectarRrhh()
     {
         return new \PDO('mysql:host=192.168.100.5;dbname=rr_hh;charset=utf8', 'yacare', 'L1n4j3');
     }
-
 
     /**
      * @Route("matriculados/")
@@ -712,12 +697,13 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
         
         fclose($ArchivoMatriculados);
         
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0), 
-            'log' => $log);
+       $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
     }
 
     /**
@@ -846,11 +832,121 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
         
         fclose($ArchivoCsv);
         
-        return array(
-            'importar_importados' => $importar_importados, 
-            'importar_actualizados' => $importar_actualizados, 
-            'importar_procesados' => $importar_procesados, 
-            'redir_desde' => ($importar_procesados == $cant ? $desde + $cant : 0), 
-            'log' => $log);
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
+        
+    }
+
+    /**
+     * @Route("bomberos/")
+     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
+     */
+    public function importarBomberosAction(Request $request)
+    {
+        $desde = (int) ($request->query->get('desde'));
+        $cant = 100;
+        
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        set_time_limit(600);
+        ini_set('memory_limit', '2048M');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $ArchivoBomberos = fopen('/home/adiaz/Documentos/Bomberos.csv', 'r');
+        for ($i=0;$i<1770;$i++){
+            $Actividad= $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array('NivelRiesgo' => 1));
+            if ($Actividad){
+                $Actividad->setNivelRiesgo(2);
+                $em->persist($Actividad);
+                $em->flush();
+            }
+        }
+         
+        
+        $importar_importados = 0;
+        $importar_actualizados = 0;
+        $importar_procesados = 0;
+        
+        while (! feof($ArchivoBomberos)) {
+            $Row = fgetcsv($ArchivoBomberos);
+            
+            if ($Row && count($Row) > 0 && $Row[0] != null) {
+                $entity = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array('ClaeAfip' => $Row[0]));
+                if ($entity) {
+                    $entity->setNivelRiesgo(0);
+                    $importar_actualizados ++;
+                    $importar_importados ++;
+                    $em->persist($entity);
+                    $em->flush();
+                }
+                $importar_procesados ++;
+            }
+        }
+        
+        feof($ArchivoBomberos);
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
+    }
+    /**
+     * @Route("ecologia/")
+     * @Template("YacareMunirgBundle:Importar:importar.html.twig")
+     */
+    public function importarEcologiaAction(Request $request)
+    {
+        $desde = (int) ($request->query->get('desde'));
+        $cant = 100;
+    
+        mb_internal_encoding('UTF-8');
+        ini_set('display_errors', 1);
+        set_time_limit(600);
+        ini_set('memory_limit', '2048M');
+    
+        $em = $this->getDoctrine()->getManager();
+    
+        $ArchivoEcologia = fopen('/home/adiaz/Documentos/Ecologia.csv', 'r');
+        
+        $importar_importados = 0;
+        $importar_actualizados = 0;
+        $importar_procesados = 0;
+        $Etiqueta= $em->getRepository('YacareComercioBundle:ActividadEtiqueta')->findOneBy(array('Codigo'=> 'req_cat_ecologica'));
+        while (! feof($ArchivoEcologia)) {
+            $Row = fgetcsv($ArchivoEcologia);
+    
+            if ($Row && count($Row) > 0 && $Row[0] != null) {
+                $entity = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(array('ClaeAfip' => $Row[0]));
+                if ($entity) {
+                  if  (!$entity->getEtiquetas($Etiqueta)){
+                      $entity->getEtiquetas()->add($Etiqueta);
+                  }
+                    $importar_actualizados ++;
+                    $importar_importados ++;
+                    $em->persist($entity);
+                    $em->flush();
+                }
+                $importar_procesados ++;
+            }
+        }
+    
+        feof($ArchivoEcologia);
+    
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+            $request);
+        $res->Entidad = $entity;
+        $res->Actualizados = $importar_actualizados;
+        $res->Importados = $importar_importados;
+        $res->Procesados = $importar_procesados;
+        return array('res' => $res);
     }
 }

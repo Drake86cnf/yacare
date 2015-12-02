@@ -49,14 +49,14 @@
     
 <script>
 $(function() {
-	$('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').change(function() {
-		if($('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').val() == 2) {
+	$('#asociacion_requisito_Tipo').change(function() {
+		if($('#asociacion_requisito_Tipo').val() == 2) {
 			$('#yacare_tramitesbundle_condicion_opcional').removeClass('hidden');
 		} else {
 			$('#yacare_tramitesbundle_condicion_opcional').addClass('hidden');
 		}
 	});
-	$('#yacare_tramitesbundle_asociacionrequisitoype_Tipo').trigger('change');
+	$('#asociacion_requisito_Tipo').trigger('change');
 });
 
 
