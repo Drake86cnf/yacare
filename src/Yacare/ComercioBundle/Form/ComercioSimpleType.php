@@ -18,7 +18,9 @@ class ComercioSimpleType extends AbstractType
 
         $builder
             ->add('Nombre', null, array(
-                'label' => 'Nombre de fantasía'))
+                'label' => 'Nombre de fantasía',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
                 'label' => 'Expediente',
                 'required' => false))
