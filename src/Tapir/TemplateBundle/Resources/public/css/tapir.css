@@ -157,6 +157,11 @@ label, .text-label {
 	color: #606060;
 }
 
+.label-lg {
+    font-size: 10pt;
+    font-weight: 600;
+}
+
 .text-label {
 	a-border: 1px solid red;
 	padding-right: 8px;
