@@ -57,7 +57,9 @@
 
 {% block pagina_acciones2 %}
 {% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
+	<div class="pull-right">
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-		class="btn btn-default pull-right"><i class="fa fa-edit"></i> Editar</a>
+		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+	</div>
 {% endif %}
 {% endblock pagina_acciones2 %}

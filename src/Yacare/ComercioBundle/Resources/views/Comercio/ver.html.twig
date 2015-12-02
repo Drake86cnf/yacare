@@ -155,14 +155,14 @@
 
 {% block pagina_acciones %}
 	{% include 'YacareBaseBundle:ConRequiereAtencion:boton.html.twig' %}
-{% endblock pagina_acciones %}
-
-{% block pagina_acciones2 %}
 {% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
-    <a data-toggle="ajax-link" class="btn btn-primary hidden-print"
+    <a data-toggle="ajax-link" class="btn btn-default"
     	href="{{ path('yacare_comercio_actacomercio_editar_1', { 'comercio': res.Entidad.Id }) }}">
     	<i class="fa fa-plus"></i> Nueva acta</a>
 {% endif %}
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
 {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
 	<div class="pull-right">
     <a data-toggle="ajax-link" class="btn btn-default"
