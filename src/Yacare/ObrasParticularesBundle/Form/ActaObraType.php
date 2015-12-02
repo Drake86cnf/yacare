@@ -65,8 +65,8 @@ class ActaObraType extends AbstractType
                     30 => 'Estructura de techo',
                     35 => 'Techado'
                 ),
-                'label' => 'Estado de avance de la obra',
-                'required' => true))
+                'label' => 'Estado de la obra',
+                'required' => false))
             // Solución temporal para los tipos de obra Seca.
             ->add('EstadoAvance2', 'choice', array(
                 'placeholder' => 'Seleccione el estado de la obra',

@@ -73,15 +73,15 @@
     <!-- Prevengo el ingreso de opciones para tipo de obra Seca -->
     <script>
     $(function() {
-        $('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').change(function() {
-            if($('#yacare_obrasparticularesbundle_actaobratype_TipoConstruccion').val() !== 'Seca') {
+        $('#acta_obra_TipoConstruccion').change(function() {
+            if($('#acta_obra_TipoConstruccion').val() === 'Seca') {
+            	$('#EstadoAvance').hide;
+            	$('#EstadoAvance2').show;
+            	$('#acta_obra_EstadoAvance').val('');            	
+            } else {
             	$('#EstadoAvance').show();
                 $('#EstadoAvance2').hide();
-                $('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance2').val('');
-            } else {
-        		$('#EstadoAvance').hide;
-            	$('#EstadoAvance2').show;
-            	$('#yacare_obrasparticularesbundle_actaobratype_EstadoAvance').val('');
+                $('#acta_obra_EstadoAvance2').val('');
             }
         }).change();
 	});

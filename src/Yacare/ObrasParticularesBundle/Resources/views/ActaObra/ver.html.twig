@@ -72,6 +72,12 @@
 </div>
 {% endblock %}
 
+{% block pagina_acciones %}
+	<a class="btn btn-info hidden-print" data-toggle="ajax-link" 
+		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
+		<i class="fa fa-paperclip"></i> Adjuntos</a>
+{% endblock %}
+
 {% block pagina_acciones2 %}
     {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
     	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"

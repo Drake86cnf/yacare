@@ -29,14 +29,14 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $this->OrderBy = 'r.Fecha DESC';
     }
-    
+
     /**
      * Emite el descargo de un acta en particular.
      * 
      * @Route("emitirdescargo/")
      * @Template()
      */
-    public function emitirdescargoAction(Request $request) 
+    public function emitirdescargoAction(Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
         $em = $this->getEm();
@@ -53,11 +53,11 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $FormEditarBuilder
             ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
-                'label' => 'Plazo',
+                'label' => 'Plazo', 
                 'required' => true))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
-                'label' => 'Profesional',
-                'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
+                'label' => 'Profesional', 
+                'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado', 
                 'required' => false))
             ->add('DescargoDetalle', null, array('label' => 'Detalles adicionales'));
         
@@ -69,12 +69,12 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             
             $em->persist($entity);
             $em->flush();
-        
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'),
+            
+            return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'), 
                 $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
             $children = $FormEditar->all();
-        
+            
             foreach ($children as $child) {
                 $child->getErrorsAsString();
             }
@@ -89,16 +89,16 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $Errores = null;
         }
         
-        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
             $request);
         $res->Entidad = $entity;
         $res->AccionGuardar = 'emitirdescargo';
         $res->FormularioEditar = $FormEditar->createView();
         $res->Errores = $Errores;
         
-        return array('res' => $res); 
+        return array('res' => $res);
     }
-    
+
     /**
      * Ver el descargo de un acta.
      *
@@ -110,5 +110,41 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     public function verdescargoAction(Request $request)
     {
         return parent::verAction($request);
+    }
+
+    /**
+     * @Route("adjuntos/listar/")
+     * @Template("YacareObrasParticularesBundle:ActaObra:adjuntos_listar.html.twig")
+     */
+    public function adjuntoslistarAction(Request $request)
+    {
+        $em = $this->getEm();
+        $id = $this->ObtenerVariable($request, 'id');
+        
+        $ActaObra = $this->ObtenerEntidadPorId($id);
+        
+        $AdjuntoNuevo = new \Yacare\BaseBundle\Entity\Adjunto();
+        $AdjuntoNuevo->setEntidadTipo(get_class($ActaObra));
+        $AdjuntoNuevo->setEntidadId($ActaObra->getId());
+        
+        $FormSubirBuilder = $this->createFormBuilder($ActaObra);
+        $FormSubirBuilder->add('Nombre', 'file', 
+            array('label' => 'Adjuntar archivo', 'data_class' => null, 'attr' => array('multiple' => 'multiple')));
+        
+        $FormSubir = $FormSubirBuilder->getForm();
+        
+        $Adjuntos = $em->getRepository('YacareBaseBundle:Adjunto')->findBy(
+            array('EntidadTipo' => get_class($ActaObra), 'EntidadId' => $ActaObra->getId(), 'Suprimido' => 0));
+        $em->flush();
+        
+        $res = $this->ConstruirResultado(new \Yacare\BaseBundle\Helper\Resultados\ResultadoAdjuntosListarAction($this), 
+            $request);
+        $res->Entidad = $ActaObra;
+        $res->EntidadTipo = get_class($ActaObra);
+        $res->EntidadId = $ActaObra->getId();
+        $res->Entidades = $Adjuntos;
+        $res->FormularioSubir = $FormSubir->createView();
+        
+        return array('res' => $res);
     }
 }
