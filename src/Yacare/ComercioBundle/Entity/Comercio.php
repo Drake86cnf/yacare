@@ -123,7 +123,7 @@ class Comercio implements IComercio
             case 1:
                 return 'En trámite';
             case 90:
-                return 'Cerrado';
+                return 'Hab., sin actividad';
             case 91:
                 return 'Hab. vencida';
             case 100:

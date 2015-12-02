@@ -36,10 +36,10 @@ class ComercioType extends ComercioSimpleType
                 'choices' => array(
                     0 => 'No habilitado',
                     1 => 'Hab. en trámite',
-                    90 => 'Cerrado',
+                    90 => 'Hab., sin actividad',
                     91 => 'Hab. vencida',
                     100 => 'Habilitado')))
-            ->add('Obs', null, array('label' => 'Obs.'))
+            ->add('Obs', null, array('label' => 'Observaciones'))
             ;
     }
 
