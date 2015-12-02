@@ -28,7 +28,8 @@ class ActaObraType extends AbstractType
                     'Constatación' => 'Constatación', 
                     'Inspección' => 'Inspección', 
                     'Suspensión' => 'Suspensión'), 
-                'required' => true, 
+                'required' => true,
+                'attr' => array('class' => 'tapir-input-240'),
                 'label' => 'Tipo de acta'))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional',
