@@ -145,17 +145,29 @@
 </div>
 {% endblock %}
 
+{% block pagina_acciones %}
+{% if res.Entidad.RequiereAtencion %}
+    <a data-toggle="ajax-link" class="btn btn-danger active"
+    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion, 'accion': 'ver' }) }}">
+    	<i class="fa fa-fw fa-warning"></i> ¡Requiere atención!</a>
+{% else %}
+	<a data-toggle="ajax-link" class="btn btn-default" title="Haga clic para desactivar la advertencia"
+    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion, 'accion': 'ver' }) }}">
+    	<i class="fa fa-fw fa-hand-paper-o"></i> <span class="a-showonhover">Solicitar atención</span></a>
+{% endif %}
+{% endblock pagina_acciones %}
+
 {% block pagina_acciones2 %}
-    {% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
-        <a data-toggle="ajax-link" class="btn btn-primary hidden-print"
-        	href="{{ path('yacare_comercio_actacomercio_editar_1', { 'comercio': res.Entidad.Id }) }}">
-        	<i class="fa fa-plus"></i> Nueva acta</a>
-    {% endif %}
-    {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
-    	<div class="pull-right">
-        <a data-toggle="ajax-link" class="btn btn-default"
-        	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
-        	<i class="fa fa-edit"></i> Editar</a>
-    	</div>
-    {% endif %}
+{% if is_granted('ROLE_COMERCIO_INSPECTOR') %}
+    <a data-toggle="ajax-link" class="btn btn-primary hidden-print"
+    	href="{{ path('yacare_comercio_actacomercio_editar_1', { 'comercio': res.Entidad.Id }) }}">
+    	<i class="fa fa-plus"></i> Nueva acta</a>
+{% endif %}
+{% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
+	<div class="pull-right">
+    <a data-toggle="ajax-link" class="btn btn-default"
+    	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
+    	<i class="fa fa-edit"></i> Editar</a>
+	</div>
+{% endif %}
 {% endblock %}

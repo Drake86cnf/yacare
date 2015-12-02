@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class LicitacionController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Yacare\BaseBundle\Controller\ConImprimir;
     use \Tapir\AbmBundle\Controller\ConEliminar;
     use \Yacare\BaseBundle\Controller\ConQr;

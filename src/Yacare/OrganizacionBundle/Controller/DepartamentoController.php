@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()

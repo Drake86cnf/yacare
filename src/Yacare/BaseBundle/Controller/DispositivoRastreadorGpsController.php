@@ -17,6 +17,8 @@ use Ivory\GoogleMap\Helper\MapHelper;
  */
 class DispositivoRastreadorGpsController extends DispositivoController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
+    
     /**
      * @Route("ver/")
      * @Template()

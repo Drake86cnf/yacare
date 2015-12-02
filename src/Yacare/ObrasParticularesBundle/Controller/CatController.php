@@ -12,4 +12,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class CatController extends \Yacare\TramitesBundle\Controller\ComprobanteController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
 }

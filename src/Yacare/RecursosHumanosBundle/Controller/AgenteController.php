@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class AgenteController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
+    
     function IniciarVariables()
     {
         parent::IniciarVariables();

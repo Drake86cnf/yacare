@@ -22,6 +22,7 @@ class Comercio implements IComercio
     use \Yacare\AdministracionBundle\Entity\ConActoAdministrativo;
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Yacare\BaseBundle\Entity\ConRequiereAtencion;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\TramitesBundle\Entity\ConTitular;
     use \Yacare\TramitesBundle\Entity\ConApoderado;

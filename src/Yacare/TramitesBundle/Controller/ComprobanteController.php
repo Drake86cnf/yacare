@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ComprobanteController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
+    
     public function guardarActionPrePersist($entity, $editForm)
     {
         $res = parent::guardarActionPrePersist($entity, $editForm);

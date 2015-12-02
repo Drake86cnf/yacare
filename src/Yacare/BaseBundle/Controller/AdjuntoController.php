@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
+    
     function IniciarVariables()
     {
         parent::IniciarVariables();

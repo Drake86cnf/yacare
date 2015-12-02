@@ -55,17 +55,41 @@
 </div>
 {% endblock form_horizontal_widget %}
 
+{% block requiere_atencion_widget %}{% spaceless %}
+    <div class="btn-group" role="group" id="{{ id }}_Group">
+        <button class="btn btn-default {% if value %}active{% endif %}" id="{{ id }}_Button"
+        	onclick="CambiarRequiereAtencion('{{ id }}'); return false;"><i
+        	class="fa fa-fw {% if value %}fa-warning{% else %}fa-hand-paper-o{% endif %}"></i> Atención</button>
+    </div>
+    <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
+<script>
+	function CambiarRequiereAtencion(id) {
+		var ReqInput = $('#' + id);
+		var ReqBoton = $('#' + id + '_Button');
+		var ReqBotonIcono = $('#' + id + '_Button > i');
+		if(ReqInput.val() == 1) {
+			ReqInput.val(0);
+			ReqBoton.removeClass('active btn-danger').addClass('btn-default');
+			ReqBotonIcono.removeClass('fa-warning').addClass('fa-hand-paper-o');
+		} else {
+			ReqInput.val(1);
+			ReqBoton.addClass('active btn-danger').removeClass('btn-default');
+			ReqBotonIcono.addClass('fa-warning').removeClass('fa-hand-paper-o');
+		}
+		ReqInput.trigger('change');
+	}
+</script>
+{% endspaceless %}{% endblock requiere_atencion_widget %}
 
-{% block button_group_widget %}
-    {% spaceless %}
-        <div class="btn-group {% if attr['vertical'] is defined and attr['vertical'] %} btn-group-vertical{% endif %}"
-        	role="group" id="{{ id }}_Group">
-            {% set options = choices -%}
-            {{- block('button_group_widget_options') -}}
-        </div>
-        <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
-    {% endspaceless %}
-{% endblock button_group_widget %}
+
+{% block button_group_widget %}{% spaceless %}
+    <div class="btn-group {% if attr['vertical'] is defined and attr['vertical'] %} btn-group-vertical{% endif %}"
+    	role="group" id="{{ id }}_Group">
+        {% set options = choices -%}
+        {{- block('button_group_widget_options') -}}
+    </div>
+    <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
+{% endspaceless %}{% endblock button_group_widget %}
 
 {% block button_group_widget_options -%}
     {% for group_label, choice in options %}

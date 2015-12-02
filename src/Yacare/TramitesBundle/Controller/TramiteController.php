@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConAcciones;
 
     function IniciarVariables()

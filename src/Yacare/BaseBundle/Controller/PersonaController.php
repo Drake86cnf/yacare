@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Tapir\AbmBundle\Controller\ConEliminar;
     use \Tapir\BaseBundle\Controller\ConPerfil;

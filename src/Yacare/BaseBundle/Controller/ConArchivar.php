@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Agrega la capacidad de controlar objetos archivables.
+ * Agrega la capacidad de archivar y desarchivar.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @see \Tapir\BaseBundle\Entity\Archivable TapirBasebundle:Archivable
@@ -56,12 +56,9 @@ trait ConArchivar
     }
 
     /**
-     * Este método se dispara después de archivar una entidad.
-     *
-     * @param mixed  $entity    Entidad 'X' que posea características para archivar.
-     * @param bool   $archivado Indica si el elemento fue archivado.
+     * Este método se dispara después de archivar o desarchivar una entidad.
      */
-    public function afterArchivar($entity, $archivado = false)
+    public function afterArchivar($request, $entity, $archivado = false)
     {
         return $this->redirect(
             $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
