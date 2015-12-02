@@ -31,7 +31,7 @@ class ActividadType extends AbstractType
                      0  => 'Bajo',
                      1  => 'Medio',
                      2  => 'Alto',
-            )))
+                )))
             ->add('Etiquetas', null, array(
                 'label' => 'Etiquetas',
                 'multiple'=> true))

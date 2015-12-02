@@ -154,7 +154,7 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                 break;
             case 'TelefonoNumero':
                 $FormEditarBuilder
-                    ->add($campoNombre, 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Teléfono(s)', 'required' => true))
+                    ->add($campoNombre, null, array('label' => 'Teléfono(s)', 'required' => true))
                     ->add('TelefonoVerificacionNivel', 
                         'Tapir\BaseBundle\Form\Type\VerificacionNivelType', 
                         array('label' => 'Nivel', 'required' => true));

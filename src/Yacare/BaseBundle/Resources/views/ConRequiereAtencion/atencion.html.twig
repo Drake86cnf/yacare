@@ -1,0 +1,42 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+{% set tapir_editar_nombreguadar = 'Aceptar' %}
+{% block pagina_titulo %}Pedir atención{% endblock %}
+
+{% block pagina_contenido %}
+{% if res.Entidad.RequiereAtencion %}
+	<p>Un usuario pidió atención sobre este elemento.</p>
+{% else %}
+	<p>Un usuario pidió atención sobre este elemento.</p>
+{% endif %}
+
+<div class="row form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+    	<button type="button" id="form_RequiereAtencion_Boton1" class="btn btn-default {% if res.Entidad.RequiereAtencion %}active btn-danger{% endif %}"
+    		onclick="RequiereAtencion(1); return false;"><i class="fa fa-fw fa-hand-paper-o"></i> Solicitar atención</button>
+    	<button type="button" id="form_RequiereAtencion_Boton0" class="btn btn-default {% if not res.Entidad.RequiereAtencion %}active btn-success{% endif %}"
+    		onclick="RequiereAtencion(0); return false;"><i class="fa fa-fw fa-thumbs-o-up"></i>Ya no requiere atención</button>
+    </div>
+</div>
+
+{{ parent() }}
+{% endblock pagina_contenido %}
+
+{% block pagina_scripts %}
+<script>
+	function RequiereAtencion(valor) {
+		if($('#form_RequiereAtencion').val() != valor) {
+    		$('#form_RequiereAtencion').val(valor);
+    		$('#form_RequiereAtencionObs').val('');
+    		if(valor) {
+    			$('#form_RequiereAtencion_Boton0').removeClass('active btn-success');	
+    			$('#form_RequiereAtencion_Boton1').addClass('active btn-danger');
+    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una razón para la solicitud de atención');
+    		} else {
+    			$('#form_RequiereAtencion_Boton0').addClass('active btn-success');
+    			$('#form_RequiereAtencion_Boton1').removeClass('active btn-danger');
+    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una observación sobre la solución');
+    		}
+		}
+	}
+</script>
+{% endblock pagina_scripts %}
