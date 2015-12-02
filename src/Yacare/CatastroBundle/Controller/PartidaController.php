@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar {
     	\Tapir\AbmBundle\Controller\ConBuscar::buscarAction as parent_buscarAction;
     }

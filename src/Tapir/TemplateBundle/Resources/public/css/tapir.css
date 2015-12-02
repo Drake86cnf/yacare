@@ -66,7 +66,7 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
 }
 
 @media screen and (max-width: 767px) {
-    body, p, label, span, div, td {
+    body, p, label, div, td {
         font-size: 11pt;
     }
 }
@@ -149,7 +149,7 @@ hr.firma {
     text-decoration: none;
 }
 
-body, p, label, span, div, td {
+body, p, label, div, td {
 	font-size: 11pt;
 }
 
@@ -422,7 +422,7 @@ legend small {
     color: #712E00;
 }
 
-div > .showonhover, span > .showonhover {
+div > .showonhover, span > .showonhover, a > .showonhover {
     a-opacity: 0.0;
     display: none;
     -webkit-transition: all 200ms ease-in-out;
@@ -432,7 +432,7 @@ div > .showonhover, span > .showonhover {
     transition: all 200ms ease-in-out;
 }
 
-div:hover > .showonhover, span:hover > .showonhover {
+div:hover > .showonhover, span:hover > .showonhover, a:hover > .showonhover {
     a-opacity: 1.0 !important;
     display: initial;
 }

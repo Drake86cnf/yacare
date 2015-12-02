@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
     
     public function EmitirComprobante($tramite)

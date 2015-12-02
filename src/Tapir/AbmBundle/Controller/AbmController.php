@@ -297,33 +297,6 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         return $this->ArrastrarVariables($request, array());
     }
 
-    /**
-     * Ver una entidad.
-     *
-     * Es como editar, pero sólo lectura.
-     *
-     * @see editarAction() editarAction()
-     *
-     * @Route("ver/")
-     * @Template()
-     */
-    public function verAction(Request $request)
-    {
-        $id = $this->ObtenerVariable($request, 'id');
-        
-        if ($id) {
-            $entity = $this->ObtenerEntidadPorId($id);
-        }
-        
-        if (! $entity) {
-            throw $this->createNotFoundException('No se puede encontrar la entidad.');
-        }
-        
-        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
-        $res->Entidad = $entity;
-        
-        return array('res' => $res);
-    }
 
     /**
      * Permite modificar un campo in situ.
@@ -521,8 +494,17 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
 
     protected function guardarActionAfterSuccess(Request $request, $entity)
     {
-        return $this->redirectToRoute($this->obtenerRutaBase('listar'), 
-            $this->ArrastrarVariables($request, null, false));
+        $router = $this->container->get('router');
+        // Si existe una ruta "ver", redirecciono ahí. Caso contrario voy a "listar".
+        if($router->getRouteCollection()->get($this->obtenerRutaBase('ver')) === null) {
+            $Accion = 'listar';
+            $Params = null;
+        } else {
+            $Accion = 'ver';
+            $Params = array('id' => $entity->getId());
+        }
+
+        return $this->redirectToRoute($this->obtenerRutaBase($Accion), $this->ArrastrarVariables($request, $Params, false));
     }
 
     /**

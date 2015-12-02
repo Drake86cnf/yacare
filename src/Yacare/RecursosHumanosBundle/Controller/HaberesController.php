@@ -16,7 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
 {
-
+    use \Tapir\AbmBundle\Controller\ConVer;
+    
     /**
      * @Route("recibo/listar/")
      * @Route("recibo/listar/{id}/")

@@ -17,6 +17,7 @@ use Yacare\RequerimientosBundle\Entity\Novedad;
  */
 class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
     

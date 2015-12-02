@@ -14,4 +14,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
+    use \Tapir\AbmBundle\Controller\ConVer;
 }

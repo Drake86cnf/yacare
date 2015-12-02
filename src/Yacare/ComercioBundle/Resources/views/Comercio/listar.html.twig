@@ -6,7 +6,6 @@
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
-			<th>#</th>
 			<th>Exped.</th>
 			<th> </th>
 			<th>Nombre</th>
@@ -17,17 +16,18 @@
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
-			<td>{{ entity.id }}</td>
 			<td>{{ entity.ExpedienteNumero }}</td>
 			<td class="text-center">
 			    {% if entity.Estado == 1 %}<span class="label label-warning" title="En trámite">ET</span>
 			    {% elseif entity.Estado == 0 %}<span class="label label-danger">NH</span>
-			    {% elseif entity.Estado == 90 %}<span class="label label-danger">C</span>
-			    {% elseif entity.Estado == 91 %}<span class="label label-danger">V</span>
-			    {% elseif entity.Estado == 100 %}<span class="label label-success">H</span>
+			    {% elseif entity.Estado == 90 %}<span class="label label-info">SA</span>
+			    {% elseif entity.Estado == 91 %}<span class="label label-danger">HV</span>
+			    {% elseif entity.Estado == 100 %}<span class="label label-success">HA</span>
 			    {% endif %}
 			</td>
-			<td>{{ entity.Nombre }}</td>
+			<td>{% if entity.RequiereAtencion %}
+					<span class="label label-danger" title="¡Atención!"><i class="fa fa-fw fa-warning"></i></span>
+                {% endif %}{{ entity.Nombre }}</td>
 			<td class="hidden-xs">
 			    {% if entity.Local %}
                     {{ entity.Domicilio }}
@@ -41,11 +41,10 @@
 </table>
 
 <p class="text-center small">
-	<span class="label label-success">H</span> Habilitado &nbsp;&nbsp;&nbsp;
+	<span class="label label-success">HA</span> Habilitado &nbsp;&nbsp;&nbsp;
 	<span class="label label-warning">ET</span> En trámite &nbsp;&nbsp;&nbsp;
 	<span class="label label-danger">NH</span> No habilitado &nbsp;&nbsp;&nbsp;
-	<span class="label label-danger">C</span> Cerrado &nbsp;&nbsp;&nbsp;
-	<span class="label label-danger">V</span> Habilitación vencida
+	<span class="label label-info">SA</span> Habilitado, sin actividad &nbsp;&nbsp;&nbsp;
 </p>
 {% endblock %}
 
