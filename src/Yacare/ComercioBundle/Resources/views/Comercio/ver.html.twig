@@ -29,6 +29,13 @@
 				{{ bs.grid_label_text66('Fecha de habilitación', res.Entidad.FechaHabilitacion|tapir_fecha('medium', 'none')) }}
 			{% endif %}
 		</div>
+		
+		{% if res.Entidad.Obs %}
+		<div class="col-sm-12">
+			<h2 class="row-header">Observaciones</h2>
+			<p>{{ res.Entidad.Obs }}</p>
+		</div>
+		{% endif %}
 	</div>
 	
 	<h2 class="row-header">Actividades</h2>
@@ -147,12 +154,12 @@
 
 {% block pagina_acciones %}
 {% if res.Entidad.RequiereAtencion %}
-    <a data-toggle="ajax-link" class="btn btn-danger active"
-    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion, 'accion': 'ver' }) }}">
+    <a data-toggle="ajax-link" class="btn btn-danger active" title="Haga clic para desactivar la advertencia"
+    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion }) }}">
     	<i class="fa fa-fw fa-warning"></i> ¡Requiere atención!</a>
 {% else %}
-	<a data-toggle="ajax-link" class="btn btn-default" title="Haga clic para desactivar la advertencia"
-    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion, 'accion': 'ver' }) }}">
+	<a data-toggle="ajax-link" class="btn btn-default" title="Haga clic para sactivar la advertencia"
+    	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion }) }}">
     	<i class="fa fa-fw fa-hand-paper-o"></i> <span class="a-showonhover">Solicitar atención</span></a>
 {% endif %}
 {% endblock pagina_acciones %}
