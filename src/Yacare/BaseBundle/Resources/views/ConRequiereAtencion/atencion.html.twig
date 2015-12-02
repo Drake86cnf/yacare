@@ -1,20 +1,25 @@
 {% extends 'TapirAbmBundle::editar.html.twig' %}
 {% set tapir_editar_nombreguadar = 'Aceptar' %}
-{% block pagina_titulo %}Pedir atención{% endblock %}
+{% block pagina_titulo %}Solicitar atención{% endblock %}
 
 {% block pagina_contenido %}
-{% if res.Entidad.RequiereAtencion %}
-	<p>Un usuario pidió atención sobre este elemento.</p>
-{% else %}
-	<p>Un usuario pidió atención sobre este elemento.</p>
-{% endif %}
+
 
 <div class="row form-group">
     <div class="col-sm-10 col-sm-offset-2">
+    	<p>Puede solicitar atención sobre este elemento para que un administrador lo revise. Al hacerlo debe
+    		especificar el motivo.</p>
+    	
     	<button type="button" id="form_RequiereAtencion_Boton1" class="btn btn-default {% if res.Entidad.RequiereAtencion %}active btn-danger{% endif %}"
     		onclick="RequiereAtencion(1); return false;"><i class="fa fa-fw fa-hand-paper-o"></i> Solicitar atención</button>
     	<button type="button" id="form_RequiereAtencion_Boton0" class="btn btn-default {% if not res.Entidad.RequiereAtencion %}active btn-success{% endif %}"
-    		onclick="RequiereAtencion(0); return false;"><i class="fa fa-fw fa-thumbs-o-up"></i>Ya no requiere atención</button>
+    		onclick="RequiereAtencion(0); return false;"><i class="fa fa-fw fa-thumbs-o-up"></i>
+    		{% if res.Entidad.RequiereAtencionObs %}
+    			Ya no
+    		{% else %}
+    			No
+    		{% endif %}
+    		requiere atención</button>
     </div>
 </div>
 
@@ -30,11 +35,11 @@
     		if(valor) {
     			$('#form_RequiereAtencion_Boton0').removeClass('active btn-success');	
     			$('#form_RequiereAtencion_Boton1').addClass('active btn-danger');
-    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una razón para la solicitud de atención');
+    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba el motivo por el cual solicita revisión');
     		} else {
     			$('#form_RequiereAtencion_Boton0').addClass('active btn-success');
     			$('#form_RequiereAtencion_Boton1').removeClass('active btn-danger');
-    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una observación sobre la solución');
+    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una observación sobre la solución o la revisión');
     		}
 		}
 	}
