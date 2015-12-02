@@ -67,7 +67,7 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
 
 @media screen and (max-width: 767px) {
     body, p, label, span, div, td {
-        font-size: 10pt;
+        font-size: 11pt;
     }
 }
 
@@ -317,7 +317,12 @@ legend small {
 
 .content-bar-block {
 	height: 32px;
-	padding-left: 8px;
+}
+
+@media screen {
+	.content-bar-block {
+	   padding-left: 8px;
+	}
 }
 
 .ajax-spinner {
