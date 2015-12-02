@@ -3,28 +3,58 @@
 {% block pagina_titulo %}Solicitar atención{% endblock %}
 
 {% block pagina_contenido %}
-
-
 <div class="row form-group">
     <div class="col-sm-10 col-sm-offset-2">
-    	<p>Puede solicitar atención sobre este elemento para que un administrador lo revise. Al hacerlo debe
-    		especificar el motivo.</p>
-    	
-    	<button type="button" id="form_RequiereAtencion_Boton1" class="btn btn-default {% if res.Entidad.RequiereAtencion %}active btn-danger{% endif %}"
-    		onclick="RequiereAtencion(1); return false;"><i class="fa fa-fw fa-hand-paper-o"></i> Solicitar atención</button>
-    	<button type="button" id="form_RequiereAtencion_Boton0" class="btn btn-default {% if not res.Entidad.RequiereAtencion %}active btn-success{% endif %}"
-    		onclick="RequiereAtencion(0); return false;"><i class="fa fa-fw fa-thumbs-o-up"></i>
-    		{% if res.Entidad.RequiereAtencionObs %}
-    			Ya no
-    		{% else %}
-    			No
-    		{% endif %}
-    		requiere atención</button>
+		{% if res.Entidad.RequiereAtencionObs %}
+			{% if res.Entidad.RequiereAtencion %}
+				<p>Alguien solicitó atención sobre este elemento, por el siguiente motivo:</p>
+			{% else %}
+				<p>Alguien marcó este elemento como revisado (que ya no requiere atención), con la siguiente
+					observación:</p>
+			{% endif %}
+			<p class="form-control-static">{{ res.Entidad.RequiereAtencionObs }}</p>
+		{% endif %}
+	</div>
+</div>
+<div class="row form-group">	
+	<div class="col-sm-10 col-sm-offset-2">
+		{% if res.Entidad.RequiereAtencion %}
+			<p>Puede marcar este elemento como revisado (que ya no requiere atención). Al hacerlo debe proporcionar
+				una observación.</p>
+		{% else %}
+		    <p>Puede poner una marca de atención sobre este elemento para indicar que debe ser revisado. Al hacerlo
+		    	debe especificar el motivo.</p>
+		{% endif %}
+		
+		{{ form_widget(res.FormularioEditar.RequiereAtencionObs) }}
     </div>
 </div>
 
 {{ parent() }}
 {% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+<button type="button"
+	{% if tapir_modal is not defined or tapir_modal == 0 %}
+		onclick="return tapirAtras();"
+	{% else %}
+	    data-dismiss="modal"
+	{% endif %}
+	class="btn btn-default">Cancelar</button>
+<button type="submit" value="Guardar" class="btn {% if res.Entidad.RequiereAtencion %}btn-success{% else %}btn-danger{% endif %} tapir-button-accept">
+    {% if res.Entidad.RequiereAtencion %}
+	    <i class="fa fa-fw fa-thumbs-o-up"></i>
+		{% if res.Entidad.RequiereAtencionObs %}
+			Ya no
+		{% else %}
+			No
+		{% endif %}
+		requiere atención
+    {% else %}
+    	<i class="fa fa-fw fa-hand-paper-o"></i> Solicitar atención
+    {% endif %}
+</button>
+{% endblock pagina_acciones %}
 
 {% block pagina_scripts %}
 <script>
@@ -33,6 +63,8 @@
     	$('#form_RequiereAtencionObs').change(function() {
     		form_RequiereAtencionObs_changed = true;
     	});
+
+    	RequiereAtencion({% if not res.Entidad.RequiereAtencion %}0{% else %}1{% endif %});
     });
 
 	function RequiereAtencion(valor) {
