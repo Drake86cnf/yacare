@@ -58,31 +58,14 @@
 
 {% block pagina_scripts %}
 <script>
-	var form_RequiereAtencionObs_changed = false;
     $(function() {
-    	$('#form_RequiereAtencionObs').change(function() {
-    		form_RequiereAtencionObs_changed = true;
-    	});
-
-    	RequiereAtencion({% if not res.Entidad.RequiereAtencion %}0{% else %}1{% endif %});
-    });
-
-	function RequiereAtencion(valor) {
-		if($('#form_RequiereAtencion').val() != valor) {
-    		$('#form_RequiereAtencion').val(valor);
-    		if(form_RequiereAtencionObs_changed == false) {
-    			$('#form_RequiereAtencionObs').val('');
-    		}
-    		if(valor) {
-    			$('#form_RequiereAtencion_Boton0').removeClass('active btn-success');	
-    			$('#form_RequiereAtencion_Boton1').addClass('active btn-danger');
-    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba el motivo por el cual solicita revisión');
-    		} else {
-    			$('#form_RequiereAtencion_Boton0').addClass('active btn-success');
-    			$('#form_RequiereAtencion_Boton1').removeClass('active btn-danger');
-    			$('#form_RequiereAtencionObs').attr('placeholder', 'Por favor escriba una observación sobre la solución o la revisión');
-    		}
-		}
-	}
+		$('#form_RequiereAtencionObs').attr('placeholder',
+			{% if res.Entidad.RequiereAtencion %}
+				'Por favor escriba una observación'
+    		{% else %}
+				'Por favor escriba el motivo por el cual solicita revisión'
+    		{% endif %} 
+		).val('');
+	});
 </script>
 {% endblock pagina_scripts %}
