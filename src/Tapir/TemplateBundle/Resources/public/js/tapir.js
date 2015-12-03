@@ -72,6 +72,7 @@ function tapirEntityIdSeleccionarItem(destino, id, detalle) {
 	$(destino).val(id);
 	$(destino + '_Detalle').val(detalle);
 	$('.ocultar-al-seleccionar-item').addClass('hidden');
+	$(destino).change();
 	$(destino + '_Detalle').focus();
 }
 
