@@ -8,7 +8,7 @@ services:
         - { name: twig.extension }
     
   # email type
-  email.type:
+  Tapir\TemplateBundle\Form\Type\EmailType:
       class: Tapir\TemplateBundle\Form\Type\EmailType
       tags:
-          - { name: form.type, alias: email }
+          - { name: form.type }
