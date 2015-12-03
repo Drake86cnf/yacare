@@ -46,12 +46,8 @@
         <div class="row">
         	<div class="col-xs-2 text-right"><strong>Tipo de construcción:</strong></div> 
         	<div class="col-xs-3">{{ res.Entidad.TipoConstruccion }}</div>
-        	<div class="col-xs-4 text-right"><strong>Estado de la obra:</strong></div> 
-        	{% if res.Entidad.EstadoAvance is not null %}
-        		<div class="col-xs-3">{{ res.Entidad.EstadoAvanceNombre }}</div>
-        	{% elseif res.Entidad.EstadoAvance2 is not null%}
-        		<div class="col-xs-3">{{ res.Entidad.EstadoAvanceNombre2 }}</div>
-        	{% endif %}
+        	<div class="col-xs-4 text-right"><strong>Estado de la obra:</strong></div>
+        	<div class="col-xs-3">{{ res.Entidad.EstadoAvanceNombre }}</div>
         </div>
         <div class="row">
         	<div class="col-xs-2 text-right"><strong>Falta incurrida:</strong></div> 
