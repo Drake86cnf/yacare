@@ -22,6 +22,11 @@ class ActividadType extends AbstractType
                 'attr' => array(
                     'help' => 'No es necesario escribir los guiones. 
                         Para las divisiones 1 a la 9 prefijar con cero (01 a la 09).')))
+            ->add('CodigoCpu', null, array(
+                'label' => 'C.P.U.',
+                'required' => true,
+                'attr' => array(
+                    'help' => 'Código de Planeamiento Urbano. Pueden ser varios separados por punto y coma.')))
             ->add('Nombre',null, array('label' => 'Nombre'))
             ->add('NivelRiesgo','Tapir\BaseBundle\Form\Type\ButtonGroupType',array(
                 'label'=>'Nivel de Riego',
