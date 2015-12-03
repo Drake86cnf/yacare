@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
 {
+    use \Tapir\AyudaBundle\Controller\ConAyuda;
     use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\BaseBundle\Controller\ConRequiereAtencion;

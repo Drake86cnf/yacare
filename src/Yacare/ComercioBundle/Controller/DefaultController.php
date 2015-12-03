@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
+    use \Tapir\AyudaBundle\Controller\ConAyuda;
+    
     /**
      * @Route("inicio/")
      * @Template
