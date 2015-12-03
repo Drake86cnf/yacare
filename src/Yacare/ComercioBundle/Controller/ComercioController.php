@@ -63,6 +63,9 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
      */
     function altamanualAction(Request $request)
     {
-        return $this->ArrastrarVariables($request);
+        $res = $this->ConstruirResultado(new \Tapir\BaseBundle\Helper\Resultados\ResultadoActionBaseController($this),
+            $request);
+        
+        return array('res' => $res);
     }
 }
