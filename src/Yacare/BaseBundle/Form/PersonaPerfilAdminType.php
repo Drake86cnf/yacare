@@ -6,11 +6,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Formulario perfil de usuario.
+ * Formulario perfil de usuario para un administrador.
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class PersonaPerfilType extends AbstractType
+class PersonaPerfilAdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,6 +29,12 @@ class PersonaPerfilType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
+            ->add('UsuarioRoles', 'entity', array(
+                'label' => 'Roles',
+                'class' => 'TapirBaseBundle:PersonaRol',
+                'attr' => array('style' => 'width: 100%'),
+                'multiple' => true,
+                'required' => false))
             ;
     }
 

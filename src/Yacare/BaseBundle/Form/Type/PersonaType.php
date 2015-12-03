@@ -3,6 +3,7 @@ namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tapir\FormBundle\Form\Type\EntityIdType;
 
 /**
  * Campo de formulario para seleccionar una persona.
@@ -25,6 +26,6 @@ class PersonaType extends AbstractType
 
     public function getParent()
     {
-        return 'Tapir\FormBundle\Form\Type\AjaxEntityType';
+        return 'Tapir\FormBundle\Form\Type\EntityIdType';
     }
 }

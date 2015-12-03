@@ -62,12 +62,6 @@ class PersonaType extends AbstractType
                 'attr' => array('style' => 'width: 100%'),
                 'multiple' => true,
                 'required' => false))
-            ->add('UsuarioRoles', 'entity', array(
-                'label' => 'Roles',
-                'class' => 'TapirBaseBundle:PersonaRol',
-                'attr' => array('style' => 'width: 100%'),
-                'multiple' => true,
-                'required' => false))
             ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioType', array(
                 'label' => 'Domicilio'
             ))

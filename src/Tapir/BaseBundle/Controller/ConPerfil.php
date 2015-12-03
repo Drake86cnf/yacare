@@ -25,17 +25,20 @@ trait ConPerfil
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
 
         $em = $this->getDoctrine()->getManager();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
 
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
-            $user = null;
         } else {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-            $entity = $em->getRepository($entidadUsuario)->find($user->getId());
+            $entity = $em->getRepository($entidadUsuario)->find($UsuarioConectado->getId());
         }
 
         if ($entity->getUsername()) {
-            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilType', $entity);
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR')) {
+                $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilAdminType', $entity);
+            } else {
+                $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilType', $entity);
+            }
         } else {
             $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilCrearType', $entity);
         }
@@ -60,8 +63,11 @@ trait ConPerfil
 
                 $this->editarperfilActionPostPersist($entity, $FormEditar);
 
+                if ($UsuarioConectado->getId() == $entity->getId()) {
+                    $em->refresh($UsuarioConectado);
+                }
                 $this->addFlash('success', 'Los cambios en "' . $entity . '" fueron guardados.');
-                $Errores = null;
+                return $this->guardarActionAfterSuccess($request, $entity);
             } else {
                 $validator = $this->get('validator');
                 $Errores = $validator->validate($entity);
@@ -87,10 +93,6 @@ trait ConPerfil
                 ));
 
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
-            } else {
-                if ($user) {
-                    $em->refresh($user);
-                }
             }
         }
         
@@ -114,26 +116,24 @@ trait ConPerfil
      */
     public function cambiarcontrasenaAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $id = $this->ObtenerVariable($request, 'id');
-        $terminado = 0;
+        $Terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
 
-        $em = $this->getDoctrine()->getManager();
-        if ($id) {
-            $entity = $em->getRepository($entidadUsuario)->find($id);
-        } else {
-            $entity = $em->getRepository($entidadUsuario)->find($user->getId());
-        }
-
-        if ($entity->getId() == $user->getId()) {
-            // Es el usuario conectado, muestro "cambiar contraseña"
-            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCambiarContrasenaType', $entity);
-        } else {
+            // Sólo los administradores pueden cambiar contraseñas ajenas
+        if($id && $this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR')) {
             // Es para otro usuario, muestro "crear contraseña"
+            $entity = $em->getRepository($entidadUsuario)->find($id);
             $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCrearContrasenaType', $entity);
+        } else {
+            // Es el usuario conectado, muestro "cambiar contraseña"
+            $entity = $em->getRepository($entidadUsuario)->find($UsuarioConectado->getId());
+            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCambiarContrasenaType', $entity);
         }
+
         $FormEditar->handleRequest($request);
 
         if ($FormEditar->isValid()) {
@@ -157,8 +157,8 @@ trait ConPerfil
             $em->persist($entity);
             $em->flush();
             
-            if (isset($user)) {
-                $em->refresh($user);
+            if ($entity->getId() == $UsuarioConectado->getId()) {
+                $em->refresh($UsuarioConectado);
             }
             
             $Errores = null;
