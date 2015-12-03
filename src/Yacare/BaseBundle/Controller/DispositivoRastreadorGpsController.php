@@ -17,7 +17,9 @@ use Ivory\GoogleMap\Helper\MapHelper;
  */
 class DispositivoRastreadorGpsController extends DispositivoController
 {
-    use \Tapir\AbmBundle\Controller\ConVer;
+    use \Tapir\AbmBundle\Controller\ConVer {
+        \Tapir\AbmBundle\Controller\ConVer::verAction as parent_verAction;
+    }
     
     /**
      * @Route("ver/")
@@ -25,7 +27,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function verAction(Request $request)
     {
-        $res = parent::verAction($request);
+        $res = $this->parent_verAction($request);
         
         if ($res['res']->Entidad->getObs() == null) {
             $res['res']->Entidad->setObs('Serie ' . $res['res']->Entidad->getNumeroSerie());

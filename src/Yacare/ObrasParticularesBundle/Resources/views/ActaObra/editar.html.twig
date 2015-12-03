@@ -4,17 +4,15 @@
 
 {% block pagina_contenido %}
     <div class="row form-group">
-    	{{ form_label(res.FormularioEditar.Numero) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Numero) }}</div>
+    	<label class="col-sm-2 control-label">Tipo de acta <span style="color:red">*</span></label>
+    	<div class="col-sm-4">{{ form_widget(res.FormularioEditar.SubTipo) }}</div>
+    	<label class="col-sm-2 control-label">Número <span style="color:red">*</span></label>    	
+		<div class="col-sm-4">{{ form_widget(res.FormularioEditar.Numero) }}</div>
     </div>
     <div class="row form-group">
-    	{{ form_label(res.FormularioEditar.SubTipo) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.SubTipo) }}</div>
+    	<label class="col-sm-2 control-label">Fecha <span style="color:red">*</span></label>
+    	<div class="col-sm-10">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
     </div>
-    <div class="row form-group">
-    	{{ form_label(res.FormularioEditar.Fecha) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Fecha) }}</div>
-	</div>
 	<div class="row form-group">
     	{{ form_label(res.FormularioEditar.Partida) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Partida) }}</div>
@@ -24,16 +22,11 @@
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoFaltas) }}</div>
 	</div>
 	<div class="row form-group">
-    	{{ form_label(res.FormularioEditar.TipoConstruccion) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.TipoConstruccion) }}</div>
-	</div>
-	<div class="row form-group" id="EstadoAvance">
-    	{{ form_label(res.FormularioEditar.EstadoAvance) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.EstadoAvance) }}</div>
-	</div>
-	<div class="row form-group" id="EstadoAvance2">
-    	{{ form_label(res.FormularioEditar.EstadoAvance2) }}
-    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.EstadoAvance2) }}</div>
+    	<label class="col-sm-2 control-label">Tipo de construcción <span style="color:red">*</span></label>
+    	<div class="col-sm-4">{{ form_widget(res.FormularioEditar.TipoConstruccion) }}</div>
+    	<label class="col-sm-2 control-label">Estado de la obra <span style="color:red">*</span></label>
+    	<div class="col-sm-4" id="EstadoAvance">{{ form_widget(res.FormularioEditar.EstadoAvance) }}</div>
+		<div class="col-sm-4" id="EstadoAvance2">{{ form_widget(res.FormularioEditar.EstadoAvance2) }}</div>
 	</div>
     <div class="row form-group">
     	{{ form_label(res.FormularioEditar.Profesional) }}
@@ -82,7 +75,7 @@
                 $('#EstadoAvance2').hide();
             }
         }).change();
-
+        
         $('#acta_obra_EstadoAvance2').change(function() {
         	$('#acta_obra_EstadoAvance').val($('#acta_obra_EstadoAvance2').val()).change();
         });

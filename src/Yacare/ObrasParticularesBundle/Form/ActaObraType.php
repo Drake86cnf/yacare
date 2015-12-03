@@ -18,7 +18,7 @@ class ActaObraType extends AbstractType
         $builder
             ->add('Numero', null, array(
                 'label' => 'Número',
-                'attr' => array('class' => 'tapir-input-160'),
+                'attr' => array('class' => 'tapir-input-320'),
                 'required' => true))
             ->add('SubTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el tipo de acta',
@@ -29,7 +29,7 @@ class ActaObraType extends AbstractType
                     'Inspección' => 'Inspección', 
                     'Suspensión' => 'Suspensión'), 
                 'required' => true,
-                'attr' => array('class' => 'tapir-input-240'),
+                'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Tipo de acta'))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional',
@@ -56,12 +56,11 @@ class ActaObraType extends AbstractType
                 'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Tipo de construcción',
                 'required' => true))
-            ->add('EstadoAvance', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            ->add('EstadoAvance', 'choice', array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
                     1 => 'Replanteo y fundaciones',
                     5 => 'Mampostería en planta baja',
-                    6 => 'Estructura en planta baja',
                     10 => 'Encadenado superior en planta baja',
                     15 => 'Entrepiso',
                     20 => 'Mampostería en planta alta',
@@ -72,11 +71,11 @@ class ActaObraType extends AbstractType
                 'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Estado de la obra',
                 'required' => false))
-            // Solución temporal para los tipos de obra Seca.
+                // Solución temporal para los tipos de obra Seca.
             ->add('EstadoAvance2', 'choice', array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
-                    6 => 'Estructura en planta baja',
+                    5 => 'Estructura en planta baja',
                     15 => 'Entrepiso',
                     20 => 'Estructura en planta alta',
                     30 => 'Estructura de techo',
