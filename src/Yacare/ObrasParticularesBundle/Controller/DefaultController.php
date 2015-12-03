@@ -1,6 +1,7 @@
 <?php
 namespace Yacare\ObrasParticularesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -11,40 +12,49 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
+    
     /**
      * @Route("inicio/")
-     * @Template()
+     * @Template
      */
-    public function inicioAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function inicioAction(Request $request)
     {
-        $em = $this->getEm();
-        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoInicioAction($this), $request);
-
-        $qb = $em->createQueryBuilder();
-        $qb->select('COUNT(ao.id)');
-        $qb->from('\Yacare\ObrasParticularesBundle\Entity\ActaObra','ao');
-        $res->Contadores['ActaObra'] = $qb->getQuery()->getSingleScalarResult();
-        
-        $qb = $em->createQueryBuilder();
-        $qb->select('COUNT(r.id)');
-        $qb->from('\Yacare\ObrasParticularesBundle\Entity\Matriculado','r');
-        $res->Contadores['Matriculado'] = $qb->getQuery()->getSingleScalarResult();
-        
-        $qb = $em->createQueryBuilder();
-        $qb->select('COUNT(r.id)');
-        $qb->from('\Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora','r');
-        $res->Contadores['EmpresaConstructora'] = $qb->getQuery()->getSingleScalarResult();
-        
-        $qb = $em->createQueryBuilder();
-        $qb->select('COUNT(r.id)');
-        $qb->from('\Yacare\ObrasParticularesBundle\Entity\TramiteCat','r');
-        $res->Contadores['TramiteCat'] = $qb->getQuery()->getSingleScalarResult();
-        
-        $qb = $em->createQueryBuilder();
-        $qb->select('COUNT(r.id)');
-        $qb->from('\Yacare\ObrasParticularesBundle\Entity\TramitePlanos','r');
-        $res->Contadores['TramitePlanos'] = $qb->getQuery()->getSingleScalarResult();
+        $res = $this->ConstruirResultado(new \Yacare\ComercioBundle\Helper\Resultados\ResultadoInicioAction($this),
+            $request);
+    
+        $this->ObtenerContadoresYRecientes($res);
     
         return array('res' => $res);
+    }
+    
+    
+    /**
+     * @Route("miniinicio/")
+     * @Template
+     */
+    public function miniinicioAction(Request $request)
+    {
+        $res = $this->ConstruirResultado(new \Yacare\ComercioBundle\Helper\Resultados\ResultadoInicioAction($this),
+            $request);
+    
+        $this->ObtenerContadoresYRecientes($res);
+    
+        return array('res' => $res);
+    }
+    
+    public function ObtenerContadoresYRecientes($resultado) {
+        $em = $this->getEm();
+    
+        $resultado->Contadores['ActaObra'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\ActaObra r')->getSingleScalarResult();
+        $resultado->Contadores['Matriculado'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\Matriculado r WHERE r.Suprimido=0')->getSingleScalarResult();
+        $resultado->Contadores['EmpresaConstructora'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora r WHERE r.Suprimido=0')->getSingleScalarResult();
+        $resultado->Contadores['TramiteCat'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\TramiteCat r')->getSingleScalarResult();
+        $resultado->Contadores['TramitePlanos'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\TramitePlanos r')->getSingleScalarResult();
+    
+        $resultado->Recientes['ActaObra'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\ActaObra r ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
+        $resultado->Recientes['Matriculado'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\Matriculado r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
+        $resultado->Recientes['EmpresaConstructora'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
+        
+        return $resultado;
     }
 }

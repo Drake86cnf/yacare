@@ -6,73 +6,64 @@
 
 <div class="container-fluid"><div class="row">
 
-	<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Actas de obra</h2>
-        </div>
-        <div class="panel-body">
-            <p>Acceso a la nómina de actas de obra realizadas.</p>
-            <form id ="form_consulta" class="form-horizontal" 
-            	action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" method="get">
-                <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
-                	placeholder="Buscar por inspector, número o tipo de acta." />
-            </form>
-        </div>
-        <ul class="list-group">
-            <a class="list-group-item" data-toggle="ajax-link"
-            	href="{{ path('yacare_obrasparticulares_actaobra_listar', res.Arrastre) }}">Actas
-            	de obra <span class="badge">{{ res.Contadores['ActaObra'] }}</span></a>
-            <a class="list-group-item list-group-item-success" data-toggle="ajax-link"
-            	href="{{ path('yacare_obrasparticulares_actaobra_editar_1', res.Arrastre) }}"><i
-            	class="fa fa-plus"></i> Ingresar acta nueva</a>
-        </ul>
-    </div></div>
-    
-    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Trámites</h2>
-        </div>
-        <div class="panel-body">
-        	Trámites en curso y archivo histórico.
-        </div>
-        <ul class="list-group">
-        	<a class="list-group-item" data-toggle="ajax-link"
-        		href="{{ path('yacare_obrasparticulares_tramitecat_listar', res.Arrastre)  }}">CAT edilicia
-        		<span class="badge">{{ res.Contadores['TramiteCat'] }}</span></a>
-        	<a class="list-group-item" data-toggle="ajax-link"
-        		href="#">Aprobación de planos
-        		<span class="badge">{{ res.Contadores['TramitePlanos'] }}</span></a>
-        </ul>
-    </div></div>
-    
-    <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-info">
-        <div class="panel-heading">
-        	<h2 class="panel-title">Matriculados</h2>
-        </div>
-        <div class="panel-body">
-        	Profesionales matriculados y empresas de construcción. 
-        </div>
-        <ul class="list-group">
-        	<a class="list-group-item" data-toggle="ajax-link"
-        		href="{{ path('yacare_obrasparticulares_matriculado_listar', res.Arrastre)  }}">Profesionales
-        		matriculados <span class="badge">{{ res.Contadores['Matriculado'] }}</span></a>
-        	<a class="list-group-item" data-toggle="ajax-link"
-        		href="{{ path('yacare_obrasparticulares_empresaconstructora_listar', res.Arrastre)  }}">Empresas
-        		constructoras <span class="badge">{{ res.Contadores['EmpresaConstructora'] }}</span></a>
-        </ul>
-    </div></div>
+<div class="col-sm-4">
+    <h2>Actas de obra</h2>
+    <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente</p></li>
+    	{% for item in res.Recientes['ActaObra'] %}
+    		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: item.id })) }}"
+    			data-toggle="ajax-link">{{ item }}</a></li>
+    	{% endfor %}
+
+    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" data-toggle="ajax-link">
+    		Todos las actas</a></li>
+    	
+    	<li><form id ="form_actabora_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar acta" />
+            </form></li>
+    </ul>
+</div>
+
+<div class="col-sm-4">
+    <h2>Matriculados</h2>
+    <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente</p></li>
+    	{% for item in res.Recientes['Matriculado'] %}
+    		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}"
+    			data-toggle="ajax-link">{{ item }}</a></li>
+    	{% endfor %}
+
+    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_matriculado_listar') }}" data-toggle="ajax-link">
+    		Todos las actas</a></li>
+    	
+    	<li><form id ="form_matriculado_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_matriculado_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar matriculado" />
+            </form></li>
+    </ul>
+</div>
+
+
+<div class="col-sm-4">
+    <h2>Empresas constructoras</h2>
+    <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente</p></li>
+    	{% for item in res.Recientes['EmpresaConstructora'] %}
+    		<li><a href="{{ path('yacare_obrasparticulares_empresaconstructora_editar', res.Arrastre|merge({ id: item.id })) }}"
+    			data-toggle="ajax-link">{{ item }}</a></li>
+    	{% endfor %}
+
+    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_empresaconstructora_listar') }}" data-toggle="ajax-link">
+    		Todos las actas</a></li>
+    	
+    	<li><form id ="form_empresaconstructora_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_empresaconstructora_listar')}}" 
+                	method="get">
+            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar empresa" />
+            </form></li>
+    </ul>
+</div>
+
 
 </div></div>
 {% endblock pagina_contenido%}
-
-{% block pagina_scripts %}
-    <script>
-    	$('#consultar').keypress(function (e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                $('form#form_consulta').submit();
-                return false;
-            }
-        });
-    </script>
-{% endblock %}
