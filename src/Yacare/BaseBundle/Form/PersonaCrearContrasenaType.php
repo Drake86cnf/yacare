@@ -19,11 +19,7 @@ class PersonaCrearContrasenaType extends AbstractType
                 'label' => 'Contraseña nueva',
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-240'),
                 'required' => true))
-            ->add('PasswordEnc2', 'password', array(
-                'label' => 'Repetir contraseña',
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-240'),
-                'required' => true, 
-                'mapped' => false));
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

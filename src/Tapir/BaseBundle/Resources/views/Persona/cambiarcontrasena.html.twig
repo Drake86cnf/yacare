@@ -1,6 +1,6 @@
 {% extends 'TapirAbmBundle::editar.html.twig' %}
 
-{% block pagina_titulo %}Cambiar contraseña{% endblock %}
+{% block pagina_titulo %}Cambiar contraseña de {{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
 
@@ -10,8 +10,8 @@
     <div class="row form-group panel">
         <div class="col-sm-8 col-sm-offset-2">
         	<h2>Confirmación</h2>
-        	<p>Su contraseña fue cambiada. La próxima vez que ingrese al sistema
-        		deberá hacerlo con su nueva contraseña.</p>
+        	<p>La contraseña fue cambiada. La próxima vez que ingrese al sistema
+        		deberá hacerlo con la nueva contraseña.</p>
         </div>
     </div>
 
@@ -20,18 +20,18 @@
 	<input style="display:none" type="password" name="foilautofill"/>
 
     <div class="row form-group panel">
-        <div class="col-sm-8 col-sm-offset-2"><p>Al cambiar la contraseña, elija una contraseña segura y que pueda recordar. Utilice 8
-        	caracteres como mínimo y no utilice algo que sea demasiado obvio, como su número de documento o el nombre de su
-        	mascota.</p></div>
+        <div class="col-sm-8 col-sm-offset-2"><p>Al cambiar la contraseña, elija una contraseña segura y que pueda
+        	recordar. Utilice 8 caracteres como mínimo y no utilice algo que sea demasiado obvio, como su número de
+        	documento o el nombre de su mascota.</p></div>
     </div>
     
     
-    
+    {% if res.FormularioEditar.ContrasenaActual is defined %}
     <div class="row form-group">
     	<label class="col-sm-4 control-label">Contraseña actual</label>
         <div class="col-sm-8">{{ form_widget(res.FormularioEditar.ContrasenaActual) }}</div>
     </div>
-    
+    {% endif %}
     
     <div class="row form-group">
         <div class="col-sm-8 col-sm-offset-2"><p id="cambiarcontrasena_advertencia"></p></div>
@@ -40,10 +40,13 @@
     	<label class="col-sm-4 control-label">Contraseña nueva</label>
         <div class="col-sm-8">{{ form_widget(res.FormularioEditar.PasswordEnc) }}</div>
     </div>
+    
+    {% if res.FormularioEditar.PasswordEnc2 is defined %}
     <div class="row form-group">
     	<label class="col-sm-4 control-label">Confirmar contraseña nueva</label>
         <div class="col-sm-8">{{ form_widget(res.FormularioEditar.PasswordEnc2) }}</div>
     </div>
+    {% endif %}
     
     <div class="row form-group">
         <div class="col-sm-8 col-sm-offset-4"><button type="submit" value="Guardar" class="btn btn-success tapir-button-accept">
@@ -59,7 +62,7 @@
 
 
 {% block pagina_scripts %}
-{% if res.Terminado == 0 %}
+{% if res.Terminado == 0 and res.FormularioEditar.PasswordEnc2 is defined %}
 <script>
 $(function() {
 	$('#persona_cambiar_contrasena_PasswordEnc').on('change textInput input', VerificarContrasenias);
@@ -90,6 +93,3 @@ function VerificarContrasenias() {
 </script>
 {% endif %}
 {% endblock pagina_scripts %}
-
-{% block pagina_acciones %}
-{% endblock pagina_acciones %}

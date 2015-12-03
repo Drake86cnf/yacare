@@ -1,0 +1,12 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% block pagina_titulo %}Perfil del usuario {{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+	{# Esto es para evitar que Firefox autocomplete el formulario con el usuario y contraseña guardados #}
+	<div class="hidden" style="display: none">
+		<input type="text" name="username" value="" class="hidden" />
+		<input type="password" name="password" value="" class="hidden" />
+	</div>
+    {{ parent() }}
+{% endblock pagina_contenido %}
