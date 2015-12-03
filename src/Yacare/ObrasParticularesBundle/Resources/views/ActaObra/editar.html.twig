@@ -24,7 +24,7 @@
 	<div class="row form-group">
     	<label class="col-sm-2 control-label">Tipo de construcción <span style="color:red">*</span></label>
     	<div class="col-sm-4">{{ form_widget(res.FormularioEditar.TipoConstruccion) }}</div>
-    	<label class="col-sm-2 control-label">Estado de la obra <span style="color:red">*</span></label>
+    	<label class="col-sm-2 control-label">Avance <span style="color:red">*</span></label>
     	<div class="col-sm-4" id="EstadoAvance">{{ form_widget(res.FormularioEditar.EstadoAvance) }}</div>
 		<div class="col-sm-4" id="EstadoAvance2">{{ form_widget(res.FormularioEditar.EstadoAvance2) }}</div>
 	</div>
@@ -36,19 +36,21 @@
     	{{ form_label(res.FormularioEditar.FuncionarioPrincipal) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.FuncionarioPrincipal) }}</div>
 	</div>
-	<span id="adicional" style="display:none">
+	<span id="adicional" {% if not res.Entidad.Obs %}style="display:none"{% endif %}>
         <div class="row form-group">
         	{{ form_label(res.FormularioEditar.Obs) }}
         	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
         </div>
 	</span>
-    {{ form_rest(res.FormularioEditar) }}
+    {% if not res.Entidad.Obs %}
     <div class="row form-group">
-        	<div class="col-xs-2 text-right">
-        		<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">Incluir observaciones</a>
-        	</div>
+    	<div class="col-sm-10 col-sm-offset-2">
+    		<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">Agregar observaciones</a>
+    	</div>
     </div>
-{% endblock pagina_contenido %}
+    {% endif %}
+    {{ form_rest(res.FormularioEditar) }}
+    {% endblock pagina_contenido %}
 	
 {% block pagina_scripts %}
 	{{ parent() }}		
