@@ -27,6 +27,7 @@ abstract class Acta implements IActa
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBUndle\Entity\ConObs;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     
     public function __construct()
