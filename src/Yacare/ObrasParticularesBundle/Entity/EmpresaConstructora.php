@@ -17,6 +17,7 @@ class EmpresaConstructora
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Archivable;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * La persona juŕidica asociada.
@@ -49,7 +50,7 @@ class EmpresaConstructora
 
     public function __toString()
     {
-        return 'Empresa Constructura Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
+        return $this->getPersona()->getNombreVisible();
     }
 
     /**

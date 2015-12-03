@@ -17,6 +17,7 @@ class Matriculado
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Archivable;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
      * La persona asociada.
@@ -48,7 +49,7 @@ class Matriculado
 
     public function __toString()
     {
-        return 'Matriculado Nº ' . $this->getId() . ': ' . $this->getPersona()->getNombreVisible();
+        return $this->getPersona()->getNombreVisible();
     }
 
     /**
