@@ -181,6 +181,18 @@ class Partida
     }
     
     /**
+     * Devuelve el combinado de ParcelaAlfa y ParcelaNum.
+     */
+    public function getParcelaYSubparcela()
+    {
+        $res = $this->getParcelaNum() . $this->getParcelaAlfa();
+        if($this->getSubparcela() > 0) {
+            $res .= ' ' . $this->getSubparcela();
+        }
+        return $res;
+    }
+    
+    /**
      * Devuelve el combinado de SubparcelaAlfa y SubparcelaNum.
      */
     public function getSubparcela()
