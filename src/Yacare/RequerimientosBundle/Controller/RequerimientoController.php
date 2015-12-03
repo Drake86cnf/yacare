@@ -17,7 +17,9 @@ use Yacare\RequerimientosBundle\Entity\Novedad;
  */
 class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\AbmBundle\Controller\ConVer;
+    use \Tapir\AbmBundle\Controller\ConVer {
+        \Tapir\AbmBundle\Controller\ConVer::verAction as parent_verAction;
+    }
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
     
@@ -340,7 +342,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function verAction(Request $request)
     {
-        $res = parent::verAction($request);
+        $res = $this->parent_verAction($request);
         
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
