@@ -125,7 +125,21 @@ class Actividad implements Tree\NodeInterface
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $NivelRiesgo = 1;
+    
+    /**
+     * Devuelve los códigos de DGR TDF separados por coma.
+     */
+    public function getDgrTdfFormateado() {
+        return str_replace('/', ', ', $this->getDgrTdf());
+    }
 
+    /**
+     * Devuelve los códigos de DGR TDF separados por coma.
+     */
+    public function getCodigoCpuFormateado() {
+        return str_replace(';', ', ', $this->getCodigoCpu());
+    }
+    
     /*
      * Devuelve true si la actividad contiene una etiqueta (buśqueda por código).
      */
