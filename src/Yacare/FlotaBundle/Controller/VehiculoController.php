@@ -16,7 +16,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class VehiculoController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\AbmBundle\Controller\ConVer;
+use \Tapir\AbmBundle\Controller\ConVer {
+        \Tapir\AbmBundle\Controller\ConVer::verAction as parent_verAction;
+    }
     use \Tapir\AbmBundle\Controller\ConEliminar;
 
     function IniciarVariables()
@@ -43,7 +45,7 @@ class VehiculoController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function verAction(Request $request)
     {
-        return parent::verAction($request);
+        return $this->parent_verAction($request);
     }
 
     /**
