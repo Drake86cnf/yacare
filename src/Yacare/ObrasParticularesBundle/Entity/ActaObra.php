@@ -99,22 +99,30 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 
     public function getEstadoAvanceNombre()
     {
-        return self::EstadoAvanceNombres($this->getEstadoAvance());
+        return self::EstadoAvanceNombres($this->getEstadoAvance(), $this->getTipoConstruccion());
     }
     
-    public static function EstadoAvanceNombres($rango)
+    public static function EstadoAvanceNombres($rango, $tipoConstruccion)
     {
         switch ($rango) {
             case 1:
                 return 'Replanteo y fundaciones';
             case 5:
-                return 'Mampostería en planta baja';
+                if ($tipoConstruccion === 'Seca') {
+                    return 'Estructura en planta baja';
+                } else {
+                    return 'Mampostería en planta baja';
+                }
             case 10:
                 return 'Encadenado superior en planta baja';
             case 15:
                 return 'Entrepiso';
             case 20:
-                return 'Mampostería en planta alta';
+                if ($tipoConstruccion === 'Seca') {
+                    return 'Estructura en planta alta';                    
+                } else {
+                    return 'Mampostería en planta alta';
+                }
             case 25:
                 return 'Encadenado superior en planta alta';
             case 30:
@@ -122,35 +130,10 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
             case 35:
                 return 'Techado';
             default:
-                return '';
+                return 'Ninguno';
         }
     }
     
-    // Las siguientes dos funciones van destinadas a solventar "momentaneamente" el dilema de seleccionar estados de obra
-    // para tipo construcción Seca.
-    public function getEstadoAvanceNombre2()
-    {
-        return self::EstadoAvanceNombres2($this->getEstadoAvance2());
-    }
-    
-    public static function EstadoAvanceNombres2($rango)
-    {
-        switch ($rango) {
-            case 6:
-                return 'Estructura en planta baja';
-            case 15:
-                return 'Entrepiso';
-            case 20:
-                return 'Estructura en planta alta';
-            case 30:
-                return 'Estructura de techo';
-            case 35:
-                return 'Techado';
-            default:
-                return '';
-        }
-    }
-
     /**
      * @ignore
      */
