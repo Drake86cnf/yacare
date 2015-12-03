@@ -27,8 +27,11 @@
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %}
 
+{% endblock %}
+{% block pagina_accion %}
+
+{% endblock %}
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
@@ -36,4 +39,6 @@
 <a data-toggle="ajax-link"
 	href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nuevo requisito</a>
+<a data-toggle="ajax-link" href="{{ path('yacare_tramites_tramitetipo_listar') }}"
+	class="btn btn-default pull-right"><i class="glyphicon glyphicon-export"></i> Requisitos por tramite</a>
 {% endblock %}
