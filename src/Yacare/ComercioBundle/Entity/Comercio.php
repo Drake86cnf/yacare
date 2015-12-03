@@ -33,6 +33,17 @@ class Comercio implements IComercio
     }
     
     /**
+     * El domicilio declarado, que puede ser diferente al domicilio catastral del local comercial.
+     * 
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $Domicilio = null;
+    
+    /**
+     * La posición en archivo. Es una nomenclatura que utiliza comercio para ubicar el expediente físico.
+     * 
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -40,23 +51,31 @@ class Comercio implements IComercio
     protected $PosicionArchivo = null;
     
     /**
+     * La fecha de la habilitación o null si aun no está habilitado.
+     * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date(message="Por favor proporcione una fecha de habilitación válida.")
      */
     protected $FechaHabilitacion = null;
     
     /**
+     * La fecha de baja, o null si el comercio todavía está habilitado.
+     * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date(message="Por favor proporcione una fecha de baja válida.")
      */
     protected $FechaBaja;
     
     /**
+     * La fecha de la última acta.
+     * 
      * @ORM\Column(type="date", nullable=true)
      */
     protected $FechaUltimaActa;
     
     /**
+     * El estado de comercio (habilitado, en trámite, no habilitado).
+     * 
      * @var integer
      * 
      * @ORM\Column(type="integer")
@@ -64,6 +83,8 @@ class Comercio implements IComercio
     protected $Estado = 0;
     
     /**
+     * El último certificado de habilitación emitido para este comercio.
+     * 
      * @var CertificadoHabilitacionComercial
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\CertificadoHabilitacionComercial")
@@ -102,11 +123,16 @@ class Comercio implements IComercio
     }
     
     /**
-     * Devuelve el domicilio, en caso de que tenga uno.
+     * Devuelve el domicilio declarado, en caso de que tenga uno o el domicilio catastral en caso de que tenga un local.
      */
-    public function getDomicilio() {
-        if($this->getLocal() && $this->getLocal()->getPartida()) {
+    public function getDomicilioReal() {
+        
+        if($this->Domicilio) {
+            return $this->Domicilio;
+        } elseif($this->getLocal() && $this->getLocal()->getPartida()) {
             return $this->getLocal()->getPartida()->getDomicilio();
+        } else {
+            return '';
         }
     }
 
@@ -252,5 +278,22 @@ class Comercio implements IComercio
     {
         $this->FechaUltimaActa = $FechaUltimaActa;
         return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDomicilio($Domicilio)
+    {
+        $this->Domicilio = $Domicilio;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getDomicilio()
+    {
+        return $this->Domicilio;
     }
 }

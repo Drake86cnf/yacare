@@ -13,8 +13,8 @@
 			{{ bs.grid_label_text('Nombre de fantasía', res.Entidad.Nombre, 'text-value-strong') }}
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
-			{% if res.Entidad.Local %}
-			    {{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
+			{% if res.Entidad.DomicilioReal %}
+			    {{ bs.grid_label_text('Domicilio', res.Entidad.DomicilioReal) }}
 			{% else %}
 				{{ bs.grid_label_text('Domicilio', 'n/a') }}
 			{% endif %}
