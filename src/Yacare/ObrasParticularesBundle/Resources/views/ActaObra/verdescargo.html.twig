@@ -1,114 +1,105 @@
-{% extends 'TapirAbmBundle::imprimir.html.twig' %}
+{% extends 'TapirAbmBundle::ver.html.twig' %}
 
-{% block pagina_titulo %}Descargo {{ res.Entidad }}{% endblock %}
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}Descargo de {{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
 <div class="container-fluid">
 
-<!-- Cabecera del descargo -->
-	<h3 class="row-header text-center">DESCARGO DE ACTA</h3>
-<!-- Fin cabecera del descargo -->
-	
-<!-- Datos propios del descargo -->
 	<div class="row">
-    	<div class="col-xs-2 text-right"><strong>Propietario:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Titular }}</div>
-    	<div class="col-xs-4 text-right"><strong>Sección:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Seccion }}</div>
-    </div>
+		<div class="col-sm-8 col-xs-12">
+		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
+		    {{ bs.grid_label_text('Propietario', res.Entidad.Partida.Titular) }}
+		    {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		</div>
+		<div class="col-sm-4 col-xs-12 col-separator-left">
+		    {{ bs.grid_label_text('Fecha', res.Entidad.Fecha|tapir_fecha('medium', 'none')) }}
+		    {{ bs.grid_label_text('Sección', res.Entidad.Partida.Seccion) }}
+		    {{ bs.grid_label_text('Macizo', res.Entidad.Partida.Macizo) }}
+		    {{ bs.grid_label_text('Parcela', res.Entidad.Partida.ParcelaYSubparcela) }}
+		    {% if res.Entidad.Partida.UnidadFuncional and res.Entidad.Partida.UnidadFuncional > 0 %}
+		    {{ bs.grid_label_text('UF', res.Entidad.Partida.UnidadFuncional) }}
+		    {% endif %}
+		</div>
+	</div>
+	
+	{% if res.Entidad.Profesional %}
+    <h2 class="row-header">Profesional</h2>
     <div class="row">
-    	<div class="col-xs-2 text-right"><strong>Domicilio:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Domicilio }}</div>
-    	<div class="col-xs-4 text-right"><strong>Macizo:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Macizo }}</div>
-    </div>
-    <div class="row">
-    	<div class="col-xs-2 text-right"><strong>DNI:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Titular.DocumentoNumero }}</div>
-    	<div class="col-xs-4 text-right"><strong>Parcela:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Parcela }}</div>
-    </div>
-    <div class="row">
-    	<div class="col-xs-2 text-right"><strong>Partida:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.Numero }}</div>
-    	<div class="col-xs-4 text-right"><strong>UF:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Partida.UnidadFuncional }}</div>
-    </div>
-    {% if res.Entidad.Profesional.Id is defined and res.Entidad.Profesional.Id%}
-    <div class="row">
-    	<div class="col-xs-2 text-right"><strong>Profesional:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Profesional.Persona.NombreVisible }}</div>
-    	<div class="col-xs-4 text-right"><strong>Mátricula:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Profesional.Id }}</div>
-    </div>
+    	<div class="col-sm-6 col-xs-12">
+    	    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional) }}
+    	    {{ bs.grid_label_text('Matrícula', res.Entidad.Profesional.Id) }}
+    	</div>
+    	<div class="col-sm-6 col-xs-12">
+    	</div>
+    </div> 
     {% endif %}
-<!-- Fin datos propios del descargo -->
-    
-<!-- Cabecera del acta asociada -->
-	<h3 class="row-header text-center">ACTA DE {{ res.Entidad.Subtipo|upper }}</h3>
-	<div class="row">
-    	<div class="col-xs-2 text-right"><strong>NÚMERO:</strong></div> 
-    	<div class="col-xs-4">{{ res.Entidad.Numero }}</div>
-    	<div class="col-xs-3 text-right"><strong>FECHA:</strong></div> 
-    	<div class="col-xs-3">{{ res.Entidad.Fecha|tapir_fecha('long', 'none') }}</div>
-    &nbsp;
-    </div>
-	<div class="row">
-		<div class="col-xs-12">Inspección realizada por {{ res.Entidad.FuncionarioPrincipal }}.</div>
-	</div>
-<!-- Fin cabecera del acta asociada -->
+     
+     
+    <h2 class="row-header">Construcción</h2>
+	{{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
+    {{ bs.grid_label_text('Denominación catastral', res.Entidad.Partida.Smpu) }}
+    <div class="row">
+    	<div class="col-sm-6 col-xs-12">
+    	    {{ bs.grid_label_text('Tipo', res.Entidad.TipoConstruccion) }}
+    	    {{ bs.grid_label_text('Avance', res.Entidad.EstadoAvanceNombre) }}
+    	</div>
+    	<div class="col-sm-6 col-xs-12">
+		    {{ bs.grid_label_text('Partida', res.Entidad.Partida.Numero) }}
+		    {{ bs.grid_label_text('Zona', res.Entidad.Partida.Zona) }}
+    	</div>
+    </div> 
 
-	<hr>
-	
 <!-- Faltas -->
-	<div class="row">
-		<div class="col-xs-12">
-			<h4 class="small-text">La {{ res.Entidad.Subtipo|lower }} detectó las siguientes faltas:</h4>
-			<h4><em>
-			{% for tipofalta in res.Entidad.TipoFaltas %}				
-				{{ tipofalta|upper }}, 
-			{% endfor %}
-			</em></h4
-			><br />
-			{% if res.Entidad.Obs is defined and res.Entidad.Obs %}
-				<h4 class="small-text">Además, las siguientes Observaciones:</h4>
-				<h4><em>{{ res.Entidad.Obs|upper }}</em></h4>        				
-			{% endif %}
-		</div>
-	</div><br />
-	<div class="row">
-		<div class="col-xs-4 pull-right">
-			<hr class="firma"><p class="text-center">FIRMA Y SELLO DEL INSPECTOR</p>
+	<h2 class="row-header">Faltas detectadas</h2>
+    <div class="col-sm-12">
+    	<p>
+		{% for tipofalta in res.Entidad.TipoFaltas %}
+			* <mark>{{ tipofalta }}.</mark> 
+		{% endfor %}
+        {% if res.Entidad.Obs %}
+    		<br />Observaciones: {{ res.Entidad.Obs }}
+    	{% endif %}
+    	</p>
+    </div>
+    
+    <div class="row">
+		<div class="col-sm-4 col-xs-6 pull-right">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Firma y sello del inspector</div>
 		</div>
 	</div>
-<!-- Fin faltas -->
 
-	<hr>
 	
 <!-- Compromiso -->
+	<h2 class="row-header">Compromiso</h2>
+
 	<div class="row">
 		<div class="col-xs-12">
-		<h4 class="small-text">Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección 
-		de Obras Particulares me comprometo en un plazo maximo de 
-		<strong>
-		    {{ res.Entidad.Plazo }} {% if res.Entidad.Plazo == 1 %} día {% else %} días {% endif %}
-		</strong>
-		a cumplimentar con lo que se detalla a continuación:</h4>
-		<h4><em>
-            {% for compromiso in res.Entidad.TipoFaltas %}
-				{{ compromiso.FaltaCompromiso|upper }}, 
-			{% endfor %}
-		</em></h4>
-		<br />
-		{% if res.Entidad.DescargoDetalle is defined and res.Entidad.DescargoDetalle %} 
-				<h4 class="small-text">A continuación se especifican detalles adicionales:</h4>
-				<h4><em>{{ res.Entidad.DescargoDetalle|upper }}</em></h4>
-		{% endif %}
+			<p>Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección 
+				de Obras Particulares me comprometo en un plazo maximo de 
+        		<strong>
+        		    {{ res.Entidad.Plazo }} {% if res.Entidad.Plazo == 1 %} día {% else %} días {% endif %}
+        		</strong>
+        		a cumplimentar con lo que se detalla a continuación:</p>
+    		<p>
+                {% for compromiso in res.Entidad.TipoFaltas %}
+    				* <mark>{{ compromiso.FaltaCompromiso }}.</mark> 
+    			{% endfor %}
+    		</p>
+    		<br />
+    		{% if res.Entidad.DescargoDetalle is defined and res.Entidad.DescargoDetalle %} 
+				<p>A continuación se especifican detalles adicionales:</p>
+				<blockquote>{{ res.Entidad.DescargoDetalle }}</blockquote>
+    		{% endif %}
 		</div>
-	</div> <br />
+	</div>
+	
 	<div class="row">
-		<div class="col-xs-4 pull-right">
-			<hr class="firma"><p class="text-center">PROPIETARIO / PROFESIONAL</p>
+		<div class="col-sm-4 col-xs-6 pull-right">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Propietario / Profesional</div>
 		</div>
 	</div>
 <!-- Fin compromiso -->
@@ -118,10 +109,12 @@
 <!-- Footer -->
 	<div class="row">
     	<div class="col-xs-6">
-    		<strong>FECHA: &nbsp;</strong> {{ res.Entidad.FechaDescargo|tapir_fecha('long', 'none') }}
+    		Fecha: {{ res.Entidad.FechaDescargo|tapir_fecha('long', 'none') }}
     	</div>
-    	<div class="col-xs-6 text-right"><strong>VENCIMIENTO: &nbsp;</strong> 
+    	<div class="col-xs-6 text-right">
+    		Vencimiento: <strong>
     	    {{ res.Entidad.FechaDescargo|date_modify("+" ~ res.Entidad.Plazo ~ " day")|tapir_fecha('long', 'none') }}
+    	    </strong>
     	</div>
 	</div>
 <!-- Fin footer -->
@@ -130,8 +123,14 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
+<a href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
+	class="btn btn-default"><i class="fa fa-fw fa-reply"></i> Ver acta original	
+	</a>
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
     {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
     	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-    		class="btn btn-warning hidden-print"><i class="fa fa-edit"></i> Editar</a>
+    		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
     {% endif %}
-{% endblock pagina_acciones %}
+{% endblock pagina_acciones2 %}

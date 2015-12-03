@@ -16,9 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 {
-    use \Tapir\AbmBundle\Controller\ConVer {
-        \Tapir\AbmBundle\Controller\ConVer::verAction as parent_verAction;
-    }
+    use \Tapir\AbmBundle\Controller\ConVer;
     
     function IniciarVariables()
     {
@@ -58,12 +56,13 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $FormEditarBuilder
             ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
                 'label' => 'Plazo', 
+                'attr' => array('class' => 'tapir-input-160'),
                 'required' => true))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional', 
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado', 
                 'required' => false))
-            ->add('DescargoDetalle', null, array('label' => 'Detalles adicionales'));
+            ->add('DescargoDetalle', null, array('label' => 'Detalle'));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
@@ -113,7 +112,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function verdescargoAction(Request $request)
     {
-        return $this->parent_verAction($request);
+        return $this->verAction($request);
     }
 
     /**

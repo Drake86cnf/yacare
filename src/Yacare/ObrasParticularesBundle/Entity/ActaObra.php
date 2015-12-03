@@ -93,9 +93,10 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * 
      * @var string
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $DescargoDetalle;
+
 
     public function getEstadoAvanceNombre()
     {

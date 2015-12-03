@@ -16,7 +16,7 @@
     	{% endfor %}
 
     	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" data-toggle="ajax-link">
-    		Todos las actas</a></li>
+    		Todas las actas</a></li>
     	
     	<li><form id ="form_actabora_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" 
                 	method="get">
@@ -35,12 +35,7 @@
     	{% endfor %}
 
     	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_matriculado_listar') }}" data-toggle="ajax-link">
-    		Todos las actas</a></li>
-    	
-    	<li><form id ="form_matriculado_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_matriculado_listar')}}" 
-                	method="get">
-            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar matriculado" />
-            </form></li>
+    		Todos los matriculados</a></li>
     </ul>
 </div>
 
@@ -55,12 +50,7 @@
     	{% endfor %}
 
     	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_empresaconstructora_listar') }}" data-toggle="ajax-link">
-    		Todos las actas</a></li>
-    	
-    	<li><form id ="form_empresaconstructora_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_empresaconstructora_listar')}}" 
-                	method="get">
-            <input type="text" name="filtro_buscar" class="form-control pull-rigth" placeholder="buscar empresa" />
-            </form></li>
+    		Todas las empresas</a></li>
     </ul>
 </div>
 

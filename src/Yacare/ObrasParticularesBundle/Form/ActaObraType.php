@@ -18,7 +18,7 @@ class ActaObraType extends AbstractType
         $builder
             ->add('Numero', null, array(
                 'label' => 'Número',
-                'attr' => array('class' => 'tapir-input-320'),
+                'attr' => array('class' => 'tapir-input-160'),
                 'required' => true))
             ->add('SubTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el tipo de acta',
@@ -69,7 +69,7 @@ class ActaObraType extends AbstractType
                     35 => 'Techado'
                 ),
                 'attr' => array('class' => 'tapir-input-320'),
-                'label' => 'Estado de la obra',
+                'label' => 'Avance',
                 'required' => false))
                 // Solución temporal para los tipos de obra Seca.
             ->add('EstadoAvance2', 'choice', array(
