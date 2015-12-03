@@ -1,7 +1,7 @@
 /** 
  * Archivo principal de estilos de Tapir.
  *
- * Requiere Bootstrap 3.3.5.
+ * Requiere Bootstrap 3.3.6.
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * @license http://opensource.org/licenses/GPL-3.0 GNU Public License, version 3
  */
@@ -49,7 +49,7 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
         background-color: white; 
     }
     #page-title {
-        border-bottom: 1px solid #f0f0f0;
+        a-border-bottom: 1px solid #f0f0f0;
     }
     #content-header .content-bar-block {
         padding-top: 4px;
