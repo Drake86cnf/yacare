@@ -1,0 +1,46 @@
+{% extends 'TapirAyudaBundle:Ayuda:inicio.html.twig' %}
+
+{% block pagina_contenido %}
+<div class="panel panel-info">
+<div class="panel-heading">Repaso y resumen</div>
+<div class="panel-body">
+	<p>Hay que recordar siempre la diferencia entre un comercio (FM Aire Libre), su titular (Aire Libre SRL), el local donde
+    funciona (Antártida Arg. 850) y el titular del local (que puede ser igual o diferente que el titular del comercio).
+    Un titular puede tener varios comercios, en una variedad de locales propios y alquilados. En un local puede haber varios
+    comercios.</p>
+</div>
+</div>
+
+<h2>Pasos para cargar un comercio (alta manual)</h2>
+
+<h3>1. Titular</h3>
+<p>Es la persona física o jurídica que figura como titular del comercio.
+	Se puede buscar el titular y actualizar sus datos si ya existe o cargar uno nuevo si no existe.</p>
+<ul>
+    <li>Se deben cargar los datos del titular o “dueño” del comercio, no los datos del comercio en sí. Por ejemplo para el comercio “Carrefour” el titular es “INC S.A.” (persona jurídica).</li>
+    <li>El nombre de fantasía (Carrefour) se carga en el paso 3.</li>
+    <li>Este es el titular del comercio, no del inmueble. El inmueble puede ser alquilado.</li>
+    <li>Lo importante del paso 1 es el dueño del comercio, no el dueño del local ni el nombre de fantasía.</li>
+</ul>
+
+<h3>2. Local comercial</h3>
+<p>Es el inmueble donde funciona el comercio.
+	Se puede buscar el local y actualizar sus datos si ya existe o cargar uno nuevo si no existe.</p>
+<ul>
+    <li>Se debe ubicar el inmueble a través de la partida inmobiliaria.</li>
+    <li>El titular del inmueble puede ser diferente al titular del comercio (local alquilado).</li>
+    <li>Es opcional. Por ejemplo un plomero o un vendedor ambulante no tienen local comercial.</li>
+    <li>A veces los datos catastrales no coinciden con el domicilio declarado por el comercio. Por ejemplo un inmueble puede tener varias puertas, como Automotores Tierra del Fuego (Ford). Mientras que el comercio declara una puerta (Elcano 367) en catastro figura otra puerta (Elcano 341), pero ambas son la misma partida inmobiliaria. Lo importante es seleccionar la partida inmobiliaria correcta, aunque tengan diferente domicilio.</li>
+    <li>Lo importante del paso 2 es la partida inmobiliaria, no el dueño del comercio ni el domicilio exacto.</li>
+</ul>
+
+<h3>3. Comercio</h3>
+<p>Es donde se cargan los datos del comercio en sí, como el nombre de fantasía y las actividades que ejerce.</p>
+<ul>
+    <li>Se debe asociar al titular que se cargó previamente en el paso 1 y el local del paso 2 (si lo hubiera).</li>
+    <li>El nombre de fantasía del comercio puede ser diferente al nombre del titular.</li>
+    <li>El domicilio declarado por el comercio puede ser diferente al domicilio catastral que figura en el local, aunque debe ser la misma partida inmobiliaria.</li>
+    <li>El encuadre de las actividades es la parte más compleja.</li>
+    <li>Lo importante del paso 3 es el comercio en sí, no su titular ni el dueño del local.</li>
+</ul>
+{% endblock pagina_contenido %}
