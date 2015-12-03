@@ -15,18 +15,5 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class AyudaController extends \Tapir\BaseBundle\Controller\BaseController
 {
-    /**
-     * Ver una entidad.
-     *
-     * Es como editar, pero sólo lectura.
-     *
-     * @see editarAction() editarAction()
-     *
-     * @Route("inicio/")
-     * @Template()
-     */
-    public function inicioAction(Request $request)
-    {
-        
-    }
+    use ConAyuda;
 }
