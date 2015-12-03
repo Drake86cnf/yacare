@@ -128,7 +128,19 @@ hr {
 hr.firma {
 	border-color: none !important;
 	border-bottom: 1px dashed #1C1C1C !important;
-	width: 100%; 
+	width: 100%;
+}
+
+.firma-espacio {
+    background-color: #fdfdfd;
+    width: 100%;
+    min-height: 2cm;
+}
+.firma-texto {
+    border-top: 1px dashed #1C1C1C;
+    width: 100%;
+    padding-top: 4px;
+    text-align: center;
 }
 
 .inplace-edit-control {
@@ -258,8 +270,9 @@ legend small {
 }
 
 .form-actions2 {
-	padding: 6px 12px 6px 12px;
+	padding: 8px 12px 8px 12px;
 	background-color: #f8f8f8;
+	margin-top: 16px;
 }
 
 .form-actions3 {
