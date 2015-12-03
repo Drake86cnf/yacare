@@ -34,7 +34,7 @@
 					Si se trata de una habilitación regular, por favor inicie un
 					trámite de habilitación.<br /> &nbsp;<br /> <a
 						data-toggle="ajax-link"
-						href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}"
+						href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1', res.Arrastre) }}"
 						class="btn btn-success"><i class="fa fa-play"></i> Iniciar trámite
 						de habilitación</a>
 				</p>
@@ -43,7 +43,7 @@
 				<p>
 					De lo contrario, si desea realizar un alta irregular, haga clic
 					aquí para continuar:<br /> &nbsp;<br /> <a data-toggle="ajax-link"
-						href="{{ path(baseroute ~ '_editar_1') }}" class="btn btn-warning"><i
+						href="{{ path(res.ObtenerRutaAccion('crear')) }}" class="btn btn-warning"><i
 						class="fa fa-plus"></i> Continuar con el alta manual</a>
 				</p>
 			</div>
@@ -52,4 +52,4 @@
 
 </div>
 
-{% endblock %} {% block pagina_acciones2 %} {% endblock %}
+{% endblock %}
