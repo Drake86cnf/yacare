@@ -31,7 +31,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $this->Joins[] = 'JOIN r.FuncionarioPrincipal fp';
         }
         
-        $this->OrderBy = 'r.Fecha DESC';
+        $this->OrderBy = 'r.Numero DESC';
     }
 
     /**
