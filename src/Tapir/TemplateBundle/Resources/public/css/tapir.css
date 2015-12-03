@@ -343,6 +343,14 @@ legend small {
 	}
 }
 
+@media print {
+	.content-bar-block {
+	    margin-bottom: 20px;
+	    width: 100%;
+	    border-bottom: 2px solid #808080; 
+	}
+}
+
 .ajax-spinner {
 	z-index: 100000;
 	position: fixed;
