@@ -9,7 +9,7 @@
 			<ul>
 				<li><a href="{{ path('inicio') }}"><i class="fa fa-fw fa-home text-primary"></i> Inicio</a></li>
 				<li><a href="{{ path('yacare_base_persona_listar') }}" data-toggle="ajax-link"><i class="fa fa-user fa-fw text-muted"></i> Personas</a></li>
-				<li><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link"><i class="fa fa-ticket fa-fw text-muted"></i> Requerimientos</a></li>
+				<li><a href="{{ path('yacare_requerimientos_default_inicio') }}" data-toggle="ajax-link"><i class="fa fa-ticket fa-fw text-muted"></i> Requerimientos</a></li>
 				<li class="divider"></li>
 				<li class="dropdown-header">Yacaré</li>
 				
@@ -39,6 +39,10 @@
                     {{ block_pagina_menuprincipal|raw }}
                 	<li><a href="#"><li role="separator" class="divider"></li></a></li>
                 {% endif %}
+                
+                {% if res is defined and res.ObtenerRutaAccion('ayuda')|tapir_ruta_existe and res.ObtenerRutaAccion('ayuda') != app.request.attributes.get('_route') %}
+                <li><a href="{{ path(res.ObtenerRutaAccion('ayuda', res.Arrastre)) }}" data-toggle="modal"><i class="fa fa-life-ring fa-fw"></i> Ayuda</a></li>
+                {% endif %}
                 <li><a href="#" onclick="return tapirReportarProblema();"><i class="fa fa-frown-o fa-fw"></i> Reportar problema</a></li>
                 <li><a href="#" onclick="return tapirEnviarComentario();"><i class="fa fa-comment-o fa-fw"></i> Enviar un comentario</a></li>
                 
@@ -67,6 +71,12 @@
     		data-toggle="ajax-link">
         	<i class="fa fa-fw fa-arrow-up"></i>
         </a>
+        
+        {% if res.ObtenerRutaAccion('ayuda')|tapir_ruta_existe and res.ObtenerRutaAccion('ayuda') != app.request.attributes.get('_route') %}
+            <a class="btn btn-default" id="tapirHelpButton" href="{{ path(res.ObtenerRutaAccion('ayuda', res.Arrastre)) }}" data-toggle="modal">
+            	<i class="fa fa-life-ring fa-fw"></i>
+            </a>
+        {% endif %}
     {% elseif app.request.attributes.get('_route') != 'inicio' %}
     	<a class="btn btn-default" id="tapirUpButton" href="{{ path('inicio') }}" data-toggle="ajax-link">
         	<i class="fa fa-fw fa-arrow-up"></i>
