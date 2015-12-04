@@ -13,8 +13,4 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class YacareAyudaBundle extends Bundle
 {
-    public function getParent()
-    {
-        return 'TapirAyudaBundle';
-    }
 }
