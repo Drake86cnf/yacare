@@ -66,51 +66,9 @@ body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
 }
 
 @media screen and (max-width: 767px) {
-    body, p, label, div, td {
+    body, p, label, span, div, td {
         font-size: 11pt;
     }
-}
-
-@media print {
-    body {
-        /* min-width: 768px; */
-        
-    }
-    body, p, label, span, div, td {
-        font-size: 9pt;
-        white-space: initial;
-    }
-    @page {
-        margin-top: 10mm !important;
-        margin-right: 10mm !important;
-        margin-bottom: 20mm !important;
-        margin-left: 25mm !important;
-        padding: 0px;
-    }
-    #wrapper {
-        margin: 0px;
-        padding: 0px !important;
-        padding-left: 0px !important;
-    }
-    #page-wrapper {
-        margin: 0px;
-        padding: 0px !important;
-    }
-    a[href]:after {
-        content: none !important;
-    }
-    .label {
-        padding: 2px;
-        border: 1px solid gray;
-    }
-    abbr:after {
-        display: none;
-        visibility: hidden;
-        text-decoration: none;
-    }
-	h4.small-text {
-	  font-size: 90%;
-	}
 }
 
 a.btn-link {
@@ -178,7 +136,7 @@ label, .text-label {
 	a-border: 1px solid red;
 	padding-right: 8px;
 	padding-bottom: 2px;
-	margin-bottom: 8px;
+	margin-bottom: 2px;
 	font-weight: 500;
     text-align: left;
     color: #808080;
@@ -188,7 +146,7 @@ label, .text-label {
     padding-left: 2px;
 	a-border: 1px solid blue;
 	padding-bottom: 2px;
-	margin-bottom: 8px;
+	margin-bottom: 2px;
 	border-bottom: 1px solid transparent;
 }
 
@@ -221,7 +179,7 @@ a.disabled {
 
 h1, legend {
 	padding: 0px;
-	font-size: 16pt;
+	font-size: 14pt;
 	font-weight: 400;
 	color: gray;
 	margin: 2px 0px;
@@ -233,7 +191,7 @@ h1 a {
 
 h2 {
 	margin-top: 10px;
-	font-size: 14pt;
+	font-size: 13pt;
 	font-weight: 600;
 }
 
@@ -463,15 +421,25 @@ div:hover > .showonhover, span:hover > .showonhover, a:hover > .showonhover {
     display: initial;
 }
 
-h2.row-header, h3.row-header {
+h2.row-header {
     border-bottom: 1px solid #d0d0d0;
     padding-bottom: 4px;
 	margin-top: 8xp;
-	margin-bottom: 8xp;
+	margin-bottom: 6xp;
 }
 
 h2.row-header {
     color: #539BDA;
+}
+
+@media screen {
+    h3.row-header {
+        margin-top: 2px;
+        margin-bottom: 4px;
+        background-color: #C6DDF0;
+        padding: 2px 4px;
+        border-bottom: none;
+    }
 }
 
 @media (min-width: 768px) {
@@ -649,4 +617,46 @@ li.divider {
 }
 .inicio-mini-menu li:hover a {
     background-color: #f0f0f0;
+}
+
+@media print {
+    body {
+        /* min-width: 768px; */
+        
+    }
+    body, p, label, span, div, td {
+        font-size: 10pt;
+        white-space: initial;
+    }
+    @page {
+        margin-top: 10mm !important;
+        margin-right: 10mm !important;
+        margin-bottom: 20mm !important;
+        margin-left: 25mm !important;
+        padding: 0px;
+    }
+    #wrapper {
+        margin: 0px;
+        padding: 0px !important;
+        padding-left: 0px !important;
+    }
+    #page-wrapper {
+        margin: 0px;
+        padding: 0px !important;
+    }
+    a[href]:after {
+        content: none !important;
+    }
+    .label {
+        padding: 2px;
+        border: 1px solid gray;
+    }
+    abbr:after {
+        display: none;
+        visibility: hidden;
+        text-decoration: none;
+    }
+    h4.small-text {
+      font-size: 90%;
+    }
 }
