@@ -33,6 +33,6 @@ class DocumentoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('inherit_data' => true, 'class' => 'form_horizontal'));
+        $resolver->setDefaults(array('inherit_data' => true, 'attr' => array('class' => 'form-inline')));
     }
 }
