@@ -80,10 +80,10 @@ abstract class Acta implements IActa
      * 
      * @ORM\Column(type="datetime")
      * @Assert\Range(
-     *     min = "-7 days",
+     *     min = "-2 years",
      *     max = "now",
-     *     minMessage = "Debe ingresar una fecha dentro de la última semana.",
-     *     maxMessage = "Debe ingresar una fecha dentro de la última semana." 
+     *     minMessage = "Debe ingresar una fecha dentro de los dos últimos años.",
+     *     maxMessage = "Debe ingresar una fecha dentro de los dos últimos años." 
      * )
      */
     private $Fecha;
