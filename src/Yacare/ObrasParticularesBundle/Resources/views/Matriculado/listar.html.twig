@@ -21,8 +21,7 @@
 			<td>{{ entity.Persona }}</td>
 			<td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
 			<td class="hidden-xs">{{ entity.Profesion }}</td>
-			<td class="hidden-xs hidden-print">{{
-				entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
+			<td class="hidden-xs hidden-print">{{ entity.FechaVencimiento|tapir_fecha('medium', 'none') }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -34,11 +33,9 @@
 
 {% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_listarhabilitados', arrastre|merge({ 'filtro_buscar': null })) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista
-	de matriculados al día</a>
+	href="{{ path(baseroute ~ '_listarhabilitados', res.Arrastre|merge({ 'filtro_buscar': null })) }}"
+	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista de matriculados al día</a>
 <a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo
-	matriculado</a>
+	href="{{ path(baseroute ~ '_editar_1', res.Arrastre|merge({'form': 'MatriculadoCrear' })) }}"
+	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo matriculado</a>
 {% endblock pagina_acciones2 %}
