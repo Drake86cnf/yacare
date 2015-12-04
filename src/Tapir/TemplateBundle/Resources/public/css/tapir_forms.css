@@ -94,6 +94,11 @@ input, select, textarea {
 	vertical-align: initial;
 }
 
+.form-inline .col-sm-10 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .required {
 	/* color: #800000; */
 	white-space: nowrap;
