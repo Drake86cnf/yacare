@@ -26,8 +26,8 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
         $this->BuscarPor = 'NombreVisible, Username, RazonSocial, DocumentoNumero, Cuilt, Email';
         $this->OrderBy = 'r.NombreVisible';
         $this->ConservarVariables[] = 'filtro_grupo';
+        $this->ConservarVariables[] = 'filtro_rol';
         $this->ConservarVariables[] = 'filtro_grupo_invertir';
-        $this->ConservarVariables[] = 'orden';
     }
 
     /**
@@ -38,6 +38,7 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $filtro_grupo = $this->ObtenerVariable($request, 'filtro_grupo');
         $filtro_grupo_invertir = $this->ObtenerVariable($request, 'filtro_grupo_invertir');
+        $filtro_rol = $this->ObtenerVariable($request, 'filtro_rol');
         
         if ($filtro_grupo) {
             $this->Joins[] = "LEFT JOIN r.Grupos g";
@@ -47,26 +48,18 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                 $this->Where .= " AND g.id=$filtro_grupo";
             }
         }
-        
-        $orden = $this->ObtenerVariable($request, 'orden');
-        
-        switch ($orden) {
-            case 'grupos_cantidad':
-                if (in_array("LEFT JOIN r.Grupos g", $this->Joins) == false) {
-                    $this->Joins[] = "LEFT JOIN r.Grupos g";
-                }
-                $this->ExtraFields[] = "COUNT(g.id) AS HIDDEN CantGrupos";
-                $this->OrderBy = ".CantGrupos DESC";
-                $this->GroupBy = "r.id";
-                break;
+        if ($filtro_rol) {
+            $this->Joins[] = "LEFT JOIN r.UsuarioRoles ur";
+            $this->Where .= " AND ur.id=$filtro_rol";
         }
+        $ResultadoListar = parent::listarAction($request);
+        $res = $ResultadoListar['res'];
         
-        $res = parent::listarAction($request);
+        // Agrego una lista de grupos y roles al resultado
+        $res->PersonasGrupos = $this->ObtenerGrupos();
+        $res->PersonasRoles = $this->ObtenerRoles();
         
-        // Agrego una lista de grupos al resultado
-        $res['personasgrupos'] = $this->ObtenerGrupos();
-        
-        return $res;
+        return $ResultadoListar;
     }
 
     /**
@@ -78,6 +71,18 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT r.id, r.Nombre FROM YacareBaseBundle:PersonaGrupo r ORDER BY r.Nombre");
+        return $query->getResult();
+    }
+    
+    /**
+     * Devuelve todos los roles para personas.
+     *
+     * @return \Yacare\BaseBundle\Entity\PersonaRol
+     */
+    private function ObtenerRoles()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT r.id, r.Nombre FROM TapirBaseBundle:PersonaRol r ORDER BY r.Nombre");
         return $query->getResult();
     }
 
