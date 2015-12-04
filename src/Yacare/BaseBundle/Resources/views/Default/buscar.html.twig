@@ -24,18 +24,13 @@
     function buscarTexto(texto) {
         url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', texto);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
+            // Es una búsqueda cuyos resultados llevan a una URL al hacer clic
             tapirCambiarDireccion(url);
         }
-        {% if app.request.get('tapir_modal') %}
-            url = tapirAgregarElementoUri(url, 'sinencab', 1);
-            url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
-            tapirCargarUrlEn(url, '#resultadosbuscar');
-        {% else %}
-            url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
-            tapirCargarUrlEn(url);
-        {% endif %}
+        url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+        url = tapirAgregarElementoUri(url, 'soloresultados', 1);
+        url = tapirAgregarElementoUri(url, 'tapir_solocontenido', 1);
+        tapirCargarUrlEn(url, '#resultadosbuscar');
     }
-
-    tapirEnfocarControl('#filtro_buscar');
 </script>
 {% endblock %}
