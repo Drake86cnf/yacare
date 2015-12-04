@@ -3,71 +3,67 @@
 {% block pagina_titulo %}Buscar personas{% endblock %}
 
 {% block pagina_contenido %}
+{% if not app.request.get('soloresultados') %}
+<div class="input-group">
+    <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus="autofocus"
+       onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
+       id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o DNI..." />
+    <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
+        class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
+</div>
+{% endif %}
+
 <div id="resultadosbuscar">
-    <div class="input-group">
-        <input class="form-control" size="50" maxlength="50" autocomplete="off" autofocus="autofocus"
-           onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_buscar').click(); return false; }" type="text"
-           id="filtro_buscar" name="filtro_buscar" value="{{ filtro_buscar }}" placeholder="Buscar por nombre o DNI..." />
-        <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
-            class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
-    </div>
-
-<script>
-	$(function() { $('#filtro_buscar').focus(); });
-</script>
-
 {% if res.Entidades is defined and res.Entidades|length > 0 %}
     {% if res.Entidades|length == 1 %}
         {% set entidad = res.Entidades|first %}
-<div class="ocultar-al-seleccionar-item">
-    <script type="text/javascript">
-    $(function() {
-        $('#filtro_buscar').prop('disabled', true);
-        setTimeout(function() {
-        	seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape("js") }}');
-        	$('#filtro_buscar').prop('disabled', false);
-        }, 3500);
-    });
-    </script>
-    <br />
-    <div class="row">
-        <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
-        <div class="col-xs-8">
-            <h1>¡Encontrado!</h1>
-            <p>Se va a seleccionar automáticamente <strong>{{ entidad }}</strong>, DNI {{ entidad.DocumentoNumero }},
-            porque es el único resultado que coincide con la búsqueda.</p>
+        <div class="ocultar-al-seleccionar-item">
+            <script type="text/javascript">
+            $(function() {
+                $('#filtro_buscar').prop('disabled', true);
+                setTimeout(function() {
+                	seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape("js") }}');
+                	$('#filtro_buscar').prop('disabled', false);
+                }, 3500);
+            });
+            </script>
+            <br />
+            <div class="row">
+                <div class="col-xs-2"><i class="fa fa-gift fa-4x text-success pull-right"></i></div>
+                <div class="col-xs-8">
+                    <h1>¡Encontrado!</h1>
+                    <p>Se va a seleccionar automáticamente <strong>{{ entidad }}</strong>, DNI {{ entidad.DocumentoNumero }},
+                    porque es el único resultado que coincide con la búsqueda.</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     {% endif %}
 
 
     &nbsp;
-    <table class="table table-responsive table-condensed table-hoverselect">
+    <table class="table table-responsive table-hoverselect">
     <thead>
         <tr>
             <th></th>
             <th>Nombre</th>
             <th>Documento</th>
             <th class="hidden-xs">Domicilio</th>
-            <th class="visible-lg">Grupos</th>
         </tr>
     </thead>
     <tbody>
         {% for entidad in res.Entidades %}
             <tr onclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.NombreVisible|escape('js') }}'); return false;">
                 <td><i class="fa fa-caret-right showonhover"></i></td>
-                <td><span style="white-space: nowrap;">{{ entidad.NombreVisible }}</span></td>
+                <td><span>{{ entidad.NombreVisible }}</span></td>
                 <td><span class="text-muted">{{ entidad.CuiltODocumento }}</span></td>
                 <td class="hidden-xs"><span class="text-muted">{{ entidad.Domicilio }}</span></td>
-                <td class="visible-lg"><small class="text-muted">{% for Nombre in entidad.Grupos %}<span
-                    class="label label-info">{{ Nombre }}</span>&nbsp;{% endfor %}</small></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
 {% else %}
-    <p class="lead">Puede buscar personas físicas o jurídicas, por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
+	&nbsp;<br />
+    <p class="text-info">Puede buscar personas físicas o jurídicas, por nombre, apellido, razón social, DNI, CUIL o CUIT.</p>
 {% endif %}
 
 {% endblock %}
