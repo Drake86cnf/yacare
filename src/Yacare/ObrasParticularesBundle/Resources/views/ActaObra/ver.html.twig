@@ -65,16 +65,16 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-	<a class="btn btn-default" data-toggle="ajax-link" 
-		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
-		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	{% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-	{% if res.Entidad.Plazo is not null %}
-	    {% set descargo_ruta = 'verdescargo' %} 
-	{% else %}
-	    {% set descargo_ruta = 'emitirdescargo' %}
-	{% endif %}
-	<a href="{{ path(res.ObtenerRutaAccion(descargo_ruta), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
+	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+		<a class="btn btn-default" data-toggle="ajax-link" 
+			href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
+			<i class="fa fa-paperclip"></i> Adjuntos</a>
+    	{% if res.Entidad.Plazo is not null %}
+    	    {% set descargo_ruta = 'verdescargo' %} 
+    	{% else %}
+    	    {% set descargo_ruta = 'emitirdescargo' %}
+    	{% endif %}
+		<a href="{{ path(res.ObtenerRutaAccion(descargo_ruta), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
 		{% if res.Entidad.Plazo is null %} 
 			class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo	
 		{% else %}
@@ -84,7 +84,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
+{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
 		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
 {% endif %}
