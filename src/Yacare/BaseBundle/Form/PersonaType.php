@@ -15,14 +15,6 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Apellido', null, array(
-                'label' => 'Apellido',
-                'attr' => array('class' => 'tapir-input-maymin')
-            ))
-            ->add('Nombre', null, array(
-                'label' => 'Nombre',
-                'attr' => array('class' => 'tapir-input-maymin')
-            ))
             ->add('TipoSociedad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array('label' => 'Tipo',
                  'choices' => array(
                      0 => 'Persona física',
@@ -40,6 +32,14 @@ class PersonaType extends AbstractType
                      '99' => 'Otra persona jurídica'
                  )
             ))
+            ->add('Apellido', null, array(
+                'label' => 'Apellido',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
+            ->add('Nombre', null, array(
+                'label' => 'Nombre',
+                'attr' => array('class' => 'tapir-input-maymin')
+            ))
             ->add('RazonSocial', null, array(
                 'label' => 'Razón social',
                 'attr' => array('class' => 'tapir-input-maymin')
@@ -54,7 +54,7 @@ class PersonaType extends AbstractType
             ))
             ->add('Nib',  null, array(
                 'label' => 'Nº de Ingresos Brutos',
-                'attr' => array('class' => 'tapir-input-sinespacios')
+                'attr' => array('class' => 'tapir-input-sinespacios tapir-input-320')
             ))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos',
