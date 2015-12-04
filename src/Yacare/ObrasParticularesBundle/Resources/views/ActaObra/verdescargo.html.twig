@@ -129,7 +129,7 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-    {% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
+    {% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
     	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
     {% endif %}

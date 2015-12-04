@@ -21,6 +21,8 @@ class PersonaRolController extends \Tapir\AbmBundle\Controller\AbmController
     function IniciarVariables()
     {
         parent::IniciarVariables();
+        
         $this->EntityLabel = 'Rol (personas)';
+        $this->OrderBy = 'r.Nombre ASC';
     }
 }
