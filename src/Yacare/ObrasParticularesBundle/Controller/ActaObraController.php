@@ -105,8 +105,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->guardarActionAfterSuccess($request, $entity);
         } else {
             $children = $FormEditar->all();
             
