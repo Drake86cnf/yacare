@@ -4,6 +4,7 @@ namespace Yacare\ObrasParticularesBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Controlador de actas de obra.
@@ -12,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * 
  * @Route("actaobra/")
- * @Template()
+ * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
  */
 class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 {
@@ -31,11 +32,42 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $this->OrderBy = 'r.Numero DESC';
     }
+    
+    /**
+     * Editar un acta.
+     * 
+     * @see \Tapir\AbmBundle\Controller\AbmController::editarAction() AbmController::editarAction()
+     * 
+     * @Route("editar/")
+     * @Route("crear/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Template()
+     */
+    public function editarAction(Request $request) 
+    {
+        return parent::editarAction($request);
+    }
 
+    /**
+     * Guardar un acta.
+     *
+     * @see \Tapir\AbmBundle\Controller\AbmController::editarAction() AbmController::editarAction()
+     *
+     * @Route("guardar/")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Template()
+     */
+    public function guardarAction(Request $request)
+    {
+        return parent::guardarAction($request);
+    }
+    
     /**
      * Emite el descargo de un acta en particular.
      * 
      * @Route("emitirdescargo/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
      * @Template()
      */
     public function emitirdescargoAction(Request $request)
@@ -73,8 +105,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('verdescargo'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->guardarActionAfterSuccess($request, $entity);
         } else {
             $children = $FormEditar->all();
             
@@ -117,6 +148,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 
     /**
      * @Route("adjuntos/listar/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
      * @Template("YacareObrasParticularesBundle:ActaObra:adjuntos_listar.html.twig")
      */
     public function adjuntoslistarAction(Request $request)
