@@ -15,6 +15,13 @@ class EditarTitularType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('Titular', 'Yacare\BaseBundle\Form\PersonaType', array(
+            'label' => 'Persona',
+            'property_path' => 'Titular'
+        ))
+        ;
+        return;
+        $builder
             /* ->add('Titular', 'Yacare\BaseBundle\Form\PersonaType', array(
                 'label' => 'Titular')) */
             ->add('TitularNombre', null, array(

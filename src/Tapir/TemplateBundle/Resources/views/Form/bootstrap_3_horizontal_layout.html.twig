@@ -150,8 +150,15 @@
     					tapirCargarUrlEn('{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id, 'sinencab': 1})|raw }}', '#{{ id }}_Desplegable');
     				});
     			</script>
-    			<button class="btn btn-default" type="button" href="#"
+    			{% if not required %}
+            	<button class="btn btn-default showonhover" type="button" title="Doble clic para borrar"
+            		ondblclick="$('#{{ id }}').val(''); $('#{{ id }}_Detalle').val(''); return false;">
+        			<i class="fa fa-eraser"></i>
+        		</button>
+        		{% endif %}
+    			<button class="btn btn-default" type="button" id="{{ id }}_BotonDesplegar"
     				onclick="$('#{{ id }}_Desplegable').toggleClass('hidden');
+    					$('#{{ id }}_BotonDesplegar > i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
         				return false;"><i class="fa fa-caret-up"></i></button>
     		{% else %}
     			{# Buscador dropdown #}
