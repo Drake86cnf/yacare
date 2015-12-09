@@ -14,7 +14,7 @@
 		Comenzar de nuevo
 	</a>
 {% else %}
-{% set Adjunto = res.Entidades[res.Pagina - 1] %}
+{% set Adjunto = res.Entidades[res.Pagina] %}
 <div class="container-fluid"><div class="row">
 	<div class="col-md-8 col-sm-12">
 		<object data="{{ path('yacare_base_adjunto_vistaprevia', { 'token': Adjunto.Token }) }}"

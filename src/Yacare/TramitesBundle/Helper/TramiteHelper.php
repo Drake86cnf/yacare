@@ -22,8 +22,16 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
             $NombreClase = '\\' . get_class($entity);
             $TramiteTipo = $this->em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
                 array('Clase' => $NombreClase));
-        
+                    
             $entity->setTramiteTipo($TramiteTipo);
+            if ($entity->getNombre()=="Habilitación comercial"){
+                if ($entity->getLocal()!= null){
+                    $NuevoCat= new \Yacare\ObrasParticularesBundle\Entity\TramiteCat;
+                    $NuevoCat->setLocal($entity->getComercio()->getLocal()); 
+                    $NuevoCat->getActividades($entity->getComercio()->getActividades());
+                }
+            }
+            
         }
         $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());        
     }
