@@ -9,83 +9,125 @@
 
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
-		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
 		    {{ bs.grid_label_text('Propietario', res.Entidad.Partida.Titular) }}
 		    {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
+		    {% if res.Entidad.Profesional %}
+    	        {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ ', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
+    	    {% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12 col-separator-left">
 		    {{ bs.grid_label_text66('Fecha', res.Entidad.Fecha|tapir_fecha('medium', 'none')) }}
+		    <h3 class="row-header">Partida Nº {{ res.Entidad.Partida.Numero }}</h3>
 		    {{ bs.grid_label_text66('Sección', res.Entidad.Partida.Seccion) }}
 		    {{ bs.grid_label_text66('Macizo', res.Entidad.Partida.Macizo) }}
 		    {{ bs.grid_label_text66('Parcela', res.Entidad.Partida.ParcelaYSubparcela) }}
 		    {% if res.Entidad.Partida.UnidadFuncional and res.Entidad.Partida.UnidadFuncional > 0 %}
-		    {{ bs.grid_label_text66('UF', res.Entidad.Partida.UnidadFuncional) }}
+		        {{ bs.grid_label_text66('UF', res.Entidad.Partida.UnidadFuncional) }}
 		    {% endif %}
 		</div>
 	</div>
-
-    {% if res.Entidad.Profesional %}
-    <h2 class="row-header">Profesional</h2>
-    <div class="row">
-    	<div class="col-sm-6 col-xs-12">
-    	    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional) }}
-    	    {{ bs.grid_label_text('Matrícula', res.Entidad.Profesional.Id) }}
-    	</div>
-    	<div class="col-sm-6 col-xs-12">
-    	</div>
-    </div> 
-    {% endif %}
-     
      
     <h2 class="row-header">Construcción</h2>
-    {{ bs.grid_label_text('Denominación catastral', res.Entidad.Partida.Smpu) }}
-	{{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
     <div class="row">
-    	<div class="col-sm-6 col-xs-12">
+    	<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
     	    {{ bs.grid_label_text('Tipo', res.Entidad.TipoConstruccion) }}
     	    {{ bs.grid_label_text('Avance', res.Entidad.EstadoAvanceNombre) }}
     	</div>
-    	<div class="col-sm-6 col-xs-12">
-		    {{ bs.grid_label_text('Partida', res.Entidad.Partida.Numero) }}
+    	<div class="col-sm-4 col-xs-12">
 		    {{ bs.grid_label_text('Zona', res.Entidad.Partida.Zona) }}
     	</div>
     </div> 
 
-	<h2 class="row-header">Detalle</h2>
+    <!-- Faltas -->
+	<h2 class="row-header">Faltas detectadas</h2>
     <div class="col-sm-12">
+    	<p>
 		{% for tipofalta in res.Entidad.TipoFaltas %}
-			<span class="label label-info label-lg">{{ tipofalta }}</span> 
+			* <mark>{{ tipofalta }}.</mark> 
 		{% endfor %}
+		</p>
         {% if res.Entidad.Obs %}
-    		<p>{{ res.Entidad.Obs }}</p>
+    		<p>Observaciones: <em>{{ res.Entidad.Obs }}</em></p>
     	{% endif %}
     </div>
+    
+    <div class="row">
+		<div class="col-sm-4 col-xs-6 pull-right">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Firma y sello del inspector</div>
+		</div>
+	</div>
+	<!-- Fin Faltas -->
+
+{% if res.Entidad.Plazo %}	
+    <!-- Compromiso -->
+	<h2 class="row-header">Compromiso</h2>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<p>Al haber tomado conocimiento de las observaciones realizadas por el Depto. de Inspección 
+				de Obras Particulares me comprometo en un plazo maximo de 
+        		<strong>
+        		    {{ res.Entidad.Plazo }} {% if res.Entidad.Plazo == 1 %} día {% else %} días {% endif %}
+        		</strong>
+        		a cumplimentar con lo que se detalla a continuación:</p>
+    		<p>
+                {% for compromiso in res.Entidad.TipoFaltas %}
+    				* <mark>{{ compromiso.FaltaCompromiso }}.</mark> 
+    			{% endfor %}
+    		</p>
+    		{% if res.Entidad.DescargoDetalle is defined and res.Entidad.DescargoDetalle %} 
+				<p>Observaciones: <em>{{ res.Entidad.DescargoDetalle }}</em></p>
+    		{% endif %}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-4 col-xs-6 pull-right">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Propietario / Profesional</div>
+		</div>
+	</div>
+    <!-- Fin compromiso -->
+
+	<hr>
+
+    <!-- Footer -->
+	<div class="row">
+    	<div class="col-xs-6">
+    		Fecha: {{ res.Entidad.FechaDescargo|tapir_fecha('long', 'none') }}
+    	</div>
+    	<div class="col-xs-6 text-right">
+    		Vencimiento: <strong>
+    	    {{ res.Entidad.FechaDescargo|date_modify("+" ~ res.Entidad.Plazo ~ " day")|tapir_fecha('long', 'none') }}
+    	    </strong>
+    	</div>
+	</div>
+    <!-- Fin footer -->
+{% endif %}
 
 </div>
-{% endblock %}
+{% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
 	<a class="btn btn-default" data-toggle="ajax-link" 
 		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
 		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	{% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-	{% if res.Entidad.Plazo is not null %}
-	    {% set descargo_ruta = 'verdescargo' %} 
-	{% else %}
-	    {% set descargo_ruta = 'emitirdescargo' %}
-	{% endif %}
-	<a href="{{ path(res.ObtenerRutaAccion(descargo_ruta), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
-		{% if res.Entidad.Plazo is null %} 
-			class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo	
-		{% else %}
-			class="btn btn-default"> <i class="fa fa-file-text-o"></i> Ver descargo
-		{% endif %}</a>
+	{% if not res.Entidad.Plazo and is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
+		class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo</a>
 	{% endif %}
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_granted('ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
+{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-		class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+    	class="btn btn-default"><i class="fa fa-edit"></i> Editar acta</a>
+    {% if res.Entidad.Plazo %}
+	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+		class="btn btn-default"><i class="fa fa-edit"></i> Editar descargo</a>
+	{% endif %}
 {% endif %}
 {% endblock pagina_acciones2 %}
