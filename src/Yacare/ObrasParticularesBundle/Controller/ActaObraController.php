@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+
 
 /**
  * Controlador de actas de obra.
@@ -25,14 +25,32 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         parent::IniciarVariables();
         
         // TODO: Implementar que filtre por fecha
-        $this->BuscarPor = 'Numero, SubTipo, Fecha, fp.NombreVisible';
-        
-        if (in_array('r.FuncionarioPrincipal fp', $this->Joins) == false) {
-            $this->Joins[] = 'JOIN r.FuncionarioPrincipal fp';
-        }
-        
+        $this->BuscarPor = 'Numero, SubTipo, Fecha';
         $this->OrderBy = 'r.Numero DESC';
     }
+
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
+    
+        if ($filtro_buscar) {
+            $this->Joins[] = " LEFT JOIN r.Partida pa";
+            $this->Joins[] = " LEFT JOIN pa.Titular t";
+            $this->Joins[] = 'JOIN r.FuncionarioPrincipal fp';
+            
+            $this->BuscarPor .= ', fp.NombreVisible, t.NombreVisible, t.DocumentoNumero, t.Cuilt, pa.Nombre';
+        }
+        $res = parent::listarAction($request);
+    
+        return $res;
+    }
+    
+    
     
     /**
      * Editar un acta.
