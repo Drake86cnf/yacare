@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Controlador de actas de obra.
@@ -40,11 +41,19 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
      * 
      * @Route("editar/")
      * @Route("crear/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
      * @Template()
      */
-    public function editarAction(Request $request) 
-    {
+    public function editarAction(Request $request)
+    {   
+        /*
+        if ($this->isGranted('ROLE_OBRAS_PARTICULARES_INSPECTOR') && $this->ObtenerVariable($request, 'id')) {
+            return $this->render('YacareBaseBundle:Default:accesodenegado.html.twig');
+        } else {
+            return parent::editarAction($request);
+        }
+        */
+        
         return parent::editarAction($request);
     }
 
@@ -55,7 +64,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
      *
      * @Route("guardar/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
      * @Template()
      */
     public function guardarAction(Request $request)
@@ -148,7 +157,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 
     /**
      * @Route("adjuntos/listar/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
      * @Template("YacareObrasParticularesBundle:ActaObra:adjuntos_listar.html.twig")
      */
     public function adjuntoslistarAction(Request $request)

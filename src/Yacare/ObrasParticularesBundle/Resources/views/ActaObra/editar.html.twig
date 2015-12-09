@@ -36,6 +36,10 @@
     	{{ form_label(res.FormularioEditar.FuncionarioPrincipal) }}
     	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.FuncionarioPrincipal) }}</div>
 	</div>
+	<div class="row form-group">
+    	{{ form_label(res.FormularioEditar.OtrosFuncionarios) }}
+    	<div class="col-xs-12 col-sm-10">{{ form_widget(res.FormularioEditar.OtrosFuncionarios) }}</div>
+	</div>
 	<span id="adicional" {% if not res.Entidad.Obs %}style="display:none"{% endif %}>
         <div class="row form-group">
         	{{ form_label(res.FormularioEditar.Obs) }}

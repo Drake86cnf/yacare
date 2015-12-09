@@ -12,8 +12,15 @@
 		    {{ bs.grid_label_text('Propietario', res.Entidad.Partida.Titular) }}
 		    {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
 		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
+		    <div class="row">
+            	<label class="col-xs-3 text-label">Otros funcionarios: </label>
+            	<div class="col-xs-9 text-value"> 
+            	    {% for funcionario in res.Entidad.OtrosFuncionarios %} {{ funcionario }},  {% endfor %}
+            	</div>
+            </div>
 		    {% if res.Entidad.Profesional %}
-    	        {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ ', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
+    	        {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+    	        	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
     	    {% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12 col-separator-left">
@@ -52,7 +59,8 @@
     		<p>Observaciones: <em>{{ res.Entidad.Obs }}</em></p>
     	{% endif %}
     </div>
-    
+
+{% if res.Entidad.Plazo %}    
     <div class="row">
 		<div class="col-sm-4 col-xs-6 pull-right">
 			<div class="firma-espacio"></div>
@@ -61,7 +69,6 @@
 	</div>
 	<!-- Fin Faltas -->
 
-{% if res.Entidad.Plazo %}	
     <!-- Compromiso -->
 	<h2 class="row-header">Compromiso</h2>
 
@@ -115,14 +122,15 @@
 	<a class="btn btn-default" data-toggle="ajax-link" 
 		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
 		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	{% if not res.Entidad.Plazo and is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+	{% if not res.Entidad.Plazo and 
+	    is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')") %}
 	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
 		class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo</a>
 	{% endif %}
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+{% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')") %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     	class="btn btn-default"><i class="fa fa-edit"></i> Editar acta</a>
     {% if res.Entidad.Plazo %}
