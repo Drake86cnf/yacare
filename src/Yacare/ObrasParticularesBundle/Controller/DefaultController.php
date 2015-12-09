@@ -51,6 +51,7 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $resultado->Contadores['TramiteCat'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\TramiteCat r')->getSingleScalarResult();
         $resultado->Contadores['TramitePlanos'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ObrasParticularesBundle\Entity\TramitePlanos r')->getSingleScalarResult();
     
+        $resultado->Recientes['TramiteCat'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\TramiteCat r ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
         $resultado->Recientes['ActaObra'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\ActaObra r ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
         $resultado->Recientes['Matriculado'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\Matriculado r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
         $resultado->Recientes['EmpresaConstructora'] = $em->createQuery('SELECT r FROM Yacare\ObrasParticularesBundle\Entity\EmpresaConstructora r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
