@@ -95,6 +95,15 @@ class ActaObraType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => true))
+            ->add('OtrosFuncionarios', 'entity', array(
+                'multiple' => true,
+                'label' => 'Otros funcionarios',
+                'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
+                return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
+                },
+                'required' => false))
             ->add('Obs', null, array('label' => 'Observaciones'))
             ;
     }
