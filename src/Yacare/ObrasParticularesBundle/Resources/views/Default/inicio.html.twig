@@ -5,68 +5,68 @@
 {% block pagina_contenido %}
 
 <div class="container-fluid"><div class="row">
-
-<div class="col-sm-4">
-    <h2>Actas de obra</h2>
-    <ul class="inicio-mini-menu">
-    	<li class="destacado"><p>Actividad reciente</p></li>
-    	{% for item in res.Recientes['ActaObra'] %}
-    		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: item.id })) }}"
-    			data-toggle="ajax-link">{{ item }}</a></li>
-    	{% endfor %}
-
-    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" data-toggle="ajax-link">
-    		Todas las actas</a></li>
-    	
-    	<li><form id ="form_actabora_buscar" class="form-horizontal" action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" 
-                	method="get">
-            <input type="text" name="filtro_buscar" class="form-control pull-rigth" 
-            	placeholder="Buscar por número, tipo o inspector" />
-            </form></li>
-    </ul>
-</div>
-
-<div class="col-sm-4">
-    <h2>Matriculados</h2>
-    <ul class="inicio-mini-menu">
-    	<li class="destacado"><p>Actividad reciente</p></li>
-    	{% for item in res.Recientes['Matriculado'] %}
-    		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}"
-    			data-toggle="ajax-link">{{ item }}</a></li>
-    	{% endfor %}
-
-    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_matriculado_listar') }}" data-toggle="ajax-link">
-    		Todos los matriculados</a></li>
-    </ul>
-</div>
-
-
-<div class="col-sm-4">
-    <h2>Empresas constructoras</h2>
-    <ul class="inicio-mini-menu">
-    	<li class="destacado"><p>Actividad reciente</p></li>
-    	{% for item in res.Recientes['EmpresaConstructora'] %}
-    		<li><a href="{{ path('yacare_obrasparticulares_empresaconstructora_editar', res.Arrastre|merge({ id: item.id })) }}"
-    			data-toggle="ajax-link">{{ item }}</a></li>
-    	{% endfor %}
-
-    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_empresaconstructora_listar') }}" data-toggle="ajax-link">
-    		Todas las empresas</a></li>
-    </ul>
-</div>
-
-<div class="col-sm-4">
-    <h2>Certificados de aptitud técnica</h2>
-    <ul class="inicio-mini-menu">
-    	<li class="destacado"><p>Actividad reciente</p></li>
-    	{% for item in res.Recientes['TramiteCat'] %}
-    		<li><a href="{{ path('yacare_obrasparticulares_tramitecat_editar', res.Arrastre|merge({ id: item.id })) }}"
-    			data-toggle="ajax-link">{{ item }}</a></li>
-    	{% endfor %}
-
-    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_tramitecat_listar') }}" data-toggle="ajax-link">
-    		Todos los CAT</a></li>
-    </ul>
-</div>
+    <div class="col-sm-4">
+        <h2>Actas de obra</h2>
+        <ul class="inicio-mini-menu">
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['ActaObra'] %}
+        		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</a></li>
+        	{% endfor %}
+        	    
+        	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" 
+        		data-toggle="ajax-link"> Todas las actas</a></li>
+        	
+        	<li><form id ="form_actabora_buscar" class="form-horizontal" 
+        		action="{{ path('yacare_obrasparticulares_actaobra_listar')}}" method="get">
+                <input type="text" name="filtro_buscar" class="form-control pull-rigth" 
+                	placeholder="Buscar por número, tipo o inspector" /></form></li>
+        </ul>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>Matriculados</h2>
+        <ul class="inicio-mini-menu">
+        	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['Matriculado'] %}
+        		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</a></li>
+        	{% endfor %}
+    		{% endif %}
+        	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_matriculado_listar') }}" 
+        		data-toggle="ajax-link"> Todos los matriculados</a></li>
+        </ul>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>Empresas constructoras</h2>
+        <ul class="inicio-mini-menu">
+        	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['EmpresaConstructora'] %}
+        		<li><a href="{{ path('yacare_obrasparticulares_empresaconstructora_editar', 
+        		    res.Arrastre|merge({ id: item.id })) }}" data-toggle="ajax-link">{{ item }}</a></li>
+        	{% endfor %}
+    		{% endif %}
+        	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_empresaconstructora_listar') }}" 
+        		data-toggle="ajax-link"> Todas las empresas</a></li>
+        </ul>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>Certificados de aptitud técnica</h2>
+        <ul class="inicio-mini-menu">
+        	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['TramiteCat'] %}
+        		<li><a href="{{ path('yacare_obrasparticulares_tramitecat_editar', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</a></li>
+        	{% endfor %}
+    		{% endif %}
+        	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_tramitecat_listar') }}" 
+        		data-toggle="ajax-link"> Todos los CAT</a></li>
+        </ul>
+    </div>
 </div></div>
 {% endblock pagina_contenido%}
