@@ -17,10 +17,6 @@ class MatriculadoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Persona', 'Yacare\BaseBundle\Form\PersonaType', array(
-                'label' => 'Persona',
-                'property_path' => 'Persona'
-            ))
             ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Profesion',
                 'required' => true,
@@ -36,7 +32,12 @@ class MatriculadoType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de vencimiento',
-                'required' => false));
+                'required' => false))
+            ->add('Persona', 'Yacare\BaseBundle\Form\PersonaType', array(
+                'label' => 'Persona',
+                'property_path' => 'Persona'
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
