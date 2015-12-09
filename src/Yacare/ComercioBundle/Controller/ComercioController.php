@@ -39,18 +39,7 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
             $this->Joins[] = " LEFT JOIN r.Titular t";
             $this->Joins[] = " LEFT JOIN r.Local l";
     
-            // Busco por varias palabras
-            // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
-            $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
-            foreach ($palabras as $palabra) {
-                $this->Where .= " AND (r.Nombre LIKE '%$palabra%'
-                OR r.ExpedienteNumero LIKE '%$palabra%'
-                OR l.Nombre LIKE '%$palabra%'
-                OR t.NombreVisible LIKE '%$palabra%'
-                OR t.RazonSocial LIKE '%$palabra%'
-                OR t.DocumentoNumero LIKE '%$palabra%'
-                OR t.Cuilt LIKE '%$palabra%')";
-            }
+            $this->BuscarPor = 'Nombre, ExpedienteNumero, l.Nombre, t.NombreVisible, t.RazonSocial, t.DocumentoNumero, t.Cuilt';
         }
         $res = parent::listarAction($request);
     
