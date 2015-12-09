@@ -10,17 +10,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class MatriculadoType extends AbstractType
+class MatriculadoCrearType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Persona', 'Yacare\BaseBundle\Form\PersonaType', array(
+            ->add('Persona', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Persona',
-                'property_path' => 'Persona'
-            ))
+                // 'property' => 'NombreVisible',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'required' => true))
             ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Profesion',
                 'required' => true,
