@@ -54,6 +54,18 @@
     </ul>
 </div>
 
+<div class="col-sm-4">
+    <h2>Certificados de aptitud técnica</h2>
+    <ul class="inicio-mini-menu">
+    	<li class="destacado"><p>Actividad reciente</p></li>
+    	{% for item in res.Recientes['TramiteCat'] %}
+    		<li><a href="{{ path('yacare_obrasparticulares_tramitecat_editar', res.Arrastre|merge({ id: item.id })) }}"
+    			data-toggle="ajax-link">{{ item }}</a></li>
+    	{% endfor %}
 
+    	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_tramitecat_listar') }}" data-toggle="ajax-link">
+    		Todas cat</a></li>
+    </ul>
+</div>
 </div></div>
 {% endblock pagina_contenido%}
