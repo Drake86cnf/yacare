@@ -50,8 +50,10 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $resultado->Contadores['Comercio'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ComercioBundle\Entity\Comercio r WHERE r.Suprimido=0')->getSingleScalarResult();
         $resultado->Contadores['ActaComercio'] = $em->createQuery('SELECT COUNT(r.id) FROM Yacare\ComercioBundle\Entity\ActaComercio r')->getSingleScalarResult();
         
-        $resultado->Recientes['Comercio'] = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Comercio r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
-        $resultado->Recientes['Local'] = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Local r WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
+        $resultado->Recientes['Comercio'] = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Comercio r
+            WHERE r.Suprimido=0 ORDER BY r.RequiereAtencion DESC, r.updatedAt DESC')->setMaxResults(10)->getResult();
+        $resultado->Recientes['Local'] = $em->createQuery('SELECT r FROM Yacare\ComercioBundle\Entity\Local r
+            WHERE r.Suprimido=0 ORDER BY r.updatedAt DESC')->setMaxResults(10)->getResult();
         
         return $resultado;
     }
