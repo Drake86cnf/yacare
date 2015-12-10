@@ -3,8 +3,6 @@ namespace Yacare\TramitesBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
-
-
 /**
  * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en los trámites.
  *
@@ -12,39 +10,55 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
+
+    function __construct($em = null)
+    {
         parent::__construct($em);
     }
-    
-    public function PreUpdatePersist($entity, $args = null) {
+
+    public function PreUpdatePersist($entity, $args = null)
+    {
         if (! $entity->getTramiteTipo()) {
             // La propiedad TramiteTipo está en blanco... es normal al crear un trámite nuevo
             // Busco el TramiteTipo que corresponde a la clase y lo guardo
-        
+            
             $NombreClase = '\\' . get_class($entity);
             $TramiteTipo = $this->em->getRepository('YacareTramitesBundle:TramiteTipo')->findOneBy(
                 array('Clase' => $NombreClase));
-                    
+            
             $entity->setTramiteTipo($TramiteTipo);
-            if ($entity->getTramiteTipo()->getClase()=='\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial'){
-                if ($entity->getComercio()->getLocal()!= null){
-                    $NuevoCat= new \Yacare\ObrasParticularesBundle\Entity\TramiteCat; 
-                    $NuevoCat->setLocal($entity->getComercio()->getLocal());
-                    $NuevoCat->setUsoSuelo($entity->getComercio()->getLocal()->getPartida()->getZona());
-                    $NuevoCat->setTitular($entity->getComercio()->getLocal()->getPartida()->getTitular());
-                    $NuevoCat->setActividad1($entity->getComercio()->getActividad1());
-                    $NuevoCat->setActividad2($entity->getComercio()->getActividad2());
-                    $NuevoCat->setActividad3($entity->getComercio()->getActividad3());
-                    $NuevoCat->setActividad4($entity->getComercio()->getActividad4());
-                    $NuevoCat->setActividad5($entity->getComercio()->getActividad5());
-                    $NuevoCat->setActividad6($entity->getComercio()->getActividad6());  
+            if ($entity->getTramiteTipo()->getClase() == '\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial') {
+                if ($entity->getComercio()->getLocal() != null) {
+                    $NuevoCat = new \Yacare\ObrasParticularesBundle\Entity\TramiteCat();
+                    $NuevoCat->setLocal($entity->getComercio()
+                        ->getLocal());
+                    $NuevoCat->setUsoSuelo($entity->getComercio()
+                        ->getLocal()
+                        ->getPartida()
+                        ->getZona());
+                    $NuevoCat->setTitular($entity->getComercio()
+                        ->getLocal()
+                        ->getPartida()
+                        ->getTitular());
+                    $NuevoCat->setActividad1($entity->getComercio()
+                        ->getActividad1());
+                    $NuevoCat->setActividad2($entity->getComercio()
+                        ->getActividad2());
+                    $NuevoCat->setActividad3($entity->getComercio()
+                        ->getActividad3());
+                    $NuevoCat->setActividad4($entity->getComercio()
+                        ->getActividad4());
+                    $NuevoCat->setActividad5($entity->getComercio()
+                        ->getActividad5());
+                    $NuevoCat->setActividad6($entity->getComercio()
+                        ->getActividad6());
                     $this->em->persist($NuevoCat);
                     $this->em->flush();
-                    
                 }
             }
         }
-        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()->getAsociacionRequisitos());        
+        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()
+            ->getAsociacionRequisitos());
     }
 
     /**
@@ -89,37 +103,35 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $SubTramiteTipo->getAsociacionRequisitos());
                 }
             }
-
-            
         }
     }
-    
-    
+
     /**
      * Termina un trámite, emitiendo un comprobante si es necesario.
      * 
      * @param Tramite $tramite
      */
-    public function TerminarTramite($tramite) {
+    public function TerminarTramite($tramite)
+    {
         $res = array();
         
         if ($tramite->getEstado() != 100) {
             $tramite->setEstado(100);
             $tramite->setFechaTerminado(new \DateTime());
-        
+            
             $Comprob = $this->EmitirComprobante($tramite);
             $res['comprobante'] = $Comprob;
             if ($Comprob) {
                 $Comprob->setTramiteOrigen($tramite);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $this->em->persist($Comprob);
-        
+                
                 $tramite->setComprobante($Comprob);
             }
-        
+            
             $this->em->persist($tramite);
             $this->em->flush();
-        
+            
             $res['mensaje'] = null;
         } else {
             $res['mensaje'] = 'El trámite ya estaba terminado.';
@@ -136,7 +148,6 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
         
         return $res;
     }
-    
 
     /**
      * Al finalizar un trámite, ver si es necesario emitir un comprobante.
@@ -146,7 +157,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
     public function EmitirComprobante($tramite)
     {
         $Comprob = null;
-    
+        
         $ComprobanteTipo = $tramite->getTramiteTipo()->getComprobanteTipo();
         if ($ComprobanteTipo) {
             // Tiene un tipo de comprobante asociado
@@ -155,19 +166,20 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 // Instancio un comprobante del tipo asociado
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
-    
+                
                 if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado
                     // Fecha de vencimiento: validez indicada por el comprobante, menos 1 día
                     $Venc = new \DateTime();
-                    $Comprob->setFechaValidezHasta($Venc->add(new \DateInterval('P' . $ComprobanteTipo->getPeriodoValidez())));
+                    $Comprob->setFechaValidezHasta(
+                        $Venc->add(new \DateInterval('P' . $ComprobanteTipo->getPeriodoValidez())));
                 }
             }
         }
-    
+        
         return $Comprob;
     }
-    
+
     /**
      * Obtiene el próximo número para un comprobante, según el tipo de comprobante.
      * @param Comprobante $comprob
@@ -181,7 +193,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
         $query->setParameter(1, $comprob->getComprobanteTipo());
         $query->setParameter(2, $comprob->getNumeroPrefijo());
         $res = (int) $query->getResult(\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR);
-    
+        
         return ++ $res;
     }
 }
