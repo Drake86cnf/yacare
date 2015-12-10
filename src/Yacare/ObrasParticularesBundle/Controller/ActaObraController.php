@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
 /**
  * Controlador de actas de obra.
  * 
@@ -19,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Tapir\AbmBundle\Controller\ConVer;
-    
+
     function IniciarVariables()
     {
         parent::IniciarVariables();
@@ -29,7 +28,6 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $this->OrderBy = 'r.Numero DESC';
     }
 
-    
     /**
      * @Route("listar/")
      * @Template()
@@ -37,7 +35,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-    
+        
         if ($filtro_buscar) {
             $this->Joins[] = " LEFT JOIN r.Partida pa";
             $this->Joins[] = " LEFT JOIN pa.Titular t";
@@ -46,12 +44,10 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $this->BuscarPor .= ', fp.NombreVisible, t.NombreVisible, t.DocumentoNumero, t.Cuilt, pa.Nombre';
         }
         $res = parent::listarAction($request);
-    
+        
         return $res;
     }
-    
-    
-    
+
     /**
      * Editar un acta.
      * 
@@ -89,7 +85,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     {
         return parent::guardarAction($request);
     }
-    
+
     /**
      * Emite el descargo de un acta en particular.
      * 
@@ -115,7 +111,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $FormEditarBuilder
             ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
                 'label' => 'Plazo', 
-                'attr' => array('class' => 'tapir-input-160'),
+                'attr' => array('class' => 'tapir-input-160'), 
                 'required' => true))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional', 
