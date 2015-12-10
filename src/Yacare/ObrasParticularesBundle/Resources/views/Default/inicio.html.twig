@@ -60,7 +60,7 @@
         	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['TramiteCat'] %}
-        		<li><a href="{{ path('yacare_obrasparticulares_tramitecat_editar', res.Arrastre|merge({ id: item.id })) }}"
+        		<li><a href="{{ path('yacare_obrasparticulares_tramitecat_ver', res.Arrastre|merge({ id: item.id })) }}"
         			data-toggle="ajax-link">{{ item }}</a></li>
         	{% endfor %}
     		{% endif %}
