@@ -42,7 +42,7 @@ trait ConActoAdministrativo
      */
     public function setActoAdministrativoNumero($actoAdministrativoNumero)
     {
-        $this->ActoAdministrativoNumero = SanitizarActoAdministrativo($actoAdministrativoNumero);
+        $this->ActoAdministrativoNumero = $this->SanitizarActoAdministrativo($actoAdministrativoNumero);
         return $this;
     }
     
