@@ -18,6 +18,7 @@ class ActaEtiquetaType extends AbstractType
         
         $builder
             ->add('Nombre', null, array('label' => 'Nombre', 'required' => true))
+            ->add('Resultado', null, array('label' => 'Resultado', 'required' => false))
             ;
     }
 

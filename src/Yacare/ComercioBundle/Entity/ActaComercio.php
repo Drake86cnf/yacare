@@ -49,6 +49,16 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta implements IActa
      */
     protected $Hora;
     
+    /**
+     * Setter con sanitización.
+     */
+    public function setHora($Hora)
+    {
+        $this->Hora = str_replace('.', ':', trim($Hora, "- \t\n\r\0\x0B"));
+        return $this;
+    }
+    
+    
 
     /**
      * @ignore
@@ -91,15 +101,5 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta implements IActa
     {
         return $this->Hora;
     }
-
-    /**
-     * @ignore
-     */
-    public function setHora($Hora)
-    {
-        $this->Hora = $Hora;
-        return $this;
-    }
- 
   
 }
