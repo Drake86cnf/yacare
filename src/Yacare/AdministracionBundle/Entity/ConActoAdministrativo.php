@@ -30,7 +30,7 @@ trait ConActoAdministrativo
     protected function SanitizarActoAdministrativo($actoAdministrativoNumero) {
         if($actoAdministrativoNumero) {
             // Lo paso a mayúsculas y le agrego el guió si corresponde
-            return strtoupper(trim($actoAdministrativoNumero, "-. \t\n\r\0\x0B"));
+            return strtoupper(str_replace(array('.', ' ', "\t", "\n", "\r", "\0", "\x0B"), '', $actoAdministrativoNumero));
         } else {
             return $actoAdministrativoNumero;
         }

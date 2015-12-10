@@ -131,10 +131,10 @@ class Comercio implements IComercio
     public function setPosicionArchivo($posicionArchivo)
     {
         if($posicionArchivo) {
-            $posicionArchivo = strtoupper(trim($posicionArchivo, "-. \t\n\r\0\x0B"));
+            $posicionArchivo = strtoupper(str_replace(array('-', '.', ' ', "\t", "\n", "\r", "\0", "\x0B"), '', $posicionArchivo));
             
             $Letra = substr($posicionArchivo, 0, 1);
-            $Numero = (int)substr($posicionArchivo, 2);
+            $Numero = (int)substr($posicionArchivo, 1);
             if($Numero > 0) {
                 $posicionArchivo = $Letra . str_pad($Numero, 3, '0', STR_PAD_LEFT);
             }
