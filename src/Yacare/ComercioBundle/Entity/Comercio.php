@@ -121,25 +121,25 @@ class Comercio implements IComercio
      */
     public function setActoAdministrativoBajaNumero($actoAdministrativoBajaNumero)
     {
-        $this->ActoAdministrativoBajaNumero = SanitizarActoAdministrativo($actoAdministrativoBajaNumero);
+        $this->ActoAdministrativoBajaNumero = $this->SanitizarActoAdministrativo($actoAdministrativoBajaNumero);
         return $this;
     }
     
     /**
      * Setter con sanitización.
      */
-    public function setPosicionArchivo($PosicionArchivo)
+    public function setPosicionArchivo($posicionArchivo)
     {
-        if($PosicionArchivo) {
-            $PosicionArchivo = strtoupper(trim($PosicionArchivo, "-. \t\n\r\0\x0B"));
+        if($posicionArchivo) {
+            $posicionArchivo = strtoupper(trim($posicionArchivo, "-. \t\n\r\0\x0B"));
             
-            $Letra = substr($PosicionArchivo, 0, 1);
-            $Numero = (int)substr($PosicionArchivo, 1);
+            $Letra = substr($posicionArchivo, 0, 1);
+            $Numero = (int)substr($posicionArchivo, 2);
             if($Numero > 0) {
-                $PosicionArchivo = $Letra . str_pad($Numero, 3, '0', STR_PAD_LEFT);
+                $posicionArchivo = $Letra . str_pad($Numero, 3, '0', STR_PAD_LEFT);
             }
         }
-        $this->PosicionArchivo = $PosicionArchivo;
+        $this->PosicionArchivo = $posicionArchivo;
         
         return $this;
     }
