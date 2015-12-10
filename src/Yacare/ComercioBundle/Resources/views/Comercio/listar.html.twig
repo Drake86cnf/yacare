@@ -59,11 +59,9 @@
 		id="dropdownMenuRoles" data-toggle="dropdown">
 		<i class="fa fa-filter {% if filtro_estado %}text-warning{% endif %}"></i>
 			{% if not filtro_estado %}
-			Estado
+				Estado
 			{% else %}
-    		    {% for estado in res.Estados|keys %}
-    		        {% if estado == filtro_estado %}{{ res.Estados[estado]|tapir_abreviar }}{% endif %}
-    		    {% endfor %}
+				{{ res.Estados[filtro_estado == -1 ? 0 : filtro_estado] }}
     		{% endif %}
 		<span class="caret"></span>
 	</button>
@@ -79,9 +77,9 @@
 		{% for estado in res.Estados|keys %}
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_estado': estado, 'page': null })) }}">
-				<i class="fa fa-fw{% if estado == filtro_estado %} fa-check{% endif %}"></i>
-				{{ res.Estados[estado] }}
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_estado': estado == 0 ? -1 : estado, 'page': null })) }}">
+				<i class="fa fa-fw{% if (estado == 0 and filtro_estado == -1) or estado == filtro_estado %} fa-check{% endif %}"></i>
+				{{ res.Estados[estado == -1 ? 0 : estado] }}
 		</a></li>
 		{% endfor %}
 	</ul>
