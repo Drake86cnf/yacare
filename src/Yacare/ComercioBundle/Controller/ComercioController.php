@@ -38,7 +38,12 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
         $filtro_estado = $this->ObtenerVariable($request, 'filtro_estado');
     
         if ($filtro_estado) {
-            $this->Where .= " AND r.Estado=$filtro_estado";
+            if($filtro_estado == -1) {
+                // El -1 tiene el valor especial de Estado=0
+                $this->Where .= " AND r.Estado=0";
+            } else {
+                $this->Where .= " AND r.Estado=$filtro_estado";
+            }
         }
         if ($filtro_buscar) {
             $this->Joins[] = " LEFT JOIN r.Titular t";
