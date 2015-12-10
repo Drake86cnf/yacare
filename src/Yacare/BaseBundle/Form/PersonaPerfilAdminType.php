@@ -18,13 +18,16 @@ class PersonaPerfilAdminType extends AbstractType
             ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
             ->add('Email', 'email', array(
                 'label' => 'Correo electrónico',
+                'required' => false,
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
             ))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))
-            ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => true))
+            ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array(
+                'label' => 'Género',
+                'required' => false))
             ->add('Cuilt',  'Tapir\BaseBundle\Form\Type\CuiltType', array(
                 'label' => 'CUIL/CUIT',
                 'required' => false
