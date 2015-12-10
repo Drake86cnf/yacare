@@ -5,55 +5,66 @@
 {% block pagina_titulo %}Acta de {{ res.Entidad.SubTipo }} Nº {{ res.Entidad.Numero }}{% endblock %}
 
 {% block pagina_contenido %}
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-sm-6 col-xs-12">
-        	    {{ bs.grid_label_text('Comercio', res.Entidad.Comercio) }}
-        	    {{ bs.grid_label_text('Domicilio', res.Entidad.Comercio.Domicilio) }}
-			    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
-                {% if res.Entidad.OtrosFuncionarios|length > 0 %}
-        		    {% set OtrosFunc = [] %}
-        		    {% for funcionario in res.Entidad.OtrosFuncionarios %}
-        		    	{% set OtrosFunc = OtrosFunc|merge([funcionario.NombreAmigable]) %}
-        		    {% endfor %}
-        		    {{ bs.grid_label_text('Otros funcionarios', OtrosFunc|join(', ')) }}
-			    {% endif %}
-        	</div>
-        	<div class="col-sm-6 col-xs-12">
-        	    {{ bs.grid_label_text('Número', res.Entidad.Numero) }}
-        	    {{ bs.grid_label_text('Tipo', res.Entidad.SubTipo) }}
-			    {{ bs.grid_label_text('Fecha', res.Entidad.Fecha|tapir_fecha('medium', 'none')) }}
-			    {{ bs.grid_label_text('Hora', res.Entidad.Hora) }}
-        	</div>
-        </div>
-        <div class="row">
-        	<div class="col-xs-2 text-label text-right">Etiquetas</div>
-        	<div class="col-xs-10">
-        		{% for etiqueta in res.Entidad.Etiquetas %}
-        			<mark>{{ etiqueta }}</span> 
-        		{% endfor %}
-        	</div>
-        </div>
-        
-        {% if res.Entidad.Detalle %}
-        <hr />
-        <div class="row">
-        	<div class="col-xs-2 text-label text-right">Detalle</div>
-        	<div class="col-xs-10">{{ res.Entidad.Detalle }}</div>
-        </div>
-        {% endif %}
-        
-        {% if res.Entidad.Obs %}
-        <hr />
-        <div class="row">
-        	<div class="col-xs-2 text-label text-right">Observaciones</div>
-        	<div class="col-xs-10">{{ res.Entidad.Obs }}</div>
-        </div>
-        {% endif %}
-	</div>
-</div>
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			<h3 class="row-header">{{ res.Entidad.SubTipo }}</h3>
+    	    {{ bs.grid_label_text('Comercio', res.Entidad.Comercio) }}
+    	    {{ bs.grid_label_text('Domicilio', res.Entidad.Comercio.Domicilio) }}
+		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
+            {% if res.Entidad.OtrosFuncionarios|length > 0 %}
+    		    {% set OtrosFunc = [] %}
+    		    {% for funcionario in res.Entidad.OtrosFuncionarios %}
+    		    	{% set OtrosFunc = OtrosFunc|merge([funcionario.NombreAmigable]) %}
+    		    {% endfor %}
+    		    {{ bs.grid_label_text('Otros funcionarios', OtrosFunc|join(', ')) }}
+		    {% endif %}
+    	</div>
+    	<div class="col-sm-4 col-xs-12">
+    	    {{ bs.grid_label_text66('Número', res.Entidad.Numero) }}
+		    {{ bs.grid_label_text66('Fecha', res.Entidad.Fecha|tapir_fecha('medium', 'none')) }}
+		    {{ bs.grid_label_text66('Hora', res.Entidad.Hora) }}
+    	</div>
+    </div>
+    
+    <h2 class="row-header">Detalle</h2>
+    <div class="row">
+    	<div class="col-xs-12">
+    		{% for etiqueta in res.Entidad.Etiquetas %}
+    			<mark>{{ etiqueta }}</mark>
+    			{% if etiqueta.Resultado %}
+    				({{ etiqueta.Resultado }})
+    			{% endif %}<br /> 
+    		{% endfor %}
+    		
+    		{% if res.Entidad.Detalle %}
+            	<hr />
+                {{ res.Entidad.Detalle }}
+            {% endif %}
+            
+            {% if res.Entidad.Obs %}
+            	<hr />
+                Observaciones: {{ res.Entidad.Obs }}
+            {% endif %}
+    	</div>
+    </div>
+    
+    
+    
+    {% if res.Entidad.Obs %}
+    <hr />
+    <div class="row">
+    	<div class="col-xs-2 text-label text-right">Observaciones</div>
+    	<div class="col-xs-10">{{ res.Entidad.Obs }}</div>
+    </div>
+    {% endif %}
+
 {% endblock %}
+
+{% block pagina_acciones %}
+	<a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ 'id': res.Entidad.Comercio.id })) }}"
+		class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+{% endblock pagina_acciones %}
+
 
 {% block pagina_acciones2 %}
 {% if is_granted('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR') %}

@@ -7,12 +7,14 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
+			<th>Resultado</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for entidad in res.Entidades %}
 		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entidad.Id }) }}">
 			<td>{{ entidad.Nombre }}</td>
+			<td>{{ entidad.Resultado }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
