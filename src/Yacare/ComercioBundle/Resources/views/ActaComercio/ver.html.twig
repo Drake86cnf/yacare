@@ -12,12 +12,12 @@
         	    {{ bs.grid_label_text('Comercio', res.Entidad.Comercio) }}
         	    {{ bs.grid_label_text('Domicilio', res.Entidad.Comercio.Domicilio) }}
 			    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
-			    {% if res.Entidad.OtrosFuncionarios|length > 0 %}
-    			    {% set OtrosFunc = '' %}
-    			    {% for funcionario in res.Entidad.OtrosFuncionarios %}
-    			    	{% set OtrosFunc = OtrosFunc + ' ' + funcionario %}
-    			    {% endfor %}
-    			    {{ bs.grid_label_text('Otros funcionarios', OtrosFunc) }}
+                {% if res.Entidad.OtrosFuncionarios|length > 0 %}
+        		    {% set OtrosFunc = [] %}
+        		    {% for funcionario in res.Entidad.OtrosFuncionarios %}
+        		    	{% set OtrosFunc = OtrosFunc|merge([funcionario.NombreAmigable]) %}
+        		    {% endfor %}
+        		    {{ bs.grid_label_text('Otros funcionarios', OtrosFunc|join(', ')) }}
 			    {% endif %}
         	</div>
         	<div class="col-sm-6 col-xs-12">
