@@ -24,6 +24,7 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
     {
         parent::IniciarVariables();
     
+        $this->OrderBy = 'RequiereAtencion DESC, Nombre';
         $this->BuscarPor = null;
     }
 
@@ -34,16 +35,24 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
+        $filtro_estado = $this->ObtenerVariable($request, 'filtro_estado');
     
+        if ($filtro_estado) {
+            $this->Where .= " AND r.Estado=$filtro_estado";
+        }
         if ($filtro_buscar) {
             $this->Joins[] = " LEFT JOIN r.Titular t";
             $this->Joins[] = " LEFT JOIN r.Local l";
     
             $this->BuscarPor = 'Nombre, ExpedienteNumero, l.Nombre, t.NombreVisible, t.RazonSocial, t.DocumentoNumero, t.Cuilt';
         }
-        $res = parent::listarAction($request);
+        
+        $RestuladoListar = parent::listarAction($request);
+        $res = $RestuladoListar['res'];
+        
+        $res->Estados = \Yacare\ComercioBundle\Entity\Comercio::NombresEstados();
     
-        return $res;
+        return $RestuladoListar;
     }
 
     /**

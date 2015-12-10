@@ -166,20 +166,18 @@ class Comercio implements IComercio
      */
     public static function NombreEstado($estado)
     {
-        switch ($estado) {
-            case 0:
-                return 'No habilitado';
-            case 1:
-                return 'En trámite';
-            case 90:
-                return 'Hab., sin actividad';
-            case 91:
-                return 'Hab. vencida';
-            case 100:
-                return 'Habilitado';
-            default:
-                return '???';
-        }
+        return Comercio::NombresEstados()[$estado];
+    }
+    
+    
+    public static function NombresEstados() {
+        return array(
+            0 => 'No habilitado',
+            1 => 'En trámite',
+            90 => 'Hab., sin actividad',
+            91 => 'Hab. vencida',
+            100 => 'Habilitado'
+        );
     }
 
     /**
