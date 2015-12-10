@@ -50,12 +50,12 @@
 	<label class="col-sm-2 control-label">Expendiente</label>
     <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ExpedienteNumero) }}</div>
 
-	<label class="col-sm-2 control-label">Estado</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Estado) }}</div>
+	<label class="col-sm-2 control-label">Pos. archivo</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.PosicionArchivo) }}</div>
 </div>
 
 <div class="row form-group">
-	<label class="col-sm-2 control-label">Resolución</label>
+	<label class="col-sm-2 control-label">Resolución de hab.</label>
     <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoNumero) }}</div>
 
 	<label class="col-sm-2 control-label">Fecha de hab.</label>
@@ -63,11 +63,16 @@
 </div>
 
 <div class="row form-group">
-	<label class="col-sm-2 control-label">Pos. archivo</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.PosicionArchivo) }}</div>
+	<label class="col-sm-2 control-label">Resolución de baja</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoBajaNumero) }}</div>
 
 	<label class="col-sm-2 control-label">Fecha de baja</label>
     <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaBaja) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Estado</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Estado) }}</div>
 </div>
 
 <div class="row form-group">

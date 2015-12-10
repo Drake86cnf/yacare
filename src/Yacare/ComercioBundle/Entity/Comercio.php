@@ -59,6 +59,19 @@ class Comercio implements IComercio
     protected $FechaHabilitacion = null;
     
     /**
+     * El número de acto administrativo asociado a baja, en el formato DM-1234/2015.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^\s*(\w{1,4})([ |\-])*(\d{1,5})\/(19|20)(\d{2})\s*$/i",
+     *     message="Debe escribir el número de acto administrativo en el formato DM-1234/2015, RC-321/2014, etc."
+     * )
+     */
+    protected $ActoAdministrativoBajaNumero;
+    
+    /**
      * La fecha de baja, o null si el comercio todavía está habilitado.
      * 
      * @ORM\Column(type="date", nullable=true)
@@ -106,13 +119,22 @@ class Comercio implements IComercio
     /**
      * Setter con sanitización.
      */
+    public function setActoAdministrativoBajaNumero($actoAdministrativoBajaNumero)
+    {
+        $this->ActoAdministrativoBajaNumero = SanitizarActoAdministrativo($actoAdministrativoBajaNumero);
+        return $this;
+    }
+    
+    /**
+     * Setter con sanitización.
+     */
     public function setPosicionArchivo($PosicionArchivo)
     {
         if($PosicionArchivo) {
             $PosicionArchivo = strtoupper(trim($PosicionArchivo, "-. \t\n\r\0\x0B"));
             
             $Letra = substr($PosicionArchivo, 0, 1);
-            $Numero = substr($PosicionArchivo, 1);
+            $Numero = (int)substr($PosicionArchivo, 1);
             if($Numero > 0) {
                 $PosicionArchivo = $Letra . str_pad($Numero, 3, '0', STR_PAD_LEFT);
             }
@@ -295,5 +317,13 @@ class Comercio implements IComercio
     public function getDomicilio()
     {
         return $this->Domicilio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getActoAdministrativoBajaNumero()
+    {
+        return $this->ActoAdministrativoBajaNumero;
     }
 }

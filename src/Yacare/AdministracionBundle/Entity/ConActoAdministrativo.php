@@ -20,28 +20,32 @@ trait ConActoAdministrativo
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
-     *     pattern="/^\s*(DM|RM|DC|RC|DJ|RJ|SI|SG|SF|SA|SO|SP|AD|OR)*(\-)*(\d{1,5})\/(19|20)(\d{2})\s*$/i",
+     *     pattern="/^\s*(\w{1,4})([ |\-])*(\d{1,5})\/(19|20)(\d{2})\s*$/i",
      *     message="Debe escribir el número de acto administrativo en el formato DM-1234/2015, RC-321/2014, etc."
      * )
      */
     protected $ActoAdministrativoNumero;
+    
+    
+    protected function SanitizarActoAdministrativo($actoAdministrativoNumero) {
+        if($actoAdministrativoNumero) {
+            // Lo paso a mayúsculas y le agrego el guió si corresponde
+            return strtoupper(trim($actoAdministrativoNumero, "-. \t\n\r\0\x0B"));
+        } else {
+            return $actoAdministrativoNumero;
+        }
+    }
+    
 
     /**
      * Setter con sanitización.
      */
     public function setActoAdministrativoNumero($actoAdministrativoNumero)
     {
-        if($actoAdministrativoNumero) {
-            // Lo paso a mayúsculas y le agrego el guió si corresponde
-            $actoAdministrativoNumero = trim(strtoupper($actoAdministrativoNumero));
-            if(strpos($actoAdministrativoNumero, '-') === false) {
-                $actoAdministrativoNumero = substr($actoAdministrativoNumero, 0, 2) . '-' . substr($actoAdministrativoNumero, 2);
-            }
-        }
-    
-        $this->ActoAdministrativoNumero = $actoAdministrativoNumero;
+        $this->ActoAdministrativoNumero = SanitizarActoAdministrativo($actoAdministrativoNumero);
         return $this;
     }
+    
     
     /**
      * @ignore
