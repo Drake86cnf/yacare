@@ -29,11 +29,16 @@ class ComercioSimpleType extends AbstractType
                 'label' => 'Expediente',
                 'required' => false))
             ->add('ActoAdministrativoNumero', 'Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType', array(
-                'label' => 'Acto administrativo',
+                'label' => 'Resolución de habilitación',
                 'required' => false
             ))
             ->add('PosicionArchivo', null, array(
                 'label' => 'Posición en archivo',
+                'attr' => array('class' => 'tapir-input-120'),
+                'required' => false
+            ))
+            ->add('ActoAdministrativoBajaNumero', 'Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType', array(
+                'label' => 'Resolución de baja',
                 'required' => false
             ))
             ->add('Apoderado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
