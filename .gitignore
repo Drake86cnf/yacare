@@ -5,3 +5,5 @@ composer.lock
 vendor
 *.md.html
 .rules
+.dbeaver-data-sources.xml
+Scripts
