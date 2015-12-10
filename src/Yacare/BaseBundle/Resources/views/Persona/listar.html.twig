@@ -52,7 +52,7 @@
 		aria-labelledby="dropdownMenuGrupos">
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': null, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_grupo': null, 'page': null })) }}">
 				<i class="fa fa-fw{% if not filtro_grupo %} fa-check{% endif %}"></i>
 				Todos
 		</a></li>
@@ -60,7 +60,7 @@
 		{% if filtro_grupo_invertir %}
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': null, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_grupo_invertir': null, 'page': null })) }}">
 				<i class="fa fa-fw fa-check"></i> Invertir selección
 		</a></li>
 		{% else %}
@@ -69,7 +69,7 @@
 			en el grupo seleccionado más abajo.
 		</li>
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem" tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo_invertir': 1, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_grupo_invertir': 1, 'page': null })) }}">
 				<i class="fa fa-fw"></i> Invertir selección
 		</a></li>
 		{% endif %}
@@ -81,7 +81,7 @@
 		{% for grupo in res.PersonasGrupos %}
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_grupo': grupo.id, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_grupo': grupo.id, 'page': null })) }}">
 				<i class="fa fa-fw{% if grupo.id == filtro_grupo %} fa-check{% endif %}"></i>
 				{{ grupo.Nombre }}
 		</a></li>
@@ -106,7 +106,7 @@
 		aria-labelledby="dropdownMenuRoles">
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_rol': null, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_rol': null, 'page': null })) }}">
 				<i class="fa fa-fw{% if not filtro_rol %} fa-check{% endif %}"></i>
 				Todos
 		</a></li>
@@ -114,7 +114,7 @@
 		{% for rol in res.PersonasRoles %}
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
-			href="{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_rol': rol.id, 'page': null })) }}">
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_rol': rol.id, 'page': null })) }}">
 				<i class="fa fa-fw{% if rol.id == filtro_rol %} fa-check{% endif %}"></i>
 				{{ rol.Nombre }}
 		</a></li>
