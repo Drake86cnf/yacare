@@ -78,7 +78,7 @@
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
 			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_estado': estado == 0 ? -1 : estado, 'page': null })) }}">
-				<i class="fa fa-fw{% if (estado == 0 and filtro_estado == -1) or estado == filtro_estado %} fa-check{% endif %}"></i>
+				<i class="fa fa-fw{% if (estado == 0 and filtro_estado == -1) or (estado == filtro_estado and filtro_estado != 0)%} fa-check{% endif %}"></i>
 				{{ res.Estados[estado == -1 ? 0 : estado] }}
 		</a></li>
 		{% endfor %}
