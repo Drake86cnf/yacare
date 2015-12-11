@@ -5,13 +5,15 @@
 {% block pagina_contenido %}
 
 <div class="container-fluid"><div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-8">
         <h2>Actas de obra</h2>
         <ul class="inicio-mini-menu">
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['ActaObra'] %}
         		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: item.id })) }}"
-        			data-toggle="ajax-link">Acta de {{ item.Subtipo }} Nº {{ item.Numero }}<br /><span class="text-muted">{{ item.Partida.Domicilio }}</span></a></li>
+        			data-toggle="ajax-link">Acta de {{ item.Subtipo }} Nº {{ item.Numero }}
+        			<span class="text-muted">en {{ item.Partida.Domicilio }}</span>
+        			{% if item.Plazo is not null %}<span class="label label-success">D</span>{% endif %}</a></li>
         	{% endfor %}
         	    
         	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" 
