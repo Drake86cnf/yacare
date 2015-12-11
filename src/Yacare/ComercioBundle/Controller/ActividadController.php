@@ -236,6 +236,7 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
     public function buscarAction(Request $request)
     {
         $this->Where = 'r.Final=1';
+        $this->OrderBy = 'MaterializedPath DESC';
         
         return $this->buscarAction2($request);
     }
