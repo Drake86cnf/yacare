@@ -214,25 +214,25 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
         $dql = $this->obtenerComandoSelect($filtro_buscar);
         
         $em = $this->getEm();
-        $query = $em->createQuery($dql);
+        $Consulta = $em->createQuery($dql);
         //echo $dql;
         if ($this->Limit) {
-            $query->setMaxResults($this->Limit);
+            $Consulta->setMaxResults($this->Limit);
         }
         
         if ($this->Paginar) {
-            $paginator = $this->get('knp_paginator');
-            $entities = $paginator->paginate($query, $request->query->get('page', 1) /* page number */,
+            $Paginador = $this->get('knp_paginator');
+            $Entidades = $Paginador->paginate($Consulta, $request->query->get('page', 1) /* page number */,
                 50 /* limit per page */
             );
         } else {
-            $entities = $query->getResult();
+            $Entidades = $Consulta->getResult();
         }
         
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoListarAction($this), $request);
-        $res->Entidades = $entities;
+        $res->Entidades = $Entidades;
         
-        return $this->ArrastrarVariables($request, array('entities' => $entities, 'res' => $res));
+        return $this->ArrastrarVariables($request, array('entities' => $Entidades, 'res' => $res));
     }
 
     /**
