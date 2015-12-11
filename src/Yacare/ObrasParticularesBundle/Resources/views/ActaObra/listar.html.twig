@@ -11,7 +11,7 @@
     			<th>Fecha</th>
     			<th class="hidden-xs">Partida</th>
     			<th class="hidden-xs">Inspector</th>
-    			<th></th>
+    			<th> </th>
     		</tr>
     	</thead>
     	<tbody>
@@ -22,7 +22,7 @@
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
     			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}</td>
     			<td class="hidden-xs">{{ entidad.FuncionarioPrincipal }}</td>
-    			<td>{% if entidad.Plazo is not null %} <span class="label label-success">D</span> {% endif %}</td>
+    			<td>{% if entidad.Plazo is not null %}<span class="label label-success">D</span>{% endif %}</td>
     		</tr>
     		{% endfor %}
     	</tbody>

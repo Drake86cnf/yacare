@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 {
+    use \Yacare\BaseBundle\Entity\ConAdjuntos;
     use \Yacare\CatastroBundle\Entity\ConPartida;
 
     public function __construct()
