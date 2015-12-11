@@ -61,7 +61,8 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     public function editarAction(Request $request)
     {
         if (! $this->isGranted('ROLE_IDDQD')) {
-            if ($this->ObtenerVariable($request, 'id') && $this->isGranted('ROLE_OBRAS_PARTICULARES_INSPECTOR')) {
+            if ($this->ObtenerVariable($request, 'id') && ($this->isGranted('ROLE_OBRAS_PARTICULARES_INSPECTOR') &&
+                 ! $this->isGranted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR'))) {
                 return $this->redirect($this->generateUrl('yacare_base_default_accesodenegado'));
             } else {
                 return parent::editarAction($request);

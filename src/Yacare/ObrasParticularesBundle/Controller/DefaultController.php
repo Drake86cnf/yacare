@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
- * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+ * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
  */
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
