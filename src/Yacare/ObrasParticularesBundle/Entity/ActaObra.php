@@ -97,7 +97,41 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\Column(type="text", nullable=true)
      */
     private $DescargoDetalle;
-
+    
+    
+    /**
+     * Devuelve la fecha de vencimiento, si hay un plazo de compromiso.
+     * 
+     * El plazo se considera vencido _después_ de la fecha de vencimiento. O sea, hasta la fecha de vencimiento
+     * inclusive el plazo es válido.
+     *   
+     * @return DateTime|NULL
+     */
+    public function getFechaVencimiento() {
+        if($this->getPlazo() && $this->getFechaDescargo()) {
+            $FechaVencimiento = clone $this->getFechaDescargo();
+            $FechaVencimiento->add(new \DateInterval('P' . $this->getPlazo() . 'D'));
+            $FechaVencimiento->setTime(23, 59, 59);
+            return $FechaVencimiento;
+        } else {
+            // No tiene descargo o no tiene plazo
+            return null;
+        }
+    }
+    
+    /**
+     * Devuelve true si el acta tiene un plazo de compromiso y el plazo venció.
+     */
+    public function EstaVencida() {
+        $FechaVencimiento = $this->getFechaVencimiento();
+        if($FechaVencimiento) {
+            $Ahora = new \DateTime();
+            return $Ahora > $FechaVencimiento;
+        } else {
+            // No tiene fecha de vencimiento
+            return false;
+        }
+    }
 
     public function getEstadoAvanceNombre()
     {
