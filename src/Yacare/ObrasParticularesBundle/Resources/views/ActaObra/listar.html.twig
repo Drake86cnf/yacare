@@ -22,7 +22,7 @@
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
     			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}</td>
     			<td class="hidden-xs">{{ entidad.FuncionarioPrincipal }}</td>
-    			<td>{% if entidad.Plazo is not null %}<span class="label label-success">D</span>{% endif %}</td>
+    			<td>{% if entidad.Plazo is not null %}<span class="label label-{% if entidad.EstaVencida %}danger{% else %}success{% endif %}">D</span>{% endif %}</td>
     		</tr>
     		{% endfor %}
     	</tbody>

@@ -13,7 +13,7 @@
         		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: item.id })) }}"
         			data-toggle="ajax-link">Acta de {{ item.Subtipo }} Nº {{ item.Numero }}
         			<span class="text-muted">en {{ item.Partida.Domicilio }}</span>
-        			{% if item.Plazo is not null %}<span class="label label-success">D</span>{% endif %}</a></li>
+        			{% if item.Plazo is not null %}<span class="label label-{% if item.EstaVencida %}danger{% else %}success{% endif %}">D</span>{% endif %}</a></li>
         	{% endfor %}
         	    
         	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_actaobra_listar') }}" 
