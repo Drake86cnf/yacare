@@ -186,8 +186,8 @@ class ImportadorPartidas extends Importador {
             $Titulares = $this->ObtenerTitularesPorId($Row['TR3A100_ID']);
             if(count($Titulares) >= 1) {
                 $entity->setTitular($Titulares[0]);
-            } else {
-                $entity->setTitular(null);
+            //} else {
+            //    $entity->setTitular(null);
             }
         
 
