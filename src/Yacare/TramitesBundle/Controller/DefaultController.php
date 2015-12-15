@@ -1,6 +1,7 @@
 <?php
 namespace Yacare\TramitesBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -12,34 +13,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
 {
     /**
-     * Controlador de inicio.
-     * 
-     * @see \Tapir\BaseBundle\Controller\DefaultController::inicioAction() DefaultController::inicioAction()
-     * 
      * @Route("inicio/")
-     * @Template()
+     * @Template
      */
-    public function inicioAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function inicioAction(Request $request)
     {
-        $res = parent::inicioAction($request);
-        
-        $entitiesRecientes = array();
-        $em = $this->getEm();
-        $entities = $em->getRepository('YacareTramitesBundle:Requisito')->findBy(
-            array('Tipo' => array('cond', 'int', 'ext')), array('updatedAt' => 'DESC'));
-        
-        $limiteCantidad = 0;
-        
-        foreach ($entities as $entity) {
-            $ultimaActualizacion = $entity->getUpdatedAt()->diff(new \DateTime());
-            if ($ultimaActualizacion->days <= 10 && $limiteCantidad < 5) {
-                $entitiesRecientes[] = $entity;
-                $limiteCantidad ++;
-            }
-        }
-        $res['entities'] = $entitiesRecientes;
-        $res['entitiesCantidad'] = count($entities);
-        
-        return $res;
+        $res = $this->ConstruirResultado(new \Yacare\ComercioBundle\Helper\Resultados\ResultadoInicioAction($this),
+            $request);
+    
+        $this->ObtenerContadoresYRecientes($res);
+    
+        return array('res' => $res);
     }
+    
+    public function ObtenerContadoresYRecientes($resultado)
+    {
+        $em = $this->getEm();
+    
+        $resultado->Recientes['Requisito'] = $em->createQuery("SELECT r FROM Yacare\TramitesBundle\Entity\Requisito r WHERE r.Tipo IN ('cont', 'int', 'ext') ORDER BY r.updatedAt DESC")
+            ->setMaxResults(10)->getResult();
+        $resultado->Recientes['TramiteTipo'] = $em->createQuery("SELECT r FROM Yacare\TramitesBundle\Entity\TramiteTipo r ORDER BY r.updatedAt DESC")
+            ->setMaxResults(10)->getResult();
+        $resultado->Recientes['ComprobanteTipo'] = $em->createQuery("SELECT r FROM Yacare\TramitesBundle\Entity\ComprobanteTipo r ORDER BY r.updatedAt DESC")
+            ->setMaxResults(10)->getResult();
+
+        return $resultado;
+    }
+   
 }

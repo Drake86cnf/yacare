@@ -1,78 +1,69 @@
 {% extends "TapirAbmBundle::inicio.html.twig" %}
 
-{% block pagina_titulo %} Trámites {% endblock %}
+{% block pagina_titulo %}Trámites{% endblock %}
 
 {% block pagina_contenido %}
-	<div class="container-fluid"> <div class="row">
-		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-primary">
-            <div class="panel-heading">
-            	<h2 class="panel-title">Requisitos</h2>
-            </div>
-            <div class="panel-body">
-                <form id ="form_consulta" class="form-horizontal" action="{{ path('yacare_tramites_requisito_listar')}}" 
-                	method="get">
-	            <p>Definición de los requisitos (documentación) que pueden estar asociados a un trámite. </p>
-                <input id ="consultar" name="filtro_buscar" type="text" class="form-control pull-rigth" 
-                	placeholder="Buscar por nombre." />
-                </form>
-            </div>
-            <ul class="list-group">
-            	<a class="list-group-item" href="{{ path('yacare_tramites_requisito_listar') }}">
-            		Lista de requisitos<span class="badge">{{ entitiesCantidad }}</span></a>
-            </ul>
-            <!-- Table -->
-            <table class="table table-hovergreyselect">
-            	<thead>
-            		<tr>
-            			<th>Actividad reciente</th>	
-            		</tr>
-            	</thead>
-            	<tbody>
-            	{% set contador = 0 %}
-            	{% for entity in entities %}
-            		<tr data-toggle="ajax-link" href="{{ path('yacare_tramites_requisito_editar', 
-            		    arrastre|merge({'id': entity.id})) }}">
-            			<td> {{ entity }} </td>
-            		</tr>
-            	{% endfor %}
-            	</tbody>
-            </table>
-        </div></div>
-	
-		<div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-green">
-            <div class="panel-heading">
-            	<h2 class="panel-title">Tipos de trámites</h2>
-            </div>
-            <div class="panel-body">
-                <p> Definición y parametrización de los tipos de trámite que pueden gestionarse
-                	mediante esta aplicación.</p>
-            </div>
-            <ul class="list-group">
-                <a class="list-group-item" href="{{ path('yacare_tramites_tramitetipo_listar') }}">	
-                	Lista de tipos de trámites</a>
-    	</div></div>
-        
-        <div class="col-md-4 col-sm-6 col-xs-12"><div class="panel panel-yellow">
-            <div class="panel-heading">
-            	<h2 class="panel-title">Tipos de comprobante</h2>
-            </div>
-            <div class="panel-body">
-            	<p> Definición y parametrización de los tipos de comprobante que pueden emitirse
-            		desde esta aplicación. </p>
-            </div>
-            <ul class="list-group">
-            	<a class="list-group-item" href="{{ path('yacare_tramites_comprobantetipo_listar') }}">Lista de comprobantes</a>
-            </ul>
-        </div></div>
-	</div></div>
-	
-	<script>
-    	$('#consultar').keypress(function (e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                $('form#form_consulta').submit();
-                return false;
-            }
-        });
-	</script>
+<div class="container-fluid"><div class="row">
+
+    <div class="col-sm-8">
+        <h2>Requisitos</h2>
+        <ul class="inicio-mini-menu">
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['Requisito'] %}
+        		<li><a href="{{ path('yacare_tramites_requisito_editar', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</span></a></li>
+        	{% endfor %}
+        	    
+        	<li class="destacado"><a href="{{ path('yacare_tramites_requisito_listar') }}" 
+        		data-toggle="ajax-link">Todos los requisitos</a></li>
+        	
+        	<li><form id ="form_requisito_buscar" class="form-horizontal" 
+        		action="{{ path('yacare_tramites_requisito_listar')}}" method="get">
+                <input type="text" name="filtro_buscar" class="form-control pull-rigth" 
+                	placeholder="buscar requisitos" /></form></li>
+        </ul>
+    </div>
+    
+    
+    <div class="col-sm-4">
+        <h2>Tipos de trámites</h2>
+        <ul class="inicio-mini-menu">
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['TramiteTipo'] %}
+        		<li><a href="{{ path('yacare_tramites_tramitetipo_editar', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</span></a></li>
+        	{% endfor %}
+        	    
+        	<li class="destacado"><a href="{{ path('yacare_tramites_tramitetipo_listar') }}" 
+        		data-toggle="ajax-link">Todos los tipos de trámite</a></li>
+        	
+        	<li><form id ="form_tramitetipo_buscar" class="form-horizontal" 
+        		action="{{ path('yacare_tramites_tramitetipo_listar')}}" method="get">
+                <input type="text" name="filtro_buscar" class="form-control pull-rigth" 
+                	placeholder="buscar tipos de trámite" /></form></li>
+        </ul>
+    </div>
+    
+    
+    <div class="col-sm-4">
+        <h2>Tipos de comprobantes</h2>
+        <ul class="inicio-mini-menu">
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['ComprobanteTipo'] %}
+        		<li><a href="{{ path('yacare_tramites_comprobantetipo_editar', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</span></a></li>
+        	{% endfor %}
+        	    
+        	<li class="destacado"><a href="{{ path('yacare_tramites_comprobantetipo_listar') }}" 
+        		data-toggle="ajax-link">Todos los tipos de comprobante</a></li>
+        	
+        	<li><form id ="form_comprobantetipo_buscar" class="form-horizontal" 
+        		action="{{ path('yacare_tramites_comprobantetipo_listar')}}" method="get">
+                <input type="text" name="filtro_buscar" class="form-control pull-rigth" 
+                	placeholder="buscar tipos de comprobante" /></form></li>
+        </ul>
+    </div>
+    
+    
+</div></div>
 {% endblock %}
