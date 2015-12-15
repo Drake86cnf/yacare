@@ -7,6 +7,23 @@
 {% block pagina_contenido %}
 <table class="table table-hover table-responsive">
 	<tbody>
+	
+	{% if res.Entidad.TipoSociedad %}
+		{# Persona jurídica #}
+		<tr>
+			<td class="grilladatos-etiqueta text-muted text-right">Razón social</td>
+			<td>
+			    {{ res.Entidad.RazonSocial }}
+			</td>
+		</tr>
+		<tr>
+			<td class="grilladatos-etiqueta text-muted text-right">Tipo de sociedad</td>
+			<td>
+			    {{ res.Entidad.TipoSociedadNombre }}
+			</td>
+		</tr>
+	{% else %}
+		{# Persona física #}
 		<tr>
 			<td class="grilladatos-etiqueta text-muted text-right">Documento</td>
 			<td>
@@ -15,27 +32,27 @@
         			<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
         			    { 'id': res.Entidad.id, 'campo_nombre': 'DocumentoNumero' })) }}" data-toggle="modal" 
         			    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-        			    {% if res.Entidad.TelefonoNumero %}Cambiar{% else %}Agregar{% endif %}
+        			    {% if res.Entidad.documentoNumero %}Cambiar{% else %}Agregar{% endif %}
         			</a> 
                 {% endif %}
 			</td>
 		</tr>
-		<tr>
-			<td class="grilladatos-etiqueta text-muted text-right">CUIL/CUIT</td>
-			<td>
-			    {{ res.Entidad.CuiltFormateado }} 
-    			{% if not res.Entidad.Cuilt|tapir_cuiltesvalida %}
-    				<i class="fa fa-warning text-danger" title="La CUIL/CUIT no es válida"></i>
-    			{% endif %} 
-    			{% if is_granted('ROLE_PERSONAS_EDITAR') %} 
-    				<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
-    				    { 'id': res.Entidad.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" 
-    				    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-    				    {% if res.Entidad.Cuilt %}Cambiar{% else %}Agregar{% endif %}
-    				</a> 
-    		    {% endif %}
-			</td>
-		</tr>
+	{% endif %}
+	
+	<tr>
+		<td class="grilladatos-etiqueta text-muted text-right">CUIL/CUIT</td>
+		<td>
+		    {{ res.Entidad.Cuilt }} 
+			{% if is_granted('ROLE_PERSONAS_EDITAR') %}
+    			<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
+    			    { 'id': res.Entidad.id, 'campo_nombre': 'Cuilt' })) }}" data-toggle="modal" 
+    			    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+    			    {% if res.Entidad.Cuilt %}Cambiar{% else %}Agregar{% endif %}
+    			</a> 
+            {% endif %}
+		</td>
+	</tr>
+
 		<tr>
 			<td class="grilladatos-etiqueta text-muted text-right">
 				<i class="fa fa-home text-muted"></i>&nbsp;Domicilio</td>
@@ -82,45 +99,52 @@
 			    {% endif %}
 			</td>
 		</tr>
-		<tr>
-			<td class="grilladatos-etiqueta text-muted text-right">Nacionalidad</td>
-			<td>
-			    {{ res.Entidad.Pais }}
-			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
-			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
-			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Pais' })) }}" data-toggle="modal" 
-			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
-			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Agregar{% endif %}
-			    	</a>
-			    {% endif %}
-			</td>
-		</tr>
-		<tr>
-			<td class="grilladatos-etiqueta text-muted text-right">Fecha de nacimiento</td>
-			<td>
-			    {{ res.Entidad.FechaNacimiento|tapir_fecha('medium', 'none') }}
-			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
-			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
-			    	    { 'id': res.Entidad.id, 'campo_nombre': 'FechaNacimento' })) }}" data-toggle="modal" 
-			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
-			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Agregar{% endif %}
-			    	</a> 
-			    {% endif %}
-			</td>
-		</tr>
-		<tr>
-			<td class="grilladatos-etiqueta text-muted text-right">Género</td>
-			<td>
-			    {{ res.Entidad.GeneroNombre }}
-			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
-			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
-			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Genero' })) }}" data-toggle="modal" 
-			    		class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
-			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Cambiar{% endif %}
-			       </a>
-			    {% endif %}
-			</td>
-		</tr>
+		
+		{% if res.Entidad.TipoSociedad %}
+			{# Persona jurídica #}
+
+		{% else %}
+			{# Persona física #}
+    		<tr>
+    			<td class="grilladatos-etiqueta text-muted text-right">Nacionalidad</td>
+    			<td>
+    			    {{ res.Entidad.Pais }}
+    			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
+    			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
+    			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Pais' })) }}" data-toggle="modal" 
+    			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> 
+    			    	    {% if res.Entidad.Pais %}Cambiar{% else %}Agregar{% endif %}
+    			    	</a>
+    			    {% endif %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="grilladatos-etiqueta text-muted text-right">Fecha de nacimiento</td>
+    			<td>
+    			    {{ res.Entidad.FechaNacimiento|tapir_fecha('medium', 'none') }}
+    			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
+    			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
+    			    	    { 'id': res.Entidad.id, 'campo_nombre': 'FechaNacimento' })) }}" data-toggle="modal" 
+    			    	    class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i>
+    			    	    {% if res.Entidad.FechaNacimiento %}Cambiar{% else %}Agregar{% endif %}
+    			    	</a> 
+    			    {% endif %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="grilladatos-etiqueta text-muted text-right">Género</td>
+    			<td>
+    			    {{ res.Entidad.GeneroNombre }}
+    			    {% if is_granted('ROLE_PERSONAS_EDITAR') %} 
+    			    	<a href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge(
+    			    	    { 'id': res.Entidad.id, 'campo_nombre': 'Genero' })) }}" data-toggle="modal" 
+    			    		class="btn btn-link btn-xs showonhover"><i class="fa fa-edit"></i> Cambiar</a>
+    			    {% endif %}
+    			</td>
+    		</tr>
+		{% endif %}
+		
+		
 		<tr>
 			<td colspan="2">
 			    {% for Grupo in res.Entidad.Grupos %}
