@@ -31,10 +31,12 @@
 					<i class="fa fa-fw fa-warning text-danger"></i>
                 {% endif %}</td>
 			<td class="hidden-xs">
-			    {% if entity.DomicilioReal %}
+			    {% if entity.DomicilioReal and entity.Local %}
                     {{ entity.DomicilioReal }}
-			    {% else %}
-			    	(ambulante)
+			    {% elseif entity.DomicilioReal %}
+                    Legal: {{ entity.DomicilioReal }}
+                {% else %}
+			    	n/a
 			    {% endif %}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.FechaUltimaActa|tapir_hacetiempo }}</td>
 		</tr>
