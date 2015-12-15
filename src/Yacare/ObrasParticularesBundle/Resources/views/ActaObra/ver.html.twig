@@ -10,7 +10,9 @@
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
 		    {{ bs.grid_label_text('Propietario', res.Entidad.Partida.Titular) }}
-		    {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		    {% if res.Entidad.Partida.Titular %}
+		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		    {% endif %}
 		    {{ bs.grid_label_text('Inspector', res.Entidad.FuncionarioPrincipal) }}
 		    {% if res.Entidad.OtrosFuncionarios|length > 0 %}
 			    {% set OtrosFunc = [] %}
