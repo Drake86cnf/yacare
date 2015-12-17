@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_ActaComercio")
  */
-class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta implements IActaComercio
+class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
 {
     public function __construct()
     {
