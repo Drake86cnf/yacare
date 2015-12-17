@@ -18,11 +18,13 @@ class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
     public function PreUpdatePersist($comercio, $args = null)
     {
         $this->ReordenarActividades($comercio);
-        $Usuario = $this->Listener->container->get('security.token_storage')->getToken()->getUser();
         
-        if ($this->Listener && $Usuario) {
-            if (! $this->EsEdicion) {   
-                $comercio->setCreadoPor($Usuario);
+        if (! $this->EsEdicion) {
+            if($this->Listener && $this->Listener->container) {
+                $Usuario = $this->Listener->container->get('security.token_storage')->getToken()->getUser();
+                if ($Usuario) {
+                    $comercio->setCreadoPor($Usuario);
+                }
             }
         }
     }
