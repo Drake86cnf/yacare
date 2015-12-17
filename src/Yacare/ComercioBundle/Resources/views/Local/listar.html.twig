@@ -6,21 +6,30 @@
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
-			<th>Domicilio</th>
 			<th class="hidden-xs">Tipo</th>
-			<th>Sup.</th>
-			<th class="hidden-sm hidden-xs">Titular</th>
+			<th>Domicilio</th>
+			<th class="text-right nowrap">Sup.</th>
+			<th class="hidden-sm hidden-xs">Comercios</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for entity in entities %}
-		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
+		{% for entity in res.Entidades %}
+		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}">
+			<td class="hidden-xs">{% if entity.Tipo != 'Local comercial' %}{{ entity.Tipo }}{% endif %}</td>
 			<td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}{% endif %}</td>
-			<td class="hidden-xs">{{ entity.Tipo }}</td>
-			<td>{{ entity.Superficie }} m²</td>
-			<td class="hidden-sm hidden-xs">{% if entity.Partida %}{{
-				entity.Partida.Titular }}{% endif %}</td>
+			<td class="text-right nowrap">{{ entity.Superficie }}&nbspm²</td>
+			<td class="hidden-sm hidden-xs">
+			    {% if entity.Comercios|length > 0 %}
+			        {% for comercio in entity.Comercios %}
+    			        {% if comercio.Estado != 92 %}
+    			        	{# Sólo muestro comercios que no están de baja #}
+    			        	{{ comercio }}<br />
+			        	{% endif %}
+			        {% endfor %}
+			    {% else %}
+			    	<span class="text-muted">--</span>
+                {% endif %}
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -31,7 +40,7 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar_1') }}"
+<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
 	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
 	local comercial</a>
 {% endblock %}
