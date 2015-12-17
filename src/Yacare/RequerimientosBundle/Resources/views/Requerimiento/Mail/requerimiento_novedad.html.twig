@@ -9,7 +9,7 @@
     	<p>
     	{% if res.Novedad.Usuario %}
     		{{ res.Novedad.Usuario.NombreAmigableCorto }} acaba de informar que:
-    	{% else if res.Novedad.UsuarioNombre %}
+    	{% elseif res.Novedad.UsuarioNombre %}
     	    {{ res.Novedad.UsuarioNombre }} (usuario anónimo externo) informa que:
     	{% endif %}
     	
