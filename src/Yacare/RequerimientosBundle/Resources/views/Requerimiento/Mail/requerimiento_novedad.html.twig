@@ -3,7 +3,7 @@
 	<h2>Tenemos novedades sobre su solicitud</h2>
 
 	<p>Nos comunicamos para informarle sobre el avance de su solicitud Nº {{ res.Entidad.SeguimientoNumero }},
-		con el asunto &quot;{{ entity.Notas|tapir_abreviar(150) }}&quot;.</p>
+		con el asunto &quot;{{ res.Entidad.Notas|tapir_abreviar(150) }}&quot;.</p>
 
     {% if res.Novedad %}
     	<p>
