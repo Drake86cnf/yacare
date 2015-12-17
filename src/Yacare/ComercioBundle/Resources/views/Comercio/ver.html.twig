@@ -23,6 +23,9 @@
 			{% else %}
 				{{ bs.grid_label_text('Domicilio', 'n/a') }}
 			{% endif %}
+			{% if res.Entidad.CreadoPor %}
+			    {{ bs.grid_label_text('Dado de alta por', res.Entidad.CreadoPor) }}
+			{% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12 col-separator-left">
 			{{ bs.grid_label_text66('Expediente', res.Entidad.ExpedienteNumero) }}
@@ -108,7 +111,7 @@
 	</div>
 	{% endif %}
 	
-	<div class="row"><div class="col-xs-12">
+	<div class="row"><div class="col-xs-12"><br />
     	<p>
     	{% if res.Entidad.Estado == 100 %}La habilitación está vigente.
         {% elseif res.Entidad.Estado == 91 %}La habilitación está vencida.
@@ -125,7 +128,6 @@
         {% endif %}
         emitido en el sistema actual.        
 	</div></div>
-
 
 <h2 class="row-header">Actas</h2>
 <table class="table table-reponsive table-hoverselect">

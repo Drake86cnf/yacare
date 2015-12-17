@@ -75,7 +75,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
     /**
      * Guardar un acta.
      *
-     * @see \Tapir\AbmBundle\Controller\AbmController::editarAction() AbmController::editarAction()
+     * @see \Tapir\AbmBundle\Controller\AbmController::guardarAction() AbmController::guardarAction()
      *
      * @Route("guardar/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
