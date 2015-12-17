@@ -20,20 +20,23 @@
 </div>
 {% endif %}
 
-{% if res.Recientes['RequerimientosUsuario']|length > 0 %}
 <div class="col-sm-4">
     <h2><i class="fa fa-fw fa-ticket text-muted"></i> Mis requerimientos</h2>
     <ul class="inicio-mini-menu">
+{% if res.Recientes['RequerimientosUsuario']|length > 0 %}
     	<li><p>Actividad reciente en requerimientos que yo inicié:</p></li>
     	{% for requerimiento in res.Recientes['RequerimientosUsuario'] %}
     		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: requerimiento.id })) }}" data-toggle="ajax-link">{{ requerimiento }}</a></li>
     	{% endfor %}
-
+{% else %}
+			<li><p>No tiene requerimientos pendientes.</p></li>
+{% endif %}
     	<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_listar') }}" data-toggle="ajax-link">
     		Todos mis requerimientos</a></li>
+		<li class="destacado"><a href="{{ path('yacare_requerimientos_requerimiento_asistentecrear') }}" data-toggle="ajax-link">
+    		Iniciar nuevo requerimiento</a></li>
     </ul>
 </div>
-{% endif %}
 
 {% if res.Recientes['RequerimientosEncargado']|length > 0 %}
 <div class="col-sm-4">
