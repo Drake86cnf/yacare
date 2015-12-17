@@ -1,9 +1,46 @@
 {% extends 'YacareBaseBundle::email.html.twig' %}
 {% block pagina_contenido %}
-    {% if novedad_notas %}
-    	<h2>Tenemos novedades sobre su solicitud</h2>
-    	<p>{{ novedad_notas }}</p> 
+	<h2>Tenemos novedades sobre su solicitud</h2>
+
+	<p>Nos comunicamos para informarle sobre el avance de su solicitud Nº {{ res.Entidad.SeguimientoNumero }},
+		con el asunto &quot;{{ entity.Notas|tapir_abreviar(150) }}&quot;.</p>
+
+    {% if res.Novedad %}
+    	<p>
+    	{% if res.Novedad.Usuario %}
+    		{{ res.Novedad.Usuario.NombreAmigableCorto }} acaba de informar que:
+    	{% else if res.Novedad.UsuarioNombre %}
+    	    {{ res.Novedad.UsuarioNombre }} (usuario anónimo externo) informa que:
+    	{% endif %}
+    	
+    	{{ res.Novedad.Notas }}
+    	</p> 
     {% endif %}
+    
+    {% if res.Entidad.Estado == 0 %}{# Nuevo #}
+
+        <strong>La solicitud será atendida por la mesa de entradas y de ser necesario será derivada al área
+        correspondiente.</strong>
+
+    {% elseif res.Entidad.Estado == 10 %}{# Iniciado #}
+
+		<strong>La solicitud está siendo atendida.</strong> El último movimiento al respecto
+			fue {{ res.Entidad.updatedAt|tapir_hacetiempo }}.
+
+	{% elseif res.Entidad.Estado == 20 %}{# En espera #}
+
+		<strong>La solicitud fue puesta en espera.</strong>
+
+	{% elseif res.Entidad.Estado == 80 %}{# Cancelado #}
+
+		<strong>La solicitud fue cancelada.</strong>
+
+	{% elseif res.Entidad.Estado == 90 %}{# Terminado #}
+
+		<strong>La solicitud fue cursada y llegó a una solución exitosa.</strong>
+
+    {% endif %}
+    
     <hr />
     <p>Este es un mensaje generado de forma automática. Por favor no responda a este mensaje. Si desea consultar
     	el estado de su solicitud utilice la página provista.</p>
