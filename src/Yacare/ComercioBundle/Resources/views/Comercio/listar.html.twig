@@ -24,6 +24,7 @@
 			    {% elseif entity.Estado == 0 %}<span class="label label-danger">NH</span>
 			    {% elseif entity.Estado == 90 %}<span class="label label-info">SA</span>
 			    {% elseif entity.Estado == 91 %}<span class="label label-danger">HV</span>
+			    {% elseif entity.Estado == 92 %}<span class="label label-info">BA</span>
 			    {% elseif entity.Estado == 100 %}<span class="label label-success">HA</span>
 			    {% endif %}
 			</td>
@@ -45,10 +46,11 @@
 </table>
 
 <p class="text-center small">
-	<span class="label label-success">HA</span> Habilitado &nbsp;&nbsp;&nbsp;
+	<span class="label label-success">HA</span> En actividad, habilitado &nbsp;&nbsp;&nbsp;
+	<span class="label label-danger">NH</span> En actividad, no habilitado &nbsp;&nbsp;&nbsp;
 	<span class="label label-warning">ET</span> En trámite &nbsp;&nbsp;&nbsp;
-	<span class="label label-danger">NH</span> No habilitado &nbsp;&nbsp;&nbsp;
 	<span class="label label-info">SA</span> Habilitado, sin actividad &nbsp;&nbsp;&nbsp;
+	<span class="label label-info">BA</span> Dado de baja &nbsp;&nbsp;&nbsp;
 </p>
 {% endblock %}
 

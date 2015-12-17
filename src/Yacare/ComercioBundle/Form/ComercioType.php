@@ -34,11 +34,12 @@ class ComercioType extends ComercioSimpleType
                 'label' => 'Estado',
                 'required' => true,
                 'choices' => array(
-                    0 => 'No habilitado',
+                    0 => 'En actividad, sin habilitación',
                     1 => 'Habilitación en trámite',
                     90 => 'Habilitado, sin actividad',
                     91 => 'Habilitación vencida',
-                    100 => 'Habilitado')))
+                    92 => 'Dado de baja',
+                    100 => 'En actividad, habilitado')))
             ->add('Obs', null, array(
                 'label' => 'Observaciones',
                 'attr' => array('class' => 'tapir-input-maymin')

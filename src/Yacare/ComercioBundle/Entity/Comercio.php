@@ -172,11 +172,12 @@ class Comercio implements IComercio
     
     public static function NombresEstados() {
         return array(
-            0 => 'No habilitado',
-            1 => 'En trámite',
-            90 => 'Hab., sin actividad',
-            91 => 'Hab. vencida',
-            100 => 'Habilitado'
+            0 => 'En actividad, sin habilitación',
+            1 => 'Habilitación en trámite',
+            90 => 'Habilitado, sin actividad',
+            91 => 'Habilitación vencida',
+            92 => 'Dado de baja',
+            100 => 'En actividad, habilitado'
         );
     }
 
