@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  */
 class TramitesListener implements EventSubscriber
 {
-    private $container;
+    protected $container;
 
     public function __construct(Container $container)
     {
@@ -24,15 +24,15 @@ class TramitesListener implements EventSubscriber
         $entity = $args->getEntity();
         if ($entity instanceof \Yacare\TramitesBundle\Entity\ITramite) {
             // Capturo los eventos si la entidad es un trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper();
+            $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\ITramiteTipo) {
             // Capturo los eventos si la entidad es un tipo de trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteTipoHelper();
+            $Helper = new \Yacare\TramitesBundle\Helper\TramiteTipoHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\IEstadoRequisito) {
             // Capturo los eventos si la entidad es el estado de un requisito
-            $Helper = new \Yacare\TramitesBundle\Helper\EstadoRequisitoHelper();
+            $Helper = new \Yacare\TramitesBundle\Helper\EstadoRequisitoHelper($this);
             $Helper->LifecycleEvent($args);
         }
     }

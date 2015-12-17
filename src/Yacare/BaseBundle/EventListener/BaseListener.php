@@ -24,7 +24,7 @@ class BaseListener implements EventSubscriber
         $entity = $args->getEntity();
         if (is_a($entity, 'Yacare\BaseBundle\Entity\Persona')) {
             // Capturo los eventos si la entidad es un trámite
-            $Helper = new \Yacare\BaseBundle\Helper\PersonaHelper();
+            $Helper = new \Yacare\BaseBundle\Helper\PersonaHelper($this);
             $Helper->LifecycleEvent($args);
         }
     }
