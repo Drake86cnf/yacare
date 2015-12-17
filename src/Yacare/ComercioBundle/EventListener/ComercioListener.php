@@ -26,26 +26,26 @@ class ComercioListener implements EventSubscriber
         $entity = $args->getEntity();
         if ($entity instanceof \Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial) {
             // Capturo los eventos si la entidad es un trámite de habilitación comercial
-            $Helper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper();
+            $Helper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif ($entity instanceof IComercio) {
             // Capturo los eventos si la entidad es un comercio
-            $Helper = new \Yacare\ComercioBundle\Helper\ComercioHelper();
+            $Helper = new \Yacare\ComercioBundle\Helper\ComercioHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif (is_a($entity, 'Yacare\ComercioBundle\Entity\ActaComercio')) {
             // Capturo los eventos si la entidad es un acta comercio
-            $Helper = new \Yacare\ComercioBundle\Helper\ActaComercioHelper();
+            $Helper = new \Yacare\ComercioBundle\Helper\ActaComercioHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif ($entity instanceof \Yacare\ComercioBundle\Entity\ICertificadoHabilitacionComercial) {
             // Capturo los eventos si la entidad es un certificado
-            $Helper = new \Yacare\ComercioBundle\Helper\CertificadoHabilitacionComercialHelper();
+            $Helper = new \Yacare\ComercioBundle\Helper\CertificadoHabilitacionComercialHelper($this);
             $Helper->LifecycleEvent($args);
         } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\IEstadoRequisito) {
             $Tramite = $entity->getTramite();
             if ($Tramite instanceof \Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial) {
                 // Capturo los eventos si la entidad es el estado de un requisito y el trámite asociado es un trámite
                 // de habilitación comercial.
-                $Helper = new \Yacare\ComercioBundle\Helper\EstadoRequisitoHelper();
+                $Helper = new \Yacare\ComercioBundle\Helper\EstadoRequisitoHelper($this);
                 $Helper->LifecycleEvent($args);
             }
         }

@@ -24,7 +24,7 @@ class ObrasParticularesListener implements EventSubscriber
         $entity = $args->getEntity();
         if (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\ActaObra')) {
             // Capturo los eventos si la entidad es un acta.
-            $Helper = new \Yacare\ObrasParticularesBundle\Helper\ActaObraHelper();
+            $Helper = new \Yacare\ObrasParticularesBundle\Helper\ActaObraHelper($this);
             $Helper->LifecycleEvent($args);
         }
     }

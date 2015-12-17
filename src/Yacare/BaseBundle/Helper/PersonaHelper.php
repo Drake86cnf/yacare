@@ -8,8 +8,9 @@ namespace Yacare\BaseBundle\Helper;
  */
 class PersonaHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
-        parent::__construct($em);
+    function __construct($listener = null, $em = null)
+    {
+        parent::__construct($listener, $em);
     }
     
     public function PreUpdatePersist($entity, $args = null) {

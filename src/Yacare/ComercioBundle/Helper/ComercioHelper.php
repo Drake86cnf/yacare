@@ -10,8 +10,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
-        parent::__construct($em);
+    function __construct($listener = null, $em = null)
+    {
+        parent::__construct($listener, $em);
     }
     
     public function PreUpdatePersist($comercio, $args = null) {

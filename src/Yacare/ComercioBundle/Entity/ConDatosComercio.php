@@ -15,7 +15,7 @@ trait ConDatosComercio
     /**
      * @var Local
      * 
-     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local")
+     * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Local", inversedBy="Comercios")
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     protected $Local;
