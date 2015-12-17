@@ -270,7 +270,7 @@ class Actividad implements Tree\NodeInterface
         return $res;
     }
 
-    public function getNivelRiesgoValor(){
+    public function getNivelRiesgoNombre(){
         switch ($this->getNivelRiesgo()) {
             case 0: 
                 return 'Bajo';    
