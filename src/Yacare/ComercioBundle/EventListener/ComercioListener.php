@@ -28,11 +28,11 @@ class ComercioListener implements EventSubscriber
             // Capturo los eventos si la entidad es un trámite de habilitación comercial
             $Helper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this);
             $Helper->LifecycleEvent($args);
-        } elseif ($entity instanceof IComercio) {
+        } elseif (is_a($entity, '\Yacare\ComercioBundle\Entity\Comercio')) {
             // Capturo los eventos si la entidad es un comercio
             $Helper = new \Yacare\ComercioBundle\Helper\ComercioHelper($this);
             $Helper->LifecycleEvent($args);
-        } elseif (is_a($entity, 'Yacare\ComercioBundle\Entity\ActaComercio')) {
+        } elseif (is_a($entity, '\Yacare\ComercioBundle\Entity\ActaComercio')) {
             // Capturo los eventos si la entidad es un acta comercio
             $Helper = new \Yacare\ComercioBundle\Helper\ActaComercioHelper($this);
             $Helper->LifecycleEvent($args);
