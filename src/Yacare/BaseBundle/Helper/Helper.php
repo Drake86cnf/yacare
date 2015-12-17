@@ -12,7 +12,7 @@ abstract class Helper implements IHelper
 {
     protected $em;
     protected $Entidad;
-    protected $EsActualizacion;
+    protected $EsEdicion;
     protected $Argumentos;
 
     function __construct($em = null)
@@ -32,7 +32,7 @@ abstract class Helper implements IHelper
         $this->em = $args->getEntityManager();
         $this->Entidad = $args->getEntity();
         $this->Argumentos = $args;
-        $this->EsActualizacion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
+        $this->EsEdicion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
         
         $this->PreUpdatePersist($this->Entidad, $args);
     }

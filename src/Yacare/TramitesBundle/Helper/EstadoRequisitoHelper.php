@@ -18,7 +18,7 @@ class EstadoRequisitoHelper extends \Yacare\BaseBundle\Helper\Helper
 
     public function PreUpdatePersist($entity, $args = null)
     {
-        if($this->EsActualizacion && $args->hasChangedField('Estado')) {
+        if($this->EsEdicion && $args->hasChangedField('Estado')) {
             if ($entity->getEstado() == 100) {
                 // Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
                 $entity->setFechaAprobado(new \DateTime());
