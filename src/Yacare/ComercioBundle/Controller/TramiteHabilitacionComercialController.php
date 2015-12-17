@@ -116,8 +116,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $Comercio->setActividad5($data['Actividad5']);
             $Comercio->setActividad6($data['Actividad6']);
 
-            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper(null, $em);
-            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper(null, $em);
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this->container, $em);
+            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this->container, $em);
             
             $UsosSuelo = $em->createQuery('SELECT u FROM Yacare\CatastroBundle\Entity\UsoSuelo u WHERE u.SuperficieMaxima=0')
                                 ->getResult();
