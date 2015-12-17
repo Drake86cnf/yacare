@@ -26,14 +26,14 @@
 		{% if res.Entidad.Incluye %}
 		<div class="col-sm-12">
 			<h2 class="row-header">Incluye</h2>
-			<p>{{ res.Entidad.Incluye }}</p>
+			<p>{{ res.Entidad.Incluye|nl2br }}</p>
 		</div>
 		{% endif %}
 		
 		{% if res.Entidad.NoIncluye %}
 		<div class="col-sm-12">
 			<h2 class="row-header">No incluye</h2>
-			<p>{{ res.Entidad.NoIncluye }}</p>
+			<p>{{ res.Entidad.NoIncluye|nl2br }}</p>
 		</div>
 		{% endif %}
 	</div>
