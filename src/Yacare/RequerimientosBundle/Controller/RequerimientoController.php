@@ -59,8 +59,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $em = $this->getEm();
             $em->persist($Requerimiento);
             $em->flush();
-            $this->InformarNovedad($Requerimiento, $this->vistaMailNuevoRequerimiento, 
-                $Requerimiento->getSeguimientoNumero());
+            $this->InformarNovedad($request, $Requerimiento, $this->vistaMailNuevoRequerimiento);
             
             return $this->redirectToRoute($this->obtenerRutaBase('anonimover_1'),
                 array('seg' => $Requerimiento->getSeguimientoNumero()));
@@ -226,7 +225,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             
             $em->persist($Requerimiento);
             $em->flush();
-            $this->InformarNovedad($Requerimiento, $this->vistaMailNuevoRequerimiento);
+            $this->InformarNovedad($request, $Requerimiento, $this->vistaMailNuevoRequerimiento);
             
             return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
                 $this->ArrastrarVariables($request, array('id' => $Requerimiento->getId()), false));
@@ -417,7 +416,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                     break;
             }
             $em->persist($NuevaNovedad);
-            $this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($request, $NuevaNovedad);
         }
         
         $entity->setEstado($NuevoEstado);
@@ -483,7 +482,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $NuevaNovedad->setNotas('El encargado rechazó la asignación: ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setAutomatica(0);
             
-            $this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($request, $NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -559,7 +558,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                 'El nuevo encargado es ' . $NuevaNovedad->getUsuario() . '. ' . $NuevaNovedad->getNotas());
             $NuevaNovedad->setUsuario($UsuarioConectado);
             
-            $this->InformarNovedad($NuevaNovedad);
+            $this->InformarNovedad($request, $NuevaNovedad);
             $em->persist($NuevaNovedad);
             $em->persist($entity);
             $em->flush();
@@ -655,7 +654,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                         } else {
                             $NuevaNovedad->setNotas('El requerimiento fue movido a "Sin categoría".');
                         }
-                        $this->InformarNovedad($NuevaNovedad);
+                        $this->InformarNovedad($request, $NuevaNovedad);
                         $em->persist($NuevaNovedad);
                         $em->persist($entity);
                         $em->flush();

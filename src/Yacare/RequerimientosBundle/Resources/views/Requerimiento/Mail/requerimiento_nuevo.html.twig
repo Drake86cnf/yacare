@@ -1,18 +1,26 @@
 {% extends 'YacareBaseBundle::email.html.twig' %}
 {% block pagina_contenido %}
     <h2>¡Le agradecemos que se tome el tiempo para ponerse en contacto con su Municipio!</h2>
+    <p>Recibimos sus comentarios, consultas y sugerencias con entusiasmo.</p>
     
-    <p>Recibimos sus comentarios, consultas y sugerencias con entusiasmo.</h2>
-    {% if novedad_notas %}
-    	<p>{{ novedad_notas }}</p> 
-    {% endif %}
-    {% if numero_seguimiento %}
-        <p>El número de seguimiento de su solicitud es {{ numero_seguimiento }}.</p>p>
+    <p>Usted acaba de ingresar una solicitud, con la siguiente descripción:</p>
+    <p class="lead">{{ entity.Notas }}</p>
+    
+    <hr />
+
+	<p>Su solicitud será antendida y se le informarán las novedades por correo electrónico.</p> 
+	
+    {% if res.Entidad.SeguimientoNumero %}
+        <p>También puede consultar el estado de su solicitud desde el sitio web del Municipio. El número de seguimiento 
+        	de su solicitud es {{ res.Entidad.SeguimientoNumero }}.</p>
         <p>Puede consultar el estado de su solicitud en cualquier momento visitando la siguiente página:
-        	<a href="http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ numero_seguimiento }}">http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ numero_seguimiento }}</a>
+        	<a href="http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ res.Entidad.SeguimientoNumero }}"
+        	>http://www.riogrande.gob.ar/reclamos/consultar/?seg={{ res.Entidad.SeguimientoNumero }}</a>
         </p>
     {% endif %}
+
     <hr />
+
     <p>Este es un mensaje generado de forma automática. Por favor no responda a este mensaje. Si desea consultar
     	el estado de su solicitud utilice la página provista.</p>
 {% endblock %}

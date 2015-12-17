@@ -159,6 +159,17 @@ class Requerimiento
     {
         return $this->getEstado() < 50;
     }
+    
+    /**
+     * Obtiene la dirección de e-mail a la cual enviar notificaciones.
+     */
+    public function getEmailNotificaciones() {
+        if($this->getUsuario() && $this->getUsuario()->getEmail()) {
+            return $this->getUsuario()->getEmail();
+        } else {
+            $this->getUsuarioEmail();
+        }
+    }
 
     /**
      * Obtiene el número de seguimiento.
