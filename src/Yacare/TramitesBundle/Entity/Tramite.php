@@ -58,6 +58,17 @@ abstract class Tramite implements ITramite
      * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteTipo;
+    
+    /**
+     * El trámite padre, en caso de que este trámite se haya disparado como sub-trámite de otro.
+     *
+     * @var \Yacare\TramitesBundle\Entity\Tramite
+     * @see \Yacare\TramitesBundle\Entity\Tramite
+     *
+     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $TramitePadre;
 
     /**
      * Colección que contiene los estados de los requisitos asociados a este
@@ -384,5 +395,22 @@ abstract class Tramite implements ITramite
     public function setComprobante($Comprobante)
     {
         $this->Comprobante = $Comprobante;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getTramitePadre()
+    {
+        return $this->TramitePadre;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTramitePadre($TramitePadre)
+    {
+        $this->TramitePadre = $TramitePadre;
+        return $this;
     }
 }
