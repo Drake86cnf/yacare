@@ -13,7 +13,7 @@ use Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial;
  */
 class ComercioListener implements EventSubscriber
 {
-    private $container;
+    public $container;
 
     public function __construct(Container $container)
     {
@@ -21,8 +21,7 @@ class ComercioListener implements EventSubscriber
     }
 
     public function prePersist(LifecycleEventArgs $args)
-    {
-        
+    {        
         $entity = $args->getEntity();
         if ($entity instanceof \Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial) {
             // Capturo los eventos si la entidad es un trámite de habilitación comercial

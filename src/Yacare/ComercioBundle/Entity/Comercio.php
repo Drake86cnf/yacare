@@ -117,6 +117,15 @@ class Comercio
     protected $Actas;
     
     /**
+     * El usuario que creó el comercio.
+     *
+     * @var \Yacare\BaseBundle\Entity\Persona
+     *
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     */
+    protected $CreadoPor;
+    
+    /**
      * Setter con sanitización.
      */
     public function setActoAdministrativoBajaNumero($actoAdministrativoBajaNumero)
@@ -324,5 +333,22 @@ class Comercio
     public function getActoAdministrativoBajaNumero()
     {
         return $this->ActoAdministrativoBajaNumero;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getCreadoPor()
+    {
+        return $this->CreadoPor;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCreadoPor($CreadoPor)
+    {
+        $this->CreadoPor = $CreadoPor;
+        return $this;
     }
 }
