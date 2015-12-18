@@ -75,6 +75,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $ClaseSubTramite = $SubTramiteTipo->getClase();
                         $NuevoSubTram = new $ClaseSubTramite();
                         $NuevoSubTram->setTramitePadre($entity);
+                        // TODO: hay que ampliar el changeset de doctrine en lugar de persistir
                         $this->em->persist($NuevoSubTram);
                         $this->em->flush();
                     }
