@@ -1,0 +1,44 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% set tipo = app.request.get('tipo') %}
+{% set id = app.request.get('id') %}
+
+{% block pagina_titulo %}Registro de cambios{% if res.Entidad is defined %} de {{ res.Entidad }}{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hover">
+    {% for entidad in res.Entidades %}
+        <tr>
+            <td class="text-muted text-nowrap">
+                {{ entidad.createdAt|tapir_fecha('medium', 'medium') }}
+			</td>
+        	
+        	<td class="text-info" width="99%">
+        		{% if res.Entidad is not defined or not res.Entidad %}
+            		{{ entidad.ElementoTipo|replace({ 'Bundle': '', '\\Entity': ''}) }}, registro Nº {{ entidad.ElementoId }}<br />
+            	{% endif %}
+            	
+            	<a href="#" onclick="$('#aud_detalles_{{ entidad.id }}').toggle();">
+        	    {% if entidad.Accion == 'update' %}
+            		Editado por
+            	{% elseif entidad.Accion == 'insert' %}
+            		Creado por
+            	{% elseif entidad.Accion == 'delete' %}
+            		Eliminado por
+            	{% endif %}
+            	{% if entidad.Usuario %}
+            	    {{ entidad.Usuario.NombreAmigable }}
+        	    {% else %}
+        	        proceso no identificado
+        	    {% endif %}
+        	    </a>
+    	    	
+    	    	<div id="aud_detalles_{{ entidad.id }}" style="display: none">
+    	        	<pre>{{ entidad.Cambios }}</pre>
+    	        </div>
+	        
+	        </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
