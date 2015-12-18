@@ -40,4 +40,12 @@ abstract class Helper implements IHelper
         
         $this->PreUpdatePersist($this->Entidad, $args);
     }
+    
+    protected function AgregarEntidadAlConjuntoDeCambios($entidad) {
+        $uow = $this->em->getUnitOfWork();
+        $cambioMetadata = $this->em->getClassMetadata(get_class($entidad));
+        
+        //recomputeSingleEntityChangeSet???
+        $uow->computeChangeSet($cambioMetadata, $entidad);
+    }
 }
