@@ -11,11 +11,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Comercio_Comercio", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="Comercio_ExpedienteNumero_Suprimido", columns={"ExpedienteNumero", "Suprimido"})
- * })
+ * @ORM\Table(name="Comercio_Comercio")
  * @UniqueEntity(fields={"ExpedienteNumero", "Suprimido"}, ignoreNull=true, errorPath="ExpedienteNumero",
- *      message="Ya existe un comercio con el número de expediente proporcionado. No es posible cargar dos comercios con el mismo número de expediente")
+ *      message="Ya existe un comercio con el número de expediente proporcionado. No es posible cargar dos comercios con el mismo número de expediente.")
  */
 class Comercio
 {
