@@ -3,6 +3,7 @@ namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * El comercio.
@@ -11,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Comercio")
+ * @UniqueEntity(fields={"ExpedienteNumero", "Suprimido"}, ignoreNull=true, errorPath="ExpedienteNumero",
+ *      message="Ya existe un comercio con el número de expediente proporcionado. No es posible cargar dos comercios con el mismo número de expediente.")
  */
 class Comercio
 {
