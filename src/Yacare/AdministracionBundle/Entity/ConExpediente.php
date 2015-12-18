@@ -29,7 +29,7 @@ trait ConExpediente
      */
     public function setExpedienteNumero($ExpedienteNumero)
     {
-        $this->ExpedienteNumero = trim($ExpedienteNumero);
+        $this->ExpedienteNumero = ltrim(trim($ExpedienteNumero), '0');
         return $this;
     }
     

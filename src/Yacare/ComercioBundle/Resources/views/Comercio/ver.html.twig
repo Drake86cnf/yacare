@@ -17,6 +17,8 @@
 			    {% if res.Entidad.Domicilio and res.Entidad.Local %}
 			        {{ bs.grid_label_text('Local', res.Entidad.Local, 'text-danger') }}
 			        {{ bs.grid_label_text('Domicilio declarado', res.Entidad.DomicilioReal) }}
+			    {% elseif res.Entidad.Local %}
+			        {{ bs.grid_label_text('Local', res.Entidad.Local) }}
 			    {% else %}
 			    	{{ bs.grid_label_text('Domicilio legal', res.Entidad.DomicilioReal) }}
 			    {% endif %}
