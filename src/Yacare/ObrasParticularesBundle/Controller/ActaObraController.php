@@ -25,7 +25,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         // TODO: Implementar que filtre por fecha
         $this->BuscarPor = 'Numero, SubTipo, Fecha';
-        $this->OrderBy = 'r.Numero DESC';
+        $this->OrderBy = 'r.Fecha DESC';
     }
 
     /**
@@ -109,16 +109,13 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
-        $FormEditarBuilder
-            ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
-                'label' => 'Plazo', 
-                'attr' => array('class' => 'tapir-input-160'), 
-                'required' => true))
-            ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
+        $FormEditarBuilder->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', 
+            array('label' => 'Plazo', 'attr' => array('class' => 'tapir-input-160'), 'required' => true))->add(
+            'Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', 
+            array(
                 'label' => 'Profesional', 
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado', 
-                'required' => false))
-            ->add('DescargoDetalle', null, array('label' => 'Detalle'));
+                'required' => false))->add('DescargoDetalle', null, array('label' => 'Detalle'));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
