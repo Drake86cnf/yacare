@@ -12,8 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Local")
- * @UniqueEntity(fields={"Partida", "Suprimido"}, ignoreNull=true, errorPath="Partida",
- *      message="Ya existe un local comercial en ese domicilio. No se pueden cargar dos locales comerciales en la misma partida.")
  */
 class Local
 {
