@@ -2,6 +2,7 @@
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Representa un local donde puede habilitarse un comercio.
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Local")
+ * @UniqueEntity(fields={"Partida", "Suprimido"}, ignoreNull=true, errorPath="Partida",
+ *      message="Ya existe un local comercial en ese domicilio. No se pueden cargar dos locales comerciales en la misma partida.")
  */
 class Local
 {
