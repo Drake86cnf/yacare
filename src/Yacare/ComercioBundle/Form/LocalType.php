@@ -20,6 +20,10 @@ class LocalType extends AbstractType
                 'label' => 'Partida',
                 'class' => 'Yacare\CatastroBundle\Entity\Partida',
                 'required' => true))
+            ->add('SubDomicilio', null, array(
+                    'label' => 'Identificación',
+                    'attr' => array('class' => 'tapir-input-240 tapir-input-maymin')
+                ))
             ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Tipo',
                 'required' => true,

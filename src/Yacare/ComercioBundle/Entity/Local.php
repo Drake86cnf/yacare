@@ -40,6 +40,15 @@ class Local
     protected $Comercios;
     
     /**
+     * La identificación del local dentro de la partida (en partidas con varios locales, por ejemplo).
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $SubDomicilio;
+    
+    /**
      * El tipo de local (local, oficina, depósito, etc.).
      *
      * @var string
@@ -180,6 +189,9 @@ class Local
                 $res .= ' en ';
             }
             $res .= $this->getPartida()->getDomicilio();
+        }
+        if($this->getSubDomicilio()) {
+            $res .= ' ' . $this->getSubDomicilio();
         }
         
         $this->setNombre($res);
@@ -361,5 +373,23 @@ class Local
         $this->Comercios = $Comercios;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getSubDomicilio()
+    {
+        return $this->SubDomicilio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setSubDomicilio(string $SubDomicilio)
+    {
+        $this->SubDomicilio = $SubDomicilio;
+        return $this;
+    }
+ 
 
 }
