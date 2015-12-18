@@ -32,10 +32,10 @@
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
-{% block pagina_acciones2 %}
+{% block pagina_acciones %}
     {% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR', 'ROLE_OBRAS_PARTICULARES_INSPECTOR')") %}
 	<a data-toggle="ajax-link"
 		href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
-		class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+		class="btn btn-default"><i class="fa fa-plus"></i> Nueva acta</a>
     {% endif %}
 {% endblock %}
