@@ -20,7 +20,7 @@ class ComercioActividadType extends AbstractType
             ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 1', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
-                'required' => true))
+                'required' => false))
             ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 2', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
