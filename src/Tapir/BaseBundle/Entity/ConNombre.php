@@ -51,6 +51,6 @@ trait ConNombre
      */
     public function setNombre($Nombre)
     {
-        $this->Nombre = $Nombre;
+        $this->Nombre = \Tapir\BaseBundle\Helper\StringHelper::Desoraclizar($Nombre);
     }
 }
