@@ -147,9 +147,8 @@ class StringHelper
      */
     public static function Desoraclizar($text)
     {
-        return trim(
-            StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text)))
-            , " \t\n\r\0\x0B\"");
+        return StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes(trim($text,
+            " \t\n\r\0\x0B\""))));
     }
 
     public static function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'"))
