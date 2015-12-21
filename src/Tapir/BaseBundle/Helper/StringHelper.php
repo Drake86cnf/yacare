@@ -140,13 +140,19 @@ class StringHelper
         return array($Tipo, ltrim($Numero, '0'));
     }
 
+    /**
+     * Embellece una cadena.
+     * 
+     * Por ejemplo, para "compañia del sur srl" devuelve "Compañía del Sur SRL".
+     */
     public static function Desoraclizar($text)
     {
         return trim(
-            StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text))));
+            StringHelper::ProperCase(StringHelper::ArreglarProblemasConocidos(StringHelper::PonerTildes($text)))
+            , " \t\n\r\0\x0B\"");
     }
 
-    public static function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'", "O'", "Mc"))
+    public static function ProperCase($string, $delimiters = array(' ', '-', '.', '"', "'"))
     {
         /*
          * Exceptions in lower case are words you don't want converted. Exceptions all in upper case are any words you
@@ -165,7 +171,10 @@ class StringHelper
             '1ra.', 
             '2do.', 
             '2da.', 
-            'del', 
+            'del',
+            'SRL',
+            'SA',
+            'SH',
             'I', 
             'II', 
             'III', 
@@ -186,13 +195,13 @@ class StringHelper
             'XVIII', 
             'XIX', 
             'XX', 
-            'XXI', 
-            'XXX', 
-            'DVD', 
-            'ARA', 
-            'AGP', 
-            'YPF', 
-            'IPV', 
+            'XXI',
+            'XXX',
+            'DVD',
+            'ARA',
+            'AGP',
+            'YPF',
+            'IPV',
             'CAP');
         
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
@@ -207,12 +216,10 @@ class StringHelper
                 } elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtolower($word, 'UTF-8');
-                } 
-
-                elseif (! in_array($word, $exceptions)) {
+                } /* elseif (! in_array($word, $exceptions)) {
                     // convert to uppercase (non-utf8 only)
                     $word = ucfirst($word);
-                }
+                } */
                 array_push($newwords, $word);
             }
             $string = join($delimiter, $newwords);
@@ -256,7 +263,6 @@ class StringHelper
             'Womska' => 'Wonska', 
             'TELEFONICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.', 
             'TELEFÓNICA DE ARGENT. S. A' => 'Telefónica de Argentina S.A.', 
-            '.' => '. ', 
             'Nro.' => 'Nº', 
             'N º' => 'Nº', 
             'N°' => 'Nº', 
@@ -272,14 +278,14 @@ class StringHelper
             'O. S. N.' => 'O.S.N.', 
             'I. S. S. T.' => 'I.S.S.T.', 
             'A. S. I. M. R. A.' => 'A.S.I.M.R.A.', 
-            'Srl' => 'S.R.L.', 
             'Esc. N 8' => 'Esc. Nº 8', 
             'y Cia. Sa' => 'y Cía. S.A.', 
             
             'Administracion' => 'Administración', 
             'Direccion' => 'Dirección', 
-            'Coordinacion' => 'Coordinación', 
-            'Funcion Publica' => 'Función Pública', 
+            'Coordinacion' => 'Coordinación',
+            'Compañia' => 'Compañía',
+            'Funcion' => 'Función Pública', 
             'Medico' => 'Médico', 
             'Medica' => 'Médica', 
             'Informatica' => 'Informática', 
@@ -298,10 +304,7 @@ class StringHelper
     }
 
     /**
-     * Coloca tildes.
-     * 
-     * @param  string $text
-     * @return string
+     * Agrega tildes a muchas palabras conocidas.
      */
     public static function PonerTildes($text)
     {
