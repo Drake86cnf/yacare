@@ -15,6 +15,7 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
 {
     use \Yacare\BaseBundle\Entity\ConAdjuntos;
     use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\ObrasParticularesBundle\Entity\ConProfesional;
 
     public function __construct()
     {
@@ -58,18 +59,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @ORM\Column(type="integer", nullable=false)
      */
     private $EstadoAvance = 0;
-    
-    /**
-     * El profesional a cargo de la obra, en caso que corresponda.
-     *
-     * Se aplica a todos los subtipos excepto "inspección".
-     * 
-     * @var \Yacare\ObrasParticularesBundle\Entity\Matriculado
-     *
-     * @ORM\ManyToOne(targetEntity="Yacare\ObrasParticularesBundle\Entity\Matriculado")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $Profesional;
     
     /**
      * La fecha de descargo del acta.
@@ -235,23 +224,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
     public function setEstadoAvance($EstadoAvance)
     {
         $this->EstadoAvance = $EstadoAvance;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getProfesional()
-    {
-        return $this->Profesional;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setProfesional($Profesional)
-    {
-        $this->Profesional = $Profesional;
         return $this;
     }
 

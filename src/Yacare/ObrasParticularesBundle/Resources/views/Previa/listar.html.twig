@@ -1,0 +1,17 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Movimiento de previas{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+</div>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(res.ObtenerRutaAccion('crear')) }}" class="btn btn-default hidden-print">
+	<i class="fa fa-plus"></i> Nueva previa</a>
+{% endblock pagina_acciones2 %}
