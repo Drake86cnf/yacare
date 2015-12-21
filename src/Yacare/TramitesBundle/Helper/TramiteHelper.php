@@ -101,7 +101,6 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
             $Comprob = $this->EmitirComprobante($tramite);
             $res['comprobante'] = $Comprob;
             if ($Comprob) {
-                $Comprob->setTramiteOrigen($tramite);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $this->em->persist($Comprob);
                 
@@ -146,6 +145,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
                 $Comprob->setTramiteOrigen($tramite);
+                $Comprob->setTitular($tramite->getTitular());
                 
                 if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado
