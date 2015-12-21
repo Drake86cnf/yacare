@@ -75,8 +75,12 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $ClaseSubTramite = $SubTramiteTipo->getClase();
                         $NuevoSubTram = new $ClaseSubTramite();
                         $NuevoSubTram->setTramitePadre($entity);
-                        $this->em->persist($NuevoSubTram);
-                        $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
+                        if($this->em->contains($entity)) {
+                            // Sólo persisto los requisitos si el trámite original está persistido
+                            // Puede que el trámite sólo exista en memoria, en caso de simulación de trámite
+                            $this->em->persist($NuevoSubTram);
+                            $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
+                        }
                     }
                     $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
                         $SubTramiteTipo->getAsociacionRequisitos());
