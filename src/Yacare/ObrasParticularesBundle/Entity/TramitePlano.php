@@ -4,15 +4,16 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Representa un trámite en curso de aprobación de planos.
+ * Representa una previa.
  *
- * @author Ernesto Carrea <ernestocarrea@gmail.com> 
- *        
+ * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
+ *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="ObrasParticulares_TramitePlanos")
+ * @ORM\Table(name="ObrasParticulares_TramitePlano")
  */
-class TramitePlanos extends \Yacare\TramitesBundle\Entity\Tramite
+class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\ObrasParticularesBundle\Entity\ConProfesional;
 }
