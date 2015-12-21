@@ -1,0 +1,5 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% block pagina_titulo %}
+    {% if entity.id %}{{ entity }}{% else %}Nueva previa{% endif %}
+{% endblock %}
