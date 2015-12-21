@@ -109,20 +109,22 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
-        $FormEditarBuilder->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', 
-            array('label' => 'Plazo', 'attr' => array('class' => 'tapir-input-160'), 'required' => true))->add(
-            'Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+        $FormEditarBuilder
+            ->add('Plazo', 'Yacare\ObrasParticularesBundle\Form\Type\PlazoType', array(
+                'label' => 'Plazo', 
+                'attr' => array('class' => 'tapir-input-160'), 
+                'required' => true))
+            ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional', 
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado', 
-                'required' => false))->add('DescargoDetalle', null, array('label' => 'Detalle'));
+                'required' => false))
+            ->add('DescargoDetalle', null, array('label' => 'Detalle'));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {
-            $entity->setFechaDescargo(new \DateTime());
-            
+            $entity->setFechaDescargo(new \DateTime());            
             $em->persist($entity);
             $em->flush();
             
@@ -184,8 +186,11 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $AdjuntoNuevo->setEntidadId($ActaObra->getId());
         
         $FormSubirBuilder = $this->createFormBuilder($ActaObra);
-        $FormSubirBuilder->add('Nombre', 'file', 
-            array('label' => 'Adjuntar archivo', 'data_class' => null, 'attr' => array('multiple' => 'multiple')));
+        $FormSubirBuilder
+            ->add('Nombre', 'file', array(
+                'label' => 'Adjuntar archivo', 
+                'data_class' => null, 
+                'attr' => array('multiple' => 'multiple')));
         
         $FormSubir = $FormSubirBuilder->getForm();
         
