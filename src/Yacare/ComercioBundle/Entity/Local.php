@@ -385,7 +385,7 @@ class Local
     /**
      * @ignore
      */
-    public function setSubDomicilio(string $SubDomicilio)
+    public function setSubDomicilio($SubDomicilio)
     {
         $this->SubDomicilio = $SubDomicilio;
         return $this;
