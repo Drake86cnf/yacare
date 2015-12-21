@@ -16,18 +16,6 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
 {
     use \Tapir\AbmBundle\Controller\ConVer;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
-    
-    public function EmitirComprobante($tramite)
-    {
-        $Comprob = parent::EmitirComprobante($tramite);
-
-        $Comprob->setComercio($tramite->getComercio());
-        $Comprob->setTitular($tramite->getTitular());
-        $tramite->getComercio()->setEstado(100);
-        $tramite->getComercio()->setCertificadoHabilitacion($Comprob);
-
-        return $Comprob;
-    }
 
     /**
      * @Route("consultar")
