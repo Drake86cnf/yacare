@@ -22,7 +22,6 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         parent::IniciarVariables();
         
         $this->OrderBy = 'createdAt DESC';
-        $this->BuscarPor = 'Titular, Nombre, Domicilio, Estado';
     }
     
     
