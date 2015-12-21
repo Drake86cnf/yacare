@@ -2,6 +2,7 @@
 namespace Tapir\BaseBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\Common\EventArgs;
@@ -16,7 +17,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class AuditableListener implements EventSubscriber
 {
     private $container;
-
+    
+    /**
+     * Guarda una colección de los registros de auditoría de nuevos registros sobre los cuales no se tiene el id.
+     */
+    private $InsercionesSinId = array();
+    
+    /**
+     * Indica que hay que hacer un flush adicional.
+     * 
+     * Puntualmente, es para modificar entidades en el postPersist, para poder obtener los ID de las nuevas entidades
+     * que no estaban disponibles en el onFlush.
+     * 
+     * @see $InsercionesSinId
+     * @see postPersist() postFlush()
+     */
+    private $FlushPostFlush = false;
+    
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -86,13 +103,36 @@ class AuditableListener implements EventSubscriber
         }
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
             // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
-            $Registro->setUsuario($user->getId());
+            $Registro->setUsuario($user);
         }
         $Registro->setCambios(json_encode($changeSet));
         $em->persist($Registro);
+        $this->InsercionesSinId[] = $Registro;
         
         $cambioMetadata = $em->getClassMetadata(get_class($Registro));
         $uow->computeChangeSet($cambioMetadata, $Registro);
+    }
+    
+    public function postPersist(LifecycleEventArgs $args) {
+        if(count($this->InsercionesSinId) > 0) {
+            $em = $args->getEntityManager();
+            $Entidad = $args->getEntity();
+            foreach ($this->InsercionesSinId as $Registro) {
+                if(!$Registro->getElementoId() && $Registro->getElementoTipo() == str_replace('Proxies\\__CG__\\', '', get_class($Entidad))) {
+                    $Registro->setElementoId($Entidad->getId());
+                    $em->persist($Registro);
+                    $this->FlushPostFlush = true;
+                }
+            }
+        }
+    }
+    
+    public function postFlush(PostFlushEventArgs $eventArgs)
+    {
+        if ($this->FlushPostFlush) {
+            $this->FlushPostFlush = false;
+            $eventArgs->getEntityManager()->flush();
+        }
     }
 
     /**
@@ -125,6 +165,6 @@ class AuditableListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::onFlush];
+        return [\Doctrine\ORM\Events::onFlush, \Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::postFlush];
     }
 }

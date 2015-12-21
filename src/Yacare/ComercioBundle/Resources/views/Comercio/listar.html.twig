@@ -34,6 +34,8 @@
 			<td class="hidden-xs">
 			    {% if entity.DomicilioReal and entity.Local %}
                     {{ entity.DomicilioReal }}
+                {% elseif entity.Local %}
+                	{{ entity.Local }}
 			    {% elseif entity.DomicilioReal %}
                     Legal: {{ entity.DomicilioReal }}
                 {% else %}

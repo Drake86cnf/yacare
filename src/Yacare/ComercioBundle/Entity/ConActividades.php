@@ -15,9 +15,9 @@ trait ConActividades
      * @var Actividad
      * 
      * @ORM\ManyToOne(targetEntity="Yacare\ComercioBundle\Entity\Actividad")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-     * @Symfony\Component\Validator\Constraints\NotNull(message="Debe seleccionar una actividad principal.")
-     * @Symfony\Component\Validator\Constraints\NotBlank(message="Debe elegir una actividad primaria.")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * disabled-Symfony\Component\Validator\Constraints\NotNull(message="Debe seleccionar una actividad principal.")
+     * disabled-Symfony\Component\Validator\Constraints\NotBlank(message="Debe elegir una actividad primaria.")
      */
     protected $Actividad1;
     
