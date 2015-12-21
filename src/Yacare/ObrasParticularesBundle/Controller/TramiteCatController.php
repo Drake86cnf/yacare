@@ -15,4 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class TramiteCatController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
     use \Tapir\AbmBundle\Controller\ConVer;
+
+    function IniciarVariables()
+    {
+        parent::IniciarVariables();
+        
+        $this->OrderBy = 'createdAt DESC';
+        $this->BuscarPor = 'Partida, Propietario, Direccion';
+    }
 }
