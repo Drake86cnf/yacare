@@ -194,8 +194,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $Local = new \Yacare\ComercioBundle\Entity\Local();
             $Local->setNombre('(busque un local existente o deje en blanco para cargar uno nuevo)');
             
-            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
-            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this->container, $em);
+            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this->container, $em);
             
             $Tramite = new \Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial();
             $Tramite->setComercio($Comercio);
