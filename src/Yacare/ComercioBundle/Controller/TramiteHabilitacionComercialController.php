@@ -17,25 +17,48 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     use \Tapir\AbmBundle\Controller\ConVer;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
 
-    public function EmitirComprobante($tramite)
-    {
-        $Comprob = parent::EmitirComprobante($tramite);
-        
-        $Comprob->setComercio($tramite->getComercio());
-        $Comprob->setTitular($tramite->getTitular());
-        $tramite->getComercio()->setEstado(100);
-        $tramite->getComercio()->setCertificadoHabilitacion($Comprob);
-        
-        return $Comprob;
-    }
-
     function IniciarVariables()
     {
         parent::IniciarVariables();
         
         $this->OrderBy = 'createdAt DESC';
-        $this->BuscarPor = 'Titular, Nombre, Domicilio, Estado';
     }
+    
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
+        $filtro_estado = $this->ObtenerVariable($request, 'filtro_estado');
+    
+        if ($filtro_estado) {
+            if($filtro_estado == -1) {
+                // El -1 tiene el valor especial de Estado=0
+                $this->Where .= " AND r.Estado=0";
+            } else {
+                $this->Where .= " AND r.Estado=$filtro_estado";
+            }
+        }
+        if ($filtro_buscar) {
+            $this->Joins[] = " LEFT JOIN r.Titular t";
+            $this->Joins[] = " LEFT JOIN r.Comercio c";
+            $this->Joins[] = " LEFT JOIN c.Local l";
+    
+            $this->BuscarPor = 'c.Nombre, c.ExpedienteNumero, l.Nombre, t.NombreVisible, t.RazonSocial, t.DocumentoNumero, t.Cuilt';
+        }
+    
+        $RestuladoListar = parent::listarAction($request);
+        $res = $RestuladoListar['res'];
+    
+        $res->Estados = \Yacare\TramitesBundle\Entity\Tramite::NombresEstados();
+    
+        return $RestuladoListar;
+    }
+    
+    
 
     /**
      * @Route("consultar")
@@ -220,8 +243,8 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $Local = new \Yacare\ComercioBundle\Entity\Local();
             $Local->setNombre('(busque un local existente o deje en blanco para cargar uno nuevo)');
             
-            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
-            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($em);
+            $THelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this->container, $em);
+            $ThcHelper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this->container, $em);
             
             $Tramite = new \Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial();
             $Tramite->setComercio($Comercio);

@@ -295,19 +295,33 @@ abstract class Tramite implements ITramite
      */
     public function getEstadoNombre()
     {
-        switch ($this->Estado) {
-            case 0:
-                return 'Nuevo';
-            case 10:
-                return 'Iniciado';
-            case 90:
-                return 'Cancelado';
-            case 100:
-                return 'Terminado';
-            default:
-                return '???';
-        }
+        return self::NombreEstado($this->Estado);
     }
+    
+    /**
+     * Devuelve nombres de estado normalizados.
+     *
+     * @param  integer $estado
+     * @return string
+     */
+    public static function NombreEstado($estado)
+    {
+        return Tramite::NombresEstados()[$estado];
+    }
+    
+    /**
+     * Devuelve un array con los posibles estados y sus nombres.
+     */
+    public static function NombresEstados() {
+        return array(
+            0 => 'Nuevo',
+            10 => 'Iniciado',
+            90 => 'Cancelado',
+            100 => 'Terminado'
+        );
+    }
+    
+    
 
     /**
      * @ignore

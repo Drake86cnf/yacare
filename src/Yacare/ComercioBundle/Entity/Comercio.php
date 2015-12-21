@@ -181,7 +181,9 @@ class Comercio
         return Comercio::NombresEstados()[$estado];
     }
     
-    
+    /**
+     * Devuelve un array con los posibles estados y sus nombres.
+     */
     public static function NombresEstados() {
         return array(
             0 => 'En actividad, sin habilitación',
