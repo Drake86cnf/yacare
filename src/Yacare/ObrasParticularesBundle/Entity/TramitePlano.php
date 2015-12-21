@@ -9,15 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="ObrasParticulares_Previa")
+ * @ORM\Table(name="ObrasParticulares_TramitePlano")
  */
-class Previa
+class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
 {
-    use \Tapir\BaseBundle\Entity\ConId;
-    use \Tapir\BaseBUndle\Entity\ConObs;
-    use \Tapir\BaseBundle\Entity\Versionable;
-    use \Yacare\BaseBundle\Entity\ConAdjuntos;
+    use \Yacare\AdministracionBundle\Entity\ConExpediente;
     use \Yacare\CatastroBundle\Entity\ConPartida;
     use \Yacare\ObrasParticularesBundle\Entity\ConProfesional;
-    use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 }

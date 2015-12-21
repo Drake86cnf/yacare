@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   "\Yacare\TramitesBundle\Entity\TramiteSimple" = "\Yacare\TramitesBundle\Entity\TramiteSimple",
  *   "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
  *   "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat",
- *   "\Yacare\ObrasParticularesBundle\Entity\TramitePlanos" = "\Yacare\ObrasParticularesBundle\Entity\TramitePlanos"
+ *   "\Yacare\ObrasParticularesBundle\Entity\TramitePlano" = "\Yacare\ObrasParticularesBundle\Entity\TramitePlano"
  * })
  */
 abstract class Tramite implements ITramite
@@ -104,8 +104,7 @@ abstract class Tramite implements ITramite
      * @ORM\ManyToOne(targetEntity="Comprobante")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $Comprobante;
-    
+    protected $Comprobante;    
     
     /**
      * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
@@ -115,8 +114,7 @@ abstract class Tramite implements ITramite
         return array(
             'Titular' => 'Titular'
         );
-    }
-    
+    }    
     
     public function ObtenerActor($actorPropiedad) {
         $Propiedades = explode('.', $actorPropiedad);
@@ -149,11 +147,9 @@ abstract class Tramite implements ITramite
                 $ValorQue = null;
                 break;
             }
-        }
-        
+        }        
         return $ValorQue;
-    }
-    
+    }    
 
     /**
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).
@@ -202,8 +198,7 @@ abstract class Tramite implements ITramite
         $res = array();
         if($this->EstaEnCurso() == false) {
             $res[] = 'El trámite no está en curso.';
-        }
-    
+        }    
         return $res;
     }
     
@@ -321,8 +316,6 @@ abstract class Tramite implements ITramite
         );
     }
     
-    
-
     /**
      * @ignore
      */
