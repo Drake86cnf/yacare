@@ -145,6 +145,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 // Instancio un comprobante del tipo asociado
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
+                $Comprob->setTramiteOrigen($tramite);
                 
                 if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado
