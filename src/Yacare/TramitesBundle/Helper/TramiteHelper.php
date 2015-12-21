@@ -75,8 +75,12 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $ClaseSubTramite = $SubTramiteTipo->getClase();
                         $NuevoSubTram = new $ClaseSubTramite();
                         $NuevoSubTram->setTramitePadre($entity);
-                        $this->em->persist($NuevoSubTram);
-                        $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
+                        if($this->em->contains($entity)) {
+                            // Sólo persisto los requisitos si el trámite original está persistido
+                            // Puede que el trámite sólo exista en memoria, en caso de simulación de trámite
+                            $this->em->persist($NuevoSubTram);
+                            $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
+                        }
                     }
                     $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
                         $SubTramiteTipo->getAsociacionRequisitos());
@@ -101,7 +105,6 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
             $Comprob = $this->EmitirComprobante($tramite);
             $res['comprobante'] = $Comprob;
             if ($Comprob) {
-                $Comprob->setTramiteOrigen($tramite);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $this->em->persist($Comprob);
                 
@@ -145,6 +148,8 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 // Instancio un comprobante del tipo asociado
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
+                $Comprob->setTramiteOrigen($tramite);
+                $Comprob->setTitular($tramite->getTitular());
                 
                 if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado
