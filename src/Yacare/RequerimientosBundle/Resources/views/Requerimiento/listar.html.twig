@@ -38,8 +38,8 @@
 	<tbody>
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
-			class="{% if entity.updatedAt|tapir_cantidaddedias > 3 %}danger
-			    {% elseif entity.updatedAt|tapir_cantidaddedias > 2 %}warning
+			class="{% if entity.Estado<50 and entity.updatedAt|tapir_cantidaddedias > 3 %}danger
+			    {% elseif entity.Estado<50 and entity.updatedAt|tapir_cantidaddedias > 2 %}warning
 			    {% endif %}"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td>
