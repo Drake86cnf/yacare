@@ -184,10 +184,21 @@ trait Node
         
         $MatName = static::getMaterializedPathMaterial();
         if ($MatName) {
-            $MatFuncName = 'get' . $MatName;
-            $MatContent = (string) ($this->$MatFuncName());
+            if (method_exists($this, $MatName)) {
+                $Callable = array($this, $MatName);
+            } elseif (method_exists($this, 'get' . $MatName)) {
+                $Callable = array($this, 'get' . $MatName);
+            } else {
+                $Callable = array($this, 'get' . $MatName);
+            }
+            
+            if (is_callable($Callable)) {
+                $MatContent = (string)call_user_func($Callable);
+            } else {
+                $MatContent = (string)$this;
+            }
         } else {
-            $MatContent = (string) $this;
+            $MatContent = (string)$this;
         }
         
         if (null !== $node) {
@@ -228,7 +239,7 @@ trait Node
     {
         $this->ParentNode = $node;
         $this->setChildNodeOf($this->ParentNode);
-        
+
         return $this;
     }
 
