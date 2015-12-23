@@ -6,7 +6,17 @@
 
 {% block pagina_contenido %}
 <div class="container-fluid">
-	una vista de previa
+	<div class="row">
+		<div class="col-xs-12">
+            {{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
+            {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
+		    {% if res.Entidad.Partida.Titular %}
+		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
+		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		    {% endif %}
+		    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+	        	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
+		</div>
 </div>
 {% endblock pagina_contenido%}
 
