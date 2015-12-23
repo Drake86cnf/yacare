@@ -161,7 +161,9 @@ class StringHelper
         $exceptions = array(
             'de', 
             'y', 
-            'en', 
+            'en',
+            'el',
+            'la',
             'con', 
             'e', 
             'o', 
@@ -218,7 +220,7 @@ class StringHelper
                     $word = mb_strtolower($word, 'UTF-8');
                 } elseif (! in_array($word, $exceptions)) {
                     // convert to uppercase (non-utf8 only)
-                    $word = mb_strtoupper(substr($word, 0, 1), 'UTF-8') . substr($word, 1);
+                    $word = ucfirst($word);
                 }
                 array_push($newwords, $word);
             }

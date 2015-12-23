@@ -6,14 +6,12 @@ use Yacare\MunirgBundle\Helper\Importador\ResultadoLote;
 use Tapir\BaseBundle\Helper\StringHelper;
 
 /**
- * Importador de secretarías desde Gestión.
+ * Importador de direcciones desde Gestión.
  * 
  * @author Ernesto Nicolás Carrea <equistango@gmail.com>
  */
-class ImportadorSecretarias extends Importador {
+class ImportadorDirecciones extends Importador {
     use \Yacare\MunirgBundle\Helper\Importador\ConConexionAGestion;
-    
-    protected $Ejecutivo;
     
     function __construct($container, $em) {
         parent::__construct($container, $em);
@@ -22,14 +20,14 @@ class ImportadorSecretarias extends Importador {
     public function Inicializar() {
         parent::Inicializar();
         
-        $this->Ejecutivo = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->find(1);
+        mb_internal_encoding('UTF-8');
         $this->ObtenerConexionAGestion();
     }
     
     public function PostImportar() {
-        // Suprimo todas las secretarías que ya no existen
-        $IdsSecretariasActuales = $this->DbGestion->query("SELECT codigo FROM secretarias WHERE codigo<>999")->fetchAll(\PDO::FETCH_COLUMN);
-        
+        // Suprimo todas las direcciones que ya no existen
+        $IdsDireccionesActuales = $this->DbGestion->query("SELECT CONCAT(secretaria, '.', direccion) FROM direcciones WHERE secretaria<>999")->fetchAll(\PDO::FETCH_COLUMN);
+    
         $qb = $this->em->createQueryBuilder();
         $q = $qb->update('YacareOrganizacionBundle:Departamento', 'd')
             ->set('d.Suprimido', ':suprimido')
@@ -37,24 +35,24 @@ class ImportadorSecretarias extends Importador {
             ->andWhere('d.ImportSrc=:importsrc')
             ->andWhere('d.ImportId NOT IN (:importid)')
             ->setParameter('suprimido', 1)
-            ->setParameter('rango', 30)
-            ->setParameter('importsrc', 'rr_hh.secretarias')
-            ->setParameter('importid', $IdsSecretariasActuales)
+            ->setParameter('rango', 50)
+            ->setParameter('importsrc', 'rr_hh.direcciones')
+            ->setParameter('importid', $IdsDireccionesActuales)
             ->getQuery();
         //echo $q->getSql();
         //print_r($q->getParameters());
         $q->execute();
-        
+    
         return parent::PostImportar();
     }
     
     public function ObtenerRegistros($desde, $cantidad) {
-        return $this->DbGestion->query("SELECT * FROM secretarias WHERE codigo<>999");
+        return $this->DbGestion->query("SELECT * FROM direcciones WHERE secretaria<>999");
     }
     
     
     public function ObtenerCantidadTotal() {
-        $sql = 'SELECT COUNT(codigo) AS CANT FROM secretarias WHERE codigo<>999';
+        $sql = 'SELECT COUNT(direccion) AS CANT FROM direcciones WHERE secretaria<>999';
         $Registro = $this->DbGestion->query($sql)->fetch();
         if($Registro) {
             return (int)($Registro['CANT']); 
@@ -70,17 +68,17 @@ class ImportadorSecretarias extends Importador {
         
         $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
         $entity = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
-            array('ImportSrc' => 'rr_hh.secretarias', 'ImportId' => $Row['codigo']));
+            array('ImportSrc' => 'rr_hh.direcciones', 'ImportId' => $Row['secretaria'] . '.' . $Row['direccion']));
         
         if (! $entity) {
             $nuevoId = $this->em->createQuery('SELECT MAX(r.id) FROM YacareOrganizacionBundle:Departamento r')
                 ->getSingleScalarResult();
             $entity = new \Yacare\OrganizacionBundle\Entity\Departamento();
-            $entity->setId(++ $nuevoId);
-            $entity->setRango(30);
-            $entity->setImportSrc('rr_hh.secretarias');
-            $entity->setImportId($Row['codigo']);
-        
+            $entity->setId(++$nuevoId);
+            $entity->setRango(50);
+            $entity->setImportSrc('rr_hh.direcciones');
+            $entity->setImportId($Row['secretaria'] . '.' . $Row['direccion']);
+            
             $resultado->RegistrosNuevos++;
         } else {
             $resultado->RegistrosActualizados++;
@@ -91,12 +89,15 @@ class ImportadorSecretarias extends Importador {
             $entity->setNombreOriginal($Row['detalle']);
         }
         
-        $entity->setParentNode($this->Ejecutivo);
         if ($Row['fecha_baja']) {
-                $entity->setSuprimido(true);
-            } else {
-                $entity->setSuprimido(false);
-            }
+            $entity->setSuprimido(true);
+        } else {
+            $entity->setSuprimido(false);
+        }
+        
+        $Secre = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
+            array('ImportSrc' => 'rr_hh.secretarias', 'ImportId' => $Row['secretaria']));
+        $entity->setParentNode($Secre);
         
         $this->em->persist($entity);
         $this->em->flush();
