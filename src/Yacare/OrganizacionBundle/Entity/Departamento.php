@@ -85,35 +85,37 @@ class Departamento implements Tree\NodeInterface
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
-
+    
     /**
-     * Normaliza los nombres de rangos de departamentos.
-     * 
-     * @param integer $rango
+     * Devuelve nombres de rango normalizados.
+     *
+     * @param  integer $estado
      * @return string
      */
-    public static function RangosNombres($rango)
+    public static function NombreRango($rango)
     {
-        switch ($rango) {
-            case 1:
-                return 'Ejecutivo';
-            case 20:
-                return 'Ministerio';
-            case 30:
-                return 'Secretaría';
-            case 40:
-                return 'Subsecretaría';
-            case 50:
-                return 'Dirección';
-            case 60:
-                return 'Subdirección';
-            case 70:
-                return 'Sector';
-            default:
-                return '';
+        if(array_key_exists($rango, Departamento::NombresRangos())) {
+            return Departamento::NombresRangos()[$rango];
+        } else {
+            return $rango;
         }
     }
-
+    
+    /**
+     * Devuelve un array con los posibles rangos y sus nombres.
+     */
+    public static function NombresRangos() {
+        return array(
+            1 => 'Ejecutivo',
+            20 => 'Ministerio',
+            30 => 'Secretaría',
+            40 => 'Subsecretaría',
+            50 => 'Dirección',
+            60 => 'Subdirección',
+            70 => 'Sector'
+        );
+    }
+    
     /**
      * Devuelve el nombre del rango.
      * 
@@ -121,7 +123,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getRangoNombre()
     {
-        return Departamento::RangosNombres($this->getRango());
+        return $this->NombreRango($this->getRango());
     }
 
     /**
