@@ -1,0 +1,24 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AOP1 - Registrar TramitePlano) as AOP1
+(AOP2 - Modificar TramitePlano) as AOP2
+(AOP3 - Consultar TramitePlano) as AOP3
+(AOP4 - Listar TramitePlano) as AOP4
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -l- AOP1
+actor1 -r- AOP2
+actor1 -d- AOP3
+actor1 -up- AOP4
+
+AOP1 ..> AOP3 : extend
+AOP1 ..> AOP4 : extend
+AOP2 ..> AOP3 : extend
+AOP2 ..> AOP4 : extend
+
+@enduml
