@@ -161,7 +161,9 @@ class StringHelper
         $exceptions = array(
             'de', 
             'y', 
-            'en', 
+            'en',
+            'el',
+            'la',
             'con', 
             'e', 
             'o', 
