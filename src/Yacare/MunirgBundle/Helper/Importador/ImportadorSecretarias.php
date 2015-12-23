@@ -73,8 +73,7 @@ class ImportadorSecretarias extends Importador {
             array('ImportSrc' => 'rr_hh.secretarias', 'ImportId' => $Row['codigo']));
         
         if (! $entity) {
-            $nuevoId = $this->getDoctrine()->getManager()
-                ->createQuery('SELECT MAX(r.id) FROM YacareOrganizacionBundle:Departamento r')
+            $nuevoId = $this->em->createQuery('SELECT MAX(r.id) FROM YacareOrganizacionBundle:Departamento r')
                 ->getSingleScalarResult();
             $entity = new \Yacare\OrganizacionBundle\Entity\Departamento();
             $entity->setId(++ $nuevoId);
