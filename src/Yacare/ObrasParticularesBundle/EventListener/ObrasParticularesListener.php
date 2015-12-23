@@ -32,6 +32,11 @@ class ObrasParticularesListener implements EventSubscriber
             $Helper= new \Yacare\ObrasParticularesBundle\Helper\TramiteCatHelper();
             $Helper->LifecycleEvent($args);
         }
+        elseif (is_a($entity,'Yacare\ObrasParticularesBundle\Entity\TramitePlano')){
+            //Capturo los eventos si la entidad es un trámite de planos (mov. previas)
+            $Helper= new \Yacare\ObrasParticularesBundle\Helper\TramitePlanoHelper();
+            $Helper->LifecycleEvent($args);
+        }
     }
 
     public function preUpdate(LifecycleEventArgs $args)

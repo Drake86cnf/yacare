@@ -35,6 +35,6 @@ class TramitePlanoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Previa'));
+            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\TramitePlano'));
     }
 }
