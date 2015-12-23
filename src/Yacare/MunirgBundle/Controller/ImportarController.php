@@ -135,9 +135,6 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
      */
     public function importarDepartamentosAction()
     {
-        mb_internal_encoding('UTF-8');
-        ini_set('display_errors', 1);
-        
         $em = $this->getDoctrine()->getManager();
         
         $DbRecursos = $this->ConectarRrhh();
@@ -535,10 +532,7 @@ class ImportarController extends \Tapir\BaseBundle\Controller\BaseController
         $res->Procesados = $importar_procesados;
         return array('res' => $res);    }
 
-    protected function ConectarRrhh()
-    {
-        return new \PDO('mysql:host=192.168.100.5;dbname=rr_hh;charset=utf8', 'yacare', 'L1n4j3');
-    }
+
 
     /**
      * @Route("matriculados/")

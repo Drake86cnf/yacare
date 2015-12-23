@@ -46,7 +46,7 @@ class ImportarActividadesCommand extends ContainerAwareCommand
         }
         
         $progress->finish();
-        echo "\n";
+        $output->writeln('');
         
         $importador->RecalcularParent($output);
         
