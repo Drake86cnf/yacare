@@ -65,11 +65,11 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
         foreach ($items as $item) {
             $item->setParentNode($item->getParentNode());
             $em->persist($item);
-            $em->flush();
+            
         }
-        
+        $em->flush();
         $em->getConnection()->commit();
         
-        return parent::listarAction($request);
+        return $this->listarAction($request);
     }
 }
