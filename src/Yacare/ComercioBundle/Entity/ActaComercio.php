@@ -36,7 +36,7 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
      * @var \Yacare\ComercioBundle\Entity\ActaEtiqueta
      *
      * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActaEtiqueta")
-     * @ORM\JoinTable(name="ObrasParticulares_ActaComercio_ActaEtiqueta")
+     * @ORM\JoinTable(name="Comercio_ActaComercio_ActaEtiqueta")
      */
     protected $Etiquetas;
     
