@@ -123,7 +123,7 @@ class ImportadorActividades extends Importador {
         
         if($output) {
             $progress->finish();
-            echo "\n";
+            $output->writeln('');
         }
     
         /* $em->getConnection()->commit(); */

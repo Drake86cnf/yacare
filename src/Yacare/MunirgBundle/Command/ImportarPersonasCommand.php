@@ -46,7 +46,7 @@ class ImportarPersonasCommand extends ContainerAwareCommand
         }
 
         $progress->finish();
-        echo "\n";
+        $output->writeln('');
         
         $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
         $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');
