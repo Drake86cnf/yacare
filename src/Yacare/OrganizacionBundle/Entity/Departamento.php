@@ -48,6 +48,15 @@ class Departamento implements Tree\NodeInterface
     private $Codigo;
     
     /**
+     * El nombre original del departamento en el sistema de Gestión.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $NombreOriginal;
+    
+    /**
      * Indica si hace parte diario.
      * 
      * @var boolean
@@ -191,4 +200,56 @@ class Departamento implements Tree\NodeInterface
         $this->HaceParteDiario = $HaceParteDiario;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getNombreOriginal()
+    {
+        return $this->NombreOriginal;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNombreOriginal($NombreOriginal)
+    {
+        $this->NombreOriginal = $NombreOriginal;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getCodigoPayroll()
+    {
+        return $this->CodigoPayroll;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCodigoPayroll($CodigoPayroll)
+    {
+        $this->CodigoPayroll = $CodigoPayroll;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getParentNode()
+    {
+        return $this->ParentNode;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setParentNode($ParentNode)
+    {
+        $this->ParentNode = $ParentNode;
+        return $this;
+    }
+ 
 }
