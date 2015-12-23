@@ -220,7 +220,6 @@ class StringHelper
                     // convert to uppercase (non-utf8 only)
                     $word = mb_strtoupper(substr($word, 0, 1), 'UTF-8') . substr($word, 1);
                 }
-                echo $word . "\n";
                 array_push($newwords, $word);
             }
             $string = join($delimiter, $newwords);
