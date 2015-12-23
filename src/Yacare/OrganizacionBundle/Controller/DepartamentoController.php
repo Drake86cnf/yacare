@@ -40,7 +40,7 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
                 // El -1 tiene el valor especial de Rango=0
                 $this->Where .= " AND r.Rango=0";
             } else {
-                $this->Where .= " AND r.Rango=$filtro_rango";
+                $this->Where .= " AND r.Rango<=$filtro_rango";
             }
         }
 
