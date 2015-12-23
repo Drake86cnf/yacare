@@ -174,6 +174,7 @@ class StringHelper
             'SRL',
             'SA',
             'SH',
+            'SDH',
             'I', 
             'II', 
             'III', 
@@ -215,10 +216,11 @@ class StringHelper
                 } elseif (in_array(mb_strtolower($word, 'UTF-8'), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtolower($word, 'UTF-8');
-                } /* elseif (! in_array($word, $exceptions)) {
+                } elseif (! in_array($word, $exceptions)) {
                     // convert to uppercase (non-utf8 only)
-                    $word = ucfirst($word);
-                } */
+                    $word = mb_strtoupper(substr($word, 0, 1), 'UTF-8') . substr($word, 1);
+                }
+                echo $word . "\n";
                 array_push($newwords, $word);
             }
             $string = join($delimiter, $newwords);
@@ -234,7 +236,7 @@ class StringHelper
      */
     public static function ArreglarProblemasConocidos($text)
     {
-        $text = ' ' . str_replace('  ', ' ', str_replace('.', '. ', $text)) . ' ';
+        $text = ' ' . str_replace('  ', ' ', $text) . ' ';
         
         $remplazos = array(
             
@@ -267,7 +269,7 @@ class StringHelper
             'N°' => 'Nº', 
             'S. A. G. C.' => 'S.A.G.C.', 
             'S. A.' => 'S.A.', 
-            'S. R. L.' => 'S.R.L.', 
+            'S. R. L.' => 'S.R.L.',
             'A. F. I. P.' => 'A.F.I.P.', 
             'U. O. C. R. A.' => 'U.O.C.R.A.', 
             'I. N. T. A.' => 'I.N.T.A.', 
