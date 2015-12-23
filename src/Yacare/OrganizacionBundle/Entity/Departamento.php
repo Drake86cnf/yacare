@@ -139,7 +139,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getSangriaDeEspaciosDuros()
     {
-        // Atención, son 'espacios duro'
+        // Atención, son 'espacios duros'
         return $this->getSangria('        ');
     }
 
@@ -148,7 +148,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getNombreConSangriaDeEspaciosDuros()
     {
-        // Atención, son 'espacios duro'
+        // Atención, son 'espacios duros'
         return $this->getSangria('        ') . $this->getNombre();
     }
 
@@ -236,22 +236,4 @@ class Departamento implements Tree\NodeInterface
         $this->CodigoPayroll = $CodigoPayroll;
         return $this;
     }
-
-    /**
-     * @ignore
-     */
-    public function getParentNode()
-    {
-        return $this->ParentNode;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setParentNode($ParentNode)
-    {
-        $this->ParentNode = $ParentNode;
-        return $this;
-    }
- 
 }
