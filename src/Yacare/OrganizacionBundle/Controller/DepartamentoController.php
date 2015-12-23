@@ -34,7 +34,7 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
     public function listarAction(Request $request)
     {
         $filtro_rango = $this->ObtenerVariable($request, 'filtro_rango');
-    
+
         if ($filtro_rango) {
             if($filtro_rango == -1) {
                 // El -1 tiene el valor especial de Rango=0
@@ -46,9 +46,9 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
 
         $RestuladoListar = parent::listarAction($request);
         $res = $RestuladoListar['res'];
-    
+
         $res->Rangos = \Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos();
-    
+
         return $RestuladoListar;
     }
     
@@ -60,16 +60,17 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
     public function recalcularAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
         $em->getConnection()->beginTransaction();
         $items = $em->getRepository('YacareOrganizacionBundle:Departamento')->findAll();
         foreach ($items as $item) {
-            $item->setParentNode($item->getParentNode());
+            $Parent = $item->getParentNode();
+            $item->setParentNode($Parent);
             $em->persist($item);
-            
         }
         $em->flush();
         $em->getConnection()->commit();
-        
+
         return $this->listarAction($request);
     }
 }
