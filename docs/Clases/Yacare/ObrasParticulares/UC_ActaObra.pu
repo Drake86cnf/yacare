@@ -1,0 +1,28 @@
+@startuml
+
+!include ../../Tapir/Base/UC_skinparam.skp
+
+/'CASOS DE USO'/
+(AOP1 - Registrar ActaObra) as AOP1
+(AOP2 - Modificar ActaObra) as AOP2
+(AOP3 - Consultar ActaObra) as AOP3
+(AOP4 - Listar ActaObra) as AOP4
+(AOP5 - Emitir descargo) as AOP5
+/'ACTORES'/
+:Usuario autenticado: as actor1
+
+/'RELACIONES'/
+actor1 -l- AOP1
+actor1 -r- AOP2
+actor1 -up- AOP3
+actor1 -up- AOP4
+actor1 -up- AOP5
+
+AOP1 ..> AOP3 : extend
+AOP1 ..> AOP4 : extend
+AOP2 ..> AOP3 : extend
+AOP2 ..> AOP4 : extend
+AOP5 ..> AOP3 : extend
+AOP5 ..> AOP4 : extend
+
+@enduml
