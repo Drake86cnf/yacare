@@ -9,18 +9,19 @@
 			<th>Nº</th>
 			<th>Solicitante</th>
 			<th>Fecha</th>
-			<th class="hidden-xs">Partida</th>
-			<th class="hidden-xs">Profesional</th>
+			<th>Partida</th>
+			<th>Profesional</th>
 			<th> </th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for entidad in res.Entidades %}
 		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': entidad.Id }) }}">
+			<td>{{ entidad.Id }}</td>
 			<td>{{ entidad.Partida.Titular }}</td>
 			<td>{{ entidad.createdAt|date("d/m/Y") }}</td>
 			<td>{{ entidad.Partida }}</td>
-			<td class="hidden-xs">{{ entidad.Profesional }}</td>
+			<td>{{ entidad.Profesional }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
