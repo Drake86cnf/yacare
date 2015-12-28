@@ -30,7 +30,7 @@ class ImportadorAgentes extends Importador
 
     public function ObtenerRegistros($desde, $cantidad)
     {
-        return $this->DbGestion->query("SELECT * FROM agentes");
+        return $this->DbGestion->query("SELECT * FROM agentes LIMIT $desde, $cantidad");
     }
 
     public function ObtenerCantidadTotal()
@@ -53,6 +53,11 @@ class ImportadorAgentes extends Importador
             array('ImportSrc' => 'rr_hh.agentes', 'ImportId' => $Row['legajo']));
         
         if (! $entity) {
+            $entity = $this->em->getRepository('YacareRecursosHumanosBundle:Agente')->findOne($Row['legajo']);
+        }
+        
+        if (! $entity) {
+            echo " New". $Row['legajo'];
             $entity = new \Yacare\RecursosHumanosBundle\Entity\Agente();
             
             // Asigno manualmente el ID
@@ -80,17 +85,18 @@ class ImportadorAgentes extends Importador
             $Persona->setCuilt(trim($Row['cuil']));
             
             $this->em->persist($Persona);
-            $this->em->flush();
+            //$this->em->flush();
             
             $entity->setPersona($Persona);
             
             $entity->setImportSrc('rr_hh.agentes');
             $entity->setImportId($Row['legajo']);
-            
+
             $resultado->RegistrosNuevos++;
         } else {
             $resultado->RegistrosActualizados++;
             $Persona = $entity->getPersona();
+            //echo " Old". $Row['legajo'] .': ' . $Persona->getNombreVisible();
         }
         
         $Departamento = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
@@ -138,8 +144,12 @@ class ImportadorAgentes extends Importador
         
         // Si no está en el grupo agentes, lo agrego
         if ($Persona->getGrupos()->contains($this->GrupoAgentes) == false) {
+            $this->GrupoAgentes->getPersonas()->add($Persona);
             $Persona->getGrupos()->add($this->GrupoAgentes);
             $this->em->persist($Persona);
+            $this->em->flush();
+            $this->em->persist($this->GrupoAgentes);
+            
         }
         
         // Le pongo el número de legajo en la persona

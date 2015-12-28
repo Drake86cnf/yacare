@@ -47,7 +47,7 @@ class ImportadorDirecciones extends Importador {
     }
     
     public function ObtenerRegistros($desde, $cantidad) {
-        return $this->DbGestion->query("SELECT * FROM direcciones WHERE secretaria<>999");
+        return $this->DbGestion->query("SELECT * FROM direcciones WHERE secretaria<>999 LIMIT $desde, $cantidad");
     }
     
     

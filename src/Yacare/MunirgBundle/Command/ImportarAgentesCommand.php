@@ -26,23 +26,23 @@ class ImportarAgentesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $desde = (int)($input->getArgument('desde'));
-        
-        $output->writeln('Importando agentes...');
 
-        $cantidad = 100;
+        $cantidad = 10;
         $progress = null;
         
         $importador = new ImportadorAgentes($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
         $importador->Inicializar();
         $progress = new ProgressBar($output, $importador->ObtenerCantidadTotal());
+        $progress->setRedrawFrequency(1);
+        $progress->setMessage('Importando agentes...');
         $progress->start();
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
-            $progress->setProgress($resultado->PosicionCursor());
             if(!$resultado->HayMasRegistros()) {
                 break;
             }
             $desde += $cantidad;
+            $progress->advance($cantidad);
         }
 
         $progress->finish();
