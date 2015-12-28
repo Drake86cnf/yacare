@@ -65,7 +65,7 @@ class Agente
      *
      * @var \Yacare\BaseBundle\Entity\Persona
      *
-     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona")
+     * @ORM\ManyToOne(targetEntity="Yacare\BaseBundle\Entity\Persona", cascade={ "all" })
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $Persona;
