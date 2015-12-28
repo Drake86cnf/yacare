@@ -140,21 +140,6 @@ class ImportadorAgentes extends Importador
         if (\Tapir\BaseBundle\Helper\Cbu::EsCbuValida($Row['cbu'])) {
             $entity->setCBUCuentaAgente(\Tapir\BaseBundle\Helper\Cbu::FormatearCbu($Row['cbu']));
         }
-
-        /*
-        // Si no está en el grupo agentes, lo agrego
-        if ($Persona->getGrupos()->contains($this->GrupoAgentes) == false) {
-            $this->GrupoAgentes->getPersonas()->add($Persona);
-            $Persona->getGrupos()->add($this->GrupoAgentes);
-            //$this->em->persist($Persona);
-            //$this->em->flush();
-            //$this->em->persist($this->GrupoAgentes);
-        }
-        
-        // Le pongo el número de legajo en la persona
-        if ($entity->getId()) {
-            $Persona->setAgenteId($entity->getId());
-        } */
         
         if ($Row['fechaingre']) {
             $entity->setFechaIngreso(new \DateTime($Row['fechaingre']));
