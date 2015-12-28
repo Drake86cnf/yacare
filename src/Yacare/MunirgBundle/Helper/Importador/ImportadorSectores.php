@@ -47,7 +47,7 @@ class ImportadorSectores extends Importador {
     }
     
     public function ObtenerRegistros($desde, $cantidad) {
-        return $this->DbGestion->query("SELECT * FROM sectores");
+        return $this->DbGestion->query("SELECT * FROM sectores LIMIT $desde, $cantidad");
     }
     
     

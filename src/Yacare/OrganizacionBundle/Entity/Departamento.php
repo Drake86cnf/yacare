@@ -81,7 +81,7 @@ class Departamento implements Tree\NodeInterface
      *
      * @see \Yacare\BaseBundle\Model\Tree\Node Node
      * 
-     * @ORM\ManyToOne(targetEntity="Departamento")
+     * @ORM\ManyToOne(targetEntity="Departamento", cascade={ "all" })
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;

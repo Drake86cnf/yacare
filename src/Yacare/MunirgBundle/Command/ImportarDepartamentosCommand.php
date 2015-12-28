@@ -20,7 +20,7 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cantidad = 100;
+        $cantidad = 10;
         $progress = null;
         
         $output->writeln('Importando secretarías...');
@@ -77,9 +77,6 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
         $progress->finish();
         $output->writeln('');
         
-        $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
-        $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');
-        $output->writeln(' Se ignoraron    ' . $resultado->RegistrosIgnorados . ' registros.');
-        $output->writeln('Importación finalizada, se procesaron ' . $resultado->TotalRegistrosProcesados() . ' registros.');
+        $output->writeln('Importación finalizada.');
     }
 }

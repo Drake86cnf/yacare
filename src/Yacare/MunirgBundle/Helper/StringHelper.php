@@ -12,171 +12,58 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class StringHelper
 {
     /**
-     * Verifica si un decreto es mínimamente válido para su posterior procesamiento.
-     * 
-     * @param  string  $Decreto
-     * @return boolean
+     * Formatea un acto adminitrativo con estilo "RM-123/2014".
      */
-    public static function EsDecretoValido($Decreto)
+    public static function FormatearActoAdministrativo($numeroActo)
     {
-        $Decreto = str_replace(
-            array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
-        $Decreto = strtoupper(str_replace('//', '/', $Decreto));
-        $BuscarNumeros = self::SepararSiglasYNumerosDecreto($Decreto);
+        $numeroActo = str_replace(array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($numeroActo));
+        $numeroActo = strtoupper(str_replace('//', '/', $numeroActo));
         
-        if ($BuscarNumeros == strlen($Decreto) || $Decreto{$BuscarNumeros} == '/') {
-            return false;
-        }
+        $NumeroActo = strpbrk($numeroActo, '0123456789/');
+        $TipoActo = strtoupper(substr($numeroActo, 0, strlen($numeroActo) - strlen($NumeroActo)));
         
-        $DescomponerDecreto1Nvl = array();
-        $DescomponerDecreto1Nvl[0] = substr($Decreto, 0, $BuscarNumeros);
-        $DescomponerDecreto1Nvl[1] = ltrim(substr($Decreto, $BuscarNumeros), '0');
-        
-        if ($DescomponerDecreto1Nvl[1]{0} == '/') {
-            return false;
-        }
-        $DescomponerDecreto2Nvl = explode('/', $DescomponerDecreto1Nvl[1]);
-        
-        if (! $DescomponerDecreto2Nvl[1]) {
-            return false;
-        }
-        $DescomponerDecreto3Nvl = preg_split("/[A-Z]/", $DescomponerDecreto2Nvl[1], 2);
-        
-        if (count($DescomponerDecreto3Nvl) == 1) {
-            if (strlen($DescomponerDecreto2Nvl[1]) == 1) {
-                return false;
-            }
-        } elseif (strlen($DescomponerDecreto3Nvl[0]) == 1) {
-            return false;
-        } else {
-            $BuscarNumeros = self::SepararSiglasYNumerosDecreto($DescomponerDecreto3Nvl[1]);
-            
-            $DescomponerDecreto4Nvl = array();
-            $DescomponerDecreto4Nvl[0] = substr($DescomponerDecreto3Nvl[1], 0, $BuscarNumeros);
-            $DescomponerDecreto4Nvl[1] = ltrim(substr($DescomponerDecreto3Nvl[1], $BuscarNumeros), '0');
-            
-            if ($DescomponerDecreto4Nvl[0] && ! $DescomponerDecreto4Nvl[1]) {
-                return false;
-            }
-            /*
-             * case 'M':
-             * case 'MOD':
-             * case 'MODIF':
-             * case 'MODIFIC':
-             * case 'MODIFICACION':
-             * case 'MODIFICASION':
-             * $DescomponerDecreto4Nvl[0] = '';
-             * break;
-             * }
-             */
-            
-            if (strlen($DescomponerDecreto4Nvl[1]) == 1) {
-                return false;
-            }
-        }
-        
-        return true;
-    }
-
-    /**
-     * Devuelve el decreto con formato aplicado.
-     * 
-     * @param  string $Decreto para procesamiento.
-     * @return string $Decreto formateado.
-     */
-    public static function FormatearDecreto($Decreto)
-    {
-        $Decreto = str_replace(
-            array('.', ',', '-', ' ', 'Nº', 'N', 'Y'), '', trim($Decreto));
-        $Decreto = strtoupper(str_replace('//', '/', $Decreto));
-        
-        return StringHelper::SustituirPrefijo($Decreto);
-    }
-
-    /**
-     * Normaliza los prefijos.
-     * 
-     * Prefijos = siglas que identifican una resolución de un decreto. 
-     * Además aplica formato completo al año del mismo. 
-     * 
-     * @param  string $Decreto
-     * @return string $Decreto minímamente formateado.
-     */
-    public static function SustituirPrefijo($Decreto)
-    {
-        $PartesDecreto = array();
-        $Evaluo = self::SepararSiglasYNumerosDecreto($Decreto);
-        
-        $PartesDecreto[0] = substr($Decreto, 0, $Evaluo);
-        $PartesDecreto[1] = ltrim(substr($Decreto, $Evaluo), '0');
-        
-        switch ($PartesDecreto[0]) {
+        switch ($TipoActo) {
             case 'RESOLUCION':
-            // no break
+                // no break
             case 'RESOLUSION':
+                // no break
             case 'RESEMT':
+                // no break
             case 'R':
-            case null:
-                $PartesDecreto[0] = 'RM';
+                $TipoActo = 'RM';
                 break;
-            case 'RSG':
-                $PartesDecreto[0] = 'RG';
-                break;
-            case 'RCD':
-            // no break
             case 'REOLCD':
-                $PartesDecreto[0] = 'RC';
+                $TipoActo = 'RCD';
                 break;
-            case 'DCD':
-                $PartesDecreto[0] = 'DC';
-                break;
-            case 'DJF':
-            // no break
-            case 'DTAJF':
             case 'D':
-                $PartesDecreto[0] = 'DM';
-                break;
-            case 'A':
-                $PartesDecreto[0] = 'AD';
-                break;
-            case 'O':
-                $PartesDecreto[0] = 'OR';
+                $TipoActo = 'DM';
                 break;
         }
         
-        $SubPartesDecreto = explode('/', $PartesDecreto[1]);
+        $PartesNumero = explode('/', $NumeroActo, 2);
         
-        if (strlen($SubPartesDecreto[1]) != 4) {
-            if ($SubPartesDecreto[1] >= 20 && $SubPartesDecreto[1] < 100) {
-                $SubPartesDecreto[1] = '19' . $SubPartesDecreto[1];
-            } else {
-                $SubPartesDecreto[1] = '20' . $SubPartesDecreto[1];
-            }
-        }
-        $PartesDecreto[1] = $SubPartesDecreto[0] . '/' . $SubPartesDecreto[1];
-        
-        return $Decreto = $PartesDecreto[0] . $PartesDecreto[1];
-    }
-
-    /**
-     * Rutina que identifica la posición de un número sobre una cadena de caracteres dada.
-     * 
-     * @param  string  $Decreto
-     * @return integer $i       La posición del número encontrado. O la posición del final de la cadena.
-     */
-    public static function SepararSiglasYNumerosDecreto($Decreto)
-    {
-        $TieneNumeros = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-        
-        for ($i = 0; $i < strlen($Decreto) && $Decreto{$i} != '/'; $i ++) {
-            foreach ($TieneNumeros as $Numero) {
-                if ($Decreto{$i} == $Numero) {
-                    return $i;
+        if(count($PartesNumero) == 2) {
+            if (strlen($PartesNumero[1]) != 4) {
+                if ($PartesNumero[1] >= 20 && $PartesNumero[1] < 100) {
+                    $PartesNumero[1] = '19' . $PartesNumero[1];
+                } else {
+                    $PartesNumero[1] = '20' . $PartesNumero[1];
                 }
             }
+            $NumeroActo = ltrim($PartesNumero[0], '0') . '/' . $PartesNumero[1];
         }
-        return $i;
+        
+        if($TipoActo && $NumeroActo) {
+            $numeroActo = $TipoActo . '-' . $NumeroActo;
+        } elseif($NumeroActo) {
+            $numeroActo = $NumeroActo;
+        } else {
+            $numeroActo = '';
+        }
+        
+        return $numeroActo;
     }
+
 
     /**
      * Formateo de la columna de categoría A/C de un agente municipal.
