@@ -37,12 +37,20 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     use \Yacare\BaseBundle\Entity\ConDomicilio;
     use \Yacare\BaseBundle\Entity\ConVerificacion;
     
+    public function __construct()
+    {
+        $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->UsuarioRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));
+    }
+    
     /**
      * Los grupos a los cuales pertenece la persona.
      *
      * @var PersonaGrupo
      *
-     * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas", cascade={"detach", "merge"})
+     * @ORM\ManyToMany(targetEntity="PersonaGrupo", inversedBy="Personas", cascade={ "all" })
      * @ORM\JoinTable(name="Base_Persona_PersonaGrupo",
      *     joinColumns={@ORM\JoinColumn(name="Persona_id", referencedColumnName="id", nullable=true)})
      */
@@ -60,13 +68,6 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
      */
     private $UsuarioRoles;
 
-    public function __construct()
-    {
-        $this->Grupos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->UsuarioRoles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
-    }
     
     /**
      * Los apellidos.
