@@ -53,11 +53,11 @@ class ImportadorAgentes extends Importador
             array('ImportSrc' => 'rr_hh.agentes', 'ImportId' => $Row['legajo']));
         
         if (! $entity) {
-            $entity = $this->em->getRepository('YacareRecursosHumanosBundle:Agente')->findOne($Row['legajo']);
+            $entity = $this->em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(
+                array('id' => $Row['legajo']));
         }
         
         if (! $entity) {
-            echo " New". $Row['legajo'];
             $entity = new \Yacare\RecursosHumanosBundle\Entity\Agente();
             
             // Asigno manualmente el ID
@@ -96,7 +96,6 @@ class ImportadorAgentes extends Importador
         } else {
             $resultado->RegistrosActualizados++;
             $Persona = $entity->getPersona();
-            //echo " Old". $Row['legajo'] .': ' . $Persona->getNombreVisible();
         }
         
         $Departamento = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(
@@ -140,21 +139,6 @@ class ImportadorAgentes extends Importador
         
         if (\Tapir\BaseBundle\Helper\Cbu::EsCbuValida($Row['cbu'])) {
             $entity->setCBUCuentaAgente(\Tapir\BaseBundle\Helper\Cbu::FormatearCbu($Row['cbu']));
-        }
-        
-        // Si no está en el grupo agentes, lo agrego
-        if ($Persona->getGrupos()->contains($this->GrupoAgentes) == false) {
-            $this->GrupoAgentes->getPersonas()->add($Persona);
-            $Persona->getGrupos()->add($this->GrupoAgentes);
-            $this->em->persist($Persona);
-            $this->em->flush();
-            $this->em->persist($this->GrupoAgentes);
-            
-        }
-        
-        // Le pongo el número de legajo en la persona
-        if ($entity->getId()) {
-            $Persona->setAgenteId($entity->getId());
         }
         
         if ($Row['fechaingre']) {
