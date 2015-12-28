@@ -27,7 +27,7 @@ class ImportarAgentesCommand extends ContainerAwareCommand
     {
         $desde = (int)($input->getArgument('desde'));
 
-        $cantidad = 10;
+        $cantidad = 100;
         $progress = null;
         
         $importador = new ImportadorAgentes($this->getContainer(), $this->getContainer()->get('doctrine')->getManager());
