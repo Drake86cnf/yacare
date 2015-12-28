@@ -17,8 +17,8 @@
 				{% if error %}
 				<div class="alert alert-dismissable alert-danger">
 					<button type="button" class="close" data-dismiss="alert">×</button>
-					Error: {{ error.message|replace(
-					    {"Bad credentials." : "El nombre de usuario y/o contraseña son inválidos." }) }}
+					{{ error.message|replace(
+					    {"Bad credentials." : "El nombre de usuario y/o contraseña son incorrectos." }) }}
 				</div>
 				<p class="text">
 					Si no dispone de un nombre de usuario, puede solicitar uno mediante
