@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         }, 
  *     indexes={
  *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaSubparcelaUf", 
- *             columns={"Seccion", "MacizoAlfa", "MacizoNum", "ParcelaAlfa", "ParcelaNum", "UnidadFuncional"}),
+ *             columns={"Seccion", "MacizoNum", "MacizoAlfa", "ParcelaNum", "ParcelaAlfa", "SubparcelaNum", "SubparcelaAlfa", "UnidadFuncional"}),
  *         @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
  *         @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *         }
