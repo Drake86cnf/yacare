@@ -19,7 +19,7 @@
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr data-toggle="modal"
+		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
 			<td class="text-muted">{{ entity.Numero }}</td>
 			<td>{{ entity.Seccion }}</td>
