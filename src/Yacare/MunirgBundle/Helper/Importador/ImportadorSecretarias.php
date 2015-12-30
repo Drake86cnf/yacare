@@ -66,7 +66,7 @@ class ImportadorSecretarias extends Importador {
     
     public function ImportarRegistro($Row) {
         $resultado = new ResultadoLote();
-        $resultado->Registros[] = $Row;
+        //$resultado->Registros[] = $Row;
         
         $nombreBueno = StringHelper::Desoraclizar($Row['detalle']);
         $entity = $this->em->getRepository('YacareOrganizacionBundle:Departamento')->findOneBy(

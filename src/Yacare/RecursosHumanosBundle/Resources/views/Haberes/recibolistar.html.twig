@@ -1,6 +1,8 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Consulta de liquidación de haberes{% endblock pagina_titulo %} {%
-block pagina_contenido %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% block pagina_titulo %}Consulta de liquidación de haberes{% endblock pagina_titulo %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -12,7 +14,11 @@ block pagina_contenido %}
 	<tbody>
 		{% for recibo in recibos %}
 		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': agente.id, 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
+		{% if app.user.id == agente.Persona.id %}
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
+		{% else %}
+			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': agente.Persona.id, 'ames': recibo.AMES, 'peri': recibo.PERI })) }}">
+		{% endif %}
 			<td>{{ recibo.AMES|slice(4, 2) }}/{{ recibo.AMES|slice(0, 4) }}</td>
 			<td>{% if recibo.PERI == '7' %}Mensual
 			    {% elseif recibo.PERI == '5' %}SAC

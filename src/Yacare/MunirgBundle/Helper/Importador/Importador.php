@@ -14,6 +14,7 @@ abstract class Importador {
     
     public $ResultadoNuevos;
     public $ResultadoActualizados;
+    public $Where;
     
     function __construct($container, $em) {
         $this->container = $container;

@@ -47,7 +47,7 @@ class ImportadorAgentes extends Importador
     public function ImportarRegistro($Row)
     {
         $resultado = new ResultadoLote();
-        $resultado->Registros[] = $Row;
+        //$resultado->Registros[] = $Row;
         
         $entity = $this->em->getRepository('YacareRecursosHumanosBundle:Agente')->findOneBy(
             array('ImportSrc' => 'rr_hh.agentes', 'ImportId' => $Row['legajo']));

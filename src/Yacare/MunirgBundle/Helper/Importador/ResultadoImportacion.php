@@ -37,7 +37,7 @@ class ResultadoImportacion {
      */
     public $RegistrosTotal = 0;
 
-    public $Registros = array();
+    //public $Registros = array();
     public $Mensajes = array();
     
     function __construct(Importador $importador) {
@@ -52,7 +52,7 @@ class ResultadoImportacion {
      */
     public function AgregarResultadoLote($resultado) {
         $this->AgregarContadoresLote($resultado);
-        $this->Registros = array_merge($this->Registros, $resultado->Registros);
+        //$this->Registros = array_merge($this->Registros, $resultado->Registros);
         $this->Mensajes = array_merge($this->Mensajes, $resultado->Mensajes);
     }
     
@@ -85,9 +85,9 @@ class ResultadoImportacion {
      * 
      * @param object $registro
      */
-    public function AgregarRegistro($registro) {
+    /* public function AgregarRegistro($registro) {
         $this->Registros[] = $registro;
-    }
+    } */
     
     /**
      * Agrega un mensaje al log del resultado.

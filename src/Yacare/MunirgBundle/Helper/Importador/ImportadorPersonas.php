@@ -52,7 +52,7 @@ class ImportadorPersonas extends Importador
     public function ImportarRegistro($Row)
     {
         $resultado = new ResultadoLote();
-        $resultado->Registros[] = $Row;
+        //$resultado->Registros[] = $Row;
         
         if ($Row['INDIVIDUO_TIPO'] != 'PE' && $Row['INDIVIDUO_TIPO'] != 'PJ' && $Row['INDIVIDUO_TIPO'] != 'EN' &&
              $Row['INDIVIDUO_TIPO'] != 'OT') {
