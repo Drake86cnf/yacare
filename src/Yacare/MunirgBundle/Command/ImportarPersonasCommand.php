@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Yacare\MunirgBundle\Helper\Importador\ImportadorPersonas;
+use Yacare\MunirgBundle\Helper\Importador\ResultadoImportacion;
 
 class ImportarPersonasCommand extends ContainerAwareCommand
 {
@@ -36,8 +37,10 @@ class ImportarPersonasCommand extends ContainerAwareCommand
         $importador->Inicializar();
         $progress = new ProgressBar($output, $importador->ObtenerCantidadTotal());
         $progress->start();
+        $ResultadoFinal = new ResultadoImportacion($importador);
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
+            $ResultadoFinal->AgregarContadoresLote($resultado);
             $progress->setProgress($resultado->PosicionCursor());
             if(!$resultado->HayMasRegistros()) {
                 break;
@@ -48,9 +51,9 @@ class ImportarPersonasCommand extends ContainerAwareCommand
         $progress->finish();
         $output->writeln('');
         
-        $output->writeln(' Se importaron   ' . $resultado->RegistrosNuevos . ' registros nuevos.');
-        $output->writeln(' Se actualizaron ' . $resultado->RegistrosActualizados . ' registros.');
-        $output->writeln(' Se ignoraron    ' . $resultado->RegistrosIgnorados . ' registros.');
-        $output->writeln('Importación finalizada, se procesaron ' . $resultado->TotalRegistrosProcesados() . ' registros.');
+        $output->writeln(' Se importaron   ' . $ResultadoFinal->RegistrosNuevos . ' registros nuevos.');
+        $output->writeln(' Se actualizaron ' . $ResultadoFinal->RegistrosActualizados . ' registros.');
+        $output->writeln(' Se ignoraron    ' . $ResultadoFinal->RegistrosIgnorados . ' registros.');
+        $output->writeln('Importación finalizada, se procesaron ' . $ResultadoFinal->TotalRegistrosProcesados() . ' registros.');
     }
 }

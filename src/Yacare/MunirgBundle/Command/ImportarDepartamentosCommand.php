@@ -8,6 +8,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Yacare\MunirgBundle\Helper\Importador\ImportadorSecretarias;
 use Yacare\MunirgBundle\Helper\Importador\ImportadorDirecciones;
 use Yacare\MunirgBundle\Helper\Importador\ImportadorSectores;
+use Yacare\MunirgBundle\Helper\Importador\ResultadoImportacion;
 
 class ImportarDepartamentosCommand extends ContainerAwareCommand
 {
@@ -29,8 +30,10 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
         $progress = new ProgressBar($output, $importador->ObtenerCantidadTotal());
         $progress->start();
         $desde = 0;
+        $ResultadoFinal = new ResultadoImportacion($importador);
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
+            $ResultadoFinal->AgregarContadoresLote($resultado);
             $progress->setProgress($resultado->PosicionCursor());
             if(!$resultado->HayMasRegistros()) {
                 break;
@@ -49,6 +52,7 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
         $desde = 0;
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
+            $ResultadoFinal->AgregarContadoresLote($resultado);
             $progress->setProgress($resultado->PosicionCursor());
             if(!$resultado->HayMasRegistros()) {
                 break;
@@ -67,6 +71,7 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
         $desde = 0;
         while(true) {
             $resultado = $importador->Importar($desde, $cantidad);
+            $ResultadoFinal->AgregarContadoresLote($resultado);
             $progress->setProgress($resultado->PosicionCursor());
             if(!$resultado->HayMasRegistros()) {
                 break;
@@ -77,6 +82,9 @@ class ImportarDepartamentosCommand extends ContainerAwareCommand
         $progress->finish();
         $output->writeln('');
         
-        $output->writeln('Importación finalizada.');
+        $output->writeln(' Se importaron   ' . $ResultadoFinal->RegistrosNuevos . ' registros nuevos.');
+        $output->writeln(' Se actualizaron ' . $ResultadoFinal->RegistrosActualizados . ' registros.');
+        $output->writeln(' Se ignoraron    ' . $ResultadoFinal->RegistrosIgnorados . ' registros.');
+        $output->writeln('Importación finalizada, se procesaron ' . $ResultadoFinal->TotalRegistrosProcesados() . ' registros.');
     }
 }
