@@ -30,7 +30,7 @@
         <ul class="inicio-mini-menu">
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['TramiteTipo'] %}
-        		<li><a href="{{ path('yacare_tramites_tramitetipo_editar', res.Arrastre|merge({ id: item.id })) }}"
+        		<li><a href="{{ path('yacare_tramites_tramitetipo_ver', res.Arrastre|merge({ id: item.id })) }}"
         			data-toggle="ajax-link">{{ item }}</span></a></li>
         	{% endfor %}
         	    
