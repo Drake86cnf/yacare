@@ -15,7 +15,6 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
     
-    
     /**
      * Valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
      * 
@@ -27,11 +26,6 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
      */
     private $UsoSuelo;
 
-    public function __construct()
-    {
-        $this->Comercio = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
     /**
      * El Comercio al que esta asignado el Cat.  
      *
