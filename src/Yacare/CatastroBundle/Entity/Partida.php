@@ -26,7 +26,10 @@ class Partida
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
     
     public function __construct()
     {
