@@ -37,6 +37,16 @@ class TramiteTipo implements ITramiteTipo
     protected $Clase;
     
     /**
+     * El tipo de comprobante que se emite en la mitad de un trámite de este tipo (por ejemplo un provisorio).
+     *
+     * @var \Yacare\TramitesBundle\Entity\ComprobanteTipo
+     *
+     * @ORM\ManyToOne(targetEntity="ComprobanteTipo")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $ComprobanteIntermedioTipo;
+    
+    /**
      * El tipo de comprobante que se emite al finalizar un trámite de este tipo.
      *
      * @var \Yacare\TramitesBundle\Entity\ComprobanteTipo
@@ -208,4 +218,22 @@ class TramiteTipo implements ITramiteTipo
     {
         $this->ComprobanteTipo = $ComprobanteTipo;
     }
+
+    /**
+     * @ignore
+     */
+    public function getComprobanteIntermedioTipo()
+    {
+        return $this->ComprobanteIntermedioTipo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComprobanteIntermedioTipo($ComprobanteIntermedioTipo)
+    {
+        $this->ComprobanteIntermedioTipo = $ComprobanteIntermedioTipo;
+        return $this;
+    }
+ 
 }

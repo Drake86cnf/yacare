@@ -69,7 +69,7 @@ abstract class Tramite implements ITramite
      * @ORM\JoinColumn(nullable=true)
      */
     protected $TramitePadre;
-
+    
     /**
      * Colección que contiene los estados de los requisitos asociados a este
      * trámite.
@@ -95,6 +95,17 @@ abstract class Tramite implements ITramite
      */
     protected $FechaTerminado;
 
+    /**
+     * El comprobante que se emitió como resultado intermedio de este trámite o null si no
+     * se emitió ningún comprobante o el trámite aun está en curso.
+     *
+     * @var \Yacare\TramitesBundle\Enitty\Comprobante Comprobante
+     *
+     * @ORM\ManyToOne(targetEntity="Comprobante")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $ComprobanteIntermedio;
+    
     /**
      * El comprobante que se emitió como resultado de este trámite o null si no
      * se emitió ningún comprobante o el trámite aun está en curso.
@@ -149,7 +160,25 @@ abstract class Tramite implements ITramite
             }
         }        
         return $ValorQue;
-    }    
+    }
+    
+    
+    /**
+     * Obtiene la asociación de requisito, en caso de que este trámite es parte de otro trámite.
+     */
+    public function ObtenerEstadoRequisito() {
+        $TramPadre = $this->getTramitePadre();
+        if($TramPadre) {
+            foreach($TramPadre->getEstadosRequisitos() as $EstadoRequisito) {
+                if($EstadoRequisito->getTramite() == $this) {
+                    return $EstadoRequisito;
+                }
+            }
+            return null;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).
@@ -189,6 +218,18 @@ abstract class Tramite implements ITramite
     }
     
     /**
+     * Devuelve true si el trámite está listo para ser pasar a estado intermedio (es decir,
+     * todos los requisitos intermedios están cumplidos).
+     *
+     * @return bool true si el trámite está listo para pasar a estado intermedio.
+     */
+    public function EstaListoParaIntermedio()
+    {
+        // TODO:
+        return false; 
+    }
+    
+    /**
      * Devuelve una lista de razones por las que no se puede terminar, sin contar los requisitos.
      * 
      * @see EsViable()
@@ -225,6 +266,18 @@ abstract class Tramite implements ITramite
     {
         return $this->getEstado() == 100;
     }
+    
+    
+    /**
+     * Devuelve true si el trámite está en estado intermedio.
+     *
+     * @return bool true si está en estado intermedio.
+     */
+    public function EstaIntermedio()
+    {
+        return $this->getEstado() == 80;
+    }
+    
 
     /**
      * Devuelve la cantidad total de requisitos obligatorios.
@@ -311,6 +364,7 @@ abstract class Tramite implements ITramite
         return array(
             0 => 'Nuevo',
             10 => 'Iniciado',
+            80 => 'Intermedio',
             90 => 'Cancelado',
             100 => 'Terminado'
         );
@@ -420,4 +474,22 @@ abstract class Tramite implements ITramite
         $this->TramitePadre = $TramitePadre;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getComprobanteIntermedio()
+    {
+        return $this->ComprobanteIntermedio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComprobanteIntermedio($ComprobanteIntermedio)
+    {
+        $this->ComprobanteIntermedio = $ComprobanteIntermedio;
+        return $this;
+    }
+ 
 }
