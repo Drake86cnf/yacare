@@ -129,7 +129,7 @@ class AsociacionRequisito
      * 
      * @var integer
      * 
-     * @ORm\Column(type="integer")
+     * @ORM\Column(type="integer")
      */
     private $UtlidadIntermedio = 0;    
     
