@@ -35,7 +35,7 @@ abstract class Tramite implements ITramite
     public function __construct()
     {
         $this->EstadosRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Nombre = 'Trámite nuevo';
+        $this->Nombre = 'Nuevo ' . get_class($this);
     }
 
     /**

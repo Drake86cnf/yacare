@@ -42,10 +42,11 @@ abstract class Helper implements IHelper
     }
     
     protected function AgregarEntidadAlConjuntoDeCambios($entidad) {
-        $uow = $this->em->getUnitOfWork();
+        $this->Listener->EntidadesRelacionadas[] = $entidad;
+        /* $uow = $this->em->getUnitOfWork();
         $cambioMetadata = $this->em->getClassMetadata(get_class($entidad));
         
         //recomputeSingleEntityChangeSet???
-        $uow->computeChangeSet($cambioMetadata, $entidad);
+        $uow->computeChangeSet($cambioMetadata, $entidad); */
     }
 }
