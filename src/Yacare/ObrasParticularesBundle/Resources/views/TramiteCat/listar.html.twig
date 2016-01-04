@@ -7,8 +7,6 @@ pagina_titulo %}Trámites de CAT{% endblock %} {% block pagina_contenido
 		<tr>
 			<th>#</th>
 			<th class="hidden-sm hidden-xs">Titular</th>
-			<th class="hidden-sm hidden-xs">Actividad</th>
-			<th class="hidden-sm hidden-xs">Local</th>
 			<th>Estado</th>
 		</tr>
 	</thead>
@@ -18,11 +16,7 @@ pagina_titulo %}Trámites de CAT{% endblock %} {% block pagina_contenido
 			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
 			<td>{{ entity.id }}</td>
 			<td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
-			<td class="hidden-sm hidden-xs">{{
-				entity.Actividad1.Nombre|length > 50 ?
-				entity.Actividad1.Nombre|slice(0, 50) ~ '...' :
-				entity.Actividad1.Nombre }}</td>
-			<td class="hidden-sm hidden-xs">{{ entity.Local }}</td>
+			
 			<td>{% if entity.Estado < 10 %} <span class="label label-danger"> {%
 					elseif entity.Estado >= 10 and entity.Estado < 90 %} <span
 					class="label label-primary"> {% elseif entity.Estado == 100 %} <span
@@ -33,8 +27,9 @@ pagina_titulo %}Trámites de CAT{% endblock %} {% block pagina_contenido
 							class="label label-success"><i class="fa fa-thumbs-up"></i>
 								Requisitos completos</span> {% else %} <span
 							class="label label-default">Faltan {{
-								entity.RequisitosFaltantesCantidad }} requisitos</span> {% endif
-							%} {% endif %} </td>
+								entity.RequisitosFaltantesCantidad }} requisitos</span> 
+						{% endif%}
+				 {% endif %} </td>
 		</tr>
 		{% endfor %}
 	</tbody>

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Asociación de un requisito con un trámite.
  *
  * Representa la asociación entre un requisito y un trámite, y las condiciones
- * bajos las cuales que están asociados.
+ * bajos las cuales están asociados.
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Tramites_TramiteTipo_Requisito")
@@ -120,9 +120,41 @@ class AsociacionRequisito
      */
     private $CondicionCuanto;
     
+    /**
+     * Describe si este requisito sirve para el estado intermedio o para un final.
+     * 
+     * * Estados: 0 = para finalizar un trámite.
+     * 1 = es otro trámite (subtrámite).
+     * 80 = es un requisito para alcanzar un estado intermedio o provisorio.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $UtlidadIntermedio = 0;    
+    
+    /**
+     * Verifica si el requisito sirve para la finalizalición de un trámite.
+     * 
+     * @return boolean
+     */
+    public function SirveParaEstadoFinal() {
+        return ($this->getUtlidadIntermedio() == 0);
+    }
+    
+    /**
+     * Verifica si el requisito sirve para alcanzar un estado intermedio en un trámite.
+     *
+     * @return boolean
+     */
+    public function SirveParaEstadoIntermedio() {
+        return ($this->getUtlidadIntermedio() == 1 || $this->getUtlidadIntermedio() == 80);
+    }
     
     /**
      * Devuelve true si esta asociación es opcional (Tipo = 1).
+     * 
+     * @return boolean
      */
     public function EsOpcional() {
         return ($this->getTipo() & 1) == 1;
@@ -130,6 +162,8 @@ class AsociacionRequisito
     
     /**
      * Devuelve true si esta asociación es condicional (Tipo = 2).
+     * 
+     * @return boolean
      */
     public function EsCondicional() {
         return ($this->getTipo() & 2) == 2;
@@ -145,7 +179,6 @@ class AsociacionRequisito
         return join(' de ', $Partes);
     }
     
-
     /**
      * Devuelve una representación de cadena del valor Instancia.
      *
@@ -171,7 +204,6 @@ class AsociacionRequisito
         }
     }
     
-
     /**
      * Devuelve una representación de cadena de la condición.
      *
@@ -390,4 +422,21 @@ class AsociacionRequisito
         $this->Tipo = $Tipo;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getUtlidadIntermedio()
+    {
+        return $this->UtlidadIntermedio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUtlidadIntermedio($UtlidadIntermedio)
+    {
+        $this->UtlidadIntermedio = $UtlidadIntermedio;
+        return $this;
+    } 
 }

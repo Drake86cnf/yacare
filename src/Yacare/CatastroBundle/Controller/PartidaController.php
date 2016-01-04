@@ -41,13 +41,6 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         return $res;
     }
 
-    // ************** Al importar:
-    // UPDATE Catastro_Partida SET MacizoAlfa='' WHERE MacizoAlfa='.';
-    // UPDATE Catastro_Partida SET ParcelaAlfa='' WHERE ParcelaAlfa='.';
-    // UPDATE Catastro_Partida SET Nombre=CONCAT('Sección ', Seccion, ', macizo ', MacizoNum, MacizoAlfa, ', parcela ',
-    // ParcelaNum, ParcelaAlfa),
-    // Macizo=CONCAT(MacizoNum, MacizoAlfa), Parcela=CONCAT(ParcelaNum, ParcelaAlfa);
-
     /**
      * @Route("listar/")
      * @Template()
@@ -63,17 +56,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
 
         if ($filtro_buscar) {
             $this->Joins[] = " JOIN r.Titular p";
-        
-            // Busco por varias palabras
-            // cambio , por espacio, quito espacios dobles y divido la cadena en los espacios
-            $palabras = explode(' ', str_replace('  ', ' ', str_replace(',', ' ', $filtro_buscar)), 5);
-            foreach ($palabras as $palabra) {
-                $this->Where .= " AND (p.NombreVisible LIKE '%$palabra%'
-                OR p.RazonSocial LIKE '%$palabra%'
-                OR p.DocumentoNumero LIKE '%$palabra%'
-                OR p.Cuilt LIKE '%$palabra%')";
-            }
-            $this->BuscarPor = null;
+            $this->BuscarPor .= ', p.NombreVisible, p.RazonSocial, p.DocumentoNumero, p.Cuilt';
         } else {
             if ($filtro_seccion == '-') {
                 $this->Where .= " AND r.Seccion<'A' OR r.Seccion>'X'";
@@ -84,7 +67,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
             }
     
             if ($filtro_macizo) {
-                $this->Where .= " AND CONCAT(r.MacizoAlfa, r.MacizoNum) LIKE '$filtro_macizo'";
+                $this->Where .= " AND CONCAT(r.MacizoNum, r.MacizoAlfa) LIKE '$filtro_macizo'";
                 $this->BuscarPor = null;
             }
     
