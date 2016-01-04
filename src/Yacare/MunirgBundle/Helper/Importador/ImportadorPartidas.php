@@ -65,6 +65,31 @@ class ImportadorPartidas extends Importador {
         $this->ObtenerConexionAOracle();
     }
     
+    
+    public function PreImportar()
+    {
+        $res = parent::PreImportar();
+        
+        $IdsPartidasActuales = $this->Dbmunirg->query('SELECT PARTIDA FROM RGR.VVU$CATASTRO')->fetchAll(\PDO::FETCH_COLUMN);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('p')
+            ->from('Yacare\CatastroBundle\Entity\Partida', 'p')
+            ->add('where', $qb->expr()->notIn('p.Numero', '?1'))
+            ->setParameter(1, $IdsPartidasActuales);
+        
+            
+        $q = $qb->getQuery();
+        $PartidasObsoletas = $q->getResult();
+        foreach($PartidasObsoletas as $Partida) {
+            $Partida->setSuprimido(1);
+            $this->em->persist($Partida);
+        }
+
+        
+        return $res;
+    }
+    
+    
     public function ObtenerRegistros($desde, $cantidad) {
         $sql = 'SELECT C.*, D.*, I.TG06100_TG06100_ID FROM RGR.VVU$CATASTRO C
                 LEFT JOIN RGR.VVU$DOMICILIO D ON D.TG06300_ID=C.DPROP_TG06300_ID
@@ -124,16 +149,10 @@ class ImportadorPartidas extends Importador {
         $ParcelaAlfa = trim($Row['PARCELA_ALFA'], ' .');
         $SubparcelaNum = trim($Row['SUBPARC_NUM'], ' .');
         $SubparcelaAlfa = trim($Row['SUBPARC_ALFA'], ' .');
-        //$Macizo = trim($MacizoNum . $MacizoAlfa);
-        //$Parcela = trim($ParcelaNum . $ParcelaAlfa);
-        //$Subparcela = trim($SubparcelaNum . $SubparcelaAlfa);
         $UnidadFuncional = (int) ($Row['UNID_FUNC']);
         
-        $entity = null;
-        /*
-         * $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
-         * 'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
-         */
+        $entity = $this->em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
+            'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
         
         if (! $entity) {
             $entity = $this->em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
@@ -211,8 +230,9 @@ class ImportadorPartidas extends Importador {
             $entity->setTg06100Id($Tg06100Id);
         }
     
-        // $entity->setImportSrc('dbmunirg.TR3A100');
-        // $entity->setImportId($Row['TR3A100_ID']);
+        $entity->setImportSrc('dbmunirg.TR3A100');
+        $entity->setImportId($Row['TR3A100_ID']);
+        $entity->setSuprimido(0);
 
         $this->em->persist($entity);
         $this->em->flush();
