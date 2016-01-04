@@ -75,6 +75,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $ClaseSubTramite = $SubTramiteTipo->getClase();
                         $NuevoSubTram = new $ClaseSubTramite();
                         $NuevoSubTram->setTramitePadre($entity);
+                        $NuevoSubTram->setTitular($entity->getTitular());
                         $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
                             $SubTramiteTipo->getAsociacionRequisitos());
                         $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
