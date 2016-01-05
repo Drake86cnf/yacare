@@ -119,6 +119,12 @@ class Novedad
      * @ORM\Column(type="integer", nullable=false)
      */
     private $Automatica = 0;
+    
+    
+    public function __toString() {
+        return $this->getNotas();
+    }
+    
 
     /*** Getters, setters */
     
