@@ -19,8 +19,9 @@ class RelevamientoAsignacionCalleType extends AbstractType
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
                 'required' => true, 
-                'read_only' => true, 
-                'placeholder' => false))
+                'placeholder' => false,
+                'attr' => array('readonly' => true)
+            ))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
                 // 'property' => 'NombreVisible', 

@@ -159,6 +159,12 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     private function CrearMapa()
     {
+        $Mapa = new \Tapir\OsmBundle\Maps\Map();
+        $Mapa->setZoom(30);
+        
+        
+        return $Mapa;
+        
         $Mapa = $this->get('ivory_google_map.map');
         
         $Mapa->setMapOption('zoom', 30);

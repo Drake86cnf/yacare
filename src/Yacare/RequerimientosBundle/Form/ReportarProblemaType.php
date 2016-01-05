@@ -28,7 +28,7 @@ class ReportarProblemaType extends AbstractType
                 'required' => false))
             ->add('Obs', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
                 'label' => 'Observaciones',
-                'read_only' => true,
+                'attr' => array('readonly' => true),
                 'required' => false));
     }
 

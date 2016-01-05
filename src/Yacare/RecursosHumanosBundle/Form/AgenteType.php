@@ -12,7 +12,7 @@ class AgenteType extends AbstractType
         $builder
             ->add('id', null, array(
                 'label' => 'Legajo', 
-                'read_only' => true))
+                'attr' => array('readonly' => true)))
             ->add('Grupos', 'entity', array(
                 'label' => 'Grupos', 
                 'class' => 'YacareRecursosHumanosBundle:AgenteGrupo', 
