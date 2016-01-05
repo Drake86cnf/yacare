@@ -34,22 +34,30 @@ trait ConEliminar
     public function eliminarAction(Request $request)
     {
         $id = $this->ObtenerVariable($request, 'id');
-        $deleteForm = $this->CrearFormEliminar($id);
+        $FormularioEliminar = $this->CrearFormEliminar($id);
 
         $em = $this->getEm();
-        $entity = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        $Entidad = $em->getRepository($this->VendorName . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
 
-        if (! $entity) {
+        if (!$Entidad) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         } else {
-            $buscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
+            $BuscadorDeRelaciones = new \Tapir\BaseBundle\Helper\BuscadorDeRelaciones($em);
         }
 
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEliminarAction($this), $request);
+        $res->Entidad = $Entidad;
+        $res->FormularioEliminar = $FormularioEliminar->createView();
+        $res->Relaciones = $BuscadorDeRelaciones->BuscarAsociaciones($Entidad);
+        $res->TieneRelaciones = count($res->Relaciones) > 0;
+        
+        return array('res' => $res);
+        
         return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
+            'entity' => $Entidad,
             'create' => $id ? false : true,
-            'delete_form' => $deleteForm->createView(),
-            'tiene_asociaciones' => $buscadorDeRelaciones->tieneAsociaciones($entity)));
+            'delete_form' => $FormularioEliminar->createView(),
+            'tiene_asociaciones' => $BuscadorDeRelaciones->TieneAsociaciones($Entidad)));
     }
 
     /**

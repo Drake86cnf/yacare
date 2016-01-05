@@ -33,7 +33,7 @@
 {% if res.TieneEliminar and not res.EsCrear %}
     <a data-toggle="ajax-link" class="btn btn-danger"
         href="{{ path(res.ObtenerRutaAccion('eliminar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}">
-    <i class="fa fa-trash-o"></i> Eliminar </a>
+    <i class="fa fa-trash-o"></i> Eliminar</a>
 {% endif %}
 {% endblock %}
 
