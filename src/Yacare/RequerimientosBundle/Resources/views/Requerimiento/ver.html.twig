@@ -32,15 +32,15 @@
 		  	</p>
 		
 		
-            {% if is_granted('ROLE_REQUERIMIENTOS_ENCARGADO') or is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+            {% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ENCARGADO,ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
             &nbsp;<br />
             <div class="hidden-print">
                 {% if res.Entidad.Encargado and res.Entidad.Encargado == app.user 
-                    and not is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                    and not tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
                     <a class="btn btn-default hidden-print" href="{{ path(res.ObtenerRutaAccion('rechazar'), 
                         res.Arrastre|merge({ 'id': res.Entidad.id, 'hisapi': 0 })) }}"
                     	data-toggle="modal"><i class="fa fa-hand-o-right"></i> Rechazar asignación</a>
-                {% elseif res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                {% elseif res.Entidad.Estado < 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
                     {% if not res.Entidad.Categoria %}
                      	<a class="btn btn-warning" data-toggle="modal"
                      		href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge({'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}">
@@ -69,7 +69,7 @@
                 {% else %}
                 	Sin categoría
                 {% endif %}
-                {% if is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+                {% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
                   <a class="btn btn-link btn-sm showonhover hidden-print" data-toggle="modal"
                   	href="{{ path(res.ObtenerRutaAccion('modificardato'),
                   	    res.Arrastre|merge({ 'id': res.Entidad.id, 'campo_nombre': 'Categoria' })) }}">
@@ -92,7 +92,7 @@
             {% else %}
             	<div class="text-value"><span class="text-danger"><i class="fa fa-fw fa-warning"></i>
             		El requerimiento no tiene un encargado.</span>
-            		{% if res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+            		{% if res.Entidad.Estado < 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
             			<p class="text-info small hidden-print">Debe asignar {% if not res.Entidad.Categoria %}una categoría o{% endif %} un encargado cuanto antes para que la
             			solicitud pueda ser atendida o usted -como administrador- puede atender la solicitud
             			personalmente.</p> 
@@ -207,7 +207,7 @@
 
 
 {% block pagina_acciones2 %}
-{% if res.Entidad.Estado < 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+{% if res.Entidad.Estado < 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
     {% if res.Entidad.Categoria %}
     	<a class="btn btn-default" data-toggle="modal"
      		href="{{ path(res.ObtenerRutaAccion('modificardato'), res.Arrastre|merge({'id': res.Entidad.id, 'campo_nombre': 'Categoria'})) }}">
@@ -256,7 +256,7 @@
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
     	data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
 {% endif %}
-{% if res.Entidad.Estado >= 80 and is_granted('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
+{% if res.Entidad.Estado >= 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
     {# Cerrado #}
     <a class="btn btn-default"  href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"

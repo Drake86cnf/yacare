@@ -17,7 +17,7 @@
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-			<tr {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+			<tr {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
 			    {% if entity.Final %} data-toggle="ajax-link"
 					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
 			    {% else %} data-toggle="ajax-link"

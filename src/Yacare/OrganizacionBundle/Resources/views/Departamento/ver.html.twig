@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %} {{ parent() }} 
-    {% if is_granted('ROLE_ADMINISTRADOR') %}
+    {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
         <a data-toggle="ajax-link" data-dismiss="modal" class="btn btn-default hidden-print"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}"><i class="fa fa-edit"></i> Editar</a>
     {% endif %}

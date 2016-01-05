@@ -17,14 +17,11 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
-            new JMS\AopBundle\JMSAopBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            //new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
 
             new Tapir\BaseBundle\TapirBaseBundle(),
@@ -51,7 +48,7 @@ class AppKernel extends Kernel
             //new Yacare\SuitBundle\YacareSuitBundle(),
             new Yacare\SitioWebBundle\YacareSitioWebBundle(),
             new Yacare\FlotaBundle\YacareFlotaBundle(),
-            new Yacare\AyudaBundle\YacareAyudaBundle(),
+            new Yacare\AyudaBundle\YacareAyudaBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

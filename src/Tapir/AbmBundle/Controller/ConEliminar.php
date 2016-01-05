@@ -24,7 +24,7 @@ trait ConEliminar
      */
     protected function CrearFormEliminar($id)
     {
-        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+        return $this->createFormBuilder(array('id' => $id))->add('id', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')->getForm();
     }
 
     /**

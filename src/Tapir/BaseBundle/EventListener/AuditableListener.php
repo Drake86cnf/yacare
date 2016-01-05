@@ -97,9 +97,9 @@ class AuditableListener implements EventSubscriber
         $Registro->setAccion($action);
         $Registro->setElementoTipo(str_replace('Proxies\\__CG__\\', '', get_class($entity)));
         $Registro->setElementoId($entity->getId());
-        if($this->container->isScopeActive('request')) {
+        if($Request = $this->container->get('request_stack')->getCurrentRequest()) {
             // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
-            $Registro->setEstacion($this->container->get('request')->getClientIp());
+            $Registro->setEstacion($Request->getClientIp());
         }
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
             // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)

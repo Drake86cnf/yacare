@@ -5,7 +5,7 @@
 {% block pagina_contenido %}
 <div class="container-fluid"><div class="row">
 
-{% if is_expr_granted("hasAnyRole('ROLE_REQUERIMIENTOS_ADMINISTRADOR')") and res.Recientes['RequerimientosSinEncargado'] %}
+{% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') and res.Recientes['RequerimientosSinEncargado'] %}
 <div class="col-sm-4">
     <h2><i class="fa fa-fw fa-ticket text-muted"></i> Requerimientos nuevos</h2>
     <ul class="inicio-mini-menu">
@@ -53,7 +53,7 @@
 </div>
 {% endif %}
 
-{% if is_expr_granted("hasAnyRole('ROLE_REQUERIMIENTOS_ADMINISTRADOR')") %}
+{% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
 <div class="col-sm-4">
     <h2>Administración</h2>
     <ul class="inicio-mini-menu">

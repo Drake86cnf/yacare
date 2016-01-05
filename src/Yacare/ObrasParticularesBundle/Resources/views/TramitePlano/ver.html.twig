@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')") %}
+{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     	class="btn btn-default"><i class="fa fa-edit"></i> Editar previa</a>
 {% endif %}

@@ -30,7 +30,7 @@
     <div class="col-sm-4">
         <h2>Matriculados</h2>
         <ul class="inicio-mini-menu">
-        	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['Matriculado'] %}
         		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}"
@@ -45,7 +45,7 @@
     <div class="col-sm-4">
         <h2>Empresas constructoras</h2>
         <ul class="inicio-mini-menu">
-        	{% if is_granted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['EmpresaConstructora'] %}
         		<li><a href="{{ path('yacare_obrasparticulares_empresaconstructora_editar', 

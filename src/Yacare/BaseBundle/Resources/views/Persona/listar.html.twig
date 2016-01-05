@@ -89,7 +89,7 @@
 	</ul>
 </div>
 
-{% if is_expr_granted("hasAnyRole('ROLE_IDDQD', 'ROLE_ADMINISTRADOR')") %}
+{% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuRoles" data-toggle="dropdown">

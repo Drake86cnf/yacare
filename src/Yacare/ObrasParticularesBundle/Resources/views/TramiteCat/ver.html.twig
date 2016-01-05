@@ -16,6 +16,6 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}{{ parent() }}
-    {% if res.Entidad.Estado < 90 and is_granted('ROLE_ADMINISTRADOR') %}
+    {% if res.Entidad.Estado < 90 and tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
     {% endif %}
 {% endblock %}
