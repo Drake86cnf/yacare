@@ -15,10 +15,10 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
+            ->add('NombreVisible', null, array('label' => 'Nombre'))
             ->add('Email', null, array(
                 'label' => 'Correo electrónico', 
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')))
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
             ->add('UsuarioRoles', 'entity', array(
                 'label' => 'Roles', 
                 'class' => 'YacareBaseBundle:PersonaRol', 

@@ -17,7 +17,7 @@ class TramitePlanoType extends AbstractType
         $builder
             ->add('id', null, array(
                 'label' => 'Número',
-                'read_only' => true))
+                'attr' => array('readonly' => true)))
             ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 

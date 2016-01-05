@@ -15,11 +15,11 @@ class PersonaPerfilAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
+            ->add('NombreVisible', null, array('label' => 'Nombre'))
             ->add('Email', 'email', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')
             ))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(

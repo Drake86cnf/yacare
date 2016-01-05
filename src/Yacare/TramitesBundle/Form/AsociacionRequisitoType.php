@@ -14,7 +14,7 @@ class AsociacionRequisitoType extends AbstractType
                 'label' => 'Tipo de trámite', 
                 'class' => 'YacareTramitesBundle:TramiteTipo', 
                 'required' => true, 
-                'read_only' => true, 
+                'attr' => array('readonly' => true), 
                 'multiple' => false))
             ->add('Requisito', 'entity', array(
                 'label' => 'Requisito', 
