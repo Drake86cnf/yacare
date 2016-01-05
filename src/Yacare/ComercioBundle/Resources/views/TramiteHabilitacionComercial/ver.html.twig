@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}{{ parent() }}
-    {% if res.Entidad.Estado < 90 and is_granted('ROLE_ADMINISTRADOR') %}
+    {% if res.Entidad.Estado < 90 and tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
         <a data-toggle="ajax-link" class="btn btn-default hidden-print pull-right"
         	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
         	<i class="fa fa-edit"></i> Editar el trámite</a>

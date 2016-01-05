@@ -210,8 +210,8 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
     
     protected function CrearFormEliminar($entity) {
         return $this->createFormBuilder($entity)
-            ->add('id', 'hidden')
-            ->add('token', 'hidden')
+            ->add('id', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
+            ->add('token', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
             ->getForm();
     }
     

@@ -46,7 +46,8 @@ security:
                 target: /
                 invalidate_session: true
             remember_me:
-                key:      "%secret%"
+                #key:      "%secret%"
+                secret:    "%secret%"
                 lifetime: 3600
                 path:     /.*
                 domain:   ~

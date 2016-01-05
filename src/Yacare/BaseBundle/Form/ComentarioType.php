@@ -16,8 +16,8 @@ class ComentarioType extends AbstractType
     {
         $builder
             ->add('Obs', 'textarea', array('label' => 'Comentario', 'attr' => array('maxlength' => '500')))
-            ->add('EntidadTipo', 'hidden')
-            ->add('EntidadId', 'hidden');
+            ->add('EntidadTipo', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
+            ->add('EntidadId', 'Symfony\Component\Form\Extension\Core\Type\HiddenType');
     }
 
     public function configureOptions(OptionsResolver $resolver)

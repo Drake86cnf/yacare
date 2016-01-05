@@ -26,7 +26,7 @@ class ReportarProblemaType extends AbstractType
                 'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
                 'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
                 'required' => false))
-            ->add('Obs', 'hidden', array(
+            ->add('Obs', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
                 'label' => 'Observaciones',
                 'read_only' => true,
                 'required' => false));

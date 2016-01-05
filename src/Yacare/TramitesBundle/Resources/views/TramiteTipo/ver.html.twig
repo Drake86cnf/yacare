@@ -61,7 +61,7 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-    {% if is_granted('ROLE_ADMINISTRADOR') %}
+    {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
         <a data-toggle="ajax-link"
         	href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
         	class="btn btn-default"><i class="fa fa-edit"></i> Editar trámite</a>

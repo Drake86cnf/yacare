@@ -14,7 +14,7 @@ La parte más importante es la gestión parametrizable de trámites.
 
 El desarrollo se realiza en leguaje PHP, utilizando las siguientes tecnologías:
 
-- Symfony 2 (MVC)
+- Symfony 3 (MVC)
 - Bootstrap (HTML5, CCS3)
 - jQuery (JavaScript)
 - MySQL/MariaDB (SQL)

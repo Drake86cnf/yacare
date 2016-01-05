@@ -15,23 +15,23 @@
 				<li class="divider"></li>
 				<li class="dropdown-header">Yacaré</li>
 				
-                {% if is_expr_granted("hasAnyRole('ROLE_CATASTRO', 'ROLE_COMERCIO_ADMINISTRADOR')") %}
+                {% if tapir_hasanyrole('ROLE_CATASTRO,ROLE_COMERCIO_ADMINISTRADOR') %}
 				<li><a href="{{ path('yacare_catastro_default_inicio') }}" data-toggle="ajax-link">
 					<i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
 				{% endif %}
 				
-				{% if is_expr_granted("hasAnyRole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR')") %}
+				{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO_INSPECTOR') %}
 				<li><a href="{{ path('yacare_comercio_default_inicio') }}" data-toggle="ajax-link">
 					<i class="fa fa-shopping-cart fa-fw text-muted"></i> Comercio</a></li>
 				{% endif %}
 				
-				{% if is_expr_granted("hasAnyRole('ROLE_OBRAS_PARTICULARES', 'ROLE_OBRAS_PARTICULARES_ADMINISTRADOR', 'ROLE_OBRAS_PARTICULARES_INSPECTOR')") %}
+				{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES,ROLE_OBRAS_PARTICULARES_ADMINISTRADOR,ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
             	<li><a href="{{ path('yacare_obrasparticulares_default_inicio') }}" data-toggle="ajax-link">
             		<i class="fa fa-building-o fa-fw text-muted"></i> Obras particulares</a></li>
                 {% endif %}
                 
 				<li class="dropdown-header">Trámites</li>
-				{% if is_expr_granted("hasAnyRole('ROLE_TRAMITES')") %}
+				{% if tapir_hasanyrole('ROLE_TRAMITES') %}
 				<li><a href="{{ path('yacare_tramites_default_inicio') }}" data-toggle="ajax-link">
 					<i class="fa fa-suitcase fa-fw text-muted"></i> Trámites</a></li>
                 {% endif %}
@@ -55,7 +55,7 @@
                 <li class="dropdown-header">Administración</li>
     			<li><a data-toggle="ajax-link" href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
 
-                {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+                {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
     			<li><a data-toggle="ajax-link" href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
     			<li><a data-toggle="ajax-link" href="{{ path('tapir_base_personarol_listar') }}">Roles</a></li>
     			<li><a data-toggle="ajax-link" href="{{ path('yacare_recursoshumanos_agente_listar') }}">Agentes</a></li>
