@@ -8,23 +8,28 @@ class ClassHelper
     /**
      * Obtiene los traits usados por una clase,
      */
-    public static function ObtenerTraitsRecursivos($class)
+    public static function ObtenerTraitsRecursivos($classOrObject)
     {
-        if (is_string($class) == false) {
-            $class = get_class($class);
+        if (is_string($classOrObject)) {
+            $className = $classOrObject;
+        } else {
+            $className = get_class($classOrObject);
         }
+        
         $traits = [];
         do {
-            $traits = array_merge(class_uses($class), $traits);
-        } while ($class = get_parent_class($class));
-        foreach ($traits as $trait => $same) {
+            $traits = array_merge(class_uses($className), $traits);
+        } while ($className = get_parent_class($className));
+        
+        foreach ($traits as $trait => $dummy) {
             $traits = array_merge(class_uses($trait), $traits);
         }
+
         return array_unique($traits);
     }
 
-    public static function UsaTrait($class, $trait)
+    public static function UsaTrait($classOrObject, $trait)
     {
-        return in_array($trait, ClassHelper::ObtenerTraitsRecursivos($class));
+        return in_array($trait, ClassHelper::ObtenerTraitsRecursivos($classOrObject));
     }
 }

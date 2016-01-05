@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   "\Yacare\TramitesBundle\Entity\TramiteSimple" = "\Yacare\TramitesBundle\Entity\TramiteSimple",
  *   "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial" = "\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial",
  *   "\Yacare\ObrasParticularesBundle\Entity\TramiteCat" = "\Yacare\ObrasParticularesBundle\Entity\TramiteCat",
- *   "\Yacare\ObrasParticularesBundle\Entity\TramitePlanos" = "\Yacare\ObrasParticularesBundle\Entity\TramitePlanos"
+ *   "\Yacare\ObrasParticularesBundle\Entity\TramitePlano" = "\Yacare\ObrasParticularesBundle\Entity\TramitePlano"
  * })
  */
 abstract class Tramite implements ITramite
@@ -35,7 +35,7 @@ abstract class Tramite implements ITramite
     public function __construct()
     {
         $this->EstadosRequisitos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Nombre = 'Trámite nuevo';
+        $this->Nombre = 'Nuevo ' . get_class($this);
     }
 
     /**
@@ -58,7 +58,18 @@ abstract class Tramite implements ITramite
      * @ORM\JoinColumn(nullable=false)
      */
     protected $TramiteTipo;
-
+    
+    /**
+     * El trámite padre, en caso de que este trámite se haya disparado como sub-trámite de otro.
+     *
+     * @var \Yacare\TramitesBundle\Entity\Tramite
+     * @see \Yacare\TramitesBundle\Entity\Tramite
+     *
+     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $TramitePadre;
+    
     /**
      * Colección que contiene los estados de los requisitos asociados a este
      * trámite.
@@ -85,6 +96,17 @@ abstract class Tramite implements ITramite
     protected $FechaTerminado;
 
     /**
+     * El comprobante que se emitió como resultado intermedio de este trámite o null si no
+     * se emitió ningún comprobante o el trámite aun está en curso.
+     *
+     * @var \Yacare\TramitesBundle\Enitty\Comprobante Comprobante
+     *
+     * @ORM\ManyToOne(targetEntity="Comprobante")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $ComprobanteIntermedio;
+    
+    /**
      * El comprobante que se emitió como resultado de este trámite o null si no
      * se emitió ningún comprobante o el trámite aun está en curso.
      *
@@ -93,8 +115,7 @@ abstract class Tramite implements ITramite
      * @ORM\ManyToOne(targetEntity="Comprobante")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $Comprobante;
-    
+    protected $Comprobante;    
     
     /**
      * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
@@ -104,8 +125,7 @@ abstract class Tramite implements ITramite
         return array(
             'Titular' => 'Titular'
         );
-    }
-    
+    }    
     
     public function ObtenerActor($actorPropiedad) {
         $Propiedades = explode('.', $actorPropiedad);
@@ -138,11 +158,27 @@ abstract class Tramite implements ITramite
                 $ValorQue = null;
                 break;
             }
-        }
-        
+        }        
         return $ValorQue;
     }
     
+    
+    /**
+     * Obtiene la asociación de requisito, en caso de que este trámite es parte de otro trámite.
+     */
+    public function ObtenerEstadoRequisito() {
+        $TramPadre = $this->getTramitePadre();
+        if($TramPadre) {
+            foreach($TramPadre->getEstadosRequisitos() as $EstadoRequisito) {
+                if($EstadoRequisito->getTramite() == $this) {
+                    return $EstadoRequisito;
+                }
+            }
+            return null;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Devuelve true si el trámite aun está en curso (no está terminado ni cancelado).
@@ -182,6 +218,18 @@ abstract class Tramite implements ITramite
     }
     
     /**
+     * Devuelve true si el trámite está listo para ser pasar a estado intermedio (es decir,
+     * todos los requisitos intermedios están cumplidos).
+     *
+     * @return bool true si el trámite está listo para pasar a estado intermedio.
+     */
+    public function EstaListoParaIntermedio()
+    {
+        // TODO:
+        return false; 
+    }
+    
+    /**
      * Devuelve una lista de razones por las que no se puede terminar, sin contar los requisitos.
      * 
      * @see EsViable()
@@ -191,8 +239,7 @@ abstract class Tramite implements ITramite
         $res = array();
         if($this->EstaEnCurso() == false) {
             $res[] = 'El trámite no está en curso.';
-        }
-    
+        }    
         return $res;
     }
     
@@ -219,6 +266,18 @@ abstract class Tramite implements ITramite
     {
         return $this->getEstado() == 100;
     }
+    
+    
+    /**
+     * Devuelve true si el trámite está en estado intermedio.
+     *
+     * @return bool true si está en estado intermedio.
+     */
+    public function EstaIntermedio()
+    {
+        return $this->getEstado() == 80;
+    }
+    
 
     /**
      * Devuelve la cantidad total de requisitos obligatorios.
@@ -284,20 +343,33 @@ abstract class Tramite implements ITramite
      */
     public function getEstadoNombre()
     {
-        switch ($this->Estado) {
-            case 0:
-                return 'Nuevo';
-            case 10:
-                return 'Iniciado';
-            case 90:
-                return 'Cancelado';
-            case 100:
-                return 'Terminado';
-            default:
-                return '???';
-        }
+        return self::NombreEstado($this->Estado);
     }
-
+    
+    /**
+     * Devuelve nombres de estado normalizados.
+     *
+     * @param  integer $estado
+     * @return string
+     */
+    public static function NombreEstado($estado)
+    {
+        return Tramite::NombresEstados()[$estado];
+    }
+    
+    /**
+     * Devuelve un array con los posibles estados y sus nombres.
+     */
+    public static function NombresEstados() {
+        return array(
+            0 => 'Nuevo',
+            10 => 'Iniciado',
+            80 => 'Intermedio',
+            90 => 'Cancelado',
+            100 => 'Terminado'
+        );
+    }
+    
     /**
      * @ignore
      */
@@ -385,4 +457,39 @@ abstract class Tramite implements ITramite
     {
         $this->Comprobante = $Comprobante;
     }
+
+    /**
+     * @ignore
+     */
+    public function getTramitePadre()
+    {
+        return $this->TramitePadre;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setTramitePadre($TramitePadre)
+    {
+        $this->TramitePadre = $TramitePadre;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getComprobanteIntermedio()
+    {
+        return $this->ComprobanteIntermedio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComprobanteIntermedio($ComprobanteIntermedio)
+    {
+        $this->ComprobanteIntermedio = $ComprobanteIntermedio;
+        return $this;
+    }
+ 
 }

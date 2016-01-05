@@ -3,6 +3,7 @@ namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * El comercio.
@@ -11,8 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Comercio_Comercio")
+ * @UniqueEntity(fields={"ExpedienteNumero", "Suprimido"}, ignoreNull=true, errorPath="ExpedienteNumero",
+ *      message="Ya existe un comercio con el número de expediente proporcionado. No es posible cargar dos comercios con el mismo número de expediente.")
  */
-class Comercio implements IComercio
+class Comercio
 {
     use \Tapir\BaseBundle\Entity\ConId;
     use \Tapir\BaseBundle\Entity\ConNombre;
@@ -117,6 +120,15 @@ class Comercio implements IComercio
     protected $Actas;
     
     /**
+     * El usuario que creó el comercio.
+     *
+     * @var \Yacare\BaseBundle\Entity\Persona
+     *
+     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\Persona")
+     */
+    protected $CreadoPor;
+    
+    /**
      * Setter con sanitización.
      */
     public function setActoAdministrativoBajaNumero($actoAdministrativoBajaNumero)
@@ -169,14 +181,17 @@ class Comercio implements IComercio
         return Comercio::NombresEstados()[$estado];
     }
     
-    
+    /**
+     * Devuelve un array con los posibles estados y sus nombres.
+     */
     public static function NombresEstados() {
         return array(
-            0 => 'No habilitado',
-            1 => 'En trámite',
-            90 => 'Hab., sin actividad',
-            91 => 'Hab. vencida',
-            100 => 'Habilitado'
+            0 => 'En actividad, sin habilitación',
+            1 => 'Habilitación en trámite',
+            90 => 'Habilitado, sin actividad',
+            91 => 'Habilitación vencida',
+            92 => 'Dado de baja',
+            100 => 'En actividad, habilitado'
         );
     }
 
@@ -323,5 +338,22 @@ class Comercio implements IComercio
     public function getActoAdministrativoBajaNumero()
     {
         return $this->ActoAdministrativoBajaNumero;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getCreadoPor()
+    {
+        return $this->CreadoPor;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCreadoPor($CreadoPor)
+    {
+        $this->CreadoPor = $CreadoPor;
+        return $this;
     }
 }

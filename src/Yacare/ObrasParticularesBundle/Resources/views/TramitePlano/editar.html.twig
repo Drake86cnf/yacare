@@ -1,0 +1,14 @@
+{% extends 'TapirAbmBundle::editarbase.html.twig' %}
+
+{% block pagina_titulo %}
+    {% if entity.id %} {{ entity }} {% else %} Nueva previa {% endif %}
+{% endblock %}
+
+{% block pagina_contenido %}
+    {% if entity.id %}
+        {{ form_row(res.FormularioEditar.id) }}
+    {% endif %}
+	{{ form_row(res.FormularioEditar.Partida) }}
+	{{ form_row(res.FormularioEditar.Profesional) }}
+	{{ form_row(res.FormularioEditar.Obs) }}
+{% endblock %}

@@ -10,14 +10,25 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
-        parent::__construct($em);
+    function __construct($listener = null, $em = null)
+    {
+        parent::__construct($listener, $em);
     }
-    
-    public function PreUpdatePersist($comercio, $args = null) {
+
+    public function PreUpdatePersist($comercio, $args = null)
+    {
         $this->ReordenarActividades($comercio);
+        
+        if (! $this->EsEdicion) {
+            if($this->Listener && $this->Listener->container) {
+                $Usuario = $this->Listener->container->get('security.token_storage')->getToken()->getUser();
+                if ($Usuario) {
+                    $comercio->setCreadoPor($Usuario);
+                }
+            }
+        }
     }
-    
+
     /**
      * Reordena las actividades en un comercio para que estén consolidadas (sin espacios
      * intermedios en blanco).
@@ -27,31 +38,31 @@ class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
     public function ReordenarActividades($comercio)
     {
         $Reordenado = false;
-    
+        
         if ($comercio->getActividad6() && ! $comercio->getActividad5()) {
             $comercio->setActividad5($comercio->getActividad6());
             $comercio->setActividad6(null);
             $Reordenado = true;
         }
-    
+        
         if ($comercio->getActividad5() && ! $comercio->getActividad4()) {
             $comercio->setActividad4($comercio->getActividad5());
             $comercio->setActividad5(null);
             $Reordenado = true;
         }
-    
+        
         if ($comercio->getActividad4() && ! $comercio->getActividad3()) {
             $comercio->setActividad3($comercio->getActividad4());
             $comercio->setActividad4(null);
             $Reordenado = true;
         }
-    
+        
         if ($comercio->getActividad3() && ! $comercio->getActividad2()) {
             $comercio->setActividad2($comercio->getActividad3());
             $comercio->setActividad3(null);
             $Reordenado = true;
         }
-    
+        
         if ($Reordenado) {
             // Si hice cambios, uso recursión para hacer una pasada más, que puede ser necesaria.
             return $this->ReordenarActividades($comercio);

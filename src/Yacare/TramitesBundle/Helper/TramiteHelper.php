@@ -11,9 +11,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
 {
 
-    function __construct($em = null)
+    function __construct($listener = null, $em = null)
     {
-        parent::__construct($em);
+        parent::__construct($listener, $em);
     }
 
     public function PreUpdatePersist($entity, $args = null)
@@ -27,38 +27,10 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 array('Clase' => $NombreClase));
             
             $entity->setTramiteTipo($TramiteTipo);
-            if ($entity->getTramiteTipo()->getClase() == '\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial') {
-                if ($entity->getComercio()->getLocal() != null) {
-                    $NuevoCat = new \Yacare\ObrasParticularesBundle\Entity\TramiteCat();
-                    $NuevoCat->setLocal($entity->getComercio()
-                        ->getLocal());
-                    $NuevoCat->setUsoSuelo($entity->getComercio()
-                        ->getLocal()
-                        ->getPartida()
-                        ->getZona());
-                    $NuevoCat->setTitular($entity->getComercio()
-                        ->getLocal()
-                        ->getPartida()
-                        ->getTitular());
-                    $NuevoCat->setActividad1($entity->getComercio()
-                        ->getActividad1());
-                    $NuevoCat->setActividad2($entity->getComercio()
-                        ->getActividad2());
-                    $NuevoCat->setActividad3($entity->getComercio()
-                        ->getActividad3());
-                    $NuevoCat->setActividad4($entity->getComercio()
-                        ->getActividad4());
-                    $NuevoCat->setActividad5($entity->getComercio()
-                        ->getActividad5());
-                    $NuevoCat->setActividad6($entity->getComercio()
-                        ->getActividad6());
-                    $this->em->persist($NuevoCat);
-                    $this->em->flush();
-                }
-            }
         }
-        $this->AsociarEstadosRequisitos($entity, null, $entity->getTramiteTipo()
-            ->getAsociacionRequisitos());
+        $this->AsociarEstadosRequisitos($entity, null, 
+            $entity->getTramiteTipo()
+                ->getAsociacionRequisitos());
     }
 
     /**
@@ -99,8 +71,15 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 // Es un trámite... asocio los sub-requisitos
                 $SubTramiteTipo = $AsociacionRequisito->getRequisito()->getTramiteTipoEspejo();
                 if ($SubTramiteTipo) {
-                    $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
-                        $SubTramiteTipo->getAsociacionRequisitos());
+                    if ($SubTramiteTipo->getClase() != '\Yacare\TramitesBundle\Entity\TramiteSimple') {
+                        $ClaseSubTramite = $SubTramiteTipo->getClase();
+                        $NuevoSubTram = new $ClaseSubTramite();
+                        $NuevoSubTram->setTramitePadre($entity);
+                        $NuevoSubTram->setTitular($entity->getTitular());
+                        $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
+                            $SubTramiteTipo->getAsociacionRequisitos());
+                        $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
+                    }
                 }
             }
         }
@@ -122,7 +101,6 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
             $Comprob = $this->EmitirComprobante($tramite);
             $res['comprobante'] = $Comprob;
             if ($Comprob) {
-                $Comprob->setTramiteOrigen($tramite);
                 $Comprob->setNumero($this->ObtenerProximoNumeroComprobante($Comprob));
                 $this->em->persist($Comprob);
                 
@@ -166,6 +144,8 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 // Instancio un comprobante del tipo asociado
                 $Comprob = new $Clase();
                 $Comprob->setComprobanteTipo($ComprobanteTipo);
+                $Comprob->setTramiteOrigen($tramite);
+                $Comprob->setTitular($tramite->getTitular());
                 
                 if ($ComprobanteTipo->getPeriodoValidez()) {
                     // Este tipo de comprobante tiene un período de validez predeterminado

@@ -65,18 +65,49 @@ class ImportadorPartidas extends Importador {
         $this->ObtenerConexionAOracle();
     }
     
+    
+    public function PreImportar()
+    {
+        $res = parent::PreImportar();
+        
+        $IdsPartidasActuales = $this->Dbmunirg->query('SELECT PARTIDA FROM RGR.VVU$CATASTRO')->fetchAll(\PDO::FETCH_COLUMN);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('p')
+            ->from('Yacare\CatastroBundle\Entity\Partida', 'p')
+            ->add('where', $qb->expr()->notIn('p.Numero', '?1'))
+            ->setParameter(1, $IdsPartidasActuales);
+        
+            
+        $q = $qb->getQuery();
+        $PartidasObsoletas = $q->getResult();
+        foreach($PartidasObsoletas as $Partida) {
+            $Partida->setSuprimido(1);
+            $this->em->persist($Partida);
+        }
+
+        
+        return $res;
+    }
+    
+    
     public function ObtenerRegistros($desde, $cantidad) {
-        $sql = $this->OracleVentana(
-            'SELECT C.*, D.*, I.TG06100_TG06100_ID FROM RGR.VVU$CATASTRO C
+        $sql = 'SELECT C.*, D.*, I.TG06100_TG06100_ID FROM RGR.VVU$CATASTRO C
                 LEFT JOIN RGR.VVU$DOMICILIO D ON D.TG06300_ID=C.DPROP_TG06300_ID
-                LEFT JOIN RGR.VVU$REL_CAT_IND I ON I.TR3A100_ID=C.TR3A100_ID'
-            , $desde, $cantidad);
-        return $this->Dbmunirg->query($sql);
+                LEFT JOIN RGR.VVU$REL_CAT_IND I ON I.TR3A100_ID=C.TR3A100_ID';
+        if($this->Where) {
+            $sql .= ' WHERE ' . $this->Where;
+        }
+        $sql .= ' ORDER BY C.PARTIDA';
+        $sqlventana = $this->OracleVentana($sql, $desde, $cantidad);
+        return $this->Dbmunirg->query($sqlventana);
     }
     
     
     public function ObtenerCantidadTotal() {
-        $sql = 'SELECT COUNT(PARTIDA) CANT FROM RGR.VVU$CATASTRO';
+        $sql = 'SELECT COUNT(C.PARTIDA) CANT FROM RGR.VVU$CATASTRO C';
+        if($this->Where) {
+            $sql .= ' WHERE ' . $this->Where;
+        }
         $Registro = $this->Dbmunirg->query($sql)->fetch();
         if($Registro) {
             return (int)($Registro['CANT']); 
@@ -109,7 +140,7 @@ class ImportadorPartidas extends Importador {
     
     public function ImportarRegistro($Row) {
         $resultado = new ResultadoLote();
-        $resultado->Registros[] = $Row;
+        //$resultado->Registros[] = $Row;
         
         $Seccion = strtoupper(trim($Row['SECCION'], ' .'));
         $MacizoNum = trim($Row['MACIZO_NUM'], ' .');
@@ -118,16 +149,10 @@ class ImportadorPartidas extends Importador {
         $ParcelaAlfa = trim($Row['PARCELA_ALFA'], ' .');
         $SubparcelaNum = trim($Row['SUBPARC_NUM'], ' .');
         $SubparcelaAlfa = trim($Row['SUBPARC_ALFA'], ' .');
-        //$Macizo = trim($MacizoNum . $MacizoAlfa);
-        //$Parcela = trim($ParcelaNum . $ParcelaAlfa);
-        //$Subparcela = trim($SubparcelaNum . $SubparcelaAlfa);
         $UnidadFuncional = (int) ($Row['UNID_FUNC']);
         
-        $entity = null;
-        /*
-         * $entity = $em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
-         * 'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
-         */
+        $entity = $this->em->getRepository('YacareCatastroBundle:Partida')->findOneBy(array( 'ImportSrc' =>
+            'dbmunirg.TR3A100', 'ImportId' => $Row['TR3A100_ID'] ));
         
         if (! $entity) {
             $entity = $this->em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
@@ -146,7 +171,7 @@ class ImportadorPartidas extends Importador {
             $entity = $this->em->getRepository('YacareCatastroBundle:Partida')->findOneBy(
                 array('Numero' => (int) ($Row['PARTIDA'])));
         }
-        
+
         if (! $entity) {
             $entity = new \Yacare\CatastroBundle\Entity\Partida();
             $entity->setSeccion($Seccion);
@@ -157,7 +182,6 @@ class ImportadorPartidas extends Importador {
             $entity->setSubparcelaAlfa($SubparcelaAlfa);
             $entity->setSubparcelaNum($SubparcelaNum);
             $entity->setUnidadFuncional($UnidadFuncional);
-            
             $resultado->RegistrosNuevos++;
         } else {
             $resultado->RegistrosActualizados++;
@@ -165,56 +189,54 @@ class ImportadorPartidas extends Importador {
         
         $CodigoCalle = $this->ArreglarCodigoCalle($Row['CODIGO_CALLE']);
         
-        if ($entity && $Seccion) {
-            if ($CodigoCalle) {
-                $entity->setDomicilioCalle($this->em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
-            } else {
-                $entity->setDomicilioCalle(null);
-            }
-        
-            if ($Row['ZONA_CODIGO']) {
-                $ZonaId = @$this->Zonas[$Row['ZONA_CODIGO']];
-                if ($ZonaId) {
-                    $entity->setZona($this->em->getReference('YacareCatastroBundle:Zona', $ZonaId));
-                } else {
-                    $entity->setZona(null);
-                }
+        if ($CodigoCalle) {
+            $entity->setDomicilioCalle($this->em->getReference('YacareCatastroBundle:Calle', $CodigoCalle));
+        } else {
+            $entity->setDomicilioCalle(null);
+        }
+    
+        if ($Row['ZONA_CODIGO']) {
+            $ZonaId = @$this->Zonas[$Row['ZONA_CODIGO']];
+            if ($ZonaId) {
+                $entity->setZona($this->em->getReference('YacareCatastroBundle:Zona', $ZonaId));
             } else {
                 $entity->setZona(null);
             }
-            
-            $Titulares = $this->ObtenerTitularesPorId($Row['TR3A100_ID']);
-            if(count($Titulares) >= 1) {
-                $entity->setTitular($Titulares[0]);
-            } else {
-                $entity->setTitular(null);
-            }
-        
-
-            $entity->setUnidadFuncional($UnidadFuncional);
-            $entity->setDomicilioNumero((int) ($Row['NUMERO']));
-            $entity->setDomicilioPiso(trim($Row['PISO']));
-            $entity->setDomicilioPuerta(trim($Row['DEPTO']));
-            $entity->setNumero((int) ($Row['PARTIDA']));
-            
-            // Guardo los TG06100_ID de los titulares de las partidas, para debug
-            $Tg06100Id = trim($Row['TG06100_TG06100_ID']);
-            $Tg06100IdActual = $entity->getTg06100Id();
-            if($Tg06100IdActual) {
-                if(strpos($Tg06100IdActual, $Tg06100Id) === false) {
-                    $entity->setTg06100Id($Tg06100IdActual . ','. $Tg06100Id);
-                }
-            } else {
-                $entity->setTg06100Id($Tg06100Id);
-            }
-        
-            // $entity->setImportSrc('dbmunirg.TR3A100');
-            // $entity->setImportId($Row['TR3A100_ID']);
-        
-            $this->em->persist($entity);
-            $this->em->flush();
+        } else {
+            $entity->setZona(null);
         }
         
+        $Titulares = $this->ObtenerTitularesPorId($Row['TR3A100_ID']);
+        if(count($Titulares) >= 1) {
+            $entity->setTitular($Titulares[0]);
+        //} else {
+        //    $entity->setTitular(null);
+        }    
+
+        $entity->setUnidadFuncional($UnidadFuncional);
+        $entity->setDomicilioNumero((int) ($Row['NUMERO']));
+        $entity->setDomicilioPiso(trim($Row['PISO']));
+        $entity->setDomicilioPuerta(trim($Row['DEPTO']));
+        $entity->setNumero((int) ($Row['PARTIDA']));
+        
+        // Guardo los TG06100_ID de los titulares de las partidas, para debug
+        $Tg06100Id = trim($Row['TG06100_TG06100_ID']);
+        $Tg06100IdActual = $entity->getTg06100Id();
+        if($Tg06100IdActual) {
+            if(strpos($Tg06100IdActual, $Tg06100Id) === false) {
+                $entity->setTg06100Id($Tg06100IdActual . ','. $Tg06100Id);
+            }
+        } else {
+            $entity->setTg06100Id($Tg06100Id);
+        }
+    
+        $entity->setImportSrc('dbmunirg.TR3A100');
+        $entity->setImportId($Row['TR3A100_ID']);
+        $entity->setSuprimido(0);
+
+        $this->em->persist($entity);
+        $this->em->flush();
+
         return $resultado;
     }
 }

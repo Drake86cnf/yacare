@@ -82,11 +82,18 @@ class AuditoriaRegistro
     /**
      * El id del usuario que ejecutó la acción.
      *
-     * @var int
+     * @var PersonaInterface
      * 
-     * @ORM\Column(name="usuario", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="PersonaInterface")
+     * @JMS\Serializer\Annotation\Exclude
      */
     private $Usuario;
+    
+    
+    public function __toString() {
+        return $this->getAccion() . ' sobre ' . $this->getElementoTipo() . ' Nº ' . $this->getElementoId();
+    }
+    
 
     /**
      * @ignore

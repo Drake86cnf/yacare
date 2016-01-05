@@ -1,0 +1,38 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Movimiento de previas{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nº</th>
+			<th>Solicitante</th>
+			<th>Fecha</th>
+			<th>Partida</th>
+			<th>Profesional</th>
+			<th> </th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entidad in res.Entidades %}
+		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': entidad.Id }) }}">
+			<td>{{ entidad.Id }}</td>
+			<td>{{ entidad.Partida.Titular }}</td>
+			<td>{{ entidad.createdAt|date("d/m/Y") }}</td>
+			<td>{{ entidad.Partida }}</td>
+			<td>{{ entidad.Profesional }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link"
+	href="{{ path(res.ObtenerRutaAccion('crear')) }}" class="btn btn-default hidden-print">
+	<i class="fa fa-plus"></i> Nueva previa</a>
+{% endblock pagina_acciones2 %}

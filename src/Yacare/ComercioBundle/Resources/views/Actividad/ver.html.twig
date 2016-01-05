@@ -1,0 +1,52 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+{% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as my %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text('Nombre', res.Entidad.Nombre, 'text-value-strong') }}
+			{{ bs.grid_label_text('Categoría', res.Entidad.CategoriaAntigua) }}
+			{{ bs.grid_label_text('C.P.U.', res.Entidad.CodigoCpuFormateado) }}
+			{{ bs.grid_label_text('Nivel de riesgo', res.Entidad.NivelRiesgoNombre) }}
+		</div>
+		<div class="col-sm-4 col-xs-12 col-separator-left">
+            {{ bs.grid_label_text66('ClaMAE', res.Entidad.Clamae2014Formateado) }}
+            {{ bs.grid_label_text66('D.G.R.', res.Entidad.DgrTdfFormateado) }}
+            {{ bs.grid_label_text66('ClaE AFIP', res.Entidad.ClaeAfip) }}
+		    {{ bs.grid_label_text66('ClaNAE 2010', res.Entidad.Clanae2010) }}
+		    {{ bs.grid_label_text66('ClaNAE 97', res.Entidad.Clanae1997) }}
+		</div>
+		
+		{% if res.Entidad.Incluye %}
+		<div class="col-sm-12">
+			<h2 class="row-header">Incluye</h2>
+			<p>{{ res.Entidad.Incluye|nl2br }}</p>
+		</div>
+		{% endif %}
+		
+		{% if res.Entidad.NoIncluye %}
+		<div class="col-sm-12">
+			<h2 class="row-header">No incluye</h2>
+			<p>{{ res.Entidad.NoIncluye|nl2br }}</p>
+		</div>
+		{% endif %}
+	</div>
+	
+</div>
+{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
+	<div class="pull-right">
+    <a data-toggle="ajax-link" class="btn btn-default"
+    	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
+    	<i class="fa fa-edit"></i> Editar</a>
+	</div>
+{% endif %}
+{% endblock %}

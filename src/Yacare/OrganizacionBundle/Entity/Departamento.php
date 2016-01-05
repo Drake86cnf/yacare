@@ -48,6 +48,15 @@ class Departamento implements Tree\NodeInterface
     private $Codigo;
     
     /**
+     * El nombre original del departamento en el sistema de Gestión.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $NombreOriginal;
+    
+    /**
      * Indica si hace parte diario.
      * 
      * @var boolean
@@ -72,39 +81,41 @@ class Departamento implements Tree\NodeInterface
      *
      * @see \Yacare\BaseBundle\Model\Tree\Node Node
      * 
-     * @ORM\ManyToOne(targetEntity="Departamento")
+     * @ORM\ManyToOne(targetEntity="Departamento", cascade={ "all" })
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $ParentNode;
-
+    
     /**
-     * Normaliza los nombres de rangos de departamentos.
-     * 
-     * @param integer $rango
+     * Devuelve nombres de rango normalizados.
+     *
+     * @param  integer $estado
      * @return string
      */
-    public static function RangosNombres($rango)
+    public static function NombreRango($rango)
     {
-        switch ($rango) {
-            case 1:
-                return 'Ejecutivo';
-            case 20:
-                return 'Ministerio';
-            case 30:
-                return 'Secretaría';
-            case 40:
-                return 'Subsecretaría';
-            case 50:
-                return 'Dirección';
-            case 60:
-                return 'Subdirección';
-            case 70:
-                return 'Sector';
-            default:
-                return '';
+        if(array_key_exists($rango, Departamento::NombresRangos())) {
+            return Departamento::NombresRangos()[$rango];
+        } else {
+            return $rango;
         }
     }
-
+    
+    /**
+     * Devuelve un array con los posibles rangos y sus nombres.
+     */
+    public static function NombresRangos() {
+        return array(
+            1 => 'Ejecutivo',
+            20 => 'Ministerio',
+            30 => 'Secretaría',
+            40 => 'Subsecretaría',
+            50 => 'Dirección',
+            60 => 'Subdirección',
+            70 => 'Sector'
+        );
+    }
+    
     /**
      * Devuelve el nombre del rango.
      * 
@@ -112,7 +123,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getRangoNombre()
     {
-        return Departamento::RangosNombres($this->getRango());
+        return $this->NombreRango($this->getRango());
     }
 
     /**
@@ -128,7 +139,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getSangriaDeEspaciosDuros()
     {
-        // Atención, son 'espacios duro'
+        // Atención, son 'espacios duros'
         return $this->getSangria('        ');
     }
 
@@ -137,7 +148,7 @@ class Departamento implements Tree\NodeInterface
      */
     public function getNombreConSangriaDeEspaciosDuros()
     {
-        // Atención, son 'espacios duro'
+        // Atención, son 'espacios duros'
         return $this->getSangria('        ') . $this->getNombre();
     }
 
@@ -189,6 +200,40 @@ class Departamento implements Tree\NodeInterface
     public function setHaceParteDiario($HaceParteDiario)
     {
         $this->HaceParteDiario = $HaceParteDiario;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getNombreOriginal()
+    {
+        return $this->NombreOriginal;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNombreOriginal($NombreOriginal)
+    {
+        $this->NombreOriginal = $NombreOriginal;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getCodigoPayroll()
+    {
+        return $this->CodigoPayroll;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCodigoPayroll($CodigoPayroll)
+    {
+        $this->CodigoPayroll = $CodigoPayroll;
         return $this;
     }
 }

@@ -10,8 +10,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class CertificadoHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null) {
-        parent::__construct($em);
+    function __construct($listener = null, $em = null)
+    {
+        parent::__construct($listener, $em);
     }
     
     public function PreUpdatePersist($comprobante, $args = null) {
@@ -19,9 +20,15 @@ class CertificadoHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\H
     }
     
     public function AsignarComercio($comprobante) {
-        $Tramite = $comprobante->getTramiteOrigen();
-        $Comercio = $Tramite->getComercio();
-        $comprobante->setComercio($Comercio);
+        if(!$comprobante->getComercio()) {
+            // Durante la creación, no tiene un comercio asignado.
+            // Asigno uno y pongo el comercio como habilitado y lo asocio con el certificado.
+            $Tramite = $comprobante->getTramiteOrigen();
+            $Comercio = $Tramite->getComercio();
+            $comprobante->setComercio($Comercio);
+            $comprobante->getComercio()->setEstado(100);
+            $comprobante->getComercio()->setCertificadoHabilitacion($comprobante);
+        }
     }
     
 }

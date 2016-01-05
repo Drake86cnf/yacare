@@ -14,9 +14,19 @@
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
 			{% if res.Entidad.DomicilioReal %}
-			    {{ bs.grid_label_text('Domicilio', res.Entidad.DomicilioReal) }}
+			    {% if res.Entidad.Domicilio and res.Entidad.Local %}
+			        {{ bs.grid_label_text('Local', res.Entidad.Local, 'text-danger') }}
+			        {{ bs.grid_label_text('Domicilio declarado', res.Entidad.DomicilioReal) }}
+			    {% elseif res.Entidad.Local %}
+			        {{ bs.grid_label_text('Local', res.Entidad.Local) }}
+			    {% else %}
+			    	{{ bs.grid_label_text('Domicilio legal', res.Entidad.DomicilioReal) }}
+			    {% endif %}
 			{% else %}
 				{{ bs.grid_label_text('Domicilio', 'n/a') }}
+			{% endif %}
+			{% if res.Entidad.CreadoPor %}
+			    {{ bs.grid_label_text('Dado de alta por', res.Entidad.CreadoPor) }}
 			{% endif %}
 		</div>
 		<div class="col-sm-4 col-xs-12 col-separator-left">
@@ -42,7 +52,9 @@
 	<h2 class="row-header">Actividades</h2>
 	<div class="row">
 		<div class="col-xs-12">
-			{{ bs.grid_label_text(res.Entidad.Actividad1.Clamae2014, res.Entidad.Actividad1) }}
+		    {% if res.Entidad.Actividad1 %}
+			    {{ bs.grid_label_text(res.Entidad.Actividad1.Clamae2014, res.Entidad.Actividad1) }}
+			{% endif %}
 			{% if res.Entidad.Actividad2 %}
                 {{ bs.grid_label_text(res.Entidad.Actividad2.Clamae2014, res.Entidad.Actividad2) }}
             {% endif %}
@@ -103,7 +115,7 @@
 	</div>
 	{% endif %}
 	
-	<div class="row"><div class="col-xs-12">
+	<div class="row"><div class="col-xs-12"><br />
     	<p>
     	{% if res.Entidad.Estado == 100 %}La habilitación está vigente.
         {% elseif res.Entidad.Estado == 91 %}La habilitación está vencida.
@@ -120,7 +132,6 @@
         {% endif %}
         emitido en el sistema actual.        
 	</div></div>
-
 
 <h2 class="row-header">Actas</h2>
 <table class="table table-reponsive table-hoverselect">

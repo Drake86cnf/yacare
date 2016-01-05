@@ -2,6 +2,7 @@
 namespace Tapir\BaseBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\Common\EventArgs;
@@ -16,119 +17,128 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class AuditableListener implements EventSubscriber
 {
     private $container;
-
+    
+    /**
+     * Guarda una colección de los registros de auditoría de nuevos registros sobre los cuales no se tiene el id.
+     */
+    private $InsercionesSinId = array();
+    
+    /**
+     * Indica que hay que hacer un flush adicional.
+     * 
+     * Puntualmente, es para modificar entidades en el postPersist, para poder obtener los ID de las nuevas entidades
+     * que no estaban disponibles en el onFlush.
+     * 
+     * @see $InsercionesSinId
+     * @see postPersist() postFlush()
+     */
+    private $FlushPostFlush = false;
+    
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
     /**
-     * Interviene la creación de una entidad para generar un registro de auditoría.
+     * Interviene la modificación, creación o eliminación de una entidad para generar un registro de auditoría.
      *
-     * @param LifecycleEventArgs $eventArgs
+     * @param OnFlushEventArgs $args
      */
-    public function postPersist(LifecycleEventArgs $eventArgs)
+    public function onFlush(OnFlushEventArgs $args) 
     {
-        return $this->logChangeSet($eventArgs, 'crear');
-    }
-
-    /**
-     * Interviene la modificación de una entidad para generar un registro de auditoría.
-     *
-     * @param LifecycleEventArgs $eventArgs
-     */
-    public function postUpdate(LifecycleEventArgs $eventArgs)
-    {
-        return $this->logChangeSet($eventArgs, 'editar');
-    }
-
-    /**
-     * Interviene la eliminación de una entidad para generar un registro de auditoría.
-     *
-     * @param LifecycleEventArgs $eventArgs
-     */
-    public function preRemove(LifecycleEventArgs $eventArgs)
-    {
-        $em = $eventArgs->getEntityManager();
-        $entity = $eventArgs->getEntity();
-        $classMetadata = $em->getClassMetadata(get_class($entity));
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
         if($this->container->get('security.token_storage')->getToken()) {
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $UsuarioConectado = $this->container->get('security.token_storage')->getToken()->getUser();
         } else {
             // A veces no hay usuario conectado, por ejemplo al correr servicios desde la línea de comandos
-            $user = null;
+            $UsuarioConectado = null;
         }
 
-        if ($this->isEntitySupported($classMetadata->reflClass)) {
-            $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-            $Registro->setAccion('eliminar');
-            $Registro->setElementoTipo($classMetadata->reflClass->getName());
-            $Registro->setElementoId($entity->getId());
-            if($this->container->isScopeActive('request')) {
-                // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
-                $Registro->setEstacion($this->container->get('request')->getClientIp());
+        // FIXME: las inserciones se guardan sin ID.
+        $Entidades = $uow->getScheduledEntityInsertions();
+        foreach ($Entidades as $Entidad) {
+            if ($this->isEntitySupported($Entidad)) {
+                $Cambios = $uow->getEntityChangeSet($Entidad);
+                $this->WriteToLogTable($em, 'insert', $Entidad, $UsuarioConectado, $Cambios);
+                $this->WriteToLogFile('insert', $Entidad, $UsuarioConectado, $Cambios);
             }
-            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
-                // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
-                $Registro->setUsuario($user->getId());
-            }
-            $em->persist($Registro);
-            $em->flush();
-
-            $this->WriteToLog('eliminar', $entity, $user);
         }
+        
+        $Entidades = $uow->getScheduledEntityUpdates();
+        foreach ($Entidades as $Entidad) {
+            if ($this->isEntitySupported($Entidad)) {
+                $Cambios = $uow->getEntityChangeSet($Entidad);
+                $this->WriteToLogTable($em, 'update', $Entidad, $UsuarioConectado, $Cambios);
+                $this->WriteToLogFile('update', $Entidad, $UsuarioConectado, $Cambios);
+            }
+        }
+        
+        $Entidades = $uow->getScheduledEntityDeletions();
+        foreach ($Entidades as $Entidad) {
+            if ($this->isEntitySupported($Entidad)) {
+                $Cambios = $uow->getEntityChangeSet($Entidad);
+                $this->WriteToLogTable($em, 'delete', $Entidad, $UsuarioConectado, $Cambios);
+                $this->WriteToLogFile('delete', $Entidad, $UsuarioConectado, $Cambios);
+            }
+        }        
     }
+    
 
     /**
      * Genera un registro de auditoría con un detalle de los cambios realizados a la entidad.
      *
      * @param LifecycleEventArgs $eventArgs
      */
-    public function logChangeSet(LifecycleEventArgs $eventArgs, $action)
+    public function WriteToLogTable($em, $action, $entity, $user, $changeSet = null)
     {
-        $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
-        $entity = $eventArgs->getEntity();
-        $classMetadata = $em->getClassMetadata(get_class($entity));
-        if($this->container->get('security.token_storage')->getToken()) {
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        } else {
-            // A veces no hay usuario conectado, por ejemplo al correr servicios desde la línea de comandos
-            $user = null;
+        $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
+        $Registro->setAccion($action);
+        $Registro->setElementoTipo(str_replace('Proxies\\__CG__\\', '', get_class($entity)));
+        $Registro->setElementoId($entity->getId());
+        if($this->container->isScopeActive('request')) {
+            // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
+            $Registro->setEstacion($this->container->get('request')->getClientIp());
         }
-
-        if ($this->isEntitySupported($classMetadata->reflClass)) {
-            $uow->computeChangeSet($classMetadata, $entity);
-            $changeSet = $uow->getEntityChangeSet($entity);
-
-            $this->WriteToLog($action, $entity, $user, $changeSet);
-
-            $Registro = new \Tapir\BaseBundle\Entity\AuditoriaRegistro();
-            $Registro->setAccion($action);
-            $Registro->setElementoTipo($classMetadata->reflClass->getName());
-            $Registro->setElementoId($entity->getId());
-            if($this->container->isScopeActive('request')) {
-                // A veces no hay request, por ejemplo al correr servicios desde la línea de comandos
-                $Registro->setEstacion($this->container->get('request')->getClientIp());
+        if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
+            // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
+            $Registro->setUsuario($user);
+        }
+        $Registro->setCambios(json_encode($changeSet));
+        $em->persist($Registro);
+        $this->InsercionesSinId[] = $Registro;
+        
+        $cambioMetadata = $em->getClassMetadata(get_class($Registro));
+        $uow->computeChangeSet($cambioMetadata, $Registro);
+    }
+    
+    public function postPersist(LifecycleEventArgs $args) {
+        if(count($this->InsercionesSinId) > 0) {
+            $em = $args->getEntityManager();
+            $Entidad = $args->getEntity();
+            foreach ($this->InsercionesSinId as $Registro) {
+                if(!$Registro->getElementoId() && $Registro->getElementoTipo() == str_replace('Proxies\\__CG__\\', '', get_class($Entidad))) {
+                    $Registro->setElementoId($Entidad->getId());
+                    $em->persist($Registro);
+                    $this->FlushPostFlush = true;
+                }
             }
-            if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
-                // A veces el usuario no tiene ID (por ejemplo en el entorno de pruebas unitarias)
-                $Registro->setUsuario($user->getId());
-            }
-            //echo '<pre>' . json_encode($changeSet, JSON_PRETTY_PRINT) . '</pre>';
-            $Registro->setCambios(json_encode($changeSet));
-            $em->persist($Registro);
-            $em->flush();
-            //$em->clear();
-            //$RegistroMeta = $em->getClassMetadata(get_class($Registro));
-            //$uow->computeChangeSet($RegistroMeta, $Registro);
+        }
+    }
+    
+    public function postFlush(PostFlushEventArgs $eventArgs)
+    {
+        if ($this->FlushPostFlush) {
+            $this->FlushPostFlush = false;
+            $eventArgs->getEntityManager()->flush();
         }
     }
 
     /**
      * Escribe un evento en el log.
      */
-    protected function WriteToLog($action, $entity, $user, $changeSet = null)
+    protected function WriteToLogFile($action, $entity, $user, $changeSet = null)
     {
         if (\Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($user, 'Tapir\BaseBundle\Entity\ConIdMetodos')) {
             $logUser = $user->getId();
@@ -148,14 +158,13 @@ class AuditableListener implements EventSubscriber
      * @param ReflectionClass $reflClass
      * @return boolean True si la clase es auditable.
      */
-    protected function isEntitySupported(\ReflectionClass $reflClass)
+    protected function isEntitySupported($className)
     {
-        return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($reflClass->getName(),
-            'Tapir\BaseBundle\Entity\Auditable');
+        return \Tapir\BaseBundle\Helper\ClassHelper::UsaTrait($className, 'Tapir\BaseBundle\Entity\Auditable');
     }
 
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::postUpdate, \Doctrine\ORM\Events::preRemove];
+        return [\Doctrine\ORM\Events::onFlush, \Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::postFlush];
     }
 }

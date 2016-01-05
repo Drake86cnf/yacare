@@ -3,9 +3,9 @@ namespace Yacare\ObrasParticularesBundle\Helper;
 
 class ActaObraHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-    function __construct($em = null)
+    function __construct($listener = null, $em = null)
     {
-        parent::__construct($em);
+        parent::__construct($listener, $em);
     }
 
     public function PreUpdatePersist($entity, $args = null)

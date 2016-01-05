@@ -30,7 +30,8 @@ class PersonaGrupo
      * 
      * @var Persona
      *
-     * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Persona", mappedBy="Grupos", cascade={ "all" })
+     * @ORM\JoinColumn(referencedColumnName="id")
      * 
      * @JMS\Serializer\Annotation\Exclude
      */
@@ -87,4 +88,22 @@ class PersonaGrupo
         $this->Dominio = $Dominio;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getPersonas()
+    {
+        return $this->Personas;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setPersonas(Persona $Personas)
+    {
+        $this->Personas = $Personas;
+        return $this;
+    }
+ 
 }

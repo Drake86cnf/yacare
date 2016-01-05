@@ -10,15 +10,14 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  */
 class EstadoRequisitoHelper extends \Yacare\BaseBundle\Helper\Helper
 {
-
-    function __construct($em = null)
+    function __construct($listener = null, $em = null)
     {
-        parent::__construct($em);
+        parent::__construct($listener, $em);
     }
 
     public function PreUpdatePersist($entity, $args = null)
     {
-        if($this->EsActualizacion && $args->hasChangedField('Estado')) {
+        if($this->EsEdicion && $args->hasChangedField('Estado')) {
             if ($entity->getEstado() == 100) {
                 // Al cambiar el estado por "aprobado", marco la fecha en la que fue aprobado
                 $entity->setFechaAprobado(new \DateTime());

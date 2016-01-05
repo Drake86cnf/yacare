@@ -18,6 +18,7 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
     use \Tapir\AbmBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar {
         \Tapir\AbmBundle\Controller\ConBuscar::buscarAction as buscarAction2;
     }

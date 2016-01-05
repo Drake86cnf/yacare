@@ -1,0 +1,7 @@
+services:
+    yacare.recursoshumanos.recursoshumanos_listener:
+        class: Yacare\RecursosHumanosBundle\EventListener\RecursosHumanosListener
+        arguments: [ '@service_container' ]
+        public:  false
+        tags:
+            - { name: doctrine.event_subscriber }

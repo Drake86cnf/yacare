@@ -2,6 +2,7 @@
 namespace Yacare\TramitesBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
@@ -12,8 +13,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  */
 class TramitesListener implements EventSubscriber
 {
-    private $container;
-
+    protected $container;
+    protected $TramiteHelper = null, $TramiteTipoHelper = null, $EstadoRequisitoHelper = null;
+    
+    public $EntidadesRelacionadas = array();
+    
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -22,18 +26,24 @@ class TramitesListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof \Yacare\TramitesBundle\Entity\ITramite) {
+        if (is_a($entity, '\Yacare\TramitesBundle\Entity\Tramite')) {
             // Capturo los eventos si la entidad es un trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper();
-            $Helper->LifecycleEvent($args);
-        } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\ITramiteTipo) {
+            if(!$this->TramiteHelper) {
+                $this->TramiteHelper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this);
+            }
+            $this->TramiteHelper->LifecycleEvent($args);
+        } elseif (is_a($entity, '\Yacare\TramitesBundle\Entity\TramiteTipo')) {
             // Capturo los eventos si la entidad es un tipo de trámite
-            $Helper = new \Yacare\TramitesBundle\Helper\TramiteTipoHelper();
-            $Helper->LifecycleEvent($args);
-        } elseif ($entity instanceof \Yacare\TramitesBundle\Entity\IEstadoRequisito) {
+            if(!$this->TramiteTipoHelper) {
+                $this->TramiteTipoHelper = new \Yacare\TramitesBundle\Helper\TramiteTipoHelper($this);
+            }
+            $this->TramiteTipoHelper->LifecycleEvent($args);
+        } elseif (is_a($entity, '\Yacare\TramitesBundle\Entity\EstadoRequisito')) {
             // Capturo los eventos si la entidad es el estado de un requisito
-            $Helper = new \Yacare\TramitesBundle\Helper\EstadoRequisitoHelper();
-            $Helper->LifecycleEvent($args);
+            if(!$this->EstadoRequisitoHelper) {
+                $this->EstadoRequisitoHelper = new \Yacare\TramitesBundle\Helper\EstadoRequisitoHelper($this);
+            }
+            $this->EstadoRequisitoHelper->LifecycleEvent($args);
         }
     }
 
@@ -41,9 +51,21 @@ class TramitesListener implements EventSubscriber
     {
         return $this->prePersist($args);
     }
+    
+    public function postFlush(PostFlushEventArgs $args)
+    {
+        if(count($this->EntidadesRelacionadas) > 0) {
+            $em = $args->getEntityManager();
+            foreach($this->EntidadesRelacionadas as $Entidad) {
+                $em->persist($Entidad);
+            }
+            $this->EntidadesRelacionadas = array();
+            $em->flush();
+        }
+    }
 
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
+        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate, \Doctrine\ORM\Events::postFlush];
     }
 }

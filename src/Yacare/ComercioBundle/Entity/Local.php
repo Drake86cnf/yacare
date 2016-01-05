@@ -2,6 +2,7 @@
 namespace Yacare\ComercioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Representa un local donde puede habilitarse un comercio.
@@ -37,6 +38,15 @@ class Local
      * @JMS\Serializer\Annotation\Exclude
      */
     protected $Comercios;
+    
+    /**
+     * La identificación del local dentro de la partida (en partidas con varios locales, por ejemplo).
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $SubDomicilio;
     
     /**
      * El tipo de local (local, oficina, depósito, etc.).
@@ -179,6 +189,9 @@ class Local
                 $res .= ' en ';
             }
             $res .= $this->getPartida()->getDomicilio();
+        }
+        if($this->getSubDomicilio()) {
+            $res .= ' ' . $this->getSubDomicilio();
         }
         
         $this->setNombre($res);
@@ -360,5 +373,23 @@ class Local
         $this->Comercios = $Comercios;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getSubDomicilio()
+    {
+        return $this->SubDomicilio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setSubDomicilio($SubDomicilio)
+    {
+        $this->SubDomicilio = $SubDomicilio;
+        return $this;
+    }
+ 
 
 }

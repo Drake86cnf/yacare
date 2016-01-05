@@ -1,6 +1,10 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Departamentos{% endblock %} {% block pagina_contenido %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
+{% block pagina_titulo%}Departamentos{% endblock %}
+
+{% set filtro_rango = app.request.query.get('filtro_rango') %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -10,20 +14,56 @@
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr data-toggle="modal"
-    		href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
-			<td>{{ entity.SangriaDeEspaciosDuros }} {{ entity.Nombre }}</td>
-			<td><ll class="label label-{% if entity.rango == 30 %}warning{% elseif entity.rango == 50 %}info{% else %}primary{% endif %}"
-				>{{ entity.RangoNombre }}</ll></td>
+		<tr data-toggle="modal" href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{{ entity.SangriaDeEspaciosDuros }}
+				{% if entity.rango == 1 %}<span class="label label-default">E</span>
+				{% elseif entity.rango == 30 %}<span class="label label-danger">S</span>
+				{% elseif entity.rango == 50 %}<span class="label label-warning">D</span>
+			    {% elseif entity.rango == 70 %}<span class="label label-info">R</span>
+			    {% endif %}
+			    {{ entity.Nombre }}</td>
+			<td>{{ entity.RangoNombre }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones %}
+<div class="btn-group">
+	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
+		id="dropdownMenuRoles" data-toggle="dropdown">
+		<i class="fa fa-filter {% if filtro_rango %}text-warning{% endif %}"></i>
+			{% if not filtro_rango %}
+				Rango
+			{% else %}
+				{{ res.Rangos[filtro_rango == -1 ? 0 : filtro_rango] }}
+    		{% endif %}
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right"
+		aria-labelledby="dropdownMenuRoles">
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_rango': null, 'page': null })) }}">
+				<i class="fa fa-fw{% if not filtro_rango %} fa-check{% endif %}"></i>
+				Todos
+		</a></li>
+		<li class="divider"></li>
+		{% for rango in res.Rangos|keys %}
+		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
+			tabindex="-1"
+			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_rango': rango == 0 ? -1 : rango, 'page': null })) }}">
+				<i class="fa fa-fw{% if (rango == 0 and filtro_rango == -1) or (rango == filtro_rango and filtro_rango != 0)%} fa-check{% endif %}"></i>
+				{{ res.Rangos[rango == -1 ? 0 : rango] }}
+		</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
 {% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}

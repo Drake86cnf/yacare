@@ -20,30 +20,37 @@ class TramiteCatType extends \Yacare\TramitesBundle\Form\TramiteType
             ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',
+                'disabled'=>true,
                 'required' => true))
             ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 1',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => true))
             ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 2',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => false))
             ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 3',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => false))
             ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 4',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => false))
             ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 5',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => false))
             ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 6',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',
+                'disabled'=>true,
                 'required' => false));
     }
 

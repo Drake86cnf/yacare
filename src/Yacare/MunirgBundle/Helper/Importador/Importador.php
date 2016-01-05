@@ -14,6 +14,7 @@ abstract class Importador {
     
     public $ResultadoNuevos;
     public $ResultadoActualizados;
+    public $Where;
     
     function __construct($container, $em) {
         $this->container = $container;
@@ -21,6 +22,7 @@ abstract class Importador {
     }
     
     public function Inicializar() {
+        mb_internal_encoding('UTF-8');
     }
     
     public function Importar($desde, $cantidad) {
@@ -41,8 +43,7 @@ abstract class Importador {
     
     
     public function PreImportar() {
-        mb_internal_encoding('UTF-8');
-        ini_set('display_errors', 1);
+        //ini_set('display_errors', 1);
         set_time_limit(600);
         ini_set('memory_limit', '2048M');
         
@@ -62,6 +63,7 @@ abstract class Importador {
     }
     
     public function PostImportar() {
+        $this->em->flush();
         $this->em->getConnection()->commit();
         $this->em->clear();
     }

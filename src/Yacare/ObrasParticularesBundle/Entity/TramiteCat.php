@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
-    use \Yacare\ComercioBundle\Entity\ConDatosComercio;
     
     /**
      * Valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
@@ -26,6 +25,18 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
      * @ORM\Column(type="integer", nullable=true)
      */
     private $UsoSuelo;
+
+    /**
+     * El Comercio al que esta asignado el Cat.  
+     *
+     * @var Comercio
+     *
+     * @ORM\ManyToOne(targetEntity="\Yacare\ComercioBundle\Entity\Comercio")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable= false)
+     *
+     * @JMS\Serializer\Annotation\Exclude
+     */
+    protected $Comercio;
 
     /**
      * Devuelve el nombre normalizado para el UsoSuelo.
@@ -52,4 +63,22 @@ class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
     {
         $this->UsoSuelo = $UsoSuelo;
     }
+
+    /**
+     * @ignore
+     */
+    public function getComercio()
+    {
+        return $this->Comercio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComercio($Comercio)
+    {
+        $this->Comercio = $Comercio;
+        return $this;
+    }
+ 
 }

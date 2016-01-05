@@ -11,12 +11,16 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 abstract class Helper implements IHelper
 {
     protected $em;
+    protected $Listener;
     protected $Entidad;
-    protected $EsActualizacion;
+    protected $EsEdicion;
     protected $Argumentos;
 
-    function __construct($em = null)
+    function __construct($listener = null, $em = null)
     {
+        if ($listener) {
+            $this->Listener = $listener;
+        }
         if ($em) {
             $this->em = $em;
         }
@@ -32,8 +36,17 @@ abstract class Helper implements IHelper
         $this->em = $args->getEntityManager();
         $this->Entidad = $args->getEntity();
         $this->Argumentos = $args;
-        $this->EsActualizacion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
+        $this->EsEdicion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
         
         $this->PreUpdatePersist($this->Entidad, $args);
+    }
+    
+    protected function AgregarEntidadAlConjuntoDeCambios($entidad) {
+        $this->Listener->EntidadesRelacionadas[] = $entidad;
+        /* $uow = $this->em->getUnitOfWork();
+        $cambioMetadata = $this->em->getClassMetadata(get_class($entidad));
+        
+        //recomputeSingleEntityChangeSet???
+        $uow->computeChangeSet($cambioMetadata, $entidad); */
     }
 }

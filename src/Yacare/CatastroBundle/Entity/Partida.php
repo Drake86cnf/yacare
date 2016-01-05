@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         }, 
  *     indexes={
  *         @ORM\Index(name="Catastro_Partida_SeccionMacizoParcelaSubparcelaUf", 
- *             columns={"Seccion", "MacizoAlfa", "MacizoNum", "ParcelaAlfa", "ParcelaNum", "UnidadFuncional"}),
+ *             columns={"Seccion", "MacizoNum", "MacizoAlfa", "ParcelaNum", "ParcelaAlfa", "SubparcelaNum", "SubparcelaAlfa", "UnidadFuncional"}),
  *         @ORM\Index(name="Catastro_Partida_Legajo", columns={"Legajo"}),
  *         @ORM\Index(name="Catastro_Partida_Numero", columns={"Numero"})
  *         }
@@ -26,7 +26,10 @@ class Partida
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Tapir\BaseBundle\Entity\Suprimible;
+    use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+    
     
     public function __construct()
     {
@@ -162,6 +165,31 @@ class Partida
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Tg06100Id;
+    
+    /**
+     * Obtiene el nombre del archivo de plancheta, si es que tiene uno.
+     */
+    public function getPlanchetaArchivos() {
+        $res = array();
+        $Carpeta = '/var/www/html/catastro/Planchetas/';
+        $ArchivoBase = $this->getSeccion() . '-' . $this->getMacizoNum() . $this->getMacizoAlfa();
+        $Pruebas = array($ArchivoBase . '.jpg', $ArchivoBase. ' hoja1.jpg', 
+            $ArchivoBase. ' hoja2.jpg', $ArchivoBase. ' hoja3.jpg',
+            $ArchivoBase. ' hoja4.jpg', $ArchivoBase. ' hoja5.jpg',
+            $ArchivoBase. ' hoja6.jpg', $ArchivoBase. ' hoja7.jpg',
+            $ArchivoBase. ' hoja8.jpg', $ArchivoBase. ' hoja9.jpg');
+        foreach($Pruebas as $Prueba) {
+            if(file_exists($Carpeta . $Prueba)) {
+                $res[] = $Prueba;
+            }
+        }
+        
+        if(count($res) > 0) {
+            return $res;
+        } else {
+            return null;
+        }
+    }
     
     
     /**

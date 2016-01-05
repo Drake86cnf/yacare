@@ -1,29 +1,31 @@
-{% extends 'TapirTemplateBundle::blank.html.twig' %} {% block
-pagina_contenido %}
+{% extends 'TapirTemplateBundle::blank.html.twig' %} 
+
+{% block pagina_contenido %}
 <span class="hidden-sm hidden-xs"> <br /> <br /> <br /> <br /></span>
 <div id="login-wrapper" class="container-fluid">
 	<div id="login-container" class="row">
 		<div class="col-md-2 hidden-sm hidden-xs">&nbsp;</div>
 		<div class="col-md-4">
-			{% image '@tapir_logoaplicacion' %} <img class="center-block"
-				src="{{ asset_url }}" alt="{{ tapir_cliente }}" /> {% endimage %}
+		{% image '@tapir_logoaplicacion' %} 
+			<img class="center-block" src="{{ asset_url }}" alt="{{ tapir_cliente }}" /> 
+		{% endimage %}
 		</div>
 		<div class="col-md-4">
 			<h1>¡Bienvenido!</h1>
-			<form role="form" class="form-horizontal"
-				action="{{ path('login_check') }}" method="post">
-				<p>Para continuar es necesario que escriba su nombre de usuario y su
-					contraseña.</p>
+			<form role="form" class="form-horizontal" action="{{ path('login_check') }}" method="post">
+				<p>Para continuar es necesario que escriba su nombre de usuario y su contraseña.</p>
 				{% if error %}
 				<div class="alert alert-dismissable alert-danger">
 					<button type="button" class="close" data-dismiss="alert">×</button>
-					Error: {{ error.message|trans }}
+					{{ error.message|replace(
+					    {"Bad credentials." : "El nombre de usuario y/o contraseña son incorrectos." }) }}
 				</div>
 				<p class="text">
 					Si no dispone de un nombre de usuario, puede solicitar uno mediante
 					<a href="{{ path('usuario_alta') }}">este formulario</a>.
 				</p>
-				{% endif %} <label for="_username" class="sr-only">Usuario</label>
+				{% endif %} 
+				<label for="_username" class="sr-only">Usuario</label>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -46,8 +48,7 @@ pagina_contenido %}
 				<button type="submit" class="btn btn-primary">Ingresar</button>
 
 				<br />&nbsp;<br />
-				<p class="text-muted">Si no tiene una contraseña, póngase en
-					contacto con el administrador del sistema.</p>
+				<p class="text-muted">Si no tiene una contraseña, póngase en contacto con el administrador del sistema.</p>
 			</form>
 		</div>
 		<div class="col-md-2 hidden-sm hidden-xs">&nbsp;</div>

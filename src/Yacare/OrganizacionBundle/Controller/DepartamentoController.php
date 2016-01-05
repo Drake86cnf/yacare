@@ -26,6 +26,32 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
         $this->Paginar = false;
         $this->OrderBy = "MaterializedPath";
     }
+    
+    /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_rango = $this->ObtenerVariable($request, 'filtro_rango');
+
+        if ($filtro_rango) {
+            if($filtro_rango == -1) {
+                // El -1 tiene el valor especial de Rango=0
+                $this->Where .= " AND r.Rango=0";
+            } else {
+                $this->Where .= " AND r.Rango<=$filtro_rango";
+            }
+        }
+
+        $RestuladoListar = parent::listarAction($request);
+        $res = $RestuladoListar['res'];
+
+        $res->Rangos = \Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos();
+
+        return $RestuladoListar;
+    }
+    
 
     /**
      * @Route("recalcular/")
@@ -34,16 +60,17 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
     public function recalcularAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
         $em->getConnection()->beginTransaction();
         $items = $em->getRepository('YacareOrganizacionBundle:Departamento')->findAll();
         foreach ($items as $item) {
-            $item->setParentNode($item->getParentNode());
+            $Parent = $item->getParentNode();
+            $item->setParentNode($Parent);
             $em->persist($item);
-            $em->flush();
         }
-        
+        $em->flush();
         $em->getConnection()->commit();
-        
-        return parent::listarAction($request);
+
+        return $this->listarAction($request);
     }
 }

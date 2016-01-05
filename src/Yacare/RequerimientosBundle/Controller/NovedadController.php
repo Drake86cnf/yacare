@@ -43,7 +43,7 @@ class NovedadController extends \Tapir\BaseBundle\Controller\BaseController
             $em->flush();
             
             if ($NuevaNovedad->getPrivada() == 0) {
-                $this->InformarNovedad($NuevaNovedad);
+                $this->InformarNovedad($request, $NuevaNovedad);
             }
             
             return $this->ArrastrarVariables($request, array('entity' => $NuevaNovedad));

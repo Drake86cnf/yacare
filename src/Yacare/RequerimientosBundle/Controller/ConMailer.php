@@ -15,64 +15,36 @@ trait ConMailer
     /**
      * Agrega una novedad a un requerimiento y envía un e-mail al usuario si corresponde.
      * 
-     * @param \Yacare\RequerimientosBundle\Entity\Novedad $NuevaNovedad      novedad nueva en el reqeurimiento.
-     * @param string                                      $VistaEmail        direción donde se aloja la plantilla del 
+     * @param \Yacare\RequerimientosBundle\Entity\Novedad $entidad      novedad nueva en el reqeurimiento.
+     * @param string                                      $vistaEmail        direción donde se aloja la plantilla del 
      *                                                                       e-mail. 
-     * @param string                                      $NumeroSeguimiento compuesto por la ID del requerimiento, y 
+     * @param string                                      $numeroSeguimiento compuesto por la ID del requerimiento, y 
      *                                                                       un token aleatorio.
      */
-    protected function InformarNovedad(
-        $NuevaNovedad, 
-        $VistaEmail = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig', 
-        $NumeroSeguimiento = null)
+    protected function InformarNovedad($request, $entidad, 
+        $vistaEmail = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_novedad.html.twig')
     {
-        if (trim(get_class($NuevaNovedad), '\\') == 'Yacare\RequerimientosBundle\Entity\Novedad') {
-            if ($NuevaNovedad->getRequerimiento()->getUsuario()) {
-                if ($NuevaNovedad->getRequerimiento()
-                    ->getUsuario()
-                    ->getEmail()) {
-                    $this->EnviarNovedad(
-                        $NuevaNovedad->getRequerimiento()
-                            ->getUsuario()
-                            ->getEmail(), $NuevaNovedad->getNotas(), $VistaEmail);
-                }
-            } elseif ($NuevaNovedad->getRequerimiento()->getUsuarioEmail()) {
-                $this->EnviarNovedad($NuevaNovedad->getRequerimiento()
-                    ->getUsuarioEmail(), $NuevaNovedad->getNotas(), $VistaEmail, $NumeroSeguimiento);
-            }
+        if (trim(get_class($entidad), '\\') == 'Yacare\RequerimientosBundle\Entity\Novedad') {
+            $Requerimiento = $entidad->getRequerimiento();
+            $Novedad = $entidad;
         } else {
-            if ($NuevaNovedad->getUsuario()) {
-                if ($NuevaNovedad->getUsuario()->getEmail()) {
-                    $this->EnviarNovedad($NuevaNovedad->getUsuario()
-                        ->getEmail(), null, $VistaEmail);
-                }
-            } elseif ($NuevaNovedad->getUsuarioEmail()) {
-                $this->EnviarNovedad($NuevaNovedad->getUsuarioEmail(), null, $VistaEmail, $NumeroSeguimiento);
-            }
+            $Requerimiento = $entidad;
+            $Novedad = null;
         }
-    }
-
-    /**
-     * Prepara el e-mail y lo envía.
-     * 
-     * @see ConMailer::InformarNovedad()
-     * 
-     * @param string $EmailUsuario      el e-mail del usuario propietario del requerimiento.
-     * @param string $NovedadNotas      novedad nueva asociada al requerimiento.
-     * @param string $VistaEmail        dirección donde se aloja la plantilla del e-mail.
-     * @param string $NumeroSeguimiento compuesto por la ID del requerimiento, y un token aleatorio.
-     */
-    protected function EnviarNovedad($EmailUsuario, $NovedadNotas = null, $VistaEmail, $NumeroSeguimiento = null)
-    {
-        $contenido = $this->renderView($VistaEmail, 
-            array('numero_seguimiento' => $NumeroSeguimiento, 'novedad_notas' => $NovedadNotas));
-        
-        $mensaje = \Swift_Message::newInstance()
-            ->setSubject('Novedades de su solicitud')
-            ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
-            ->setTo($EmailUsuario)
-            ->setBody($contenido, 'text/html');
-        
-        $this->get('mailer')->send($mensaje);
+        if($Requerimiento->getEmailNotificaciones()) {
+            $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
+            $res->Entidad = $Requerimiento;
+            $res->Novedad = $Novedad;
+           
+            $ContenidoMensaje = $this->renderView($vistaEmail, array('res' => $res)); 
+            
+            $Mensaje = \Swift_Message::newInstance()
+                ->setSubject('Novedades de su solicitud')
+                ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
+                ->setTo($Requerimiento->getEmailNotificaciones())
+                ->setBody($ContenidoMensaje, 'text/html');
+            
+            $this->get('mailer')->send($Mensaje);
+        }
     }
 }

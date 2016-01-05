@@ -7,41 +7,38 @@ namespace Yacare.ObrasParticularesBundle.Entity  {
 		+FechaVencimiento
 	}
 	
-	class Acta <<class>> {
-		+Comercio
+	class ActaObra <<class>> {
 		+Partida
 		+EstadoAvance
-		+Estado
 		+Plazo
 		+Profesional
-		+TipoFalta
-		+Descargo
+		+TipoConstruccion
+		+TipoObra
+		+FechaDescargo
+		+DescargoDetalle
 	}
 	
 	class TipoFalta <<class>> {
 		+Nombre
+		+Compromiso
 	}
 	
-	class TrasladoCasilla <<class>> {
-		+Solicitante
-		+DomicilioOrigen
-		+FechaTraslado
-		+PartidaDestino
-		+Croquis
-	}
-	
-	class DocumentacionObra <<class>> {
+	class TramitePlano <<class>> {
 		+Solicitante
 		+Profesional
 		+Partida
-		+ConSeguimiento
+		+Expediente
 	}
 	
 	Matriculado ..|> Tapir.BaseBundle.Entity.ConId : implementa
-	Matriculado --|> Tapir.BaseBundle.Entity.Persona : contiene
+	Matriculado -up-|> Yacare.BaseBundle.Entity.Persona : contiene
 	
-	Acta --|> Yacare.InspeccionBundle.Entity.Acta
-	Acta "0..1" --o "0..n" TipoFalta 
+	TramitePlano ..|> Yacare.ObrasParticularesBundle.Entity.ConProfesional : implementa
+	TramitePlano .left.|> Yacare.CatastroBundle.Entity.ConPartida : implementa
+	TramitePlano -up-|> Yacare.BaseBundle.Entity.Persona : contiene
+	
+	ActaObra -up-|> Yacare.InspeccionBundle.Entity.Acta
+	ActaObra "0..1" --o "0..n" TipoFalta 
 }
 
 @enduml

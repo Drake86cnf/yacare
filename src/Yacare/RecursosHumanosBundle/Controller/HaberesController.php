@@ -20,13 +20,13 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
     
     /**
      * @Route("recibo/listar/")
-     * @Route("recibo/listar/{id}/")
      * @Template()
      */
-    public function recibolistarAction(Request $request, $id = null)
+    public function recibolistarAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $connHaberes = $this->get('doctrine')->getConnection('haberes');
+        $id = $this->ObtenerVariable($request, 'id');
 
         if ($id) {
             $Persona = $em->getRepository('Yacare\BaseBundle\Entity\Persona')->find($id);
@@ -49,13 +49,13 @@ class HaberesController extends \Tapir\BaseBundle\Controller\BaseController
 
     /**
      * @Route("recibo/ver/")
-     * @Route("recibo/ver/{id}/")
      * @Template()
      */
-    public function verAction(Request $request, $id = null)
+    public function verAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $connHaberes = $this->get('doctrine')->getConnection('haberes');
+        $id = $this->ObtenerVariable($request, 'id');
 
         $connHaberes->exec(
             "ALTER SESSION SET NLS_TIME_FORMAT='HH24:MI:SS' NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'

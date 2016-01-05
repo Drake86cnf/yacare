@@ -7,29 +7,36 @@
 {% block pagina_contenido %}
     <div class="container-fluid">
     	<div class="row">
+    		<div class="col-sm-4 col-xs-12">
+    		    {{ bs.grid_label_text66('Sección', res.Entidad.Seccion) }} 
+    		    {{ bs.grid_label_text66('Macizo', res.Entidad.Macizo) }}
+    			{{ bs.grid_label_text66('Parcela', res.Entidad.Parcela) }}
+    			{{ bs.grid_label_text66('Subparcela', res.Entidad.Subparcela) }}  
+    			{{ bs.grid_label_text66('Unidad funcional', res.Entidad.UnidadFuncional) }} 
+    		</div>
     		<div class="col-sm-8 col-xs-12">
-    		    {{ bs.grid_label_text('Sección', res.Entidad.Seccion) }} 
-    		    {{ bs.grid_label_text('Macizo', res.Entidad.Macizo) }}
-    			{{ bs.grid_label_text('Parcela', res.Entidad.Parcela) }}
-    			{{ bs.grid_label_text('Subparcela', res.Entidad.Subparcela) }}  
-    			{{ bs.grid_label_text('Unidad funcional', res.Entidad.UnidadFuncional) }} 
-    			{{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
+                {{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
     			{% if res.Entidad.Titular %} 
     			    {{ bs.grid_label_text('Titular', '<a data-dismiss="modal" data-toggle="ajax-link" href="' ~ 
     			        path('yacare_base_persona_ver', { 'id': res.Entidad.Titular.id }) ~ '">' ~ 
     			        res.Entidad.Titular ~ '</a>') }} 
     			{% endif %} 
-    			{% if res.Entidad.Zona %} {{ bs.grid_label_text('Zona', res.Entidad.Zona) }} {% endif %}
-    		</div>
-    		<div class="col-sm-4 hidden-xs">
-    			<i class="fa fa-home fa-5x text-muted pull-right"></i>
+    			{% if res.Entidad.Zona %} {{ bs.grid_label_text('Zona', res.Entidad.Zona) }} {% endif %}    			
     		</div>
     	</div>
     </div>
     
-    <hr />
+    {% set ArchivosPlancheta = res.Entidad.PlanchetaArchivos %}
+    {% if ArchivosPlancheta %}
+    <h2>Plancheta del macizo {{ res.Entidad.Seccion }}-{{ res.Entidad.Macizo }}</h2>
+    	{% for archivo in ArchivosPlancheta %}
+            <img alt="Plancheta" class="img-responsive" 
+            	src="http://yacare.dir.riogrande.gob.ar/catastro/Planchetas/{{ archivo }}" />
+    	{% endfor %}
+    {% endif %}
     
+    <hr />
     <p class="alert alert-info"><i class="fa fa-info-circle"></i>
-    	Estos datos fueron importados desde el SiGeMI y sólo pueden ser modificados mediante dicho sistema.
+    	Estos datos fueron obtenidos del SiGeMI y sólo pueden ser modificados en el sistema de origen.
     </p>
 {% endblock %}
