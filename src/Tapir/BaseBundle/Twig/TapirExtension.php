@@ -17,8 +17,13 @@ class TapirExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida')),
-            new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe'))
+            new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe')),
+            new \Twig_SimpleFilter('tapir_clase', array($this,'tapir_clase'))
         );
+    }
+    
+    public function tapir_clase($obj) {
+        return (new \ReflectionClass($obj))->getShortName();
     }
     
     public function tapir_ruta_existe($nombreRuta) {
