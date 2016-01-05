@@ -7,3 +7,4 @@ vendor
 .rules
 .dbeaver-data-sources.xml
 Scripts
+fedy-installer
