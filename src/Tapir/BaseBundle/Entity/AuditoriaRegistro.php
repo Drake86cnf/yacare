@@ -88,6 +88,12 @@ class AuditoriaRegistro
      * @JMS\Serializer\Annotation\Exclude
      */
     private $Usuario;
+    
+    
+    public function __toString() {
+        return $this->getAccion() . ' sobre ' . $this->getElementoTipo() . ' Nº ' . $this->getElementoId();
+    }
+    
 
     /**
      * @ignore
