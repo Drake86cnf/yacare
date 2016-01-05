@@ -21,9 +21,9 @@ class ComercioListener implements EventSubscriber
     }
 
     public function prePersist(LifecycleEventArgs $args)
-    {        
+    {
         $entity = $args->getEntity();
-        if (is_a($entity,'\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial')) {
+        if (is_a($entity, '\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial')) {
             // Capturo los eventos si la entidad es un trámite de habilitación comercial
             $Helper = new \Yacare\ComercioBundle\Helper\TramiteHabilitacionComercialHelper($this);
             $Helper->LifecycleEvent($args);
@@ -39,9 +39,9 @@ class ComercioListener implements EventSubscriber
             // Capturo los eventos si la entidad es un certificado
             $Helper = new \Yacare\ComercioBundle\Helper\CertificadoHabilitacionComercialHelper($this);
             $Helper->LifecycleEvent($args);
-        } elseif (is_a($entity, '\Yacare\TramitesBundle\Entity\EstadoRequisito')){
+        } elseif (is_a($entity, '\Yacare\TramitesBundle\Entity\EstadoRequisito')) {
             $Tramite = $entity->getTramite();
-            if (is_a($Tramite,'\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial')) {
+            if (is_a($Tramite, '\Yacare\ComercioBundle\Entity\TramiteHabilitacionComercial')) {
                 // Capturo los eventos si la entidad es el estado de un requisito y el trámite asociado es un trámite
                 // de habilitación comercial.
                 $Helper = new \Yacare\ComercioBundle\Helper\EstadoRequisitoHelper($this);
