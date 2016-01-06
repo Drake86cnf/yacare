@@ -44,7 +44,7 @@
 		"doctrine/doctrine-bundle" : "~1",
 		"doctrine/doctrine-cache-bundle" : "~1",
 		"twig/extensions" : "~1",
-		"symfony/assetic-bundle" : "~2",
+		"symfony/assetic-bundle" : "dev-master",
 		"symfony/swiftmailer-bundle" : "~2",
 		"symfony/monolog-bundle" : "~2",
 		"sensio/framework-extra-bundle" : "~3",
