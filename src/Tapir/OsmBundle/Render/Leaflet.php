@@ -11,7 +11,10 @@ class Leaflet extends Renderer
     protected $DivId;
     
     public function RenderJs($map) {
-        $res = "var " . $map->getId() . " = L.map('" . $this->getDivId() . "');\n";
+        $res = "var " . $map->getId() . " = L.map('" . $this->getDivId() . "', { 
+    scrollWheelZoom: false,
+    attributionControl:  false
+});\n";
         if($map->getCenter()) {
             $res .= $map->getId() . ".setView([" . $map->getCenter()->getCoordinate() . "], " . $map->getZoom() . ");\n";
         } else {
