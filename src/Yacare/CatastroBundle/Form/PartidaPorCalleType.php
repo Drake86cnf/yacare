@@ -4,6 +4,7 @@ namespace Yacare\CatastroBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de partidas por calle.
@@ -15,7 +16,7 @@ class PartidaPorCalleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', 'entity', array(
+            ->add('DomicilioCalle', EntityType::class, array(
                 'label' => 'Calle', 
                 'class' => 'YacareCatastroBundle:Calle', 
                 'required' => true, 'mapped' => false))

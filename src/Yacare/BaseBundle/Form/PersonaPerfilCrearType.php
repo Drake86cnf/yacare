@@ -4,6 +4,7 @@ namespace Yacare\BaseBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para crear un perfil de usuario.
@@ -37,7 +38,7 @@ class PersonaPerfilCrearType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
-            ->add('UsuarioRoles', 'entity', array(
+            ->add('UsuarioRoles', EntityType::class, array(
                 'label' => 'Roles',
                 'class' => 'TapirBaseBundle:PersonaRol',
                 'attr' => array('style' => 'width: 100%'),

@@ -4,6 +4,7 @@ namespace Yacare\ComprasBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de licitaciones.
@@ -15,12 +16,11 @@ class LicitacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Departamento', 'entity', array(
+            ->add('Departamento', EntityType::class, array(
                 'label' => 'Departamento', 
                 'empty_value' => 'Sin especificar', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
                 'required' => false, 
-                'empty_value' => false, 
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i')
                         ->orderBy('i.MaterializedPath', 'ASC');

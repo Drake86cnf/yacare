@@ -4,6 +4,7 @@ namespace Yacare\TramitesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TramiteTipoType extends AbstractType
 {
@@ -15,12 +16,12 @@ class TramiteTipoType extends AbstractType
             ->add('Url', null, array(
                 'label' => 'Web', 
                 'attr' => array('placeholder' => 'Sitio web con información')))
-            ->add('ComprobanteTipo', 'entity', array(
+            ->add('ComprobanteTipo', EntityType::class, array(
                 'label' => 'Comprobante final', 
                 'class' => 'YacareTramitesBundle:ComprobanteTipo', 
                 'required' => false, 
                 'multiple' => false))
-            ->add('Formulario', 'entity', array(
+            ->add('Formulario', EntityType::class, array(
                 'label' => 'Formulario inicial', 
                 'class' => 'YacareTramitesBundle:Instrumento', 
                 'required' => false, 

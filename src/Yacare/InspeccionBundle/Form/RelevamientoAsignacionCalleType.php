@@ -4,6 +4,7 @@ namespace Yacare\InspeccionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de calle para asignación.
@@ -15,11 +16,10 @@ class RelevamientoAsignacionCalleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Relevamiento', 'entity', array(
+            ->add('Relevamiento', EntityType::class, array(
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
-                'required' => true, 
-                'placeholder' => false,
+                'required' => true,
                 'attr' => array('readonly' => true)
             ))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
@@ -27,11 +27,10 @@ class RelevamientoAsignacionCalleType extends AbstractType
                 // 'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Calle', 'entity', array(
+            ->add('Calle', EntityType::class, array(
                 'label' => 'Calle', 
                 'class' => 'YacareCatastroBundle:Calle', 
-                'required' => true, 
-                'placeholder' => false));
+                'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

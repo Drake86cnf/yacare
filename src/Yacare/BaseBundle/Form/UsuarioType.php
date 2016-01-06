@@ -4,6 +4,7 @@ namespace Yacare\BaseBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para usuarios.
@@ -19,10 +20,10 @@ class UsuarioType extends AbstractType
             ->add('Email', null, array(
                 'label' => 'Correo electrónico', 
                 'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
-            ->add('UsuarioRoles', 'entity', array(
+            ->add('UsuarioRoles', EntityType::class, array(
                 'label' => 'Roles', 
                 'class' => 'YacareBaseBundle:PersonaRol', 
-                'property' => 'Nombre', 
+                'choice_label' => 'Nombre', 
                 'multiple' => true))
             ->add('Username', null, array(
                 'label' => 'Usuario', 

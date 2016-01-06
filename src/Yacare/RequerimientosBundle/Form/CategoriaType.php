@@ -4,6 +4,7 @@ namespace Yacare\RequerimientosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de categoría.
@@ -23,9 +24,9 @@ class CategoriaType extends AbstractType
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 'required' => false))
-            ->add('Encargado', 'entity', array(
+            ->add('Encargado', EntityType::class, array(
                 'label' => 'Encargado predet.',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');
