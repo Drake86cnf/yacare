@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Tapir\FormBundle\TapirFormBundle(),
 			new Tapir\AbmBundle\TapirAbmBundle(),
             new Tapir\AyudaBundle\TapirAyudaBundle(),
+            new Tapir\OsmBundle\TapirOsmBundle(),
 
             new Yacare\BaseBundle\YacareBaseBundle(),
             new Yacare\TemplateBundle\YacareTemplateBundle(),
