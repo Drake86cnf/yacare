@@ -1,0 +1,6 @@
+services:
+    tapirosmbundle.twig.osm_extension:
+        class: Tapir\OsmBundle\Twig\OsmExtension
+        arguments: [ '@service_container' ]
+        tags:
+          - { name: twig.extension }
