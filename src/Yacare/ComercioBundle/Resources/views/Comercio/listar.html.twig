@@ -40,7 +40,12 @@
                     Legal: {{ entity.DomicilioReal }}
                 {% else %}
 			    	n/a
-			    {% endif %}</td>
+			    {% endif %}
+			    {% if entity.Local and entity.Local.Partida.Ubicacion %}
+    				<a href="{{ path(res.ObtenerRutaAccion('mapa'), { 'id': entity.Local.Partida.Id }) }}"
+    					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+    			{% endif %}
+			    </td>
 			<td class="hidden-sm hidden-xs">{{ entity.FechaUltimaActa|tapir_hacetiempo }}</td>
 		</tr>
 		{% endfor %}
