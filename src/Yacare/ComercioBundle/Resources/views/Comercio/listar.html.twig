@@ -42,7 +42,7 @@
 			    	n/a
 			    {% endif %}
 			    {% if entity.Local and entity.Local.Partida.Ubicacion %}
-    				<a href="{{ path(res.ObtenerRutaAccion('mapa'), { 'id': entity.Local.Partida.Id }) }}"
+    				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Local.Partida.Id }) }}"
     					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
     			{% endif %}
 			    </td>

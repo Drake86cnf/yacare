@@ -18,7 +18,7 @@
 			<td class="hidden-xs">{% if entity.Tipo != 'Local comercial' %}{{ entity.Tipo }}{% endif %}</td>
 			<td>{% if entity.Partida %}{{ entity.Partida.Domicilio }}
             		{% if entity.Partida.Ubicacion %}
-        				<a href="{{ path(res.ObtenerRutaAccion('mapa'), { 'id': entity.Partida.Id }) }}"
+        				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
         					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
         			{% endif %}	
         		{% endif %} {{ entity.SubDomicilio }}</td>
