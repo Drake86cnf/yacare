@@ -24,7 +24,7 @@ class DepartamentoType extends AbstractType
             ->add('Rango', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => \Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos(),
                 'label' => 'Rango'))
-            ->add('ParentNode', 'entity', array(
+            ->add('ParentNode', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Depende de', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
                 'required' => false, 
@@ -33,7 +33,7 @@ class DepartamentoType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.MaterializedPath', 'ASC');
                 }, 
-                'property' => 'NombreConSangriaDeEspaciosDuros'));
+                'choice_label' => 'NombreConSangriaDeEspaciosDuros'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

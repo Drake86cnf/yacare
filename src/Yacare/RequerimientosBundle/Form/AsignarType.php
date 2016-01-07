@@ -20,9 +20,9 @@ class AsignarType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Notas',
                 'required' => false))
-            ->add('Usuario', 'entity', array(
+            ->add('Usuario', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Encargado',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'attr' => array('class' => 'tapir-input-320'),
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {

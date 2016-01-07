@@ -15,22 +15,21 @@ class RelevamientoAsignacionCalleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Relevamiento', 'entity', array(
+            ->add('Relevamiento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
-                'required' => true, 
-                'read_only' => true, 
-                'placeholder' => false))
+                'required' => true,
+                'attr' => array('readonly' => true)
+            ))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
-                // 'property' => 'NombreVisible', 
+                'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Calle', 'entity', array(
+            ->add('Calle', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Calle', 
                 'class' => 'YacareCatastroBundle:Calle', 
-                'required' => true, 
-                'placeholder' => false));
+                'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

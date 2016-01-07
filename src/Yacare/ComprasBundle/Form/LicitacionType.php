@@ -3,7 +3,7 @@ namespace Yacare\ComprasBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;;
 
 /**
  * Formulario de licitaciones.
@@ -15,35 +15,34 @@ class LicitacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Departamento', 'entity', array(
+            ->add('Departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Departamento', 
                 'empty_value' => 'Sin especificar', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
                 'required' => false, 
-                'empty_value' => false, 
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i')
                         ->orderBy('i.MaterializedPath', 'ASC');
                 }, 
-                'property' => 'NombreConSangriaDeEspaciosDuros'))
+                'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('Numero', null, array('label' => 'Número'))
             ->add('Nombre', null, array('label' => 'Nombre'))
             ->add('PresupuestoOficial', null, array('label' => 'Presupuesto oficial'))
             ->add('Complejidad1', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Cantidad de renglones', 
                 'required' => true, 
-                'choices' => array('0' => 'Baja: de 1 a 20', '1' => 'Media: de 21 a 40', '2' => 'Alta: más de 40')))
+                'choices' => array('Baja: de 1 a 20' => 0, 'Media: de 21 a 40' => 1, 'Alta: más de 40' => 2)))
             ->add('Complejidad2', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Cantidad de ítem de E.T.', 
                 'required' => true, 
-                'choices' => array('0' => 'Baja: de 1 a 5', '1' => 'Media: de 6 a 10', '2' => 'Alta: más de 10')))
+                'choices' => array('Baja: de 1 a 5' => 0, 'Media: de 6 a 10' => 1, 'Alta: más de 10' => 2)))
             ->add('Complejidad3', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Presupuesto oficial', 
                 'required' => true, 
                 'choices' => array(
-                    '0' => 'Baja: más de 800.000, hasta 2.000.000', 
-                    '1' => 'Media: más de 2.000.000, hasta 5.000.000', 
-                    '2' => 'Alta: más de 5.000.00')))
+                    'Baja: más de 800.000, hasta 2.000.000' => 0, 
+                    'Media: más de 2.000.000, hasta 5.000.000' => 1, 
+                    'Alta: más de 5.000.00' => 2)))
             ->add('Obs', null, array(
                 'label' => 'Obs.', 
                 'attr' => array('class' => 'tinymce', 'data-theme' => 'simple'))); // simple, advanced, bbcode

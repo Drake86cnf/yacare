@@ -25,7 +25,7 @@ trait ConRequiereAtencion
         $entity = $this->ObtenerEntidadPorId($id);
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
-        /* $FormEditarBuilder->add('RequiereAtencion', 'hidden', array(
+        /* $FormEditarBuilder->add('RequiereAtencion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
             'label' => null,
             'required' => true)); */
         $FormEditarBuilder->add('RequiereAtencionObs', null, array(

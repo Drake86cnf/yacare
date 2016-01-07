@@ -20,7 +20,7 @@
 	</script>
 	</div>
 	
-{% if is_expr_granted("hasAnyRole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR')") %}
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO_INSPECTOR') %}
 	<div class="col-sm-4 inicio-mini" id="inicio-comercio">
 	<script>
 	$(function() {
@@ -38,7 +38,7 @@
 	</script>
 	</div>
 
-{% if is_expr_granted("hasAnyRole('ROLE_FLOTA_ADMINISTRADOR', 'ROLE_FLOTA_CARGA')") %}
+{% if tapir_hasanyrole('ROLE_FLOTA_ADMINISTRADOR,ROLE_FLOTA_CARGA') %}
 	<div class="col-sm-4 inicio-mini" id="inicio-flota">
 	<script>
 	$(function() {

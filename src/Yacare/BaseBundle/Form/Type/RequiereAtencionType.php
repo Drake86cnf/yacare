@@ -2,7 +2,6 @@
 namespace Yacare\BaseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Campo de formulario para indicar si requiere atención.

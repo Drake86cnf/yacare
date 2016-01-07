@@ -17,7 +17,7 @@ class TramitePlanoType extends AbstractType
         $builder
             ->add('id', null, array(
                 'label' => 'Número',
-                'read_only' => true))
+                'attr' => array('readonly' => true)))
             ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
@@ -26,10 +26,9 @@ class TramitePlanoType extends AbstractType
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => true))
-            ->add('Obs', 'textarea', array(
+            ->add('Obs', null, array(
                 'label' => 'Observaciones', 
-                'required' => false))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

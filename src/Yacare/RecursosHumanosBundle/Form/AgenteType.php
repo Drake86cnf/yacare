@@ -12,8 +12,8 @@ class AgenteType extends AbstractType
         $builder
             ->add('id', null, array(
                 'label' => 'Legajo', 
-                'read_only' => true))
-            ->add('Grupos', 'entity', array(
+                'attr' => array('readonly' => true)))
+            ->add('Grupos', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Grupos', 
                 'class' => 'YacareRecursosHumanosBundle:AgenteGrupo', 
                 'multiple' => true, 

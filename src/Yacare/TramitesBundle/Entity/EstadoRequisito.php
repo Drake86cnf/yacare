@@ -124,7 +124,7 @@ class EstadoRequisito implements IEstadoRequisito
             // No es necesario, porque es para el final
             return false;
         } else {
-            return $this->EsNecesaio();
+            return $this->EsNecesario();
         }
     }
 

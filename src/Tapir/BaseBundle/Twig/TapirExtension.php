@@ -12,13 +12,40 @@ class TapirExtension extends \Twig_Extension
     {
         $this->container = $container;
     }
+    
+    public function getFunctions() {
+        return array(
+            new \Twig_SimpleFunction('tapir_hasanyrole', array($this,'tapir_hasanyrole'))
+        );
+    }
 
     public function getFilters()
     {
         return array(
             new \Twig_SimpleFilter('tapir_cuiltesvalida', array($this,'tapir_cuiltesvalida')),
-            new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe'))
+            new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe')),
+            new \Twig_SimpleFilter('tapir_clase', array($this,'tapir_clase'))
         );
+    }
+    
+    public function tapir_hasanyrole($roles) {
+        $Security = $this->container->get('security.authorization_checker');
+        if($Security->isGranted('ROLE_IDDQD')) {
+            return true;
+        } else {
+            $RolesArray = explode(',', $roles);
+            foreach($RolesArray as $Rol) {
+                $Rol = trim($Rol); 
+                if($Security->isGranted($Rol)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public function tapir_clase($obj) {
+        return (new \ReflectionClass($obj))->getShortName();
     }
     
     public function tapir_ruta_existe($nombreRuta) {

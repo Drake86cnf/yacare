@@ -29,15 +29,15 @@ class InspeccionComercioType extends AbstractType
                 'label' => 'Nº de solicitud'))
             ->add('ExpedienteNumero', null, array(
                 'label' => 'Nº de expediente'))
-            ->add('Obs', null, array(
+            ->add('Obs','Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                 'label' => 'Obs.'))
             ->add('EstadoTramite', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Instancia del trámite', 
                 'required' => true, 
                 'choices' => array(
-                    'Catastro y Planeamiento' => 'Catastro y Planeamiento Urbano', 
-                    'Obras Particulares-Inspeccion Tecnica' => 'Obras Particulares (Inspección)', 
-                    'Pendiente-ObrasParticulares' => 'Obras Particulares (Pendiente)')));
+                    'Catastro y Planeamiento Urbano' => 'Catastro y Planeamiento', 
+                    'Obras Particulares (Inspección)' => 'Obras Particulares-Inspeccion Tecnica', 
+                    'Obras Particulares (Pendiente)' => 'Pendiente-ObrasParticulares')));
     }
 
     public function configureOptions(OptionsResolver $resolver)

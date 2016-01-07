@@ -15,12 +15,11 @@ class PersonaPerfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', 'email', array(
+            ->add('NombreVisible', null, array('label' => 'Nombre'))
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
-            ))
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
@@ -28,9 +27,7 @@ class PersonaPerfilType extends AbstractType
             ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => false))
             ->add('Cuilt',  'Tapir\BaseBundle\Form\Type\CuiltType', array(
                 'label' => 'CUIL/CUIT',
-                'required' => false
-            ))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

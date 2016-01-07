@@ -5,7 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Ivory\GoogleMap\Helper\MapHelper;
+use \Tapir\OsmBundle\Maps;
+use \Tapir\OsmBundle\Render;
 
 /**
  * Controlador de rastreadores GPS.
@@ -27,55 +28,51 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function verAction(Request $request)
     {
-        $res = $this->parent_verAction($request);
+        $ResultadoVer = $this->parent_verAction($request);
+        $res = $ResultadoVer['res'];
         
-        if ($res['res']->Entidad->getObs() == null) {
-            $res['res']->Entidad->setObs('Serie ' . $res['res']->Entidad->getNumeroSerie());
+        if ($res->Entidad->getObs() == null) {
+            $res->Entidad->setObs('Serie ' . $res->Entidad->getNumeroSerie());
         }
         
         $em = $this->getEm();
         $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-            array('Dispositivo' => $res['res']->Entidad->getId()), array('id' => 'DESC'), 1);
+            array('Dispositivo' => $res->Entidad->getId()), array('id' => 'DESC'), 1);
         
         if (count($UltimoRastreo) == 1) {
             // Si es un array de un 1 elemento, lo convierto en un elemento plano.
             $UltimoRastreo = $UltimoRastreo[0];
         }
-        $res['ultimo_rastreo'] = $UltimoRastreo;
+        $res->UltimoRastreo = $UltimoRastreo;
         
-        $Mapa = $this->CrearMapa();
+        $Mapa = new Maps\Map();
         
         if ($UltimoRastreo) {
-            $Mapa->addMarker($this->CrearMarcador($UltimoRastreo, $res['res']->Entidad));
+            $Mapa->addMarker($this->CrearMarcador($UltimoRastreo, $res->Entidad));
+            $Mapa->setCenter(new Maps\Point($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY()));
         } else {
-            $Mapa->setCenter(- 53.789858, - 67.692911, true);
+            $Mapa->setCenter(new Maps\Point(-53.789858, -67.692911));
         }
         
         $UltimosRastreos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
-            array('Dispositivo' => $res['res']->Entidad->getId()), array('id' => 'DESC'), 100);
+            array('Dispositivo' => $res->Entidad->getId()), array('id' => 'DESC'), 100);
         
         if ($UltimosRastreos) {
-            $polyline = new \Ivory\GoogleMap\Overlays\Polyline();
+            $polyline = new Maps\Polyline();
             
-            $polyline->setOption('strokeColor', '#ff0000');
-            $polyline->setOption('strokeOpacity', '0.3');
+            //$polyline->setOption('strokeColor', '#ff0000');
+            //$polyline->setOption('strokeOpacity', '0.3');
             
             foreach ($UltimosRastreos as $Rastreo) {
-                $polyline->addCoordinate($Rastreo->getUbicacion()->getX(), $Rastreo->getUbicacion()->getY(), true);
+                $polyline->addPoint(new Maps\Point($Rastreo->getUbicacion()->getX(), $Rastreo->getUbicacion()->getY()));
             }
             
             $Mapa->addPolyline($polyline);
         }
-        $MapHelper = new MapHelper();
-        $MapHelper->setExtensionHelper('gps_extension_helper', 
-            new \Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper());
         
-        $JavaScriptMapa = $MapHelper->renderJavascripts($Mapa);
+        $res->Mapa = $Mapa;
         
-        $res['mapa'] = $Mapa;
-        $res['js_mapa'] = $JavaScriptMapa;
-        
-        return $res;
+        return $ResultadoVer;
     }
 
     /**
@@ -122,10 +119,12 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     public function vertodosAction(Request $request)
     {
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoActionAbmController($this), $request);
+        
         $em = $this->getEm();
         $Dispositivos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreadorGps')->findAll();
         
-        $Mapa = $this->CrearMapa();
+        $Mapa = new Maps\Map();
         
         foreach ($Dispositivos as $Dispositivo) {
             $id = $Dispositivo->getId();
@@ -142,36 +141,14 @@ class DispositivoRastreadorGpsController extends DispositivoController
                 $Mapa->addMarker($this->CrearMarcador($UltimoRastreo, $entity));
             }
         }
-        $MapHelper = new MapHelper();
-        $MapHelper->setExtensionHelper('gps_extension_helper', 
-            new \Yacare\BaseBundle\Resources\Extensions\GpsExtensionHelper());
         
-        $JavaScriptMapa = $MapHelper->renderJavascripts($Mapa);
-        
-        return $this->ArrastrarVariables($request, 
-            array('dispositivos' => $Dispositivos, 'mapa' => $Mapa, 'js_mapa' => $JavaScriptMapa));
+        $res->Dispositivos = $Dispositivos;
+        $res->Mapa = $Mapa;
+       
+        return $this->ArrastrarVariables($request, array('res' => $res));
     }
 
-    /**
-     * Rutina que crea un mapa base de GoogleMaps.
-     *
-     * @return \Map
-     */
-    private function CrearMapa()
-    {
-        $Mapa = $this->get('ivory_google_map.map');
-        
-        $Mapa->setMapOption('zoom', 30);
-        $Mapa->setAsync(true);
-        $Mapa->setAutoZoom(true);
-        $Mapa->setMapOptions(
-            array('disableDefaultUI' => true, 'disableDoubleClickZoom' => true, 'mapTypeId' => 'roadmap'));
-        $Mapa->setStylesheetOptions(array('width' => '100%', 'height' => '480px'));
-        $Mapa->setLanguage('es');
-        
-        return $Mapa;
-    }
-
+    
     /**
      * Rutina que crea un marcador en base a las coordenadas pasadas como parametros.
      *
@@ -185,6 +162,11 @@ class DispositivoRastreadorGpsController extends DispositivoController
      */
     private function CrearMarcador($UltimoRastreo, $entity)
     {
+        $Marcador = new Maps\Marker();
+        $Marcador->setPosition(new Maps\Point($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY()));
+        $Marcador->setDescription($entity);
+        return $Marcador;
+        
         $infoWindow = new \Ivory\GoogleMap\Overlays\InfoWindow();
         
         // Configuración de las opciones de "Info Window"
@@ -195,17 +177,5 @@ class DispositivoRastreadorGpsController extends DispositivoController
         $infoWindow->setOpen(true);
         $infoWindow->setAutoClose(false);
         $infoWindow->setOptions(array('disableAutoPan' => false, 'zIndex' => 10, 'maxWidth' => 100));
-        
-        // Configuración de las opciones del marcador a incorporar
-        $marker = new \Ivory\GoogleMap\Overlays\Marker();
-        
-        $marker->setPosition($UltimoRastreo->getUbicacion()->getX(), $UltimoRastreo->getUbicacion()->getY(), true);
-        $marker->setAnimation(\Ivory\GoogleMap\Overlays\Animation::DROP);
-        $marker->setOptions(array('clickable' => true, 'flat' => true, 'title' => (string) $entity));
-        
-        // Incorporo la ventana de información como una propiedad más al marcador.
-        $marker->setInfoWindow($infoWindow);
-        
-        return $marker;
     }
 }

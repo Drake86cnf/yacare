@@ -15,16 +15,16 @@ class RelevamientoAsignacionMacizoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Relevamiento', 'entity', array(
+            ->add('Relevamiento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
                 'required' => true, 
-                'read_only' => true, 
-                'placeholder' => false, 
-                'property' => 'Nombre'))
+                'choice_label' => 'Nombre',
+                'attr' => array('readonly' => true)
+            ))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
-                // 'property' => 'NombreVisible', 
+                'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
             ->add('Seccion', null, array('label' => 'Sección', 'required' => true))

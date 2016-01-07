@@ -23,9 +23,9 @@ class CategoriaType extends AbstractType
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 'required' => false))
-            ->add('Encargado', 'entity', array(
+            ->add('Encargado', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Encargado predet.',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_REQUERIMIENTOS_ENCARGADO');

@@ -14,9 +14,9 @@ class AsociacionRequisitoType extends AbstractType
                 'label' => 'Tipo de trámite', 
                 'class' => 'YacareTramitesBundle:TramiteTipo', 
                 'required' => true, 
-                'read_only' => true, 
+                'attr' => array('readonly' => true), 
                 'multiple' => false))
-            ->add('Requisito', 'entity', array(
+            ->add('Requisito', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                 'label' => 'Requisito', 
                 'class' => 'YacareTramitesBundle:Requisito', 
                 'required' => true, 
@@ -32,49 +32,53 @@ class AsociacionRequisitoType extends AbstractType
                     'Titular' => 'Titular', 
                     'Apoderado' => 'Apoderado', 
                     'Inmueble' => 'Inmueble', 
-                    'Inmueble.Titular' => 'Titular del inmueble', 
-                    'ReponsableTecnico' => 'Reponsable técnico')))
+                    'Titular del inmueble' => 'Inmueble.Titular', 
+                    'Reponsable técnico' => 'ReponsableTecnico')))
             ->add('Instancia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Instancia', 
                 'required' => true, 
                 'choices' => array(
-                    'na' => 'n/a', 
-                    'ori' => 'Original', 
-                    'cop' => 'Original y copia', 
-                    'cos' => 'Copia simple', 
-                    'coc' => 'Copia certificada', 
-                    'col' => 'Copia legalizada')))
+                    'n/a' => 'na', 
+                    'Original' => 'ori', 
+                    'Original y copia' => 'cop', 
+                    'Copia simple' => 'cos', 
+                    'Copia certificada' => 'coc', 
+                    'Copia legalizada' => 'col')))
             ->add('Tipo', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Tipo',
                 'required' => true,
                 'choices' => array(
-                    '0' => 'Fijo',
-                    '1' => 'Opcional',
-                    '2' => 'Condicional',
-                    '3' => 'Condicional y opcional'
-                )
-            ))
+                    'Fijo' => 0,
+                    'Opcional' => 1,
+                    'Condicional' => 2,
+                    'Condicional y opcional' => 3)))
             ->add('Notas', null, array('label' => 'Notas'))
-            ->add('CondicionQue', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Sólo si', 'required' => false))
+            ->add('CondicionQue', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                'label' => 'Sólo si', 
+                'required' => false))
             ->add('CondicionEs', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Es', 
                 'required' => false, 
                 'placeholder' => 'n/a', 
                 'choices' => array(
-                    '==' => 'es igual a', 
-                    '>' => 'es mayor que', 
-                    '<' => 'es menor que', 
-                    '!=' => 'es diferente a', 
-                    '>=' => 'es mayor o igual que', 
-                    '<=' => 'es menor o igual que', 
-                    'null' => 'existe', 
-                    'not null' => 'no existe', 
-                    'true' => 'es verdadero', 
-                    'false' => 'es falso', 
-                    'in' => 'está incluido en', 
-                    'not in' => 'no está incluido en')))
-            ->add('CondicionCuanto', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'A', 'required' => false))
-            ->add('Obs', null, array('label' => 'Explicación de la condición', 'required' => false));
+                    'es igual a' => '==', 
+                    'es mayor que' => '>', 
+                    'es menor que' => '<', 
+                    'es diferente a' => '!=', 
+                    'es mayor o igual que' => '>=', 
+                    'es menor o igual que' => '<=', 
+                    'existe' => 'null', 
+                    'no existel' => 'not null', 
+                    'es verdadero' => 'true', 
+                    'es falso' => 'false', 
+                    'está incluido en' => 'in', 
+                    'no está incluido en' => 'not in')))
+            ->add('CondicionCuanto', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                'label' => 'A', 
+                'required' => false))
+            ->add('Obs', null, array(
+                'label' => 'Explicación de la condición', 
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

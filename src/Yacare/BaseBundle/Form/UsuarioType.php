@@ -15,20 +15,20 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', null, array(
+            ->add('NombreVisible', null, array('label' => 'Nombre'))
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico', 
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')))
-            ->add('UsuarioRoles', 'entity', array(
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
+            ->add('UsuarioRoles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Roles', 
                 'class' => 'YacareBaseBundle:PersonaRol', 
-                'property' => 'Nombre', 
+                'choice_label' => 'Nombre', 
                 'multiple' => true))
             ->add('Username', null, array(
                 'label' => 'Usuario', 
                 'required' => false, 
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')))
-            ->add('PasswordEnc', 'password', array(
+            ->add('PasswordEnc', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
                 'label' => 'Contraseña', 
                 'required' => false, 
                 'attr' => array('autocomplete' => 'off')));

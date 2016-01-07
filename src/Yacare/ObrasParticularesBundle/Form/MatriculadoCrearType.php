@@ -19,7 +19,7 @@ class MatriculadoCrearType extends AbstractType
         $builder
             ->add('Persona', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Persona',
-                // 'property' => 'NombreVisible',
+                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
             ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
@@ -31,7 +31,7 @@ class MatriculadoCrearType extends AbstractType
                     'Arquitecto' => 'Arquitecto',
                     'Maestro mayor de obras' => 'Maestro mayor de obras',
                     'Técnico constructor' => 'Técnico constructor')))
-            ->add('FechaVencimiento', 'date', array(
+            ->add('FechaVencimiento', 'Symfony\Component\Form\Extension\Core\Type\DateType', array(
                 'years' => range(2000, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',

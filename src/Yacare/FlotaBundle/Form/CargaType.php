@@ -15,8 +15,10 @@ class CargaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Vehiculo', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array('class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 'required' => false))
-            ->add('Combustible', 'hidden')
+            ->add('Vehiculo', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
+                'class' => 'Yacare\FlotaBundle\Entity\Vehiculo', 
+                'required' => false))
+            ->add('Combustible', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
             ->add('Litros', 'Tapir\TemplateBundle\Form\Type\IntegerType', array('label' => 'Litros'))
             ->add('Importe', 'Tapir\BaseBundle\Form\Type\ImporteType', array(
                 'label' => 'Importe'))
@@ -24,9 +26,7 @@ class CargaType extends AbstractType
                 'label' => 'Kilometraje', 
                 'required' => true, 
                 'attr' => array(
-                    'help' => 'El kilometraje del vehículo al momento de la carga.')))
-            ;
-            
+                    'help' => 'El kilometraje del vehículo al momento de la carga.')));
     }
 
     public function configureOptions(OptionsResolver $resolver)

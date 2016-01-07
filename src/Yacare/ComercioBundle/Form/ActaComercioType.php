@@ -47,32 +47,31 @@ class ActaComercioType extends AbstractType
                 'label' => 'Hora',
                 'attr' => array('class' => 'tapir-input-120')
             ))
-            ->add('FuncionarioPrincipal', 'entity', array(
+            ->add('FuncionarioPrincipal', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Inspector',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => true))
-            ->add('OtrosFuncionarios', 'entity', array(
+            ->add('OtrosFuncionarios', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'multiple' => true,
                 'label' => 'Otros funcionarios',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => false))
-            ->add('Etiquetas', 'entity', array(
+            ->add('Etiquetas', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta',
                 'multiple' => true,
                 'label' => 'Etiquetas',
                 'placeholder' => 'Seleccione una o más etiquetas',
                 'required' => false))
             ->add('Detalle', null, array('label' => 'Detalle'))
-            ->add('Obs', null, array('label' => 'Observaciones'))
-            ;
+            ->add('Obs', null, array('label' => 'Observaciones'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

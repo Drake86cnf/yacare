@@ -15,7 +15,7 @@ class DomicilioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('DomicilioCalle', 'entity', array(
+            ->add('DomicilioCalle', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => false,
                 'class' => 'YacareCatastroBundle:Calle',
                 'required' => false,

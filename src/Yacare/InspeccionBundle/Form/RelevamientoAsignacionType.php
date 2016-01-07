@@ -3,7 +3,7 @@ namespace Yacare\InspeccionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;;
 
 /**
  * Formulario de asiganación de trabajo para un relevamiento.
@@ -15,23 +15,22 @@ class RelevamientoAsignacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Relevamiento', 'entity', array(
+            ->add('Relevamiento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
                 'required' => true, 
-                'placeholder' => false, 
-                'property' => 'Nombre'))
+                'choice_label' => 'Nombre'))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
-                // 'property' => 'NombreVisible', 
+                'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
-            ->add('Calle', 'entity', array(
+            ->add('Calle', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Calle', 
                 'class' => 'YacareCatastroBundle:Calle', 
                 'required' => false, 
                 'placeholder' => 'Ninguna', 
-                'property' => 'Nombre'))
+                'choice_label' => 'Nombre'))
             ->add('Seccion', null, array('label' => 'Sección'))
             ->add('Macizo', null, array('label' => 'Macizo'));
     }

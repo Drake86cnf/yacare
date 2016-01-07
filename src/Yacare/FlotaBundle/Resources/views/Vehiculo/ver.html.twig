@@ -54,14 +54,14 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-{% if is_granted('ROLE_FLOTA_CARGA') %}
+{% if tapir_hasanyrole('ROLE_FLOTA_CARGA') %}
 	<a href="{{ path(res.ObtenerRutaAccion('carga'), res.Arrastre|merge({ 'vehiculo': res.Entidad.id })) }}"
 		class="btn btn-default"><i class="fa fa-tachometer"></i> Nueva carga</a>
 {% endif %}
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-{% if is_granted('ROLE_FLOTA_ADMINISTRADOR') %}
+{% if tapir_hasanyrole('ROLE_FLOTA_ADMINISTRADOR') %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
 		class="btn btn-default"><i class="fa fa-edit"></i> Editar vehículo</a>
 {% endif %}

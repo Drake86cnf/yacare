@@ -40,7 +40,7 @@ class ActaObraType extends AbstractType
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
-            ->add('TipoFaltas', 'entity', array(
+            ->add('TipoFaltas', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Tipofalta',
                 'multiple' => true,
                 'label' => 'Faltas',
@@ -51,61 +51,57 @@ class ActaObraType extends AbstractType
                     'Mixta' => 'Mixta',
                     'Húmeda' => 'Húmeda',
                     'Seca' => 'Seca',
-                    'Industrializada de chapa y/o madera' => 'Industrializada de chapa y/o madera'
-                ),
+                    'Industrializada de chapa y/o madera' => 'Industrializada de chapa y/o madera'),
                 'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Tipo de construcción',
                 'required' => true))
-            ->add('EstadoAvance', 'choice', array(
+            ->add('EstadoAvance', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
-                    1 => 'Replanteo y fundaciones',
-                    5 => 'Mampostería en planta baja',
-                    10 => 'Encadenado superior en planta baja',
-                    15 => 'Entrepiso',
-                    20 => 'Mampostería en planta alta',
-                    25 => 'Encadenado superior en planta alta',
-                    30 => 'Estructura de techo',
-                    35 => 'Techado'
-                ),
+                    'Replanteo y fundaciones' => 1,
+                    'Mampostería en planta baja' => 5,
+                    'Encadenado superior en planta baja' => 10,
+                    'Entrepiso' => 15,
+                    'Mampostería en planta alta' => 20,
+                    'Encadenado superior en planta alta' => 25,
+                    'Estructura de techo' => 30,
+                    'Techado' => 35),
                 'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Avance',
                 'required' => false))
                 // Solución temporal para los tipos de obra Seca.
-            ->add('EstadoAvance2', 'choice', array(
+            ->add('EstadoAvance2', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
-                    5 => 'Estructura en planta baja',
-                    15 => 'Entrepiso',
-                    20 => 'Estructura en planta alta',
-                    30 => 'Estructura de techo',
-                    35 => 'Techado'
-                ),
+                    'Estructura en planta baja' => 5,
+                    'Entrepiso' => 15,
+                    'Estructura en planta alta' => 20,
+                    'Estructura de techo' => 30,
+                    'Techado' => 35),
                 'attr' => array('class' => 'tapir-input-320'),
                 'mapped' => false,
                 'label' => 'Estado de la obra',
                 'required' => false))
             // Fin solución temporal
-            ->add('FuncionarioPrincipal', 'entity', array(
+            ->add('FuncionarioPrincipal', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Inspector',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'placeholder' => 'Seleccione al inspector que intervino',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => true))
-            ->add('OtrosFuncionarios', 'entity', array(
+            ->add('OtrosFuncionarios', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'multiple' => true,
                 'label' => 'Otros funcionarios',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                 return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => false))
-            ->add('Obs', null, array('label' => 'Observaciones'))
-            ;
+            ->add('Obs', null, array('label' => 'Observaciones'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

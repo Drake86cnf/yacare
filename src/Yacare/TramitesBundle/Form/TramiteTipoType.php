@@ -15,12 +15,12 @@ class TramiteTipoType extends AbstractType
             ->add('Url', null, array(
                 'label' => 'Web', 
                 'attr' => array('placeholder' => 'Sitio web con información')))
-            ->add('ComprobanteTipo', 'entity', array(
+            ->add('ComprobanteTipo', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Comprobante final', 
                 'class' => 'YacareTramitesBundle:ComprobanteTipo', 
                 'required' => false, 
                 'multiple' => false))
-            ->add('Formulario', 'entity', array(
+            ->add('Formulario', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Formulario inicial', 
                 'class' => 'YacareTramitesBundle:Instrumento', 
                 'required' => false, 

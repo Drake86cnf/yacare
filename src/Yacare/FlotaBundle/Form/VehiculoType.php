@@ -16,23 +16,20 @@ class VehiculoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Marca', null, array(
-                'label' => 'Marca', 
-                'required' => false
-            ))
+            ->add('Marca', null, array('label' => 'Marca', 'required' => false))
             ->add('Modelo', null, array('label' => 'Modelo'))
             ->add('Anio', null, array('label' => 'Año'))
             ->add('Color', null, array('label' => 'Color'))
             ->add('Combustible', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
-                'label' => 'Combustible',
-                'required' => false,
+                'label' => 'Combustible', 
+                'required' => false, 
                 'choices' => array(
-                    null => 'Sin especificar',
-                    'nafta' => 'Nafta',
-                    'nafta-98' => 'Nafta 98 oct.',
-                    'gasoil' => 'Gasoil',
-                    'gasoil-3' => 'Gasoil grado 3',
-                    'gnc' => 'GNC')))            
+                    'Sin especificar' => null, 
+                    'Nafta' => 'nafta', 
+                    'Nafta 98 oct.' => 'nafta-98', 
+                    'Gasoil' => 'gasoil', 
+                    'Gasoil grado 3' => 'gasoil-3', 
+                    'GNC' => 'gnc')))
             ->add('IdentificadorUnico', null, array(
                 'label' => 'Código', 
                 'attr' => array('help' => 'El código Municipal de identificación del vehículo, por ejemplo L-71.')))
@@ -42,10 +39,9 @@ class VehiculoType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.MaterializedPath', 'ASC');
-                },
+                }, 
                 'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('NumeroSerie', null, array('label' => 'Patente')
-            );
+            ->add('NumeroSerie', null, array('label' => 'Patente'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -15,7 +15,8 @@ class ActaTipoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array('label' => 'Nombre'))->add('Departamento', 'entity', array(
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Departamento', 
                 'placeholder' => 'Sin especificar', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
@@ -24,7 +25,7 @@ class ActaTipoType extends AbstractType
                     return $er->createQueryBuilder('i')
                         ->orderBy('i.MaterializedPath', 'ASC');
                 }, 
-                'property' => 'NombreConSangriaDeEspaciosDuros'))
+                'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
             ->add('Clase', null, array('label' => 'Clase'));
     }
 

@@ -15,7 +15,7 @@ class ActaTalonarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Tipo', 'entity', array(
+            ->add('Tipo', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Tipo', 'class' => 'YacareInspeccionBundle:ActaTipo', 'required' => true))
             ->add('NumeroDesde', null, array('label' => 'Numeración desde'))
             ->add('NumeroHasta', null, array('label' => 'hasta'))

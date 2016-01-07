@@ -26,7 +26,7 @@ class MatriculadoType extends AbstractType
                     'Arquitecto' => 'Arquitecto',
                     'Maestro mayor de obras' => 'Maestro mayor de obras',
                     'Técnico constructor' => 'Técnico constructor')))
-            ->add('FechaVencimiento', 'date', array(
+            ->add('FechaVencimiento', 'Symfony\Component\Form\Extension\Core\Type\DateType', array(
                 'years' => range(2000, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',
@@ -35,9 +35,7 @@ class MatriculadoType extends AbstractType
                 'required' => false))
             ->add('Persona', 'Yacare\BaseBundle\Form\PersonaType', array(
                 'label' => 'Persona',
-                'property_path' => 'Persona'
-            ))
-        ;
+                'property_path' => 'Persona'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -14,15 +14,16 @@ class TramiteCatHelper extends \Yacare\BaseBundle\Helper\Helper
         if ($entity->getTramitePadre()){
             $Comercio = $entity->getTramitePadre()->getComercio();
             $entity->setComercio($Comercio);
+            $entity->setNombre('CAE de ' . (string)$Comercio);
+        } else {
+            // Ponerle nombre al trámite
+            $NombreCat = $entity->getTramitePadre()
+                ->getComercio()
+                ->getLocal()
+                ->getPartida()
+                ->getTitular();
+            $entity->setNombre($NombreCat);
+            $entity->setNombre('CAE de ' . $NombreCat);
         }
-        // La propiedad Nombre está predefinida por el la clase tramite... es normal al crear un tramite cat nuevo
-        // Busco el Nombre que corresponde al propietario de la partida y lo guardo
-        $NombreCat = $entity->getTramitePadre()
-            ->getComercio()
-            ->getLocal()
-            ->getPartida()
-            ->getTitular();
-        $entity->setNombre($NombreCat);
-        $entity->setNombre('Cat de ' . $NombreCat);
     }
 }

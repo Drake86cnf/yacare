@@ -3,7 +3,7 @@
 {% block pagina_contenido %}
 <h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Requerimientos</h2>
 <ul class="inicio-mini-menu">
-	{% if is_expr_granted("hasAnyRole('ROLE_REQUERIMIENTOS_ADMINISTRADOR')") and res.Recientes['RequerimientosSinEncargado'] %}
+	{% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') and res.Recientes['RequerimientosSinEncargado'] %}
 		<li><p class="text-danger">Los siguientes requerimientos deben ser atendidos inmediatamente:</p></li>
 		{% for req in res.Recientes['RequerimientosSinEncargado'] %}
     		<li><a href="{{ path('yacare_requerimientos_requerimiento_ver', res.Arrastre|merge({ id: req.id })) }}" data-toggle="ajax-link">{{ req }}</a></li>

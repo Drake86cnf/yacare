@@ -15,12 +15,11 @@ class PersonaPerfilAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('NombreVisible', null, array('label' => 'Nombre', 'read_only' => true))
-            ->add('Email', 'email', array(
+            ->add('NombreVisible', null, array('label' => 'Nombre'))
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-minus')
-            ))
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
@@ -32,13 +31,12 @@ class PersonaPerfilAdminType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
-            ->add('UsuarioRoles', 'entity', array(
+            ->add('UsuarioRoles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Roles',
                 'class' => 'TapirBaseBundle:PersonaRol',
                 'attr' => array('style' => 'width: 100%'),
                 'multiple' => true,
-                'required' => false))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

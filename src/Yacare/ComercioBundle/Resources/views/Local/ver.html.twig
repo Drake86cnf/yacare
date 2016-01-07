@@ -68,7 +68,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if is_granted('ROLE_COMERCIO_ADMINISTRADOR') %}
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR') %}
 	<div class="pull-right">
     <a data-toggle="ajax-link" class="btn btn-default"
     	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">

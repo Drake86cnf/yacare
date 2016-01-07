@@ -16,10 +16,10 @@ class InstrumentoType extends AbstractType
                 'label' => 'Tipo', 
                 'required' => true, 
                 'choices' => array(
-                    'com' => 'Comprobante', 
-                    'for' => 'Formulario', 
-                    'ins' => 'Instructivo', 
-                    'car' => 'Carpeta')))
+                    'Comprobante' => 'com', 
+                    'Formulario' => 'for', 
+                    'Instructivo' => 'ins', 
+                    'Carpeta' => 'car')))
             ->add('Obs', null, array('label' => 'Obs.'));
     }
 

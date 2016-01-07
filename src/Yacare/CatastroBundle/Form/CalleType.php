@@ -16,8 +16,7 @@ class CalleType extends AbstractType
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('NombreAlternativo', null, array('label' => 'Nombre alternativo'))
-            ;
+            ->add('NombreAlternativo', null, array('label' => 'Nombre alternativo'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

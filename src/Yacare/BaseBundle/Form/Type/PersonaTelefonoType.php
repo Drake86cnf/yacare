@@ -18,10 +18,10 @@ class PersonaTelefonoType extends AbstractType
             ->add('TelefonoNumero', null, array('label' => 'Número', 'required' => true))
             ->add('TelefonoVerificacionNivel', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
-                    '0' => 'Sin confirmar', 
-                    '10' => 'Confirmado', 
-                    '20' => 'Cotejado', 
-                    '30' => 'Certificado'), 
+                    'Sin confirmar' => 0, 
+                    'Confirmado' => 10, 
+                    'Cotejado' => 20, 
+                    'Certificado' => 30), 
                 'label' => 'Nivel', 
                 'required' => true))
             ->setAttribute('widget', 'form_horizontal');

@@ -21,7 +21,7 @@ class RequerimientoAnonimoType extends AbstractType
                 'label' => 'Asunto', 
                 'attr' => array('placeholder' => ''), 
                 'required' => true))
-            ->add('Categoria', 'entity', array(
+            ->add('Categoria', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Categoría', 
                 'attr' => array(
                     'help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'), 
@@ -34,7 +34,7 @@ class RequerimientoAnonimoType extends AbstractType
                 'label' => 'Nombre', 
                 'attr' => array('placeholder' => 'Su nombre'), 
                 'required' => false))
-            ->add('UsuarioEmail', null, array(
+            ->add('UsuarioEmail', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'E-mail', 
                 'attr' => array('placeholder' => 'Su dirección de correo electrónico'), 
                 'required' => false))
@@ -52,7 +52,6 @@ class RequerimientoAnonimoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'csrf_protection'   => false,
-            'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'
-        ));
+            'data_class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }
 }
