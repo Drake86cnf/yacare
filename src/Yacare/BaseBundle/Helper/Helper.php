@@ -11,15 +11,20 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 abstract class Helper implements IHelper
 {
     protected $em;
+    protected $container;
     protected $Listener;
+    
     protected $Entidad;
     protected $EsEdicion;
     protected $Argumentos;
 
-    function __construct($listener = null, $em = null)
+    function __construct($listenerOrContainer = null, $em = null)
     {
-        if ($listener) {
-            $this->Listener = $listener;
+        if (is_a($listenerOrContainer, 'Doctrine\Common\EventSubscriber')) {
+            $this->Listener = $listenerOrContainer;
+            $this->container = $listenerOrContainer->container; 
+        } else {
+            $this->container = $listenerOrContainer;
         }
         if ($em) {
             $this->em = $em;
