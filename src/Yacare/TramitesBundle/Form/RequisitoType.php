@@ -5,6 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RequisitoType extends AbstractType
 {
@@ -36,15 +37,13 @@ class RequisitoType extends AbstractType
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
                 'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('Requiere', 'entity', array(
+            ->add('Requiere', EntityType::class, array(
                 'label' => 'Sub-requisitos', 
                 'class' => 'YacareTramitesBundle:Requisito', 
                 'required' => false, 
-                'property' => 'Nombre', 
+                'choice_label' => 'Nombre', 
                 'multiple' => true))
-            ->add('Obs', null, array('label' => 'Obs.', 'required' => false));
-
-            
+            ->add('Obs', null, array('label' => 'Obs.', 'required' => false));            
     }
 
     public function configureOptions(OptionsResolver $resolver)

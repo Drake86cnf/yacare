@@ -4,6 +4,7 @@ namespace Yacare\ComercioBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de actas de comercio.
@@ -47,24 +48,24 @@ class ActaComercioType extends AbstractType
                 'label' => 'Hora',
                 'attr' => array('class' => 'tapir-input-120')
             ))
-            ->add('FuncionarioPrincipal', 'entity', array(
+            ->add('FuncionarioPrincipal', EntityType::class, array(
                 'label' => 'Inspector',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => true))
-            ->add('OtrosFuncionarios', 'entity', array(
+            ->add('OtrosFuncionarios', EntityType::class, array(
                 'multiple' => true,
                 'label' => 'Otros funcionarios',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => false))
-            ->add('Etiquetas', 'entity', array(
+            ->add('Etiquetas', EntityType::class, array(
                 'class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta',
                 'multiple' => true,
                 'label' => 'Etiquetas',

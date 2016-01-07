@@ -4,6 +4,8 @@ namespace Yacare\ObrasParticularesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Formulario de actas de obra.
@@ -40,7 +42,7 @@ class ActaObraType extends AbstractType
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
-            ->add('TipoFaltas', 'entity', array(
+            ->add('TipoFaltas', EntityType::class, array(
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Tipofalta',
                 'multiple' => true,
                 'label' => 'Faltas',
@@ -56,7 +58,7 @@ class ActaObraType extends AbstractType
                 'attr' => array('class' => 'tapir-input-320'),
                 'label' => 'Tipo de construcción',
                 'required' => true))
-            ->add('EstadoAvance', 'choice', array(
+            ->add('EstadoAvance', ChoiceType::class, array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
                     1 => 'Replanteo y fundaciones',
@@ -72,7 +74,7 @@ class ActaObraType extends AbstractType
                 'label' => 'Avance',
                 'required' => false))
                 // Solución temporal para los tipos de obra Seca.
-            ->add('EstadoAvance2', 'choice', array(
+            ->add('EstadoAvance2', ChoiceType::class, array(
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
                     5 => 'Estructura en planta baja',
@@ -86,19 +88,19 @@ class ActaObraType extends AbstractType
                 'label' => 'Estado de la obra',
                 'required' => false))
             // Fin solución temporal
-            ->add('FuncionarioPrincipal', 'entity', array(
+            ->add('FuncionarioPrincipal', EntityType::class, array(
                 'label' => 'Inspector',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'placeholder' => 'Seleccione al inspector que intervino',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                     return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');
                 },
                 'required' => true))
-            ->add('OtrosFuncionarios', 'entity', array(
+            ->add('OtrosFuncionarios', EntityType::class, array(
                 'multiple' => true,
                 'label' => 'Otros funcionarios',
-                'property' => 'NombreVisible',
+                'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'query_builder' => function (\Yacare\BaseBundle\Entity\PersonaRepository $er) {
                 return $er->ObtenerQueryBuilderPorRol('ROLE_OBRAS_PARTICULARES_INSPECTOR');

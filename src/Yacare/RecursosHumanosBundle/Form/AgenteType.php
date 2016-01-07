@@ -4,6 +4,7 @@ namespace Yacare\RecursosHumanosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AgenteType extends AbstractType
 {
@@ -13,7 +14,7 @@ class AgenteType extends AbstractType
             ->add('id', null, array(
                 'label' => 'Legajo', 
                 'attr' => array('readonly' => true)))
-            ->add('Grupos', 'entity', array(
+            ->add('Grupos', EntityType::class, array(
                 'label' => 'Grupos', 
                 'class' => 'YacareRecursosHumanosBundle:AgenteGrupo', 
                 'multiple' => true, 

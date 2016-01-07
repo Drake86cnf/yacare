@@ -4,6 +4,7 @@ namespace Yacare\RequerimientosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para requerimientos anónimos.
@@ -21,7 +22,7 @@ class RequerimientoAnonimoType extends AbstractType
                 'label' => 'Asunto', 
                 'attr' => array('placeholder' => ''), 
                 'required' => true))
-            ->add('Categoria', 'entity', array(
+            ->add('Categoria', EntityType::class, array(
                 'label' => 'Categoría', 
                 'attr' => array(
                     'help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'), 

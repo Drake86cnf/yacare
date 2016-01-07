@@ -55,12 +55,12 @@
 		Obras particulares</a></li>
 {% endif %}
 	
-{% if is_expr_granted("hasAnyRole('ROLE_TRAMITES')") %}
+{% if tapir_hasanyrole('ROLE_TRAMITES') %}
 	<li class="dropdown keep-open"><a href="{{ path('yacare_tramites_default_inicio') }}">
 		<i class="fa fa-suitcase fa-fw"></i> Trámites</a></li>
 {% endif %}
 
-{% if is_expr_granted("hasAnyRole('ROLE_INSPECCION')") %}
+{% if tapir_hasanyrole('ROLE_INSPECCION') %}
 	<li class="dropdown keep-open"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown"><i class="fa fa-fire-extinguisher fa-fw"></i>
 			Inspección <b class="caret"></b></a>
@@ -87,7 +87,7 @@
 		<ul class="dropdown-menu">
 			<li><a data-toggle="ajax-link"
 				href="{{ path('yacare_organizacion_departamento_listar') }}">Departamentos</a></li>
-{% if is_expr_granted("hasAnyRole('ROLE_ADMINISTRADOR')") %}
+{% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
 			<li><a data-toggle="ajax-link"
 				href="{{ path('yacare_base_personagrupo_listar') }}">Grupos</a></li>
 			<li><a data-toggle="ajax-link"

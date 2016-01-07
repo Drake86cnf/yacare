@@ -4,6 +4,7 @@ namespace Yacare\BaseBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para persona.
@@ -56,7 +57,7 @@ class PersonaType extends AbstractType
                 'label' => 'Nº de Ingresos Brutos',
                 'attr' => array('class' => 'tapir-input-sinespacios tapir-input-320')
             ))
-            ->add('Grupos', 'entity', array(
+            ->add('Grupos', EntityType::class, array(
                 'label' => 'Grupos',
                 'class' => 'YacareBaseBundle:PersonaGrupo',
                 'attr' => array('style' => 'width: 100%'),
@@ -78,11 +79,11 @@ class PersonaType extends AbstractType
                 'required' => false,
                 'label' => 'Fecha de nacimiento'))
             ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => true))
-            ->add('Pais', 'entity', array(
+            ->add('Pais', EntityType::class, array(
                 'label' => 'Nacionalidad',
                 'placeholder' => 'Sin especificar',
                 'class' => 'YacareBaseBundle:Pais',
-                'property' => 'NombreYGentilicio',
+                'choice_label' => 'NombreYGentilicio',
                 'required' => false));
     }
 

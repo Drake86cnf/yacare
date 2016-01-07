@@ -4,6 +4,9 @@ namespace Yacare\TramitesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AsociacionRequisitoType extends AbstractType
 {
@@ -16,7 +19,7 @@ class AsociacionRequisitoType extends AbstractType
                 'required' => true, 
                 'attr' => array('readonly' => true), 
                 'multiple' => false))
-            ->add('Requisito', 'entity', array(
+            ->add('Requisito', EntityType::class, array(
                 'label' => 'Requisito', 
                 'class' => 'YacareTramitesBundle:Requisito', 
                 'required' => true, 
@@ -24,7 +27,7 @@ class AsociacionRequisitoType extends AbstractType
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
-            ->add('Propiedad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            ->add('Propiedad', ChoiceType::class, array(
                 'label' => 'De', 
                 'required' => false, 
                 'placeholder' => 'n/a', 
@@ -34,7 +37,7 @@ class AsociacionRequisitoType extends AbstractType
                     'Inmueble' => 'Inmueble', 
                     'Inmueble.Titular' => 'Titular del inmueble', 
                     'ReponsableTecnico' => 'Reponsable técnico')))
-            ->add('Instancia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            ->add('Instancia', ChoiceType::class, array(
                 'label' => 'Instancia', 
                 'required' => true, 
                 'choices' => array(
@@ -55,8 +58,8 @@ class AsociacionRequisitoType extends AbstractType
                 )
             ))
             ->add('Notas', null, array('label' => 'Notas'))
-            ->add('CondicionQue', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Sólo si', 'required' => false))
-            ->add('CondicionEs', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            ->add('CondicionQue', TextType::class, array('label' => 'Sólo si', 'required' => false))
+            ->add('CondicionEs', ChoiceType::class, array(
                 'label' => 'Es', 
                 'required' => false, 
                 'placeholder' => 'n/a', 
@@ -73,7 +76,7 @@ class AsociacionRequisitoType extends AbstractType
                     'false' => 'es falso', 
                     'in' => 'está incluido en', 
                     'not in' => 'no está incluido en')))
-            ->add('CondicionCuanto', 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'A', 'required' => false))
+            ->add('CondicionCuanto', TextType::class, array('label' => 'A', 'required' => false))
             ->add('Obs', null, array('label' => 'Explicación de la condición', 'required' => false));
     }
 

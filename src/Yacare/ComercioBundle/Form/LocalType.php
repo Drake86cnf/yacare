@@ -4,6 +4,7 @@ namespace Yacare\ComercioBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para un local.
@@ -31,7 +32,7 @@ class LocalType extends AbstractType
                     'Local comercial' => 'Local comercial',
                     'Depósito' => 'Depósito',
                     'Otro' => 'Otro')))
-            ->add('DepositoClase', 'entity', array(
+            ->add('DepositoClase', EntityType::class, array(
                 'label' => 'Tipo de depósito',
                 'placeholder' => '(sólo para depósitos)',
                 'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
