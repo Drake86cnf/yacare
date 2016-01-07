@@ -56,8 +56,8 @@
 			name="filtro_buscar" placeholder="buscar" value="{{ filtro_buscar }}" style="max-width: 100px" />
 		{% if filtro_buscar %}
         	<button class="btn btn-primary btn-sm" type="button"
-        		onClick="tapirNavegarA('{{ path(path(res.ObtenerRutaAccion('listar'),
-        		    res.Arrastre|merge({ 'filtro_buscar': '', 'page': null }))) }}');">
+        		onClick="tapirNavegarA('{{ path(res.ObtenerRutaAccion('listar'),
+        		    res.Arrastre|merge({ 'filtro_buscar': '', 'page': null })) }}');">
         		<i class="fa fa-times-circle"></i>
         	</button>
     	{% endif %}
