@@ -1,0 +1,28 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %} 
+
+{% block pagina_titulo %}Partida Nº {{ res.Entidad.Numero }}{% endblock %}
+
+{% block pagina_contenido %}
+    {% if res.Mapa is defined %}
+<div class="col-xs-12" id="map" style="height: 400px;">
+</div>
+<script type="text/javascript">
+$(function() {
+    {{ osm_renderjs(res.Mapa) }}
+});
+</script>
+{% else %}
+	<p>No hay datos de ubicación para esta partida.</p>
+{% endif %}
+
+    {% set ArchivosPlancheta = res.Entidad.PlanchetaArchivos %}
+    {% if ArchivosPlancheta %}
+    <h2>Plancheta del macizo {{ res.Entidad.Seccion }}-{{ res.Entidad.Macizo }}</h2>
+    	{% for archivo in ArchivosPlancheta %}
+            <img alt="Plancheta" class="img-responsive" 
+            	src="http://yacare.dir.riogrande.gob.ar/catastro/Planchetas/{{ archivo }}" />
+    	{% endfor %}
+    {% endif %}
+{% endblock %}

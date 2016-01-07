@@ -20,7 +20,12 @@
     			<td>{{ entidad.Numero }}</td>
     			<td>{{ entidad.Subtipo }}</td>
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
-    			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}</td>
+    			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}
+    			{% if entidad.Partida.Ubicacion %}
+    				<a href="{{ path(res.ObtenerRutaAccion('mapa'), { 'id': entidad.Partida.Id }) }}"
+    					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+    			{% endif %}
+    			</td>
     			<td class="hidden-xs">{{ entidad.FuncionarioPrincipal }}</td>
     			<td>{% if entidad.Plazo is not null %}<span class="label label-{% if entidad.EstaVencida %}danger{% else %}success{% endif %}">D</span>{% endif %}</td>
     		</tr>

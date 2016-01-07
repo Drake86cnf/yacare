@@ -72,6 +72,29 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         }
         return $ResultadoVer;
     }
+    
+    
+    /**
+     * @Route("mapa/")
+     * @Template()
+     */
+    public function mapaAction(Request $request)
+    {
+        $ResultadoVer = $this->parent_verAction($request);
+        $res = $ResultadoVer['res'];
+        $Partida = $res->Entidad;
+        if($Partida->getUbicacion()) {
+            // Creo un mapa con la ubicación
+            $Mapa = new Maps\Map();
+            $Marcador = new Maps\Marker();
+            $Marcador->setPosition(new Maps\Point($Partida->getUbicacion()->getX(), $Partida->getUbicacion()->getY()));
+            $Marcador->setDescription($Partida);
+            $Mapa->addMarker($Marcador);
+            $res->Mapa = $Mapa;
+        }
+        return $ResultadoVer;
+    }
+    
 
     /**
      * @Route("listar/")
