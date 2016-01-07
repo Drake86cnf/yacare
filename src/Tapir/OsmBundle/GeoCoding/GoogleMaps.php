@@ -18,7 +18,7 @@ class GoogleMaps implements IGeoCoder
     
     public function GetCoordinateFromAddress($address) {
         $QueryVars = array(
-            'key' => $this->container->getParameter('google_geolocation_apikey')
+            'key' => $this->container->getParameter('google_geolocation_api_key')
         );
         if(is_a($address, 'Tapir\OsmBundle\GeoCoding\Address')) {
             $QueryVars['address'] = $address->getHouse() . ' ' . $address->getStreet();
