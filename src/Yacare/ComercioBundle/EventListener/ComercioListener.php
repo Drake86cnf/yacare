@@ -4,7 +4,6 @@ namespace Yacare\ComercioBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Yacare\ComercioBundle\Entity\ITramiteHabilitacionComercial;
 
 /**
  * Escucha los eventos "lifecycle" de Doctrine para intervenir durante la creación o modificación de ciertas entidades.
