@@ -36,7 +36,7 @@ class RequisitoType extends AbstractType
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
                 'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('Requiere', ' Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+            ->add('Requiere', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Sub-requisitos', 
                 'class' => 'YacareTramitesBundle:Requisito', 
                 'required' => false, 
