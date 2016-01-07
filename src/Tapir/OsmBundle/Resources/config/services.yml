@@ -4,3 +4,11 @@ services:
         arguments: [ '@service_container' ]
         tags:
           - { name: twig.extension }
+    
+    tapirosmbundle.geocoding.nominatim:
+        class: Tapir\OsmBundle\GeoCoding\Nominatim
+        arguments: [ '@service_container' ]
+    
+    tapirosmbundle.geocoding.googlemaps:
+        class: Tapir\OsmBundle\GeoCoding\GoogleMaps
+        arguments: [ '@service_container' ]

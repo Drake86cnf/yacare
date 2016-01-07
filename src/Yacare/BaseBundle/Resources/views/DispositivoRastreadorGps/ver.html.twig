@@ -7,15 +7,15 @@
 
 {% block pagina_contenido %}
     <div class="row">
-    	<div class="col-xs-12" id="map" style="height: 480px;">
-    	</div>
-    		{% if res.Mapa is defined %}
+{% if res.Mapa is defined %}
+<div class="col-xs-12" id="map" style="height: 480px;">
+</div>
 <script type="text/javascript">
 $(function() {
     {{ osm_renderjs(res.Mapa) }}
 });
 </script>
-    		{% endif %}
+{% endif %}
     </div>
     {#
     <br>
