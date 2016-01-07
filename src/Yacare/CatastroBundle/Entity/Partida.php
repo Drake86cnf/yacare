@@ -117,6 +117,20 @@ class Partida
     private $Titular;
     
     /**
+     * Coordenadas de su ubicación.
+     *
+     * @ORM\Column(type="point", nullable=true)
+     */
+    protected $Ubicacion;
+    
+    /**
+     * Fecha de la última consulta de ubicación.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $UbicacionFecha;
+    
+    /**
      * Las personas que están relacionadas con esta partida.
      *
      * @var Yacare\BaseBundle\Entity\Persona
@@ -567,6 +581,38 @@ class Partida
     public function setTg06100Id($Tg06100Id)
     {
         $this->Tg06100Id = $Tg06100Id;
+        return $this;
+    }
+
+    /**
+    * @ignore
+    */
+    public function getUbicacion() {
+        return $this->Ubicacion;
+    }
+    
+    /**
+    * @ignore
+    */
+    public function setUbicacion($Ubicacion) {
+        $this->Ubicacion = $Ubicacion;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getUbicacionFecha()
+    {
+        return $this->UbicacionFecha;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUbicacionFecha($UbicacionFecha)
+    {
+        $this->UbicacionFecha = $UbicacionFecha;
         return $this;
     }
 

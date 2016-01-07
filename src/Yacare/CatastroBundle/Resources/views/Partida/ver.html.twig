@@ -16,6 +16,9 @@
     		</div>
     		<div class="col-sm-8 col-xs-12">
                 {{ bs.grid_label_text('Domicilio', res.Entidad.Domicilio) }}
+                {% if res.Entidad.Ubicacion %}
+                {{ bs.grid_label_text('Ubicación', res.Entidad.Ubicacion) }}
+                {% endif %}
     			{% if res.Entidad.Titular %} 
     			    {{ bs.grid_label_text('Titular', '<a data-dismiss="modal" data-toggle="ajax-link" href="' ~ 
     			        path('yacare_base_persona_ver', { 'id': res.Entidad.Titular.id }) ~ '">' ~ 
@@ -26,6 +29,16 @@
     	</div>
     </div>
     
+    {% if res.Mapa is defined %}
+<div class="col-xs-12" id="map" style="height: 480px;">
+</div>
+<script type="text/javascript">
+$(function() {
+    {{ osm_renderjs(res.Mapa) }}
+});
+</script>
+{% endif %}
+
     {% set ArchivosPlancheta = res.Entidad.PlanchetaArchivos %}
     {% if ArchivosPlancheta %}
     <h2>Plancheta del macizo {{ res.Entidad.Seccion }}-{{ res.Entidad.Macizo }}</h2>
