@@ -18,9 +18,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for entity in entities %}
+		{% for entity in res.Entidades %}
 		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_ver', arrastre|merge({ 'id': entity.Id })) }}">
+			href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}">
 			<td class="text-muted">{{ entity.Numero }}</td>
 			<td>{{ entity.Seccion }}</td>
 			<td>{{ entity.Macizo }}</td>
@@ -28,7 +28,12 @@
 			<td>{% if entity.SubParcela %}{{ entity.SubParcela }}{% endif %}</td>
 			<td class="text-muted">{% if entity.UnidadFuncional %}{{ entity.UnidadFuncional }}{% endif %}</td>
 			<td class="text-muted">{% if entity.Zona %}{{ entity.Zona.Codigo }}{% endif %}</td>
-			<td class="text-muted">{{ entity.Domicilio }}</td>
+			<td class="text-muted">{{ entity.Domicilio }}
+			{% if entity.Ubicacion %}
+				<a href="{{ path(res.ObtenerRutaAccion('mapa'), res.Arrastre|merge({ 'id': entity.Id })) }}"
+					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+			{% endif %}
+			</td>
 			<td class="text-muted">{% if entity.Titular %}
 			    {{ entity.Titular }}
 			{% elseif entity.Tg06100Id %}
@@ -51,7 +56,8 @@
 			name="filtro_buscar" placeholder="buscar" value="{{ filtro_buscar }}" style="max-width: 100px" />
 		{% if filtro_buscar %}
         	<button class="btn btn-primary btn-sm" type="button"
-        		onClick="tapirNavegarA('{{ path(baseroute ~ '_listar', arrastre|merge({ 'filtro_buscar': '', 'page': null })) }}');">
+        		onClick="tapirNavegarA('{{ path(path(res.ObtenerRutaAccion('listar'),
+        		    res.Arrastre|merge({ 'filtro_buscar': '', 'page': null }))) }}');">
         		<i class="fa fa-times-circle"></i>
         	</button>
     	{% endif %}
@@ -64,8 +70,8 @@
 			{% if filtro_seccion %}Sección {{ filtro_seccion }}{% else %}Sección{% endif %} <span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" role="menu">
-			<li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar',
-			    arrastre|merge({ 'filtro_seccion': '', 'filtro_macizo': null, 'page': null })) }}">
+			<li><a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('listar'),
+			    res.Arrastre|merge({ 'filtro_seccion': '', 'filtro_macizo': null, 'page': null })) }}">
 			    {% if filtro_seccion %}
 			    	<i class="fa fa-fw"></i>
 			    {% else %}
@@ -77,8 +83,8 @@
 
 			{% for seccion in secciones %}
 			    {% if seccion.Seccion %}
-				<li><a data-toggle="ajax-link" href="{{ path(baseroute ~ '_listar',
-				    arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'filtro_macizo': null, 'page': null })) }}">
+				<li><a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('listar'),
+				    res.Arrastre|merge({ 'filtro_seccion': seccion.Seccion, 'filtro_macizo': null, 'page': null })) }}">
 				    {% if filtro_seccion == seccion.Seccion %}
 				    	<i class="fa fa-fw fa-check"></i>
 				    {% else %}
@@ -93,8 +99,8 @@
 		<input class="form-control input-sm" type="text" size="5" maxlength="5" id="filtro_macizo" name="filtro_macizo"
 			placeholder="macizo" value="{{ filtro_macizo }}" style="max-width: 64px" />
 			{% if filtro_macizo %}
-			<button class="btn btn-primary btn-sm" type="button" onClick="tapirNavegarA('{{ path(baseroute ~ '_listar',
-			    arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');">
+			<button class="btn btn-primary btn-sm" type="button"
+				onClick="tapirNavegarA('{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_seccion': filtro_seccion, 'filtro_macizo': '', 'page': null })) }}');">
     			<i class="fa fa-times-circle"></i>
     		</button>
 		    {% endif %}
@@ -108,13 +114,13 @@ $(function() {
     $("#filtro_macizo").keyup(function (e) {
         if (e.which === 13) {
             e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar', { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
+            parent.location='{{ path(res.ObtenerRutaAccion('listar'), { 'filtro_seccion': filtro_seccion }) }}&filtro_macizo=' + $("#filtro_macizo").val();
         }
     });
     $("#filtro_buscar").keyup(function (e) {
         if (e.which === 13) {
             e.preventDefault();
-            parent.location='{{ path(baseroute ~ '_listar') }}?filtro_buscar=' + $("#filtro_buscar").val();
+            parent.location='{{ path(res.ObtenerRutaAccion('listar')) }}?filtro_buscar=' + $("#filtro_buscar").val();
         }
     });
 });
