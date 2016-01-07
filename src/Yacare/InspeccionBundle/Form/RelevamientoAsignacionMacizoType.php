@@ -4,7 +4,6 @@ namespace Yacare\InspeccionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para macizo en una asignación.
@@ -16,7 +15,7 @@ class RelevamientoAsignacionMacizoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Relevamiento', EntityType::class, array(
+            ->add('Relevamiento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Relevamiento', 
                 'class' => 'YacareInspeccionBundle:Relevamiento', 
                 'required' => true, 
@@ -25,7 +24,7 @@ class RelevamientoAsignacionMacizoType extends AbstractType
             ))
             ->add('Encargado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Encargado', 
-                // 'property' => 'NombreVisible', 
+                'property' => 'NombreVisible', 
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => true))
             ->add('Seccion', null, array('label' => 'Sección', 'required' => true))

@@ -15,11 +15,10 @@ class PersonaCrearContrasenaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('PasswordEnc', 'password', array(
+            ->add('PasswordEnc', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
                 'label' => 'Contraseña nueva',
                 'attr' => array('autocomplete' => 'off', 'class' => 'tapir-input-240'),
-                'required' => true))
-            ;
+                'required' => true));
     }
 
     public function configureOptions(OptionsResolver $resolver)

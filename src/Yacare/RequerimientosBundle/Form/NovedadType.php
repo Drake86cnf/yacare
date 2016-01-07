@@ -17,9 +17,7 @@ class NovedadType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Notas', null, array(
-                'label' => 'Descripción',
-                'required' => true))
+            ->add('Notas', null, array('label' => 'Descripción', 'required' => true))
             ->add('Privada', 'Tapir\BaseBundle\Form\Type\PrivadoType', array(
                 'label' => 'Visibilidad',
                 'attr' => array(

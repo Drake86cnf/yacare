@@ -17,11 +17,11 @@ class DocumentoType extends AbstractType
         $builder
             ->add('DocumentoTipo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array(
-                    '1' => 'DNI',
-                    '2' => 'LE',
-                    '3' => 'LC',
-                    '4' => 'CI',
-                    '5' => 'Pasaporte'),
+                    'DNI' => 1,
+                    'LE' => 2,
+                    'LC' => 3,
+                    'CI' => 4,
+                    'Pasaporte' => 5),
                 'label' => false))
             ->add('DocumentoNumero', null, array(
                 'label' => false,

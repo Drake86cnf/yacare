@@ -4,7 +4,6 @@ namespace Yacare\ComercioBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de actas de comercio.
@@ -48,7 +47,7 @@ class ActaComercioType extends AbstractType
                 'label' => 'Hora',
                 'attr' => array('class' => 'tapir-input-120')
             ))
-            ->add('FuncionarioPrincipal', EntityType::class, array(
+            ->add('FuncionarioPrincipal', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Inspector',
                 'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
@@ -56,7 +55,7 @@ class ActaComercioType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => true))
-            ->add('OtrosFuncionarios', EntityType::class, array(
+            ->add('OtrosFuncionarios', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'multiple' => true,
                 'label' => 'Otros funcionarios',
                 'choice_label' => 'NombreVisible',
@@ -65,15 +64,14 @@ class ActaComercioType extends AbstractType
                     return $er->ObtenerQueryBuilderPorRol('ROLE_COMERCIO_INSPECTOR');
                 },
                 'required' => false))
-            ->add('Etiquetas', EntityType::class, array(
+            ->add('Etiquetas', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'class' => 'Yacare\ComercioBundle\Entity\ActaEtiqueta',
                 'multiple' => true,
                 'label' => 'Etiquetas',
                 'placeholder' => 'Seleccione una o más etiquetas',
                 'required' => false))
             ->add('Detalle', null, array('label' => 'Detalle'))
-            ->add('Obs', null, array('label' => 'Observaciones'))
-            ;
+            ->add('Obs', null, array('label' => 'Observaciones'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

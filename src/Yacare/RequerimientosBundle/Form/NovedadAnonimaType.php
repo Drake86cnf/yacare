@@ -17,9 +17,7 @@ class NovedadAnonimaType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Notas', null, array(
-                'label' => 'Descripción',
-                'required' => true))
+            ->add('Notas', null, array('label' => 'Descripción', 'required' => true))
             ->add('Requerimiento', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'class' => 'Yacare\RequerimientosBundle\Entity\Requerimiento'));
     }

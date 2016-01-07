@@ -24,7 +24,8 @@ class ReportarProblemaType extends AbstractType
             ->add('Categoria', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'label' => 'Categoría',
                 'class' => 'Yacare\RequerimientosBundle\Entity\Categoria',
-                'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el administrador asigne una.'),
+                'attr' => array('help' => 'Si no sabe cual seleccionar, puede dejarla en blanco para que el 
+                    administrador asigne una.'),
                 'required' => false))
             ->add('Obs', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
                 'label' => 'Observaciones',

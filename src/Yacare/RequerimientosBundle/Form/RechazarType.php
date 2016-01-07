@@ -17,9 +17,7 @@ class RechazarType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('Notas', null, array(
-                'label' => 'Motivo del rechazo',
-                'required' => true))
+            ->add('Notas', null, array('label' => 'Motivo del rechazo', 'required' => true))
             ->add('Usuario', 'Tapir\FormBundle\Form\Type\EntityHiddenType', array(
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona'))

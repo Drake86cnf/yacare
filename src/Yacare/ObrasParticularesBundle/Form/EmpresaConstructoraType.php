@@ -4,7 +4,6 @@ namespace Yacare\ObrasParticularesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 /**
  * Formulario de empresa constructora.
@@ -20,14 +19,14 @@ class EmpresaConstructoraType extends AbstractType
         $builder
             ->add('Persona', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Empresa',
-                // 'property' => 'NombreVisible',
+                'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
             ->add('RepresentanteTecnico', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Representante técnico',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => true))
-            ->add('FechaVencimiento', DateType::class, array(
+            ->add('FechaVencimiento', 'Symfony\Component\Form\Extension\Core\Type\DateType', array(
                 'years' => range(2000, 2099),
                 'input' => 'datetime',
                 'widget' => 'single_text',

@@ -4,7 +4,6 @@ namespace Yacare\RequerimientosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de categoría.
@@ -24,7 +23,7 @@ class CategoriaType extends AbstractType
             ->add('Obs', null, array(
                 'label' => 'Obs.',
                 'required' => false))
-            ->add('Encargado', EntityType::class, array(
+            ->add('Encargado', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Encargado predet.',
                 'choice_label' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',

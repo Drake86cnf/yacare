@@ -4,7 +4,6 @@ namespace Yacare\ObrasParticularesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Formulario de movimiento de previas.
@@ -27,10 +26,9 @@ class TramitePlanoType extends AbstractType
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => true))
-            ->add('Obs', TextareaType::class, array(
+            ->add('Obs', null, array(
                 'label' => 'Observaciones', 
-                'required' => false))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

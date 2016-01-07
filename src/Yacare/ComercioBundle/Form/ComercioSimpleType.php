@@ -19,28 +19,23 @@ class ComercioSimpleType extends AbstractType
         $builder
             ->add('Nombre', null, array(
                 'label' => 'Nombre de fantasía',
-                'attr' => array('class' => 'tapir-input-maymin')
-            ))
+                'attr' => array('class' => 'tapir-input-maymin')))
             ->add('Domicilio', null, array(
                 'label' => 'Domicilio',
-                'attr' => array('class' => 'tapir-input-maymin')
-            ))
+                'attr' => array('class' => 'tapir-input-maymin')))
             ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
                 'label' => 'Expediente',
                 'required' => false))
             ->add('ActoAdministrativoNumero', 'Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType', array(
                 'label' => 'Resolución de habilitación',
-                'required' => false
-            ))
+                'required' => false))
             ->add('PosicionArchivo', null, array(
                 'label' => 'Posición en archivo',
                 'attr' => array('class' => 'tapir-input-120'),
-                'required' => false
-            ))
+                'required' => false))
             ->add('ActoAdministrativoBajaNumero', 'Yacare\AdministracionBundle\Form\Type\ActoAdministrativoType', array(
                 'label' => 'Resolución de baja',
-                'required' => false
-            ))
+                'required' => false))
             ->add('Apoderado', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Apoderado',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',

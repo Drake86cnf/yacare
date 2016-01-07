@@ -10,10 +10,8 @@ class AgenteGrupoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array(
-                'label' => 'Nombre'))
-            ->add('NombreLdap', null, array(
-                'label' => 'Nombre LDAP'));
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('NombreLdap', null, array('label' => 'Nombre LDAP'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

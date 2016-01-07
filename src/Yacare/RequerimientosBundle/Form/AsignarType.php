@@ -4,7 +4,6 @@ namespace Yacare\RequerimientosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para asignación de un requerimiento.
@@ -21,7 +20,7 @@ class AsignarType extends AbstractType
             ->add('Notas', null, array(
                 'label' => 'Notas',
                 'required' => false))
-            ->add('Usuario', EntityType::class, array(
+            ->add('Usuario', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Encargado',
                 'choice_label' => 'NombreVisible',
                 'attr' => array('class' => 'tapir-input-320'),

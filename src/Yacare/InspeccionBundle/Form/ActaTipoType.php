@@ -4,7 +4,6 @@ namespace Yacare\InspeccionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario de tipo de actas.
@@ -16,7 +15,8 @@ class ActaTipoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre', null, array('label' => 'Nombre'))->add('Departamento', EntityType::class, array(
+            ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Departamento', 
                 'placeholder' => 'Sin especificar', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 

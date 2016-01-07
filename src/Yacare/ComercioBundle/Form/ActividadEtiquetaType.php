@@ -3,7 +3,6 @@ namespace Yacare\ComercioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Formulario para una etiqueta de actividad.
@@ -20,12 +19,7 @@ class ActividadEtiquetaType extends AbstractType
                 'label' => 'Código',
                 'attr' => array('class' => 'tapir-input-160'),
                 'required' => true))
-            ->add('Nombre', null, array(
-                'label' => 'Nombre',
-                'required' => true))
-            ->add('Obs', null, array(
-                'label' => 'Obs.',
-                'required' => false))
-            ;
+            ->add('Nombre', null, array('label' => 'Nombre', 'required' => true))
+            ->add('Obs', null, array('label' => 'Obs.', 'required' => false));
     }
 }

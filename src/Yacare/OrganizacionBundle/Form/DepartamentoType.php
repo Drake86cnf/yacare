@@ -5,7 +5,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario para Departamentos Municipales.
@@ -25,7 +24,7 @@ class DepartamentoType extends AbstractType
             ->add('Rango', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => \Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos(),
                 'label' => 'Rango'))
-            ->add('ParentNode', EntityType::class, array(
+            ->add('ParentNode', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Depende de', 
                 'class' => 'YacareOrganizacionBundle:Departamento', 
                 'required' => false, 

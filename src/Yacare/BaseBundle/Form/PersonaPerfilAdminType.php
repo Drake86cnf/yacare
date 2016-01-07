@@ -4,7 +4,6 @@ namespace Yacare\BaseBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Formulario perfil de usuario para un administrador.
@@ -17,11 +16,10 @@ class PersonaPerfilAdminType extends AbstractType
     {
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre'))
-            ->add('Email', 'email', array(
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')
-            ))
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
@@ -33,13 +31,12 @@ class PersonaPerfilAdminType extends AbstractType
                 'label' => 'CUIL/CUIT',
                 'required' => false
             ))
-            ->add('UsuarioRoles', EntityType::class, array(
+            ->add('UsuarioRoles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Roles',
                 'class' => 'TapirBaseBundle:PersonaRol',
                 'attr' => array('style' => 'width: 100%'),
                 'multiple' => true,
-                'required' => false))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

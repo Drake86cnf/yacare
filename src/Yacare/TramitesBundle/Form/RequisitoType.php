@@ -5,7 +5,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RequisitoType extends AbstractType
 {
@@ -23,12 +22,12 @@ class RequisitoType extends AbstractType
                 'label' => 'Tipo', 
                 'required' => true, 
                 'choices' => array(
-                    'cond' => 'Condición', 
-                    'ext' => 'Externo', 
-                    'int' => 'Interno', 
-                    'tra' => 'Trámite', 
-                    'compy' => 'Compuesto Y', 
-                    'compo' => 'Compuesto O')))
+                    'Condición' => 'cond', 
+                    'Externo' => 'ext', 
+                    'Interno' => 'int', 
+                    'Trámite' => 'tra', 
+                    'Compuesto Y' => 'compy', 
+                    'Compuesto O' => 'compo')))
             ->add('Departamento', null, array(
                 'label' => 'Sector',
                 'attr' => array('placeholder' => 'El sector al que pertenece el requisito'), 
@@ -37,13 +36,15 @@ class RequisitoType extends AbstractType
                         ->orderBy('u.MaterializedPath', 'ASC');
                 },
                 'choice_label' => 'NombreConSangriaDeEspaciosDuros'))
-            ->add('Requiere', EntityType::class, array(
+            ->add('Requiere', ' Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Sub-requisitos', 
                 'class' => 'YacareTramitesBundle:Requisito', 
                 'required' => false, 
                 'choice_label' => 'Nombre', 
                 'multiple' => true))
-            ->add('Obs', null, array('label' => 'Obs.', 'required' => false));            
+            ->add('Obs', null, array(
+                'label' => 'Obs.', 
+                'required' => false));            
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -16,11 +16,10 @@ class PersonaPerfilType extends AbstractType
     {
         $builder
             ->add('NombreVisible', null, array('label' => 'Nombre'))
-            ->add('Email', 'email', array(
+            ->add('Email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'Correo electrónico',
                 'required' => false,
-                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')
-            ))
+                'attr' => array('autocomplete' => 'off', 'readonly' => true, 'class' => 'tapir-input-minus')))
             ->add('TelefonoNumero', null, array('label' => 'Teléfonos'))
             ->add('FechaNacimiento', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
                 'required' => false,
@@ -28,9 +27,7 @@ class PersonaPerfilType extends AbstractType
             ->add('Genero', 'Tapir\BaseBundle\Form\Type\GeneroType', array('label' => 'Género', 'required' => false))
             ->add('Cuilt',  'Tapir\BaseBundle\Form\Type\CuiltType', array(
                 'label' => 'CUIL/CUIT',
-                'required' => false
-            ))
-            ;
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

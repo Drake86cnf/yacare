@@ -14,11 +14,10 @@ class LocalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
-        $resolver->setDefaults(
-            array(
-                'placeholder' => 'Seleccione un local',
-                'class' => 'Yacare\ComercioBundle\Entity\Local'
-            ));
+        
+        $resolver->setDefaults(array(
+            'placeholder' => 'Seleccione un local', 
+            'class' => 'Yacare\ComercioBundle\Entity\Local'));
     }
 
     public function getParent()

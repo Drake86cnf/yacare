@@ -15,13 +15,12 @@ class PersonaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
-        $resolver->setDefaults(
-            array(
-                'property' => 'NombreVisible',
-                'extra_data' => 'DocumentoNumero,Cuilt',
-                'placeholder' => 'Seleccione una persona',
-                'class' => 'Yacare\BaseBundle\Entity\Persona'
-            ));
+        $resolver->setDefaults(array(
+            'property' => 'NombreVisible',
+            'extra_data' => 'DocumentoNumero,Cuilt',
+            'placeholder' => 'Seleccione una persona',
+            'class' => 'Yacare\BaseBundle\Entity\Persona'
+        ));
     }
 
     public function getParent()

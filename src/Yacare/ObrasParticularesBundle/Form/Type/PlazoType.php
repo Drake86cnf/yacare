@@ -15,13 +15,12 @@ class PlazoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                '1' => '1 día',
-                '5' => '5 días',
-                '10' => '10 días',
-                '30' => '30 días',
-                '60' => '60 días',
-                '90' => '90 días')
-            ));
+                '1 día' => 1,
+                '5 días' => 5,
+                '10 días' => 10,
+                '30 días' => 30,
+                '60 días' => 60,
+                '90 días' => 90)));
     }
 
     public function getParent()
