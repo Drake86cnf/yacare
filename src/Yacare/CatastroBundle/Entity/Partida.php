@@ -126,7 +126,7 @@ class Partida
     /**
      * Fecha de la última consulta de ubicación.
      *
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $UbicacionFecha;
     
