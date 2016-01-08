@@ -27,7 +27,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
 
     function __construct()
     {
-        $this->OrderBy = 'r.createdAt';
+        $this->OrderBy = 'r.createdAt DESC';
         
         $this->ConservarVariables[] = 'filtro_encargado';
         $this->ConservarVariables[] = 'filtro_estado';
