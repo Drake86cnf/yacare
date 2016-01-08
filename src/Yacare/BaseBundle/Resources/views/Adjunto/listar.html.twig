@@ -39,9 +39,11 @@ a.thumbnail {
 }
 </style>
 
-
-<form action="{{ path('yacare_base_adjunto_subir', res.Arrastre|merge({ 'tipo': res.EntidadTipo, 'id': res.EntidadId })) }}" {{ form_enctype(res.FormularioSubir) }} 
-	class="dropzone hidden-print" id="subirArchivos" method="POST">
+{{ form_start(res.FormularioSubir, {
+    'action': path('yacare_base_adjunto_subir', res.Arrastre|merge({ 'tipo': res.EntidadTipo, 'id': res.EntidadId })),
+    'method': 'POST',
+    'attr': { 'id': 'subirArchivos', 'class': 'dropzone hidden-print' }
+}) }}
 
     <div class="dz-message">
     	<p class="text-center"><br />Haga clic o arrastre y suelte archivos aquí para añadir.<br /></p> 
