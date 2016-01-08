@@ -196,11 +196,6 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
             return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
                 $this->ArrastrarVariables($request, array('id' => $id), false)));
         } else {
-            $children = $FormEditar->all();
-            
-            foreach ($children as $child) {
-                $child->getErrorsAsString();
-            }
             $Errores = $FormEditar->getErrors(true, true);
         }
         
