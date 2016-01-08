@@ -30,6 +30,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         $this->ConservarVariables[] = 'filtro_seccion';
         $this->ConservarVariables[] = 'filtro_macizo';
         $this->ConservarVariables[] = 'filtro_buscar';
+        $this->ConservarVariables[] = 'filtro_calle';
         $this->BuscarPor = 'Numero, Nombre';
         $this->OrderBy = 'Seccion, MacizoNum, ParcelaNum';
     }
@@ -90,6 +91,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
             $Marcador->setPosition(new Maps\Point($Partida->getUbicacion()->getX(), $Partida->getUbicacion()->getY()));
             $Marcador->setDescription($Partida);
             $Mapa->addMarker($Marcador);
+            $Mapa->setCenter($Marcador->getPosition());
             $res->Mapa = $Mapa;
         }
         return $ResultadoVer;

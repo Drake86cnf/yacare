@@ -5,6 +5,7 @@ pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
+			<th> </th>
 			<th>Nombre</th>
 			<th>Nombre alternativo</th>
 			<th>Tipo</th>
@@ -12,9 +13,10 @@ pagina_contenido %}
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr {% if tapir_hasanyrole('ROLE_CATASTRO_ADMINISTRADOR') %}
-			data-toggle="ajax-link"
+		<tr {% if tapir_hasanyrole('ROLE_CATASTRO_ADMINISTRADOR') %} data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"{% endif %}>
+			<td><a href="{{ path('yacare_catastro_partida_listar', { filtro_calle: entity.id }) }}"
+				data-toggle="ajax-link"><i class="fa fa-map-o"></i></a></td>
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.NombreAlternativo }}</td>
 			<td>{{ entity.TipoNombre }}</td>

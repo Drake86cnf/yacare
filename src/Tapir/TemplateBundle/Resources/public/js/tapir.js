@@ -144,6 +144,7 @@ function tapirAtras() {
 function tapirNavegarA(url, destino) {
 	tapirCambiarDireccion(url);
 	tapirCargarUrlEn(url, destino); // con AJAX
+	return false;
 }
 
 /**
