@@ -32,7 +32,7 @@ class PartidaHelper extends \Yacare\BaseBundle\Helper\Helper
                 // No tiene ubicación y nunca se consultó o se consultó hace más de 30 días.
                 $Domicilio = new \Tapir\OsmBundle\GeoCoding\Address(
                     $partida->getDomicilioNumero(),
-                    $partida->getDomicilioCalle(),
+                    $partida->getDomicilioCalle()->getNombre(),
                     'Río Grande',
                     null,
                     'Tierra del Fuego',
