@@ -103,7 +103,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $entity = $this->ObtenerEntidadPorId($id);
             
             if ($entity->EstaVencida()) {
-                return $this->redirect($this->generateUrl('yacare_obrasparticulares_default_accesodenegado'));
+                return $this->redirect($this->generateUrl('yacare_obrasparticulares_default_descargodenegado'));
             }
         }
         

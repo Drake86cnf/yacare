@@ -73,4 +73,13 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         
         return $resultado;
     }
+    
+    /**
+     * @Route("descargodenegado")
+     * @Template
+     */
+    public function descargodenegadoAction(Request $request)
+    {
+        return array();
+    }
 }
