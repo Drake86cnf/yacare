@@ -47,6 +47,15 @@ class Calle
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Tipo;
+    
+    /**
+     * Fecha de la última actualización de ubicación.
+     * 
+     * Campo de uso interno para relevamiento de calles en OSM.
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $UbicacionFecha;
 
     /**
      * Normaliza el tipo de calle.
@@ -130,4 +139,22 @@ class Calle
         $this->Tipo = $Tipo;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getUbicacionFecha()
+    {
+        return $this->UbicacionFecha;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setUbicacionFecha($UbicacionFecha)
+    {
+        $this->UbicacionFecha = $UbicacionFecha;
+        return $this;
+    }
+ 
 }

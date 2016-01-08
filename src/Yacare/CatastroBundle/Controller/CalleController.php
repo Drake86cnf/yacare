@@ -17,4 +17,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class CalleController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Yacare\BaseBundle\Controller\ConExportarLista;
+    
+    /**
+     * Actualiza el campo UbicacionFecha a la fecha actual.
+     *
+     * @Route("actualizarfechaubicacion/")
+     */
+    public function actualizarfechaubicacionAction(Request $request)
+    {
+        $em = $this->getEm();
+        $id = $this->ObtenerVariable($request, 'id');
+        $entity = $this->ObtenerEntidadPorId($id);
+        $entity->setUbicacionFecha(new \DateTime());
+        $em->persist($entity);
+        $em->flush();
+        
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
+    }
 }
