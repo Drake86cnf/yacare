@@ -15,10 +15,10 @@ class GeneroType extends ButtonGroupType
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                '0' => 'Sin especificar', 
-                '1' => 'Masculino', 
-                '2' => 'Femenino', 
-                '3' => 'Otro')));
+                'Sin especificar' => 0, 
+                'Masculino' => 1, 
+                'Femenino' => 2, 
+                'Otro' => 3)));
     }
 
     public function getParent()

@@ -132,6 +132,8 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
         switch ($rango) {
             case 1:
                 return 'Replanteo y fundaciones';
+            case 3:
+                return 'Platea';
             case 5:
                 if ($tipoConstruccion === 'Seca') {
                     return 'Estructura en planta baja';

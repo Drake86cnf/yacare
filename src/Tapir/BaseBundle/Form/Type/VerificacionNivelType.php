@@ -16,10 +16,10 @@ class VerificacionNivelType extends ButtonGroupType
         $resolver->setDefaults(
             array(
                 'choices' => array(
-                    '0' => 'Sin confirmar', 
-                    '10' => 'Confirmado', 
-                    '20' => 'Cotejado', 
-                    '30' => 'Certificado'), 
+                    'Sin confirmar' => 0, 
+                    'Confirmado' => 10, 
+                    'Cotejado' => 20, 
+                    'Certificado' => 30), 
                 'label' => 'Nivel de confirmación', 
                 'attr' => array(
                     'help' => '<a href="#" class="text-warning" data-toggle="collapse" 

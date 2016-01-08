@@ -13,7 +13,7 @@ class SiNoType extends ButtonGroupType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('choices' => array('0' => 'No', '1' => 'Sí')));
+        $resolver->setDefaults(array('choices' => array('No' => 0, 'Sí' => 1)));
     }
 
     public function getParent()
