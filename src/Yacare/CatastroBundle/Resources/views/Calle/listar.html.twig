@@ -8,18 +8,18 @@ pagina_contenido %}
 			<th> </th>
 			<th>Nombre</th>
 			<th>Nombre alternativo</th>
-			<th>Tipo</th>
+			<th>OSM</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for entity in entities %}
+		{% for entity in res.Entidades %}
 		<tr {% if tapir_hasanyrole('ROLE_CATASTRO_ADMINISTRADOR') %} data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"{% endif %}>
+			href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': entity.id })) }}"{% endif %}>
 			<td><a href="{{ path('yacare_catastro_partida_listar', { filtro_calle: entity.id }) }}"
 				data-toggle="ajax-link"><i class="fa fa-map-o"></i></a></td>
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.NombreAlternativo }}</td>
-			<td>{{ entity.TipoNombre }}</td>
+			<td>{{ entity.UbicacionFecha|tapir_hacetiempo }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
