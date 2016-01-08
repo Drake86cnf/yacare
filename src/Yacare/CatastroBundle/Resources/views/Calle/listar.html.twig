@@ -15,6 +15,7 @@ pagina_contenido %}
 		<tr {% if tapir_hasanyrole('ROLE_CATASTRO_ADMINISTRADOR') %}
 			data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', { 'id': entity.id }) }}"{% endif %}>
+			<td><a href="{{ path('yacare_catastro_partida_listar', { filtro_calle: entity.id }) }}" data-toggle="ajax-link"><i class="fa fa-map-o"></i></a></td>
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.NombreAlternativo }}</td>
 			<td>{{ entity.TipoNombre }}</td>
