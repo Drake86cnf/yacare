@@ -51,8 +51,8 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
         }
         
         $Filtros = array('Ubicacion' => null);
-        if ($input->getOption('hasta')) {
-            $Filtros['DomicilioCalle_id'] = (int)($input->getOption('calle'));
+        if ($input->getOption('calle')) {
+            $Filtros['DomicilioCalle'] = (int)($input->getOption('calle'));
         }
         
         $output->writeln('Geocodificando partidas...');
