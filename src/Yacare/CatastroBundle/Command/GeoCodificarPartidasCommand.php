@@ -28,6 +28,12 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
             InputOption::VALUE_OPTIONAL,
             'Número de registro final',
             0)
+        ->addOption(
+            'calle',
+            null,
+            InputOption::VALUE_OPTIONAL,
+            'Sólo procesar partidas de una calle determinada',
+            0)
         ;
     }
 
@@ -44,6 +50,11 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
             $hasta = 0;
         }
         
+        $Filtros = array('Ubicacion' => null);
+        if ($input->getOption('hasta')) {
+            $Filtros['DomicilioCalle_id'] = (int)($input->getOption('calle'));
+        }
+        
         $output->writeln('Geocodificando partidas...');
 
         $cantidadTotal = $hasta - $desde;
@@ -52,7 +63,7 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $Helper = new \Yacare\CatastroBundle\Helper\PartidaHelper($this->getContainer(), $em);
         $Partidas = $em->getRepository('Yacare\CatastroBundle\Entity\Partida')->findBy(
-            array('Ubicacion' => null),
+            $Filtros,
             array('id' => 'ASC'),
             $desde ?: null,
             $cantidadTotal ?: null);
@@ -62,7 +73,7 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
             $Helper->ObtenerGeoCoding($Partida);
             $progress->advance();
             $em->flush();
-            // Dormir entre unos segundos entre consulta y consulta
+            // Dormir unos segundos entre consulta y consulta
             sleep(rand(10, 20));
         }
         $em->clear();
