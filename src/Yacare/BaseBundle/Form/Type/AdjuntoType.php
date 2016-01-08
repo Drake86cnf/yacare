@@ -16,8 +16,9 @@ class AdjuntoType extends AbstractType
     {
         return $builder
             ->add('EntidadTipo', null)
-            ->add('EntidadId', 'file')
-            ->add('NombreArchivo', 'file', array('label' => 'Archivo adjunto'));
+            ->add('EntidadId', 'Symfony\Component\Form\Extension\Core\Type\FileType')
+            ->add('NombreArchivo', 'Symfony\Component\Form\Extension\Core\Type\FileType', array(
+                'label' => 'Archivo adjunto'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

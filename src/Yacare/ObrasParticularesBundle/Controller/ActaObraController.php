@@ -101,6 +101,10 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         if ($id) {
             $entity = $this->ObtenerEntidadPorId($id);
+            
+            if ($entity->EstaVencida()) {
+                return $this->redirect($this->generateUrl('yacare_obrasparticulares_default_accesodenegado'));
+            }
         }
         
         if (! $entity) {
@@ -184,7 +188,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         
         $FormSubirBuilder = $this->createFormBuilder($ActaObra);
         $FormSubirBuilder
-            ->add('Nombre', 'file', array(
+            ->add('Nombre', 'Symfony\Component\Form\Extension\Core\Type\FileType', array(
                 'label' => 'Adjuntar archivo', 
                 'data_class' => null, 
                 'attr' => array('multiple' => 'multiple')));
