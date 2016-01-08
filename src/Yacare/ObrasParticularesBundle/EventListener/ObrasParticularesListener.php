@@ -13,7 +13,7 @@ use Doctrine\DBAL\Types\VarDateTimeType;
  */
 class ObrasParticularesListener implements EventSubscriber
 {
-    private $container;
+    public $container;
 
     public function __construct(Container $container)
     {

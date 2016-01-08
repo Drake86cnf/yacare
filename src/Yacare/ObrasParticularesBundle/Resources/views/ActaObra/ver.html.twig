@@ -135,7 +135,7 @@
 {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
 	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
     	class="btn btn-default"><i class="fa fa-edit"></i> Editar acta</a>
-    {% if res.Entidad.Plazo %}
+    {% if res.Entidad.Plazo and not res.Entidad.EstaVencida %}
 	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
 		class="btn btn-default"><i class="fa fa-edit"></i> Editar descargo</a>
 	{% endif %}

@@ -124,17 +124,14 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {
-            $entity->setFechaDescargo(new \DateTime());            
+            if (! $entity->getPlazo()) {
+                $entity->setFechaDescargo(new \DateTime());
+            }                        
             $em->persist($entity);
             $em->flush();
             
             return $this->guardarActionAfterSuccess($request, $entity);
         } else {
-            $children = $FormEditar->all();
-            
-            foreach ($children as $child) {
-                $child->getErrorsAsString();
-            }
             $Errores = $FormEditar->getErrors(true, true);
         }
         
