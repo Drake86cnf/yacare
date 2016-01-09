@@ -56,9 +56,8 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         // $this->get('session')->getFlashBag()->add('info', (string)$entity . ' se marcó como ' .
         // \Yacare\TramitesBundle\Entity\EstadoRequisito::NombreEstado($estado));
 
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('ver'),
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+        return $this->redirectToRoute($this->obtenerRutaBase('ver'),
+            $this->ArrastrarVariables($request, array('id' => $id), false));
     }
 
     /**
@@ -74,13 +73,12 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($em);
         $resultado = $Helper->TerminarTramite($entity);
 
-        return $this->ArrastrarVariables($request,
-            array(
-                'entity' => $entity,
-                'mensaje' => $resultado['mensaje'],
-                'comprob' => $resultado['comprobante'],
-                'rutacomprob' => $resultado['rutacomprobante']
-            ));
+        return $this->ArrastrarVariables($request, array(
+            'entity' => $entity,
+            'mensaje' => $resultado['mensaje'],
+            'comprob' => $resultado['comprobante'],
+            'rutacomprob' => $resultado['rutacomprobante']
+        ));
     }
     
     /**
@@ -102,6 +100,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         $AdjuntoId = $this->ObtenerVariable($request, 'adj');
         if($RequisitoId > 0 && $AdjuntoId > 0) {
             $Requisito = $em->getRepository('YacareTramitesBundle:EstadoRequisito')->find($RequisitoId);
+            
             if($Requisito) {
                 $HuboCambios = false;
                 
@@ -135,7 +134,6 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         
         return array('res' => $res);
     }
-
     
     /**
      * @Route("adjuntos/listar/")
@@ -162,6 +160,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         $FormSubir = $FormSubirBuilder->getForm();
 
         $RequisitoId = $this->ObtenerVariable($request, 'req');
+        
         if($RequisitoId > 0) {
             foreach($Tramite->getEstadosRequisitos() as $Requisito) {
                 if($Requisito->getId() == $RequisitoId) {
