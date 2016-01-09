@@ -193,8 +193,8 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables($request, array('id' => $id), false));
         } else {
             $Errores = $FormEditar->getErrors(true, true);
         }

@@ -107,7 +107,6 @@ trait ConEliminar
      */
     public function afterEliminar(Request $request, $entity, $eliminado = false)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
     }
 }
