@@ -24,7 +24,7 @@ class Leaflet extends Renderer
         $res = "var " . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
     fullscreenControl: true,
     scrollWheelZoom: false,
-    attributionControl: true
+    attributionControl: false
 });\n";
         if($this->getMap()->getCenter()) {
             $res .= $this->getMap()->getId() . ".setView([" . $this->getMap()->getCenter()->getCoordinate() . "], " . $this->getMap()->getZoom() . ");\n";
