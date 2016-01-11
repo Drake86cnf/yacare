@@ -13,7 +13,7 @@ class Map
     /**
      * Zoom level.
      */
-    protected $Zoom = 13;
+    protected $Zoom = 14;
     
     /**
      * The map current center.
