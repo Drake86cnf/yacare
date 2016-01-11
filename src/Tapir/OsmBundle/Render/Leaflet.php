@@ -9,8 +9,17 @@ namespace Tapir\OsmBundle\Render;
 class Leaflet extends Renderer
 {
     protected $DivId;
+    protected $Map;
     
-    public function RenderJs($map) {
+    function __construct($map = null) {
+        $this->Map = $map;
+    }
+    
+    public function RenderJs($map = null) {
+        if($map) {
+            $this->Map = $map;
+        }
+
         $res = "var " . $map->getId() . " = L.map('" . $this->getDivId() . "', { 
     scrollWheelZoom: false,
     attributionControl:  false
@@ -31,7 +40,6 @@ class Leaflet extends Renderer
 
         return $res;
     }
-    
     
     public function RenderMarkers($map) {
         $res = "// Markers\n";
