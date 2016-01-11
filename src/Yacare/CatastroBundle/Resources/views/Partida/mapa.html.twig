@@ -6,7 +6,6 @@
 
 {% block pagina_contenido %}
     {% if res.Mapa is defined %}
-<div class="row><div class="col-xs-12">    
     <div id="map" style="height: 400px; width: 100%">
     </div>
     <script type="text/javascript">
@@ -20,7 +19,6 @@
     {% else %}
     	<p>No hay datos de ubicación para esta partida.</p>
     {% endif %}
-</div></div>
 
 {% set ArchivosPlancheta = res.Entidad.PlanchetaArchivos %}
 {% if ArchivosPlancheta %}
