@@ -27,7 +27,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
 
     function __construct()
     {
-        $this->OrderBy = 'r.createdAt';
+        $this->OrderBy = 'r.createdAt DESC';
         
         $this->ConservarVariables[] = 'filtro_encargado';
         $this->ConservarVariables[] = 'filtro_estado';
@@ -487,8 +487,8 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables($request, array('id' => $id), false));
         } else {
             $children = $FormEditar->all();
             foreach ($children as $child) {
@@ -563,8 +563,8 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables($request, array('id' => $id), false));
         } else {
             $children = $FormEditar->all();
             foreach ($children as $child) {
@@ -661,8 +661,8 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                     }
                     break;
             }
-            return $this->redirect($this->generateUrl($this->obtenerRutaBase('ver'), 
-                $this->ArrastrarVariables($request, array('id' => $id), false)));
+            return $this->redirectToRoute($this->obtenerRutaBase('ver'), 
+                $this->ArrastrarVariables($request, array('id' => $id), false));
         } else {
             $children = $FormEditar->all();
             foreach ($children as $child) {

@@ -22,7 +22,7 @@
     			<td>{{ entidad.Fecha|date("d/m/Y") }}</td>
     			<td class="hidden-xs">{{ entidad.Partida.Domicilio }}
     			{% if entidad.Partida.Ubicacion %}
-    				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entidad.Partida.Id }) }}"
+    				&nbsp;<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entidad.Partida.Id }) }}"
     					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
     			{% endif %}
     			</td>

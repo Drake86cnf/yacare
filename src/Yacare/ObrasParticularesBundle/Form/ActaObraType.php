@@ -59,6 +59,7 @@ class ActaObraType extends AbstractType
                 'placeholder' => 'Seleccione el estado de la obra',
                 'choices' => array(
                     'Replanteo y fundaciones' => 1,
+                    'Platea' => 3,
                     'Mampostería en planta baja' => 5,
                     'Encadenado superior en planta baja' => 10,
                     'Entrepiso' => 15,

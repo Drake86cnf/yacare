@@ -76,20 +76,18 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
 
     public function afterEliminar(Request $request, $entity, $eliminado = false)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'),
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'),
                 $this->ArrastrarVariables($request,
                     array('filtro_relevamiento' => $entity->getRelevamiento()
-                        ->getId()), false)));
+                        ->getId()), false));
     }
 
     public function afterArchivar(Request $request, $entity, $archivado = false)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'),
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'),
                 $this->ArrastrarVariables($request,
                     array('filtro_relevamiento' => $entity->getRelevamiento()
-                        ->getId()), false)));
+                        ->getId()), false));
     }
 
     /**
@@ -182,10 +180,8 @@ class RelevamientoAsignacionController extends \Tapir\AbmBundle\Controller\AbmCo
 
             $em->flush();
 
-            return $this->redirect(
-                $this->generateUrl(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar'),
-                    array('filtro_relevamiento' => $entity->getRelevamiento()
-                        ->getId())));
+            return $this->redirectToRoute(strtolower('yacare_' . $this->BundleName . '_' . $this->EntityName . '_listar'),
+                array('filtro_relevamiento' => $entity->getRelevamiento()->getId()));
         }
 
         // $this->setTemplate('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName . ':edit.html.twig');
