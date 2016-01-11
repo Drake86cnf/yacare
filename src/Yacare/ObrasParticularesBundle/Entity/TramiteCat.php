@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TramiteCat extends \Yacare\TramitesBundle\Entity\Tramite
 {
     use \Yacare\AdministracionBundle\Entity\ConExpediente;
-    
+    use \Yacare\InspeccionBundle\Entity\ConTurno;
     /**
      * Valor de uso de suelo para la partida en la cual se encuentra el local, para la actividad seleccionada.
      * 

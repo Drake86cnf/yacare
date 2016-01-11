@@ -29,6 +29,8 @@ class Comercio
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\TramitesBundle\Entity\ConTitular;
     use \Yacare\TramitesBundle\Entity\ConApoderado;
+    use \Yacare\InspeccionBundle\Entity\ConTurno;
+    
     
     public function __construct()
     {

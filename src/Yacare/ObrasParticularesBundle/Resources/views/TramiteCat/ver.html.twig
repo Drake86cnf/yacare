@@ -16,6 +16,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}{{ parent() }}
+    {% include 'YacareInspeccionBundle:ConTurno:boton.html.twig' %}
     {% if res.Entidad.Estado < 90 and tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
     {% endif %}
 {% endblock %}
