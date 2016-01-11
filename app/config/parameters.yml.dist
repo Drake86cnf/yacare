@@ -29,3 +29,4 @@ parameters:
 
     google_geolocation_api_key: your_googlemaps_api_key
     nominatim_geolocation_email: your_email_here
+    mapbox_token: your_mapbox_token_here

@@ -25,12 +25,13 @@ class OsmExtension extends \Twig_Extension
         }
         
         if(!$renderer) {
-            $renderer = new \Tapir\OsmBundle\Render\Leaflet();
+            $renderer = new \Tapir\OsmBundle\Render\Leaflet($this->container);
         }
         
         $renderer->setDivId($divid); 
+        $renderer->setMap($map);
         
-        return $renderer->RenderJs($map);
+        return $renderer->RenderJs();
     }
     
     /**

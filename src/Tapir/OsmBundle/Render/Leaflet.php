@@ -10,34 +10,35 @@ class Leaflet extends Renderer
 {
     protected $DivId;
     protected $Map;
+    public $container;
     
-    function __construct($map = null) {
-        $this->Map = $map;
+    function __construct($container = null) {
+        $this->container = $container;
     }
     
     public function RenderJs($map = null) {
         if($map) {
-            $this->Map = $map;
+            $this->setMap($map);
         }
 
-        $res = "var " . $map->getId() . " = L.map('" . $this->getDivId() . "', { 
+        $res = "var " . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
     fullscreenControl: true,
     scrollWheelZoom: false,
-    attributionControl:  false
+    attributionControl: true
 });\n";
-        if($map->getCenter()) {
-            $res .= $map->getId() . ".setView([" . $map->getCenter()->getCoordinate() . "], " . $map->getZoom() . ");\n";
+        if($this->getMap()->getCenter()) {
+            $res .= $this->getMap()->getId() . ".setView([" . $this->getMap()->getCenter()->getCoordinate() . "], " . $this->getMap()->getZoom() . ");\n";
         } else {
-            $res .= $map->getId() . ".setView([-53.7833333, -67.7], " . $map->getZoom() . ");\n";
+            $res .= $this->getMap()->getId() . ".setView([-53.7833333, -67.7], " . $this->getMap()->getZoom() . ");\n";
         }
         
-        $res .= "L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Mapa &copy; voluntarios <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imágenes © <a href=\"http://mapbox.com\">Mapbox</a>',
-    maxZoom: 18
-}).addTo(" . $map->getId() . ");\n\n";
+        $TileLayer = new Basemap\MapBox($this->container);
+        $res .= "L.tileLayer('" . $TileLayer->getTileUrl() . "', ";
+        $res .= json_encode($TileLayer->getOptions());
+        $res .= ").addTo(" . $this->getMap()->getId() . ");\n\n";
         
-        $res .= $this->RenderMarkers($map);
-        $res .= $this->RenderPolylines($map);
+        $res .= $this->RenderMarkers($this->getMap());
+        $res .= $this->RenderPolylines($this->getMap());
 
         return $res;
     }
@@ -86,4 +87,22 @@ class Leaflet extends Renderer
         $this->DivId = $DivId;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getMap()
+    {
+        return $this->Map;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setMap($Map)
+    {
+        $this->Map = $Map;
+        return $this;
+    }
+ 
 }
