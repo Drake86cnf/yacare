@@ -8,7 +8,7 @@ namespace Tapir\OsmBundle\Render;
  */
 class Leaflet extends Renderer
 {
-    protected $DivId;
+    protected $DivId, $DivClass = "osmbundle_map", $DivStyle = null;
     protected $Map;
     public $container;
     
@@ -16,25 +16,54 @@ class Leaflet extends Renderer
         $this->container = $container;
     }
     
-    public function RenderJs($map = null) {
+    public function Render($map = null) {
         if($map) {
             $this->setMap($map);
         }
-
+        
+        $res = $this->RenderDiv();
+        $res .= "<script type=\"text/javascript\">\n" . $this->RenderJs() . "\n</script>\n";
+        
+        return $res;
+    }
+    
+    public function RenderDiv() {
+        $res = '';
+        
+        $res .= "document.getElementById('" . $this->getMap()->getId() . "').innerHTML = '<div";
+        if($this->DivClass) {
+            $res .= " style=\"" . $this->getMap()->getId() . "\"";
+        }
+        if($this->DivStyle) {
+            $res .= " class=\"" . $this->getMap()->getId() . "\"";
+        }
+        $res .= "></div>';\n\n";
+        
+        return $res;
+    }
+    
+    public function RenderJs() {
         $res = "var " . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
     fullscreenControl: true,
     scrollWheelZoom: false,
     attributionControl: false
 });\n";
         if($this->getMap()->getCenter()) {
+            // Explicit center view
             $res .= $this->getMap()->getId() . ".setView([" . $this->getMap()->getCenter()->getCoordinate() . "], " . $this->getMap()->getZoom() . ");\n";
+        } elseif(count($this->getMap()->getMarkers()) > 0) {
+            // Center view on the first marker
+            $res .= $this->getMap()->getId() . ".setView([" . $this->getMap()->getMarkers()[0]->getCoordinate() . "], " . $this->getMap()->getZoom() . ");\n";
         } else {
+            // Center view in the best city in the world (after Buenos Aires and maybe Rome (and maybe Madrid))
             $res .= $this->getMap()->getId() . ".setView([-53.7833333, -67.7], " . $this->getMap()->getZoom() . ");\n";
         }
         
         $TileLayer = new Basemap\MapBox($this->container);
         $res .= "L.tileLayer('" . $TileLayer->getTileUrl() . "', ";
-        $res .= json_encode($TileLayer->getOptions());
+        $TileOptions = $TileLayer->getOptions();
+        $TileOptions['maxZoom'] = 18;
+        $res .= json_encode($TileOptions);
         $res .= ").addTo(" . $this->getMap()->getId() . ");\n\n";
         
         $res .= $this->RenderMarkers($this->getMap());
@@ -47,9 +76,9 @@ class Leaflet extends Renderer
         $res = "// Markers\n";
         foreach($map->getMarkers() as $Marker) {
             $res .= "var " . $Marker->getId() . " = L.marker([" . $Marker->getCoordinate() . "]).addTo(" . $map->getId() . ");\n";
-            //if($Marker->getDescription()) {
-            //    $res .= $Marker->getId() . ".bindPopup('" . $Marker->getDescription() . "').openPopup();\n";
-            //}
+            if($Marker->getDescription()) {
+                $res .= $Marker->getId() . ".bindPopup('" . $Marker->getDescription() . "');\n";
+            }
         }
         return $res;
     }
