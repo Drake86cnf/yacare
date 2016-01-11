@@ -21,6 +21,7 @@ class Leaflet extends Renderer
         }
 
         $res = "var " . $map->getId() . " = L.map('" . $this->getDivId() . "', { 
+    fullscreenControl: true,
     scrollWheelZoom: false,
     attributionControl:  false
 });\n";
