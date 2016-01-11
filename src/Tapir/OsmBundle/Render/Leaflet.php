@@ -45,9 +45,9 @@ class Leaflet extends Renderer
         $res = "// Markers\n";
         foreach($map->getMarkers() as $Marker) {
             $res .= "var " . $Marker->getId() . " = L.marker([" . $Marker->getCoordinate() . "]).addTo(" . $map->getId() . ");\n";
-            if($Marker->getDescription()) {
-                $res .= $Marker->getId() . ".bindPopup('" . $Marker->getDescription() . "').openPopup();\n";
-            }
+            //if($Marker->getDescription()) {
+            //    $res .= $Marker->getId() . ".bindPopup('" . $Marker->getDescription() . "').openPopup();\n";
+            //}
         }
         return $res;
     }
