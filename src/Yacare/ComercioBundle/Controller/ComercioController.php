@@ -19,6 +19,7 @@ class ComercioController extends \Tapir\AbmBundle\Controller\AbmController
     use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\BaseBundle\Controller\ConRequiereAtencion;
+    use \Yacare\InspeccionBundle\Controller\ConTurno;
     
     function IniciarVariables()
     {

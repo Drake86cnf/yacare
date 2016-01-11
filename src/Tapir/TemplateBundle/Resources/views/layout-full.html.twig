@@ -27,7 +27,7 @@
 <link href="{{ asset('bundles/tapirtemplate/css/tapir_tables.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/tapir_wizard.css') }}" rel="stylesheet" />
 <link href="{{ asset('bundles/tapirtemplate/css/colorbox.css') }}" rel="stylesheet" />
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link href="{{ asset('bundles/tapirtemplate/css/leaflet.css') }}" rel="stylesheet" />
 </head>
 
 <body>
@@ -116,7 +116,7 @@
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/bootstrap-datepicker.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/jquery.colorbox-min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/dropzone.js') }}"></script>
-	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/leaflet.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir.js') }}"></script>
 	{% if app.environment != 'test' %}
 	<script type="text/javascript" src="{{ asset('bundles/tapirtemplate/js/tapir-ajax.js') }}"></script>

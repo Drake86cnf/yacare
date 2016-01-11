@@ -60,7 +60,6 @@ trait ConArchivar
      */
     public function afterArchivar($request, $entity, $archivado = false)
     {
-        return $this->redirect(
-            $this->generateUrl($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false)));
+        return $this->redirectToRoute($this->obtenerRutaBase('listar'), $this->ArrastrarVariables($request, null, false));
     }
 }
