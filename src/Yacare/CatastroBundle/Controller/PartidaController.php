@@ -67,7 +67,9 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
             $Mapa = new Maps\Map();
             $Marcador = new Maps\Marker();
             $Marcador->setPosition(new Maps\Point($Partida->getUbicacion()->getX(), $Partida->getUbicacion()->getY()));
-            $Marcador->setDescription($Partida);
+            $Marcador->setDescription('<strong>' . $Partida->getDomicilio() 
+                . '</strong><br />' . $Partida->getSmpu()
+                . '<br />' . $Partida->getTitular());
             $Mapa->addMarker($Marcador);
             $res->Mapa = $Mapa;
         }
@@ -89,7 +91,9 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
             $Mapa = new Maps\Map();
             $Marcador = new Maps\Marker();
             $Marcador->setPosition(new Maps\Point($Partida->getUbicacion()->getX(), $Partida->getUbicacion()->getY()));
-            $Marcador->setDescription($Partida);
+            $Marcador->setDescription('<strong>' . $Partida->getDomicilio() 
+                . '</strong><br />' . $Partida->getSmpu()
+                . '<br />' . $Partida->getTitular());
             $Mapa->addMarker($Marcador);
             $Mapa->setCenter($Marcador->getPosition());
             $res->Mapa = $Mapa;

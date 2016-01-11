@@ -30,7 +30,7 @@
     </div>
     
     {% if res.Mapa is defined %}
-<div class="col-xs-12" id="map" style="height: 480px;">
+<div id="map" class="osmbundle_map">
 </div>
 <script type="text/javascript">
 $(function() {
@@ -50,6 +50,6 @@ $(function() {
     
     <hr />
     <p class="alert alert-info"><i class="fa fa-info-circle"></i>
-    	Estos datos fueron obtenidos del SiGeMI y sólo pueden ser modificados en el sistema de origen.
+    	Los datos catastrales fueron obtenidos del SiGeMI y sólo pueden ser modificados en el sistema de origen.
     </p>
 {% endblock %}
