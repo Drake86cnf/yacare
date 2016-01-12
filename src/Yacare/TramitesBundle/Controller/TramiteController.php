@@ -107,6 +107,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
                 foreach($Adjuntos as $Adjunto) {
                     if($Adjunto->getId() == $AdjuntoId) {
                         $this->addFlash('info', 'Se asoció ' . $Adjunto . ' con ' . $Requisito);
+                        
                         if($Requisito->getAdjuntos()->contains($Adjunto) == false) {
                             $Requisito->getAdjuntos()->add($Adjunto);
                             if($Requisito->getEstado() < 95) {
@@ -151,7 +152,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
         $AdjuntoNuevo->setEntidadId($Tramite->getId());
         
         $FormSubirBuilder = $this->createFormBuilder($Tramite);
-        $FormSubirBuilder->add('Nombre', 'file', array(
+        $FormSubirBuilder->add('Nombre', 'Symfony\Component\Form\Extension\Core\Type\FileType', array(
             'label' => 'Adjuntar archivo',
             'data_class' => null,
             'attr' => array('multiple' => 'multiple')

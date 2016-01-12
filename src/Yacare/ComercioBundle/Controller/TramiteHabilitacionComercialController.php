@@ -23,8 +23,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         $this->OrderBy = 'createdAt DESC';
     }
-    
-    
+
     /**
      * @Route("listar/")
      * @Template()
@@ -33,9 +32,9 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
     {
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         $filtro_estado = $this->ObtenerVariable($request, 'filtro_estado');
-    
+        
         if ($filtro_estado) {
-            if($filtro_estado == -1) {
+            if ($filtro_estado == - 1) {
                 // El -1 tiene el valor especial de Estado=0
                 $this->Where .= " AND r.Estado=0";
             } else {
@@ -46,19 +45,17 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $this->Joins[] = " LEFT JOIN r.Titular t";
             $this->Joins[] = " LEFT JOIN r.Comercio c";
             $this->Joins[] = " LEFT JOIN c.Local l";
-    
+            
             $this->BuscarPor = 'c.Nombre, c.ExpedienteNumero, l.Nombre, t.NombreVisible, t.RazonSocial, t.DocumentoNumero, t.Cuilt';
         }
-    
+        
         $RestuladoListar = parent::listarAction($request);
         $res = $RestuladoListar['res'];
-    
+        
         $res->Estados = \Yacare\TramitesBundle\Entity\Tramite::NombresEstados();
-    
+        
         return $RestuladoListar;
     }
-    
-    
 
     /**
      * @Route("consultar")
@@ -70,34 +67,28 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         $porpartida = $this->ObtenerVariable($request, 'porpartida');
         
         $editFormBuilder = $this->createFormBuilder()
-            ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad principal', 
                 'required' => true, 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad3', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad4', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad5', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true))
-            ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-            array(
+            ->add('Actividad6', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad adicional', 
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad', 
                 'required' => true));
@@ -117,11 +108,13 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                     'placeholder' => '(sólo para depósitos)',
                     'class' => 'Yacare\ComercioBundle\Entity\DepositoClase',
                     'required' => false)) */
-                ->add('Superficie', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Superficie total'))->add(
-                'SuperficieDeposito', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Depósito'));
+                ->add('Superficie', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Superficie total'))
+                ->add('SuperficieDeposito', 'Tapir\BaseBundle\Form\Type\SuperficieType', array('label' => 'Depósito'));
         } else {
-            $editFormBuilder->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', 
-                array('label' => 'Local', 'class' => 'Yacare\ComercioBundle\Entity\Local'));
+            $editFormBuilder
+                ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
+                    'label' => 'Local', 
+                    'class' => 'Yacare\ComercioBundle\Entity\Local'));
         }
         $editForm = $editFormBuilder->getForm();
         $editForm->handleRequest($request);
@@ -160,24 +153,22 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $THelper->PreUpdatePersist($Tramite);
             $ThcHelper->PreUpdatePersist($Tramite);
             
-            return $this->ArrastrarVariables($request, 
-                array(
-                    'usossuelo' => $UsosSuelo, 
-                    'porpartida' => $porpartida, 
-                    'comercio' => $Comercio, 
-                    'tramite' => $Tramite, 
-                    'create' => 0, 
-                    'errors' => '', 
-                    'edit_form' => $editForm->createView()));
-        }
-        
-        return $this->ArrastrarVariables($request, 
-            array(
-                'entity' => null, 
-                'create' => true, 
+            return $this->ArrastrarVariables($request, array(
+                'usossuelo' => $UsosSuelo, 
                 'porpartida' => $porpartida, 
+                'comercio' => $Comercio, 
+                'tramite' => $Tramite, 
+                'create' => 0, 
                 'errors' => '', 
                 'edit_form' => $editForm->createView()));
+        }
+        
+        return $this->ArrastrarVariables($request, array(
+            'entity' => null, 
+            'create' => true, 
+            'porpartida' => $porpartida, 
+            'errors' => '', 
+            'edit_form' => $editForm->createView()));
     }
 
     /**
@@ -206,6 +197,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         $a = '';
         $EstadoActual = $Sesion->get('Asistente_NuevoTramiteHabilitacionComercial', null);
+        
         if ($EstadoActual) {
             $serializer = $this->container->get('jms_serializer');
             $Tramite = $serializer->deserialize($EstadoActual, 
@@ -215,6 +207,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
             $Titular = $Tramite->getTitular();
             
             // echo ''. $serializer->serialize($Tramite, 'json');
+            
             if (! $Titular) {
                 $Titular = new \Yacare\BaseBundle\Entity\Persona();
                 $Titular->setNombre('(busque un contribuyente existente o deje en blanco para cargar uno nuevo)');
@@ -226,8 +219,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
                         $em->merge($Grupo);
                     }
                 }
-            }
-            
+            }            
             $Tramite->setTitular($Titular);
             
             $Comercio = $Tramite->getComercio();
@@ -258,6 +250,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         }
         
         $NombreDesdePaso = $this->ObtenerVariable($request, 'desdepaso');
+        
         if ($NombreDesdePaso) {
             // $a .= '--settit' . serialize($Tramite->getTitular());
             $DesdePaso = $Asistente->get($NombreDesdePaso);
@@ -278,8 +271,7 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         
         if (isset($DesdePaso) && $DesdePaso == $PasoActual) {
             $a .= '--fin!';
-        }
-        
+        }        
         $FormEditar = $this->createForm($PasoActual->getFormType(), $Tramite);
         // $FormEditar->handleRequest($request);
         
@@ -293,11 +285,11 @@ class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Cont
         } else {
             $validator = $this->get('validator');
             $Errores = $validator->validate($Tramite);
+            
             foreach ($Errores as $Error) {
                 $a .= 'err:' . $Error;
             }
-        }
-        
+        }        
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoAsistenteAction($this), 
             $request);
         $res->Entidad = $Tramite;
