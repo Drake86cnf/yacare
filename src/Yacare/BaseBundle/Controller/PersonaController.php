@@ -166,7 +166,7 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                 break;
             case 'Email':
                 $FormEditarBuilder
-                    ->add($campoNombre, 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'E-mail', 'required' => true))
+                    ->add($campoNombre, 'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' => 'Correo electrónico', 'required' => true))
                     ->add($campoNombre . 'VerificacionNivel', 'Tapir\BaseBundle\Form\Type\VerificacionNivelType', 
                         array('label' => 'Nivel', 'required' => true));
                 break;

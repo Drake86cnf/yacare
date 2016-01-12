@@ -35,7 +35,7 @@ class RequerimientoAnonimoType extends AbstractType
                 'attr' => array('placeholder' => 'Su nombre'), 
                 'required' => false))
             ->add('UsuarioEmail', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
-                'label' => 'E-mail', 
+                'label' => 'Correo electrónico', 
                 'attr' => array('placeholder' => 'Su dirección de correo electrónico'), 
                 'required' => false))
             ->add('UsuarioDireccion', null, array(
