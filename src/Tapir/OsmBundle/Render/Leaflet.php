@@ -44,9 +44,23 @@ class Leaflet extends Renderer
     
     public function RenderJs() {
         $res = "var " . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
-    fullscreenControl: true,
-    scrollWheelZoom: false,
-    attributionControl: false
+    //scrollWheelZoom: false,
+    attributionControl: false,
+            
+    fullscreenControl: true, // Control.FullScreen plugin
+    fullscreenControlOptions: {
+        position: 'topleft',
+        title: 'Mostrar en pantalla completa',
+        titleCancel: 'Salir del modo pantalla completa'
+    },
+
+    sleep: true,       // Leaflet.Sleep pluing
+    sleepTime: 750,    // time(ms) until map sleeps on mouseout
+    wakeTime: 750,     // time(ms) until map wakes on mouseover
+    sleepNote: false,   // defines whether the user is prompted on how to wake map
+    //hoverToWake: true, // should hovering wake the map?
+    //wakeMessage: ((true?'Deslice el ratón ' : 'Haga clic ') + ' para usar el mapa'),
+    sleepOpacity: .75   // opacity (between 0 and 1) of inactive map
 });\n";
         if($this->getMap()->getCenter()) {
             // Explicit center view
