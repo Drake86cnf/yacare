@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  */
 class RecursosHumanosListener implements EventSubscriber
 {
-    protected $container;
+    public $container;
 
     public function __construct(Container $container)
     {
