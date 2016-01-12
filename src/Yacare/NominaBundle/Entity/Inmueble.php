@@ -44,6 +44,15 @@ class Inmueble
     protected $Domicilio = null;
     
     /**
+     * Dirección de correo electrónico asociada al inmueble.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $Email;
+    
+    /**
      * Números telefónicos asociados al inmueble.
      *
      * @var string
@@ -155,5 +164,23 @@ class Inmueble
         $this->Domicilio = $Domicilio;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getEmail()
+    {
+        return $this->Email;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setEmail($Email)
+    {
+        $this->Email = $Email;
+        return $this;
+    }
+ 
 
 }
