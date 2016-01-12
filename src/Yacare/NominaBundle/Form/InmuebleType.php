@@ -20,7 +20,8 @@ class InmuebleType extends AbstractType
                     'label' => 'Partida',
                     'class' => 'Yacare\CatastroBundle\Entity\Partida',
                     'required' => true))
-            ->add('Domicilio', null, array('label' => 'Domicilio'))
+            ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioLocalType', array(
+                'label' => 'Domicilio'))
             ->add('Url', null, array('label' => 'Sitio web'))
             ->add('Telefonos', null, array('label' => 'Teléfonos'))
             ->add('Email', null, array('label' => 'Correo electrónico'))

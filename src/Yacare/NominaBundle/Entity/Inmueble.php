@@ -17,8 +17,10 @@ class Inmueble
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\ConObs;
     use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Tapir\BaseBundle\Entity\Versionable;
+    use \Yacare\CatastroBundle\Entity\ConUbicacion;
 
     public function __construct()
     {
@@ -33,15 +35,6 @@ class Inmueble
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Url;
-    
-    /**
-     * El domicilio declarado, que puede ser diferente al domicilio catastral del local comercial.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $Domicilio = null;
     
     /**
      * Dirección de correo electrónico asociada al inmueble.
@@ -145,23 +138,6 @@ class Inmueble
     public function setHorario($Horario)
     {
         $this->Horario = $Horario;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getDomicilio()
-    {
-        return $this->Domicilio;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setDomicilio($Domicilio)
-    {
-        $this->Domicilio = $Domicilio;
         return $this;
     }
 

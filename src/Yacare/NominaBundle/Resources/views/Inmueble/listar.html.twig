@@ -14,7 +14,7 @@
 		{% for entity in res.Entidades %}
 		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}">
 			<td>{{ entity.Nombre }}</td>
-			<td>{% if entity.Domicilio %}{{ entity.Domicilio }}
+			<td>{% if entity.DomicilioCalle %}{{ entity.Domicilio }}
 			    {% elseif entity.Partida %}{{ entity.Partida.Domicilio }}
             		{% if entity.Partida.Ubicacion %}
         				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
