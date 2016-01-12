@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  */
 class TramitesListener implements EventSubscriber
 {
-    protected $container;
+    public $container;
     protected $TramiteHelper = null, $TramiteTipoHelper = null, $EstadoRequisitoHelper = null;
     
     public $EntidadesRelacionadas = array();
