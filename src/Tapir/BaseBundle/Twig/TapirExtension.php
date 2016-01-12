@@ -15,7 +15,8 @@ class TapirExtension extends \Twig_Extension
     
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('tapir_hasanyrole', array($this,'tapir_hasanyrole'))
+            new \Twig_SimpleFunction('tapir_hasanyrole', array($this,'tapir_hasanyrole')),
+        	new \Twig_SimpleFunction('tapir_bundleexists', array($this,'tapir_bundleexists'))
         );
     }
 
@@ -26,6 +27,13 @@ class TapirExtension extends \Twig_Extension
             new \Twig_SimpleFilter('tapir_ruta_existe', array($this,'tapir_ruta_existe')),
             new \Twig_SimpleFilter('tapir_clase', array($this,'tapir_clase'))
         );
+    }
+    
+    public function tapir_bundleexists($bundle){
+    	return array_key_exists(
+    			$bundle,
+    			$this->container->getParameter('kernel.bundles')
+    			);
     }
     
     public function tapir_hasanyrole($roles) {
