@@ -25,7 +25,7 @@ class PartidaHelper extends \Yacare\BaseBundle\Helper\Helper
      *
      * @param  \Yacare\CatastroBundle\Entity\Partida $partida
      */
-    public function ObtenerGeoCoding($partida)
+    public function ObtenerUbicacionPartida($partida)
     {
         if(!$partida->getUbicacion()
             && ((!$partida->getUbicacionFecha()) || $partida->getUbicacionFecha()->diff(new \DateTime())->days > 30)) {
@@ -38,21 +38,39 @@ class PartidaHelper extends \Yacare\BaseBundle\Helper\Helper
                     'Tierra del Fuego',
                     'AR'
                     );
+                
+                $Punto = $this->ObtenerUbicacionPorDireccion($Domicilio);
                 // Busco la ubicación en un servicio de GeoCoding y la guardo
-                $GeoLocService = $this->container->get('tapirosmbundle.geocoding.nominatim');
-                $DatosGeo = $GeoLocService->GetCoordinateFromAddress($Domicilio);
-                if(!$DatosGeo) {
-                    // Pruebo con GoogleMaps
-                    $GeoLocService = $this->container->get('tapirosmbundle.geocoding.googlemaps');
-                    $DatosGeo = $GeoLocService->GetCoordinateFromAddress($Domicilio);
-                }
-                if($DatosGeo) {
-                    $Punto = new \CrEOF\Spatial\PHP\Types\Geometry\Point($DatosGeo->getX(), $DatosGeo->getY());
+                if($Punto) {
                     $partida->setUbicacion($Punto);
                 }
                 // Actualizo la fecha de la última consulta de ubicación, aunque ésta no haya devuelto datos
                 $partida->setUbicacionFecha(new \DateTime());
                 $this->em->persist($partida);
             }
+    }
+    
+    
+    /**
+     * Obtiene las coordenadas de una partida desde su domicilio, desde servicios de GeoCoding.
+     *
+     * @param  \Yacare\CatastroBundle\Entity\Partida $elementoConUbicacion
+     */
+    public function ObtenerUbicacionPorDireccion($Domicilio)
+    {
+        // Busco la ubicación en un servicio de GeoCoding y la guardo
+        $GeoLocService = $this->container->get('tapirosmbundle.geocoding.nominatim');
+        $DatosGeo = $GeoLocService->GetCoordinateFromAddress($Domicilio);
+        if(!$DatosGeo) {
+            // Pruebo con GoogleMaps
+            $GeoLocService = $this->container->get('tapirosmbundle.geocoding.googlemaps');
+            $DatosGeo = $GeoLocService->GetCoordinateFromAddress($Domicilio);
+        }
+        if($DatosGeo) {
+            $Punto = new \CrEOF\Spatial\PHP\Types\Geometry\Point($DatosGeo->getX(), $DatosGeo->getY());
+            return $Punto;
+        }
+        
+        return null;
     }
 }

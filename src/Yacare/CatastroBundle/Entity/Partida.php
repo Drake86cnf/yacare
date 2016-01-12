@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Representa una partida inmobiliaria.
+ * 
+ * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Catastro_Partida", uniqueConstraints={
@@ -29,7 +31,7 @@ class Partida
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Importable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
+    use \Yacare\CatastroBundle\Entity\ConUbicacion;
     
     public function __construct()
     {
@@ -115,20 +117,6 @@ class Partida
      * @ORM\JoinColumn(nullable=true)
      */
     private $Titular;
-    
-    /**
-     * Coordenadas de su ubicación.
-     *
-     * @ORM\Column(type="point", nullable=true)
-     */
-    protected $Ubicacion;
-    
-    /**
-     * Fecha de la última consulta de ubicación.
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $UbicacionFecha;
     
     /**
      * Las personas que están relacionadas con esta partida.
@@ -581,38 +569,6 @@ class Partida
     public function setTg06100Id($Tg06100Id)
     {
         $this->Tg06100Id = $Tg06100Id;
-        return $this;
-    }
-
-    /**
-    * @ignore
-    */
-    public function getUbicacion() {
-        return $this->Ubicacion;
-    }
-    
-    /**
-    * @ignore
-    */
-    public function setUbicacion($Ubicacion) {
-        $this->Ubicacion = $Ubicacion;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getUbicacionFecha()
-    {
-        return $this->UbicacionFecha;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setUbicacionFecha($UbicacionFecha)
-    {
-        $this->UbicacionFecha = $UbicacionFecha;
         return $this;
     }
 

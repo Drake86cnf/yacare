@@ -58,7 +58,7 @@ class PartidaController extends \Tapir\AbmBundle\Controller\AbmController
         if(!$Partida->getUbicacion()) {
             $em = $this->getEm();
             $Helper = new \Yacare\CatastroBundle\Helper\PartidaHelper($this->container, $em);
-            $Helper->ObtenerGeoCoding($Partida);
+            $Helper->ObtenerUbicacionPartida($Partida);
             $em->flush();
         }
         
