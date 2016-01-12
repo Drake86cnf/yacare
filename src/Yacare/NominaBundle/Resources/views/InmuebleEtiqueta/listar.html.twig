@@ -1,0 +1,28 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %} 
+
+{% block pagina_titulo %}Etiquetas de Inmuebles{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entidad in res.Entidades %}
+		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entidad.Id }) }}">
+			<td>{{ entidad.Nombre }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %} 
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %} 
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %} 
+
+{% block pagina_acciones2 %}
+    <a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
+    	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva etiqueta</a>
+{% endblock %}

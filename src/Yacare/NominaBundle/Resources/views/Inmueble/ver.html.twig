@@ -1,0 +1,40 @@
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
+
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+{% import 'YacareBaseBundle:Default:macros_yacare.html.twig' as my %}
+
+{% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			{% if res.Entidad.Partida %}
+			    {% if res.Entidad.Partida.Domicilio %}
+			        {{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
+    			{% else %}
+    				{{ bs.grid_label_text('Domicilio', 'n/a') }}
+    			{% endif %}
+			{% endif %}
+		
+		{% if res.Entidad.Obs %}
+		<div class="col-sm-12">
+			<h2 class="row-header">Observaciones</h2>
+			<p>{{ res.Entidad.Obs }}</p>
+		</div>
+		{% endif %}
+	</div>
+
+</div>
+{% endblock %}
+
+{% block pagina_acciones2 %}
+{% if tapir_hasanyrole('ROLE_NOMINA_ADMINISTRADOR') %}
+	<div class="pull-right">
+    <a data-toggle="ajax-link" class="btn btn-default"
+    	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
+    	<i class="fa fa-edit"></i> Editar</a>
+	</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Inmuebles{% endblock %}
+
+{% block pagina_contenido %}
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Domicilio</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for entity in res.Entidades %}
+		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}">
+			<td>{{ entity.Nombre }}</td>
+			<td>{% if entity.Domicilio %}{{ entity.Domicilio }}
+			    {% elseif entity.Partida %}{{ entity.Partida.Domicilio }}
+            		{% if entity.Partida.Ubicacion %}
+        				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
+        					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+        			{% endif %}	
+        		{% endif %}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
+	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
+	local comercial</a>
+{% endblock %}
