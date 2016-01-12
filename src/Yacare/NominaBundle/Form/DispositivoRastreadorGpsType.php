@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\NominaBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +20,6 @@ class DispositivoRastreadorGpsType extends DispositivoType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\DispositivoRastreadorGps'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\NominaBundle\Entity\DispositivoRastreadorGps'));
     }
 }

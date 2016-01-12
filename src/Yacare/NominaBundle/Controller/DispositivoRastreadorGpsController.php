@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Controller;
+namespace Yacare\NominaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,7 +36,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         }
         
         $em = $this->getEm();
-        $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
+        $UltimoRastreo = $em->getRepository('Yacare\NominaBundle\Entity\DispositivoRastreo')->findBy(
             array('Dispositivo' => $res->Entidad->getId()), array('id' => 'DESC'), 1);
         
         if (count($UltimoRastreo) == 1) {
@@ -54,7 +54,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
             $Mapa->setCenter(new Maps\Point(-53.789858, -67.692911));
         }
         
-        $UltimosRastreos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
+        $UltimosRastreos = $em->getRepository('Yacare\NominaBundle\Entity\DispositivoRastreo')->findBy(
             array('Dispositivo' => $res->Entidad->getId()), array('id' => 'DESC'), 100);
         
         if ($UltimosRastreos) {
@@ -89,7 +89,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         
         // Iteramos por cada marcador en el mapa y buscamos las nuevas coordenadas
         foreach ($rastreadores as $rastreador) {
-            $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
+            $UltimoRastreo = $em->getRepository('Yacare\NominaBundle\Entity\DispositivoRastreo')->findBy(
                 array('Dispositivo' => $rastreador), array('id' => 'DESC'), 1);
             
             if (count($UltimoRastreo) == 1) {
@@ -122,7 +122,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoActionAbmController($this), $request);
         
         $em = $this->getEm();
-        $Dispositivos = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreadorGps')->findAll();
+        $Dispositivos = $em->getRepository('Yacare\NominaBundle\Entity\DispositivoRastreadorGps')->findAll();
         
         $Mapa = new Maps\Map();
         
@@ -133,7 +133,7 @@ class DispositivoRastreadorGpsController extends DispositivoController
             if ($entity->getObs() == null) {
                 $entity->setObs('Serie ' . $entity->getNumeroSerie());
             }
-            $UltimoRastreo = $em->getRepository('Yacare\BaseBundle\Entity\DispositivoRastreo')->findBy(
+            $UltimoRastreo = $em->getRepository('Yacare\NominaBundle\Entity\DispositivoRastreo')->findBy(
                 array('Dispositivo' => $id), array('id' => 'DESC'), 1);
             
             if ($UltimoRastreo) {
@@ -156,8 +156,8 @@ class DispositivoRastreadorGpsController extends DispositivoController
      * Luego realiza las mismas operaciones de configuración a un 'marker', que será el marcador que apuntará en el
      * mapa a al último rastreo de un dispositivo GPS.
      *
-     * @param \Yacare\BaseBundle\Entity\DispositivoRastreo       $UltimoRastreo última coordenada del GPS estudiado.
-     * @param \Yacare\BaseBundle\Entity\DispositivoRastreadorGps $entity        el dispositivo GPS.
+     * @param \Yacare\NominaBundle\Entity\DispositivoRastreo       $UltimoRastreo última coordenada del GPS estudiado.
+     * @param \Yacare\NominaBundle\Entity\DispositivoRastreadorGps $entity        el dispositivo GPS.
      * @return \Marker
      */
     private function CrearMarcador($UltimoRastreo, $entity)

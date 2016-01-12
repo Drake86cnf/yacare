@@ -1,19 +1,19 @@
 <?php
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\NominaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Dispositivo GPS destinado a móviles municipales.
  *
- * Yacare\BaseBundle\Entity\DispositivoRastreadorGps
+ * Yacare\NominaBundle\Entity\DispositivoRastreadorGps
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Base_DispositivoRastreadorGps")
+ * @ORM\Table(name="Nomina_DispositivoRastreadorGps")
  */
-class DispositivoRastreadorGps extends \Yacare\BaseBundle\Entity\Dispositivo
+class DispositivoRastreadorGps extends \Yacare\NominaBundle\Entity\Dispositivo
 {
     /**
      * El número de teléfono.

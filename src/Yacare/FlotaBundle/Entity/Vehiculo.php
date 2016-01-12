@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
  * @ORM\Table(name="Flota_Vehiculo")
  */
-class Vehiculo extends \Yacare\BaseBundle\Entity\Dispositivo
+class Vehiculo extends \Yacare\NominaBundle\Entity\Dispositivo
 {
     use \Tapir\BaseBundle\Entity\Suprimible;
     

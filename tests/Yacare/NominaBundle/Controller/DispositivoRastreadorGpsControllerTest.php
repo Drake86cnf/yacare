@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Controller;
+namespace Yacare\NominaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * 
- * @see \Yacare\BaseBundle\Controller\DispositivoRastreadorGpsController DispositivoRastreadorGpsController
+ * @see \Yacare\NominaBundle\Controller\DispositivoRastreadorGpsController DispositivoRastreadorGpsController
  */
 class DispositivoRastreadorGpsControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {
@@ -21,13 +21,13 @@ class DispositivoRastreadorGpsControllerTest extends \Tapir\AbmBundle\Controller
     public function testConstructor()
     {
         $this->assertEquals('Yacare', $this->item->getVendorName());
-        $this->assertEquals('Base', $this->item->getBundleName());
+        $this->assertEquals('Nomina', $this->item->getBundleName());
         $this->assertEquals('DispositivoRastreadorGps', $this->item->getEntityName());
     }
 
     public function testBaseRoute()
     {
-        $this->assertEquals('yacare_base_dispositivorastreadorgps', $this->item->obtenerRutaBase());
-        $this->assertEquals('yacare_base_dispositivorastreadorgps_listar', $this->item->obtenerRutaBase('listar'));
+        $this->assertEquals('yacare_nomina_dispositivorastreadorgps', $this->item->obtenerRutaBase());
+        $this->assertEquals('yacare_nomina_dispositivorastreadorgps_listar', $this->item->obtenerRutaBase('listar'));
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Controller;
+namespace Yacare\NominaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *
- * @see \Yacare\BaseBundle\Controller\DispositivoGenericoController DispositivoGenericoController
+ * @see \Yacare\NominaBundle\Controller\DispositivoGenericoController DispositivoGenericoController
  */
 class DispositivoGenericoControllerTest extends \Tapir\AbmBundle\Controller\AbmControllerTest
 {

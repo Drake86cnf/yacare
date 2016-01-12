@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\NominaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @abstract
  *
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Base_Dispositivo")
+ * @ORM\Table(name="Nomina_Dispositivo")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="DispositivoTipo", type="string")
  * @ORM\DiscriminatorMap({
- *     "Otro" = "\Yacare\BaseBundle\Entity\DispositivoGenerico",
- *     "RastreadorGps" = "\Yacare\BaseBundle\Entity\DispositivoRastreadorGps",
+ *     "Otro" = "\Yacare\NominaBundle\Entity\DispositivoGenerico",
+ *     "RastreadorGps" = "\Yacare\NominaBundle\Entity\DispositivoRastreadorGps",
  *     "Vehiculo" = "\Yacare\FlotaBundle\Entity\Vehiculo"
  * })
  */

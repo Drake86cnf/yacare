@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Form;
+namespace Yacare\NominaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,6 +30,6 @@ abstract class DispositivoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Yacare\BaseBundle\Entity\Dispositivo'));
+        $resolver->setDefaults(array('data_class' => 'Yacare\NominaBundle\Entity\Dispositivo'));
     }
 }

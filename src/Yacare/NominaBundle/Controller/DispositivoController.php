@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Controller;
+namespace Yacare\NominaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,12 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controlador de dispositivos genéricos.
+ * Controlador abstracto de dispositivos.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
- * @Route("dispositivogenerico/")
+ * @abstract
  */
-class DispositivoGenericoController extends DispositivoController
+abstract class DispositivoController extends \Tapir\AbmBundle\Controller\AbmController
 {
 }

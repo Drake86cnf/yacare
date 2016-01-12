@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Entity;
+namespace Yacare\NominaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  * 
  * @ORM\Entity(repositoryClass="Tapir\BaseBundle\Entity\TapirBaseRepository")
- * @ORM\Table(name="Base_DispositivoRastreo")
+ * @ORM\Table(name="Nomina_DispositivoRastreo")
  */
 class DispositivoRastreo
 {
@@ -48,7 +48,7 @@ class DispositivoRastreo
      * 
      * @var DispositivoRastreadorGps
      * 
-     * @ORM\ManyToOne(targetEntity="\Yacare\BaseBundle\Entity\DispositivoRastreadorGps")
+     * @ORM\ManyToOne(targetEntity="\Yacare\NominaBundle\Entity\DispositivoRastreadorGps")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $Dispositivo;
