@@ -63,7 +63,7 @@ class AdjuntoController extends \Tapir\BaseBundle\Controller\BaseController
      */
     protected function CrearFormularioSubir($entity) {
         $editFormBuilder = $this->createFormBuilder($entity);
-        $editFormBuilder->add('Nombre', 'file', array(
+        $editFormBuilder->add('Nombre', 'Symfony\Component\Form\Extension\Core\Type\FileType', array(
             'label' => 'Adjuntar archivo',
             'attr' => array('multiple' => 'multiple')
         ));
