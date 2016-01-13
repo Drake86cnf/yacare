@@ -16,24 +16,26 @@ class DomicilioLocalType extends AbstractType
     {
         $builder
             ->add('DomicilioCalle', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                'label' => 'Calle', 
-                'class' => 'YacareCatastroBundle:Calle', 
-                'required' => true, 
+                'label' => false,
+                'class' => 'YacareCatastroBundle:Calle',
+                'placeholder' => '(ninguna)',
+                'empty_data' => 'n/a',
+                'required' => false, 
                 'attr' => array('style' => 'width: 240px;')))
             ->add('DomicilioNumero', null, array(
-                'label' => 'Nº', 
+                'label' => false, 
                 'trim' => true, 
-                'attr' => array('style' => 'width: 50px;'), 
+                'attr' => array('placeholder' => 'Nº', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'),
                 'required' => false))
             ->add('DomicilioPiso', null, array(
-                'label' => 'Piso', 
+                'label' => false, 
                 'trim' => true, 
-                'attr' => array('style' => 'width: 32px;'), 
+                'attr' => array('placeholder' => 'piso', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'), 
                 'required' => false))
             ->add('DomicilioPuerta', null, array(
-                'label' => 'Puerta', 
+                'label' => false, 
                 'trim' => true, 
-                'attr' => array('style' => 'width: 32px;'), 
+                'attr' => array('placeholder' => 'puerta', 'class' => 'tapir-input-maymin', 'style' => 'width: 64px;'), 
                 'required' => false))
             ->setAttribute('widget', 'form_horizontal');
     }
