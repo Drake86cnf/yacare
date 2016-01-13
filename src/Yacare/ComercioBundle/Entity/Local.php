@@ -21,6 +21,7 @@ class Local
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Yacare\CatastroBundle\Entity\ConPartida;
+    use \Yacare\BaseBundle\Entity\ConDomicilioLocal;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     public function __construct()
@@ -147,6 +148,18 @@ class Local
     public function __toString()
     {
         return $this->ConstruirNombre();
+    }
+    
+    
+    /**
+     * Devuelve el domicilio real o el de la partida si no tiene.
+     */
+    public function getDomicilioReal() {
+        if($this->getCalle()) {
+            return $this->getDomicilio();
+        } else {
+            return $this->getPartida()->getDomicilio();
+        }
     }
     
     

@@ -13,7 +13,29 @@
 {% block pagina_contenido %}
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Partida</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Partida) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Partida) }}</div>
+    <div class="col-sm-10 col-sm-offset-2" id="inmueble_domicilio_aviso" {% if res.Entidad.DomicilioCalle %}style="display: none"{% endif %}><p class="help-block">
+    	<a href="#" onclick="$('#inmueble_domicilio').show(); $('#inmueble_domicilio_aviso').hide(); return false">Usar
+    	un domicilio real diferente</a>.
+    	Si el local tiene un número de puerta o domicilio diferente al domicilio catastral. Por ejemplo un local
+    	grande puede tener varias puertas o ingresos y mientras que en catastro figura con un ingreso (ej. Thorne 123),
+    	el ingreso principal es por otro domicilio (ej. Thorne 127). Incluso pueden estar en diferentes calles en caso
+    	de esquina.</p>
+	</div>
+</div>
+<script>
+	$('#inmueble_Partida').change(function() {
+		$('#inmueble_Domicilio').val('');
+		$('#inmueble_domicilio').hide();
+		$('#inmueble_domicilio_aviso').show();
+	});
+</script>
+
+<div class="row form-group" id="inmueble_domicilio" {% if not res.Entidad.DomicilioCalle %}style="display: none"{% endif %}>
+	<label class="col-sm-2 control-label">Domicilio real</label>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Domicilio) }}</div>
+    <div class="col-sm-10 col-sm-offset-2"><p class="help-block">Si el domicilio del inmueble es el mismo que figura en
+    la partida, debe dejar este dato en blanco.</p></div>
 </div>
 
 <div class="row form-group">
@@ -21,7 +43,7 @@
     <div class="col-sm-10">
         {{ form_widget(edit_form.SubDomicilio) }}
         <span class="help-block"><span class="text-danger">No es para observaciones.</span> Opcional. Puede proporcionar
-        	una identificación del local dentro del domicilio, por ejemplo: local, oficina o piso.</span>
+        	una identificación del local dentro del domicilio, por ejemplo: "local 7", "oficina 3", etc.</span>
     </div>
 </div>
 
