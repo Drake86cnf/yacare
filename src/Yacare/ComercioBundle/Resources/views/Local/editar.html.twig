@@ -1,10 +1,10 @@
 {% extends 'TapirAbmBundle::editar.html.twig' %}
 
-{% block pagina_titulo %}{% if entity.id %}
-	{% if entity.Partida %}
-		{{ entity.Partida.Domicilio }}
+{% block pagina_titulo %}{% if res.Entidad.id %}
+	{% if res.Entidad.Partida %}
+		{{ res.Entidad.Partida.Domicilio }}
 	{% else %}
-		{{ entity }}
+		{{ res.Entidad }}
 	{% endif %}
 {% else %}
 	Nuevo local
@@ -14,8 +14,8 @@
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Partida</label>
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Partida) }}</div>
-    <div class="col-sm-10 col-sm-offset-2" id="inmueble_domicilio_aviso" {% if res.Entidad.DomicilioCalle %}style="display: none"{% endif %}><p class="help-block">
-    	<a href="#" onclick="$('#inmueble_domicilio').show(); $('#inmueble_domicilio_aviso').hide(); return false">Usar
+    <div class="col-sm-10 col-sm-offset-2" id="local_domicilio_aviso" {% if res.Entidad.DomicilioCalle %}style="display: none"{% endif %}><p class="help-block">
+    	<a href="#" onclick="$('#local_domicilio').show(); $('#local_domicilio_aviso').hide(); return false">Usar
     	un domicilio real diferente</a>.
     	Si el local tiene un número de puerta o domicilio diferente al domicilio catastral. Por ejemplo un local
     	grande puede tener varias puertas o ingresos y mientras que en catastro figura con un ingreso (ej. Thorne 123),
@@ -24,14 +24,14 @@
 	</div>
 </div>
 <script>
-	$('#inmueble_Partida').change(function() {
-		$('#inmueble_Domicilio').val('');
-		$('#inmueble_domicilio').hide();
-		$('#inmueble_domicilio_aviso').show();
+	$('#local_Partida').change(function() {
+		$('#local_Domicilio').val('');
+		$('#local_domicilio').hide();
+		$('#local_domicilio_aviso').show();
 	});
 </script>
 
-<div class="row form-group" id="inmueble_domicilio" {% if not res.Entidad.DomicilioCalle %}style="display: none"{% endif %}>
+<div class="row form-group" id="local_domicilio" {% if not res.Entidad.DomicilioCalle %}style="display: none"{% endif %}>
 	<label class="col-sm-2 control-label">Domicilio real</label>
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Domicilio) }}</div>
     <div class="col-sm-10 col-sm-offset-2"><p class="help-block">Si el domicilio del inmueble es el mismo que figura en
@@ -41,7 +41,7 @@
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Identificación</label>
     <div class="col-sm-10">
-        {{ form_widget(edit_form.SubDomicilio) }}
+        {{ form_widget(res.FormularioEditar.SubDomicilio) }}
         <span class="help-block"><span class="text-danger">No es para observaciones.</span> Opcional. Puede proporcionar
         	una identificación del local dentro del domicilio, por ejemplo: "local 7", "oficina 3", etc.</span>
     </div>
@@ -49,27 +49,27 @@
 
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Tipo</label>
-    <div class="col-sm-10">{{ form_widget(edit_form.Tipo) }}</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Tipo) }}</div>
 </div>
 
 <div class="row form-group">
 	<label class="col-xs-4 col-sm-2 control-label">Superficie total</label>
 	<div class="col-xs-6 col-sm-2">
 		<div class="input-group">
-		    {{ form_widget(edit_form.Superficie) }}
+		    {{ form_widget(res.FormularioEditar.Superficie) }}
     	    <div class="input-group-addon">m2</div>
 		</div>
 	</div>
 	<label class="col-xs-4 col-sm-2 control-label">de los cuales</label>
 	<div class="col-xs-4 col-sm-2">
 		<div class="input-group">
-            {{ form_widget(edit_form.SuperficieDeposito) }}
+            {{ form_widget(res.FormularioEditar.SuperficieDeposito) }}
     	    <div class="input-group-addon">m2</div>
 		</div>
 	</div>
 	<div class="col-xs-4 col-sm-2 control-label-left"> son depósito</div>
 </div>
-{{ form_rest(edit_form) }}
+{{ form_rest(res.FormularioEditar) }}
 {% endblock pagina_contenido %}
 
 {% block pagina_scripts %}
