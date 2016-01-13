@@ -9,10 +9,11 @@ namespace Tapir\AbmBundle\Helper\Resultados;
 class ResultadoListarAction extends ResultadoActionAbmController
 {
     public $Entidades;
-    public $Filtros = array();
+    public $Filtros;
     
     function __construct($controlador)
     {
+    	$this->Filtros = array();
         parent::__construct($controlador);
     }
 }
