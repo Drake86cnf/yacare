@@ -19,7 +19,6 @@ class DomicilioLocalType extends AbstractType
                 'label' => false,
                 'class' => 'YacareCatastroBundle:Calle',
                 'placeholder' => '(ninguna)',
-                'empty_data' => 'n/a',
                 'required' => false, 
                 'attr' => array('style' => 'width: 240px;')))
             ->add('DomicilioNumero', null, array(
