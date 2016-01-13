@@ -32,12 +32,10 @@
 					<i class="fa fa-fw fa-warning text-danger"></i>
                 {% endif %}</td>
 			<td class="hidden-xs">
-			    {% if entity.DomicilioReal and entity.Local %}
-                    {{ entity.DomicilioReal }}
-                {% elseif entity.Local %}
-                	{{ entity.Local }}
-			    {% elseif entity.DomicilioReal %}
-                    Legal: {{ entity.DomicilioReal }}
+			    {% if entity.Local %}
+                    {{ entity.Local.DomicilioReal }}
+                {% elseif entity.DomicilioLegal %}
+                	{{ entity.DomicilioLegal }}
                 {% else %}
 			    	n/a
 			    {% endif %}

@@ -13,17 +13,11 @@
 			{{ bs.grid_label_text('Nombre de fantasía', res.Entidad.Nombre, 'text-value-strong') }}
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
-			{% if res.Entidad.DomicilioReal %}
-			    {% if res.Entidad.Domicilio and res.Entidad.Local %}
-			        {{ bs.grid_label_text('Local', res.Entidad.Local, 'text-danger') }}
-			        {{ bs.grid_label_text('Domicilio declarado', res.Entidad.DomicilioReal) }}
-			    {% elseif res.Entidad.Local %}
-			        {{ bs.grid_label_text('Local', res.Entidad.Local) }}
-			    {% else %}
-			    	{{ bs.grid_label_text('Domicilio legal', res.Entidad.DomicilioReal) }}
-			    {% endif %}
-			{% else %}
-				{{ bs.grid_label_text('Domicilio', 'n/a') }}
+			{% if res.Entidad.Local %}
+			    {{ bs.grid_label_text('Local', res.Entidad.Local, 'text-danger') }}
+			{% endif %}
+			{% if res.Entidad.DomicilioLegal %}
+			    {{ bs.grid_label_text('Domicilio legal', res.Entidad.DomicilioLegal) }}
 			{% endif %}
 			{% if res.Entidad.CreadoPor %}
 			    {{ bs.grid_label_text('Dado de alta por', res.Entidad.CreadoPor) }}

@@ -43,7 +43,7 @@ class Comercio
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $Domicilio = null;
+    protected $DomicilioLegal = null;
     
     /**
      * La posición en archivo. Es una nomenclatura que utiliza comercio para ubicar el expediente físico.
@@ -156,20 +156,7 @@ class Comercio
         
         return $this;
     }
-    
-    /**
-     * Devuelve el domicilio declarado, en caso de que tenga uno o el domicilio catastral en caso de que tenga un local.
-     */
-    public function getDomicilioReal() {
-        
-        if($this->Domicilio) {
-            return $this->Domicilio;
-        } elseif($this->getLocal() && $this->getLocal()->getPartida()) {
-            return $this->getLocal()->getPartida()->getDomicilio();
-        } else {
-            return '';
-        }
-    }
+
 
     /**
      * Devuelve nombres de estado normalizados.
@@ -316,22 +303,6 @@ class Comercio
         return $this;
     }
 
-    /**
-     * @ignore
-     */
-    public function setDomicilio($Domicilio)
-    {
-        $this->Domicilio = $Domicilio;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getDomicilio()
-    {
-        return $this->Domicilio;
-    }
 
     /**
      * @ignore
@@ -355,6 +326,23 @@ class Comercio
     public function setCreadoPor($CreadoPor)
     {
         $this->CreadoPor = $CreadoPor;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getDomicilioLegal()
+    {
+        return $this->DomicilioLegal;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDomicilioLegal($DomicilioLegal)
+    {
+        $this->DomicilioLegal = $DomicilioLegal;
         return $this;
     }
 }

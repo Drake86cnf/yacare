@@ -42,6 +42,9 @@ class ComercioSimpleType extends AbstractType
                 'label' => 'Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',
                 'required' => false))
+            ->add('DomicilioLegal', null, array(
+                'label' => 'Domicilio legal',
+                'attr' => array('class' => 'tapir-input-maymin')))
             ->add('Actividad1', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Actividad 1',
                 'class' => 'Yacare\ComercioBundle\Entity\Actividad',

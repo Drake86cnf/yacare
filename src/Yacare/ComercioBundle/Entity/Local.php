@@ -155,7 +155,7 @@ class Local
      * Devuelve el domicilio real o el de la partida si no tiene.
      */
     public function getDomicilioReal() {
-        if($this->getCalle()) {
+        if($this->getDomicilioCalle()) {
             return $this->getDomicilio();
         } else {
             return $this->getPartida()->getDomicilio();
@@ -179,9 +179,8 @@ class Local
         $this->Tipo = $Tipo;
         $this->ConstruirNombre();
     }
-    
-    
 
+    
     /**
      * Establece el nombre que se mostrará.
      * 
@@ -197,7 +196,12 @@ class Local
             $res .= ' clase ' . $this->getDepositoClase()->getTipo();
         }
         
-        if ($this->getPartida()) {
+        if ($this->getDomicilioCalle()) {
+            if($res) {
+                $res .= ' en ';
+            }
+            $res .= $this->getDomicilio();
+        } elseif ($this->getPartida()) {
             if($res) {
                 $res .= ' en ';
             }
