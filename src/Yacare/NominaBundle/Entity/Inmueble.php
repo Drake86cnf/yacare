@@ -72,6 +72,18 @@ class Inmueble
      * @ORM\JoinTable(name="Nomina_Inmueble_InmuebleEtiqueta")
      */
     protected $Etiquetas;
+    
+    /**
+     * Devuelve el domicilio real o el de la partida si no tiene.
+     */
+    public function getDomicilioReal() {
+        if($this->getCalle()) {
+            return $this->getDomicilio();
+        } else {
+            return $this->getPartida()->getDomicilio();
+        }
+    }
+    
 
     /**
      * @ignore

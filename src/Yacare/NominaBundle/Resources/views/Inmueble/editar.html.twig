@@ -41,9 +41,8 @@
 <div class="row form-group" id="inmueble_domicilio" {% if not res.Entidad.DomicilioCalle %}style="display: none"{% endif %}>
 	<label class="col-sm-2 control-label">Domicilio real</label>
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Domicilio) }}</div>
-    <div class="col-sm-10 col-sm-offset-2"><p class="help-block">Si el domicilio del inmueble es el imsmo que figura en
-    la partida, debe dejar este dato en blanco. Algunos inmuebles grandes tienen varias puertas y el domicilio catastral
-    es diferente al domicilio de la puerta de ingreso principal.</p></div>
+    <div class="col-sm-10 col-sm-offset-2"><p class="help-block">Si el domicilio del inmueble es el mismo que figura en
+    la partida, debe dejar este dato en blanco.</p></div>
 </div>
 
 <div class="row form-group">
