@@ -12,11 +12,14 @@
 		<div class="col-sm-8 col-xs-12">
 			{% if res.Entidad.Partida %}
 			    {% if res.Entidad.Partida.Domicilio %}
-			        {{ bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio) }}
+			        {{ bs.grid_label_text('Partida', res.Entidad.Partida.Domicilio) }}
     			{% else %}
-    				{{ bs.grid_label_text('Domicilio', 'n/a') }}
+    				{{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
     			{% endif %}
 			    {{ bs.grid_label_text('Titular', res.Entidad.Partida.Titular) }}
+			{% endif %}
+			{% if res.Entidad.DomicilioCalle %}
+			    {{ bs.grid_label_text('Domicilio real', res.Entidad.Domicilio) }}
 			{% endif %}
 			
 			{% if res.Entidad.VeredaMunicipal > 0 %}
