@@ -20,9 +20,6 @@ class ComercioSimpleType extends AbstractType
             ->add('Nombre', null, array(
                 'label' => 'Nombre de fantasía',
                 'attr' => array('class' => 'tapir-input-maymin')))
-            ->add('Domicilio', null, array(
-                'label' => 'Domicilio',
-                'attr' => array('class' => 'tapir-input-maymin')))
             ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
                 'label' => 'Expediente',
                 'required' => false))

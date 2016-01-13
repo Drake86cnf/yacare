@@ -16,29 +16,6 @@
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Local comercial</label>
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Local) }}</div>
-    <div class="col-sm-10 col-sm-offset-2" id="comercio_domicilio_aviso" {% if entity.Domicilio %}style="display: none"{% endif %}><p class="help-block">
-    	<a href="#" onclick="$('#comercio_domicilio').show(); $('#comercio_domicilio_aviso').hide(); return false">Usar
-    	un domicilio real/legal</a>.
-    	Si se trata de un comercio con domicilio legal o si el comercio tiene un número de puerta o domicilio diferente
-    	al domicilio catastral del local. Por ejemplo un inmueble puede tener varias puertas o ingresos y mientras el
-    	local comercial en catastro figura con un ingreso (ej. Thorne 123), el comercio declara  otro (ej. Thorne 127).
-    	Incluso pueden estar en diferentes calles en caso de esquina.</p>
-	</div>
-<script>
-	$('#comercio_Local').change(function() {
-		$('#comercio_Domicilio').val('');
-		$('#comercio_domicilio').hide();
-		$('#comercio_domicilio_aviso').show();
-	});
-</script>
-</div>
-
-<div class="row form-group" id="comercio_domicilio" {% if not entity.Domicilio %}style="display: none"{% endif %}>
-	<label class="col-sm-2 control-label">Domicilio real/legal</label>
-    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Domicilio) }}</div>
-    <div class="col-sm-10 col-sm-offset-2"><p class="help-block">Si el comercio tiene un local y el domicilio real/legal
-    es el mismo que el domicilio del local comercial, debe dejar este dato en blanco. Si el comercio se muda, debe
-    seleccionar otro local comercial y dejar este dato en blanco.</p></div>
 </div>
 
 <div class="row form-group">
