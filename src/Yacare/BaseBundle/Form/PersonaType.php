@@ -55,7 +55,9 @@ class PersonaType extends AbstractType
                 'multiple' => true,
                 'required' => false))
             ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioType', array(
-                'label' => 'Domicilio'))
+                'label' => 'Domicilio',
+                'required' => false
+            ))
             ->add('TelefonoNumero', null, array(
                 'label' => 'Teléfonos',
                 'attr' => array('class' => 'tapir-input-maymin')))

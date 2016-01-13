@@ -22,7 +22,9 @@ class LocalType extends AbstractType
                 'class' => 'Yacare\CatastroBundle\Entity\Partida',
                 'required' => true))
             ->add('Domicilio', 'Yacare\BaseBundle\Form\Type\DomicilioLocalType', array(
-                'label' => 'Domicilio'))
+                'label' => 'Domicilio',
+                'required' => false
+            ))
             ->add('SubDomicilio', null, array(
                 'label' => 'Identificación',
                 'attr' => array('class' => 'tapir-input-240 tapir-input-maymin')))
