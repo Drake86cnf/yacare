@@ -3,6 +3,7 @@ namespace Tapir\OsmBundle\Twig;
 
 use Twig_Extension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tapir\OsmBundle\Maps;
 
 class OsmExtension extends \Twig_Extension
 {
@@ -15,8 +16,23 @@ class OsmExtension extends \Twig_Extension
     
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('osm_renderjs', array($this,'osm_renderjs'), array('is_safe' => array('html')))
+            new \Twig_SimpleFunction('osm_renderjs', array($this,'osm_renderjs'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('osm_quickmapjs', array($this,'osm_quickmapjs'), array('is_safe' => array('html')))
         );
+    }
+    
+    public function osm_quickmapjs($location, $description, $divid = null) {
+        if(!$divid) {
+            $divid = 'map';
+        }
+        
+        $Map = new Maps\Map();
+        $Marker = new Maps\Marker();
+        $Marker->setPosition(new Maps\Point($location));
+        $Marker->setDescription($description);
+        $Map->addMarker($Marker);
+        
+        return $this->osm_renderjs($Map, $divid);
     }
     
     public function osm_renderjs($map, $divid = null, $renderer = null) {
