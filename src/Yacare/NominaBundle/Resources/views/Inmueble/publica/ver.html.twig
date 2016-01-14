@@ -36,10 +36,15 @@
     	</div>
 
 	</div>
-	
-    {% if res.Entidad.Obs %}
-    	<p>{{ res.Entidad.Obs }}</p>
-    {% endif %}
+    
+    <div class="col-sm-12">
+        {% for etiqueta in res.Entidad.Etiquetas %}
+        	<span class="label label-lg label-info">{{ etiqueta }}</span>
+        {% endfor %}
+		{% if res.Entidad.Obs %}
+			<p>{{ res.Entidad.Obs }}</p>
+		{% endif %}
+    </div>
 
 	{% if res.Entidad.UbicacionReal %}
     	<div id="map" style="width: 100%; height: 400px;">

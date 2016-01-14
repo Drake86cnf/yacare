@@ -19,6 +19,9 @@
     				<a href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}"><i
     					class="fa fa-map-marker"></i></a>
         		{% endif %}</td>
+        	<td class="hidden-xs">{% for etiqueta in res.Entidad.Etiquetas %}
+	        	<span class="label label-lg label-info">{{ etiqueta }}</span>
+	        {% endfor %}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
