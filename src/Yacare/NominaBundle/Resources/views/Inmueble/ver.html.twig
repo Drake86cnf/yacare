@@ -25,12 +25,14 @@
 	        {{ bs.grid_label_text('Horario', res.Entidad.Horario) }}
 	        {{ bs.grid_label_text('Ubicación', res.Entidad.UbicacionReal) }}
 	        
-    		{% if res.Entidad.Obs %}
-    		<div class="col-sm-12">
-    			<h2 class="row-header">Observaciones</h2>
-    			<p>{{ res.Entidad.Obs }}</p>
-    		</div>
-    		{% endif %}
+	        <div class="col-sm-12">
+    	        {% for etiqueta in res.Entidad.Etiquetas %}
+    	        	<span class="label label-lg label-info">{{ etiqueta }}</span>
+    	        {% endfor %}
+        		{% if res.Entidad.Obs %}
+        			<p>{{ res.Entidad.Obs }}</p>
+        		{% endif %}
+	        </div>
 	</div>
 	
 	<div class="col-sm-4 col-xs-12">

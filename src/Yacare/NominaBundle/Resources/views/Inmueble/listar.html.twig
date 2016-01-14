@@ -28,7 +28,15 @@
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %}
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
-{% block pagina_acciones2 %}
+{% block pagina_acciones %}
 <a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
 	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo inmueble</a>
-{% endblock %}
+{% endblock pagina_acciones %}
+
+{% block pagina_acciones2 %}
+    {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
+	<a data-toggle="ajax-link"
+		href="{{ path('yacare_nomina_inmuebleetiqueta_listar') }}"
+		class="btn btn-default"><i class="fa fa-tag"></i> Etiquetas</a>
+    {% endif %}
+{% endblock pagina_acciones2 %}
