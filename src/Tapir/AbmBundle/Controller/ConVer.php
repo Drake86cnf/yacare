@@ -26,15 +26,15 @@ trait ConVer {
         $id = $this->ObtenerVariable($request, 'id');
     
         if ($id) {
-            $entity = $this->ObtenerEntidadPorId($id);
+            $Entidad = $this->ObtenerEntidadPorId($id);
         }
     
-        if (! $entity) {
+        if (!$Entidad) {
             throw $this->createNotFoundException('No se puede encontrar la entidad.');
         }
     
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
-        $res->Entidad = $entity;
+        $res->Entidad = $Entidad;
     
         return array('res' => $res);
     }
