@@ -28,6 +28,8 @@ class PartidaHelper extends \Yacare\BaseBundle\Helper\Helper
     public function ObtenerUbicacionPorDomicilio($elementoConUbicacion)
     {
         if(!$elementoConUbicacion->getUbicacion()
+            && $elementoConUbicacion->getDomicilioCalle()
+            && $elementoConUbicacion->getDomicilioNumero()
             && ((!$elementoConUbicacion->getUbicacionFecha()) || $elementoConUbicacion->getUbicacionFecha()->diff(new \DateTime())->days > 30)) {
                 // No tiene ubicación y nunca se consultó o se consultó hace más de 30 días.
                 $Domicilio = new \Tapir\OsmBundle\GeoCoding\Address(
