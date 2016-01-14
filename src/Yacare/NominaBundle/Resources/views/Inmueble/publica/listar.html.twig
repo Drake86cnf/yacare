@@ -22,7 +22,7 @@
         		{% endif %}</td>
         	<td>{{ entity.Telefonos }}
             	{% if entity.Email %}
-            	<a href="mailto:{{ entity.Email }}"><i class="fa fa-envelope-o"></i></a>
+            	<a href="mailto:{{ entity.Email }}" title="{{ entity.Email }}"><i class="fa fa-envelope-o"></i></a>
             	{% endif %}</td>
 		</tr>
 		{% endfor %}
