@@ -91,7 +91,7 @@ class Inmueble
         if($this->getUbicacion()) {
             return $this->getUbicacion();
         } else {
-            $this->getPartida()->getUbicacion();
+            return $this->getPartida()->getUbicacion();
         }
     }
     
