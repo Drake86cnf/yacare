@@ -42,9 +42,9 @@
         <script type="text/javascript">
         $(function() {
             {{ osm_quickmapjs(res.Entidad.UbicacionReal, res.Entidad) }}
-            setTimeout(function() {
-             	{{ res.Mapa.Id }}.invalidateSize();
-            }, 0);
+            //setTimeout(function() {
+            // 	{# res.Mapa.Id #}.invalidateSize();
+            //}, 0);
         });
         </script>
 	{% endif %}
