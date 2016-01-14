@@ -10,9 +10,13 @@ class Point
 {
     protected $x, $y;
     
-    function __construct($x, $y) {
-        $this->x = $x;
-        $this->y = $y;
+    function __construct($x, $y = null) {
+        if($y == null) {
+            list($this->x, $this->y) = explode(' ', $x, 2);
+        } else {
+            $this->x = $x;
+            $this->y = $y;
+        }
     }
     
     /**
