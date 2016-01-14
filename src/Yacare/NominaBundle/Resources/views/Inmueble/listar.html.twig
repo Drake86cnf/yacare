@@ -15,9 +15,9 @@
 		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}">
 			<td>{{ entity.Nombre }}</td>
 			<td>{{ entity.DomicilioReal }}
-			    {% if entity.Partida and entity.Partida.Ubicacion %}
-        				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
-        					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+			    {% if entity.UbicacionReal %}
+    				<a href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': entity.Id })) }}"><i
+    					class="fa fa-map-marker"></i></a>
         		{% endif %}</td>
 		</tr>
 		{% endfor %}
@@ -30,7 +30,7 @@
 
 {% block pagina_acciones %}
 <a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
-	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo inmueble</a>
+	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo inmueble</a>
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
