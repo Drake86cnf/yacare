@@ -77,10 +77,21 @@ class Inmueble
      * Devuelve el domicilio real o el de la partida si no tiene.
      */
     public function getDomicilioReal() {
-        if($this->getCalle()) {
+        if($this->getDomicilioCalle()) {
             return $this->getDomicilio();
         } else {
             return $this->getPartida()->getDomicilio();
+        }
+    }
+    
+    /**
+     * Devuleve la ubicación real o la de la partida si no tiene.
+     */
+    public function getUbicacionReal() {
+        if($this->getUbicacion()) {
+            return $this->getUbicacion();
+        } else {
+            $this->getPartida()->getUbicacion();
         }
     }
     
