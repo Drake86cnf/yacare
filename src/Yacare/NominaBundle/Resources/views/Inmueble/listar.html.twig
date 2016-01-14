@@ -18,7 +18,6 @@
 			    {% if entity.Partida and entity.Partida.Ubicacion %}
         				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
         					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
-        			{% endif %}	
         		{% endif %}</td>
 		</tr>
 		{% endfor %}
