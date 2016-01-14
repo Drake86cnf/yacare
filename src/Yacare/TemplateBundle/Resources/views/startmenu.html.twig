@@ -13,7 +13,6 @@
 				<li><a href="{{ path('yacare_requerimientos_default_inicio') }}" data-toggle="ajax-link">
 					<i class="fa fa-ticket fa-fw text-muted"></i> Requerimientos</a></li>
 				<li class="divider"></li>
-				<li class="dropdown-header">Yacaré</li>
 				
                 {% if tapir_hasanyrole('ROLE_CATASTRO,ROLE_COMERCIO_ADMINISTRADOR') %}
 				<li><a href="{{ path('yacare_catastro_default_inicio') }}" data-toggle="ajax-link">
@@ -36,6 +35,11 @@
 					<i class="fa fa-suitcase fa-fw text-muted"></i> Trámites</a></li>
                 {% endif %}
 
+				<li class="dropdown-header">Nómina</li>
+				{% if tapir_hasanyrole('ROLE_NOMINA_INMUEBLES') %}
+				<li><a href="{{ path('yacare_nomina_inmueble_listar') }}" data-toggle="ajax-link">
+					Inmuebles</a></li>
+                {% endif %}
 			</ul>
 		</li>
 		<li class="col-sm-6">
