@@ -15,13 +15,14 @@
 	</thead>
 	<tbody>
 		{% for entity in res.Entidades %}
-		<tr data-toggle="ajax-link" href="{{ path('yacare_nomina_inmueble_publica_ver', { 'id': entity.Id }) }}">
+		<tr>
 			<td><a href="{{ path('yacare_nomina_inmueble_publica_ver', { 'id': entity.Id }) }}">{{ entity.Nombre }}</a></td>
 			<td>{{ entity.DomicilioReal }}
-			    {% if entity.UbicacionReal %}
-    				<a href="{{ path('yacare_nomina_inmueble_publica_ver', { 'id': entity.Id }) }}"><i
-    					class="fa fa-map-marker"></i></a>
-        		{% endif %}</td>
+			    {% if entity.Marcador is defined %}
+				<a href="#mapa" onclick="window.{{ entity.Marcador.id }}.openPopup();"><i
+					class="fa fa-map-marker"></i></a>
+				{% endif %}
+        		</td>
         	<td>{{ entity.Telefonos }}
             	{% if entity.Email %}
             	<a href="mailto:{{ entity.Email }}" title="{{ entity.Email }}"><i class="fa fa-envelope-o"></i></a>
@@ -30,4 +31,18 @@
 		{% endfor %}
 	</tbody>
 </table>
+
+{% if res.Mapa is defined %}
+    <a name="mapa"></a>
+    <div id="map" aclass="osmbundle_map" style="width: 100%; min-height: 480px;">
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        {{ osm_renderjs(res.Mapa) }}
+        //setTimeout(function() {
+        // 	window.{{ res.Mapa.Id }}.invalidateSize();
+        //}, 0);
+    });
+    </script>
+    {% endif %}
 {% endblock pagina_contenido %}
