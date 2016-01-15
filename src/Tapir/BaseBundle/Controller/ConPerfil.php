@@ -34,13 +34,14 @@ trait ConPerfil
         }
 
         if ($entity->getUsername()) {
-            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR')) {
-                $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilAdminType', $entity);
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR') ||
+                $this->get('security.authorization_checker')->isGranted('ROLE_IDDQD')) {
+                $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\PersonaPerfilAdminType', $entity);
             } else {
-                $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilType', $entity);
+                $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilType', $entity);
             }
         } else {
-            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaPerfilCrearType', $entity);
+            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilCrearType', $entity);
         }
 
         if ($request->getMethod() === 'POST') {
@@ -124,14 +125,15 @@ trait ConPerfil
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
 
             // Sólo los administradores pueden cambiar contraseñas ajenas
-        if($id && $this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR')) {
+        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR') ||
+                $this->get('security.authorization_checker')->isGranted('ROLE_IDDQD')) {
             // Es para otro usuario, muestro "crear contraseña"
             $entity = $em->getRepository($entidadUsuario)->find($id);
-            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCrearContrasenaType', $entity);
+            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCrearContrasenaType', $entity);
         } else {
             // Es el usuario conectado, muestro "cambiar contraseña"
             $entity = $em->getRepository($entidadUsuario)->find($UsuarioConectado->getId());
-            $FormEditar = $this->createForm('Yacare\BaseBundle\Form\PersonaCambiarContrasenaType', $entity);
+            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCambiarContrasenaType', $entity);
         }
 
         $FormEditar->handleRequest($request);
