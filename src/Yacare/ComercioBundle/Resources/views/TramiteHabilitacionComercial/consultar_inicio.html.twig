@@ -5,9 +5,9 @@
 {% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
 
 {% block pagina_inicio %}
-<form class="form-horizontal"
-	action="{{ path(baseroute ~ '_consultar', { 'porpartida': porpartida }) }}"
-	method="post"  {{ form_enctype(edit_form) }}>
+{{ form_start (res.FormularioEditar,{
+'action': path (res.ObtenerRutaAccion('consultar'), res.Arrastre| merge({ 'porpartida': porpartida })),
+'method': 'POST'} )}}
 {% endblock %}
 
 {% block pagina_contenido %}
@@ -26,7 +26,7 @@
     		</div>
     	</div>
 		<div class="row form-group">
-    		<div class="col-xs-12">{{ form_widget(edit_form.Partida) }}</div>
+    		<div class="col-xs-12">{{ form_widget(res.FormularioEditar.Partida) }}</div>
     	</div>
 
 		<div class="row">
@@ -41,14 +41,14 @@
         	<label class="col-xs-4 col-sm-2 control-label">Superficie total</label>
         	<div class="col-xs-6 col-sm-2">
         		<div class="input-group">
-        		    {{ form_widget(edit_form.Superficie) }}
+        		    {{ form_widget(res.FormularioEditar.Superficie) }}
             	    <div class="input-group-addon">m2</div>
         		</div>
         	</div>
         	<label class="col-xs-4 col-sm-2 control-label">de los cuales</label>
         	<div class="col-xs-4 col-sm-2">
         		<div class="input-group">
-                    {{ form_widget(edit_form.SuperficieDeposito) }}
+                    {{ form_widget(res.FormularioEditar.SuperficieDeposito) }}
             	    <div class="input-group-addon">m2</div>
         		</div>
         	</div>
@@ -61,12 +61,12 @@
 				<p>Si el local comercial se encuentra empadronado, puede buscarlo
 				por domicilio o por titular. Si el local no se encuentra empadronado o los datos del
 				padrón no se corresponden, puede cambiar a la búsqueda <a data-toggle="ajax-link"
-            		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">por
+            		href="{{ path(res.ObtenerRutaAccion('consultar'), { 'porpartida': 1 } ) }}">por
             		partida inmobiliaria</a>.</p>
 			</div>
 		</div>
 		<div class="row form-group">
-    		<div class="col-xs-12">{{ form_widget(edit_form.Local) }}</div>
+    		<div class="col-xs-12">{{ form_widget(res.FormularioEditar.Local) }}</div>
     	</div>
 	{% endif %}
 	
@@ -77,19 +77,19 @@
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad1) }}</div>
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad2) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad1) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad2) }}</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad3) }}</div>
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad4) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad3) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad4) }}</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad5) }}</div>
-		<div class="col-xs-12 col-sm-6">{{ form_widget(edit_form.Actividad6) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad5) }}</div>
+		<div class="col-xs-12 col-sm-6">{{ form_widget(res.FormularioEditar.Actividad6) }}</div>
 	</div>
 	
-    {{ form_rest(edit_form) }}
+    {{ form_rest(res.FormularioEditar) }}
 {% endblock %}
 
 {% block pagina_acciones2 %}
@@ -98,16 +98,16 @@
 {% block pagina_acciones %}
 	{% if porpartida %}
 		<a data-toggle="ajax-link" class="btn btn-default"
-			href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">
+			href="{{ path(res.ObtenerRutaAccion('consultar'), res.Arrastre| merge({ 'porpartida': 0 } )) }}">
 			<i class="fa fa-refresh"></i> Por local</a>
 	{% else %}
 		<a data-toggle="ajax-link" class="btn btn-default"
-    		href="{{ path(baseroute ~ '_consultar', { 'porpartida': 1 } ) }}">
+    		href="{{ path( res.ObtenerRutaAccion('consultar'), res.Arrastre | merge ({ 'porpartida': 1 } )) }}">
     		<i class="fa fa-refresh"></i> Por partida</a>
 	{% endif %}
 
 <a class="btn btn-default hidden-print" data-togle="ajax-link"
-	href="{{ path(baseroute ~ '_listar') }}">Cancelar</a>
+	href={{ path(res.ObtenerRutaAccion('listar')) }}>Cancelar</a>
 <button type="submit" class="btn btn-primary hidden-print">
 	<i class="fa fa-play"></i> Consultar
 </button>
