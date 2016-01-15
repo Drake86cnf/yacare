@@ -29,6 +29,10 @@
 			    {% else %}
 			    	un visitante anónimo vía web
 			    {% endif %} el {{ res.Entidad.createdAt|tapir_fecha|lower }}
+			    ({{ res.Entidad.createdAt|tapir_hacetiempo }}).
+			    {% if res.Entidad.Estado < 80 %}
+			    La última novedad fue {{ res.Entidad.updatedAt|tapir_hacetiempo }}.
+			    {% endif %}
 		  	</p>
 		
 		
@@ -187,14 +191,12 @@
     			    {% endif %}</small></div>
             <div class="col-xs-10">
         {% endif %}
-        <p>
-            {% if novedad.Automatica == 0 %}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i>
-            	<strong>{% endif %}
-                {% if novedad.Privada %}<i class="fa fa-eye-slash text-info"></i> <strong>{% endif %}
+        <p {% if novedad.Automatica %}class="text-muted"{% endif %}>
+            {% if novedad.Automatica == 0 %}<i class="fa fa-comment-o text-info fa-flip-horizontal"></i>{% endif %}
+                {% if novedad.Privada %}<i class="fa fa-eye-slash text-info"></i>{% endif %}
                 {{ novedad.Notas }}
                 <small class="text-muted" data-toggle="tooltip" data-placement="bottom"
                 	title="{{ novedad.createdAt|tapir_fecha }}"> ({{ novedad.createdAt|tapir_hacetiempo }})</small>
-            {% if novedad.Automatica == 0%}</strong>{% endif %}
         </p>
         {% set ultimanovedad = novedad %}
     {% endfor %}
