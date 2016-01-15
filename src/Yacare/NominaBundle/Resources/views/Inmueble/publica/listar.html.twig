@@ -3,6 +3,8 @@
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
+<h1>{{ res.Entidad }}</h1>
+
 <table class="table {% if res.Entidades|length > 30 %}table-condensed {% endif %}table-responsive table-hover">
 	<thead>
 		<tr>
