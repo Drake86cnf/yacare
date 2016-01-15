@@ -204,7 +204,14 @@ class StringHelper
             'AGP',
             'YPF',
             'IPV',
-            'CAP');
+            'CAP',
+            'InFueTur',
+            'SECTUR',
+            'COMFER',
+            'RENAR',
+            'IPRA',
+            'RTO'
+        );
         
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
         
