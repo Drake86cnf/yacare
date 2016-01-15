@@ -239,44 +239,44 @@
     {# Nuevo #}
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-play"></i> Iniciar</a>
+        data-toggle="ajax-link" ><i class="fa fa-fw fa-play"></i> Iniciar</a>
      <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+        data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
     <li role="separator" class="divider"></li>
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link"><i class="fa fa-times"></i> Cancelar</a>
+        data-toggle="ajax-link"><i class="fa fa-fw fa-times"></i> Cancelar</a>
 {% endif %}
 {% if res.Entidad.Estado == 10 %}
     {# Iniciado #}
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
-   		data-toggle="ajax-link"  ><i class="fa fa-refresh"></i> Poner en espera</a>
+   		data-toggle="ajax-link"  ><i class="fa fa-fw fa-refresh"></i> Poner en espera</a>
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
-    	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+    	data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
 {% endif %}
 {% if res.Entidad.Estado == 20 %}
     {# En espera #}
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-play"></i> Continuar</a>
+    	data-toggle="ajax-link" ><i class="fa fa-fw fa-play"></i> Continuar</a>
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-check"></i> Terminar</a>
+    	data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
 {% endif %}
 {% if res.Entidad.Estado == 90 %}
     {# Terminado #}
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-flag-checkered"></i> Cerrar y archivar</a>
+    	data-toggle="ajax-link" ><i class="fa fa-fw fa-flag-checkered"></i> Cerrar y archivar</a>
 {% endif %}
 {% if res.Entidad.Estado >= 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
     {# Cerrado #}
     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
         res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-refresh"></i> Reabrir</a>
+    	data-toggle="ajax-link" ><i class="fa fa-fw fa-refresh"></i> Reabrir</a>
 {% endif %}
   </ul>
 </div>
