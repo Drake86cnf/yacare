@@ -51,7 +51,8 @@ trait ConMailer
                 ->setSubject('Novedades de su solicitud')
                 ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
                 ->setTo($Destinatarios)
-                ->setBody($ContenidoMensaje, 'text/html');
+                ->setBody(\Tapir\BaseBundle\Helper\StringHelper::ObtenerTextoCuerpoHtml($ContenidoMensaje))
+                ->addPart($ContenidoMensaje, 'text/html');
             $this->get('mailer')->send($Mensaje);
         }
     }
