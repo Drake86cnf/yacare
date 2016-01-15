@@ -3,9 +3,12 @@
 {% block pagina_titulo %}Solicitud de modificación{% endblock %}
 
 {% block pagina_inicio %}
-    <form class="form-horizontal" action="{{ path(res.ObtenerRutaAccion('modificardato'), 
-    	    res.Arrastre|merge({ 'id': res.Entidad.id, 'campo_nombre': campo_nombre })) }}"
-    	method="post" {{ form_enctype(res.FormularioEditar) }}>
+{{ form_start(res.FormularioEditar, {
+    'action': path(res.ObtenerRutaAccion('modificardato'), 
+    	    res.Arrastre|merge({ 'id': res.Entidad.id, 'campo_nombre': campo_nombre })),
+    'method': 'POST',
+    'attr': { 'id': res.FormularioEditar.vars.id, 'class': 'form-horizontal' }
+}) }}
 {% endblock %}
 
 {% block pagina_contenido %}
