@@ -36,13 +36,28 @@ trait ConMailer
            
             $ContenidoMensaje = $this->renderView($vistaEmail, array('res' => $res)); 
             
-            $Mensaje = \Swift_Message::newInstance()
-                ->setSubject('Novedades de su solicitud')
-                ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
-                ->setTo($Requerimiento->getEmailNotificaciones())
-                ->setBody($ContenidoMensaje, 'text/html');
+            $Destinatarios = array();
+            if($Requerimiento->getEncargado() && $Requerimiento->getEncargado()->getEmail()) {
+                $Destinatarios[$Requerimiento->getEncargado()->getEmail()] = $Requerimiento->getEncargado()->NombreAmigable();
+            }
+            if($Requerimiento->getUsuario() && $Requerimiento->getUsuario()->getEmail()) {
+                $Destinatarios[$Requerimiento->getUsuario()->getEmail()] = $Requerimiento->getUsuario()->NombreAmigable();
+            } else {
+                if($Requerimiento->getUsuarioNombre()) {
+                    $Destinatarios[$Requerimiento->getUsuarioNombre()] = $Requerimiento->getUsuarioEmail();
+                } else {
+                    $Destinatarios['Usuario anónimo'] = $Requerimiento->getUsuarioEmail();
+                }
+            }
             
-            $this->get('mailer')->send($Mensaje);
+            if(count($Destinatarios) > 0) {
+                $Mensaje = \Swift_Message::newInstance()
+                    ->setSubject('Novedades de su solicitud')
+                    ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
+                    ->setTo($Destinatarios)
+                    ->setBody($ContenidoMensaje, 'text/html');
+                $this->get('mailer')->send($Mensaje);
+            }
         }
     }
 }
