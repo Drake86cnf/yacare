@@ -553,4 +553,18 @@ class StringHelper
         }
         return $PartesNombre;
     }
+    
+    public static function ObtenerTextoCuerpoHtml($html) {
+        $PosInicio = strripos($html, '<body');
+        
+        if($PosInicio > 0) {
+            $Cuerpo = substr($html, $PosInicio, strlen($html) - $PosInicio);
+        } else {
+            $Cuerpo = $html;
+        }
+        
+        $Cuerpo = str_replace("\n\n\n", "\n\n", str_replace("  ", " ", strip_tags($Cuerpo))); 
+        
+        return $Cuerpo;
+    }
 }
