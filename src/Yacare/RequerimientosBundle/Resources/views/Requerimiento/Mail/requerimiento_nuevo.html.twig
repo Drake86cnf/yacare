@@ -1,6 +1,7 @@
 {% extends 'YacareBaseBundle::email.html.twig' %}
 {% block pagina_contenido %}
     <h2>Ingreso de solicitud Nº {{ res.Entidad.SeguimientoNumero }}</h2>
+
     <p>Le agradecemos que se tome el tiempo para ponerse en contacto con su Municipio.
     	Recibimos sus comentarios, consultas y sugerencias con entusiasmo.</p>
     
@@ -9,7 +10,7 @@
     
     <hr />
 
-	<p>Su solicitud será antendida y se le informarán las novedades por correo electrónico.</p> 
+	<p>Su solicitud será antendida y se le informarán las novedades por correo electrónico.</p>
 	
     {% if res.Entidad.SeguimientoNumero %}
         <p>También puede consultar el estado de su solicitud desde el sitio web del Municipio:
