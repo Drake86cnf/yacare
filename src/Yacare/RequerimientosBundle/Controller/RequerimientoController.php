@@ -623,7 +623,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         
         switch ($campoNombre) {
             case 'Categoria':
-                $FormEditarBuilder->add($campoNombre, 'entity', array(
+                $FormEditarBuilder->add($campoNombre, 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                     'label' => 'Categoría', 
                     'placeholder' => 'Sin categoría',
                     'attr' => array('class' => 'tapir-input-320'),
