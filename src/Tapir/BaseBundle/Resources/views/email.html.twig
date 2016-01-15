@@ -1,57 +1,53 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="es">
 <head>
-
     <meta charset="utf-8" />
+    <title>{% block pagina_titulo %}Mensaje de correo electrónico{% endblock pagina_titulo %}</title>
 
-    <title>Sistema de Requerimientos</title>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,700' rel='stylesheet' type='text/css'>
+<style>
+
+body, p, label, span, div, td, h1, h2, h3, h4, h5, h6, .inplace-edit {
+    font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+h1, legend {
+	padding: 0px;
+	font-size: 14pt;
+	font-weight: 400;
+	color: gray;
+	margin: 2px 0px;
+}
+
+h2 {
+	margin-top: 10px;
+	font-size: 13pt;
+	font-weight: 600;
+}
+
+h3 {
+	margin-top: 8px;
+	font-size: 12pt;
+	font-weight: 600;
+}
+
+h4 {
+	margin-top: 6px;
+	font-size: 11pt;
+}
+</style>
 
 </head>
 
 <body>
-    {% block pagina_contenido %}
+{% block pagina_contenido %}
     <header>
-
-        <hgroup>
-
-            <h1>Municipio de Rio Grande</h1>
-
-            <h2>Seguimiento de requerimientos</h2>
-
-        </hgroup>
-
+    	<h1>{{ tapir_cliente }}</h1>
     </header>
-        <article>
-
-            <header>
-
-                <h1>Sistema de envio automatizado</h1>
-
-            </header>
-
-            
-        </article>
-
-    <aside>
-
-        <section>
-
-            <h1>Usted puede ingresar a su requerimiento haciendo click en el siguiente enlace</h1>
-
-            <ul>
-
-                <li><a href="#">Hola soy un link, vengo a linkear</a></li>
-
-            </ul>
-
-        </section>
-
-    </aside>
-
-    <footer>Footer - Las Islas Malvinas, Georgias y Sandiwch del sur son y seran Argentinas</footer>
-{% endblock %}
+    <article>
+    </article>
+{% endblock pagina_contenido %}
 </body>
 
 </html> 
