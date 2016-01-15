@@ -39,36 +39,35 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
             ->setCellValue('B1', 'Detalle')
             ->setCellValue('C1', 'CPU')
             ->setCellValue('D1', 'Categoría antigua')
-            ->setCellValue('E1', 'Exenta')
-            ->setCellValue('F1', 'DBeH')
-            ->setCellValue('G1', 'DEyMA')
-            ->setCellValue('H1', 'Ley 105')
-            ->setCellValue('I1', 'Incluye')
-            ->setCellValue('J1', 'No incluye')
-            ->setCellValue('K1', 'ClaNAE 97')
-            ->setCellValue('L1', 'ClaNAE 2010')
-            ->setCellValue('M1', 'ClaE AFIP RG3537/13')
-            ->setCellValue('N1', 'DGR TDF Ley 854/11');
-        
+            ->setCellValue('E1', 'Incluye')
+            ->setCellValue('F1', 'No incluye')
+            ->setCellValue('G1', 'ClaNAE 97')
+            ->setCellValue('H1', 'ClaE AFIP RG3537/13')
+            ->setCellValue('I1', 'DGR TDF Ley 854/11')
+            ->setCellValue('J1', 'Etiquetas')
+            ;
+            
         $i = 1;
         foreach ($entities as $entity) {
             $i ++;
+            
+            $NombresEtiquetas = ''; 
+            foreach($entity->getEtiquetas() as $Etiqueta) {
+                $NombresEtiquetas .= $Etiqueta->getNombre() . ',';
+            }
             
             $phpExcelObject->getActiveSheet()
                 ->setCellValue('A' . $i, $entity->getClamae2014())
                 ->setCellValue('B' . $i, $entity->getNombre())
                 ->setCellValue('C' . $i, $entity->getCodigoCpu())
                 ->setCellValue('D' . $i, $entity->getCategoriaAntigua() ? $entity->getCategoriaAntigua() : '')
-                ->setCellValue('E' . $i, $entity->getExento() ? 'Sí' : '')
-                ->setCellValue('F' . $i, $entity->getRequiereDeyma() ? 'Sí' : '')
-                ->setCellValue('G' . $i, $entity->getRequiereDbeh() ? 'Sí' : '')
-                ->setCellValue('H' . $i, $entity->getLey105() ? 'Sí' : '')
-                ->setCellValue('I' . $i, $entity->getIncluye())
-                ->setCellValue('J' . $i, $entity->getNoIncluye())
-                ->setCellValue('K' . $i, $entity->getClanae1997())
-                ->setCellValue('L' . $i, $entity->getClanae2010())
-                ->setCellValue('M' . $i, $entity->getClaeAfip())
-                ->setCellValue('N' . $i, $entity->getDgrTdf());
+                ->setCellValue('E' . $i, $entity->getIncluye())
+                ->setCellValue('F' . $i, $entity->getNoIncluye())
+                ->setCellValue('G' . $i, $entity->getClanae1997())
+                ->setCellValue('H' . $i, $entity->getClaeAfip())
+                ->setCellValue('I' . $i, $entity->getDgrTdf())
+                ->setCellValue('J' . $i, $NombresEtiquetas)
+                ;
             
             $phpExcelObject->getActiveSheet()->getRowDimension($i)->setRowHeight(12);
             
@@ -90,6 +89,7 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         
         $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setWidth(12);
         $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setWidth(70);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('J')->setWidth(70);
         
         $phpExcelObject->getActiveSheet()
             ->getStyle('A1:N1')
@@ -112,14 +112,14 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
             ->getAlignment()
             ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
         
-        $phpExcelObject->getActiveSheet()
-            ->getStyle('K2:K' . $i)
+        /* $phpExcelObject->getActiveSheet()
+            ->getStyle('J2:J' . $i)
             ->getNumberFormat()
             ->setFormatCode('@');
         $phpExcelObject->getActiveSheet()
-            ->getStyle('K2:K' . $i)
+            ->getStyle('J2:J' . $i)
             ->getAlignment()
-            ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); */
         
         return $i;
     }
