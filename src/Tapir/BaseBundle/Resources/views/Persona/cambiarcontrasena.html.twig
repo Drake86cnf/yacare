@@ -5,9 +5,7 @@
 {% block pagina_contenido %}
 
 {% if res.Terminado %}
-
-	
-    <div class="row form-group panel">
+	<div class="row form-group panel">
         <div class="col-sm-8 col-sm-offset-2">
         	<h2>Confirmación</h2>
         	<p>La contraseña fue cambiada. La próxima vez que ingrese al sistema
@@ -16,7 +14,6 @@
     </div>
 
 {% else %}
-
 	<input style="display:none" type="password" name="foilautofill"/>
 
     <div class="row form-group panel">
@@ -24,7 +21,6 @@
         	recordar. Utilice 8 caracteres como mínimo y no utilice algo que sea demasiado obvio, como su número de
         	documento o el nombre de su mascota.</p></div>
     </div>
-    
     
     {% if res.FormularioEditar.ContrasenaActual is defined %}
     <div class="row form-group">
@@ -80,10 +76,12 @@ function VerificarContrasenias() {
 		$('#cambiarcontrasena_advertencia').text('La contraseña es demasiado corta.');
 		$('button[type="submit"]').prop('disabled', true);
 	} else if(Con2.length == 0) {
-		$('#cambiarcontrasena_advertencia').text('Por razones de seguridad, por favor escriba nuevamente la misma contraseña.');
+		$('#cambiarcontrasena_advertencia').text(
+				'Por razones de seguridad, por favor escriba nuevamente la misma contraseña.');
 		$('button[type="submit"]').prop('disabled', true);
 	} else if(Con1 != Con2) {
-		$('#cambiarcontrasena_advertencia').text('Las contraseñas no coinciden. Por razones de seguridad, debe escribir dos veces la misma contraseña.');
+		$('#cambiarcontrasena_advertencia').text(
+				'Las contraseñas no coinciden. Por razones de seguridad, debe escribir dos veces la misma contraseña.');
 		$('button[type="submit"]').prop('disabled', true);
 	} else {
 		$('#cambiarcontrasena_advertencia').text('Haga clic en el botón "Guardar" para cambiar su contraseña.');
