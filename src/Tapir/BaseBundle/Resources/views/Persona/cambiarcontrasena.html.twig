@@ -48,14 +48,14 @@
         <div class="col-sm-8 col-sm-offset-4"><button type="submit" value="Guardar" class="btn btn-success tapir-button-accept">
         	<i class="fa fa-check"></i> Guardar
         </button></div>
-    </div>
-    
+    </div>    
     
     {{ parent() }}
 {% endif %}
 
 {% endblock pagina_contenido %}
 
+{% block pagina_acciones %}{% endblock pagina_acciones %}
 
 {% block pagina_scripts %}
 {% if res.Terminado == 0 and res.FormularioEditar.PasswordEnc2 is defined %}
