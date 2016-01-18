@@ -130,11 +130,6 @@ class Requisito
                 return 'Trámite';
         }
     }
-    
-    public function OrdenarTipo(){
-        $em=$this->getDoctrine()->getManager();
-       
-    }
 
     /**
      * @ignore
