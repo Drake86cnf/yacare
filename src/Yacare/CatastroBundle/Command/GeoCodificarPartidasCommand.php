@@ -70,7 +70,7 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
         $progress = new ProgressBar($output, count($Partidas));
         $progress->start();
         foreach($Partidas as $Partida) {
-            $Helper->ObtenerUbicacionPartida($Partida);
+            $Helper->ObtenerUbicacionPorDomicilio($Partida);
             $progress->advance();
             $em->flush();
             // Dormir unos segundos entre consulta y consulta
