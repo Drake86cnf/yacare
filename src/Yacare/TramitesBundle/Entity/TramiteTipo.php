@@ -119,14 +119,14 @@ class TramiteTipo implements ITramiteTipo
      */
     public function ObtenerRequisitosLineales($tipoRequisito = null) {
         $res = array();
-        $Reqs = $this->getAsociacionRequisitos();
-        foreach ($Reqs as $Asoc) {
-            if($tipoRequisito == null || $Asoc->getRequisito()->getTipo() == $tipoRequisito) {
+        $Asociaciones = $this->getAsociacionRequisitos();
+        foreach ($Asociaciones as $Asoc) {
+            $Requisito = $Asoc->getRequisito();
+            if($tipoRequisito == null || $Requisito->getTipo() == $tipoRequisito) {
                 $res[] = $Asoc;
-                
             }
-            if($Asoc->getTipo() == 'tra') {
-                $Subtramite = $Asoc->getRequisito()->getTramiteTipoEspejo();
+            if($Requisito->getTipo() == 'tra') {
+                $Subtramite = $Requisito->getTramiteTipoEspejo();
                 if($Subtramite) {
                     $OtrosReqs = $Subtramite->ObtenerRequisitosLineales($tipoRequisito);
                     $res = array_merge($res, $OtrosReqs);
