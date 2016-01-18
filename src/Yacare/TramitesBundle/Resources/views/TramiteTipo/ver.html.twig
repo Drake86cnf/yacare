@@ -8,8 +8,11 @@
 	<p>{{ res.Entidad.Obs|raw }}</p>
 {% endif %}
 
-<p>Para iniciar el trámite de {{ res.Entidad }} deberá
-	presentar la siguiente documentación:</p>	
+<h2 class="row-header">1. Condiciones a cumplir</h2>	
+
+{{ ttm.listar_plano(res.Entidad.ObtenerRequisitosLineales('cond'), 2) }}
+
+<h2 class="row-header">2. Documentación a presentar</h2>
 
 {{ ttm.listar_plano(res.Entidad.ObtenerRequisitosLineales('ext'), 2) }}
 

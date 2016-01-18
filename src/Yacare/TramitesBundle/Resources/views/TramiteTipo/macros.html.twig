@@ -1,10 +1,10 @@
 {% macro listar_plano(listaasoc, nivel) %}
-<ul class="list-unstyled">
-{% for AsocRequisito in listaasoc %}
-	<li><h2><i class="fa fa-square-o text-muted"></i> {{ AsocRequisito.Requisito }}</h2></li>
-	{{ _self.mostrar_asociacion(AsocRequisito) }}
-{% endfor %}
-</ul>
+    <ul class="list-unstyled">
+    {% for AsocRequisito in listaasoc %}
+    	<li><i class="fa fa-square-o text-muted"></i> <strong>{{ AsocRequisito.Requisito }}</strong></li>
+        {{ _self.mostrar_asociacion(AsocRequisito) }}
+    {% endfor %}
+    </ul>
 {% endmacro %}
 
 {% macro listar(tramitetipo, nivel) %}
@@ -12,13 +12,13 @@
 <ul>
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo != 'tra' %}
-			<li>{{ AsocRequisito.Requisito }}</li>
+			<li><span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
 	    {% endif %}
 	{% endfor %}
 	
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
 	    {% if AsocRequisito.Requisito.Tipo == 'tra' %}
-			<li>{{ AsocRequisito.Requisito }}</li>
+			<li><span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
 	        {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
 	    {% endif %}
 	{% endfor %}
@@ -28,21 +28,22 @@
 
 {% macro mostrar_asociacion(asoc) %}
 <p class="col-sm-offset-1">
-	<span class="text-muted">RQ{{ "%03d"|format(asoc.Requisito.id) }}</span>
+	<span class="text-muted">RQ{{ "%04d"|format(asoc.Requisito.id) }}</span>
 	{% if asoc.Requisito.Tipo == 'tra' %}Trámite interno.
 	{% elseif asoc.Requisito.Tipo == 'int' %}Comprobante interno.{% endif %}
     {% if asoc.Propiedad %}De {{ asoc.PropiedadNombre }}.{% endif %}
     {% if asoc.InstanciaNombre != 'n/a' %}{{ asoc.InstanciaNombre }}.{% endif %}
     {% if asoc.EsOpcional %}<strong>Opcional</strong>{% endif %}
     {% if asoc.EsCondicional %}
-    	<strong>Condicional:</strong> {{ asoc.Condicion }}.
+    	<strong>Condicional:</strong> {{ asoc.Condicion }}
     {% endif %}
 
+	{% if asoc.Notas %}<br />{{ asoc.Notas }}{% endif %}
     {% if asoc.Requisito.Obs %}<br />{{ asoc.Requisito.Obs }}{% endif %}
     {% if asoc.Requisito.Lugar or asoc.Requisito.Url %}<span class="text-info">
     	<br />
         {% if asoc.Requisito.Lugar %}Se obtiene en <strong>{{ asoc.Requisito.Lugar }}</strong>{% endif %}
-        {% if asoc.Requisito.Url %}[ {{ asoc.Requisito.Url }} ]{% endif %}
+        {% if asoc.Requisito.Url %}<br />Más información en <a href="{{ asoc.Requisito.Url }}" target="_blank">{{ asoc.Requisito.Url }}</a>{% endif %}
 	</span>{% endif %}
 </p>
 {% endmacro %}

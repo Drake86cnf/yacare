@@ -5,25 +5,24 @@
 <ul class="list-unstyled">
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
 		{% if EstadoRequisito.EsNecesario %}
-		<li >
-			<i class="fa fa-square-o"></i>
-			{{ EstadoRequisito.AsociacionRequisito }}
+		<li>
+			<i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}
 	    </li>
 	    {% endif %}
 	{% endfor %}
 	
-	{#
+	
 	<h3>Documentación no requisitoria</h3>
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
 	    {% if EstadoRequisito.EsNecesario == false %}
-		<li >
-			<i class="fa fa-minus-square-o"></i> 
-    		<del>{{ EstadoRequisito.AsociacionRequisito }}</del>
-	    	<p class="help-text">{{ EstadoRequisito.AsociacionRequisito.Obs }}</p>
+		<li>
+			<i class="fa fa-minus-square-o"></i> <del>{{ EstadoRequisito.AsociacionRequisito }}</del>
+	    	<p class="help-text">{{ EstadoRequisito.AsociacionRequisito.Obs }}
+	    	<span class="text-danger">La condición a evaluar es {{ EstadoRequisito.ExplicarCondicion }}</span>
+	    	</p>
 	    </li>
 	    {% endif %}
 	{% endfor %}
-	#}
 </ul>
 {% endif %}
 {% endmacro %}

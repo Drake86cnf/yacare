@@ -25,7 +25,12 @@
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.Id })) }}">
-			<td>{{ entity.Requisito }}</td>
+			<td>{% if entity.Requisito.Tipo == 'cond' %}<i class="fa fa-fw fa-check-square-o text-muted" title="Condición"></i>
+				{% elseif entity.Requisito.Tipo == 'tra' %}<i class="fa fa-fw fa-suitcase text-muted" title="Trámite"></i>
+				{% elseif entity.Requisito.Tipo == 'ext' %}<i class="fa fa-fw fa-file-o text-muted" title="Externo"></i>
+				{% else %}<i class="fa fa-fw text-muted" title="Condición"></i>
+				{% endif %}
+			    {{ entity.Requisito }}</td>
 			<td>{{ entity.Propiedad }}</td>
 			<td class="hidden-sm hidden-xs">
 				<span class="label label-default">{{ entity.InstanciaNombre }}</span>
