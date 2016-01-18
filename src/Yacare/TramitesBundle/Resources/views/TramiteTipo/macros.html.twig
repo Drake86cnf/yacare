@@ -11,8 +11,14 @@
 {% if tramitetipo.AsociacionRequisitos|length > 0 %}
 <ul>
 	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
-	    {% if AsocRequisito.Requisito.Tipo != 'tra' %}
-			<li><span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
+	    {% if AsocRequisito.Requisito.Tipo == 'cond' %}
+			<li>Condición: <span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
+	    {% endif %}
+	{% endfor %}
+	
+	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	    {% if AsocRequisito.Requisito.Tipo == 'ext' %}
+			<li>Documentación: <span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
 	    {% endif %}
 	{% endfor %}
 	
