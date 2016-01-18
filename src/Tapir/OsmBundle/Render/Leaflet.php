@@ -43,7 +43,7 @@ class Leaflet extends Renderer
     }
     
     public function RenderJs() {
-        $res = "var " . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
+        $res = "window." . $this->getMap()->getId() . " = L.map('" . $this->getDivId() . "', { 
     //scrollWheelZoom: false,
     attributionControl: false,
             
@@ -89,7 +89,7 @@ class Leaflet extends Renderer
     public function RenderMarkers($map) {
         $res = "// Markers\n";
         foreach($map->getMarkers() as $Marker) {
-            $res .= "var " . $Marker->getId() . " = L.marker([" . $Marker->getCoordinate() . "]).addTo(" . $map->getId() . ");\n";
+            $res .= "window." . $Marker->getId() . " = L.marker([" . $Marker->getCoordinate() . "]).addTo(" . $map->getId() . ");\n";
             if($Marker->getDescription()) {
                 $res .= $Marker->getId() . ".bindPopup('" . $Marker->getDescription() . "');\n";
             }
@@ -108,7 +108,7 @@ class Leaflet extends Renderer
                 }
                 $respoints .= "    [" . $Point->getCoordinate() . "]";
             }
-            $res .= "var " . $Polyline->getId() . " = L.polygon([" . $respoints . "]).addTo(" . $map->getId() . ");\n";
+            $res .= "window." . $Polyline->getId() . " = L.polygon([" . $respoints . "]).addTo(" . $map->getId() . ");\n";
         }
         return $res;
     }

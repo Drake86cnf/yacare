@@ -78,7 +78,19 @@ class InmuebleController extends \Tapir\AbmBundle\Controller\AbmController
     
         $ResultadoListar = parent::listarAction($request);
         $res = $ResultadoListar['res'];
-    
+        
+        $Mapa = new Maps\Map();
+        foreach($res->Entidades as $Inmueble) {
+            $Ubicacion = $Inmueble->getUbicacionReal();
+            if($Ubicacion) {
+                $Marcador = new Maps\Marker();
+                $Marcador->setPosition(new Maps\Point($Ubicacion));
+                $Marcador->setDescription($Inmueble->getNombre() . '<br/>' . $Inmueble->getDomicilioReal());
+                $Mapa->addMarker($Marcador);
+                $Inmueble->Marcador = $Marcador;
+            }
+        }
+        $res->Mapa = $Mapa;
         $res->Entidad = $Entidad;
     
         return $ResultadoListar;
