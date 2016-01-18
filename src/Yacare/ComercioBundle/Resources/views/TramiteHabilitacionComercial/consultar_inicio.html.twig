@@ -5,9 +5,8 @@
 {% block pagina_titulo %}Consulta de factibilidad de habilitación comercial{% endblock %}
 
 {% block pagina_inicio %}
-{{ form_start (res.FormularioEditar,{
-'action': path (res.ObtenerRutaAccion('consultar'), res.Arrastre| merge({ 'porpartida': porpartida })),
-'method': 'POST'} )}}
+{{ form_start (res.FormularioEditar, {'method': 'POST',
+    'action': path (res.ObtenerRutaAccion('consultar'), res.Arrastre|merge({ 'porpartida': res.PorPartida }))} )}}
 {% endblock %}
 
 {% block pagina_contenido %}
@@ -17,7 +16,7 @@
     			<h3>Seleccione la partida inmobiliaria</h3>
     			<p>Si el local comercial ya está empadronado, le recomendamos utilizar la
     				búsqueda <a data-toggle="ajax-link"
-            			href="{{ path(baseroute ~ '_consultar', { 'porpartida': 0 } ) }}">por
+            			href="{{ path(res.ObtenerRutaAccion('consultar'), { 'porpartida': 0 } ) }}">por
             		local comercial</a></p>
     			<p>Es necesario que proporcione la partida inmobiliaria exacta, para poder conocer
     				la zonificación y saber si la actividad que pretende desarrollar está permitida
