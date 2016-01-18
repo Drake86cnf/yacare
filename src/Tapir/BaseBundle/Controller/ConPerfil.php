@@ -3,7 +3,6 @@ namespace Tapir\BaseBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -23,30 +22,32 @@ trait ConPerfil
     {
         $id = $this->ObtenerVariable($request, 'id');
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
-
-        $em = $this->getDoctrine()->getManager();
+        
+        $em = $this->getEm();
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
-
+        
         if ($id) {
             $entity = $em->getRepository($entidadUsuario)->find($id);
         } else {
             $entity = $em->getRepository($entidadUsuario)->find($UsuarioConectado->getId());
         }
-
+        
         if ($entity->getUsername()) {
-            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR') ||
-                $this->get('security.authorization_checker')->isGranted('ROLE_IDDQD')) {
-                $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\PersonaPerfilAdminType', $entity);
+            if ($this->isGranted('ROLE_ADMINISTRADOR') || $this->isGranted('ROLE_IDDQD')) {
+                $FormEditar = $this->createForm(
+                    $this->VendorName . '\\' . $this->BundleName . 'Bundle\\Form\\PersonaPerfilAdminType', $entity);
             } else {
-                $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilType', $entity);
+                $FormEditar = $this->createForm(
+                    $this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilType', $entity);
             }
         } else {
-            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilCrearType', $entity);
+            $FormEditar = $this->createForm(
+                $this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaPerfilCrearType', $entity);
         }
-
+        
         if ($request->getMethod() === 'POST') {
             $FormEditar->handleRequest($request);
-
+            
             if ($FormEditar->isValid()) {
                 if ($entity->getPasswordEnc()) {
                     // Genero una nueva sal
@@ -57,13 +58,12 @@ trait ConPerfil
                     $entity->setPassword($encoded_password);
                 } else {
                     $entity->setPassword();
-                }
-
+                }                
                 $em->persist($entity);
                 $em->flush();
-
+                
                 $this->editarperfilActionPostPersist($entity, $FormEditar);
-
+                
                 if ($UsuarioConectado->getId() == $entity->getId()) {
                     $em->refresh($UsuarioConectado);
                 }
@@ -73,41 +73,40 @@ trait ConPerfil
                 $validator = $this->get('validator');
                 $Errores = $validator->validate($entity);
             }
-
+            
             if ($Errores) {
                 foreach ($Errores as $error) {
                     $this->addFlash('danger', $error->getMessage());
-                }
-                
-                $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+                }                
+                $res = $this->ConstruirResultado(
+                    new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
                 $res->Entidad = $entity;
                 $res->FormularioEditar = $FormEditar->createView();
                 $res->AccionGuardar = 'usuario_editarperfil';
                 $res->Errores = $Errores;
-
+                
                 $res = $this->ArrastrarVariables($request, array(
-                    'entity' => $entity,
-                    'errors' => $Errores,
-                    'create' => $id ? false : true,
-                    'edit_form' => $FormEditar->createView(),
-                    'res' => $res
-                ));
-
+                    'entity' => $entity, 
+                    'errors' => $Errores, 
+                    'create' => $id ? false : true, 
+                    'edit_form' => $FormEditar->createView(), 
+                    'res' => $res));
+                
                 return $this->render('YacareBaseBundle:Persona:editarperfil.html.twig', $res);
             }
         }
         
-        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
         $res->Entidad = $entity;
         $res->FormularioEditar = $FormEditar->createView();
         $res->AccionGuardar = 'usuario_editarperfil';
         
         return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'edit_form_action' => 'usuario_editarperfil',
-            'edit_form' => $FormEditar->createView(),
-            'res' => $res
-        ));
+            'entity' => $entity, 
+            'edit_form_action' => 'usuario_editarperfil', 
+            'edit_form' => $FormEditar->createView(), 
+            'res' => $res));
     }
 
     /**
@@ -117,36 +116,39 @@ trait ConPerfil
      */
     public function cambiarcontrasenaAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
         $id = $this->ObtenerVariable($request, 'id');
         $Terminado = 0;
         $entidadUsuario = $this->container->getParameter('tapir_usuarios_entidad');
-
+        
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
-
-            // Sólo los administradores pueden cambiar contraseñas ajenas
-        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMINISTRADOR') ||
-                $this->get('security.authorization_checker')->isGranted('ROLE_IDDQD')) {
+        
+        // Sólo los administradores pueden cambiar contraseñas ajenas
+        if ($this->isGranted('ROLE_ADMINISTRADOR') || $this->isGranted('ROLE_IDDQD')) {
+            if (! $id) {
+                $id = $UsuarioConectado->getId();
+            }
             // Es para otro usuario, muestro "crear contraseña"
             $entity = $em->getRepository($entidadUsuario)->find($id);
-            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCrearContrasenaType', $entity);
+            $FormEditar = $this->createForm(
+                $this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCrearContrasenaType', $entity);
         } else {
             // Es el usuario conectado, muestro "cambiar contraseña"
             $entity = $em->getRepository($entidadUsuario)->find($UsuarioConectado->getId());
-            $FormEditar = $this->createForm($this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCambiarContrasenaType', $entity);
-        }
-
+            $FormEditar = $this->createForm(
+                $this->VendorName . '\\' . $this->BundleName . 'Bundle\Form\PersonaCambiarContrasenaType', $entity);
+        }        
         $FormEditar->handleRequest($request);
-
+        
         if ($FormEditar->isValid()) {
             // TODO: hay que validar que haya puesto la contraseña actual.
-            //$factory = $this->get('security.encoder_factory');
-
+            // $factory = $this->get('security.encoder_factory');
+            
             // Guardo el password con hash
             if ($entity->getPasswordEnc()) {
                 // Genero una nueva sal
                 $entity->setSalt(md5(uniqid(null, true)));
-
+                
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($entity);
                 $encoded_password = $encoder->encodePassword($entity->getPasswordEnc(), $entity->getSalt());
@@ -154,7 +156,6 @@ trait ConPerfil
             } else {
                 $entity->setPassword();
             }
-
             $Terminado = 1;
             $em->persist($entity);
             $em->flush();
@@ -162,23 +163,22 @@ trait ConPerfil
             if ($entity->getId() == $UsuarioConectado->getId()) {
                 $em->refresh($UsuarioConectado);
             }
-            
             $Errores = null;
-
+            
             $this->cambiarcontrasenaActionPostPersist($entity, $FormEditar);
         } else {
             $validator = $this->get('validator');
             $Errores = $validator->validate($entity);
             $Terminado = 0;
         }
-
+        
         if ($Errores) {
             foreach ($Errores as $error) {
                 $this->addFlash('danger', $error->getMessage());
             }
         }
-
-        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), $request);
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this), 
+            $request);
         $res->Entidad = $entity;
         $res->Errores = $Errores;
         $res->FormularioEditar = $FormEditar->createView();
