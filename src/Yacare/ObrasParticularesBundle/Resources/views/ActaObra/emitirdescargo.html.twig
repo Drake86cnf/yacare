@@ -1,3 +1,60 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} 
+{% extends 'TapirAbmBundle::editarbase.html.twig' %} 
 
 {% block pagina_titulo %}Descargo para {{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+	{{ form_row(res.FormularioEditar.Plazo) }}
+	{{ form_row(res.FormularioEditar.Profesional) }}
+	{{ form_row(res.FormularioEditar.DescargoDetalle) }}
+	{% if not res.Entidad.FechaDescargo or res.Errores %}
+	<span id="adicional"{% if not res.Errores|length > 0 %}style="display:none"{% endif %}>
+        <div class="row form-group">
+        	{{ form_row(res.FormularioEditar.FechaDescargo) }}
+        	<div class="col-sm-10 col-sm-offset-2">
+        		<span class="text-warning">Si no se trata de un acta histórica, deje el campo de fecha en blanco.</span>
+        	</div>
+        </div>
+	</span>
+	{% endif %}
+    {% if not res.Entidad.FechaDescargo %}
+    <div class="row form-group">
+    	<div class="col-sm-10 col-sm-offset-2">
+    		<a id="linkMostrar" href="#" onclick="mostrarOculto(); return false;">
+    			<i class="fa fa-exclamation-circle text text-warning"></i>
+    			<span class="text-warning">Agregar fecha de descargo (sólo pára actas históricas).</span>
+			</a>
+    	</div>
+    </div>
+    {% endif %}
+    {{ form_row(res.FormularioEditar._token) }}
+{% endblock %}
+
+{% block pagina_scripts %} 
+    {{ parent() }}		
+    <!-- Muestro el campo para observaciones -->
+    <script type="text/javascript">
+        function mostrarOculto() {
+        	var elemento = document.getElementById("adicional");
+        
+            if (elemento.style.display == "none") {
+            	elemento.style.display = "block";
+            	linkMostrar.style.display = 'none';
+            }
+        }
+        
+		$('button[type="submit"]').click(function(e) {
+			var ButtonValue = $(this).val();
+
+			if ((ButtonValue === 'Guardar') && ($('#form_FechaDescargo').val() === '')) {
+                hoy = new Date();
+
+                var mes = hoy.getMonth()+1;
+                var dia = hoy.getDate();
+            	var fecha_saneada = ((''+ dia).length < 2 ? '0' : '') + dia + '/' + 
+            		(('' + mes).length < 2 ? '0' : '') + mes + '/' + 
+            		hoy.getFullYear();
+            	$('#form_FechaDescargo').val(fecha_saneada);
+            }
+		});
+    </script>
+{% endblock %}

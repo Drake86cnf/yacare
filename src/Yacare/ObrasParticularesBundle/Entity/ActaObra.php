@@ -2,6 +2,7 @@
 namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa un acta de inspección, infracción, notificación o compromiso.
@@ -66,6 +67,11 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Assert\Expression(
+     *     "this.getFecha() <= this.getFechaDescargo()",
+     *     message = "La fecha de descargo no puede ser anterior a la fecha de redacción del acta en cuestión." 
+     * )
      */
     private $FechaDescargo;
     

@@ -122,7 +122,10 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
                 'label' => 'Profesional', 
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado', 
                 'required' => false))
-            ->add('DescargoDetalle', null, array('label' => 'Detalle'));
+            ->add('DescargoDetalle', null, array('label' => 'Detalle'))
+            ->add('FechaDescargo', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
+                'label' => 'Fecha de descargo',
+                'required' => false));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
@@ -130,7 +133,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
         if ($FormEditar->isValid()) {
             if (! $entity->getFechaDescargo()) {
                 $entity->setFechaDescargo(new \DateTime());
-            }                        
+            }
             $em->persist($entity);
             $em->flush();
             
