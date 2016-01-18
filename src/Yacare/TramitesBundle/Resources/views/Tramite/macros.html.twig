@@ -18,7 +18,9 @@
 		<li>
 			<i class="fa fa-minus-square-o"></i> <del>{{ EstadoRequisito.AsociacionRequisito }}</del>
 	    	<p class="help-text">{{ EstadoRequisito.AsociacionRequisito.Obs }}
-	    	<span class="text-danger">La condición a evaluar es {{ EstadoRequisito.ExplicarCondicion }}</span>
+	    	{% if app.environment == 'dev' %}
+	    	<span class="text-danger">Debug: La condición a evaluar es {{ EstadoRequisito.ExplicarCondicion }}</span>
+	    	{% endif %}
 	    	</p>
 	    </li>
 	    {% endif %}
