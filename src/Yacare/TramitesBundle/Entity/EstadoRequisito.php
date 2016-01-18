@@ -231,7 +231,7 @@ class EstadoRequisito implements IEstadoRequisito
             }
         }
         
-        //echo ' ' . $Asoc->getCondicionEs() . ' ' . $ValorQue; 
+        //echo $Asoc->getCondicionQue() . '(' . $ValorQue . ') ' . $Asoc->getCondicionEs() . ' ' . $ValorCuanto; 
 
         switch ($Asoc->getCondicionEs()) {
             case '==':
@@ -261,6 +261,69 @@ class EstadoRequisito implements IEstadoRequisito
         }
         return false;
     }
+    
+    
+    /**
+     * Devuelve una cadena explicando la expresión que se evalúa para saber si la condición se cumple.
+     */
+    public function ExplicarCondicion() {
+        $Asoc = $this->getAsociacionRequisito();
+        
+        if ( $Asoc->EsCondicional() == false ) {
+            // No hay condición... lo doy siempre por cumplido
+            return 'Siempre';
+        }
+        
+        /*
+         * Busco recursivamente las propiedades. Por ejemplo, "Titular.NumeroDocumento" se convierte en
+         * "$this->getTramite()->getTitular()->getNumeroDocumento()"
+         */
+        
+        $Objeto = $this->getTramite();
+        $Propiedades = explode('.', $Asoc->getCondicionQue());
+        $ValorQue = null;
+        foreach ($Propiedades as $Propiedad) {
+            $ValorCuanto = $Asoc->getCondicionCuanto();
+            //echo '->' . $Propiedad . '';
+            if(strstr($Propiedad, '(') !== false) {
+                $Parametro = trim(strstr($Propiedad, '('), '()');
+                $Propiedad = strstr($Propiedad, '(', true);
+            } else {
+                $Parametro = null;
+            }
+        
+            if (method_exists($Objeto, $Propiedad)) {
+                $Callable = array($Objeto, $Propiedad);
+            } elseif (method_exists($Objeto, 'get' . $Propiedad)) {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            } else {
+                $Callable = array($Objeto, 'get' . $Propiedad);
+            }
+        
+            if (is_callable($Callable)) {
+                //echo '()';
+                if($Parametro) {
+                    $ValorQue = call_user_func($Callable, $Parametro);
+                } else {
+                    $ValorQue = call_user_func($Callable);
+                }
+                $Objeto = $ValorQue;
+            } else {
+                $ValorQue = null;
+                break;
+            }
+        }
+        
+        $res = 'Si ' . $Asoc->getCondicionQue() . ' (que actualmente vale ' . $ValorQue . ') ' . $Asoc->getCondicionEs() . ' ' . $ValorCuanto;
+        
+        if ($this->getEstadoRequisitoPadre()) {
+            $res .= ' y ' . $this->getEstadoRequisitoPadre()->ExplicarCondicion();
+        }
+        
+        return $res;
+    }
+    
+    
 
     public function __toString()
     {
