@@ -68,7 +68,7 @@ class AsociacionRequisitoType extends AbstractType
                     'es mayor o igual que' => '>=', 
                     'es menor o igual que' => '<=', 
                     'existe' => 'null', 
-                    'no existel' => 'not null', 
+                    'no existe' => 'not null', 
                     'es verdadero' => 'true', 
                     'es falso' => 'false', 
                     'está incluido en' => 'in', 
