@@ -48,7 +48,7 @@ trait ConMailer
             $ContenidoMensaje = $this->renderView($vistaEmail, array('res' => $res)); 
         
             $Mensaje = \Swift_Message::newInstance()
-                ->setSubject('Novedades de su solicitud')
+                ->setSubject('Novedades de la solicitud Nº ' . $Requerimiento->getSeguimientoNumero())
                 ->setFrom(array('reclamos@riogrande.gob.ar' => 'Municipio de Río Grande'))
                 ->setTo($Destinatarios)
                 ->setBody(\Tapir\BaseBundle\Helper\StringHelper::ObtenerTextoCuerpoHtml($ContenidoMensaje))

@@ -1,21 +1,23 @@
 {% extends 'YacareBaseBundle::email.html.twig' %}
 
 {% block pagina_contenido %}
-	<h2>Tenemos novedades sobre su solicitud</h2>
+	<h2>Tenemos novedades sobre la solicitud</h2>
 
-	<p>Nos comunicamos para informarle sobre el avance de su solicitud Nº {{ res.Entidad.SeguimientoNumero }},
+	<p>Nos comunicamos para informarle sobre el avance de la solicitud Nº {{ res.Entidad.SeguimientoNumero }},
 		con el asunto &quot;{{ res.Entidad.Notas|tapir_abreviar(150) }}&quot;.</p>
 
     {% if res.Novedad %}
-    	<p>
-    	{% if res.Novedad.Usuario %}
-    		{{ res.Novedad.Usuario.NombreAmigableCorto }} acaba de informar que:
-    	{% elseif res.Novedad.UsuarioNombre %}
-    	    {{ res.Novedad.UsuarioNombre }} (usuario anónimo externo) informa que:
-    	{% endif %}
-    	
-    	{{ res.Novedad.Notas }}
-    	</p> 
+    	<div class="panel-info"><p class="lead">
+        	{{ res.Novedad.Notas }}
+        	
+        	<span class="text-muted">
+            	{% if res.Novedad.Usuario %}
+            		(por {{ res.Novedad.Usuario.NombreAmigableCorto }})
+            	{% elseif res.Novedad.UsuarioNombre %}
+            	    (por {{ res.Novedad.UsuarioNombre }}, usuario anónimo externo)
+            	{% endif %}
+        	</span>
+    	</p></div> 
     {% endif %}
     
     {% if res.Entidad.Estado == 0 %}{# Nuevo #}
@@ -43,6 +45,7 @@
     {% endif %}
     
     <hr />
-    <p class="small">Este es un mensaje generado de forma automática. Por favor no responda a este mensaje. Si desea consultar
-    	el estado de su solicitud utilice la página provista.</p>
+    <p class="small">Este es un mensaje generado de forma automática. Por favor no responda a este mensaje. Si desea
+    	consultar el estado de su solicitud utilice la página de consultas.</p>
+
 {% endblock %}
