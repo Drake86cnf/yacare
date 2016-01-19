@@ -1,0 +1,43 @@
+{% extends 'TapirAbmBundle::inicio.html.twig' %}
+
+{% block pagina_titulo %}Comercio - Resumen{% endblock %}
+
+{% block pagina_contenido %}
+<div class="container-fluid"><div class="row">
+
+<div class="col-sm-12">
+	<h2>Actividades más comunes</h2>
+	<canvas class="center-block" id="char_comercioactividad" width="320" height="240"></canvas>
+	<table class="table table-hover">
+	<thead>
+	<tr>
+		<th>Código</th>
+		<th>Actividad</th>
+		<th class="text-right">Cant.</th>
+	</tr>
+	</thead>
+	<tbody>
+    {% set i = 1 %}	
+    {% for Rank in res.Rankings['ComercioActividad'] %}
+	<tr>
+		<td>{{ Rank.Clamae2014}}</td>
+		<td>{{ Rank.Nombre }}</td>
+		<td class="text-right">{{ Rank.cant }}</td>
+	</tr>
+	{% set i = i + 1 %}
+	{% endfor %}
+	</tbody>
+	</table>
+<script>
+{{ chart(res.Charts['ComercioActividad']) }}
+</script>
+</div>
+
+</div></div>
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+    <a data-toggle="ajax-link" class="btn btn-default"
+    	href="{{ path('yacare_comercio_default_inicio') }}">
+    	<i class="fa fa-dashboard"></i> Panel general</a>
+{% endblock pagina_acciones %}

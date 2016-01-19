@@ -17,8 +17,8 @@
 		data-toggle="ajax-link"><i class="fa fa-building"></i> Locales</a>
 	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_actividad_listar') }}"
 		data-toggle="ajax-link"><i class="fa fa-tag"></i> ClaMAE</a>
-	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_actacomercio_listar') }}"
-		data-toggle="ajax-link"><i class="fa fa-file-o"></i> Actas</a>
+	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_default_resumen') }}"
+		data-toggle="ajax-link"><i class="fa fa-bar-chart"></i> Resumen</a>
 </div>
 	<li><h3>Actividad reciente en comercios</h3></li>
 	{% for comercio in res.Recientes['Comercio'] %}
