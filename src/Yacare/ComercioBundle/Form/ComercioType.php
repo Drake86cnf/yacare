@@ -24,6 +24,9 @@ class ComercioType extends ComercioSimpleType
             ->add('FechaHabilitacion', 'Tapir\BaseBundle\Form\Type\FechaType', array(
                 'label' => 'Fecha de habilitación',
                 'required' => false))
+            ->add('FechaValidez', 'Tapir\BaseBundle\Form\Type\FechaType', array(
+                'label' => 'Válida hasta',
+                'required' => false))
             ->add('FechaBaja', 'Tapir\BaseBundle\Form\Type\FechaType', array(
                 'label' => 'Fecha de baja',
                 'required' => false))

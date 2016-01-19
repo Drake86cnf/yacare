@@ -63,6 +63,14 @@ class Comercio
     protected $FechaHabilitacion = null;
     
     /**
+     * La fecha máxima de la validez o null si no la tiene.
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date(message="Por favor proporcione una fecha de habilitación válida.")
+     */
+    protected $FechaValidez = null;
+    
+    /**
      * El número de acto administrativo asociado a baja, en el formato DM-1234/2015.
      *
      * @var string
@@ -345,4 +353,22 @@ class Comercio
         $this->DomicilioLegal = $DomicilioLegal;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getFechaValidez()
+    {
+        return $this->FechaValidez;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaValidez($FechaValidez)
+    {
+        $this->FechaValidez = $FechaValidez;
+        return $this;
+    }
+ 
 }

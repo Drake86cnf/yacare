@@ -3,6 +3,8 @@
 {% block pagina_titulo %}{% if entity.id %}{{ entity.Nombre }}{% else %}Nuevo comercio{% endif %}{% endblock %}
 
 {% block pagina_contenido %}
+
+{# *** Generales ***************************************************************** #}
 <div class="row form-group">
 	<label class="col-sm-2 control-label">Nombre de fantasía</label>
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Nombre) }}</div>
@@ -34,22 +36,6 @@
 </div>
 
 <div class="row form-group">
-	<label class="col-sm-2 control-label">Resolución de hab.</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoNumero) }}</div>
-
-	<label class="col-sm-2 control-label">Fecha de hab.</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaHabilitacion) }}</div>
-</div>
-
-<div class="row form-group">
-	<label class="col-sm-2 control-label">Resolución de baja</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoBajaNumero) }}</div>
-
-	<label class="col-sm-2 control-label">Fecha de baja</label>
-    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaBaja) }}</div>
-</div>
-
-<div class="row form-group">
 	<label class="col-sm-2 control-label">Estado</label>
     <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Estado) }}</div>
     
@@ -62,10 +48,38 @@
     <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
 </div>
 
+{# *** Resoluciones y fechas  ***************************************************************** #}
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Resolución de hab.</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoNumero) }}</div>
+
+	<label class="col-sm-2 control-label">Fecha de hab.</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaHabilitacion) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label"></label>
+    <div class="col-sm-4"></div>
+
+	<label class="col-sm-2 control-label">Válida hasta</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaValidez) }}</div>
+</div>
+
+<div class="row form-group">
+	<label class="col-sm-2 control-label">Resolución de baja</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.ActoAdministrativoBajaNumero) }}</div>
+
+	<label class="col-sm-2 control-label">Fecha de baja</label>
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.FechaBaja) }}</div>
+</div>
+
+{# *** Actividades ***************************************************************** #}
+
 <div class="row">
 	<div class="col-xs-12">
 		<h3>Actividades comerciales</h3>
-		<p>Seleccione hasta 6 actividades comerciales.</p>
+		<p>Seleccione hasta 6 actividades comerciales, según el Clasificador Municipal de Actividades Económicas 2014.</p>
 	</div>
 </div>
 <div class="row form-group">
