@@ -12,7 +12,7 @@
         	
         	<span class="text-muted">
             	{% if res.Novedad.Usuario %}
-            		(por {{ res.Novedad.Usuario.NombreAmigableCorto }})
+            		(por {{ res.Novedad.Usuario.NombreAmigable }})
             	{% elseif res.Novedad.UsuarioNombre %}
             	    (por {{ res.Novedad.UsuarioNombre }}, usuario anónimo externo)
             	{% endif %}
