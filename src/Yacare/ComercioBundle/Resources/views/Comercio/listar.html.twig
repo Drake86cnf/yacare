@@ -63,6 +63,12 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones %}
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR') %}
+	{# Temporal. Pasar abajo o a otro lado más oculto cuando se termine la carga de históricos #}
+    <a data-toggle="ajax-link" href="{{ path(baseroute ~ '_altamanual') }}"
+    	class="btn btn-default"><i class="fa fa-plus"></i> Alta manual</a>
+{% endif %}
+
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
 		id="dropdownMenuRoles" data-toggle="dropdown">
@@ -101,7 +107,5 @@
 	href="{{ path('yacare_comercio_tramitehabilitacioncomercial_editar_1') }}"
 	class="btn btn-primary"><i class="fa fa-play"></i> Iniciar trámite de
 	habilitación</a>
-<a data-toggle="ajax-link" href="{{ path(baseroute ~ '_altamanual') }}"
-	class="btn btn-default"><i class="fa fa-plus"></i> Alta manual</a>
 {% endif %}
-{% endblock %}
+{% endblock pagina_acciones2 %}
