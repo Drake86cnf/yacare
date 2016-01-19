@@ -27,26 +27,47 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $this->ObtenerContadoresYRecientes($res);
         
         $em = $this->getEm();
-        $res->Rankings['ComercioActividad'] = $em->createQuery('SELECT a.Nombre, a.Clamae2014, COUNT(c.id) AS cant
-	FROM Yacare\ComercioBundle\Entity\Comercio c
-		LEFT JOIN c.Actividad1 a
-	WHERE c.Actividad1 IS NOT NULL
-    GROUP BY c.Actividad1
-    ORDER BY cant DESC')->setMaxResults(15)->getResult();
         
-        $chart_ComercioActividad = new Chartjs();
-        $chart_ComercioActividad->RenderTo = 'char_comercioactividad';
-        $chart_ComercioActividad->ChartType = 'Doughnut';
-        $chart_ComercioActividad
-        ->AddOption('scaleShowLabelBackdrop', true)
-        ->AddOption('animateRotate', true)
-        ;
+        // Comercios por actividad principal
+        $res->Rankings['ComercioActividad'] = $em->createQuery('SELECT a.Nombre, a.Clamae2014, COUNT(c.id) AS cant
+        	FROM Yacare\ComercioBundle\Entity\Comercio c
+        		LEFT JOIN c.Actividad1 a
+        	WHERE c.Actividad1 IS NOT NULL
+            GROUP BY c.Actividad1
+            ORDER BY cant DESC')->setMaxResults(15)->getResult();
+        
+        $Graf_ComercioActividad = new Chartjs();
+        $Graf_ComercioActividad->RenderTo = 'chart_comercioactividad';
+        $Graf_ComercioActividad->ChartType = 'Doughnut';
+        $Graf_ComercioActividad
+            ->AddOption('scaleShowLabelBackdrop', true)
+            ->AddOption('animateRotate', true);
         
         foreach($res->Rankings['ComercioActividad'] as $Porcion) {
-            $chart_ComercioActividad->AddPieValue($Porcion['Nombre'], $Porcion['cant']);
+            $Graf_ComercioActividad->AddPieValue($Porcion['Nombre'], $Porcion['cant']);
         }
         
-        $res->Charts['ComercioActividad'] = $chart_ComercioActividad;
+        $res->Charts['ComercioActividad'] = $Graf_ComercioActividad;
+        
+        /// Comercios por estado
+        $res->Rankings['ComercioEstado'] = $em->createQuery('SELECT c.Estado, COUNT(c.id) AS cant
+        	FROM Yacare\ComercioBundle\Entity\Comercio c
+            GROUP BY c.Estado
+            ORDER BY cant DESC')->setMaxResults(15)->getResult();
+        
+        $Graf_ComercioEstado = new Chartjs();
+        $Graf_ComercioEstado->RenderTo = 'chart_comercioestado';
+        $Graf_ComercioEstado->ChartType = 'Doughnut';
+        $Graf_ComercioEstado
+            ->AddOption('scaleShowLabelBackdrop', true)
+            ->AddOption('animateRotate', true);
+        
+        foreach($res->Rankings['ComercioEstado'] as $Porcion) {
+            $Graf_ComercioEstado->AddPieValue(\Yacare\ComercioBundle\Entity\Comercio::NombreEstado($Porcion['Estado']), $Porcion['cant']);
+        }
+        
+        $res->Charts['ComercioEstado'] = $Graf_ComercioEstado;
+        $res->NombresEstados = \Yacare\ComercioBundle\Entity\Comercio::NombresEstados();
         
         return array('res' => $res);
     }
