@@ -41,20 +41,5 @@
             	linkMostrar.style.display = 'none';
             }
         }
-        <!-- Si el campo de FechaDescargo está en blanco, lo seteo a fecha actual. -->  
-		/* $('button[type="submit"]').click(function(e) {
-			var ButtonValue = $(this).val();
-
-			if ((ButtonValue === 'Guardar') && ($('#form_FechaDescargo').val() === '')) {
-                hoy = new Date();
-
-                var mes = hoy.getMonth()+1;
-                var dia = hoy.getDate();
-            	var fecha_saneada = ((''+ dia).length < 2 ? '0' : '') + dia + '/' + 
-            		(('' + mes).length < 2 ? '0' : '') + mes + '/' + 
-            		hoy.getFullYear();
-            	$('#form_FechaDescargo').val(fecha_saneada);
-            }
-		}); */
     </script>
 {% endblock %}
