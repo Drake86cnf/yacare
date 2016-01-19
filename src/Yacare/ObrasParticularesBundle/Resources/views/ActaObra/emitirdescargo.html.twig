@@ -41,8 +41,8 @@
             	linkMostrar.style.display = 'none';
             }
         }
-        
-		$('button[type="submit"]').click(function(e) {
+        <!-- Si el campo de FechaDescargo está en blanco, lo seteo a fecha actual. -->  
+		/* $('button[type="submit"]').click(function(e) {
 			var ButtonValue = $(this).val();
 
 			if ((ButtonValue === 'Guardar') && ($('#form_FechaDescargo').val() === '')) {
@@ -55,6 +55,6 @@
             		hoy.getFullYear();
             	$('#form_FechaDescargo').val(fecha_saneada);
             }
-		});
+		}); */
     </script>
 {% endblock %}
