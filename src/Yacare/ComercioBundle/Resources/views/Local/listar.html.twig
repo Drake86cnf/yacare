@@ -48,7 +48,9 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones2 %}
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR') %}
 <a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
 	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
 	local comercial</a>
+{% endif %}
 {% endblock %}

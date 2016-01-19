@@ -33,7 +33,9 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO_INSPECTOR') %}
 <a data-toggle="ajax-link"
 	href="{{ path(res.ObtenerRutaAccion('editar_1'), res.Arrastre) }}"
 	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva acta</a>
+{% endif %}
 {% endblock %}

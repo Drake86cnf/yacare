@@ -19,7 +19,7 @@
 					<i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
 				{% endif %}
 				
-				{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO_INSPECTOR') %}
+				{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO,ROLE_COMERCIO_INSPECTOR') %}
 				<li><a href="{{ path('yacare_comercio_default_inicio') }}" data-toggle="ajax-link">
 					<i class="fa fa-shopping-cart fa-fw text-muted"></i> Comercio</a></li>
 				{% endif %}

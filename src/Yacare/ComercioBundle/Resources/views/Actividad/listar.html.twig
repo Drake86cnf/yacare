@@ -54,14 +54,16 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock pagina_buscar %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear')) }}"
-	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva actividad</a>
 <a href="{{ path(res.ObtenerRutaAccion('listarexportar')) }}"
 	class="btn btn-default"><i class="fa fa-download"></i> Descargar para
 	Excel</a>
+{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR') %}
+<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear')) }}"
+	class="btn btn-primary"><i class="fa fa-plus"></i> Nueva actividad</a>
 
 <a data-toggle="ajax-link" href="{{ path('yacare_comercio_actividadetiqueta_listar') }}"
 	class="btn btn-default pull-right"><i class="fa fa-tag"></i> Gestionar etiquetas</a>
 <a data-toggle="ajax-link" href="{{ path('yacare_tramites_asociacionrequisito_listar') }}"
 	class="btn btn-default pull-right"><i class="glyphicon glyphicon-check"></i> Gestionar requisitos</a>
+{% endif %}
 {% endblock %}
