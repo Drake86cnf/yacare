@@ -19,6 +19,12 @@ class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
     {
         $this->ReordenarActividades($comercio);
         
+        // Reordenar apoderados. Si tiene apoderado2, pero no tiene apoderado1, los intercambio
+        if($comercio->getApoderado2() && !$comercio->getApoderado()) {
+            $comercio->setApoderado($comercio->getApoderado2());
+            $comercio->setApoderado2(null);
+        }
+        
         if (! $this->EsEdicion) {
             if($this->Listener && $this->Listener->container) {
                 $Usuario = $this->Listener->container->get('security.token_storage')->getToken()->getUser();

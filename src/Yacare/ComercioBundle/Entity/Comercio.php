@@ -28,7 +28,7 @@ class Comercio
     use \Yacare\BaseBundle\Entity\ConRequiereAtencion;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\TramitesBundle\Entity\ConTitular;
-    use \Yacare\TramitesBundle\Entity\ConApoderado;
+    use \Yacare\TramitesBundle\Entity\ConApoderados;
     //use \Yacare\InspeccionBundle\Entity\ConTurno;
     
     public function __construct()

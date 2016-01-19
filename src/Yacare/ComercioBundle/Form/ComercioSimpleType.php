@@ -38,6 +38,11 @@ class ComercioSimpleType extends AbstractType
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'property' => 'NombreVisible',
                 'required' => false))
+            ->add('Apoderado2', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
+                'label' => 'Apoderado',
+                'class' => 'Yacare\BaseBundle\Entity\Persona',
+                'property' => 'NombreVisible',
+                'required' => false))
             ->add('Local', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Local',
                 'class' => 'Yacare\ComercioBundle\Entity\Local',

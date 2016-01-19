@@ -13,6 +13,9 @@
 			{{ bs.grid_label_text('Nombre de fantasía', res.Entidad.Nombre, 'text-value-strong') }}
 			{{ bs.grid_label_text('Titular', res.Entidad.Titular) }}
 			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado) }}
+			{% if res.Entidad.Apoderado2 %}
+			{{ bs.grid_label_text('Apoderado', res.Entidad.Apoderado2) }}
+			{% endif %}
 			{% if res.Entidad.Local %}
 			    {{ bs.grid_label_text('Local', res.Entidad.Local, 'text-danger') }}
 			{% endif %}
