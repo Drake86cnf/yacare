@@ -178,15 +178,16 @@
             <button type="submit" class="btn btn-xs btn-default pull-right">
             	<i class="fa fa-comment-o"></i> Publicar</button>
             
-            <div id="advertencia_publico" class="text-danger text-justified">¡Atención! Los comentarios públicos se muestran en el
-            	sitio web del Municipio y pueden ser vistos por el usuario que hizo la solicitud
+            <div id="advertencia_publico" class="text-danger text-justified small">¡Atención! Los comentarios públicos
+            	se pueden mostrar en el sitio web del Municipio y pueden ser vistos por el usuario que inició la
+            	solicitud
             	{%- if res.Entidad.Usuario %}
 			        ({{ res.Entidad.Usuario.NombreAmigable }})
 			    {%- elseif res.Entidad.UsuarioNombre %}
 			    	(visitante externo identificado como {{ res.Entidad.UsuarioNombre }})
 			    {%- else %}
 			    	o cualquiera que tenga el número de seguimiento
-			    {%- endif -%}. No utilice los comentarios públicos para comunicaciones internas.</div>
+			    {%- endif -%}. Utilice comentarios privados para las comunicaciones internas.</div>
         </div>
         
     </div>
