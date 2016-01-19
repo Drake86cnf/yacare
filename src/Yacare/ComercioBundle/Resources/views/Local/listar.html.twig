@@ -20,6 +20,10 @@
 				{% if entity.SubDomicilio %}
         		    ({{ entity.SubDomicilio }})
         		{% endif %}
+        		{% if entity.DomicilioCalle %}
+        			<span data-trigger="hover" data-toggle="popover" title="Domicilio real" data-placement="bottom"
+        				data-content="La partida tiene domicilio en {{ entity.Partida.Domicilio }}"><i class="fa fa-info-circle text-muted"></i></span>
+        		{% endif %}
         		{% if entity.Partida and entity.Partida.Ubicacion %}
     				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
     					data-toggle="modal"><i class="fa fa-map-marker"></i></a>

@@ -22,7 +22,19 @@
 		<tr
 			onclick="seleccionarItem('{{ entity.id }}', '{{ entity.Nombre|escape('js') }}'); return false;">
 			<td><i class="fa fa-angle-right"></i></td>
-			<td><span style="white-space: nowrap;">{{ entity.Partida.Domicilio }}</span></td>
+			<td class="text-nowrap">{{ entity.DomicilioReal }}
+				{% if entity.SubDomicilio %}
+        		    ({{ entity.SubDomicilio }})
+        		{% endif %}
+        		{% if entity.DomicilioCalle %}
+        			<span data-trigger="hover" data-toggle="popover" title="Domicilio real" data-placement="top"
+        				data-content="La partida tiene domicilio en {{ entity.Partida.Domicilio }}"><i class="fa fa-info-circle text-muted"></i></span>
+        		{% endif %}
+        		{% if entity.Partida and entity.Partida.Ubicacion %}
+    				<a href="{{ path('yacare_catastro_partida_mapa', { 'id': entity.Partida.Id }) }}"
+    					data-toggle="modal"><i class="fa fa-map-marker"></i></a>
+    			{% endif %}
+        		</td>
 			<td><span class="text-muted">{{ entity.Tipo }}</span></td>
 			<td><span class="text-muted">{{ entity.Superficie }} m²</span></td>
 			<td><span class="text-muted">{{ entity.Partida.Titular }}</span></td>
