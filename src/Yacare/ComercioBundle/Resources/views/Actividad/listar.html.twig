@@ -38,8 +38,7 @@
 				{% endif %}
 			<td class="hidden-sm hidden-xs">
 				{% if entity.Final and entity.Etiquetas|length > 0 %}
-    				<span class="badge" data-trigger="hover" data-container="body"
-        				data-animation="true" data-toggle="popover" title="Etiquetas" data-placement="left"
+    				<span class="badge" data-trigger="hover" data-toggle="popover" title="Etiquetas" data-placement="left"
         				data-content="{% for etiqueta in entity.Etiquetas %}{{ etiqueta }} / {% endfor %}">{{ entity.Etiquetas|length }}
         			</span>
     			{% endif %}
