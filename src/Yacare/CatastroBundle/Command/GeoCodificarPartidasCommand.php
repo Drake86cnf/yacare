@@ -50,7 +50,10 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
             $hasta = 0;
         }
         
-        $Filtros = array('Ubicacion' => null);
+        $Filtros = array(
+            'Ubicacion' => null,
+            'UbicacionFecha' => null
+        );
         if ($input->getOption('calle')) {
             $Filtros['DomicilioCalle'] = (int)($input->getOption('calle'));
         }
@@ -74,7 +77,7 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
             $progress->advance();
             $em->flush();
             // Dormir unos segundos entre consulta y consulta
-            sleep(rand(10, 20));
+            sleep(rand(5, 10));
         }
         $em->clear();
         
