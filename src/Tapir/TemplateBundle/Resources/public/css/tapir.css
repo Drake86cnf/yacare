@@ -349,6 +349,42 @@ legend small {
     font-size: 40px;
 }
 
+.btn-red {
+    background-color: #d9534f;
+    color: white;
+}
+.btn-red:hover {
+    background-color: #F56560;
+    color: white;
+}
+
+.btn-yellow {
+    background-color: #f0ad4e;
+    color: white;
+}
+.btn-yellow:hover {
+    background-color: #FFB94E;
+    color: white;
+}
+
+.btn-green {
+    background-color: #5cb85c;
+    color: white;
+}
+.btn-green:hover {
+    background-color: #6DD86D;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #2e75b3;
+    color: white;
+}
+.btn-blue:hover {
+    background-color: #4792D2;
+    color: white;
+}
+
 .panel .panel-heading h2,h3 {
 	font-weight: 600;
 }
@@ -618,6 +654,10 @@ li.divider {
 }
 .inicio-mini-menu li:hover a {
     background-color: #f0f0f0;
+}
+.inicio-mini-menu .btn-group .btn {
+    border-radius: 0 !important;
+    border: 1px solid transparent;
 }
 
 .osmbundle_map {
