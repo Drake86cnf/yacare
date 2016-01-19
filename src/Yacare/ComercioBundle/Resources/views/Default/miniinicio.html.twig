@@ -1,8 +1,26 @@
 {% extends 'TapirTemplateBundle::empty.html.twig' %}
 
 {% block pagina_contenido %}
-<h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Comercios</h2>
+<h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Módulo de comercio</h2>
+<style>
+</style>
+
 <ul class="inicio-mini-menu">
+<div class="btn-group btn-group-justified" role="group">
+	<a class="btn btn-md btn-green" href="{{ path('yacare_comercio_default_inicio') }}"
+		data-toggle="ajax-link" style="width: 67%"><i class="fa fa-dashboard fa-2x"></i> <br />Panel general</a>
+	<a class="btn btn-md btn-yellow" href="{{ path('yacare_comercio_comercio_listar') }}"
+		data-toggle="ajax-link" style="width: 33%"><i class="fa fa-shopping-cart fa-2x"></i> <br />Comercios</a>
+</div>
+<div class="btn-group btn-group-justified" role="group">
+	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_local_listar') }}"
+		data-toggle="ajax-link"><i class="fa fa-building"></i> Locales</a>
+	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_actividad_listar') }}"
+		data-toggle="ajax-link"><i class="fa fa-tag"></i> ClaMAE</a>
+	<a class="btn btn-md btn-default" href="{{ path('yacare_comercio_actacomercio_listar') }}"
+		data-toggle="ajax-link"><i class="fa fa-file-o"></i> Actas</a>
+</div>
+	<li><h3>Actividad reciente en comercios</h3></li>
 	{% for comercio in res.Recientes['Comercio'] %}
 		<li><a href="{{ path('yacare_comercio_comercio_ver', res.Arrastre|merge({ id: comercio.id })) }}"
 			data-toggle="ajax-link">{{ comercio }} {% if comercio.RequiereAtencion %}
@@ -10,9 +28,6 @@
                 {% endif %}</a></li>
 	{% endfor %}
 	<li class="divider"></li>
-	<li class="destacado"><a href="{{ path('yacare_comercio_comercio_listar') }}" data-toggle="ajax-link">
-		Todos los comercios</a></li>
-	<li class="destacado"><a href="{{ path('yacare_comercio_local_listar') }}" data-toggle="ajax-link">Locales de uso comercial</a></li>
 	<li class="destacado"><a href="{{ path('yacare_comercio_actividad_listar') }}" data-toggle="ajax-link">Nomenclador de actividades</a></li>
 </ul>
 {% endblock pagina_contenido %}
