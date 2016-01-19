@@ -352,7 +352,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                 // o si tuvo actividad en los últimos 30 días.
                 // O sea, los requerimientos cerrados siguen siendo comentables durante 30 días.
                 $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
-                $NuevaNovedad->setPrivada(1);
+                $NuevaNovedad->setPrivada(0);
                 $NuevaNovedad->setRequerimiento($res['res']->Entidad);
                 $NuevaNovedad->setUsuario($UsuarioConectado);
                 $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\NovedadType', $NuevaNovedad);
