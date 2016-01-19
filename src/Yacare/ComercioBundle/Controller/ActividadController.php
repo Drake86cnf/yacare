@@ -38,13 +38,14 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
             ->setCellValue('A1', 'ClaMAE 2014')
             ->setCellValue('B1', 'Detalle')
             ->setCellValue('C1', 'CPU')
-            ->setCellValue('D1', 'Categoría antigua')
-            ->setCellValue('E1', 'Incluye')
-            ->setCellValue('F1', 'No incluye')
-            ->setCellValue('G1', 'ClaNAE 97')
-            ->setCellValue('H1', 'ClaE AFIP RG3537/13')
-            ->setCellValue('I1', 'DGR TDF Ley 854/11')
-            ->setCellValue('J1', 'Etiquetas')
+            ->setCellValue('D1', 'Riesgo')
+            ->setCellValue('E1', 'Categoría antigua')
+            ->setCellValue('F1', 'Incluye')
+            ->setCellValue('G1', 'No incluye')
+            ->setCellValue('H1', 'ClaNAE 97')
+            ->setCellValue('I1', 'ClaE AFIP RG3537/13')
+            ->setCellValue('J1', 'DGR TDF Ley 854/11')
+            ->setCellValue('K1', 'Etiquetas')
             ;
             
         $i = 1;
@@ -60,13 +61,14 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
                 ->setCellValue('A' . $i, $entity->getClamae2014())
                 ->setCellValue('B' . $i, $entity->getNombre())
                 ->setCellValue('C' . $i, $entity->getCodigoCpu())
-                ->setCellValue('D' . $i, $entity->getCategoriaAntigua() ? $entity->getCategoriaAntigua() : '')
-                ->setCellValue('E' . $i, $entity->getIncluye())
-                ->setCellValue('F' . $i, $entity->getNoIncluye())
-                ->setCellValue('G' . $i, $entity->getClanae1997())
-                ->setCellValue('H' . $i, $entity->getClaeAfip())
-                ->setCellValue('I' . $i, $entity->getDgrTdf())
-                ->setCellValue('J' . $i, $NombresEtiquetas)
+                ->setCellValue('D' . $i, $entity->getNivelRiesgoNombre())
+                ->setCellValue('E' . $i, $entity->getCategoriaAntigua() ? $entity->getCategoriaAntigua() : '')
+                ->setCellValue('F' . $i, $entity->getIncluye())
+                ->setCellValue('G' . $i, $entity->getNoIncluye())
+                ->setCellValue('H' . $i, $entity->getClanae1997())
+                ->setCellValue('I' . $i, $entity->getClaeAfip())
+                ->setCellValue('J' . $i, $entity->getDgrTdf())
+                ->setCellValue('K' . $i, $NombresEtiquetas)
                 ;
             
             $phpExcelObject->getActiveSheet()->getRowDimension($i)->setRowHeight(12);

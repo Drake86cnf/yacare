@@ -12,8 +12,8 @@
 			<th class="hidden-sm hidden-xs">Cat. antig.</th>
 			<th class="hidden-sm hidden-xs">DGR</th>
 			<th class="hidden-sm hidden-xs">CPU</th>
-			<th class="hidden-sm hidden-xs">Cat.</th>
-			<th class="hidden-sm hidden-xs">Etiquetas</th>
+			<th class="hidden-sm hidden-xs"><span title="Riesgo">Ri.</span></th>
+			<th class="hidden-sm hidden-xs"><span title="Etiquetas">Et.</span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,15 +30,18 @@
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CategoriaAntigua }}{% endif %}</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.DgrTdfFormateado }}{% endif %}</td>
 			<td class="hidden-sm hidden-xs">{% if entity.Final %}{{ entity.CodigoCpuFormateado }}{% endif %}</td>
-			<td class="hidden-sm hidden-xs">{% if entity.Final %}<span class="label label-info label-md">{{ entity.CategoriaAntigua }}</span>{% endif %}
+			<td class="hidden-sm hidden-xs">{% if entity.Final %}
+    				{% if entity.NivelRiesgo == 0 %}<span class="label label-success label-md">B</span>
+    				{% elseif entity.NivelRiesgo == 1 %}<span class="label label-warning label-md">M</span>
+    				{% elseif entity.NivelRiesgo == 2 %}<span class="label label-danger label-md">A</span> 
+    				{% endif %}
+				{% endif %}
 			<td class="hidden-sm hidden-xs">
-				{% if entity.Final %}
-    			    {% if entity.Etiquetas|length > 0 %}
+				{% if entity.Final and entity.Etiquetas|length > 0 %}
     				<span class="badge" data-trigger="hover" data-container="body"
         				data-animation="true" data-toggle="popover" title="Etiquetas" data-placement="left"
         				data-content="{% for etiqueta in entity.Etiquetas %}{{ etiqueta }} / {% endfor %}">{{ entity.Etiquetas|length }}
         			</span>
-    			    {% endif %}
     			{% endif %}
 			</td>
 		</tr>
