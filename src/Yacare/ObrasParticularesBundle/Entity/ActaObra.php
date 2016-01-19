@@ -67,6 +67,11 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Assert\Expression(
+     *     "(this.getFecha() <= this.getFechaDescargo()) || this.getFechaDescargo() === null",
+     *     message = "La fecha de descargo no puede ser anterior a la fecha de redacción del acta en cuestión." 
+     * )
      */
     private $FechaDescargo;
     
