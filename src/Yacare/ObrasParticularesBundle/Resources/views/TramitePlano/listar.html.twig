@@ -1,6 +1,6 @@
 {% extends 'TapirAbmBundle::listar.html.twig' %}
 
-{% block pagina_titulo %}Movimiento de previas{% endblock %}
+{% block pagina_titulo %}Aprobación de planos{% endblock %}
 
 {% block pagina_contenido %}
 <table class="table table-hoverselect">
@@ -31,8 +31,8 @@
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
-{% block pagina_acciones2 %}
+{% block pagina_acciones %}
 <a data-toggle="ajax-link"
 	href="{{ path(res.ObtenerRutaAccion('crear')) }}" class="btn btn-default hidden-print">
-	<i class="fa fa-plus"></i> Nueva previa</a>
-{% endblock pagina_acciones2 %}
+	<i class="fa fa-plus"></i> Nuevo trámite</a>
+{% endblock pagina_acciones %}

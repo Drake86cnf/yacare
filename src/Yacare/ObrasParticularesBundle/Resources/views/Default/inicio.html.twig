@@ -58,7 +58,7 @@
     </div>
     
     <div class="col-sm-4">
-        <h2>Certificados de aptitud técnica</h2>
+        <h2>Trámites de CAT-Ed</h2>
         <ul class="inicio-mini-menu">
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['TramiteCat'] %}
@@ -66,7 +66,20 @@
         			data-toggle="ajax-link">{{ item }}</a></li>
         	{% endfor %}
         	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_tramitecat_listar') }}" 
-        		data-toggle="ajax-link"> Todos los CAT</a></li>
+        		data-toggle="ajax-link"> Todos los trámites de CAT-Ed</a></li>
+        </ul>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>Trámites de aprobación de planos</h2>
+        <ul class="inicio-mini-menu">
+        	<li class="destacado"><p>Actividad reciente</p></li>
+        	{% for item in res.Recientes['TramitePlano'] %}
+        		<li><a href="{{ path('yacare_obrasparticulares_tramiteplano_ver', res.Arrastre|merge({ id: item.id })) }}"
+        			data-toggle="ajax-link">{{ item }}</a></li>
+        	{% endfor %}
+        	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_tramiteplano_listar') }}" 
+        		data-toggle="ajax-link"> Todos los trámites de planos</a></li>
         </ul>
     </div>
 </div></div>

@@ -14,7 +14,7 @@ class TramiteCatHelper extends \Yacare\BaseBundle\Helper\Helper
         if ($entity->getTramitePadre()){
             $Comercio = $entity->getTramitePadre()->getComercio();
             $entity->setComercio($Comercio);
-            $entity->setNombre('CAE de ' . (string)$Comercio);
+            $entity->setNombre('CAT-Ed de ' . (string)$Comercio);
         } else {
             // Ponerle nombre al trámite
             $NombreCat = $entity->getTramitePadre()
@@ -23,7 +23,7 @@ class TramiteCatHelper extends \Yacare\BaseBundle\Helper\Helper
                 ->getPartida()
                 ->getTitular();
             $entity->setNombre($NombreCat);
-            $entity->setNombre('CAE de ' . $NombreCat);
+            $entity->setNombre('CAT-Ed de ' . $NombreCat);
         }
     }
 }

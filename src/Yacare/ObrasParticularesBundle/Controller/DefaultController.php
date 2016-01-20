@@ -61,6 +61,9 @@ class DefaultController extends \Tapir\BaseBundle\Controller\DefaultController
         $resultado->Recientes['TramiteCat'] = $em->createQuery(
             'SELECT r FROM Yacare\ObrasParticularesBundle\Entity\TramiteCat r ORDER BY r.updatedAt DESC')->setMaxResults(
             10)->getResult();
+        $resultado->Recientes['TramitePlano'] = $em->createQuery(
+            'SELECT r FROM Yacare\ObrasParticularesBundle\Entity\TramitePlano r ORDER BY r.updatedAt DESC')->setMaxResults(
+                10)->getResult();
         $resultado->Recientes['ActaObra'] = $em->createQuery(
             'SELECT r FROM Yacare\ObrasParticularesBundle\Entity\ActaObra r ORDER BY r.updatedAt DESC')->setMaxResults(
             10)->getResult();
