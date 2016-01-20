@@ -210,7 +210,10 @@ class StringHelper
             'COMFER',
             'RENAR',
             'IPRA',
-            'RTO'
+            'RTO',
+            'CAT-Ed',
+            'CAT-Br',
+            'CAT-Ec',
         );
         
         $string = mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
