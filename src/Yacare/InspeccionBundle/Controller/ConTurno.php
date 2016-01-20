@@ -27,32 +27,34 @@ trait ConTurno
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
-        $FormEditarBuilder ->add('TurnoFecha', 'Tapir\BaseBundle\Form\Type\FechaHoraType', array(
-            'data' => new \DateTime('now'), 
-            'required' => false,
-        ));
-        $FormEditarBuilder->add('TurnoEstado', '\Tapir\BaseBundle\Form\Type\ButtonGroupType',
-            array('label' => 'Estado del turno', 'required' => true,
-                'choices' => array(
-                    'Sin turno' =>-1,
-                    'Activo' => 0 ,
-                    'Terminado' => 1,
-                    'Cancelado' => 2,
-                    'Vencido' => 3,
-                )));
+        $FormEditarBuilder
+            ->add('TurnoFecha', 'Tapir\BaseBundle\Form\Type\FechaHoraType', array(
+                'label' => 'Fecha y hora',
+                'data' => new \DateTime('now'), 
+                'required' => false,
+            ))
+            ->add('TurnoEstado', '\Tapir\BaseBundle\Form\Type\ButtonGroupType',
+                array('label' => 'Estado',
+                    'required' => true,
+                    'choices' => array(
+                        'Sin turno' => -1,
+                        'Activo' => 0,
+                        'Terminado' => 1,
+                        'Cancelado' => 2,
+                        'Vencido' => 3,
+            )));
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
-        
         
         if ($FormEditar->isValid()) {
             // Invertir el estado y guardar.
             if ($entity->getTurnoEstado()) {
                 $entity->getTurnoFecha();
             } else {
-                $fechaturno = "0000/00/00";
-                $horaturno= "00:00:00";
-                $entity->setFechaTurno($fechaturno);
-                $entity->setHoraTurno($horaturno);
+                $TurnoFecha = "0000/00/00";
+                $TurnoHora = "00:00:00";
+                $entity->setFechaTurno($TurnoFecha);
+                $entity->setHoraTurno($TurnoHora);
                 $entity->setTurnoEstado("Activo");
             }
             $em->persist($entity);

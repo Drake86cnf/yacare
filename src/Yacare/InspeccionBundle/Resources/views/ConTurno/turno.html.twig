@@ -7,15 +7,15 @@
     <div class="col-sm-8 col-sm-offset-2">
 		{% if res.Entidad.TurnoFecha %}
 			{% if res.Entidad.TurnoEstado== 0%}
-				<p>Alguien solicitó un turno en la fecha siguiente:</p>
+				<p>Alguien asignó un turno en la siguiente fecha:</p>
 			<div class="row form-group">
     	        {{ form_label(res.FormularioEditar.TurnoFecha) }}
     			<div class="col-xs-10 col-sm-8">{{ form_widget(res.FormularioEditar.TurnoFecha) }}</div>
 			</div>	
 			{% elseif res.Entidad.TurnoEstado== 1%}
-				<p>Alguien marcó este turno como ya realizado</p>
+				<p>Alguien marcó este turno como realizado.</p>
 			{% elseif res.Entidad.TurnoEstado== 2  %}
-				<p>Alguien marcó este turno como cancelado</p>
+				<p>Alguien marcó este turno como cancelado.</p>
 			{% endif %}
 		{% endif %}
 	</div>

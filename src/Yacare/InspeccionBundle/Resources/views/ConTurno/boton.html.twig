@@ -1,9 +1,9 @@
 {% if res.Entidad.TurnoFecha %}
     <a data-toggle="modal" class="btn btn-info active" title="Haga clic para desactivar el turno"
     	href="{{ path(res.ObtenerRutaAccion('turno'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.TurnoFecha }) }}">
-    	<i class="glyphicon glyphicon-bell"></i><span class="a-showonhover">Turno Inspeccion</span></a>
+    	<i class="glyphicon glyphicon-bell"></i><span class="a-showonhover"> Turno de inspección</span></a>
 {% else %}
 	<a data-toggle="modal" class="btn btn-default" title="Haga clic para activar el turno"
     	href="{{ path(res.ObtenerRutaAccion('turno'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.TurnoFecha }) }}">
-    	<i class="glyphicon glyphicon-time"></i><span class="a-showonhover">Nuevo turno</span></a>
+    	<i class="glyphicon glyphicon-time"></i><span class="a-showonhover"> Asignar turno</span></a>
 {% endif %}
