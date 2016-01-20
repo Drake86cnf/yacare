@@ -27,12 +27,9 @@ trait ConTurno
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
-        $FormEditarBuilder ->add('TurnoFecha', null, array(
-            'date_widget' => 'choice',
-            'time_widget' => 'choice',
-            'date_format' => 'dd.MM.yyyy',
+        $FormEditarBuilder ->add('TurnoFecha', 'Tapir\BaseBundle\Form\Type\FechaHoraType', array(
             'data' => new \DateTime('now'), 
-            'required' => true,
+            'required' => false,
         ));
         $FormEditarBuilder->add('TurnoEstado', '\Tapir\BaseBundle\Form\Type\ButtonGroupType',
             array('label' => 'Estado del turno', 'required' => true,
