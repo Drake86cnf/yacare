@@ -75,6 +75,14 @@ input, select, textarea {
     width: 480px !important;
 }
 
+.tapir-input-fechahora input[type="date"] {
+    width: 120px;
+}
+
+.tapir-input-fechahora input[type="time"] {
+	width: 80px;
+}
+
 .input-group-addon {
 	border-radius: 0px !important;
 }
