@@ -1,0 +1,61 @@
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+{% set tapir_editar_nombreguadar = 'Aceptar' %}
+{% block pagina_titulo %}Turno inspeccion{% endblock %}
+
+{% block pagina_contenido %}
+<div class="row form-group">
+    <div class="col-sm-8 col-sm-offset-2">
+		{% if res.Entidad.FechaHoraInspeccion %}
+			{% if res.Entidad.EstadoTurno== 0%}
+				<p>Alguien solicitó un turno en la fecha siguiente:</p>
+			<div class="row form-group">
+    	        {{ form_label(res.FormularioEditar.FechaHoraInspeccion) }}
+    			<div class="col-xs-10 col-sm-8">{{ form_widget(res.FormularioEditar.FechaHoraInspeccion) }}</div>
+			</div>	
+			{% elseif res.Entidad.EstadoTurno== 0%}
+				<p>Alguien marcó este turno como ya realizado</p>
+			{% elseif res.Entidad.EstadoTurno== 0  %}
+				<p>Alguien marcó este turno como cancelado</p>
+			{% endif %}
+		{% endif %}
+	</div>
+</div>
+{{ parent() }}
+{% endblock pagina_contenido %}
+
+{% block pagina_acciones %}
+<button type="button"
+	{% if tapir_modal is not defined or tapir_modal == 0 %}
+		onclick="return tapirAtras();"
+	{% else %}
+	    data-dismiss="modal"
+	{% endif %}
+	class="btn btn-default">Cancelar</button>
+<button type="submit" value="Guardar" class="btn {% if res.Entidad.FechaHoraInspeccion %}btn-success{% else %}btn-info{% endif %} tapir-button-accept">
+    {% if res.Entidad.FechaHoraInspeccion %}
+	    <i class="fa fa-fw fa-thumbs-o-up"></i>
+		{% if res.Entidad.EstadoTurno %}
+			Ya no
+		{% else %}
+			No
+		{% endif %}
+		tiene turno
+    {% else %}
+    	<i class="glyphicon glyphicon-time"></i> Nuevo turno
+    {% endif %}
+</button>
+{% endblock pagina_acciones %}
+
+{% block pagina_scripts %}
+<script>
+    $(function() {
+		$('#form_FechaHoraInspeccion').attr('placeholder',
+			{% if res.Entidad.FechaHoraInspeccion %}
+				
+    		{% else %}
+				'Por favor escriba la fecha y hora del turno'
+    		{% endif %} 
+		).val('');
+	});
+</script>
+{% endblock pagina_scripts %}
