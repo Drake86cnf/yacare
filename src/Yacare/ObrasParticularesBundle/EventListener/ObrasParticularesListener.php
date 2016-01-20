@@ -23,19 +23,19 @@ class ObrasParticularesListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\ActaObra')) {
+        if (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\ActaObra')):
             // Capturo los eventos si la entidad es un acta.
             $Helper = new \Yacare\ObrasParticularesBundle\Helper\ActaObraHelper($this);
             $Helper->LifecycleEvent($args);
-        } elseif (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\TramiteCat')) {
+        elseif (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\TramiteCat')):
             // Capturo los eventos si la entidad es un tramitecat
             $Helper = new \Yacare\ObrasParticularesBundle\Helper\TramiteCatHelper();
             $Helper->LifecycleEvent($args);
-        } elseif (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\TramitePlano')) {
+        elseif (is_a($entity, 'Yacare\ObrasParticularesBundle\Entity\TramitePlano')):
             // Capturo los eventos si la entidad es un trámite de planos (mov. previas)
             $Helper = new \Yacare\ObrasParticularesBundle\Helper\TramitePlanoHelper();
             $Helper->LifecycleEvent($args);
-        }
+        endif;
     }
 
     public function preUpdate(LifecycleEventArgs $args)

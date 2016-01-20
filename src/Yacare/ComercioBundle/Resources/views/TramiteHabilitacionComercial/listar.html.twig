@@ -1,6 +1,8 @@
-{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %} {% block
-pagina_titulo %}Trámites de habilitación comercial{% endblock %} {%
-block pagina_contenido %}
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %} 
+
+{% block pagina_titulo %}Trámites de habilitación comercial{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
@@ -13,45 +15,49 @@ block pagina_contenido %}
 		</tr>
 	</thead>
 	<tbody>
-		{% for entity in entities %}
-		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_ver', { 'id': entity.Id }) }}">
-			<td>{{ entity.id }}</td>
-			<td>{{ entity.Comercio.Nombre }}</td>
-			<td class="hidden-sm hidden-xs">{{ entity.Titular }}</td>
-			<td class="hidden-sm hidden-xs">{{
-				entity.Comercio.Actividad1.Nombre|length > 50 ?
-				entity.Comercio.Actividad1.Nombre|slice(0, 50) ~ '...' :
-				entity.Comercio.Actividad1.Nombre }}</td>
-			<td class="hidden-sm hidden-xs">{% if entity.Comercio.Local and
-				entity.Comercio.Local.Partida %}{{
-				entity.Comercio.Local.Partida.Domicilio }}{% endif %}</td>
-			<td>{% if entity.Estado < 10 %}<span class="label label-danger">
-			    {% elseif entity.Estado >= 10 and entity.Estado < 90 %}<span class="label label-primary">
-			    {% elseif entity.Estado == 100 %}<span class="label label-success">
+		{% for entidad in res.Entidades %}
+		<tr data-toggle="ajax-link" href="{{ path(baseroute ~ '_ver', { 'id': entidad.Id }) }}">
+			<td>{{ entidad.id }}</td>
+			<td>{{ entidad.Comercio.Nombre }}</td>
+			<td class="hidden-sm hidden-xs">{{ entidad.Titular }}</td>
+			<td class="hidden-sm hidden-xs">
+			    {{ entidad.Comercio.Actividad1.Nombre|length > 50 ? 
+			        entidad.Comercio.Actividad1.Nombre|slice(0, 50) ~ '...' :
+				    entidad.Comercio.Actividad1.Nombre }}
+			</td>
+			<td class="hidden-sm hidden-xs">
+			    {% if entidad.Comercio.Local and entidad.Comercio.Local.Partida %}
+			        {{ entidad.Comercio.Local.Partida.Domicilio }}
+			    {% endif %}
+			</td>
+			<td>
+			    {% if entidad.Estado < 10 %}<span class="label label-danger">
+			    {% elseif entidad.Estado >= 10 and entidad.Estado < 90 %}<span class="label label-primary">
+			    {% elseif entidad.Estado == 100 %}<span class="label label-success">
 			    {% else %}<span class="label label-default">
-			    {% endif %}{{ entity.EstadoNombre }}</span>
-				{% if entity.EstaEnCurso %}
-					{% if entity.RequisitosFaltantesCantidad == 0 %}
+			    {% endif %}{{ entidad.EstadoNombre }}</span>
+				{% if entidad.EstaEnCurso %}
+					{% if entidad.RequisitosFaltantesCantidad == 0 %}
 						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
 					{% else %}
-						<span class="badge">{{ entity.RequisitosFaltantesCantidad }} de {{ entity.RequisitosObligatoriosCantidad }}</span>
+						<span class="badge">{{ entidad.RequisitosFaltantesCantidad }} de 
+						    {{ entidad.RequisitosObligatoriosCantidad }}</span>
 					{% endif %}
-				{% endif %} </td>
+				{% endif %} 
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock pagina_paginar %} {%
-block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig'
-%}{% endblock pagina_buscar %} {% block pagina_acciones2 %}
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_consultar', arrastre) }}"
-	class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i>
-	Consulta</a>
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', arrastre) }}"
-	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo
-	trámite de habilitación comercial</a>
+{% endblock %}
+
+{% block pagina_paginar %} {% include 'TapirBaseBundle::paginar.html.twig' %} {% endblock pagina_paginar %}
+ 
+{% block pagina_buscar %} {% include 'TapirBaseBundle::buscar.html.twig' %} {% endblock pagina_buscar %} 
+
+{% block pagina_acciones2 %}
+<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('consultar'), res.Arrastre) }}"
+	class="btn btn-primary hidden-print"><i class="fa fa-info-circle"></i> Consulta</a>
+<a data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('crear'), res.Arrastre) }}"
+	class="btn btn-primary hidden-print"><i class="fa fa-plus"></i> Nuevo trámite de habilitación comercial</a>
 {% endblock pagina_acciones2 %}

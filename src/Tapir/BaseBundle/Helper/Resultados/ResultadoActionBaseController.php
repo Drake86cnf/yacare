@@ -34,8 +34,7 @@ class ResultadoActionBaseController extends ResultadoAction
     public function ObtenerRutaInicio()
     {
         return strtolower($this->Vendor) . '_' . strtolower($this->Bundle) . '_default_inicio';
-    }
-    
+    }    
 
     /**
      * Obtiene el nombre de una ruta a una acción dentro de este controlador.
