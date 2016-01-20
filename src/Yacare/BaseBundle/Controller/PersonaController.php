@@ -171,7 +171,7 @@ class PersonaController extends \Tapir\AbmBundle\Controller\AbmController
                         array('label' => 'Nivel', 'required' => true));
                 break;
             case 'Pais':
-                $FormEditarBuilder->add('Pais', 'entity', array(
+                $FormEditarBuilder->add('Pais', null, array(
                     'label' => 'Nacionalidad', 
                     'placeholder' => 'Sin especificar', 
                     'class' => 'YacareBaseBundle:Pais',

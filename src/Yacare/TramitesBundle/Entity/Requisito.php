@@ -65,7 +65,7 @@ class Requisito
      * 
      * @ORM\Column(type="string", length=50)
      */
-    private $Tipo;
+    private $Tipo = 'ext';
     
     /**
      * El lugar donde se obtiene o tramita este requisito.
@@ -243,5 +243,5 @@ class Requisito
         $this->Departamento = $Departamento;
         return $this;
     }
- 
+
 }

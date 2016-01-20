@@ -19,8 +19,7 @@
 			<td class="hidden-xs">{{ entidad.TipoNombre }}</td>
 			<td class="hidden-sm hidden-xs">
 			    {% for requiere in entidad.Requiere %}
-				<span class="label label-info">{{ requiere.Nombre|length > 50 ?
-					requiere.Nombre[:50] ~ '...' : requiere.Nombre }}</span>
+				<span class="label label-info">{{ requiere.Nombre|tapir_abreviar(50) }}</span>
 				{% endfor %}
 			</td>
 		</tr>
