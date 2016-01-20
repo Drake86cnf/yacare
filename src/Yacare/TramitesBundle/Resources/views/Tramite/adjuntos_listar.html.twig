@@ -1,6 +1,8 @@
 {% extends 'YacareBaseBundle:Adjunto:listar.html.twig' %}
 
 {% block pagina_acciones %}
-	<a href="{{ path('yacare_tramites_tramite_adjuntosasociar', { 'id': res.EntidadId }) }}" class="btn btn-primary"><i
-		class="fa fa-link"></i> Asociar</a>
+<a href="{{ path('yacare_tramites_tramite_adjuntosasociar', { 'id': res.EntidadId }) }}" class="btn btn-default"><i
+	class="fa fa-link"></i> Asociar</a>
+<a href="{{ path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': res.EntidadId })) }}" class="btn btn-default"><i
+	class="fa fa-reply-all"></i> Volver al trámite</a>
 {% endblock %}

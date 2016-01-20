@@ -70,10 +70,6 @@
 			</div>
 		</div>
 		{% endif %}
-		
-		<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-        	href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}"><i
-        	class="fa fa-paperclip"></i> Adjuntos</a>
 
 	</div>
 </div>
@@ -110,7 +106,7 @@
 					data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
 				{% endif %}
 			</td>
-			<td>{% if res.Entidad.Estado < 90 %}
+			<td>{% if res.Entidad.Estado < 90 and EstadoRequisito.AsociacionRequisito.Requisito.Tipo != 'tra' %}
 				<div class="btn-group hidden-print pull-right">
 					<a class="btn btn-default btn-sm dropdown-toggle"
 						data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i>
@@ -178,6 +174,12 @@
 	</tbody>
 </table>
 {% endblock %}
+
+{% block pagina_acciones %}
+<a class="btn btn-default hidden-print" data-toggle="ajax-link"
+	href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}"><i
+	class="fa fa-paperclip"></i> Adjuntos</a>
+{% endblock pagina_acciones %}        	
 
 {% block pagina_acciones2 %}
 <script>
