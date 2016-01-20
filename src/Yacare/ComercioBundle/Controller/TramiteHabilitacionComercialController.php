@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  *        
- *         @Route("tramitehabilitacioncomercial/")
+ * @Route("tramitehabilitacioncomercial/")
  */
 class TramiteHabilitacionComercialController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
