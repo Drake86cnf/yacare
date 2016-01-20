@@ -329,7 +329,7 @@ abstract class Tramite implements ITramite
         }
         return $res;
     }
-
+    
     /**
      * Devuelve una cadena que explica el estado de los requisitos (por ejemplo
      * una lista de los requisitos faltantes o un texto que indique que todos

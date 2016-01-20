@@ -40,7 +40,7 @@
 					{% if entidad.RequisitosFaltantesCantidad == 0 %}
 						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
 					{% else %}
-						<span class="badge">{{ entidad.RequisitosFaltantesCantidad }} de 
+						<span class="badge">{{ entidad.RequisitosObligatoriosCantidad - entidad.RequisitosFaltantesCantidad }} de 
 						    {{ entidad.RequisitosObligatoriosCantidad }}</span>
 					{% endif %}
 				{% endif %} 
