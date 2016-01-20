@@ -67,7 +67,7 @@ class GeoCodificarPartidasCommand extends ContainerAwareCommand
         $Helper = new \Yacare\CatastroBundle\Helper\PartidaHelper($this->getContainer(), $em);
         $Partidas = $em->getRepository('Yacare\CatastroBundle\Entity\Partida')->findBy(
             $Filtros,
-            array('id' => 'ASC'),
+            array('UbicacionFecha' => 'ASC'),
             $desde ?: null,
             $cantidadTotal ?: null);
         $progress = new ProgressBar($output, count($Partidas));
