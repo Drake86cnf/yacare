@@ -86,7 +86,6 @@ trait ConTurno
     }
 
     /**
-     *
      * @ignore
      */
     public function getTurnoFecha()
@@ -95,17 +94,15 @@ trait ConTurno
     }
 
     /**
-     *
-     * @ignore            
+     * @ignore
      */
-    public function setTurnoFecha($TurnoFecha)
+    public function setTurnoFecha(\DateTime $TurnoFecha)
     {
         $this->TurnoFecha = $TurnoFecha;
         return $this;
     }
 
     /**
-     *
      * @ignore
      */
     public function getTurnoEstado()
@@ -114,13 +111,11 @@ trait ConTurno
     }
 
     /**
-     *
      * @ignore
-     * 
      */
     public function setTurnoEstado($TurnoEstado)
     {
         $this->TurnoEstado = $TurnoEstado;
         return $this;
-    }    
+    }
 }
