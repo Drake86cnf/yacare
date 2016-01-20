@@ -5,16 +5,16 @@
 {% block pagina_contenido %}
 <div class="row form-group">
     <div class="col-sm-8 col-sm-offset-2">
-		{% if res.Entidad.FechaHoraInspeccion %}
-			{% if res.Entidad.EstadoTurno== 0%}
+		{% if res.Entidad.TurnoFecha %}
+			{% if res.Entidad.TurnoEstado== 0%}
 				<p>Alguien solicitó un turno en la fecha siguiente:</p>
 			<div class="row form-group">
-    	        {{ form_label(res.FormularioEditar.FechaHoraInspeccion) }}
-    			<div class="col-xs-10 col-sm-8">{{ form_widget(res.FormularioEditar.FechaHoraInspeccion) }}</div>
+    	        {{ form_label(res.FormularioEditar.TurnoFecha) }}
+    			<div class="col-xs-10 col-sm-8">{{ form_widget(res.FormularioEditar.TurnoFecha) }}</div>
 			</div>	
-			{% elseif res.Entidad.EstadoTurno== 0%}
+			{% elseif res.Entidad.TurnoEstado== 1%}
 				<p>Alguien marcó este turno como ya realizado</p>
-			{% elseif res.Entidad.EstadoTurno== 0  %}
+			{% elseif res.Entidad.TurnoEstado== 2  %}
 				<p>Alguien marcó este turno como cancelado</p>
 			{% endif %}
 		{% endif %}
@@ -31,17 +31,17 @@
 	    data-dismiss="modal"
 	{% endif %}
 	class="btn btn-default">Cancelar</button>
-<button type="submit" value="Guardar" class="btn {% if res.Entidad.FechaHoraInspeccion %}btn-success{% else %}btn-info{% endif %} tapir-button-accept">
-    {% if res.Entidad.FechaHoraInspeccion %}
+<button type="submit" value="Guardar" class="btn {% if res.Entidad.TurnoFecha %}btn-success{% else %}btn-info{% endif %} tapir-button-accept">
+    {% if res.Entidad.TurnoFecha %}
 	    <i class="fa fa-fw fa-thumbs-o-up"></i>
-		{% if res.Entidad.EstadoTurno %}
+		{% if res.Entidad.TurnoEstado %}
 			Ya no
 		{% else %}
 			No
 		{% endif %}
 		tiene turno
     {% else %}
-    	<i class="glyphicon glyphicon-time"></i> Nuevo turno
+    	<i class="glyphicon glyphicon-time"></i> Guardar turno
     {% endif %}
 </button>
 {% endblock pagina_acciones %}
@@ -49,8 +49,8 @@
 {% block pagina_scripts %}
 <script>
     $(function() {
-		$('#form_FechaHoraInspeccion').attr('placeholder',
-			{% if res.Entidad.FechaHoraInspeccion %}
+		$('#form_TurnoFecha').attr('placeholder',
+			{% if res.Entidad.TurnoFecha %}
 				
     		{% else %}
 				'Por favor escriba la fecha y hora del turno'

@@ -27,14 +27,14 @@ trait ConTurno
         
         $FormEditarBuilder = $this->createFormBuilder($entity);
         
-        $FormEditarBuilder ->add('FechaHoraInspeccion', null, array(
+        $FormEditarBuilder ->add('TurnoFecha', null, array(
             'date_widget' => 'choice',
             'time_widget' => 'choice',
             'date_format' => 'dd.MM.yyyy',
             'data' => new \DateTime('now'), 
             'required' => true,
         ));
-        $FormEditarBuilder->add('EstadoTurno', '\Tapir\BaseBundle\Form\Type\ButtonGroupType',
+        $FormEditarBuilder->add('TurnoEstado', '\Tapir\BaseBundle\Form\Type\ButtonGroupType',
             array('label' => 'Estado del turno', 'required' => true,
                 'choices' => array(
                     'Sin turno' =>-1,
@@ -49,14 +49,14 @@ trait ConTurno
         
         if ($FormEditar->isValid()) {
             // Invertir el estado y guardar.
-            if ($entity->getEstadoTurno()) {
-                $entity->getFechaHoraInspeccion();
+            if ($entity->getTurnoEstado()) {
+                $entity->getTurnoFecha();
             } else {
                 $fechaturno = "0000/00/00";
                 $horaturno= "00:00:00";
                 $entity->setFechaTurno($fechaturno);
                 $entity->setHoraTurno($horaturno);
-                $entity->setEstadoTurno("Activo");
+                $entity->setTurnoEstado("Activo");
             }
             $em->persist($entity);
             $em->flush();
