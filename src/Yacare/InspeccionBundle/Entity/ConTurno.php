@@ -22,7 +22,7 @@ trait ConTurno
      *
      * @var Estado @ORM\Column(type= "integer", nullable=true)
      */
-    protected $TurnoEstado;
+    protected $TurnoEstado = null;
 
     public function getNombreEstado($EstadoTurno)
     {
@@ -73,7 +73,7 @@ trait ConTurno
 
     public function setHoraTurno($FechaHoraInspeccion)
     {
-        $fechahora = explode(" ",$FechaHoraInspeccion);
+        $fechahora = explode(" ", $FechaHoraInspeccion);
         $fechahora[1] = $FechaHoraInspeccion;
         return $this;
     }
