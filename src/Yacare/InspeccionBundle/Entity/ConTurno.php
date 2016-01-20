@@ -15,14 +15,14 @@ trait ConTurno
      * @var \DateTime @ORM\Column(type="datetime", nullable=true)
      *     
      */
-    protected $FechaHoraInspeccion;
+    protected $TurnoFecha;
 
     /**
      * El estado del turno.
      *
      * @var Estado @ORM\Column(type= "integer", nullable=true)
      */
-    protected $EstadoTurno;
+    protected $TurnoEstado;
 
     public function getNombreEstado($EstadoTurno)
     {
@@ -88,42 +88,39 @@ trait ConTurno
     /**
      *
      * @ignore
-     *
      */
-    public function getFechaHoraInspeccion()
+    public function getTurnoFecha()
     {
-        return $this->FechaHoraInspeccion;
+        return $this->TurnoFecha;
     }
 
     /**
      *
-     * @ignore
-     *
+     * @ignore            
      */
-    public function setFechaHoraInspeccion($FechaHoraInspeccion)
+    public function setTurnoFecha($TurnoFecha)
     {
-        $this->FechaHoraInspeccion = $FechaHoraInspeccion;
+        $this->TurnoFecha = $TurnoFecha;
         return $this;
     }
 
     /**
      *
      * @ignore
-     *
      */
-    public function getEstadoTurno()
+    public function getTurnoEstado()
     {
-        return $this->EstadoTurno;
+        return $this->TurnoEstado;
     }
 
     /**
      *
      * @ignore
-     *
+     * 
      */
-    public function setEstadoTurno($EstadoTurno)
+    public function setTurnoEstado($TurnoEstado)
     {
-        $this->EstadoTurno = $EstadoTurno;
+        $this->TurnoEstado = $TurnoEstado;
         return $this;
-    }
+    }    
 }
