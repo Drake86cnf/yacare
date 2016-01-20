@@ -76,8 +76,8 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                         $NuevoSubTram = new $ClaseSubTramite();
                         $NuevoSubTram->setTramitePadre($entity);
                         $NuevoSubTram->setTitular($entity->getTitular());
-                        $this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
-                            $SubTramiteTipo->getAsociacionRequisitos());
+                        //$this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
+                        //    $SubTramiteTipo->getAsociacionRequisitos());
                         $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
                     }
                 }
@@ -105,7 +105,19 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
                 $this->em->persist($Comprob);
                 
                 $tramite->setComprobante($Comprob);
+                
+                if($tramite->getTramitePadre()) {
+                    // Este trámite es parte de un trámite de nivel superior.
+                    // Doy por aprobado el requisito correspondiente en el trámite padre
+                    $EstadoReqEnTramitePadre = $tramite->getTramitePadre()->ObtenerEstadoRequisitoPorSubTramite($tramite);
+                    if($EstadoReqEnTramitePadre) {
+                        $EstadoReqEnTramitePadre->setEstado(100);
+                        $this->em->persist($EstadoReqEnTramitePadre);
+                    }
+                }
             }
+            
+            // Poner requisito aprobado en trámite padre
             
             $this->em->persist($tramite);
             $this->em->flush();
