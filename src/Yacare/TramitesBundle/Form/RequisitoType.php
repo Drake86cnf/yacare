@@ -24,10 +24,7 @@ class RequisitoType extends AbstractType
                 'choices' => array(
                     'Condición' => 'cond', 
                     'Externo' => 'ext', 
-                    'Interno' => 'int', 
-                    'Trámite' => 'tra', 
-                    'Compuesto Y' => 'compy', 
-                    'Compuesto O' => 'compo')))
+                    'Interno' => 'int')))
             ->add('Departamento', null, array(
                 'label' => 'Sector',
                 'attr' => array('placeholder' => 'El sector al que pertenece el requisito'), 
