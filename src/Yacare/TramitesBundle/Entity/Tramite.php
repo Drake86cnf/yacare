@@ -127,6 +127,17 @@ abstract class Tramite implements ITramite
         );
     }    
     
+    /**
+     * Obtiene un actor del trámite.
+     * 
+     * Este método resuelve el nombre de la propiedad y devuelve su valor.
+     * 
+     * Por ejemplo, ObtenerActtor("Titular"), devuelve el objeto Persona "Juan Pérez"; ObtenerActor("Comercio") devuelve
+     * el objeto Comercio "Restaurante La Estrella", etc. 
+     * 
+     * @param string $actorPropiedad
+     * @return object
+     */
     public function ObtenerActor($actorPropiedad) {
         $Propiedades = explode('.', $actorPropiedad);
         $ValorQue = null;
