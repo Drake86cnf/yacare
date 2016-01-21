@@ -68,7 +68,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $em = $this->getEm();
         $id = $this->ObtenerVariable($request, 'id');
-        $entity = $em->getRepository('Yacare' . $this->BundleName . 'Bundle:' . $this->EntityName)->find($id);
+        $entity = $this->ObtenerEntidadPorId($id);
         
         $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this->container, $em);
         $resultado = $Helper->TerminarTramite($entity);
