@@ -127,6 +127,17 @@ abstract class Tramite implements ITramite
         );
     }    
     
+    /**
+     * Obtiene un actor del trámite.
+     * 
+     * Este método resuelve el nombre de la propiedad y devuelve su valor.
+     * 
+     * Por ejemplo, ObtenerActtor("Titular"), devuelve el objeto Persona "Juan Pérez"; ObtenerActor("Comercio") devuelve
+     * el objeto Comercio "Restaurante La Estrella", etc. 
+     * 
+     * @param string $actorPropiedad
+     * @return object
+     */
     public function ObtenerActor($actorPropiedad) {
         $Propiedades = explode('.', $actorPropiedad);
         $ValorQue = null;
@@ -164,7 +175,7 @@ abstract class Tramite implements ITramite
     
     
     /**
-     * Busca si un requisito de este trámite es un subtrámite, y devuelve el EstadoRequisito asociado.
+     * Si un requisito de este trámite es un subtrámite, devuelve el EstadoRequisito asociado.
      * 
      * @param \Yacare\TramitesBundle\Entity\Tramite $tramite
      * @return \Yacare\TramitesBundle\Entity\EstadoRequisito
@@ -172,8 +183,8 @@ abstract class Tramite implements ITramite
     public function ObtenerEstadoRequisitoPorSubTramite($subtramite) {
         foreach($this->getEstadosRequisitos() as $EstadoRequisito) {
             if($EstadoRequisito->getAsociacionRequisito()->getRequisito()->getTipo() == 'tra'
-                && ($EstadoRequisito->getAsociacionRequisito()->getRequisito()->getTramiteTipoEspejo()->getId()
-                    == $subtramite->getTramiteTipo()->getId())) {
+                && $EstadoRequisito->getSubtramite()
+                && ($EstadoRequisito->getSubtramite()->getId() == $subtramite->getId())) {
                     return $EstadoRequisito;
                 }
         }

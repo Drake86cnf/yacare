@@ -70,16 +70,19 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
             if ($AsociacionRequisito->getRequisito()->getTipo() == 'tra') {
                 // Es un trámite... asocio los sub-requisitos
                 $SubTramiteTipo = $AsociacionRequisito->getRequisito()->getTramiteTipoEspejo();
-                if ($SubTramiteTipo) {
-                    if ($SubTramiteTipo->getClase() != '\Yacare\TramitesBundle\Entity\TramiteSimple') {
-                        $ClaseSubTramite = $SubTramiteTipo->getClase();
-                        $NuevoSubTram = new $ClaseSubTramite();
-                        $NuevoSubTram->setTramitePadre($entity);
-                        $NuevoSubTram->setTitular($entity->getTitular());
-                        //$this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
-                        //    $SubTramiteTipo->getAsociacionRequisitos());
-                        $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
-                    }
+                if ($SubTramiteTipo && $SubTramiteTipo->getClase() && $SubTramiteTipo->getClase() != '\Yacare\TramitesBundle\Entity\TramiteSimple') {
+                    $ClaseSubTramite = $SubTramiteTipo->getClase();
+                    $NuevoSubTram = new $ClaseSubTramite();
+                    $NuevoSubTram->setTramitePadre($entity);
+                    $NuevoSubTram->setTitular($entity->getTitular());
+                    //$this->AsociarEstadosRequisitos($entity, $EstadoRequisito, 
+                    //    $SubTramiteTipo->getAsociacionRequisitos());
+ 
+                    //Le aviso al EstadoRequisito quién es su subtrámite asociado
+                    $EstadoRequisito->setSubtramite($NuevoSubTram);
+                    $this->em->persist($NuevoSubTram);
+                    
+                    $this->AgregarEntidadAlConjuntoDeCambios($NuevoSubTram);
                 }
             }
         }
