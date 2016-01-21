@@ -1,8 +1,11 @@
 {% extends 
     app.request.get('tapir_solocontenido') 
         ? 'TapirTemplateBundle::empty.html.twig'
-        : (app.request.xmlHttpRequest
-            ? 'TapirTemplateBundle::layout-ajax.html.twig'
-            : 'TapirTemplateBundle::layout-full.html.twig'
+        : (app.request.get('tapir_sinencab')
+            ? 'TapirTemplateBundle::blank.html.twig'
+            : (app.request.xmlHttpRequest
+                ? 'TapirTemplateBundle::layout-ajax.html.twig'
+                : 'TapirTemplateBundle::layout-full.html.twig'
+              )
           )
 %}
