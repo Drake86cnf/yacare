@@ -1,6 +1,7 @@
 <?php
 namespace Tapir\TemplateBundle\Twig;
 
+use Tapir\TemplateBundle\Tgen\HtmlGenerator;
 class TgenExtension extends \Twig_Extension
 {
     protected $Tgen;
@@ -15,13 +16,19 @@ class TgenExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
+            new \Twig_SimpleFunction('tgnew', array($this, 'tgnew'), array('is_safe' => array('all'), 'is_variadic' => true)),
             new \Twig_SimpleFunction('tg', array($this, 'tg'), array('is_safe' => array('all'), 'is_variadic' => true)),
         );
     }
 
-    public function tg($method, array $args = array())
+    public function tgnew($method, array $args = array())
     {
         return call_user_func_array(array($this->getTgen(), $method), $args);
+    }
+    
+    public function tg($content, array $args = array())
+    {
+        return HtmlGenerator::Render($content);
     }
     
     public function getName()

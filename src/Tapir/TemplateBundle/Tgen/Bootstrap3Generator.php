@@ -7,26 +7,49 @@ namespace Tapir\TemplateBundle\Tgen;
 class Bootstrap3Generator extends HtmlGenerator
 {
     public function Progress($val, $max = 100, $attr = null) {
-        $attr = HtmlGenerator::MergeAttributes($attr, array(
-            'class' => 'progress'
-        ));
+        $attr = HtmlGenerator::MergeAttributes($attr, [ 'class' => 'progress' ]);
         
-        $tag = new Tag('div', $attr);
-        return $tag->EmitHtml('
-<div class="progress-bar progress-bar-success" role="progressbar"
-	aria-valuenow="' . $val . '" aria-valuemin="0"
-	aria-valuemax="' . $max . '" style="width: ' . round($val/$max*100) . '%;">
-	<span class="sr-only">' . round($val/$max*100) . '% completo</span>
-</div>
-<div class="progress-bar progress-bar-warning" role="progressbar"
-	aria-valuenow="' . ($max - $val) . '"
-	aria-valuemin="0" aria-valuemax="' . $max . '"
-	style="width: ' . round(100-$val/$max*100) . '%;"></div>
-');
+        return $this->Div(
+            $this->Div(
+                $this->Span(
+                    round($val/$max*100) . '% completo',
+                    [ 'class' => 'sr-only']
+                ),
+                [ 'class' => 'progress-bar',
+                'role' => 'progressbar',
+                'aria-valuemin' => '0',
+                'aria-valuemax' => $max,
+                'aria-valuenow' => $val,
+                'style' => 'width: ' . round($val/$max*100) . '%;' ]
+            ),
+            $attr);
     }
     
+    public function Header1($content, $attr = null) {
+        return new Tag('h1', $content, $attr);
+    }
     
-    public function Button($label, $attr = null) {
+    public function Header2($content, $attr = null) {
+        return new Tag('h2', $content, $attr);
+    }
+    
+    public function Header3($content, $attr = null) {
+        return new Tag('h3', $content, $attr);
+    }
+    
+    public function Header4($content, $attr = null) {
+        return new Tag('h4', $content, $attr);
+    }
+    
+    public function Span($content , $attr = null) {
+        return new Tag('span', $content, $attr);
+    }
+    
+    public function Div($content, $attr = null) {
+        return new Tag('div', $content, $attr);
+    }
+    
+    public function Button($content, $attr = null) {
         $attr = HtmlGenerator::MergeAttributes($attr, array(
             'class' => 'btn btn-default'
         ));
@@ -40,11 +63,11 @@ class Bootstrap3Generator extends HtmlGenerator
         }
         
         if(array_key_exists('icon', $attr) && $attr['icon']) {
-            $label = $this->IconAndText($attr['icon'], $label);
+            $content = $this->IconAndText($attr['icon'], $content);
             unset($attr['icon']);
         }
     
-        return (new Tag('a', $attr))->EmitHtml($label);
+        return new Tag('a', $content, $attr);
     }
     
     public function Icon($name, $attr = null) {
@@ -52,10 +75,10 @@ class Bootstrap3Generator extends HtmlGenerator
             'class' => 'fa fa-' . $name
         ));
     
-        return (new Tag('i', $attr))->EmitHtml();
+        return new Tag('i', null, $attr);
     }
     
     public function IconAndText($name, $text, $attr = null) {
-        return $this->Icon($name, $attr) . ' ' . $text;
+        return new Content($this->Icon($name, $attr), ' ' . $text);
     }
 }

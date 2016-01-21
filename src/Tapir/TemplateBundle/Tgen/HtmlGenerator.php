@@ -6,6 +6,16 @@ namespace Tapir\TemplateBundle\Tgen;
  */
 class HtmlGenerator
 {
+    public static function Render($content) {
+        if(is_a($content, 'Tapir\TemplateBundle\Tgen\Tag', false)) {
+            return $content->Render();
+        } elseif(is_a($content, 'Tapir\TemplateBundle\Tgen\Content', false)) {
+            return $content->Render();
+        } else {
+            return (string)$content;
+        }
+    }
+    
     public static function EmitAttributes($attr) {
         if(!$attr) {
             return '';
