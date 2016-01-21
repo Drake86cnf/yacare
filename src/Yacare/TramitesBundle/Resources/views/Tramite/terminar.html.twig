@@ -29,7 +29,7 @@
 
 {% block pagina_acciones %}
 {% if res.Comprobante %}
-{{ tgen.Button('Ver comprobante', { ajax: 'true', icon: 'file-o', href: path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id }) })|raw }}
+{{ tgen.Button('Imprimir comprobante', { ajax: 'true', icon: 'print', href: path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id, imprimirahora: 1 }) })|raw }}
 {{ tgen.Button('Volver al trámite', { ajax: 'true', icon: 'reply', href: path(res.ObtenerRutaAccion('ver'), { id : res.Entidad.id }) })|raw }}
 {% endif %}
 {% endblock %}

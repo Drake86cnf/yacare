@@ -99,22 +99,12 @@
 </div>
 {% endblock %}
 
-{% if app.request.get('imprimirahora') %}
-    <script>
-        $(function() {
-        	window.print();
-        	tapirAtras();
-        });
-    </script>
-{% endif %}
 {% endblock %}
 
 {% block pagina_acciones %}
-    {% if tapir_modal %}
-    	<button class="btn btn-default" data-dismiss="modal"
-			aria-hidden="true"><i class="fa fa-times"></i> Cerrar</button>
-		<a class="btn btn-default print-preview"
-			href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': res.Entidad.Id, 'imprimirahora': 1 }) }}">
-			<i class="fa fa-print"></i> Imprimir</a>
-	{% endif %}
+{% if tapir_modal is defined and tapir_modal %}
+    {{ tgen.Button('Imprimir', { icon: 'print', href: path(res.ObtenerRutaAccion('ver'), { 'id': res.Entidad.Id, 'imprimirahora': 1 }) })|raw }}
+{% else %}
+    {{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print(); return false;', href: '#' })|raw }}
+{% endif %}
 {% endblock %}

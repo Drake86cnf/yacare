@@ -37,7 +37,7 @@ class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helpe
                         $this->ObtenerPeorUsoSuelo($Local->getPartida()
                             ->getZona(), $Comercio->getActividades()));
                 }
-            }            
+            }
             $tramite->setNombre('Trámite de habilitación de ' . $Comercio->getNombre());
         } else {
             $tramite->setNombre('Trámite de habilitación');

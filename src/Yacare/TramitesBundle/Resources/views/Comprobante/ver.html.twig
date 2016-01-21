@@ -4,32 +4,41 @@
 
 {% block pagina_contenido %}
 
-{% block comprobante_encab %}
-    {{ tgen.Header2(res.Entidad)|raw }}
-    <p class="text-right">Fecha: {{ res.Entidad.createdAt|tapir_fecha('full', 'none') }}</p>
-{% endblock %}
-
-{% block comprobante_contenido %}
-<div class="container-fuild">
-    <div class="row">
-    	<div class="col-sm-8">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">Titular</div>
-    			<div class="panel-body">{{ res.Entidad.Titular }}</div>
-    		</div>
-    	</div>
+    {% block comprobante_encab %}
+        {{ tgen.Header2(res.Entidad)|raw }}
+        <p class="text-right">Fecha: {{ res.Entidad.createdAt|tapir_fecha('full', 'none') }}</p>
+    {% endblock comprobante_encab %}
     
-    	<div class="col-sm-4">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">CUIT/UIL</div>
-    			<div class="panel-body">{{ res.Entidad.Titular.Cuilt }}</div>
-    		</div>
-    	</div>
+    {% block comprobante_contenido %}
+    <div class="container-fuild">
+        <div class="row">
+        	<div class="col-sm-8">
+        		<div class="panel panel-default">
+        			<div class="panel-heading">Titular</div>
+        			<div class="panel-body">{{ res.Entidad.Titular }}</div>
+        		</div>
+        	</div>
+        
+        	<div class="col-sm-4">
+        		<div class="panel panel-default">
+        			<div class="panel-heading">CUIT/UIL</div>
+        			<div class="panel-body">{{ res.Entidad.Titular.Cuilt }}</div>
+        		</div>
+        	</div>
+        </div>
     </div>
-</div>
+    
+    {% endblock comprobante_contenido %}
 
-{% endblock %}
+{% endblock pagina_contenido %}
 
-{% block comprobante_pie %}{% endblock %}
-
-{% endblock %}
+{% block pagina_scripts %}
+{% if app.request.get('imprimirahora') %}
+    <script>
+        $(function() {
+        	window.print();
+        	tapirAtras();
+        });
+    </script>
+{% endif %}
+{% endblock pagina_scripts %}
