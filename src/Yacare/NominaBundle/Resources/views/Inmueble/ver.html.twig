@@ -54,7 +54,7 @@
 {% endblock %}
 
 {% block pagina_acciones2 %}
-{% if tapir_hasanyrole('ROLE_NOMINA_ADMINISTRADOR') %}
+{% if tapir_hasanyrole('ROLE_NOMINA_ADMINISTRADOR,ROLE_NOMINA_INMUEBLES') %}
 	<div class="pull-right">
     <a data-toggle="ajax-link" class="btn btn-default"
     	href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': res.Entidad.Id }) }}">
