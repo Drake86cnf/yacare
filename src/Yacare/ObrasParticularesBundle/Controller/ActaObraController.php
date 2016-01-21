@@ -41,7 +41,7 @@ class ActaObraController extends \Tapir\AbmBundle\Controller\AbmController
             $this->Joins[] = " LEFT JOIN pa.Titular t";
             $this->Joins[] = 'JOIN r.FuncionarioPrincipal fp';
             
-            $this->BuscarPor .= ', fp.NombreVisible, t.NombreVisible, t.DocumentoNumero, t.Cuilt, pa.Nombre';
+            $this->BuscarPor .= ', fp.NombreVisible, t.NombreVisible, t.DocumentoNumero, t.Cuilt, pa.Nombre, pa.Numero';
         }
         $res = parent::listarAction($request);
         
