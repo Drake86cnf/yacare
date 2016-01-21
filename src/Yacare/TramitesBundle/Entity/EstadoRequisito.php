@@ -40,6 +40,17 @@ class EstadoRequisito implements IEstadoRequisito
      * @ORM\JoinColumn(nullable=false)
      */
     protected $Tramite;
+    
+    /**
+     * Si este requisito es tipo trámite, esta propiedad apunta al subtrámite. 
+     *
+     * @var \Yacare\TramitesBundle\Entity\Tramite
+     * @see \Yacare\TramitesBundle\Entity\Tramite Tramite
+     *
+     * @ORM\ManyToOne(targetEntity="Tramite")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Subtramite;
 
     /**
      * La asociación entre el trámite y el requisito, que también describe las
@@ -502,5 +513,23 @@ class EstadoRequisito implements IEstadoRequisito
         $this->Adjuntos = $Adjuntos;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getSubtramite()
+    {
+        return $this->Subtramite;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setSubtramite($Subtramite)
+    {
+        $this->Subtramite = $Subtramite;
+        return $this;
+    }
+ 
  
 }

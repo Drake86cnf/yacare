@@ -106,8 +106,21 @@
 					data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
 				{% endif %}
 			</td>
-			<td>{% if res.Entidad.Estado < 90 and EstadoRequisito.AsociacionRequisito.Requisito.Tipo != 'tra' %}
-				<div class="btn-group hidden-print pull-right">
+			<td>{% if EstadoRequisito.AsociacionRequisito.Requisito.Tipo == 'tra' and EstadoRequisito.Subtramite %}
+					{# Progreso del subtrámite #}
+					<div class="progress hidden-print pull-right" style="width: 100px">
+            			<div class="progress-bar progress-bar-success" role="progressbar"
+            				aria-valuenow="{{ EstadoRequisito.Subtramite.PorcentajeCompleto }}" aria-valuemin="0"
+            				aria-valuemax="100" style="width: {{ EstadoRequisito.Subtramite.PorcentajeCompleto }}%;">
+            				<span class="sr-only">{{ EstadoRequisito.Subtramite.PorcentajeCompleto }}% completo</span>
+            			</div>
+            			<div class="progress-bar progress-bar-warning" role="progressbar"
+            				aria-valuenow="{{ 100 - EstadoRequisito.Subtramite.PorcentajeCompleto }}"
+            				aria-valuemin="0" aria-valuemax="100"
+            				style="width: {{ 100 - EstadoRequisito.Subtramite.PorcentajeCompleto }}%;"></div>
+            		</div>
+			    {% elseif res.Entidad.Estado < 90 %}
+				<div class="btn-group hidden-print pull-right" style="width: 100px">
 					<a class="btn btn-default btn-sm dropdown-toggle"
 						data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i>
 						Opciones &nbsp;<span class="caret"></span></a>
