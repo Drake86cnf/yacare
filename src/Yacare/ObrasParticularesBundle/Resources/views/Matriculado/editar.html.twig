@@ -1,3 +1,34 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo
-matriculado{% endif %}{% endblock %}
+{% extends 'TapirAbmBundle::editar.html.twig' %} 
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity }}{% else %}Nuevo matriculado{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+{# Me aseguro que voy a editar un matriculado, 
+	preguntando si no se mando el nombre del formulario a utilizar dentro del request #}
+    {% if not (app.request.query.get('form') == 'MatriculadoCrear') %}
+        <div class="container-fluid">
+            {{ form_row(res.FormularioEditar.Profesion) }}
+            {{ form_row(res.FormularioEditar.FechaVencimiento) }}
+            {{ form_row(res.FormularioEditar.Persona.Domicilio) }}
+        	{{ form_row(res.FormularioEditar.Persona.TelefonoNumero) }}
+            {{ form_row(res.FormularioEditar.Persona.Email) }}
+            {{ form_rest(res.FormularioEditar) }}
+        </div>
+    {% else %} {{ parent() }} {% endif %}
+{% endblock %}
+
+{% block pagina_scripts %}
+{{ parent() }}
+
+<script>
+$(function() {
+    $('#matriculado_Persona_Domicilio_DomicilioCalle').change(function() {
+        if($('#matriculado_Persona_Domicilio_DomicilioCalle').val() > 0) {
+            $('#matriculado_Persona_Domicilio_DomicilioCalleNombre').hide();
+        } else {
+            $('#matriculado_Persona_Domicilio_DomicilioCalleNombre').show();
+        }
+    }).change();
+});
+</script>
+{% endblock %}

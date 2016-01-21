@@ -3,7 +3,9 @@
 {% block pagina_titulo %}Profesionales matriculados{% endblock %}
 
 {% block pagina_contenido %}
-<table class="table table-hoverselect">
+<table class="table
+    {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MATRICULADO ') %}
+		table-hoverselect"{% else %}table-hover"{% endif %}>
 	<thead>
 		<tr>
 			<th>#</th>
@@ -15,8 +17,9 @@
 	</thead>
 	<tbody>
 		{% for entity in entities %}
-		<tr data-toggle="ajax-link"
-			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}">
+		<tr {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MATRICULADO ') %}
+				data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
+			{% endif %}>
 			<td>{{ entity.id }}</td>
 			<td>{{ entity.Persona }}</td>
 			<td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
@@ -32,10 +35,12 @@
 {% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
 
 {% block pagina_acciones2 %}
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_listarhabilitados', res.Arrastre|merge({ 'filtro_buscar': null })) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista de matriculados al día</a>
-<a data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_editar_1', res.Arrastre|merge({'form': 'MatriculadoCrear' })) }}"
-	class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo matriculado</a>
+    <a data-toggle="ajax-link" 
+    	href="{{ path(baseroute ~ '_listarhabilitados', res.Arrastre|merge({ 'filtro_buscar': null })) }}"
+    	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista de matriculados al día</a>
+    {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MATRICULADO ') %}
+    	<a data-toggle="ajax-link" 
+    		href="{{ path(baseroute ~ '_editar_1', res.Arrastre|merge({'form': 'MatriculadoCrear' })) }}"
+    		class="btn btn-default hidden-print"><i class="fa fa-plus"></i> Nuevo matriculado</a>
+    {% endif %}
 {% endblock pagina_acciones2 %}

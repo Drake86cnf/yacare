@@ -27,20 +27,21 @@
         </ul>
     </div>
     
+    {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES') %}
     <div class="col-sm-4">
         <h2>Matriculados</h2>
         <ul class="inicio-mini-menu">
-        	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
         	<li class="destacado"><p>Actividad reciente</p></li>
         	{% for item in res.Recientes['Matriculado'] %}
-        		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}"
-        			data-toggle="ajax-link">{{ item }}</a></li>
+        		{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MATRICULADO') %}
+        		<li><a href="{{ path('yacare_obrasparticulares_matriculado_editar', res.Arrastre|merge({ id: item.id })) }}" 
+        		data-toggle="ajax-link">{{ item }}</a></li> {% else %}<li><p style="color:#606060">{{ item }}</p></li>{% endif %}
         	{% endfor %}
-    		{% endif %}
         	<li class="destacado"><a href="{{ path('yacare_obrasparticulares_matriculado_listar') }}" 
         		data-toggle="ajax-link"> Todos los matriculados</a></li>
         </ul>
     </div>
+    {% endif %}
     
     <div class="col-sm-4">
         <h2>Empresas constructoras</h2>

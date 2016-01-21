@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @author Alejandro Diaz <alediaz.rc@gmail.com>
  *        
  * @Route("matriculado/")
- * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+ * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_MATRICULADO')")
  */
 class MatriculadoController extends \Tapir\AbmBundle\Controller\AbmController
 {
@@ -52,7 +52,7 @@ class MatriculadoController extends \Tapir\AbmBundle\Controller\AbmController
      * 
      * @Route("editar/")
      * @Route("crear/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_MATRICULADO')")
      * @Template()
      */
     public function editarAction(Request $request)
@@ -67,7 +67,7 @@ class MatriculadoController extends \Tapir\AbmBundle\Controller\AbmController
      * 
      * @Route("guardar/")
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Method("POST")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_MATRICULADO')")
      * @Template()
      */
     public function guardarAction(Request $request)

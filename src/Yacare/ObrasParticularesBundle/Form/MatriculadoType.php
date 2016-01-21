@@ -29,13 +29,12 @@ class MatriculadoType extends AbstractType
             ->add('FechaVencimiento', 'Symfony\Component\Form\Extension\Core\Type\DateType', array(
                 'years' => range(2000, 2099),
                 'input' => 'datetime',
-                'widget' => 'single_text',
+                'widget' => 'choice',
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Fecha de vencimiento',
                 'required' => false))
-            ->add('Persona', 'Yacare\BaseBundle\Form\PersonaType', array(
-                'label' => 'Persona',
-                'property_path' => 'Persona'));
+            ->add('Persona', 'Yacare\ObrasParticularesBundle\Form\PersonaMatriculadoType', array(
+                'label' => 'Persona'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
