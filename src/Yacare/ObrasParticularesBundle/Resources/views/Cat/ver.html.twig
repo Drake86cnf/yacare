@@ -5,8 +5,7 @@
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}
-    <p class="text-right">Río Grande, {{
-    	res.Entidad.createdAt|tapir_fecha('full', 'none')|lower }}</p>
+    <p class="text-right">Río Grande, {{ res.Entidad.createdAt|tapir_fecha('full', 'none')|lower }}</p>
 {% endblock %} 
 
 {% block comprobante_contenido %}
@@ -29,5 +28,5 @@
 {% endblock %} {% endblock %} 
 
 {% block pagina_acciones %}
-    <a class="btn btn-primary print-preview" href="#" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
+{{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print();', href: '#' })|raw }}
 {% endblock %}

@@ -37,7 +37,7 @@
 		{% elseif res.Entidad.EstaTerminado %}
 		<div class="panel panel-success">
 			<div class="panel-body">
-				<i class="text-success fa fa-flag-checkered fa-5x pull-left"></i>
+				{{ tgen.Icon('flag-checkered', { class: 'text-success fa-5x pull-left'})|raw }}
 				<p>El trámite está terminado.</p>
 			</div>
 		</div>

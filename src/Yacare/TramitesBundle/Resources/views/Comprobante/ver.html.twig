@@ -5,7 +5,7 @@
 {% block pagina_contenido %}
 
 {% block comprobante_encab %}
-    <h1>{{ res.Entidad }}</h1>
+    {{ tgen.Header2(res.Entidad)|raw }}
     <p class="text-right">Fecha: {{ res.Entidad.createdAt|tapir_fecha('full', 'none') }}</p>
 {% endblock %}
 
