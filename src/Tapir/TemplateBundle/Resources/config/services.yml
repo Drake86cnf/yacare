@@ -1,9 +1,9 @@
 parameters:
-  tapir_controls.twig_extension.class: Tapir\TemplateBundle\Twig\ControlsExtension
+  tgen.twig_extension.class: Tapir\TemplateBundle\Twig\TgenExtension
 
 services:
-  tapir_controls.twig.tabs_extension:
-    class: '%tapir_controls.twig_extension.class%'
+  tgen.twig.tgen_extension:
+    class: '%tgen.twig_extension.class%'
     tags:
         - { name: twig.extension }
     

@@ -8,7 +8,7 @@ class TgenExtension extends \Twig_Extension
     public function getGlobals()
     {
         return array(
-            'tgen' => $this->getTgent(),
+            'tgen' => $this->getTgen(),
         );
     }
     
@@ -16,15 +16,14 @@ class TgenExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('tg', array($this, 'tg'), array('is_safe' => array('all'), 'is_variadic' => true)),
-            new \Twig_SimpleFunction('tg.Progress', array($this, 'tg'), array('is_safe' => array('all'), 'is_variadic' => true)),
         );
     }
 
     public function tg($method, array $args = array())
     {
-        return call_user_func_array(array($this->getTgent(), $method), $args);
+        return call_user_func_array(array($this->getTgen(), $method), $args);
     }
-
+    
     public function getName()
     {
         return 'tgen_extension';
