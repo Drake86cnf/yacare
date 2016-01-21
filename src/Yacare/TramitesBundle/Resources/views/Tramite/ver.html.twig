@@ -100,7 +100,7 @@
 			</td>
 			<td>{% if EstadoRequisito.AsociacionRequisito.Requisito.Tipo == 'tra' and EstadoRequisito.Subtramite %}
 					{# Progreso del subtrámite #}
-					{{ tgen.Progress(res.Entidad.PorcentajeCompleto, 100, { style: 'width: 100px', class: 'pull-right'})|raw }}
+					{{ tgen.Progress(EstadoRequisito.Subtramite.PorcentajeCompleto, 100, { style: 'width: 100px', class: 'pull-right'})|raw }}
 					
 			    {% elseif res.Entidad.Estado < 90 %}
 				<div class="btn-group hidden-print pull-right" style="width: 100px">
