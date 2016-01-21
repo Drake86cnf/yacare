@@ -35,7 +35,7 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function cambiarestadoAction(Request $request, $id, $reqid, $estado)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEm();
 
         $Tramite = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\Tramite')->find($id);
         if ($Tramite && $Tramite->getEstado() == 0) {
@@ -68,17 +68,18 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $em = $this->getEm();
         $id = $this->ObtenerVariable($request, 'id');
-        $entity = $this->ObtenerEntidadPorId($id);
+        $Tramite = $this->ObtenerEntidadPorId($id);
         
         $Helper = new \Yacare\TramitesBundle\Helper\TramiteHelper($this->container, $em);
-        $resultado = $Helper->TerminarTramite($entity);
+        $resultado = $Helper->TerminarTramite($Tramite);
+        
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
+        $res->Entidad = $Tramite;
+        $res->Mensaje = $resultado['mensaje'];
+        $res->Comprobante = $resultado['comprobante'];
+        $res->RutaComprobante = $resultado['rutacomprobante'];
 
-        return $this->ArrastrarVariables($request, array(
-            'entity' => $entity,
-            'mensaje' => $resultado['mensaje'],
-            'comprob' => $resultado['comprobante'],
-            'rutacomprob' => $resultado['rutacomprobante']
-        ));
+        return [ 'res' => $res ];
     }
     
     /**

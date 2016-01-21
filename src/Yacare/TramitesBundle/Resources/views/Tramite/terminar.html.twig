@@ -1,41 +1,39 @@
-{% extends 'TapirTemplateBundle::layout.html.twig' %} {% block pagina_titulo
-%}Terminar trámite {{ entity }}{% endblock %} {% block pagina_contenido
-%} {% if entity.Estado == 100 %}
-<i class="text-muted fa fa-flag-checkered fa-5x pull-left"></i>
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-<p>El trámite Nº {{ entity.id }} iniciado el {{
-	entity.createdAt|tapir_fecha('full', 'medium')|lower }} finalizó {% if
-	entity.FechaTerminado %} el {{
-	entity.FechaTerminado|tapir_fecha('full', 'short')|lower }} ({{
-	entity.FechaTerminado|tapir_hacetiempo }}) {% endif %}</p>
+{% block pagina_titulo %}Terminar trámite {{ res.Entidad }}{% endblock %}
 
-{% if comprob %}
-<p>
-	<i class="fa fa-info-circle"></i> Como resulado del trámite, se generó
-	el comprobante &quot;<a data-toggle="ajax-link"
-		href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}">{{
-		comprob }}</a>&quot;.
-</p>
-{% endif %} {% else %}
-<p>El trámite Nº {{ entity.id }}, no se pudo finalizar. {{ mensaje }}</p>
+{% block pagina_contenido %}
+{% if res.Entidad.Estado == 100 %}
+    {{ tgen.Icon('flag-checkered', { class: 'text-success fa-5x pull-left'})|raw }}
+    
+    <p>El trámite Nº {{ res.Entidad.id }} iniciado el {{
+    	res.Entidad.createdAt|tapir_fecha('full', 'none')|lower }} finalizó {% if
+    	res.Entidad.FechaTerminado %} el {{
+    	res.Entidad.FechaTerminado|tapir_fecha('full', 'short')|lower }} ({{
+    	res.Entidad.FechaTerminado|tapir_hacetiempo }}) {% endif %}</p>
+    
+    {% if res.Comprobante %}
+        {{ tgen.Header2(res.Comprobante)|raw }}
+        
+        <div class="panel panel-default">
+            <object data="{{ path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id, tapir_solocontenido: 1 }) }}" 
+            	class="panel-body" style="width: 100%; height: 99%; min-height: 400px;">
+            </object>
+        </div>
+    {% endif %}
+{% else %}
+	<p>El trámite Nº {{ res.Entidad.id }}, no se pudo finalizar. {{ res.Mensaje }}</p>
 {% endif %}
 
-<p class="clearfix"></p>
 {% endblock %}
 
 {% block pagina_acciones %}
-{% if comprob %}
-<a class="btn btn-primary hidden-print" data-toggle="ajax-link"
-	href="{{ path(rutacomprob ~ '_ver', { 'id': comprob.id }) }}"><i
-	class="fa fa-file-o"></i> Ver el comprobante</a>
+{% if res.Comprobante %}
+{{ tgen.Button('Imprimir comprobante', { ajax: 'true', icon: 'print', href: path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id, imprimirahora: 1 }) })|raw }}
+{{ tgen.Button('Volver al trámite', { ajax: 'true', icon: 'reply', href: path(res.ObtenerRutaAccion('ver'), { id : res.Entidad.id }) })|raw }}
 {% endif %}
 {% endblock %}
 
 {% block pagina_acciones2 %}
-<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_ver', { 'id' : entity.id }) }}"><i
-	class="fa fa-reply"></i> Volver al trámite</a>
-<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path(baseroute ~ '_listar') }}"><i class="fa fa-list"></i> Ir
-	al listado de trámites</a>
-{% endblock %}
+{{ tgen.Button('Lista de trámites', { ajax: 'true', icon: 'list', href: path(res.ObtenerRutaAccion('listar')) })|raw }}
+{% endblock pagina_acciones2 %}

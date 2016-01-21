@@ -25,9 +25,15 @@ class CertificadoHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\H
             // Asigno uno y pongo el comercio como habilitado y lo asocio con el certificado.
             $Tramite = $comprobante->getTramiteOrigen();
             $Comercio = $Tramite->getComercio();
+            $Comercio->setEstado(100);
+            $Comercio->setCertificadoHabilitacion($comprobante);
+            if($comprobante->getFechaValidezHasta() && $comprobante->getFechaValidezHasta() > $Comercio->getFechaValidez()) {
+                // Si el certificado tiene fecha de vencimiento y la fecha es mayor a la validez del comercio,
+                // asigno la nueva validez al comercio
+                $Comercio->setFechaValidez($comprobante->getFechaValidezHasta());
+            }
+            $Comercio->setFechaHabilitacion($comprobante->getFecha());
             $comprobante->setComercio($Comercio);
-            $comprobante->getComercio()->setEstado(100);
-            $comprobante->getComercio()->setCertificadoHabilitacion($comprobante);
         }
     }
     
