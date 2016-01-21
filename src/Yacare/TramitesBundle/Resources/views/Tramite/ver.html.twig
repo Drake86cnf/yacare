@@ -182,7 +182,7 @@
     });
 </script>
 
-{{ tgen.Button('Mostrar u ocultar otros requisitos'), { icon: 'adjust', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
+{{ tgen.Button('Mostrar u ocultar otros requisitos', { icon: 'adjust', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
 {% endblock %}
 
 {% block pagina_menuprincipal %}{{ parent() }}
