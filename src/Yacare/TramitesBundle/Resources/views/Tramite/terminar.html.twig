@@ -15,11 +15,9 @@
     {% if res.Comprobante %}
         {{ tgen.Header2(res.Comprobante)|raw }}
         
-        <div class="panel panel-default">
-            <object data="{{ path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id, tapir_solocontenido: 1 }) }}" 
-            	class="panel-body" style="width: 100%; height: 99%; min-height: 400px;">
-            </object>
-        </div>
+        <object data="{{ path(res.RutaComprobante ~ '_ver', { id: res.Comprobante.id, tapir_sinencab: 1 }) }}" 
+        	style="width: 100%; height: 99%; min-height: 480px;">
+        </object>
     {% endif %}
 {% else %}
 	<p>El trámite Nº {{ res.Entidad.id }}, no se pudo finalizar. {{ res.Mensaje }}</p>
