@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ConTurno
 {
-
+    
     /**
      * La fecha de inspeccion pautada.
      *
@@ -16,44 +16,6 @@ trait ConTurno
      *     
      */
     protected $TurnoFecha;
-
-    /**
-     * El estado del turno.
-     *
-     * @var Estado @ORM\Column(type= "integer", nullable=true)
-     */
-    protected $TurnoEstado = null;
-
-    public function getNombreEstado($EstadoTurno)
-    {
-        switch ($EstadoTurno) {
-            case 0:
-                return 'Activo';
-            case 1:
-                return 'Terminado';
-            case 2:
-                return 'Cancelado';
-            case 3:
-                return 'Vencido';
-            default:
-                return 'Sin turno';
-        }
-    }
-
-    /**
-     * Devuelve true si el estado del turno esta vencido.
-     */
-    public function EstaVencida()
-    {
-        $FechaHoraInspeccion = $this->getFechaHoraInspeccion();
-        if ($FechaHoraInspeccion) {
-            $Ahora = new \DateTime();
-            return $Ahora > $FechaHoraInspeccion;
-        } else {
-            // No tiene fecha de vencimiento
-            return false;
-        }
-    }
 
     public function getHoraTurno()
     {
@@ -99,23 +61,6 @@ trait ConTurno
     public function setTurnoFecha(\DateTime $TurnoFecha)
     {
         $this->TurnoFecha = $TurnoFecha;
-        return $this;
-    }
-
-    /**
-     * @ignore
-     */
-    public function getTurnoEstado()
-    {
-        return $this->TurnoEstado;
-    }
-
-    /**
-     * @ignore
-     */
-    public function setTurnoEstado($TurnoEstado)
-    {
-        $this->TurnoEstado = $TurnoEstado;
         return $this;
     }
 }

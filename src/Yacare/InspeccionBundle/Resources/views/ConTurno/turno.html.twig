@@ -1,61 +1,30 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %}
-{% set tapir_editar_nombreguadar = 'Aceptar' %}
+{% extends 'TapirAbmBundle::editar.html.twig' %} 
+{% set tapir_editar_nombreguadar = 'Aceptar' %} 
 {% block pagina_titulo %}Turno inspeccion{% endblock %}
-
-{% block pagina_contenido %}
+ {% block pagina_contenido %}
 <div class="row form-group">
-    <div class="col-sm-8 col-sm-offset-2">
+	<div class="col-sm-8 col-sm-offset-2">
 		{% if res.Entidad.TurnoFecha %}
-			{% if res.Entidad.TurnoEstado== 0%}
-				<p>Alguien asignó un turno en la siguiente fecha:</p>
-			<div class="row form-group">
-    	        {{ form_label(res.FormularioEditar.TurnoFecha) }}
-    			<div class="col-xs-10 col-sm-8">{{ form_widget(res.FormularioEditar.TurnoFecha) }}</div>
-			</div>	
-			{% elseif res.Entidad.TurnoEstado== 1%}
-				<p>Alguien marcó este turno como realizado.</p>
-			{% elseif res.Entidad.TurnoEstado== 2  %}
-				<p>Alguien marcó este turno como cancelado.</p>
-			{% endif %}
+		<h3>El turno fue asignado en la siguiente fecha y hora</h3>
 		{% endif %}
 	</div>
 </div>
 {{ parent() }}
-{% endblock pagina_contenido %}
-
-{% block pagina_acciones %}
+ {% endblock pagina_contenido %} 
+{% block pagina_acciones%}
 <button type="button"
+	
 	{% if tapir_modal is not defined or tapir_modal == 0 %}
-		onclick="return tapirAtras();"
-	{% else %}
-	    data-dismiss="modal"
+	onclick="return tapirAtras();" 
+	{% else %} data-dismiss="modal"
+	
+	{% endif %} class="btn btn-default">Cancelar</button>
+<button type="submit" onclick="tapir-button-accept"
+	{% if res.Entidad.TurnoFecha %}
+		{% set res.Entidad.TurnoFecha = "000/00/00 00:00:00" %}
 	{% endif %}
-	class="btn btn-default">Cancelar</button>
-<button type="submit" value="Guardar" class="btn {% if res.Entidad.TurnoFecha %}btn-success{% else %}btn-info{% endif %} tapir-button-accept">
-    {% if res.Entidad.TurnoFecha %}
-	    <i class="fa fa-fw fa-thumbs-o-up"></i>
-		{% if res.Entidad.TurnoEstado %}
-			Ya no
-		{% else %}
-			No
-		{% endif %}
-		tiene turno
-    {% else %}
-    	<i class="glyphicon glyphicon-time"></i> Guardar turno
-    {% endif %}
+	 value="Guardar" class="btn {% if res.Entidad.TurnoFecha %}btn-success{% endif %} tapir-button-accept">	{% if res.Entidad.TurnoFecha %} <i class="fa fa-fw fa-times"></i>Anular
+	turno {% else %} <i class="fa fa-fw fa-clock-o"></i> Guardar turno {%
+	endif %}
 </button>
 {% endblock pagina_acciones %}
-
-{% block pagina_scripts %}
-<script>
-    $(function() {
-		$('#form_TurnoFecha').attr('placeholder',
-			{% if res.Entidad.TurnoFecha %}
-				
-    		{% else %}
-				'Por favor escriba la fecha y hora del turno'
-    		{% endif %} 
-		).val('');
-	});
-</script>
-{% endblock pagina_scripts %}
