@@ -29,19 +29,11 @@
 			de un total de {{ res.Entidad.RequisitosObligatoriosCantidad }}
 			obligatorios.
 		</p>
+		
 		{% block tramite_encab_progreso %}
-		<div class="progress hidden-print">
-			<div class="progress-bar progress-bar-success" role="progressbar"
-				aria-valuenow="{{ res.Entidad.PorcentajeCompleto }}" aria-valuemin="0"
-				aria-valuemax="100" style="width: {{ res.Entidad.PorcentajeCompleto }}%;">
-				<span class="sr-only">{{ res.Entidad.PorcentajeCompleto }}% completo</span>
-			</div>
-			<div class="progress-bar progress-bar-warning" role="progressbar"
-				aria-valuenow="{{ 100 - res.Entidad.PorcentajeCompleto }}"
-				aria-valuemin="0" aria-valuemax="100"
-				style="width: {{ 100 - res.Entidad.PorcentajeCompleto }}%;"></div>
-		</div>
+		{{ tgen.Progress(res.Entidad.PorcentajeCompleto, 100)|raw }}
 		{% endblock %}
+		
 		{% elseif res.Entidad.EstaTerminado %}
 		<div class="panel panel-success">
 			<div class="panel-body">
@@ -108,17 +100,8 @@
 			</td>
 			<td>{% if EstadoRequisito.AsociacionRequisito.Requisito.Tipo == 'tra' and EstadoRequisito.Subtramite %}
 					{# Progreso del subtrámite #}
-					<div class="progress hidden-print pull-right" style="width: 100px">
-            			<div class="progress-bar progress-bar-success" role="progressbar"
-            				aria-valuenow="{{ EstadoRequisito.Subtramite.PorcentajeCompleto }}" aria-valuemin="0"
-            				aria-valuemax="100" style="width: {{ EstadoRequisito.Subtramite.PorcentajeCompleto }}%;">
-            				<span class="sr-only">{{ EstadoRequisito.Subtramite.PorcentajeCompleto }}% completo</span>
-            			</div>
-            			<div class="progress-bar progress-bar-warning" role="progressbar"
-            				aria-valuenow="{{ 100 - EstadoRequisito.Subtramite.PorcentajeCompleto }}"
-            				aria-valuemin="0" aria-valuemax="100"
-            				style="width: {{ 100 - EstadoRequisito.Subtramite.PorcentajeCompleto }}%;"></div>
-            		</div>
+					{{ tgen.Progress(res.Entidad.PorcentajeCompleto, 100, { style: 'width: 100px', class: 'pull-right'})|raw }}
+					
 			    {% elseif res.Entidad.Estado < 90 %}
 				<div class="btn-group hidden-print pull-right" style="width: 100px">
 					<a class="btn btn-default btn-sm dropdown-toggle"
@@ -189,10 +172,8 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-<a class="btn btn-default hidden-print" data-toggle="ajax-link"
-	href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}"><i
-	class="fa fa-paperclip"></i> Adjuntos</a>
-{% endblock pagina_acciones %}        	
+{{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
+{% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
 <script>
@@ -201,9 +182,7 @@
     });
 </script>
 
-<a class="btn btn-default hidden-print"
-	onclick="$('[data-toggle=requisitos_ocultables]').toggle(); return false;"><i
-	class="fa fa-adjust"></i> Mostrar u ocultar otros requisitos</a>
+{{ tgen.Button('Mostrar u ocultar otros requisitos'), { icon: 'adjust', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
 {% endblock %}
 
 {% block pagina_menuprincipal %}{{ parent() }}
