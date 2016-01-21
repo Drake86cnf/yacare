@@ -56,9 +56,4 @@ class FechaHoraType extends \Symfony\Component\Form\Extension\Core\Type\DateTime
         
         //echo '<pre>'; print_r($builder->get('time')->getOptions());
     }
-
-    public function aagetParent()
-    {
-        return 'Symfony\Component\Form\Extension\Core\Type\DateTimeType';
-    }
 }
