@@ -1,4 +1,106 @@
 {% extends 'TapirAbmBundle::editar.html.twig' %}
 
-{% block pagina_titulo %}{% if entity.id %}{{ entity.Nombre }}{% else %}Nuevo trámite de habilitación
+{% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Nuevo trámite de habilitación
 	comercial{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#tramite_basicos" aria-controls="tramite_basicos" role="tab" data-toggle="tab">Generales</a></li>
+    <li role="presentation"><a href="#tramite_contacto" aria-controls="tramite_contacto" role="tab" data-toggle="tab">Local</a></li>
+    <li role="presentation"><a href="#tramite_grupos" aria-controls="tramite_grupos" role="tab" data-toggle="tab">Actividades</a></li>
+    <li role="presentation"><a href="#tramite_otros" aria-controls="tramite_otros" role="tab" data-toggle="tab">Otros datos</a></li>
+  </ul>
+&nbsp;
+  <!-- Tab panes -->
+  <div class="tab-content" style="min-height: 320px">
+    <div role="tabpanel" class="tab-pane active" id="tramite_basicos">
+
+{# *** General ****************************************************************************************************** #}
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Titular) }}
+    <div class="col-sm-10">
+        {{ form_widget(res.FormularioEditar.Titular) }}
+    	<span class="help-block">El titular puede ser una persona física o jurídica. Puede buscar las personas en los
+    	datos existentes usando el botón {{ tgen.Icon('search')|raw }}. Si la persona no existe en nuestros registros,
+    	puede agregarla <a href="{{ path('yacare_base_persona_editar_1') }}" target="_blank">haciendo clic aquí</a> (el
+    	formulario de alta se abre en una pantalla nueva; una vez terminada puede cerrar esa pantalla y volver aquí).
+    	</span>
+    </div>
+</div>
+
+<div class="row form-group">
+    {{ form_label(res.FormularioEditar.Comercio.Nombre) }}
+    <div class="col-sm-10">
+        {{ form_widget(res.FormularioEditar.Comercio.Nombre) }}
+    </div>
+</div>
+
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.Apoderado) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Apoderado) }}</div>
+    {{ form_label(res.FormularioEditar.Comercio.Apoderado2) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Apoderado2) }}</div>
+</div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tramite_contacto">
+
+{# *** Inueble ****************************************************************************************************** #} 
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.Local) }}
+    <div class="col-sm-10">
+        {{ form_widget(res.FormularioEditar.Comercio.Local) }}
+        <span class="help-block">El local comercial debe estar empadronado. Puede buscar el local en el padrón usando el
+        botón {{ tgen.Icon('search')|raw }}. Si el local no existe en el padrón, puede agregarla
+        <a href="{{ path('yacare_comercio_local_editar_1') }}" target="_blank">haciendo clic aquí</a> (el formulario de
+        alta se abre en una nueva pantalla).</span>
+    </div>
+</div>
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.DomicilioLegal) }}
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Comercio.DomicilioLegal) }}</div>
+</div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tramite_grupos">
+
+{# *** Actividades ************************************************************************************************** #}
+   
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.Actividad1) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad1) }}</div>
+    {{ form_label(res.FormularioEditar.Comercio.Actividad2) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad2) }}</div>
+</div>
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.Actividad3) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad3) }}</div>
+    {{ form_label(res.FormularioEditar.Comercio.Actividad4) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad4) }}</div>
+</div>
+
+<div class="row form-group">
+	{{ form_label(res.FormularioEditar.Comercio.Actividad5) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad5) }}</div>
+    {{ form_label(res.FormularioEditar.Comercio.Actividad6) }}
+    <div class="col-sm-4">{{ form_widget(res.FormularioEditar.Comercio.Actividad6) }}</div>
+</div>
+
+	</div>
+    <div role="tabpanel" class="tab-pane" id="tramite_otros">
+{# ***************************************************************************************************************** 
+   *** Tab 4: otros #}
+{{ form_rest(res.FormularioEditar) }}
+    </div>
+  </div>
+
+</div>
+{% endblock pagina_contenido %}
