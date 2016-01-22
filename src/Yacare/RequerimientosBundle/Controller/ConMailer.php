@@ -28,12 +28,14 @@ trait ConMailer
         }
         
         $Destinatarios = array();
-        if($Requerimiento->getEncargado() && $Requerimiento->getEncargado()->getEmail()) {
+        if($Requerimiento->getEncargado() && $Requerimiento->getEncargado()->getEmail() 
+            && filter_var($Requerimiento->getEncargado()->getEmail(), FILTER_VALIDATE_EMAIL)) {
             $Destinatarios[$Requerimiento->getEncargado()->getEmail()] = $Requerimiento->getEncargado()->NombreAmigable();
         }
-        if($Requerimiento->getUsuario() && $Requerimiento->getUsuario()->getEmail()) {
+        if($Requerimiento->getUsuario() && $Requerimiento->getUsuario()->getEmail()
+            && filter_var($Requerimiento->getUsuario()->getEmail(), FILTER_VALIDATE_EMAIL)) {
             $Destinatarios[$Requerimiento->getUsuario()->getEmail()] = $Requerimiento->getUsuario()->NombreAmigable();
-        } else {
+        } elseif(filter_var($Requerimiento->getUsuarioEmail(), FILTER_VALIDATE_EMAIL)) {
             if($Requerimiento->getUsuarioNombre()) {
                 $Destinatarios[$Requerimiento->getUsuarioNombre()] = $Requerimiento->getUsuarioEmail();
             } else {
