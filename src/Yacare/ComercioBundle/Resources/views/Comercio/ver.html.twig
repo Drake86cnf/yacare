@@ -162,7 +162,6 @@
 {% endblock %}
 
 {% block pagina_acciones %}
-    {% include 'YacareInspeccionBundle:ConTurno:boton.html.twig' %}
 	{% include 'YacareBaseBundle:ConRequiereAtencion:boton.html.twig' %}
 {% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR', 'ROLE_COMERCIO_INSPECTOR') %}
     <a data-toggle="ajax-link" class="btn btn-default"
