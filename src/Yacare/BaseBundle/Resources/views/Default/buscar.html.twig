@@ -3,7 +3,7 @@
 {% set filtro_buscar = app.request.get('filtro_buscar') %}
 {% set tapir_buscar_destino = app.request.get('tapir_buscar_destino') %}
 {% if not tapir_buscar_destino %}
-    {% set tapir_buscar_destino = path(baseroute ~ '_ver', arrastre|merge({ 'buscar': 1 }))|raw %}
+    {% set tapir_buscar_destino = path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'buscar': 1 }))|raw %}
 {% endif %}
 
 {% block pagina_fin %}
@@ -22,7 +22,7 @@
     }
 
     function buscarTexto(texto) {
-        url = tapirAgregarElementoUri('{{ path(baseroute ~ "_buscar", arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', texto);
+        url = tapirAgregarElementoUri('{{ path(res.ObtenerRutaAccion("buscar"), res.Arrastre|merge({ "filtro_buscar": null })) }}', 'filtro_buscar', texto);
         if('{{ tapir_buscar_destino }}'.charAt(0) != '#') {
             // Es una búsqueda cuyos resultados llevan a una URL al hacer clic
             tapirCambiarDireccion(url);
