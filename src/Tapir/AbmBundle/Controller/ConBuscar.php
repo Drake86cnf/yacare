@@ -34,7 +34,8 @@ trait ConBuscar
             return $this->listarAction($request);
         } else {
             // Si no hay texto de búsqueda, devuelvo una respuesta vacía
-            return $this->ArrastrarVariables($request, array());
+            $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoListarAction($this), $request);
+            return $this->ArrastrarVariables($request, array('res' => $res));
         }
     }
 

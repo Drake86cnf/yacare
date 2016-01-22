@@ -147,7 +147,7 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
                     if (strpos($BuscarPorCampo, '.') === false) {
                         $BuscarPorCampo = 'r.' . $BuscarPorCampo;
                     }
-                    $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%$palabra%'";
+                    $this->Where .= $BuscarPorNexo . $BuscarPorCampo . " LIKE '%" . addcslashes($palabra, "%_'") . "%'";
                     $BuscarPorNexo = ' OR ';
                 }
                 $this->Where .= ')';
