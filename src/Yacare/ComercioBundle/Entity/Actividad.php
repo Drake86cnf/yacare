@@ -236,17 +236,21 @@ class Actividad implements Tree\NodeInterface
     public function getClamae2014Formateado()
     {
         $codigo = $this->getClamae2014();
-        if (strlen($codigo) == 3) {
+        if($codigo == 'I' || $codigo == 'II' || $codigo == 'III' || $codigo == 'IV' || $codigo == 'V') {
+            return $codigo;
+        } elseif (strlen($codigo) == 3) {
             return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 1);
-        } else 
+        } else {
             if (strlen($codigo) == 4) {
                 return substr($codigo, 0, 2) . '-' . substr($codigo, 2, 2);
-            } else 
+            } else { 
                 if (strlen($codigo) == 7) {
                     return substr($codigo, 0, 6) . '-' . substr($codigo, 6, 1);
                 } else {
                     return $codigo;
                 }
+            }
+        }
     }
 
     /**
