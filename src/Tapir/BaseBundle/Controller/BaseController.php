@@ -75,6 +75,10 @@ abstract class BaseController extends Controller
         parent::setContainer($container);
         $this->IniciarVariables();
     }
+    
+    public function getContainer() {
+        return $this->container;
+    }
 
     /**
      * Obtiene el Entity Manager de Doctrine.
