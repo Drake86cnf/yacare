@@ -57,7 +57,7 @@
 	  		<p class="lead">{{ res.Entidad.Notas }}</p>
 	  		
 	  		{% if res.Entidad.Obs %}
-	  			<h3>Observaciones</h3>
+	  			{{ tgen.Header3('Observaciones')|raw }}
 	  			<p>{{ res.Entidad.Obs }}</p>
 	  		{% endif %}
 		
@@ -158,22 +158,22 @@
 
 <h2 class="row-header">Novedades</h2>
 <div class="container-fluid">
-{% if form_novedad is defined and app.user is defined %}
-{{ form_start(form_novedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 
-    'attr': { 'id': 'form_novedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
+{% if res.FormularioNovedad is defined and app.user is defined %}
+{{ form_start(res.FormularioNovedad, { 'action': path('yacare_requerimientos_novedad_publicar'), 'method': 'POST', 
+    'attr': { 'id': 'res.FormularioNovedad', 'data-toggle': 'ajax-form', 'data-target': '#nuevocomentario' } }) }}
     <div class="row hidden-print">
         <div class="col-xs-2 text-center">
-        	<i class="fa fa-user fa-2x text-left text-info"></i>
+            {{ tgen.Icon('user', { class: 'fa-2x text-left text-info' })|raw }}
         	<br />
         	<small>{{ app.user.NombreAmigable }}</small>
         </div>
         <div class="col-xs-10 bubblea" id="nuevocomentario">
-            {{ form_errors(form_novedad) }}
-            {{ form_widget(form_novedad._token) }}
-            {{ form_widget(form_novedad.Notas, { 'attr': 
+            {{ form_errors(res.FormularioNovedad) }}
+            {{ form_widget(res.FormularioNovedad._token) }}
+            {{ form_widget(res.FormularioNovedad.Notas, { 'attr': 
                 { 'placeholder': 'Publicar un comentario...', 'autofocus': 'autofocus' } }) }}
-            {{ form_widget(form_novedad.Privada, { 'attr': { 'class': 'btn-xs' } }) }}
-            {{ form_rest(form_novedad) }}
+            {{ form_widget(res.FormularioNovedad.Privada, { 'attr': { 'class': 'btn-xs' } }) }}
+            {{ form_rest(res.FormularioNovedad) }}
             <button type="submit" class="btn btn-xs btn-default pull-right">
             	<i class="fa fa-comment-o"></i> Publicar</button>
             
@@ -194,7 +194,7 @@
         $('#novedad_Notas').keypress(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                $('form#form_novedad').submit();
+                $('form#res.FormularioNovedad').submit();
                 return false;
             }
         });
@@ -206,13 +206,13 @@
             }
         }).change();
     </script>
-    {{ form_end(form_novedad) }}
+    {{ form_end(res.FormularioNovedad) }}
     <hr class="hidden-print" />
 {% endif %}
 
 {% if res.Entidad.Novedades|length == 0 %}
     <p> No hay novedades ni comentarios. 
-        {% if form_novedad is defined %}Puede ser el primero en agregar uno.{% endif %}</p>
+        {% if res.FormularioNovedad is defined %}Puede ser el primero en agregar uno.{% endif %}</p>
 {% else %}
 	{% set ultimanovedad = false %}
     {% for novedad in res.Entidad.Novedades|reverse %}
@@ -268,56 +268,7 @@
 </div>
 {% endif %}
 
-<div class="btn-group">
-  <button type="button" class="btn {% if res.Entidad.Estado >= 80 %}btn-default {% else %}btn-success {% endif %}dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Avance <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right">
-  	<li class="dropdown-header">{{ res.Entidad.EstadoNombre }}</li>
-{% if res.Entidad.Estado == 0 %}
-    {# Nuevo #}
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-fw fa-play"></i> Iniciar</a>
-     <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
-    <li role="separator" class="divider"></li>
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 80, 'hisapi': 0 })) }}"
-        data-toggle="ajax-link"><i class="fa fa-fw fa-times"></i> Cancelar</a>
-{% endif %}
-{% if res.Entidad.Estado == 10 %}
-    {# Iniciado #}
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 20, 'hisapi': 0 })) }}" 
-   		data-toggle="ajax-link"  ><i class="fa fa-fw fa-refresh"></i> Poner en espera</a>
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 }))  }}"
-    	data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
-{% endif %}
-{% if res.Entidad.Estado == 20 %}
-    {# En espera #}
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-fw fa-play"></i> Continuar</a>
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({'id': res.Entidad.id, 'nuevoestado': 90, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-fw fa-check"></i> Terminar</a>
-{% endif %}
-{% if res.Entidad.Estado == 90 %}
-    {# Terminado #}
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 99, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-fw fa-flag-checkered"></i> Cerrar y archivar</a>
-{% endif %}
-{% if res.Entidad.Estado >= 80 and tapir_hasanyrole('ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
-    {# Cerrado #}
-    <li><a href="{{ path(res.ObtenerRutaAccion('cambiarestado'), 
-        res.Arrastre|merge({ 'id': res.Entidad.id, 'nuevoestado': 10, 'hisapi': 0 })) }}"
-    	data-toggle="ajax-link" ><i class="fa fa-fw fa-refresh"></i> Reabrir</a>
-{% endif %}
-  </ul>
-</div>
+{{ res.BotonAvance|raw }}
+
 {% endblock pagina_acciones %}
 

@@ -22,7 +22,6 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
     }
     use \Tapir\AbmBundle\Controller\ConBuscar;
     use \Yacare\RequerimientosBundle\Controller\ConMailer;
-    
     private $vistaMailNuevoRequerimiento = 'YacareRequerimientosBundle:Requerimiento/Mail:requerimiento_nuevo.html.twig';
 
     function __construct()
@@ -47,8 +46,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $Requerimiento = new \Yacare\RequerimientosBundle\Entity\Requerimiento();
         
-        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\RequerimientoAnonimoType', 
-            $Requerimiento);
+        $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\RequerimientoAnonimoType', $Requerimiento);
         $FormEditar->handleRequest($request);
         
         if ($FormEditar->isValid()) {
@@ -61,7 +59,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
             $em->flush();
             $this->InformarNovedad($request, $Requerimiento, $this->vistaMailNuevoRequerimiento);
             
-            return $this->redirectToRoute($this->obtenerRutaBase('anonimover_1'),
+            return $this->redirectToRoute($this->obtenerRutaBase('anonimover_1'), 
                 array('seg' => $Requerimiento->getSeguimientoNumero()));
         } else {
             $validator = $this->get('validator');
@@ -140,8 +138,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         }
         return $res;
     }
-    
-    
+
     /**
      * Reportar un problema. Ruta estándar de Tapir.
      *
@@ -154,7 +151,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         $request->query->set('form', 'ReportarProblema');
         return $this->editarAction($request);
     }
-    
+
     /**
      * Enviar un comentario. Ruta estándar de Tapir.
      *
@@ -168,8 +165,8 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         return $this->editarAction($request);
     }
 
-
-    protected function CrearNuevaEntidad(Request $request) {
+    protected function CrearNuevaEntidad(Request $request)
+    {
         $Entidad = parent::CrearNuevaEntidad($request);
         
         $CategoriaId = $this->ObtenerVariable($request, 'catid');
@@ -182,13 +179,12 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         }
         
         $Obs = $this->ObtenerVariable($request, 'obs');
-        if($Obs) {
+        if ($Obs) {
             $Entidad->setObs($Obs);
         }
         
         return $Entidad;
     }
-    
 
     /**
      * Crear un reclamo mediante un asistente.
@@ -341,25 +337,115 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
      */
     public function verAction(Request $request)
     {
-        $res = $this->parent_verAction($request);
+        $ResultadoVer = $this->parent_verAction($request);
+        $res = $ResultadoVer['res'];
         
         $UsuarioConectado = $this->get('security.token_storage')->getToken()->getUser();
         
         if (! is_string($UsuarioConectado)) {
-            $AntiguedadEnDias = $res['res']->Entidad->getUpdatedAt()->diff(new \DateTime());
-            if ($res['res']->Entidad->getEstado() < 50 || $AntiguedadEnDias->days < 30) {
+            $AntiguedadEnDias = $res->Entidad->getUpdatedAt()->diff(new \DateTime());
+            if ($res->Entidad->getEstado() < 50 || $AntiguedadEnDias->days < 30) {
                 // Sólo se permite publicar novedades si el requerimiento todavía no fue cerrado
                 // o si tuvo actividad en los últimos 30 días.
                 // O sea, los requerimientos cerrados siguen siendo comentables durante 30 días.
                 $NuevaNovedad = new \Yacare\RequerimientosBundle\Entity\Novedad();
                 $NuevaNovedad->setPrivada(0);
-                $NuevaNovedad->setRequerimiento($res['res']->Entidad);
+                $NuevaNovedad->setRequerimiento($res->Entidad);
                 $NuevaNovedad->setUsuario($UsuarioConectado);
                 $FormEditar = $this->createForm('Yacare\RequerimientosBundle\Form\NovedadType', $NuevaNovedad);
-                $res['form_novedad'] = $FormEditar->createView();
+                $res->FormularioNovedad = $FormEditar->createView();
             }
         }
-        return $res;
+        
+        $Requerimiento = $res->Entidad;
+        
+        // Genero las opciones apropiadas para el botón avance
+        $Tgen = \Tapir\TemplateBundle\Twig\TgenExtension::getDefaultTgen();
+        
+        $EnlaceIniciar = $Tgen->Link('Iniciar', [
+            'icon' => 'play',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado', 
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 10, 'hisapi' => 0])]);
+        
+        $EnlaceContinuar = $Tgen->Link('Continuar', [
+            'icon' => 'play',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 10, 'hisapi' => 0])]);
+        
+        $EnlaceReabrir = $Tgen->Link('Reabrir', [
+            'icon' => 'play',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 10, 'hisapi' => 0])]);
+        
+        $EnlaceEspera = $Tgen->Link('Poner en espera', [
+            'icon' => 'refresh',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 20, 'hisapi' => 0])]);
+        
+        $EnlaceCancelar = $Tgen->Link('Cancelar', [
+            'icon' => 'times',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 80, 'hisapi' => 0])]);
+        
+        $EnlaceTerminar = $Tgen->Link('Terminar', [
+            'icon' => 'check',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 90, 'hisapi' => 0])]);
+        
+        $EnlaceCerrar = $Tgen->Link('Cerrar y archivar', [
+            'icon' => 'flag-checkered',
+            'ajax' => true,
+            'href' => $res->UrlAccion('cambiarestado',
+                ['id' => $Requerimiento->getId(), 'nuevoestado' => 99, 'hisapi' => 0])]);
+        
+        $OpcionesAvance = [];
+        
+        switch ($Requerimiento->getEstado()) {
+            case 0:
+                // Nuevo
+                $OpcionesAvance[] = $EnlaceIniciar;
+                $OpcionesAvance[] = 'bootstrap-divider';
+                $OpcionesAvance[] = $EnlaceCancelar;
+                break;
+            case 10:
+                // Iniciado
+                $OpcionesAvance[] = $EnlaceEspera;
+                $OpcionesAvance[] = $EnlaceTerminar;
+                $OpcionesAvance[] = 'bootstrap-divider';
+                $OpcionesAvance[] = $EnlaceCancelar;
+                break;
+            case 20:
+                // En espera
+                $OpcionesAvance[] = $EnlaceContinuar;
+                $OpcionesAvance[] = $EnlaceTerminar;
+                $OpcionesAvance[] = 'bootstrap-divider';
+                $OpcionesAvance[] = $EnlaceCancelar;
+                break;
+            case 80:
+                // Cancelado
+                $OpcionesAvance[] = $EnlaceReabrir;
+                break;
+            case 90:
+                // Terminado
+                $OpcionesAvance[] = $EnlaceCerrar;
+                $OpcionesAvance[] = 'bootstrap-divider';
+                $OpcionesAvance[] = $EnlaceReabrir;
+                break;
+            case 99:
+                // Cerrado
+                $OpcionesAvance[] = $EnlaceReabrir;
+                break;
+        }
+        
+        $res->BotonAvance = $Tgen->DropdownButton('Avance', $OpcionesAvance, [ 'menu-right' => true ]);
+        
+        return $ResultadoVer;
     }
 
     /**
@@ -623,12 +709,13 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
         
         switch ($campoNombre) {
             case 'Categoria':
-                $FormEditarBuilder->add($campoNombre, 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                    'label' => 'Categoría', 
-                    'placeholder' => 'Sin categoría',
-                    'attr' => array('class' => 'tapir-input-320'),
-                    'class' => 'YacareRequerimientosBundle:Categoria', 
-                    'required' => false));
+                $FormEditarBuilder->add($campoNombre, 'Symfony\Bridge\Doctrine\Form\Type\EntityType', 
+                    array(
+                        'label' => 'Categoría', 
+                        'placeholder' => 'Sin categoría', 
+                        'attr' => array('class' => 'tapir-input-320'), 
+                        'class' => 'YacareRequerimientosBundle:Categoria', 
+                        'required' => false));
                 $NuevaNovedad->setAutomatica(1);
                 break;
         }
@@ -642,8 +729,7 @@ class RequerimientoController extends \Tapir\AbmBundle\Controller\AbmController
                     if ($entity->getCategoria() != $CategoriaAnterior) {
                         if ($entity->getCategoria()) {
                             if (! $entity->getEncargado() && $entity->getCategoria()->getEncargado()) {
-                                $entity->setEncargado(
-                                    $entity->getCategoria()->getEncargado());
+                                $entity->setEncargado($entity->getCategoria()->getEncargado());
                                 $NuevaNovedad->setNotas(
                                     'El requerimiento fue movido a la categoría ' . $entity->getCategoria() .
                                          '. El encargado es ' . $entity->getEncargado());
