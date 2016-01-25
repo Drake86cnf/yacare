@@ -40,9 +40,12 @@ class TgenExtension extends \Twig_Extension
     {
         if(!$this->Tgen) {
             // TODO: que se pueda configurar el generador
-            $this->Tgen = new \Tapir\TemplateBundle\Tgen\Bootstrap3Generator();
+            $this->Tgen = TgenExtension::getDefaultTgen();
         }
         return $this->Tgen;
     }
- 
+    
+    public static function getDefaultTgen() {
+        return new \Tapir\TemplateBundle\Tgen\Bootstrap3Generator();
+    }
 }

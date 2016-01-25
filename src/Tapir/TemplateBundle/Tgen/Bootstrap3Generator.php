@@ -57,6 +57,11 @@ class Bootstrap3Generator extends HtmlGenerator
             $attr['data-toggle'] = 'modal';
             unset($attr['modal']);
         }
+        
+        if(array_key_exists('icon', $attr) && $attr['icon']) {
+            $content = $this->IconAndText($attr['icon'], $content);
+            unset($attr['icon']);
+        }
     
         return new Tag('a', $content, $attr);
     }
@@ -72,11 +77,6 @@ class Bootstrap3Generator extends HtmlGenerator
         } elseif(array_key_exists('modal', $attr) && $attr['modal']) {
             $attr['data-toggle'] = 'modal';
             unset($attr['modal']);
-        }
-        
-        if(array_key_exists('icon', $attr) && $attr['icon']) {
-            $content = $this->IconAndText($attr['icon'], $content);
-            unset($attr['icon']);
         }
     
         if(array_key_exists('tag', $attr) && $attr['tag'] == 'button') {
@@ -108,7 +108,6 @@ class Bootstrap3Generator extends HtmlGenerator
         } elseif(is_string($content) && $content == 'bootstrap-divider') {
             return new Tag('li', '', [ 'role' => 'separator', 'class' => 'divider' ]);
         } else {
-            print_r($content);
             return new Tag('li', $content, $attr = null);
         }
     }
@@ -122,6 +121,14 @@ class Bootstrap3Generator extends HtmlGenerator
             'data-toggle' => 'dropdown',
             'tag' => 'button'
         ]);
+        
+        if(array_key_exists('menu-right', $attr) && $attr['menu-right']) {
+            $MenuRight = true;
+            unset($attr['menu-right']);
+        } else {
+            $MenuRight = false;
+        }
+        
         return $this->Div(
             new Content(
                 $this->Button(
@@ -130,9 +137,9 @@ class Bootstrap3Generator extends HtmlGenerator
                 ),
                 $this->UnorderedList(
                     $content,
-                    [ 'class' => 'dropdown-menu' ])
+                    [ 'class' => 'dropdown-menu' . ($MenuRight ? ' dropdown-menu-right' : '') ])
                 ),
-            [ 'class' => 'dropdown' ]);
+            [ 'class' => 'btn-group' ]);
     }
     
     public function Icon($name, $attr = null) {
