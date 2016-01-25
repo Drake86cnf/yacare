@@ -14,11 +14,11 @@
     
     <div class="btn-group btn-group-justified" role="group">
     	<a href="#" class="btn btn-sm {{ not res.Filtros['prefijo'] ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('');">Todas</a>
-    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'IV' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/IV');">Venta</a>
-    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'V' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/V');">Servicios</a>
-    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'II' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/II');">Industria</a>
-    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'III' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/III');">Infr. y construcción</a>
-    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'I' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/I');">Act. primarias</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/IV' or res.Filtros['prefijo'][:4] == '/IV/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/IV');">Venta</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/V' or res.Filtros['prefijo'][:3] == '/V/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/V');">Servicios</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/II' or res.Filtros['prefijo'][:4] == '/II/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/II');">Industria</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/III' or res.Filtros['prefijo'][:5] == '/III/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/III');">Infr. y construcción</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/I' or res.Filtros['prefijo'][:3] == '/I/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/I');">Act. primarias</a>
 	</div>
 	
     {% if res.Categoria %}
@@ -31,8 +31,12 @@
     
 <script type="text/javascript">
 function CambiarFiltroPrefijo(filtro) {
-	url = '{{ path(res.ObtenerRutaAccion('buscar'), res.Arrastre|merge({ 'filtro_prefijo': null, 'tapir_solocontenido': 1, 'tapir_buscar_destino': tapir_buscar_destino, 'soloresultados': 1 })) }}';
-	url = tapirAgregarElementoUri(url, 'filtro_prefijo', filtro); 
+	url = '{{ path(res.ObtenerRutaAccion('buscar'), res.Arrastre|merge({ 'filtro_prefijo': null, 'filtro_buscar': filtro_buscar })) }}';
+	url = tapirAgregarElementoUri(url, 'filtro_prefijo', filtro);
+    url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
+    url = tapirAgregarElementoUri(url, 'soloresultados', 1);
+    url = tapirAgregarElementoUri(url, 'tapir_solocontenido', 1);
+
 	tapirCargarUrlEn(url, '#resultadosbuscar'); return false;
 }
 </script>
@@ -48,7 +52,6 @@ function CambiarFiltroPrefijo(filtro) {
 			{% if entidad.Final %}
 				<h2><a href="#" onclick="return seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}');">{{ entidad.Nombre }}</a></h2>
 			{% else %}
-			    {{ entidad.MaterializedPath }}
 				<h2><a href="#" onclick="return CambiarFiltroPrefijo('{{ entidad.MaterializedPath }}');">{{ entidad.Nombre }}</a></h2>
 			{% endif %}
 		</div>
@@ -57,8 +60,8 @@ function CambiarFiltroPrefijo(filtro) {
 	<div class="row">
 		<div class="col-md-4">
 			<p>
-			<span class="text-muted">ClaMAE: </span>{{ entidad.Clamae2014 }}<br />
-			<span class="text-muted">AFIP: </span>{{ entidad.Clamae2014|slice(0, 6) }}<br />
+    			<span class="text-muted">ClaMAE: </span>{{ entidad.Clamae2014 }}<br />
+    			<span class="text-muted">AFIP: </span>{{ entidad.Clamae2014|slice(0, 6) }}<br />
 				<span class="text-muted">DGR: </span>{{ entidad.DgrTdf }}<br />
 				<span class="text-muted">INDEC: </span>{{ entidad.Clamae2014|slice(0, 5) }}<br />
 			</p>
@@ -74,7 +77,6 @@ function CambiarFiltroPrefijo(filtro) {
 	{% elseif entidad.Incluye %}
 		<p>{{ entidad.Incluye }}</p>
 	{% endif %}
-	<hr />
 	{% endfor %}
 </div>
 {% else %}

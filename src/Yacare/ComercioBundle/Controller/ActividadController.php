@@ -49,14 +49,11 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
         
         if ($filtro_prefijo) {
-            $this->Where .= " AND r.MaterializedPath LIKE '" . addcslashes($filtro_prefijo, "%_/'") . "/%'";
-            echo "($filtro_prefijo)";
+            $this->Where .= " AND r.MaterializedPath LIKE '" . addcslashes($filtro_prefijo, "%_'") . "/%'";
             $Categoria = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'MaterializedPath' => $filtro_prefijo ]);
             if(is_array($Categoria) && count($Categoria) == 1) {
-                echo '1;';
                 $Categoria = $Categoria[0];
             } else {
-                echo '0;';
                 print_r($Categoria);
             }
         } else {
@@ -66,6 +63,8 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         $ResultadoBuscar = $this->buscarAction2($request);
         $res = $ResultadoBuscar['res'];
         
+        //echo $this->Where;
+        //echo $_SERVER['REQUEST_URI'];
         if($filtro_buscar) {
             // Nada
         } elseif($Categoria) {
