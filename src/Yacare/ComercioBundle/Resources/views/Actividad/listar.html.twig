@@ -18,11 +18,11 @@
 	</thead>
 	<tbody>
 		{% for entity in res.Entidades %}
-			<tr {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %}
-			    {% if entity.Final %} data-toggle="ajax-link"
-					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id }) }}"
-			    {% else %} data-toggle="ajax-link"
-					href="{{ path(baseroute ~ '_editar', { 'id': entity.Id, 'form':'ActividadCategoria' }) }}"
+			<tr {% if tapir_hasanyrole('ROLE_ADMINISTRADOR') %} data-toggle="ajax-link"
+			    {% if entity.Final %} 
+					href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entity.Id }) }}"
+			    {% else %}
+					href="{{ path(res.ObtenerRutaAccion('editar'), { 'id': entity.Id, 'form':'ActividadCategoria' }) }}"
 				{%endif%}  	
 			{% endif %}>
 			<td>{{ entity.Clamae2014Formateado }}</td>

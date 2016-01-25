@@ -30,7 +30,61 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         $this->BuscarPor = 'Nombre,Clamae2014,Incluye,DgrTdf,Clanae2010';
         $this->OrderBy = 'MaterializedPath';
         $this->Paginar = false;
+        $this->ConservarVariables[] = 'filtro_prefijo';
+        $this->ConservarVariables[] = 'filtro_buscar';
     }
+    
+    
+    /**
+     * @Route("buscar/")
+     * @Template()
+     */
+    public function buscarAction(Request $request)
+    {
+        $em = $this->getEm();
+
+        $this->Where = 'r.Final=1';
+        
+        $filtro_prefijo = $this->ObtenerVariable($request, 'filtro_prefijo');
+        $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
+        
+        if ($filtro_prefijo) {
+            $this->Where .= " AND r.MaterializedPath LIKE '" . addcslashes($filtro_prefijo, "%_/'") . "/%'";
+            echo "($filtro_prefijo)";
+            $Categoria = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'MaterializedPath' => $filtro_prefijo ]);
+            if(is_array($Categoria) && count($Categoria) == 1) {
+                echo '1;';
+                $Categoria = $Categoria[0];
+            } else {
+                echo '0;';
+                print_r($Categoria);
+            }
+        } else {
+            $Categoria = null;
+        }
+        
+        $ResultadoBuscar = $this->buscarAction2($request);
+        $res = $ResultadoBuscar['res'];
+        
+        if($filtro_buscar) {
+            // Nada
+        } elseif($Categoria) {
+            $res->Entidades = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'ParentNode' => $Categoria ]);
+            if(count($res->Entidades) == 1) {
+                // Hay una sola subcategoría... desciendo un nivel más
+                $res->Entidades = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'ParentNode' => $res->Entidades[0] ]);
+            }
+        }
+        
+        $res->Categoria = $Categoria;
+        
+        $this->OrderBy = 'MaterializedPath DESC';
+        
+        $res->Filtros['prefijo'] = $filtro_prefijo;
+        
+        return $ResultadoBuscar;
+    }
+    
 
     protected function getExportarListaExcel($entities, $phpExcelObject)
     {
@@ -126,122 +180,12 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         return $i;
     }
 
-    public function guardarActionPrePersist($entity, $editForm)
+    /* public function guardarActionPrePersist($entity, $editForm)
     {
         $em = $this->getEm();
         
-        if (! $entity->getId()) {
-            /*
-             * No tiene id. Como es parte de un árbol, necesito asignar un id manualmente.
-             */
-            $nuevoId = $this->getDoctrine()
-                ->getManager()
-                ->createQuery('SELECT MAX(r.id) FROM YacareComercioBundle:Actividad r')
-                ->getSingleScalarResult();
-            $entity->setId(++ $nuevoId);
-            $metadata = $em->getClassMetaData(get_class($entity));
-            $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-        }
         
-        /*
-         * Quito guiones, espacios y puntos del código
-         */
-        $codigo = trim(str_replace('-', '', str_replace(' ', '', str_replace('.', '', $entity->getClamae2014()))));
-        $entity->setClamae2014($codigo);
-        
-        /*
-         * Calculo el ClaE AFIP y el ClaNAE 2010
-         */
-        $entity->setClaeAfip(substr($codigo, 0, 6));
-        $entity->setClanae2010(substr($codigo, 0, 5));
-        
-        /*
-         * Busco un ParentNode acorde al código ingresado
-         */
-        if (strlen($codigo) == 7) {
-            // Los códigos finales (de 7 dígitos) dependen de una clase (4 dígitos)
-            $codigoPadre = substr($codigo, 0, 4);
-            $entity->setFinal(true);
-        } elseif (strlen($codigo) == 4) {
-            // Las clases (de 4 dígitos) dependen de un grupo (3 dígitos)
-            $codigoPadre = substr($codigo, 0, 3);
-        } elseif (strlen($codigo) == 3) {
-            // Los grupos (de 3 dígitos) dependen de una división (2 dígitos)
-            $codigoPadre = substr($codigo, 0, 2);
-        } elseif (strlen($codigo) == 2) {
-            // Las divisiones (de 2 dígitos) dependen de una categoría (1 letra)
-            // Esta estructura es fija del ClaNAE 2010
-            $codigo = (int) ($codigo);
-            if ($codigo <= 4) {
-                $codigoPadre = 'A';
-            } elseif ($codigo <= 9) {
-                $codigoPadre = 'B';
-            } elseif ($codigo <= 34) {
-                $codigoPadre = 'C';
-            } elseif ($codigo <= 35) {
-                $codigoPadre = 'D';
-            } elseif ($codigo <= 40) {
-                $codigoPadre = 'E';
-            } elseif ($codigo <= 44) {
-                $codigoPadre = 'F';
-            } elseif ($codigo <= 48) {
-                $codigoPadre = 'G';
-            } elseif ($codigo <= 54) {
-                $codigoPadre = 'H';
-            } elseif ($codigo <= 57) {
-                $codigoPadre = 'I';
-            } elseif ($codigo <= 63) {
-                $codigoPadre = 'J';
-            } elseif ($codigo <= 67) {
-                $codigoPadre = 'K';
-            } elseif ($codigo <= 68) {
-                $codigoPadre = 'L';
-            } elseif ($codigo <= 76) {
-                $codigoPadre = 'M';
-            } elseif ($codigo <= 83) {
-                $codigoPadre = 'N';
-            } elseif ($codigo <= 84) {
-                $codigoPadre = 'O';
-            } elseif ($codigo <= 85) {
-                $codigoPadre = 'P';
-            } elseif ($codigo <= 89) {
-                $codigoPadre = 'Q';
-            } elseif ($codigo <= 93) {
-                $codigoPadre = 'R';
-            } elseif ($codigo <= 96) {
-                $codigoPadre = 'S';
-            } elseif ($codigo <= 98) {
-                $codigoPadre = 'T';
-            } elseif ($codigo <= 99) {
-                $codigoPadre = 'U';
-            } else {
-                $codigoPadre = '';
-            }
-        } else {
-            $codigoPadre = '';
-        }
-        
-        if ($codigoPadre) {
-            $em = $this->getDoctrine()->getManager();
-            $parentNode = $em->getRepository('YacareComercioBundle:Actividad')->findOneBy(
-                array('Clamae2014' => $codigoPadre));
-            $entity->setParentNode($parentNode);
-        }
-        
-        $hijos = $em->getRepository('YacareComercioBundle:Actividad')->findBy(array('ParentNode' => $entity->getId()));
         return parent::guardarActionPrePersist($entity, $editForm);
-    }
-
-    /**
-     * @Route("buscar/")
-     * @Template()
-     */
-    public function buscarAction(Request $request)
-    {
-        $this->Where = 'r.Final=1';
-        $this->OrderBy = 'MaterializedPath DESC';
-        
-        return $this->buscarAction2($request);
-    }
+    } */
 }
 

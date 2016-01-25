@@ -11,19 +11,49 @@
         <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
             class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
     </div>
+    
+    <div class="btn-group btn-group-justified" role="group">
+    	<a href="#" class="btn btn-sm {{ not res.Filtros['prefijo'] ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('');">Todas</a>
+    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'IV' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/IV');">Venta</a>
+    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'V' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/V');">Servicios</a>
+    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'II' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/II');">Industria</a>
+    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'III' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/III');">Infr. y construcción</a>
+    	<a href="#" class="btn btn-sm {{ res.Filtros['prefijo'] == 'I' ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/I');">Act. primarias</a>
+	</div>
+	
+    {% if res.Categoria %}
+    	<h3>{{ res.Categoria }}</h3>
+	    {% if res.Categoria.Incluye %}<p>Incluye: {{ res.Categoria.Incluye|nl2br }}</p>{% endif %}
+    {% else %}
+    	&nbsp;<br />
+	{% endif %}
+  	
+    
+<script type="text/javascript">
+function CambiarFiltroPrefijo(filtro) {
+	url = '{{ path(res.ObtenerRutaAccion('buscar'), res.Arrastre|merge({ 'filtro_prefijo': null, 'tapir_solocontenido': 1, 'tapir_buscar_destino': tapir_buscar_destino, 'soloresultados': 1 })) }}';
+	url = tapirAgregarElementoUri(url, 'filtro_prefijo', filtro); 
+	tapirCargarUrlEn(url, '#resultadosbuscar'); return false;
+}
+</script>
 
-{% if entities is defined and entities|length > 0 %}
 &nbsp;
+{% if res.Entidades is defined and res.Entidades|length > 0 %}
 <div class="container-fluid">
 	{% for entidad in res.Entidades %}
 	<div class="row">
 		<div class="col-md-12"
-			onclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}'); return false;">
-			<span class="small text-muted">{{ entidad.Ruta|raw }}</span><br />
-			<h2><a href="#" onclick="seleccionarItem('{{ entidad.id }}',
-				'{{ entidad.Nombre }}'); return false;">{{ entidad.Nombre }}</a></h2>
+			aonclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}'); return false;">
+			{#<span class="small text-muted">{{ entidad.Ruta|raw }}</span><br /> #}
+			{% if entidad.Final %}
+				<h2><a href="#" onclick="return seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}');">{{ entidad.Nombre }}</a></h2>
+			{% else %}
+			    {{ entidad.MaterializedPath }}
+				<h2><a href="#" onclick="return CambiarFiltroPrefijo('{{ entidad.MaterializedPath }}');">{{ entidad.Nombre }}</a></h2>
+			{% endif %}
 		</div>
 	</div>
+	{% if entidad.Final %}
 	<div class="row">
 		<div class="col-md-4">
 			<p>
@@ -41,6 +71,9 @@
 				incluye</strong> {{ entidad.NoIncluye }}</small></span>{% endif %}
 		</div>
 	</div>
+	{% elseif entidad.Incluye %}
+		<p>{{ entidad.Incluye }}</p>
+	{% endif %}
 	<hr />
 	{% endfor %}
 </div>
