@@ -12,6 +12,10 @@ class Content
         $this->Content = $content;
     }
     
+    public function AddContent($content) {
+        $this->Content[] = $content;
+    }
+    
     public function Render($content = null) {
         $res = '';
         foreach($this->Content as $content) {

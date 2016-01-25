@@ -49,6 +49,18 @@ class Bootstrap3Generator extends HtmlGenerator
         return new Tag('div', $content, $attr);
     }
     
+    public function Link($content, $attr = null) {
+        if(array_key_exists('ajax', $attr) && $attr['ajax']) {
+            $attr['data-toggle'] = 'ajax-link';
+            unset($attr['ajax']);
+        } elseif(array_key_exists('modal', $attr) && $attr['modal']) {
+            $attr['data-toggle'] = 'modal';
+            unset($attr['modal']);
+        }
+    
+        return new Tag('a', $content, $attr);
+    }
+    
     public function Button($content, $attr = null) {
         $attr = HtmlGenerator::MergeAttributes($attr, array(
             'class' => 'btn btn-default'
@@ -67,13 +79,73 @@ class Bootstrap3Generator extends HtmlGenerator
             unset($attr['icon']);
         }
     
-        return new Tag('a', $content, $attr);
+        if(array_key_exists('tag', $attr) && $attr['tag'] == 'button') {
+            return new Tag('button', $content, $attr);
+        } else {
+            return new Tag('a', $content, $attr);
+        }
+    }
+    
+    public function UnorderedList($content, $attr = null) {
+        $Items = new Content();
+        foreach($content as $item) {
+            $Items->AddContent($this->ListItem($item));
+        }
+        return new Tag('ul', $Items, $attr);
+    }
+    
+    public function OrderedList($content, $attr = null) {
+        $Items = new Content();
+        foreach($content as $item) {
+            $Items->AddContent($this->ListItem($item));
+        }
+        return new Tag('ol', $Items, $attr);
+    }
+    
+    public function ListItem($content, $attr = null) {
+        if(is_array($content) && count($content) == 2) {
+            return new Tag('li', $this->Link($content[0], [ 'href' => $content[1] ]));
+        } elseif(is_string($content) && $content == 'bootstrap-divider') {
+            return new Tag('li', '', [ 'role' => 'separator', 'class' => 'divider' ]);
+        } else {
+            print_r($content);
+            return new Tag('li', $content, $attr = null);
+        }
+    }
+
+    public function DropdownButton($label, $content, $attr = null) {
+        
+        $attr = HtmlGenerator::MergeAttributes($attr, [ 
+            'class' => 'btn btn-default dropdown-toggle',
+            'aria-expanded' => 'false',
+            'aria-haspopup' => 'true',
+            'data-toggle' => 'dropdown',
+            'tag' => 'button'
+        ]);
+        return $this->Div(
+            new Content(
+                $this->Button(
+                    new Content($label, ' ', $this->Span('', [ 'class' => 'caret'])),
+                    $attr
+                ),
+                $this->UnorderedList(
+                    $content,
+                    [ 'class' => 'dropdown-menu' ])
+                ),
+            [ 'class' => 'dropdown' ]);
     }
     
     public function Icon($name, $attr = null) {
         $attr = HtmlGenerator::MergeAttributes($attr, array(
             'class' => 'fa fa-' . $name
         ));
+        
+        if(array_key_exists('fw', $attr) && $attr['fw']) {
+            $attr = HtmlGenerator::MergeAttributes($attr, array(
+                'class' => 'fa-fw'
+            ));
+            unset($attr['fw']);
+        }
     
         return new Tag('i', null, $attr);
     }

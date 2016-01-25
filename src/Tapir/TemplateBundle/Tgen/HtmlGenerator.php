@@ -7,7 +7,13 @@ namespace Tapir\TemplateBundle\Tgen;
 class HtmlGenerator
 {
     public static function Render($content) {
-        if(is_a($content, 'Tapir\TemplateBundle\Tgen\Tag', false)) {
+        if(is_array($content)) {
+            $res = '';
+            foreach($content as $item) {
+                $res .= Render($item);
+            }
+            return $res;
+        } elseif(is_a($content, 'Tapir\TemplateBundle\Tgen\Tag', false)) {
             return $content->Render();
         } elseif(is_a($content, 'Tapir\TemplateBundle\Tgen\Content', false)) {
             return $content->Render();
