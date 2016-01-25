@@ -54,7 +54,7 @@ apt-get install git php5 php5-cli php5-gd php5-mysqlnd \
 ```
 
 En Ubuntu y probablemente en otras distribuciones deberá descargar Eclipse PDT
-según las instrucciones de la página (https://eclipse.org/pdt/).      
+según las instrucciones de la página (https://eclipse.org/pdt/).
 
 Además, es necesario instalar un servidor MariaDB o MySQL si no se tiene uno.
 
@@ -138,3 +138,4 @@ bin/phpdoc -d src -t docs/class
 
 * Descargar e instalar su distribución favorita de Linux, por ejemplo Fedora (https://getfedora.org/es/workstation/download/).
 * Continuar desde el paso 1 de la sección anterior.
+
