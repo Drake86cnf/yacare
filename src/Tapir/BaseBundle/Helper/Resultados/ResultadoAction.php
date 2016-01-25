@@ -9,9 +9,11 @@ namespace Tapir\BaseBundle\Helper\Resultados;
 abstract class ResultadoAction
 {
     public $Controlador;
+    public $Container;
 
     function __construct($controlador)
     {
         $this->Controlador = $controlador;
+        $this->Container = $controlador->getContainer();
     }
 }

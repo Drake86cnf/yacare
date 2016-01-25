@@ -47,6 +47,23 @@ class ResultadoActionBaseController extends ResultadoAction
         return $this->RutaBase . '_' . $accion;
     }
     
+    /**
+     * Devuelve un array combinando las variables de arrastre con las variables proporcionadas. 
+     */
+    public function Arrastrar($variables) {
+        return array_merge($this->Arrastre, $variables);
+    }
+    
+    /**
+     * Devuelve la URL de una acción, con sus parámetros más las variables de arrastre.
+     */
+    public function UrlAccion($accion, $variables) {
+        return $this->Container->get('router')->generate($this->ObtenerRutaAccion($accion), $this->Arrastrar($variables));
+    }
+    
+    /**
+     * Devuelve el número de la página siguiente.
+     */
     public function PaginaSiguiente() {
         return $this->Pagina + 1;
     }
