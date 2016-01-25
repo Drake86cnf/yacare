@@ -19,6 +19,8 @@
         }
         $('#modal').modal('hide');
         $('#modal').html('(re)Cargando...');
+
+        return false;
     }
 
     function buscarTexto(texto) {
@@ -31,6 +33,8 @@
         url = tapirAgregarElementoUri(url, 'soloresultados', 1);
         url = tapirAgregarElementoUri(url, 'tapir_solocontenido', 1);
         tapirCargarUrlEn(url, '#resultadosbuscar');
+
+        return false;
     }
 </script>
 {% endblock %}

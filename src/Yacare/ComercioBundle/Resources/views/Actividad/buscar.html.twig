@@ -14,11 +14,11 @@
     
     <div class="btn-group btn-group-justified" role="group">
     	<a href="#" class="btn btn-sm {{ not res.Filtros['prefijo'] ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('');">Todas</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/IV' or res.Filtros['prefijo'][:4] == '/IV/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/IV');">Venta</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/V' or res.Filtros['prefijo'][:3] == '/V/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/V');">Servicios</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/II' or res.Filtros['prefijo'][:4] == '/II/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/II');">Industria</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/III' or res.Filtros['prefijo'][:5] == '/III/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/III');">Infr. y construcción</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/I' or res.Filtros['prefijo'][:3] == '/I/') ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('/I');">Act. primarias</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/IV' or res.Filtros['prefijo'][:4] == '/IV/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/IV'); return false;">Venta</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/V' or res.Filtros['prefijo'][:3] == '/V/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/V'); return false;">Servicios</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/II' or res.Filtros['prefijo'][:4] == '/II/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/II'); return false;">Industria</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/III' or res.Filtros['prefijo'][:5] == '/III/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/III'); return false;">Infr. y construcción</a>
+    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/I' or res.Filtros['prefijo'][:3] == '/I/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/I'); return false;">Act. primarias</a>
 	</div>
 	
     {% if res.Categoria %}
@@ -37,7 +37,8 @@ function CambiarFiltroPrefijo(filtro) {
     url = tapirAgregarElementoUri(url, 'soloresultados', 1);
     url = tapirAgregarElementoUri(url, 'tapir_solocontenido', 1);
 
-	tapirCargarUrlEn(url, '#resultadosbuscar'); return false;
+	tapirCargarUrlEn(url, '#resultadosbuscar');
+	return false;
 }
 </script>
 
