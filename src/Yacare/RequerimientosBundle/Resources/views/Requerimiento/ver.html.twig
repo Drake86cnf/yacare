@@ -54,26 +54,12 @@
 		  		href="{{ path(res.ObtenerRutaAccion('editarcampo'), res.Arrastre|merge(
 		  		    { 'id': res.Entidad.id, 'nombrecampo': 'Notas' })) }}"> #}
 	  		
-	  		<h3>Descripción</h3>
 	  		<p class="lead">{{ res.Entidad.Notas }}</p>
 	  		
 	  		{% if res.Entidad.Obs %}
 	  			<h3>Observaciones</h3>
 	  			<p>{{ res.Entidad.Obs }}</p>
 	  		{% endif %}
-
-		    <p class="help-block">Creado por {% if res.Entidad.Usuario %}
-			        {{ res.Entidad.Usuario.NombreAmigable }}
-			    {% elseif res.Entidad.UsuarioNombre %}
-			    	visitante identificado como {{ res.Entidad.UsuarioNombre }}
-			    {% else %}
-			    	un visitante anónimo vía web
-			    {% endif %} el {{ res.Entidad.createdAt|tapir_fecha|lower }}
-			    ({{ res.Entidad.createdAt|tapir_hacetiempo }}).
-			    {% if res.Entidad.Estado < 80 %}
-			    La última novedad fue {{ res.Entidad.updatedAt|tapir_hacetiempo }}.
-			    {% endif %}
-		  	</p>
 		
 		
             {% if tapir_hasanyrole('ROLE_REQUERIMIENTOS_ENCARGADO,ROLE_REQUERIMIENTOS_ADMINISTRADOR') %}
@@ -132,7 +118,7 @@
 				prioridad {{ res.Entidad.PrioridadNombre }}.</div>
 
             {% if res.Entidad.Encargado %}
-            	<div class="text-value">El encargado es {{ res.Entidad.Encargado }}.</div>
+            	<div class="text-value">El encargado es {{ res.Entidad.Encargado.NombreAmigable }}.</div>
             {% else %}
             	<div class="text-value"><span class="text-danger"><i class="fa fa-fw fa-warning"></i>
             		El requerimiento no tiene un encargado.</span>
@@ -144,13 +130,26 @@
             		</div>
             {% endif %}
             
-            <div class="text-value small">{% if res.Entidad.Usuario is null %}
+            <div class="text-value">El requerimiento fue iniciado por {% if res.Entidad.Usuario %}
+			        {{ res.Entidad.Usuario.NombreAmigable }}
+			    {% elseif res.Entidad.UsuarioNombre %}
+			    	visitante identificado como {{ res.Entidad.UsuarioNombre }}
+			    {% else %}
+			    	un visitante anónimo vía web
+			    {% endif %} <span class="text-info" title="{{ res.Entidad.createdAt|tapir_fecha|lower }}">{{ res.Entidad.createdAt|tapir_hacetiempo }}</span><span class="visible-print"> (el {{ res.Entidad.createdAt|tapir_fecha|lower }})</span>.
+			    {% if res.Entidad.Estado < 80 %}
+			    La última novedad fue {{ res.Entidad.updatedAt|tapir_hacetiempo }}.
+			    {% endif %}
+		  	</div>
+            
+            <div class="text-value small">
+            {% if res.Entidad.Usuario is null %}
             	Esta solicitud puede ser monitoreada de forma anónima desde el sitio web del Municipio, con el número de
             	seguimiento: <a target="_blank" href="http://yacare.dir.riogrande.gob.ar/requerimientos/requerimiento/anonimo/ver/?seg={{ res.Entidad.SeguimientoNumero }}">{{ res.Entidad.SeguimientoNumero }}</a>
-            {% else %}
-            <div class="text-value small">La solicitud no tiene seguimiento desde la web porque fue iniciada
-            	por un usuario interno.</div>
-            {% endif %}</div>
+            {% else %}La solicitud no tiene seguimiento desde la web porque fue iniciada
+            	por un usuario interno.
+            {% endif %}
+            </div>
 		</div>
 
 	</div>
