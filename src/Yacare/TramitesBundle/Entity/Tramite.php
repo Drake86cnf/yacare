@@ -214,12 +214,12 @@ abstract class Tramite implements ITramite
      *
      * @return int El porcentaje completado.
      */
-    public function PorcentajeCompleto()
+    public function PorcentajeCompleto($etapa = null)
     {
-        if ($this->RequisitosObligatoriosCantidad() == 0) {
+        if ($this->RequisitosObligatoriosCantidad($etapa) == 0) {
             return 0;
         } else {
-            return round((1 - $this->RequisitosFaltantesCantidad() / $this->RequisitosObligatoriosCantidad()) * 100);
+            return round((1 - $this->RequisitosFaltantesCantidad($etapa) / $this->RequisitosObligatoriosCantidad($etapa)) * 100);
         }
     }
 
@@ -229,9 +229,9 @@ abstract class Tramite implements ITramite
      *
      * @return bool true si el trámite está listo para ser terminado.
      */
-    public function EstaListoParaTerminar()
+    public function EstaListoParaTerminar($etapa = null)
     {
-        return $this->PorcentajeCompleto() >= 100 && $this->EstaEnCurso();
+        return $this->PorcentajeCompleto($etapa) >= 100 && $this->EstaEnCurso();
     }
     
     /**
@@ -277,11 +277,13 @@ abstract class Tramite implements ITramite
      *
      * @return int La cantidad total de requisitos obligatorios.
      */
-    public function RequisitosObligatoriosCantidad()
+    public function RequisitosObligatoriosCantidad($etapa = null)
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false) {
+            if ($EstadoRequisito->EsNecesario()
+                && $EstadoRequisito->EsOpcional() == false
+                && ($etapa == null || $EstadoRequisito->getAsociacionRequisito()->getEtapa() == $etapa)) {
                 $res ++;
             }
         }
@@ -294,12 +296,14 @@ abstract class Tramite implements ITramite
      * @return int La cantidad de requisitos obligatorios que aun no fueron
      *             cumplidos.
      */
-    public function RequisitosFaltantesCantidad()
+    public function RequisitosFaltantesCantidad($etapa = null)
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false &&
-                 $EstadoRequisito->EstaCumplido() == false) {
+            if ($EstadoRequisito->EsNecesario()
+                && $EstadoRequisito->EsOpcional() == false
+                && $EstadoRequisito->EstaCumplido() == false
+                ($etapa == null || $EstadoRequisito->getAsociacionRequisito()->getEtapa() == $etapa)) {
                 $res ++;
             }
         }
