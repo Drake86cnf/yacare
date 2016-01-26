@@ -10,21 +10,26 @@
 {% macro listar(tramitetipo, nivel) %}
 {% if tramitetipo.AsociacionRequisitos|length > 0 %}
 <ul>
-	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	{% for AsocRequisito in tramitetipo.ObtenerRequisitosPorEtapa %}
 	    {% if AsocRequisito.Requisito.Tipo == 'cond' %}
-			<li>Condición: <span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
+			<li>Condición:
+				<span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}{% if AsocRequisito.Etapa %}/{{AsocRequisito.Etapa }}{% endif %}</span>
+				{{ AsocRequisito.Requisito }}</li>
 	    {% endif %}
 	{% endfor %}
 	
-	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	{% for AsocRequisito in tramitetipo.ObtenerRequisitosPorEtapa %}
 	    {% if AsocRequisito.Requisito.Tipo == 'ext' %}
-			<li>Documentación: <span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
+			<li>Documentación:
+				<span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}{% if AsocRequisito.Etapa %}/{{AsocRequisito.Etapa }}{% endif %}</span>
+				{{ AsocRequisito.Requisito }}</li>
 	    {% endif %}
 	{% endfor %}
 	
-	{% for AsocRequisito in tramitetipo.AsociacionRequisitos %}
+	{% for AsocRequisito in tramitetipo.ObtenerRequisitosPorEtapa %}
 	    {% if AsocRequisito.Requisito.Tipo == 'tra' %}
-			<li><span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}</span> {{ AsocRequisito.Requisito }}</li>
+			<li><span class="text-muted">RQ{{ "%04d"|format(AsocRequisito.Requisito.id) }}{% if AsocRequisito.Etapa %}/{{AsocRequisito.Etapa }}{% endif %}</span>
+				{{ AsocRequisito.Requisito }}</li>
 	        {{ _self.listar(AsocRequisito.Requisito.TramiteTipoEspejo, nivel + 1) }}
 	    {% endif %}
 	{% endfor %}

@@ -8,13 +8,36 @@
 	<p>{{ res.Entidad.Obs|raw }}</p>
 {% endif %}
 
-<h2 class="row-header">1. Condiciones a cumplir</h2>	
+{% if res.Entidad.Etapas %}
+	{% set EtapasEnOrden = res.Entidad.ObtenerEtapasEnOrden %}
+    <div class="wizard">
+        <div class="wizard-steps-panel steps-quantity-{{ EtapasEnOrden|length + 1 }}">
+        	<div class="step-number step-1"><div class="number">1</div></div>
+            {% set i = 2 %}
+            {% for Etapa in EtapasEnOrden %}
+            	<div class="step-number step-{{ i }}"><div class="number">{{ i }}</div></div>
+                {% set i = i + 1 %}
+            {% endfor %}
+        </div>
+        <div class="wizard-steps-panel steps-quantity-{{ EtapasEnOrden|length + 1 }} hidden-xs">
+        	<div class="step-label">Inicio</div>
+            {% for Etapa in EtapasEnOrden %}
+            	<div class="step-label">{{ Etapa }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
 
-{{ ttm.listar_plano(res.Entidad.ObtenerRequisitosLineales('cond'), 2) }}
 
-<h2 class="row-header">2. Documentación a presentar</h2>
+{% set Condiciones = res.Entidad.ObtenerRequisitosLineales('cond') %}
+{% if Condiciones %}
+    <h2 class="row-header">Condiciones a cumplir</h2>	
+    {{ ttm.listar_plano(Condiciones) }}
+{% endif %}
 
-{{ ttm.listar_plano(res.Entidad.ObtenerRequisitosLineales('ext'), 2) }}
+<h2 class="row-header">Documentación a presentar</h2>
+
+{{ ttm.listar_plano(res.Entidad.ObtenerRequisitosLineales('ext')) }}
 
 {% if res.Entidad.ComprobanteTipo %}
     <p>Al finalizar el trámite, se emitirá un comprobante tipo
@@ -22,7 +45,6 @@
 {% endif %}
 {% if res.Entidad.Notas %}
     <p>{{ res.Entidad.Notas }}</p>
-    </footer>
 {% endif %}
 
 {% if res.Entidad.Url %}

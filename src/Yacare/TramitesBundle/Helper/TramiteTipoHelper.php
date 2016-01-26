@@ -23,6 +23,18 @@ class TramiteTipoHelper extends \Yacare\BaseBundle\Helper\Helper
             $RequisitoEspejo->setTramiteTipoEspejo($entity);
         }
         
+        if($entity->getEtapas()) {
+            $Etapas = explode(',', $entity->getEtapas());
+            $NuevasEtapas = [];
+            foreach($Etapas as $Etapa) {
+                $Etapa = trim($Etapa);
+                if($Etapa) {
+                    $NuevasEtapas[] = $Etapa;
+                }
+            }
+            $entity->setEtapas(join(',', $NuevasEtapas));
+        }
+        
         $RequisitoEspejo->setTipo('tra');
         $RequisitoEspejo->setNombre((string) $entity);
         $this->em->persist($RequisitoEspejo);
