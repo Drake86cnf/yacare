@@ -625,7 +625,7 @@ class Persona implements PersonaInterface, UserInterface, \Serializable
     }
 
     /**
-     * Setea el cuilt, realizando previamente un formateo.
+     * Setter con sanitización.
      *
      * @param string $Cuilt
      */
