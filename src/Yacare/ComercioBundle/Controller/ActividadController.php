@@ -178,13 +178,5 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         
         return $i;
     }
-
-    /* public function guardarActionPrePersist($entity, $editForm)
-    {
-        $em = $this->getEm();
-        
-        
-        return parent::guardarActionPrePersist($entity, $editForm);
-    } */
 }
 
