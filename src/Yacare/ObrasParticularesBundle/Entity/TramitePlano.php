@@ -23,10 +23,65 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
         parent::__construct();
         
         $this->Titular = new \Yacare\BaseBundle\Entity\Persona();
+        $this->ObraDestinos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    /**
+     * El o los destinos de una obra.
+     *
+     * @var \Yacare\ObrasParticularesBundle\Entity\ObraDestino
+     *
+     * @ORM\OneToMany(targetEntity="Yacare\ObrasParticularesBundle\Entity\ObraDestino")
+     * @ORM\JoinTable(name="ObrasParticulares_TramitePlano_ObraDestino")
+     */
+    protected $ObraDestinos;
+    
+    /**
+     * Superficie de la obra.
+     * 
+     * @var float
+     * 
+     * @ORM\Column(type="integer", nullable=false)
+     * 
+     */
+    private $ObraSuperficie;
+
     public function __toString()
     {
         return 'Trámite de Planos Nº ' . $this->getId();
+    }
+
+    /**
+     * @ignore
+     */
+    public function getObraSuperficie()
+    {
+        return $this->ObraSuperficie;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setObraSuperficie($ObraSuperficie)
+    {
+        $this->ObraSuperficie = $ObraSuperficie;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getObraDestinos()
+    {
+        return $this->ObraDestinos;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setObraDestinos($ObraDestinos)
+    {
+        $this->ObraDestinos = $ObraDestinos;
+        return $this;
     }
 }
