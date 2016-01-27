@@ -15,6 +15,7 @@
 			<th>Zona</th>
 			<th>Detalle</th>
 			<th>Titular</th>
+			<th class="text-right">Sup.</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -39,6 +40,7 @@
 			{% elseif entity.Tg06100Id %}
 				TG06100 {{ entity.Tg06100Id }}
 			{% endif %}</td>
+			<td class="text-right">{% if entity.SuperficieTotal %}{{ entity.SuperficieTotal }}{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
