@@ -160,6 +160,15 @@ class Partida
     private $Legajo;
     
     /**
+     * La superficie total.
+     *
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $SuperficieTotal;
+    
+    /**
      * El id original en la tabla del SiGeMI.
      *
      * @var string
@@ -571,5 +580,23 @@ class Partida
         $this->Tg06100Id = $Tg06100Id;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getSuperficieTotal()
+    {
+        return $this->SuperficieTotal;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setSuperficieTotal($SuperficieTotal)
+    {
+        $this->SuperficieTotal = $SuperficieTotal;
+        return $this;
+    }
+ 
 
 }
