@@ -96,6 +96,17 @@ abstract class Tramite implements ITramite
     protected $FechaTerminado;
 
     /**
+     * El comprobante que se emitió como resultado intermedio de este trámite o null si no
+     * se emitió ningún comprobante o el trámite aun está en curso.
+     *
+     * @var \Yacare\TramitesBundle\Enitty\Comprobante Comprobante
+     *
+     * @ORM\ManyToOne(targetEntity="Comprobante")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $ComprobanteIntermedio;
+    
+    /**
      * El comprobante que se emitió como resultado de este trámite o null si no
      * se emitió ningún comprobante o el trámite aun está en curso.
      *
@@ -214,12 +225,12 @@ abstract class Tramite implements ITramite
      *
      * @return int El porcentaje completado.
      */
-    public function PorcentajeCompleto($etapa = null)
+    public function PorcentajeCompleto()
     {
-        if ($this->RequisitosObligatoriosCantidad($etapa) == 0) {
+        if ($this->RequisitosObligatoriosCantidad() == 0) {
             return 0;
         } else {
-            return round((1 - $this->RequisitosFaltantesCantidad($etapa) / $this->RequisitosObligatoriosCantidad($etapa)) * 100);
+            return round((1 - $this->RequisitosFaltantesCantidad() / $this->RequisitosObligatoriosCantidad()) * 100);
         }
     }
 
@@ -229,9 +240,21 @@ abstract class Tramite implements ITramite
      *
      * @return bool true si el trámite está listo para ser terminado.
      */
-    public function EstaListoParaTerminar($etapa = null)
+    public function EstaListoParaTerminar()
     {
-        return $this->PorcentajeCompleto($etapa) >= 100 && $this->EstaEnCurso();
+        return $this->PorcentajeCompleto() >= 100 && $this->EstaEnCurso();
+    }
+    
+    /**
+     * Devuelve true si el trámite está listo para ser pasar a estado intermedio (es decir,
+     * todos los requisitos intermedios están cumplidos).
+     *
+     * @return bool true si el trámite está listo para pasar a estado intermedio.
+     */
+    public function EstaListoParaIntermedio()
+    {
+        // TODO:
+        return false; 
     }
     
     /**
@@ -271,19 +294,29 @@ abstract class Tramite implements ITramite
     {
         return $this->getEstado() == 100;
     }
+    
+    
+    /**
+     * Devuelve true si el trámite está en estado intermedio.
+     *
+     * @return bool true si está en estado intermedio.
+     */
+    public function EstaIntermedio()
+    {
+        return $this->getEstado() == 80;
+    }
+    
 
     /**
      * Devuelve la cantidad total de requisitos obligatorios.
      *
      * @return int La cantidad total de requisitos obligatorios.
      */
-    public function RequisitosObligatoriosCantidad($etapa = null)
+    public function RequisitosObligatoriosCantidad()
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
-            if ($EstadoRequisito->EsNecesario()
-                && $EstadoRequisito->EsOpcional() == false
-                && ($etapa == null || $EstadoRequisito->getAsociacionRequisito()->getEtapa() == $etapa)) {
+            if ($EstadoRequisito->EsNecesario() && $EstadoRequisito->EsOpcional() == false) {
                 $res ++;
             }
         }
@@ -296,7 +329,7 @@ abstract class Tramite implements ITramite
      * @return int La cantidad de requisitos obligatorios que aun no fueron
      *             cumplidos.
      */
-    public function RequisitosFaltantesCantidad($etapa = null)
+    public function RequisitosFaltantesCantidad()
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
@@ -361,6 +394,7 @@ abstract class Tramite implements ITramite
         return array(
             0 => 'Nuevo',
             10 => 'Iniciado',
+            80 => 'Intermedio',
             90 => 'Cancelado',
             100 => 'Terminado'
         );
@@ -470,4 +504,22 @@ abstract class Tramite implements ITramite
         $this->TramitePadre = $TramitePadre;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getComprobanteIntermedio()
+    {
+        return $this->ComprobanteIntermedio;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setComprobanteIntermedio($ComprobanteIntermedio)
+    {
+        $this->ComprobanteIntermedio = $ComprobanteIntermedio;
+        return $this;
+    }
+ 
 }

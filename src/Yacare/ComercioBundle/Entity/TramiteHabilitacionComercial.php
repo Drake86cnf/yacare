@@ -73,9 +73,9 @@ class TramiteHabilitacionComercial extends \Yacare\TramitesBundle\Entity\Tramite
      *
      * @see \Yacare\TramitesBundle\Entity\Tramite::EstaListoParaTerminar() Tramite::EstaListoParaTerminar()
      */
-    public function EstaListoParaTerminar($etapa = null)
+    public function EstaListoParaTerminar()
     {
-        return $this->getUsoSuelo() <= 4 && parent::EstaListoParaTerminar($etapa);
+        return $this->getUsoSuelo() <= 4 && parent::EstaListoParaTerminar();
     }
     
     

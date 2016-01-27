@@ -15,6 +15,9 @@ class TramitePlanoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', null, array(
+                'label' => 'Número',
+                'attr' => array('readonly' => true)))
             ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 

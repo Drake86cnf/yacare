@@ -32,18 +32,19 @@ class TramiteTipo implements ITramiteTipo
      *
      * @var string 
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $Clase;
     
     /**
-     * Los nombres de las etapas separados por coma, o null si el trámite no tiene etapas.
+     * El tipo de comprobante que se emite en la mitad de un trámite de este tipo (por ejemplo un provisorio).
      *
-     * @var string
+     * @var \Yacare\TramitesBundle\Entity\ComprobanteTipo
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="ComprobanteTipo")
+     * @ORM\JoinColumn(nullable=true)
      */
-    protected $Etapas;
+    protected $ComprobanteIntermedioTipo;
     
     /**
      * El tipo de comprobante que se emite al finalizar un trámite de este tipo.
@@ -93,41 +94,6 @@ class TramiteTipo implements ITramiteTipo
      */
     protected $AsociacionRequisitos;
     
-    /**
-     * Devuelve las etapas en orden, en un array.
-     */
-    public function ObtenerEtapasEnOrden() {
-        // Las etapas fueron sanitizadas por el helper, y el orden es el que aparece, así que se devuelven directamente
-        return explode(',', $this->getEtapas());
-    }
-    
-    /**
-     * Devuelve una lista de asociaciones de requisitos según la etapa. Se se llama sin argumentos devuelve todos los
-     * requisitos, ordenados por etapa.
-     * 
-     * @param string $etapa
-     * @return \Yacare\TramitesBundle\Entity\AsociacionRequisito[]
-     */
-    public function ObtenerRequisitosPorEtapa($etapa = null) {
-        $res = array();
-        $Reqs = $this->getAsociacionRequisitos();
-        if($etapa == null) {
-            foreach($this->ObtenerEtapasEnOrden() as $EtapaEnOrden) {
-                foreach ($Reqs as $Asoc) {
-                    if($Asoc->getEtapa() == $EtapaEnOrden) {
-                        $res[] = $Asoc;
-                    }
-                }
-            }
-        } else {
-            foreach ($Reqs as $Asoc) {
-                if($Asoc->getEtapa() == $etapa) {
-                    $res[] = $Asoc;
-                }
-            }
-        }
-        return $res;
-    }
     
     /**
      * Devuelve una lista de asociaciones de requisitos según el tipo de requisito.
@@ -256,17 +222,17 @@ class TramiteTipo implements ITramiteTipo
     /**
      * @ignore
      */
-    public function getEtapas()
+    public function getComprobanteIntermedioTipo()
     {
-        return $this->Etapas;
+        return $this->ComprobanteIntermedioTipo;
     }
 
     /**
      * @ignore
      */
-    public function setEtapas($Etapas)
+    public function setComprobanteIntermedioTipo($ComprobanteIntermedioTipo)
     {
-        $this->Etapas = $Etapas;
+        $this->ComprobanteIntermedioTipo = $ComprobanteIntermedioTipo;
         return $this;
     }
  

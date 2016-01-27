@@ -11,7 +11,6 @@ class TramiteTipoType extends AbstractType
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre'))
-            ->add('Etapas', null, array('label' => 'Etapas'))
             ->add('Clase', null, array('label' => 'Clase'))
             ->add('Url', null, array(
                 'label' => 'Web', 

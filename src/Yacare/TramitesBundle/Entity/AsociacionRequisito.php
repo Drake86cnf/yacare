@@ -37,7 +37,7 @@ class AsociacionRequisito
     /**
      * @var string 
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Propiedad;
     
@@ -58,18 +58,9 @@ class AsociacionRequisito
      *
      * @var string 
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Instancia;
-    
-    /**
-     * La etapa del trámite a la que pertenece el requisito o null si es para finalizar o el trámite no tiene etapas. 
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $Etapa;
     
     /**
      * Tipo de asociación (0 = regular, 1 = opcional, 2 = condicional).
@@ -95,7 +86,7 @@ class AsociacionRequisito
      * @see $CondicionEs $CondicionEs
      * @see $CondicionCuanto $CondicionCuanto
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionQue;
     
@@ -110,7 +101,7 @@ class AsociacionRequisito
      * @see $CondicionQue $CondicionQue
      * @see $CondicionCuanto $CondicionCuanto
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $CondicionEs;
     
@@ -125,9 +116,40 @@ class AsociacionRequisito
      * @see $CondicionQue $CondicionQue
      * @see $CondicionEs $CondicionEs 
      * 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CondicionCuanto;
+    
+    /**
+     * Describe si este requisito sirve para el estado intermedio o para un final.
+     * 
+     * * Estados: 0 = para finalizar un trámite.
+     * 1 = es otro trámite (subtrámite).
+     * 80 = es un requisito para alcanzar un estado intermedio o provisorio.
+     * 
+     * @var integer
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $UtlidadIntermedio = 0;    
+    
+    /**
+     * Verifica si el requisito sirve para la finalizalición de un trámite.
+     * 
+     * @return boolean
+     */
+    public function SirveParaEstadoFinal() {
+        return ($this->getUtlidadIntermedio() == 0);
+    }
+    
+    /**
+     * Verifica si el requisito sirve para alcanzar un estado intermedio en un trámite.
+     *
+     * @return boolean
+     */
+    public function SirveParaEstadoIntermedio() {
+        return ($this->getUtlidadIntermedio() == 1 || $this->getUtlidadIntermedio() == 80);
+    }
     
     /**
      * Devuelve true si esta asociación es opcional (Tipo = 1).
@@ -404,18 +426,17 @@ class AsociacionRequisito
     /**
      * @ignore
      */
-    public function getEtapa()
+    public function getUtlidadIntermedio()
     {
-        return $this->Etapa;
+        return $this->UtlidadIntermedio;
     }
 
     /**
      * @ignore
      */
-    public function setEtapa($Etapa)
+    public function setUtlidadIntermedio($UtlidadIntermedio)
     {
-        $this->Etapa = $Etapa;
+        $this->UtlidadIntermedio = $UtlidadIntermedio;
         return $this;
-    }
- 
+    } 
 }

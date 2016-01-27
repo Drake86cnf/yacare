@@ -185,6 +185,7 @@
 	
 	<h2>Sobre el trámite</h2>
 	{{ tm.listarrequisitos(res.Tramite, 1) }}
+		{{ tm.listarrequisitos(res.Tramite, 0) }}
 
 	<h2>Conclusión</h2>
 	{% if res.Entidad.ActividadesTodasExentas %}

@@ -18,7 +18,6 @@ class AsociacionRequisitoController extends \Tapir\AbmBundle\Controller\AbmContr
         
         $this->ConservarVariables = array('parent_id');
         $this->Paginar = false;
-        $this->OrderBy = "Etapa";
     }
 
     /**

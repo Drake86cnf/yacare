@@ -16,7 +16,6 @@ class AsociacionRequisitoType extends AbstractType
                 'required' => true, 
                 'attr' => array('readonly' => true), 
                 'multiple' => false))
-            ->add('Etapa', null, array('label' => 'Etapa'))
             ->add('Requisito', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Requisito', 
                 'class' => 'YacareTramitesBundle:Requisito', 
