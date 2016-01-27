@@ -1,8 +1,6 @@
 <?php
 namespace Yacare\ObrasParticularesBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /**
@@ -10,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  *
  * @author Ezequiel Riquelme <rezequiel.tdf@gmail.com>
  */
-class ObrasParticularesListener extends \Yacare\BaseBundle\EventListener\BaseListener
+class ObrasParticularesListener extends \Tapir\BaseBundle\EventListener\AbstractListener
 {
     public function __construct(Container $container)
     {

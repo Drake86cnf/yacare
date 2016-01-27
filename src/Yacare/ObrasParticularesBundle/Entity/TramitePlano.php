@@ -22,6 +22,7 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     {
         parent::__construct();
         
+        $this->Titular = new \Yacare\BaseBundle\Entity\Persona();
         $this->ObraDestinos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     

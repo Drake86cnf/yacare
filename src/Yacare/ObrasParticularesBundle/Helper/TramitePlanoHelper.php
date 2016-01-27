@@ -10,7 +10,6 @@ class TramitePlanoHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 
     public function PreUpdatePersist($entity, $args = null)
     {
-        throw new \Exception('Hola');
         $entity->setTitular($entity->getPartida()->getTitular());
         
         if (! $entity->getTramiteTipo()) {
