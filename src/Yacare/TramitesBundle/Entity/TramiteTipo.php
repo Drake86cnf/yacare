@@ -32,19 +32,18 @@ class TramiteTipo implements ITramiteTipo
      *
      * @var string 
      * 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $Clase;
     
     /**
-     * El tipo de comprobante que se emite en la mitad de un trámite de este tipo (por ejemplo un provisorio).
+     * Una lista de estapas, separadas por comas. 
      *
-     * @var \Yacare\TramitesBundle\Entity\ComprobanteTipo
-     *
-     * @ORM\ManyToOne(targetEntity="ComprobanteTipo")
-     * @ORM\JoinColumn(nullable=true)
+     * @var string 
+     * 
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $ComprobanteIntermedioTipo;
+    protected $Etapas;
     
     /**
      * El tipo de comprobante que se emite al finalizar un trámite de este tipo.
@@ -222,17 +221,17 @@ class TramiteTipo implements ITramiteTipo
     /**
      * @ignore
      */
-    public function getComprobanteIntermedioTipo()
+    public function getEtapas()
     {
-        return $this->ComprobanteIntermedioTipo;
+        return $this->Etapas;
     }
 
     /**
      * @ignore
      */
-    public function setComprobanteIntermedioTipo($ComprobanteIntermedioTipo)
+    public function setEtapas($Etapas)
     {
-        $this->ComprobanteIntermedioTipo = $ComprobanteIntermedioTipo;
+        $this->Etapas = $Etapas;
         return $this;
     }
  
