@@ -38,11 +38,11 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     
     /**
      * Superficie de la obra.
-     * 
+     *
      * @var float
-     * 
+     *
      * @ORM\Column(type="integer", nullable=false)
-     * 
+     *
      */
     private $ObraSuperficie;
 
