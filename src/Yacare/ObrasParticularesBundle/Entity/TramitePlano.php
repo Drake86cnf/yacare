@@ -22,7 +22,6 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     {
         parent::__construct();
         
-        $this->Titular = new \Yacare\BaseBundle\Entity\Persona();
         $this->ObraDestinos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -31,8 +30,9 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      *
      * @var \Yacare\ObrasParticularesBundle\Entity\ObraDestino
      *
-     * @ORM\OneToMany(targetEntity="Yacare\ObrasParticularesBundle\Entity\ObraDestino")
-     * @ORM\JoinTable(name="ObrasParticulares_TramitePlano_ObraDestino")
+     * @ORM\ManyToMany(targetEntity="Yacare\ObrasParticularesBundle\Entity\ObraDestino")
+     * @ORM\JoinTable(name="ObrasParticulares_TramitePlano_ObraDestino",
+     *     joinColumns={ @ORM\JoinColumn(name="Tramite_id", referencedColumnName="id", nullable=true) })
      */
     protected $ObraDestinos;
     
