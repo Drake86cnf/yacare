@@ -8,9 +8,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteHelper extends \Yacare\BaseBundle\Helper\Helper
+class TramiteHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
-
     function __construct($listener = null, $em = null)
     {
         parent::__construct($listener, $em);

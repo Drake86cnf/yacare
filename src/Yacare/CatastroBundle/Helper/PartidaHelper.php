@@ -8,7 +8,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class PartidaHelper extends \Yacare\BaseBundle\Helper\Helper
+class PartidaHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {

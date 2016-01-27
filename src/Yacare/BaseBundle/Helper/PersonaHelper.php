@@ -6,7 +6,7 @@ namespace Yacare\BaseBundle\Helper;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class PersonaHelper extends \Yacare\BaseBundle\Helper\Helper
+class PersonaHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {

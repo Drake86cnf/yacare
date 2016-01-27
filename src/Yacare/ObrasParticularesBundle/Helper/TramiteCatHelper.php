@@ -2,7 +2,7 @@
 namespace Yacare\ObrasParticularesBundle\Helper;
 
 
-class TramiteCatHelper extends \Yacare\BaseBundle\Helper\Helper
+class TramiteCatHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {

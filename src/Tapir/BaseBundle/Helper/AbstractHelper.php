@@ -1,5 +1,5 @@
 <?php
-namespace Yacare\BaseBundle\Helper;
+namespace Tapir\BaseBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
@@ -8,21 +8,20 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-abstract class Helper implements IHelper
+abstract class AbstractHelper
 {
     protected $em;
     protected $container;
-    protected $Listener;
     
     protected $Entidad;
     protected $EsEdicion;
     protected $Argumentos;
+    public $EntidadesRelacionadas = array();
 
     function __construct($listenerOrContainer = null, $em = null)
     {
         if (is_a($listenerOrContainer, 'Doctrine\Common\EventSubscriber')) {
             $this->Listener = $listenerOrContainer;
-            $this->container = $listenerOrContainer->container; 
         } else {
             $this->container = $listenerOrContainer;
         }
@@ -46,12 +45,29 @@ abstract class Helper implements IHelper
         $this->PreUpdatePersist($this->Entidad, $args);
     }
     
+    /**
+     * Agrega una entidad al conjunto de cambios para hacer un flush() al final.
+     * @param unknown $entidad
+     */
     protected function AgregarEntidadAlConjuntoDeCambios($entidad) {
-        $this->Listener->EntidadesRelacionadas[] = $entidad;
-        /* $uow = $this->em->getUnitOfWork();
-        $cambioMetadata = $this->em->getClassMetadata(get_class($entidad));
-        
-        //recomputeSingleEntityChangeSet???
-        $uow->computeChangeSet($cambioMetadata, $entidad); */
+        $this->EntidadesRelacionadas[] = $entidad;
     }
+
+    /**
+     * @ignore
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+        return $this;
+    }
+ 
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
+class ComercioHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {
@@ -26,11 +26,9 @@ class ComercioHelper extends \Yacare\BaseBundle\Helper\Helper
         }
         
         if (! $this->EsEdicion) {
-            if($this->Listener && $this->Listener->container) {
-                $Usuario = $this->Listener->container->get('security.token_storage')->getToken()->getUser();
-                if ($Usuario) {
-                    $comercio->setCreadoPor($Usuario);
-                }
+            $Usuario = $this->container->get('security.token_storage')->getToken()->getUser();
+            if ($Usuario) {
+                $comercio->setCreadoPor($Usuario);
             }
         }
     }

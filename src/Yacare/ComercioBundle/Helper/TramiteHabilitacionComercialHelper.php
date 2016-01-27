@@ -6,7 +6,7 @@ namespace Yacare\ComercioBundle\Helper;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\Helper
+class TramiteHabilitacionComercialHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {

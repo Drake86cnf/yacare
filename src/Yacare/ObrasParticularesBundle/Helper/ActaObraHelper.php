@@ -1,7 +1,7 @@
 <?php
 namespace Yacare\ObrasParticularesBundle\Helper;
 
-class ActaObraHelper extends \Yacare\BaseBundle\Helper\Helper
+class ActaObraHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
 {
     function __construct($listener = null, $em = null)
     {

@@ -10,32 +10,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
  */
-class RecursosHumanosListener implements EventSubscriber
+class RecursosHumanosListener extends \Tapir\BaseBundle\EventListener\AbstractListener
 {
-    public $container;
-
-    public function __construct(Container $container)
+public function __construct(Container $container)
     {
-        $this->container = $container;
-    }
-
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if (is_a($entity, '\Yacare\RecursosHumanosBundle\Entity\Agente')) {
-            // Capturo los eventos si la entidad es un agente
-            $Helper = new \Yacare\RecursosHumanosBundle\Helper\AgenteHelper($this);
-            $Helper->LifecycleEvent($args);
-        }
-    }
-
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        return $this->prePersist($args);
-    }
-
-    public function getSubscribedEvents()
-    {
-        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate];
+        parent::__construct($container);
+        
+        $this->Helpers = [
+            '\Yacare\RecursosHumanosBundle\Entity\Agente' => '\Yacare\RecursosHumanosBundle\AgenteHelper\PersonaHelper',
+        ];
     }
 }
