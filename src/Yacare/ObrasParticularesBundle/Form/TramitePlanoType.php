@@ -24,6 +24,14 @@ class TramitePlanoType extends AbstractType
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
+            ->add('ObraSuperficie', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
+                  'label' => 'Superficie',
+                  'required' => true))
+            ->add('ObraDestinos','Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                  'label' => 'Destino de la obra',
+                  'class' => 'Yacare\ObrasParticularesBundle\Entity\ObraDestino',
+                  'multiple'=> true,
+                  'required' => true))
             ->add('Profesional', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
