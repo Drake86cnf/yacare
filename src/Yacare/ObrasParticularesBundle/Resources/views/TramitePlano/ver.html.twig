@@ -10,11 +10,11 @@
 		<div class="col-xs-12">
             {{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
             {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
-            {{ bs.grid_label_text('ObraSuperficie', res.Entidad.ObraSuperficie) }}
+            {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
             {% for obra_destino in res.Entidad.ObraDestinos %}
             {{ bs.grid_label_text('ObraDestino', obra_destino) }}
             {% endfor %}
-		    {% if res.Entidad.Partida.Titular %}
+            {% if res.Entidad.Partida.Titular %}
 		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
 		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
 		    {% endif %}

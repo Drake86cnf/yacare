@@ -36,6 +36,16 @@ class TramitePlanoType extends AbstractType
                 'label' => 'Profesional',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
                 'required' => true))
+            ->add('PlanoTipo','Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
+                  'label' => 'Tipo de plano',
+                  'required' => false,
+                  'choices'=> array(
+                    'Relevamiento' => 1,
+                    'Conforme a obra'=> 2,
+                    'Obra nueva' => 4,
+                    'Relevamiento y ampliación'=> 5,
+                    'Conforme a obra y ampliación'=> 6
+                )))
             ->add('Obs', null, array(
                 'label' => 'Observaciones', 
                 'required' => false));
