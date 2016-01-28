@@ -55,40 +55,40 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      * 
      * @var integer
      * 
-     * @ORM\Column(type ="integer", nullable=true)
+     * @ORM\Column(type ="integer")
      * 
      */
-    private $PlanoTipo;
+    private $PlanoTipo = 1;
     
     /**
      * La superficie proyectada del plano
      * 
      * @var float
      * 
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      * 
      */
-    private $SuperficieProyectada;
+    private $SuperficieProyectada=0;
     
     /**
      * La superficie aprobada del plano
      *
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      *
      */
-    private $SuperficieAprobada;
+    private $SuperficieAprobada=0;
     
     /**
      * La superficie relevada del plano
      *
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      *
      */
-    private $SuperficieRelevada;
+    private $SuperficieRelevada=0;
 
     public function getTipo()
     {
