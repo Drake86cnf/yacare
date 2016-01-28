@@ -115,7 +115,7 @@ abstract class Tramite implements ITramite
      * @ORM\ManyToOne(targetEntity="Comprobante")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $Comprobante;    
+    protected $Comprobante;  
     
     /**
      * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
@@ -521,5 +521,5 @@ abstract class Tramite implements ITramite
         $this->ComprobanteIntermedio = $ComprobanteIntermedio;
         return $this;
     }
- 
+
 }
