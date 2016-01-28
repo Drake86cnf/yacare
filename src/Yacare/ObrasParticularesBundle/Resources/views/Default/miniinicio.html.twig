@@ -1,0 +1,22 @@
+{% extends 'TapirTemplateBundle::empty.html.twig' %}
+
+{% block pagina_contenido %}
+<h2><i class="fa fa-fw fa-building text-muted"></i> Módulo de Obras Particulares</h2>
+<style>
+</style>
+
+<ul class="inicio-mini-menu">
+<div class="btn-group btn-group-justified" role="group">
+	<a class="btn btn-md btn-green" href="{{ path('yacare_obrasparticulares_default_inicio') }}"
+		data-toggle="ajax-link" style="width: 67%"><i class="fa fa-dashboard fa-2x"></i> <br />Panel general</a>
+	<a class="btn btn-md btn-yellow" href="{{ path('yacare_obrasparticulares_actaobra_listar') }}"
+		data-toggle="ajax-link" style="width: 33%"><i class="fa fa-file-o fa-2x"></i> <br />Actas</a>
+</div>
+	<li><h3>Actividad reciente en actas</h3></li>
+	{% for acta in res.Recientes['ActaObra'] %}
+		<li><a href="{{ path('yacare_obrasparticulares_actaobra_ver', res.Arrastre|merge({ id: acta.id })) }}"
+			data-toggle="ajax-link">{{ acta.Numero }}: {{ acta.Partida.Domicilio }}
+			{% if acta.Partida.Titular %}({{ acta.Partida.Titular }}){% endif %}</a></li>
+	{% endfor %}
+</ul>
+{% endblock pagina_contenido %}

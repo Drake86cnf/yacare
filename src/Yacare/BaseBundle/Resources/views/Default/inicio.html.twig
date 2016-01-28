@@ -30,6 +30,16 @@
 	</div>
 {% endif %}
 
+{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES,ROLE_OBRAS_INSPECTOR,ROLE_OBRAS_ADMINISTRADOR') %}
+	<div class="col-sm-4 inicio-mini" id="inicio-obrasparticulares">
+	<script>
+	$(function() {
+		tapirCargarUrlEn("{{ path('yacare_obrasparticulares_default_miniinicio') }}", '#inicio-obrasparticulares');
+	});
+	</script>
+	</div>
+{% endif %}
+
 	<div class="col-sm-4 inicio-mini" id="inicio-catastro">
 	<script>
 	$(function() {
