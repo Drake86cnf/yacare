@@ -6,7 +6,7 @@
 <div class="container-fluid"><div class="row">
 
 <div class="col-sm-4">
-    <h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Comercios</h2>
+    <h2><i class="fa fa-fw fa-shopping-cart text-muted"></i> Comercios <span class="text-muted small">({{ res.Contadores['Comercio'] }})</span></h2>
     <ul class="inicio-mini-menu">
     	<li class="destacado"><p>Actividad reciente en comercios</p></li>
     	{% for comercio in res.Recientes['Comercio'] %}
@@ -27,7 +27,7 @@
 </div>
 
 <div class="col-sm-4">
-    <h2>Locales</h2>
+    <h2>Locales <span class="text-muted small">({{ res.Contadores['Local'] }})</span></h2>
     <ul class="inicio-mini-menu">
     	<li class="destacado"><p>Actividad reciente en locales</p></li>
     	{% for local in res.Recientes['Local'] %}
@@ -85,7 +85,7 @@
 </div>
 
 <div class="col-sm-4">
-    <h2>Actas</h2>
+    <h2>Actas <span class="text-muted small">({{ res.Contadores['ActaComercio'] }})</span></h2>
     <ul class="inicio-mini-menu">
     	<p>Para ver una lista de actas para un comercio determinado, ingrese mediante el listado de comercios.</p>
     	<li class="destacado"><a data-toggle="ajax-link" href="{{ path('yacare_comercio_actacomercio_listar', res.Arrastre) }}">Listado
