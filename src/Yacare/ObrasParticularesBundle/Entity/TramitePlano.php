@@ -41,16 +41,6 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     protected $ObraDestinos;
     
     /**
-     * Superficie de la obra.
-     *
-     * @var float
-     *
-     * @ORM\Column(type="integer", nullable=false)
-     *
-     */
-    private $ObraSuperficie;
-    
-    /**
      * El o los tipos del plano declarado por ejemplo (Obra nueva y ampliación)
      * 
      * @var integer
@@ -68,7 +58,7 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      * @ORM\Column(type="float")
      * 
      */
-    private $SuperficieProyectada=0;
+    private $SuperficieProyectada = 0;
     
     /**
      * La superficie aprobada del plano
@@ -78,7 +68,7 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      * @ORM\Column(type="float")
      *
      */
-    private $SuperficieAprobada=0;
+    private $SuperficieAprobada = 0;
     
     /**
      * La superficie relevada del plano
@@ -88,7 +78,7 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      * @ORM\Column(type="float")
      *
      */
-    private $SuperficieRelevada=0;
+    private $SuperficieRelevada = 0;
 
     public function getTipo()
     {
@@ -212,5 +202,4 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
         $this->SuperficieRelevada = $SuperficieRelevada;
         return $this;
     }
- 
 }

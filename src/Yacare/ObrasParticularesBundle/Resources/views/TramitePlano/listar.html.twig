@@ -1,5 +1,4 @@
-{% extends 'TapirAbmBundle::listar.html.twig' %}
-
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %} 
 {% block pagina_titulo %}Aprobación de planos{% endblock %}
 
 {% block pagina_contenido %}
@@ -11,7 +10,7 @@
 			<th>Fecha</th>
 			<th>Partida</th>
 			<th>Profesional</th>
-			<th> </th>
+			<th>Estado </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,6 +21,21 @@
 			<td>{{ entidad.createdAt|date("d/m/Y") }}</td>
 			<td>{{ entidad.Partida }}</td>
 			<td>{{ entidad.Profesional }}</td>
+			 <td>
+			    {% if entidad.Estado < 10 %}<span class="label label-danger">
+			    {% elseif entidad.Estado >= 10 and entidad.Estado < 90 %}<span class="label label-primary">
+			    {% elseif entidad.Estado == 100 %}<span class="label label-success">
+			    {% else %}<span class="label label-default">
+			    {% endif %}{{ entidad.EstadoNombre }}</span>
+				{% if entidad.EstaEnCurso %}
+					{% if entidad.RequisitosFaltantesCantidad == 0 %}
+						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
+					{% else %}
+						<span class="badge">{{ entidad.RequisitosObligatoriosCantidad - entidad.RequisitosFaltantesCantidad }} de 
+						    {{ entidad.RequisitosObligatoriosCantidad }}</span>
+					{% endif %}
+				{% endif %} 
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
