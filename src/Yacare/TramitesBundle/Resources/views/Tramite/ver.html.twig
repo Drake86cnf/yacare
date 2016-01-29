@@ -177,7 +177,7 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-{{ tgen.Button(tgen.Icon('adjust'), { title: 'Ocultar o mostrar requisitos no obligatorios', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
+{{ tgen.Button('', { icon: 'adjust', title: 'Ocultar o mostrar requisitos no obligatorios', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
 {% endblock %}
 
 {% block pagina_menuprincipal %}{{ parent() }}

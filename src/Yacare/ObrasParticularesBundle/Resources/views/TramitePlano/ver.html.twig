@@ -34,9 +34,8 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
-	<a class="btn btn-default" data-toggle="ajax-link" 
-		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
-		<i class="fa fa-paperclip"></i> Adjuntos</a>
+{{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
+{{ tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw }}
 {% endblock %}
 
 {% block pagina_acciones2 %}
