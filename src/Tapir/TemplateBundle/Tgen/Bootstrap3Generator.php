@@ -78,6 +78,11 @@ class Bootstrap3Generator extends HtmlGenerator
             $attr['data-toggle'] = 'modal';
             unset($attr['modal']);
         }
+        
+        if(array_key_exists('icon', $attr) && $attr['icon']) {
+            $content = $this->IconAndText($attr['icon'], $content);
+            unset($attr['icon']);
+        }
     
         if(array_key_exists('tag', $attr) && $attr['tag'] == 'button') {
             return new Tag('button', $content, $attr);
