@@ -4,24 +4,20 @@
 {% block pagina_titulo %}{% if res.Entidad.id %}{{ res.Entidad }}{% else %}Nuevo trámite de aprobación de
 	planos{% endif %}{% endblock %}
 {% block pagina_contenido %}
-
 <div class="row form-group">
 		<div>{{ form_row(res.FormularioEditar.Partida) }}</div>
 		<div>{{ form_row(res.FormularioEditar.ObraDestinos) }}</div>
 		<div>{{ form_row(res.FormularioEditar.PlanoTipo) }}</div>		
 </div>
-
  <div class="row form-group">
-    	<label class="col-sm-2 control-label">Superficie Proyectada <span style="color:red">*</span></label>
+    	<label class="col-sm-2 control-label">Superficie proyectada (m²)</label>
     	<div class="col-sm-2">{{ form_widget(res.FormularioEditar.SuperficieProyectada) }}</div>
-    	<label class="col-sm-2 control-label">Superficie Aprobada <span style="color:red">*</span></label>    	
+    	<label class="col-sm-2 control-label">Superficie aprobada (m²)</label>    	
 		<div class="col-sm-2">{{ form_widget(res.FormularioEditar.SuperficieAprobada) }}</div>
-		<label class="col-sm-2 control-label">Superficie Relevada <span style="color:red">*</span></label>    	
+		<label class="col-sm-2 control-label">Superficie relevada (m²)</label>    	
 		<div class="col-sm-2">{{ form_widget(res.FormularioEditar.SuperficieRelevada) }}</div>		
- </div>
- <div class="row form-group">
+</div>
+<div class="row form-group">
  	<div>{{ form_row(res.FormularioEditar.Obs) }}</div>
  </div>
-            
- 	
 {% endblock %}

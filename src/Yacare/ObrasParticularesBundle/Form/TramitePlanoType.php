@@ -26,13 +26,13 @@ class TramitePlanoType extends AbstractType
                 'required' => true))
             ->add('SuperficieProyectada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                   'label' => 'Superficie Proyectada',
-                  'required' => true))
+                  'required' => false))
             ->add('SuperficieAprobada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                   'label' => 'Superficie Apobada',
-                  'required' => true))
+                  'required' => false))
             ->add('SuperficieRelevada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                   'label' => 'Superficie relevada',
-                  'required' => true))
+                  'required' => false))
             ->add('ObraDestinos','Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                   'label' => 'Destino de la obra',
                   'class' => 'Yacare\ObrasParticularesBundle\Entity\ObraDestino',
