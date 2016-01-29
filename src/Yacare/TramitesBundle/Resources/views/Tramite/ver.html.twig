@@ -80,7 +80,7 @@
 	</thead>
 	<tbody>
 		{% for EstadoRequisito in res.Entidad.EstadosRequisitos %}
-		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" {% endif %}>
+		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" style="display: none;" {% endif %}>
 			<td>
 				{% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %} <i class="fa fa-clipboard fa-fw"></i>
 				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cos' %} <i class="fa fa-file-text-o fa-fw"></i>
@@ -169,6 +169,7 @@
 		{% endfor %}
 	</tbody>
 </table>
+
 {% endblock %}
 
 {% block pagina_acciones %}
@@ -182,7 +183,7 @@
     });
 </script>
 
-{{ tgen.Button('Mostrar u ocultar otros requisitos', { icon: 'adjust', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
+{{ tgen.Button(tgen.Icon('adjust'), { title: 'Ocultar o mostrar requisitos no obligatorios', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
 {% endblock %}
 
 {% block pagina_menuprincipal %}{{ parent() }}
