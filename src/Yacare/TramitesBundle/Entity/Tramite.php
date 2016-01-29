@@ -329,7 +329,7 @@ abstract class Tramite implements ITramite
      * @return int La cantidad de requisitos obligatorios que aun no fueron
      *             cumplidos.
      */
-    public function RequisitosFaltantesCantidad()
+    public function RequisitosFaltantesCantidad($etapa = null)
     {
         $res = 0;
         foreach ($this->EstadosRequisitos as $EstadoRequisito) {
