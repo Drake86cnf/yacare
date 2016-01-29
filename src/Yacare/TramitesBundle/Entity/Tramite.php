@@ -336,7 +336,7 @@ abstract class Tramite implements ITramite
             if ($EstadoRequisito->EsNecesario()
                 && $EstadoRequisito->EsOpcional() == false
                 && $EstadoRequisito->EstaCumplido() == false
-                && ($EstadoRequisito->getAsociacionRequisito()->getEtapa() == null || $EstadoRequisito->getAsociacionRequisito()->getEtapa() == $etapa)) {
+                && ($etapa  == null || $EstadoRequisito->getAsociacionRequisito()->getEtapa() == $etapa)) {
                 $res ++;
             }
         }
