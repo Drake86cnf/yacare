@@ -5,24 +5,31 @@
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
+{% block tramite_encab %} {{ parent() }}
+{% endblock %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-12">
-            {{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
+			<div class="col-sm-8 col-xs-12">
+			{{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
             {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
-            {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
-            {% for obra_destino in res.Entidad.ObraDestinos %}
-            {{ bs.grid_label_text('ObraDestino', obra_destino) }}
-            {% endfor %}
             {% if res.Entidad.Partida.Titular %}
 		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
 		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
 		    {% endif %}
-		    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+		    </div>
+		    <div class ="col-sm-4 col-xs-12 col-separator-left">
+            {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
+            {% for obra_destino in res.Entidad.ObraDestinos %}
+                {{ bs.grid_label_text('ObraDestino', obra_destino) }}
+            {% endfor %}
+            {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
 	        	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
-		</div>
+			</div>
 	</div>
 </div>
+{% block tramite_requisitos %}{{ parent() }}
+{% endblock %}
+
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
