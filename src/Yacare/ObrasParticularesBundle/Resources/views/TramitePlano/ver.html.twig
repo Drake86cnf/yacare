@@ -1,6 +1,7 @@
-{% extends 'TapirAbmBundle::ver.html.twig' %}
+{% extends 'YacareTramitesBundle:Tramite:ver.html.twig' %}
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
 
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
@@ -9,16 +10,16 @@
 {% endblock %}
 <div class="container-fluid">
 	<div class="row">
-			<div class="col-sm-8 col-xs-12">
-			{{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
+			<div class="col-sm-6 col-xs-12">
+			{{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
             {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
             {% if res.Entidad.Partida.Titular %}
 		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
 		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
 		    {% endif %}
 		    </div>
-		    <div class ="col-sm-4 col-xs-12 col-separator-left">
-            {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
+		    <div class ="col-sm-6 col-xs-12 col-separator-left">
+		    {{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
             {% for obra_destino in res.Entidad.ObraDestinos %}
                 {{ bs.grid_label_text('ObraDestino', obra_destino) }}
             {% endfor %}
@@ -36,8 +37,6 @@
 	<a class="btn btn-default" data-toggle="ajax-link" 
 		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
 		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	<a href="{{ path(res.ObtenerRutaAccion('seguimientolistar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-    	class="btn btn-default"><i class="fa fa-paper-plane"></i> Seguimiento</a>
 {% endblock %}
 
 {% block pagina_acciones2 %}
