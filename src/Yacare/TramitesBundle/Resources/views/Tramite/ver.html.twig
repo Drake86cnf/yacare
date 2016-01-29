@@ -177,12 +177,6 @@
 {% endblock pagina_acciones %}
 
 {% block pagina_acciones2 %}
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="requisitos_ocultables"]').hide();
-    });
-</script>
-
 {{ tgen.Button(tgen.Icon('adjust'), { title: 'Ocultar o mostrar requisitos no obligatorios', onclick: "$('[data-toggle=requisitos_ocultables]').toggle(); return false;" })|raw }}
 {% endblock %}
 
