@@ -1,7 +1,6 @@
-{% extends 'YacareTramitesBundle:Tramite:ver.html.twig' %}
+{% extends 'TapirAbmBundle::ver.html.twig' %}
 
 {% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
-
 
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
@@ -30,6 +29,8 @@
 	<a class="btn btn-default" data-toggle="ajax-link" 
 		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
 		<i class="fa fa-paperclip"></i> Adjuntos</a>
+	<a href="{{ path(res.ObtenerRutaAccion('seguimientolistar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
+    	class="btn btn-default"><i class="fa fa-paper-plane"></i> Seguimiento</a>
 {% endblock %}
 
 {% block pagina_acciones2 %}

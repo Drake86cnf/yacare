@@ -14,7 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("tramiteplano/")
  */
 class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteController
-{    
+{
+    use \Yacare\AdministracionBundle\Controller\ConSeguimiento;
+    
     /**
      * @Route("adjuntos/listar/")
      * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")

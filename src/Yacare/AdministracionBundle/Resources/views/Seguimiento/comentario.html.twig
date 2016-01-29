@@ -1,0 +1,12 @@
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Seguimiento de {{ res.Entidad }}{% endblock %}
+
+{% block pagina_contenido %}
+{{ form(res.FormularioEditar) }}
+{% endblock %}
+
+{% block pagina_acciones %}
+    {{ tgen.Button('Enviar', { icon: 'comment-o', ajax: true, 'data-target': '#page-wrapper',
+        href: path(res.ObtenerRutaAccion('ver'), res.Arrastre|merge({ 'id': res.Entidad.id })) })|raw }}
+{% endblock %}
