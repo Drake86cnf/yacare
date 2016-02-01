@@ -22,7 +22,7 @@ class DepartamentoType extends AbstractType
                 'label' => 'Nombre', 
                 'required' => true))
             ->add('Rango', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-                'choices' => \Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos(),
+                'choices' => array_flip(\Yacare\OrganizacionBundle\Entity\Departamento::NombresRangos()),
                 'label' => 'Rango'))
             ->add('ParentNode', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                 'label' => 'Depende de', 
