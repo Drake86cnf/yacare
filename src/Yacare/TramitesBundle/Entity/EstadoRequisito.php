@@ -123,23 +123,6 @@ class EstadoRequisito implements IEstadoRequisito
     }
     
     /**
-     * Devuelve true si este requisito es necesario para el estado intermedio de este trámite.
-     * 
-     * Similar a EsNecesario, pero para estado intermedio.
-     *
-     * @see EsNecesario()
-     */
-    public function EsNecesarioIntermedio()
-    {
-        if($this->getAsociacionRequisito()->getUtilidadIntermedio() == 0) {
-            // No es necesario, porque es para el final
-            return false;
-        } else {
-            return $this->EsNecesario();
-        }
-    }
-
-    /**
      * Devuelve true si el requisito es opcional o si este es un sub requisito
      * de un requisito opcional.
      *
@@ -167,22 +150,6 @@ class EstadoRequisito implements IEstadoRequisito
     public function EstaCumplido()
     {
         return $this->EsNecesario() == false || $this->EsOpcional() || $this->getEstado() >= 99;
-    }
-    
-    /**
-     * Devuelve true si el requisito asociado se da por cumplido para un estado intermedio.
-     *
-     * Para los requisitos opcionales, siempre devuelve true.
-     *
-     * @return bool Devuelve true si el requisito se da por cumplido para el estado intermedio.
-     *
-     * @see $AsociacionRequisito $AsociacionRequisito
-     */
-    public function EstaCumplidoIntermedio()
-    {
-        return $this->EsNecesarioIntermedio() == false || $this->EsOpcional()
-            || ($this->getAsociacionRequisito()->getUtilidadIntermedio() == 0 && $this->getEstado() == 80)
-            || $this->getEstado() >= 99;
     }
 
     /**

@@ -139,26 +139,6 @@ class AsociacionRequisito
     private $NecesarioAlIniciar;
 
     /**
-     * Verifica si el requisito sirve para la finalizalición de un trámite.
-     * 
-     * @return boolean
-     */
-    public function SirveParaEstadoFinal()
-    {
-        return ($this->getUtlidadIntermedio() == 0);
-    }
-
-    /**
-     * Verifica si el requisito sirve para alcanzar un estado intermedio en un trámite.
-     *
-     * @return boolean
-     */
-    public function SirveParaEstadoIntermedio()
-    {
-        return ($this->getUtlidadIntermedio() == 1 || $this->getUtlidadIntermedio() == 80);
-    }
-
-    /**
      * Devuelve true si esta asociación es opcional (Tipo = 1).
      * 
      * @return boolean
