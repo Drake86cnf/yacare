@@ -127,54 +127,68 @@ class AsociacionRequisito
      * 
      * @ORM\Column(type="string", nullable=true)
      */
-    private $Etapa;    
+    private $Etapa;
     
+    /**
+     * Requisitos que se solicitan al momento de iniciar un tramite.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $NecesarioAlIniciar;
+
     /**
      * Verifica si el requisito sirve para la finalizalición de un trámite.
      * 
      * @return boolean
      */
-    public function SirveParaEstadoFinal() {
+    public function SirveParaEstadoFinal()
+    {
         return ($this->getUtlidadIntermedio() == 0);
     }
-    
+
     /**
      * Verifica si el requisito sirve para alcanzar un estado intermedio en un trámite.
      *
      * @return boolean
      */
-    public function SirveParaEstadoIntermedio() {
+    public function SirveParaEstadoIntermedio()
+    {
         return ($this->getUtlidadIntermedio() == 1 || $this->getUtlidadIntermedio() == 80);
     }
-    
+
     /**
      * Devuelve true si esta asociación es opcional (Tipo = 1).
      * 
      * @return boolean
      */
-    public function EsOpcional() {
+    public function EsOpcional()
+    {
         return ($this->getTipo() & 1) == 1;
     }
-    
+
     /**
      * Devuelve true si esta asociación es condicional (Tipo = 2).
      * 
      * @return boolean
      */
-    public function EsCondicional() {
+    public function EsCondicional()
+    {
         return ($this->getTipo() & 2) == 2;
     }
-    
+
     /**
      * Devuelve una representación de cadena del valor Propiedad.
      * 
      * @see $Propiedad
      */
-    public function getPropiedadNombre() {
+    public function getPropiedadNombre()
+    {
         $Partes = array_reverse(explode('.', $this->getPropiedad()));
         return join(' de ', $Partes);
     }
-    
+
     /**
      * Devuelve una representación de cadena del valor Instancia.
      *
@@ -199,7 +213,7 @@ class AsociacionRequisito
                 return 'Copia legalizada';
         }
     }
-    
+
     /**
      * Devuelve una representación de cadena de la condición.
      *
@@ -436,4 +450,20 @@ class AsociacionRequisito
         return $this;
     }
 
+    /**
+     * @ignore
+     */
+    public function getNecesarioAlIniciar()
+    {
+        return $this->NecesarioAlIniciar;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNecesarioAlIniciar($NecesarioAlIniciar)
+    {
+        $this->NecesarioAlIniciar = $NecesarioAlIniciar;
+        return $this;
+    }
 }
