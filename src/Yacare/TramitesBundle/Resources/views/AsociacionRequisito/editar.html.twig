@@ -20,10 +20,11 @@
 		<label class="col-xs-4 col-sm-2 control-label">Instancia</label>
 		<div class="col-xs-6 col-sm-4">{{ form_widget(edit_form.Instancia) }}</div>
 	</div>
-
 	<div class="row form-group">
 		<label class="hidden-xs col-xs-2 control-label">Tipo</label>
-		<div class="col-xs-10">{{ form_widget(edit_form.Tipo) }}</div>
+		<div class="col-xs-4">{{ form_widget(edit_form.Tipo) }}</div>
+		<label class="hidden-xs col-xs-2 control-label">Requerido al iniciar</label>
+		<div class="col-xs-4">{{ form_widget(edit_form.RequeridoAlIniciar) }}</div>
 	
 		<div class="container-fluid hidden" id="yacare_tramitesbundle_condicion_opcional">
         	<div class="row form-group">

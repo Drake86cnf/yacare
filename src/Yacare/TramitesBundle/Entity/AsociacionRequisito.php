@@ -136,7 +136,7 @@ class AsociacionRequisito
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $NecesarioAlIniciar;
+    private $RequeridoAlIniciar;
 
     /**
      * Devuelve true si esta asociación es opcional (Tipo = 1).
@@ -433,17 +433,19 @@ class AsociacionRequisito
     /**
      * @ignore
      */
-    public function getNecesarioAlIniciar()
+    public function getRequeridoAlIniciar()
     {
-        return $this->NecesarioAlIniciar;
+        return $this->RequeridoAlIniciar;
     }
 
     /**
      * @ignore
      */
-    public function setNecesarioAlIniciar($NecesarioAlIniciar)
+    public function setRequeridoAlIniciar($RequeridoAlIniciar)
     {
-        $this->NecesarioAlIniciar = $NecesarioAlIniciar;
+        $this->RequeridoAlIniciar = $RequeridoAlIniciar;
         return $this;
     }
+ 
+
 }

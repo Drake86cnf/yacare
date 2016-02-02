@@ -25,6 +25,13 @@ class AsociacionRequisitoType extends AbstractType
                 'query_builder' => function (\Tapir\BaseBundle\Entity\TapirBaseRepository $er) {
                     return $er->createQueryBuilder('i');
                 }))
+            ->add('RequeridoAlIniciar','Symfony\Component\Form\Extension\Core\Type\ChoiceType' , array(
+                  'required'=> false,
+                  'label'=> 'Requerido al iniciar',
+                  'choices'=> array(
+                   'Si'=> true,
+                   'No'=> false,
+                  )))
             ->add('Propiedad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'De', 
                 'required' => false, 
