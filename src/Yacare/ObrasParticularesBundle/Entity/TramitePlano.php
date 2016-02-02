@@ -51,6 +51,16 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     private $PlanoTipo = 1;
     
     /**
+     * Indica la fecha del PermisoInicio de Obra en caso que lo tenga
+     * 
+     * @var date
+     * 
+     * @ORM\Column(type="date",nullable=true)
+     * 
+     */
+    private $InicioDeObra;
+    
+    /**
      * La superficie proyectada del plano
      * 
      * @var float
@@ -202,4 +212,22 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
         $this->SuperficieRelevada = $SuperficieRelevada;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getInicioDeObra()
+    {
+        return $this->InicioDeObra;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setInicioDeObra($InicioDeObra)
+    {
+        $this->InicioDeObra = $InicioDeObra;
+        return $this;
+    }
+ 
 }

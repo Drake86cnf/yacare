@@ -6,20 +6,27 @@
 {% block pagina_titulo %}{{ res.Entidad }}{% endblock %}
 
 {% block pagina_contenido %}
-{% block tramite_encab %} {{ parent() }}
+{% block tramite_encab %} 
+{{ parent() }}	   
 {% endblock %}
 <div class="container-fluid">
 	<div class="row">
 			<div class="col-sm-6 col-xs-12">
-			{{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
             {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
             {% if res.Entidad.Partida.Titular %}
 		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
 		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+		        <div><span class="text-info"><strong> Este tramite
+		        {%if res.Entidad.InicioDeObra%}
+		        	posee permiso de inicio de obra emitido el dia {{ res.Entidad.InicioDeObra }}
+		        {% else %}
+		        	 no posee permiso de inicio de obra</strong></span>
+		        {% endif %}
+		      </div>
 		    {% endif %}
 		    </div>
 		    <div class ="col-sm-6 col-xs-12 col-separator-left">
-		    {{ bs.grid_label_text('Fecha', res.Entidad.createdAt|tapir_fecha('medium', 'none')) }}
+		    {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
             {% for obra_destino in res.Entidad.ObraDestinos %}
                 {{ bs.grid_label_text('ObraDestino', obra_destino) }}
             {% endfor %}
@@ -34,6 +41,7 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
+
 {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
 {{ tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw }}
 {% endblock %}
