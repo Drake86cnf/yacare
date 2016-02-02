@@ -21,3 +21,35 @@
  	<div>{{ form_row(res.FormularioEditar.Obs) }}</div>
  </div>
 {% endblock %}
+
+ {% block pagina_scripts %}
+ {{ parent() }}
+ <!-- Deshabilito opciones de acuerdo al tipo de plano -->
+    <script>
+    $(function() {
+        $('#tramite_plano_PlanoTipo').change(function() {
+            if($('#tramite_plano_PlanoTipo').val() === '1') {
+            	$('#tramite_plano_SuperficieProyectada').prop('disabled', true);
+            	$('#tramite_plano_SuperficieAprobada').prop('disabled', true);
+            	$('#tramite_plano_SuperficieRelevada').prop('disabled', false);
+            } else if ($('#tramite_plano_PlanoTipo').val() === '2') {
+            	$('#tramite_plano_SuperficieProyectada').prop('disabled', true);
+            	$('#tramite_plano_SuperficieAprobada').prop('disabled', false);
+            	$('#tramite_plano_SuperficieRelevada').prop('disabled', false);
+            } else if ($('#tramite_plano_PlanoTipo').val() === '4') {
+            	$('#tramite_plano_SuperficieProyectada').prop('disabled', false);
+            	$('#tramite_plano_SuperficieAprobada').prop('disabled', true);
+            	$('#tramite_plano_SuperficieRelevada').prop('disabled', true);
+            } else if ($('#tramite_plano_PlanoTipo').val() === '5') {
+            	$('#tramite_plano_SuperficieProyectada').prop('disabled', false);
+            	$('#tramite_plano_SuperficieAprobada').prop('disabled', true);
+            	$('#tramite_plano_SuperficieRelevada').prop('disabled', false);
+            } else if ($('#tramite_plano_PlanoTipo').val() === '6') {
+            	$('#tramite_plano_SuperficieProyectada').prop('disabled', false);
+            	$('#tramite_plano_SuperficieAprobada').prop('disabled', false);
+            	$('#tramite_plano_SuperficieRelevada').prop('disabled', false);
+            }
+        }).change();
+	});
+	</script>
+ {% endblock %}
