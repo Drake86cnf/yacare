@@ -2,7 +2,8 @@
 namespace Tapir\TemplateBundle\Twig;
 
 use Tapir\TemplateBundle\Tgen\HtmlGenerator;
-class TgenExtension extends \Twig_Extension
+
+class TgenExtension extends \Twig_Extension implements \Twig_Extension_InitRuntimeInterface
 {
     protected $Tgen;
     
