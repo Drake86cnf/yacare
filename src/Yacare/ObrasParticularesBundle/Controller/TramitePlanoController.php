@@ -23,7 +23,58 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
      * @Template("YacareObrasParticularesBundle:ActaObra:adjuntos_listar.html.twig")
      */
     public function adjuntoslistarAction(Request $request)
-    {    
+    {
         return parent::adjuntoslistarAction($request);
     }
+
+    /**
+     * Editar un tramite de planos.
+     *
+     * @see \Tapir\AbmBundle\Controller\AbmController::editarAction() AbmController::editarAction()
+     *
+     * @Route("editar/")
+     * @Route("crear/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
+     * @Template()
+     */
+    public function editarAction(Request $request)
+    {
+        if (! $this->isGranted('ROLE_IDDQD')) {
+            if ($this->ObtenerVariable($request, 'id') && ($this->isGranted('ROLE_OBRAS_PARTICULARES_INSPECTOR') &&
+                 ! $this->isGranted('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR'))) {
+                return $this->redirectToRoute('yacare_base_default_accesodenegado');
+            } else {
+                return parent::editarAction($request);
+            }
+        } else {
+            return parent::editarAction($request);
+        }
+    }
+   /* 
+    /**
+     * Ver un TramitePlano.
+     * 
+     * 
+     * 
+     * @Route("ver/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
+     * @Template()
+     */
+    /*public function verAction(Reques $request){
+        
+        $id = $this->ObtenerEntidadPorId($request,'id');
+        $em= $this->getEm();
+        
+        if ($id){
+            $entity= $this->ObtenerEntidadPorId($id);
+            $requisitos=$entity->getEstadosRequisitos();
+            foreach($requisitos as $requisito){
+                if ($requisito->getNombre()=='Visado Obras Particulares' && $requisto->getEstadoRequisito()->getEstado()==100){
+                       
+                }
+            }
+            
+        }
+    }*/
+    
 }
