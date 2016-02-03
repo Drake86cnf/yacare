@@ -50,31 +50,30 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
             return parent::editarAction($request);
         }
     }
-   /* 
+
     /**
      * Ver un TramitePlano.
-     * 
-     * 
      * 
      * @Route("ver/")
      * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
      * @Template()
      */
-    /*public function verAction(Reques $request){
+    public function verAction(Request $request)
+    {
+        $res = parent::verAction($request);
         
-        $id = $this->ObtenerEntidadPorId($request,'id');
-        $em= $this->getEm();
+        $res = $res['res'];
         
-        if ($id){
-            $entity= $this->ObtenerEntidadPorId($id);
-            $requisitos=$entity->getEstadosRequisitos();
-            foreach($requisitos as $requisito){
-                if ($requisito->getNombre()=='Visado Obras Particulares' && $requisto->getEstadoRequisito()->getEstado()==100){
-                       
-                }
+        $Estados = $res->Entidad->getEstadosRequisitos();
+        $RequisitoEncontrado = false;
+        
+        foreach ($Estados as $estado) {
+            if ($estado->getAsociacionRequisito()->getRequisito()->getNombre() == 'Visado Obras Particulares') {
+                $RequisitoEncontrado = true;
+                break;
             }
-            
         }
-    }*/
-    
+        
+        return array('res' => $res, 'inicio_obra' => ($RequisitoEncontrado && $estado->getEstadoNombre() == 'Aprobado'));
+    }
 }

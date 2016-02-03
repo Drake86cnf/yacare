@@ -18,13 +18,17 @@
 		<div class="col-sm-2">{{ form_widget(res.FormularioEditar.SuperficieRelevada) }}</div>		
 </div>
 <div class="row form-group">
+ 	<div>{{ form_row(res.FormularioEditar.Profesional) }}</div>
+</div>
+<div class="row form-group">
  	<div>{{ form_row(res.FormularioEditar.Obs) }}</div>
- </div>
+</div>
+{{ form_rest(res.FormularioEditar) }}
 {% endblock %}
 
- {% block pagina_scripts %}
- {{ parent() }}
- <!-- Deshabilito opciones de acuerdo al tipo de plano -->
+{% block pagina_scripts %}
+{{ parent() }}
+<!-- Deshabilito opciones de acuerdo al tipo de plano -->
     <script>
     $(function() {
         $('#tramite_plano_PlanoTipo').change(function() {

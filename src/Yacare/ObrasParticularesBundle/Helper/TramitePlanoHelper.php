@@ -22,5 +22,22 @@ class TramitePlanoHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
             
             $entity->setTramiteTipo($TramiteTipo);
         }
+
+        switch($entity->getTipo()) {
+            case 'Relevamiento':
+                $entity->setSuperficieProyectada(0);
+                $entity->setSuperficieAprobada(0);
+                break;
+            case 'Conforme a obra':
+                $entity->setSuperficieProyectada(0);
+                break;
+            case 'Obra nueva':
+                $entity->setSuperficieAprobada(0);
+                $entity->setSuperficieRelevada(0);
+                break;
+            case 'Relevamiento y ampliación':
+                $entity->setSuperficieAprobada(0);
+                break;
+        }
     }
 }
