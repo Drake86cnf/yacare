@@ -12,7 +12,8 @@
 <div class="container-fluid">
 	<div class="row">
 			<div class="col-sm-6 col-xs-12">
-            {{ bs.grid_label_text('Partida', res.Entidad.Partida) }}
+            <h3 class="row-header">
+             {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}</h3>
             {% if res.Entidad.Partida.Titular %}
 		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
 		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}

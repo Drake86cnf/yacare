@@ -12,6 +12,9 @@ class RequisitoType extends AbstractType
     {
         $builder
             ->add('Nombre', null, array('label' => 'Nombre'))
+            ->add('Codigo', null, array(
+                'label' => 'Codigo',
+                'attr' => array('placeholder'=> 'Codigo identificador del requisito')))
             ->add('Lugar', null, array(
                 'label' => 'Lugar', 
                 'attr' => array('placeholder' => 'Lugar físico donde se obtiene o tramita')))
