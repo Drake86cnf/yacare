@@ -1,4 +1,25 @@
-{% extends 'TapirAbmBundle::editar.html.twig' %} {% block
-pagina_titulo %}{% if entity.id %}{{ entity.AsociacionRequisito }}
-<small> de {{ entity.Tramite }}</small>
-{% else %}Nuevo estado de requisito{% endif %}{% endblock %}
+{% extends 'TapirAbmBundle::editar.html.twig' %}
+
+{% block pagina_titulo %}{% if entity.id %}{{ entity.AsociacionRequisito }}{% endif %}{% endblock %}
+
+{% block pagina_contenido %}
+<div class="row form-group btn-group">
+    <div class="col-sm-12 text-center">{{ form_widget(res.FormularioEditar.Estado) }}</div>
+    
+    <div class="col-sm-12 hidden">
+        <button type="button" class="btn btn-success"><i class="fa fa-fw fa-check"></i> Aprobado</button>
+        
+        <button type="button" class="btn btn-danger"><i class="fa fa-fw fa-times"></i> Rechazado</button>
+        
+        <button type="button" class="btn btn-info"><i class="fa fa-fw fa-question"></i> Faltante</button>
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-12">{{ form_widget(res.FormularioEditar.Obs) }}</div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-12">{{ form_widget(res.FormularioEditar.EstoyTrabajando) }}</div>
+</div>
+
+{{ parent() }}
+{% endblock pagina_contenido %}
