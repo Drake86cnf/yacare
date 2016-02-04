@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Yacare\RequerimientosBundle\Entity\Requerimiento;
 
 /**
  * Controlador de movimientos de previas.
@@ -52,6 +53,31 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
     }
 
     /**
+     * El inicio de obra de un tramite plano.
+     * 
+     * @Route("iniciodeobra/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
+     * @Template()
+     */
+    public function iniciodeobraAction(Request $request)
+    {
+        $em = $this->getEm();
+        $id = $this->ObtenerVariable($request, 'id');
+        
+        if ($id) {
+            $entity = $this->ObtenerEntidadPorId($id);
+            $entity->setInicioDeObra(new \DateTime('now'));
+            $formEditar = $this->createFormBuilder($entity);
+        }
+        $em->flush();
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
+        $res->Form = $formEditar;
+        $res->Entidad = $entity;
+        
+        return array('res' => $res);
+    }
+
+    /**
      * Ver un TramitePlano.
      * 
      * @Route("ver/")
@@ -74,6 +100,6 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
             }
         }
         
-        return array('res' => $res, 'inicio_obra' => ($RequisitoEncontrado && $estado->getEstadoNombre() == 'Aprobado'));
+        return array('res' => $res, 'inicio_obra' => ($RequisitoEncontrado && $estado->getEstado() == 100));
     }
 }

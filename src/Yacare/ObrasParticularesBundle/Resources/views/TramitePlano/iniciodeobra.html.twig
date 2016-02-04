@@ -1,33 +1,56 @@
-{% extends 'YacareTramitesBundle:Tramite:terminar.html.twig' %}
+{% extends 'TapirTemplateBundle::layout.html.twig' %}
 
-{% block pagina_titulo %}{{ res.Entidad.Nombre }}{% endblock %}
+{% import 'TapirBaseBundle:Default:macros_bootstrap.html.twig' as bs %}
+
+{% block pagina_titulo %}Permiso de inicio de obra del plano número: {{ res.Entidad.Id }} {% endblock %}
 
 {% block pagina_contenido %}
+<h2 class="row-header">Datos de la obra</h2>
+	<div class="col-sm-4 col-xs-12 col-separator-left"></div>
+		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Fecha inicio de obra',res.Entidad.InicioDeObra|tapir_fecha('medium', 'none'))}}</div>	
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Numero de Plano', res.Entidad.Id )}}</div>
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Partida', res.Entidad.Partida.Numero)}}</div>
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio)}}</div>
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Titular',res.Entidad.Partida.Titular) }}</div>
 
-{% block comprobante_encab %}
-    <p class="text-right">Río Grande, {{ res.Entidad.createdAt|tapir_fecha('full', 'none')|lower }}</p>
-{% endblock %} 
-
-{% block comprobante_contenido %}
-	<h2 class="row-header">Datos de la obra</h2>
-	<div class="col-sm-4 col-xs-12 col-separator-left">
-        <div>{{form_row(res.Entidad.Id )}}</div>
-        <div>{{form_row(res.Entidad.Partida.Domicilio )}}{{form_row(res.Entidad.Partida)}}</div>  
-        <div>{{form_row(res.Entidad.Partida.Tituar) }}</div>
-   <h2 class="row-header">Datos del profesional</h2>
-   <div class="col-sm-4 col-xs-12 col-separator-left">
-   		<div>{{form_row(res.Entidad.Profesional.Persona.NombreVisible)}}</div>
-   		<div>{{form_row(res.Entidad.Profesional.Persona.Documento)}}</div>     
-    <footer>
-    	A solicitud del interesado se extiende el presente Permiso Provisorio de Inicio de Obra
-    	 de acuerdo al Art. II 1.1.2.1 del Código de Edificación según los datos consignados más arriba.
-    	 El otorgamiento del presente, se efectúa sin perjuicio de disponer la demolición y/o modificación de lo ejecutado a la suspensión de los trabajos,
-    	 si estos no fueran realizados de acuerdo con la documentación presentada o las reglamentaciones en vigencia.
-    	 Dentro de un plazo de 48 horas de la emisión del mismo, deberá colocarse el cartel de obra correspondiente: según Código de Edificación Art. IV.1.2, IV.1.2.2. 
-    	 {{res.Entidad.FechaValidezHasta|tapir_fecha('full', 'none')|lower }} inclusive.
-    </footer>
-{% endblock %} {% endblock %} 
-
+<h2 class="row-header">Datos del profesional</h2>
+   <div class="col-sm-4 col-xs-12 col-separator-left"></div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Nombre',res.Entidad.Profesional.Persona.NombreVisible)}}</div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Matricula',res.Entidad.Profesional.Id)}}</div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('DNI',res.Entidad.Profesional.Persona.DocumentoNumero)}}</div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Profesion',res.Entidad.Profesional.Profesion)}}</div>
+   	    
+   {% if res.Entidad.Obs %}
+   <h2 class="row-header">Observaciones</h2> 
+   <div class="col-sm-4 col-xs-12 col-separator-left"></div>
+   <div class="col-sm-12 col-xs-12">{{bs.grid_label_text(res.Entidad.Obs)}}</div>
+   {% endif %}
+   <h2 class=" visible-print-block row-header">Importante</h2> 
+   <div class="col-sm-4 col-xs-12 col-separator-left"></div>
+		<div class="visible-print-block pull-left">
+		A solicitud del interesado se extiende el presente Permiso Provisorio de Inicio de Obra de acuerdo al Art. II 1.1.2.1
+		del Código de Edificación según los datos consignados más arriba. El otorgamiento del presente,
+		se efectúa sin perjuicio de disponer la demolición y/o modificación de lo ejecutado a la suspensión de los trabajos,
+		si estos no fueran realizados de acuerdo con la documentación presentada o las reglamentaciones en vigencia.
+		Dentro de un plazo de 48 horas de la emisión del mismo, deberá colocarse el cartel de obra correspondiente:
+		 según Código de Edificación Art. IV.1.2, IV.1.2.2.
+		</div>
+	</div>
+{% endblock %}
+{% block pagina_fin %}
+<div class="row">
+		<div class=" visible-print col-sm-4 col-xs-6 pull-right footer">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Propietario / Profesional</div>
+		</div>
+		<div class=" visible-print col-sm-4 col-xs-6 pull-right pull-left footer">
+			<div class="firma-espacio"></div>
+			<div class="firma-texto">Inspector</div>
+		</div>
+	</div>
+	
+{% endblock %}
 {% block pagina_acciones %}
 {{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print();', href: '#' })|raw }}
 {% endblock %}
+
