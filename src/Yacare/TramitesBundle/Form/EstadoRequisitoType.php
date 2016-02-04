@@ -13,15 +13,15 @@ class EstadoRequisitoType extends AbstractType
             ->add('Estado', 'Tapir\BaseBundle\Form\Type\ButtonGroupType', array(
                 'label' => 'Estado', 
                 'required' => true,
-                'attr' => array('vertical' => true, 'class' => 'tapir-input-320'),
+                'attr' => array('vertical' => false, 'class' => 'tapir-input-320a'),
                 'choices' => array(
                     'Faltante' => 0, 
                     'Observado' => 10, 
                     'Rechazado' => 15, 
-                    'Desestimado' => 90, 
-                    'Presentado pendiente de aprobación' => 95, 
+                    'Presentado' => 95, 
                     'Aprobado' => '100')))
-            ->add('Obs', null, array('label' => 'Obs.'))
+            ->add('Obs', null, array('label' => 'Observaciones', 'attr' => [ 'placeholder' => 'Observaciones']))
+            ->add('EstoyTrabajando', null, array('label' => 'Estoy trabajando en esto'))
             ;
     }
 

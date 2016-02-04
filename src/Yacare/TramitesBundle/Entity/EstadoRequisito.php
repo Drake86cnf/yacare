@@ -98,6 +98,16 @@ class EstadoRequisito implements IEstadoRequisito
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $FechaAprobado;
+    
+    /**
+     * Marca un requisito como que se está actualmente en proceso.
+     *
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $EstoyTrabajando = false;
+    
 
     /**
      * Devuelve true si este requisito es necesario para este trámite.
@@ -497,6 +507,24 @@ class EstadoRequisito implements IEstadoRequisito
         $this->Subtramite = $Subtramite;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getEstoyTrabajando()
+    {
+        return $this->EstoyTrabajando;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setEstoyTrabajando($EstoyTrabajando)
+    {
+        $this->EstoyTrabajando = $EstoyTrabajando;
+        return $this;
+    }
+ 
  
  
 }

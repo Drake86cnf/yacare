@@ -80,7 +80,9 @@
 	</thead>
 	<tbody>
 		{% for EstadoRequisito in res.Entidad.EstadosRequisitos %}
-		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" style="display: none;" {% endif %}>
+		<tr {% if EstadoRequisito.EsNecesario == 0 %} data-toggle="requisitos_ocultables" style="display: none;" {% endif %}
+			class="{% if EstadoRequisito.EstoyTrabajando %}success{% endif %}"
+		>
 			<td>
 				{% if EstadoRequisito.AsociacionRequisito.Instancia == 'cop' %} <i class="fa fa-clipboard fa-fw"></i>
 				{% elseif EstadoRequisito.AsociacionRequisito.Instancia == 'cos' %} <i class="fa fa-file-text-o fa-fw"></i>
@@ -93,51 +95,13 @@
 					<i class="fa fa-paperclip fa-fw"></i>
 					</a>
 				{% endif %}
-				{% if EstadoRequisito.Obs %}<i class=" fa fa-circle-info fa-fw" role="button" data-trigger="hover"
-					data-container="body" data-animation="true" data-toggle="popover" title="Observaciones"
-					data-placement="right"  data-content= "{{ EstadoRequisito.Obs }}"></i>
-				{% endif %}
 			</td>
-			<td>{% if EstadoRequisito.AsociacionRequisito.Requisito.Tipo == 'tra' and EstadoRequisito.Subtramite %}
-					{# Progreso del subtrámite #}
-					{{ tgen.Progress(EstadoRequisito.Subtramite.PorcentajeCompleto, 100, { style: 'width: 100px', class: 'pull-right'})|raw }}
-					
-			    {% elseif res.Entidad.Estado < 90 %}
-				<div class="btn-group hidden-print pull-right" style="width: 100px">
-					<a class="btn btn-default btn-sm dropdown-toggle"
-						data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i>
-						Opciones &nbsp;<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) }}"><i
-								class="fa fa-edit fa-fw"></i> Cambiar estado y observaciones</a></li>
-						{% if EstadoRequisito.Adjuntos|length %}
-						<li><a data-toggle="modal" data-target="#modal"
-							href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}"><i
-								class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos <span
-								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
-						{% endif %}
-					    {% if EstadoRequisito.Estado != 100 %}
-						<li><a data-toggle="ajax-link"
-							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 100 }) }}"><i
-								class="fa fa-check fa-fw"></i> Marcar como aprobado</a></li>
-						{% endif %}
-						{% if EstadoRequisito.Estado != 15 %}
-						<li><a data-toggle="ajax-link"
-							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 15 }) }}"><i
-								class="fa fa-times fa-fw"></i> Marcar como rechazado</a></li>
-						{% endif %}
-						{% if EstadoRequisito.Estado != 0 %}
-						<li><a data-toggle="ajax-link"
-							href="{{ path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 0 }) }}"><i
-								class="fa fa-question fa-fw"></i> Marcar como faltante</a></li>
-						{% endif %}
-					</ul>
-				</div>
-			    {% endif %}
-			    
-				{% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
-				{{ EstadoRequisito.AsociacionRequisito }}
+			<td>
+			    {% if EstadoRequisito.EsNecesario == 0 %}<span style="text-decoration: line-through;">{% endif %}
+				{{ EstadoRequisito.AsociacionRequisito.Requisito.Nombre }}
+				{% if EstadoRequisito.AsociacionRequisito.Propiedad %}
+					<span class="text-muted">de {{ EstadoRequisito.AsociacionRequisito.Propiedad }}</span>
+				{% endif %}
 				{% if EstadoRequisito.EsNecesario == 0 %} </span><br />
 					<small class="text text-muted">No corresponde.
 					{% if EstadoRequisito.AsociacionRequisito.Condicion %} Sólo se requiere
@@ -148,21 +112,63 @@
 					<small class="text text-muted">Requerido para
 					    {{ EstadoRequisito.EstadoRequisitoPadre.AsociacionRequisito.Requisito }}.</small>
 				{% endif %}
+				
+				{% if EstadoRequisito.Obs %}<br /><span class="text-info"><i class="fa fa-comment-o"></i> {{ EstadoRequisito.Obs }}</span>{% endif %}
 			</td>
-			<td>{% if EstadoRequisito.EsNecesario %}
-			        {% if EstadoRequisito.AsociacionRequisito.EsOpcional %}<span class="label label-info">Opcional</span>{% endif %}
-			        {% if EstadoRequisito.Estado == 0 %}
-			            {% if EstadoRequisito.AsociacionRequisito.EsOpcional %} <span class="label label-default">
-			            {% else %} <span class="label label-warning">
-			            {% endif %}
-			        {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %} <span class="label label-danger">
-			        {% elseif EstadoRequisito.Estado == 100 %} <span class="label label-success"><i class="fa fa-check"></i>
-					{% else %} <span class="label label-default">
-					{% endif %}
-					{{ EstadoRequisito.EstadoNombreCorto }}</span>
-				{% else %}
-					<span class="text text-muted">N/A</span>
-				{% endif %} 
+			<td>{% if EstadoRequisito.AsociacionRequisito.Requisito.Tipo == 'tra' and EstadoRequisito.Subtramite %}
+					{# Progreso del subtrámite #}
+					{{ tgen.Progress(EstadoRequisito.Subtramite.PorcentajeCompleto, 100, { style: 'width: 140px;'})|raw }}
+                {% elseif EstadoRequisito.EsNecesario %}
+    				{# Estado del requisito #}	
+                    {% if res.Entidad.Estado < 90 %}
+    					{% set clase_estado = 'default' %}	
+    					{% if EstadoRequisito.Estado == 0 %}
+        			            {% if EstadoRequisito.AsociacionRequisito.EsOpcional %}{% set clase_estado = 'default' %}
+        			            {% else %}{% set clase_estado = 'info' %}
+        			            {% endif %}
+    			        {% elseif EstadoRequisito.Estado >= 10 and EstadoRequisito.Estado < 20 %}{% set clase_estado = 'danger' %}
+    			        {% elseif EstadoRequisito.Estado == 100 %}{% set clase_estado = 'success' %}
+    					{% else %}{% set clase_estado = 'default' %}
+    					{% endif %}
+					
+        				<div class="btn-group" role="group">
+        					{{ tgen.Link(EstadoRequisito.EstadoNombreCorto, { class: 'btn btn-sm btn-' ~ clase_estado, style: 'width: 140px;', modal: true, roel: 'button', href: path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id }) })|raw }}
+        					<button type="button" class="btn btn-sm btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        						href="#"><span class="caret"></span></button>
+        					<ul class="dropdown-menu">
+        						<li>{{ tgen.Link('Estado y observaciones', { modal: true, icon: 'edit fa-fw', href: path('yacare_tramites_estadorequisito_editar', { 'id': EstadoRequisito.Id })})|raw }}</li>
+        						{% if EstadoRequisito.Adjuntos|length %}
+        						<li><a data-toggle="modal" data-target="#modal"
+        							href="{{ path('yacare_tramites_tramite_adjuntoslistar', { 'id': res.Entidad.id, 'req': EstadoRequisito.Id }) }}"><i
+        								class="fa fa-clipboard fa-fw"></i> Ver archivos adjuntos <span
+        								class="badge">{{ EstadoRequisito.Adjuntos|length }}</span> </a></li>
+        						{% endif %}
+        						
+        						{% if EstadoRequisito.Estado != 100  %}
+            						{% if EstadoRequisito.EstoyTrabajando %}
+                						<li>{{ tgen.Link('Ya no estoy trabajando en esto', { ajax: true, icon: 'pause fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estoytrabajando': 0 })})|raw }}</li>
+            					    {% else %}
+                					    <li>{{ tgen.Link('Estoy trabajando en esto', { ajax: true, icon: 'play fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estoytrabajando': 1 })})|raw }}</li>
+            					    {% endif %}
+        					    {% endif %}
+        					    <li class="divider" role="separator"></li>
+        					    
+        						{% if EstadoRequisito.Estado != 100 %}
+        							<li>{{ tgen.Link('Aprobado', { ajax: true, icon: 'check fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 100 })})|raw }}</li>
+        						{% endif %}
+        						{% if EstadoRequisito.Estado != 95 %}
+        							<li>{{ tgen.Link('Presentado', { ajax: true, icon: 'file-o fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 95 })})|raw }}</li>
+        						{% endif %}
+        						{% if EstadoRequisito.Estado != 15 %}
+        							<li>{{ tgen.Link('Rechazado', { ajax: true, icon: 'times fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 15 })})|raw }}</li>
+        						{% endif %}
+        						{% if EstadoRequisito.Estado != 0 %}
+        							<li>{{ tgen.Link('Faltante', { ajax: true, icon: 'question fa-fw', href: path(res.ObtenerRutaAccion('cambiarestado'), { 'id': res.Entidad.id, 'reqid': EstadoRequisito.Id, 'estado': 0 })})|raw }}</li>
+        						{% endif %}
+        					</ul>
+        				</div>
+        			    {% endif %}
+				{% endif %}
 			</td>
 			<td class="hidden-sm hidden-xs">{{ EstadoRequisito.FechaAprobado|tapir_fecha('medium', 'none') }}</td>
 		</tr>

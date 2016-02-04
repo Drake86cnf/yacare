@@ -3,22 +3,30 @@
 {% block pagina_titulo %}{% if entity.id %}{{ entity.AsociacionRequisito }}{% endif %}{% endblock %}
 
 {% block pagina_contenido %}
-<div class="row form-group btn-group">
-    <div class="col-sm-12 text-center">{{ form_widget(res.FormularioEditar.Estado) }}</div>
-    
-    <div class="col-sm-12 hidden">
-        <button type="button" class="btn btn-success"><i class="fa fa-fw fa-check"></i> Aprobado</button>
-        
-        <button type="button" class="btn btn-danger"><i class="fa fa-fw fa-times"></i> Rechazado</button>
-        
-        <button type="button" class="btn btn-info"><i class="fa fa-fw fa-question"></i> Faltante</button>
+<div class="row form-group">
+	<div class="col-sm-2">Estado</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Estado) }}</div>
+</div>
+<div class="row form-group">
+	<div class="col-sm-2"></div>
+    <div class="col-sm-10">
+    	<div class="row">
+    	<div class="col-xs-2 text-right small"></div><div class="col-xs-10 small">Referencia</div>
+    	<div class="col-xs-2 text-right small">Faltante</div><div class="col-xs-10 small">El requisito aun no fue presentado o cumplido.</div>
+    	<div class="col-xs-2 text-right small">Presentado</div><div class="col-xs-10 small">El requisito fue presentado, pero está pendiente su aprobación.</div>
+    	<div class="col-xs-2 text-right small">Observado</div><div class="col-xs-10 small">El requisito fue presentado, pero fue observado y debe ser subsanado o corregido.</div>
+    	<div class="col-xs-2 text-right small">Rechazado</div><div class="col-xs-10 small">El requisito fue presentado, pero fue rechazado.</div>
+    	<div class="col-xs-2 text-right small">Aprobado</div><div class="col-xs-10 small">El requisito fue presentado y aprobado.</div>
+    	</div>
     </div>
 </div>
 <div class="row form-group">
-    <div class="col-sm-12">{{ form_widget(res.FormularioEditar.Obs) }}</div>
+    <div class="col-sm-2">Observaciones</div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.Obs) }}</div>
 </div>
 <div class="row form-group">
-    <div class="col-sm-12">{{ form_widget(res.FormularioEditar.EstoyTrabajando) }}</div>
+	<div class="col-sm-2"></div>
+    <div class="col-sm-10">{{ form_widget(res.FormularioEditar.EstoyTrabajando) }}</div>
 </div>
 
 {{ parent() }}

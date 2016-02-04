@@ -30,25 +30,37 @@ class TramiteController extends \Tapir\AbmBundle\Controller\AbmController
     }
 
     /**
-     * @Route("cambiarestado/{id}/{reqid}/{estado}")
+     * @Route("cambiarestado/{id}/{reqid}")
      * @Template()
      */
-    public function cambiarestadoAction(Request $request, $id, $reqid, $estado)
+    public function cambiarestadoAction(Request $request, $id, $reqid)
     {
         $em = $this->getEm();
 
+        $Estado = $this->ObtenerVariable($request, 'estado');
+        $EstoyTrabajando = $this->ObtenerVariable($request, 'estoytrabajando');
+        
         $Tramite = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\Tramite')->find($id);
         if ($Tramite && $Tramite->getEstado() == 0) {
             $Tramite->setEstado(10);
             $em->persist($Tramite);
         }
 
+        print_r($Estado);
+        print_r($EstoyTrabajando);
+        
         $EstadoRequisito = $em->getRepository('\\Yacare\\TramitesBundle\\Entity\\EstadoRequisito')->find($reqid);
-        $EstadoRequisito->setEstado($estado);
-
-        if ($EstadoRequisito->getEstado() == 100) {
-            $EstadoRequisito->setFechaAprobado(new \DateTime());
+        if($Estado != null) {
+            $EstadoRequisito->setEstado($Estado);
+            if ($EstadoRequisito->getEstado() == 100) {
+                $EstadoRequisito->setFechaAprobado(new \DateTime());
+                $EstadoRequisito->setEstoyTrabajando(0);
+            }
         }
+        if($EstoyTrabajando != null) {
+            $EstadoRequisito->setEstoyTrabajando($EstoyTrabajando);
+        }
+
         $em->persist($EstadoRequisito);
 
         $em->flush();
