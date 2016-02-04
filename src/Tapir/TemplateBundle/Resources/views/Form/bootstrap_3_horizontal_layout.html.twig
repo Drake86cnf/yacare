@@ -104,7 +104,7 @@
                 {% if 'btn-xs' in bgclass %}btn-xs{% endif %}{% if 'btn-sm' in bgclass %}btn-sm{% endif %}
             {% endif %}
             {% if attr['vertical'] is defined and attr['vertical'] %} text-left{% endif %}
-        	btn-default {% if choice is selectedchoice(value) %} active{% endif %}"
+        	btn-border btn-default {% if choice is selectedchoice(value) %} active{% endif %}"
             value="{{ choice.value }}">
             <i class="fa fa-check" {% if not choice is selectedchoice(value) %}style="display: none;"{% endif %}></i>
             {{ choice.label }}</button>
@@ -134,12 +134,12 @@
         	{% if searchtype == 'modal' %}
         		{# Es con buscador modal #}
         		{% if not required %}
-            	<button class="btn btn-default showonhover" type="button" title="Doble clic para borrar"
+            	<button class="btn btn-border btn-default showonhover" type="button" title="Doble clic para borrar"
             		ondblclick="$('#{{ id }}').val(''); $('#{{ id }}_Detalle').val(''); return false;">
-        			<i class="fa fa-eraser"></i>
+        			<i class="fa fa-eraser text-danger"></i>
         		</button>
         		{% endif %}
-        		<button class="btn btn-default" type="button" data-toggle="modal"
+        		<button class="btn btn-border btn-default" type="button" data-toggle="modal"
         			href="{{ path(baseroute ~ '_buscar', { 'tapir_buscar_destino': '#' ~ id }) }}">
         			<i class="fa fa-search"></i>
         		</button>
@@ -151,12 +151,12 @@
     				});
     			</script>
     			{% if not required %}
-            	<button class="btn btn-default showonhover" type="button" title="Doble clic para borrar"
+            	<button class="btn btn-border btn-default showonhover" type="button" title="Doble clic para borrar"
             		ondblclick="$('#{{ id }}').val(''); $('#{{ id }}_Detalle').val(''); return false;">
-        			<i class="fa fa-eraser"></i>
+        			<i class="fa fa-eraser text-danger"></i>
         		</button>
         		{% endif %}
-    			<button class="btn btn-default" type="button" id="{{ id }}_BotonDesplegar"
+    			<button class="btn btn-border btn-default" type="button" id="{{ id }}_BotonDesplegar"
     				onclick="$('#{{ id }}_Desplegable').toggleClass('hidden');
     					$('#{{ id }}_BotonDesplegar > i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
         				return false;"><i class="fa fa-caret-up"></i></button>

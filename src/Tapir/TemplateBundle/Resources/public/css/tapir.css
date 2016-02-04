@@ -517,6 +517,25 @@ h2.row-header {
     max-height: 30px;
 }
 
+.btn-border {
+	border-color: #ccc;
+	border: 1px solid #ccc !important;
+}
+
+.btn {
+    padding: 6px 8px;
+    border-radius: 0 !important;
+    border: 1px solid transparent;
+}
+.btn:hover {
+    border: 1px solid transparent;
+}
+.btn.active {
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-bottom: 2px solid green;
+}
+
 #content-header {
     margin-right: 8px;
 }
