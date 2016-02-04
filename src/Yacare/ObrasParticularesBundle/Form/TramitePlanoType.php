@@ -25,10 +25,10 @@ class TramitePlanoType extends AbstractType
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 
                 'required' => true))
             ->add('SuperficieProyectada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
-                  'label' => 'Superficie Proyectada',
+                  'label' => 'Superficie proyectada',
                   'required' => false))
             ->add('SuperficieAprobada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
-                  'label' => 'Superficie Apobada',
+                  'label' => 'Superficie apobada',
                   'required' => false))
             ->add('SuperficieRelevada', 'Tapir\BaseBundle\Form\Type\SuperficieType', array(
                   'label' => 'Superficie relevada',
