@@ -32,9 +32,9 @@
         	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
 		</div>
 	</div>
-	<p class="text-info">Este tramite
+	<p class="text-info">Este trámite
         {%if res.Entidad.InicioDeObra%}
-        tiene permiso de inicio de obra emitido el dia {{ res.Entidad.InicioDeObra|tapir_fecha('medium', 'none') }}
+        tiene permiso de inicio de obra emitido el día {{ res.Entidad.InicioDeObra|tapir_fecha('medium', 'none') }}
         {% else %}
          no tiene permiso de inicio de obra.
         {% endif %}
