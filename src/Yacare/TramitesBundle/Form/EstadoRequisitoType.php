@@ -15,12 +15,14 @@ class EstadoRequisitoType extends AbstractType
                 'required' => true,
                 'attr' => array('vertical' => false, 'class' => 'tapir-input-320a'),
                 'choices' => array(
-                    'Faltante' => 0, 
-                    'Observado' => 10, 
+                    'Faltante' => 0,
+                    'Presentado' => 95,
+                    'Aprobado' => 100,
+                    '' => 0,
+                    'Observado' => 10,
                     'Rechazado' => 15, 
-                    'Presentado' => 95, 
-                    'Aprobado' => '100')))
-            ->add('Obs', null, array('label' => 'Observaciones', 'attr' => [ 'placeholder' => 'Observaciones']))
+                )))
+            ->add('Obs', null, array('label' => 'Observaciones', 'attr' => [ 'placeholder' => 'Observaciones' ]))
             ->add('EstoyTrabajando', null, array('label' => 'Estoy trabajando en esto'))
             ;
     }
