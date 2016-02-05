@@ -76,16 +76,28 @@
         </div>
         {% endif %}
         
-        <div id="page-wrapper">
-        	{% for type, flashMessages in app.session.flashbag.all() %}
-        		{% for flashMessage in flashMessages %}
-        			<div class="alert alert-{{ type }}" role="alert">
-        				<button type="button" class="close" data-dismiss="alert">×</button>
-        				{{ flashMessage|raw }}
-        			</div>
+		<div class="alerts-wrapper" role="alert" id="alerts-wrapper">
+	    {% set flashbag = app.session.flashbag.all %}
+        {% if flashbag is not empty %}	
+    		<button type="button" class="close" onclick="hideAlertsWrapper(); return false;">×</button>
+        	{% for type, messages in flashbag %}
+        		{% for message in messages %}
+        			<p class="text-{{ type }}">{{ message|raw }}</p>
         		{% endfor %}
         	{% endfor %}
-        
+            <script>
+            $(document).ready(function() {
+            	setTimeout(function() { hideAlertsWrapper(); }, {{ 5000 + (flashbag|length) * 5000 }});
+            });
+        	function hideAlertsWrapper() {
+        		$('#alerts-wrapper').fadeOut(250);
+        		setTimeout(function() { $('#alerts-wrapper').remove() }, 500);
+            }
+            </script>
+        {% endif %}
+		</div>
+
+        <div id="page-wrapper">
         	{% block pagina_contenido %}{% endblock %}
         
         	{% block pagina_pie %}{% endblock %}
