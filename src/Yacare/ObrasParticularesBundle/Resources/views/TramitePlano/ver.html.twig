@@ -47,7 +47,7 @@
 
 {% block pagina_acciones %}
 {% if inicio_obra %}
-    {{ tgen.Button('Inicio de Obra', { icon: ' fa-fort-awesome ', ajax: true, href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
+    {{ tgen.Button('Inicio de obra', { icon: ' fa-fort-awesome ', ajax: true, href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
 {% endif %}
 {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
 {# tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw #}
