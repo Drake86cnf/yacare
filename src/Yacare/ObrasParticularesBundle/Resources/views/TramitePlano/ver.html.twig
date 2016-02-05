@@ -11,34 +11,34 @@
 {% endblock %}
 <div class="container-fluid">
 	<div class="row">
-			<div class="col-sm-6 col-xs-12">
-            <h3 class="row-header">
-             {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}</h3>
-            {% if res.Entidad.Partida.Titular %}
-		    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
-		        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
-		        <div><span class="text-info"><strong> Este tramite
-		        {%if res.Entidad.InicioDeObra%}
-		        	posee permiso de inicio de obra emitido el dia {{ res.Entidad.InicioDeObra|tapir_fecha('medium', 'none') }}
-		        {% else %}
-		        	 no posee permiso de inicio de obra</strong></span>
-		        {% endif %}
-		      </div>
-		    {% endif %}
-		    </div>
-		    <div class ="col-sm-6 col-xs-12 col-separator-left">
-		    {{ bs.grid_label_text('Tipo de Plano', res.Entidad.getTipo) }}
-		    {% if res.Entidad.ObraDestinos|length > 0 %}
-			    {% set MuchosDest = [] %}
-                    {% for obra_destino in res.Entidad.ObraDestinos %}
-			    	{% set MuchosDest = MuchosDest|merge([obra_destino]) %}
-			    {% endfor %}
-			    {{ bs.grid_label_text('Obra Destino', MuchosDest|join(', ')) }}
-			{% endif %}
-            {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
-	        	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
-			</div>
+		<div class="col-sm-6 col-xs-12">
+        <h3 class="row-header">
+         {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}</h3>
+        {% if res.Entidad.Partida.Titular %}
+	    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
+	        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+	    {% endif %}
+	    </div>
+	    <div class ="col-sm-6 col-xs-12 col-separator-left">
+	    {{ bs.grid_label_text('Tipo', res.Entidad.getTipo) }}
+	    {% if res.Entidad.ObraDestinos|length > 0 %}
+		    {% set MuchosDest = [] %}
+                {% for obra_destino in res.Entidad.ObraDestinos %}
+		    	{% set MuchosDest = MuchosDest|merge([obra_destino]) %}
+		    {% endfor %}
+		    {{ bs.grid_label_text('Destino', MuchosDest|join(', ')) }}
+		{% endif %}
+        {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+        	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
+		</div>
 	</div>
+	<p class="text-info">Este tramite
+        {%if res.Entidad.InicioDeObra%}
+        tiene permiso de inicio de obra emitido el dia {{ res.Entidad.InicioDeObra|tapir_fecha('medium', 'none') }}
+        {% else %}
+         no tiene permiso de inicio de obra.
+        {% endif %}
+    </p>
 </div>
 {% block tramite_requisitos %}{{ parent() }}
 {% endblock %}
@@ -50,7 +50,7 @@
     {{ tgen.Button('Inicio de Obra', { icon: ' fa-fort-awesome ', ajax: true, href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
 {% endif %}
 {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
-{{ tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw }}
+{# tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw #}
 {% endblock %}
 
 {% block pagina_acciones2 %}

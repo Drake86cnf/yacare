@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
-    use \Yacare\AdministracionBundle\Controller\ConSeguimiento;
+    //use \Yacare\AdministracionBundle\Controller\ConSeguimiento;
 
     /**
      * @Route("adjuntos/listar/")
