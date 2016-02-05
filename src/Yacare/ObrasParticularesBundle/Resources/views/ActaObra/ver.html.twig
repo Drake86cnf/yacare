@@ -122,26 +122,24 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
-	<a class="btn btn-default" data-toggle="ajax-link" 
-		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
-		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}	
-        {% if not res.Entidad.Plazo %}
-    	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
-    		class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo</a>
-    	{% else %}
-    	{{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print()' })|raw }}
-    	{% endif %}
+	{{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, 
+	    href: path(res.ObtenerRutaAccion('adjuntoslistar'), { id: res.Entidad.id }) })|raw }}
+	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') and not res.Entidad.Plazo %}
+		{{ tgen.Button('Realizar descargo', { icon: 'mail-forward', ajax:true, 
+		    href: path(res.ObtenerRutaAccion('emitirdescargo'), { id:res.Entidad.id }) })|raw }}
+    {% endif %}
+	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_INSPECTOR') and res.Entidad.Plazo %}
+	    {{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print()' })|raw }}
 	{% endif %}
 {% endblock %}
 
 {% block pagina_acciones2 %}
 {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
-	<a href="{{ path(res.ObtenerRutaAccion('editar'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-    	class="btn btn-default"><i class="fa fa-edit"></i> Editar acta</a>
+	{{ tgen.Button('Editar acta', { icon: 'edit', ajax:true, 
+	    href: path(res.ObtenerRutaAccion('editar'), { id: res.Entidad.id }) })|raw }}
     {% if res.Entidad.Plazo and not res.Entidad.EstaVencida %}
-	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}"
-		class="btn btn-default"><i class="fa fa-edit"></i> Editar descargo</a>
+    	{{ tgen.Button('Editar descargo', { icon: 'edit', ajax: true, 
+    	    href: path(res.ObtenerRutaAccion('emitirdescargo'), { id: res.Entidad.id }) })|raw }}
 	{% endif %}
 {% endif %}
 {% endblock pagina_acciones2 %}
