@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Trait que agrega acciones de seguimiento.
  *
  * @author Ernesto Carrea <ernestocarrea@gmail.com>
- * 
  */
 trait ConSeguimiento
 {
