@@ -76,9 +76,9 @@
         </div>
         {% endif %}
         
-		<div class="alerts-wrapper" role="alert" id="alerts-wrapper">
 	    {% set flashbag = app.session.flashbag.all %}
         {% if flashbag is not empty %}	
+		<div class="alerts-wrapper" role="alert" id="alerts-wrapper">
     		<button type="button" class="close" onclick="hideAlertsWrapper(); return false;">×</button>
         	{% for type, messages in flashbag %}
         		{% for message in messages %}
@@ -94,8 +94,8 @@
         		setTimeout(function() { $('#alerts-wrapper').remove() }, 500);
             }
             </script>
-        {% endif %}
 		</div>
+        {% endif %}
 
         <div id="page-wrapper">
         	{% block pagina_contenido %}{% endblock %}
