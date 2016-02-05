@@ -48,7 +48,7 @@
     	<div class="col-sm-4 col-xs-12">
 		    {{ bs.grid_label_text('Zona', res.Entidad.Partida.Zona) }}
     	</div>
-    </div> 
+    </div>
 
     <!-- Faltas -->
 	<h2 class="row-header">Faltas detectadas</h2>
@@ -64,12 +64,12 @@
     </div>
 
 {% if res.Entidad.Plazo %}    
-    <div class="row">
+    <div class="row hidden visible-print">
 		<div class="col-sm-4 col-xs-6 pull-right">
 			<div class="firma-espacio"></div>
 			<div class="firma-texto">Firma y sello del inspector</div>
 		</div>
-	</div>
+	</div><br></br>
 	<!-- Fin Faltas -->
 
     <!-- Compromiso -->
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 	
-	<div class="row">
+	<div class="row hidden visible-print">
 		<div class="col-sm-4 col-xs-6 pull-right">
 			<div class="firma-espacio"></div>
 			<div class="firma-texto">Propietario / Profesional</div>
@@ -125,9 +125,13 @@
 	<a class="btn btn-default" data-toggle="ajax-link" 
 		href="{{ path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) }}">
 		<i class="fa fa-paperclip"></i> Adjuntos</a>
-	{% if not res.Entidad.Plazo and tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
-	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
-		class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo</a>
+	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}	
+        {% if not res.Entidad.Plazo %}
+    	<a href="{{ path(res.ObtenerRutaAccion('emitirdescargo'), res.Arrastre|merge({ 'id': res.Entidad.id })) }}" 
+    		class="btn btn-default"><i class="fa fa-mail-forward"></i> Realizar descargo</a>
+    	{% else %}
+    	{{ tgen.Button('Imprimir', { icon: 'print', onclick: 'window.print()' })|raw }}
+    	{% endif %}
 	{% endif %}
 {% endblock %}
 
