@@ -1,0 +1,70 @@
+{% extends 'YacareBaseBundle:Default:buscar.html.twig' %}
+
+{% set filtro_buscar = app.request.get('filtro_buscar') %}
+
+{% block pagina_titulo %}Buscar departamento{% endblock %}
+
+{% block pagina_contenido %}
+
+{% if not app.request.get('soloresultados') %}
+	<div class="form-group form-inline">
+		<input class="form-control tapir-input-320" type="text" size="50" maxlength="50"
+			id="filtro_buscar" name="filtro_buscar" autofocus="autofocus"
+			placeholder="buscar por nombre..."
+			onkeydown="if (event.keyCode === 13) { $('#filtro_buscar_boton').click(); return false; }"
+           value="{{ filtro_buscar }}" />
+		<button
+			onclick="buscarTexto($('#filtro_buscar').val()); return false;"
+			type="button" class="btn btn-primary btn" id="filtro_buscar_boton">Buscar</button>
+	</div>
+{% endif %}
+
+{% macro listardepartamento(depto) %}
+<tr onclick="seleccionarItem('{{ depto.id }}', '{{ depto.Nombre|escape('js') }}'); return false;">
+	<td>{{ depto.SangriaDeEspaciosDuros }}
+		{% if depto.rango == 1 %}<span class="label label-default">E</span>
+		{% elseif depto.rango == 30 %}<span class="label label-danger">S</span>
+		{% elseif depto.rango == 50 %}<span class="label label-warning">D</span>
+	    {% elseif depto.rango == 70 %}<span class="label label-info">R</span>
+	    {% endif %}
+	    {{ depto.Nombre }}</td>
+</tr>
+{% endmacro %}
+{% import _self as ld %}
+
+<div id="resultadosbuscar">
+{% if entities is defined and entities|length > 0 %}
+
+<table class="table table-hoverselect">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+		</tr>
+	</thead>
+    <tbody>
+		{% for entity in res.Entidades %}
+    		{% if entity.ParentNode and entity.ParentNode.ParentNode.Rango >= 20 %}
+    	        {% if entity.ParentNode.ParentNode and entity.ParentNode.ParentNode.Rango >= 20 %}
+        	        {{ ld.listardepartamento(entity.ParentNode.ParentNode) }}
+        	    {% endif %}
+    	        {{ ld.listardepartamento(entity.ParentNode) }}
+    	    {% endif %}
+    	    {{ ld.listardepartamento(entity) }}
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+    <p class="lead hidden">Escriba un texto de búsqueda.</p>
+{% endif %}
+    
+{% endblock %}
+
+{% block pagina_fin %}
+	{{ parent() }}
+
+<script>
+
+</script>
+	
+</div>
+{% endblock pagina_fin %}

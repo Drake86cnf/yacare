@@ -18,6 +18,9 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
 {
     use \Tapir\AbmBundle\Controller\ConVer;
     use \Tapir\AbmBundle\Controller\ConEliminar;
+    use \Tapir\AbmBundle\Controller\ConBuscar {
+        \Tapir\AbmBundle\Controller\ConBuscar::buscarAction as buscarAction2;
+    }
 
     function IniciarVariables()
     {
@@ -25,6 +28,25 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
         
         $this->Paginar = false;
         $this->OrderBy = "MaterializedPath";
+        $this->BuscarPor = "Nombre,MaterializedPath";
+    }
+    
+    /**
+     * @Route("buscar/")
+     * @Template()
+     */
+    public function buscarAction(Request $request)
+    {
+        $filtro_parent = $this->ObtenerVariable($request, 'filtro_parent');
+        $filtro_parent = $this->ObtenerVariable($request, 'filtro_parent');
+        if ($filtro_parent) {
+            $this->Where .= " AND r.ParentNode_id=" + $filtro_parent;
+        } else {
+            
+        }
+        
+        $ResultadoBuscar = $this->buscarAction2($request);
+        $res = $ResultadoBuscar['res'];
     }
     
     /**
@@ -35,6 +57,8 @@ class DepartamentoController extends \Tapir\AbmBundle\Controller\AbmController
     {
         $filtro_rango = $this->ObtenerVariable($request, 'filtro_rango');
 
+        
+        
         if ($filtro_rango) {
             if($filtro_rango == -1) {
                 // El -1 tiene el valor especial de Rango=0
