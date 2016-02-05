@@ -8,17 +8,18 @@
 <h2 class="row-header">Datos de la obra</h2>
 	<div class="col-sm-4 col-xs-12 col-separator-left"></div>
 		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Fecha inicio de obra',res.Entidad.InicioDeObra|tapir_fecha('medium', 'none'))}}</div>	
-        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Numero de Plano', res.Entidad.Id )}}</div>
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Número de Plano', res.Entidad.Id )}}</div>
         <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Partida', res.Entidad.Partida.Numero)}}</div>
         <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Domicilio', res.Entidad.Partida.Domicilio)}}</div>
         <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Titular',res.Entidad.Partida.Titular) }}</div>
+        <div class="col-sm-12 col-xs-12">{{bs.grid_label_text('DNI',res.Entidad.Partida.Titular.DocumentoNumero) }}</div>
 
 <h2 class="row-header">Datos del profesional</h2>
    <div class="col-sm-4 col-xs-12 col-separator-left"></div>
    		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Nombre',res.Entidad.Profesional.Persona.NombreVisible)}}</div>
-   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Matricula',res.Entidad.Profesional.Id)}}</div>
    		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('DNI',res.Entidad.Profesional.Persona.DocumentoNumero)}}</div>
-   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Profesion',res.Entidad.Profesional.Profesion)}}</div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Matrícula',res.Entidad.Profesional.Id)}}</div>
+   		<div class="col-sm-12 col-xs-12">{{bs.grid_label_text('Profesión',res.Entidad.Profesional.Profesion)}}</div>
    	    
    {% if res.Entidad.Obs %}
    <h2 class="row-header">Observaciones</h2> 
@@ -39,11 +40,11 @@
 {% endblock %}
 {% block pagina_fin %}
 <div class="row">
-		<div class=" visible-print col-sm-4 col-xs-6 pull-right footer">
+		<div class=" visible-print col-sm-4 col-xs-6 pull-right">
 			<div class="firma-espacio"></div>
 			<div class="firma-texto">Propietario / Profesional</div>
 		</div>
-		<div class=" visible-print col-sm-4 col-xs-6 pull-right pull-left footer">
+		<div class=" visible-print col-sm-4 col-xs-6 pull-right pull-left">
 			<div class="firma-espacio"></div>
 			<div class="firma-texto">Inspector</div>
 		</div>

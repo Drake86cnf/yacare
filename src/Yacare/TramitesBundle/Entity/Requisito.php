@@ -107,6 +107,15 @@ class Requisito
      * @ORM\JoinColumn(nullable=true)
      */
     protected $TramiteTipoEspejo;
+    
+    /**
+     * Codigo unico para identificar el requisito.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $Codigo;
 
     /**
      * Devuelve el nomre normalizado del tipo de requisito.
@@ -243,5 +252,23 @@ class Requisito
         $this->Departamento = $Departamento;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getCodigo()
+    {
+        return $this->Codigo;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setCodigo($Codigo)
+    {
+        $this->Codigo = $Codigo;
+        return $this;
+    }
+ 
 
 }
