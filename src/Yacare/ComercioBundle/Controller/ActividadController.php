@@ -45,20 +45,9 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
 
         $this->Where = 'r.Final=1';
         
-        $filtro_prefijo = $this->ObtenerVariable($request, 'filtro_prefijo');
+        $filtro_parent = $this->ObtenerVariable($request, 'filtro_parent');
+        $filtro_nivel = $this->ObtenerVariable($request, 'filtro_nivel');
         $filtro_buscar = $this->ObtenerVariable($request, 'filtro_buscar');
-        
-        if ($filtro_prefijo) {
-            $this->Where .= " AND r.MaterializedPath LIKE '" . addcslashes($filtro_prefijo, "%_'") . "/%'";
-            $Categoria = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'MaterializedPath' => $filtro_prefijo ]);
-            if(is_array($Categoria) && count($Categoria) == 1) {
-                $Categoria = $Categoria[0];
-            } else {
-                print_r($Categoria);
-            }
-        } else {
-            $Categoria = null;
-        }
         
         $ResultadoBuscar = $this->buscarAction2($request);
         $res = $ResultadoBuscar['res'];
@@ -67,19 +56,26 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         //echo $_SERVER['REQUEST_URI'];
         if($filtro_buscar) {
             // Nada
-        } elseif($Categoria) {
-            $res->Entidades = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'ParentNode' => $Categoria ]);
-            if(count($res->Entidades) == 1) {
-                // Hay una sola subcategoría... desciendo un nivel más
-                $res->Entidades = $em->getRepository('Yacare\ComercioBundle\Entity\Actividad')->findBy([ 'ParentNode' => $res->Entidades[0] ]);
+        } else {
+            $qb = $em->createQueryBuilder();
+            $qb->select('a')
+                ->from('Yacare\ComercioBundle\Entity\Actividad', 'a')
+                ->orderBy('a.Nombre')
+            ;
+            
+            if($filtro_parent) {
+                $qb->where('a.ParentNode IN (SELECT b.id FROM Yacare\ComercioBundle\Entity\Actividad b WHERE b.ParentNode = ' . $filtro_parent . ')');
+            } else {
+                $qb->where('a.ParentNode IN (SELECT b.id FROM Yacare\ComercioBundle\Entity\Actividad b WHERE b.ParentNode IS NULL)');
             }
+            
+            $res->Entidades = $qb->getQuery()->getResult();
         }
         
-        $res->Categoria = $Categoria;
+        //$this->OrderBy = 'MaterializedPath DESC';
         
-        $this->OrderBy = 'MaterializedPath DESC';
-        
-        $res->Filtros['prefijo'] = $filtro_prefijo;
+        $res->Filtros['parent'] = $filtro_parent;
+        $res->Filtros['nivel'] = $filtro_nivel;
         
         return $ResultadoBuscar;
     }

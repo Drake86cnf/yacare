@@ -11,28 +11,11 @@
         <span class="input-group-btn"><button onclick="buscarTexto($('#filtro_buscar').val()); return false;" type="button"
             class="btn btn-primary" id="filtro_buscar_buscar"><i class="fa fa-search"></i> Buscar</button></span>
     </div>
-    
-    <div class="btn-group btn-group-justified" role="group">
-    	<a href="#" class="btn btn-sm {{ not res.Filtros['prefijo'] ? 'active ' : '' }}btn-default" onclick="return CambiarFiltroPrefijo('');">Todas</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/IV' or res.Filtros['prefijo'][:4] == '/IV/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/IV'); return false;">Venta</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/V' or res.Filtros['prefijo'][:3] == '/V/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/V'); return false;">Servicios</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/II' or res.Filtros['prefijo'][:4] == '/II/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/II'); return false;">Industria</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/III' or res.Filtros['prefijo'][:5] == '/III/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/III'); return false;">Infr. y construcción</a>
-    	<a href="#" class="btn btn-sm {{ (res.Filtros['prefijo'] == '/I' or res.Filtros['prefijo'][:3] == '/I/') ? 'active ' : '' }}btn-default" onclick="CambiarFiltroPrefijo('/I'); return false;">Act. primarias</a>
-	</div>
 	
-    {% if res.Categoria %}
-    	<h3>{{ res.Categoria }}</h3>
-	    {% if res.Categoria.Incluye %}<p>Incluye: {{ res.Categoria.Incluye|nl2br }}</p>{% endif %}
-    {% else %}
-    	&nbsp;<br />
-	{% endif %}
-  	
-    
 <script type="text/javascript">
-function CambiarFiltroPrefijo(filtro) {
-	url = '{{ path(res.ObtenerRutaAccion('buscar'), res.Arrastre|merge({ 'filtro_prefijo': null, 'filtro_buscar': filtro_buscar })) }}';
-	url = tapirAgregarElementoUri(url, 'filtro_prefijo', filtro);
+function CambiarFiltroParent(filtro) {
+	url = '{{ path(res.ObtenerRutaAccion('buscar'), res.Arrastre|merge({ 'filtro_parent': null, 'filtro_nivel': res.Filtros['nivel']+1, 'filtro_buscar': filtro_buscar })) }}';
+	url = tapirAgregarElementoUri(url, 'filtro_parent', filtro);
     url = tapirAgregarElementoUri(url, 'tapir_buscar_destino', '{{ tapir_buscar_destino }}');
     url = tapirAgregarElementoUri(url, 'soloresultados', 1);
     url = tapirAgregarElementoUri(url, 'tapir_solocontenido', 1);
@@ -43,36 +26,45 @@ function CambiarFiltroPrefijo(filtro) {
 </script>
 
 &nbsp;
+{% if res.Filtros['parent'] %}
+	<a href="#" onclick="buscarTexto(''); return false;">&lsaquo; Volver</a>
+{% endif %}
+
 {% if res.Entidades is defined and res.Entidades|length > 0 %}
 <div class="container-fluid">
 	{% for entidad in res.Entidades %}
 	<div class="row">
-		<div class="col-md-12"
-			aonclick="seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}'); return false;">
-			{#<span class="small text-muted">{{ entidad.Ruta|raw }}</span><br /> #}
-			{% if entidad.Final %}
-				<h2><a href="#" onclick="return seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}');">{{ entidad.Nombre }}</a></h2>
+		<div class="col-xs-2 text-muted">
+			{% if res.Filtros['nivel'] == 1 %}
+			    {{ entidad.Clanae2010|slice(0, 3) }}
+			{% elseif res.Filtros['nivel'] > 1 %}
+			    {{ entidad.Clamae2014 }}
 			{% else %}
-				<h2><a href="#" onclick="return CambiarFiltroPrefijo('{{ entidad.MaterializedPath }}');">{{ entidad.Nombre }}</a></h2>
+			    {{ entidad.Clanae2010|slice(0, 2) }}
+			{% endif %}</div>
+		<div class="col-xs-10">
+			{% if entidad.Final %}
+				<strong><a href="#" onclick="return seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}');">{{ entidad.Nombre }}</a></strong>
+			{% else %}
+				<a href="#" onclick="CambiarFiltroParent('{{ entidad.id }}'); return false;">{{ entidad.Nombre }}</a>
 			{% endif %}
 		</div>
 	</div>
 	{% if entidad.Final %}
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<p>
-    			<span class="text-muted">ClaMAE: </span>{{ entidad.Clamae2014 }}<br />
     			<span class="text-muted">AFIP: </span>{{ entidad.Clamae2014|slice(0, 6) }}<br />
 				<span class="text-muted">DGR: </span>{{ entidad.DgrTdf }}<br />
 				<span class="text-muted">INDEC: </span>{{ entidad.Clamae2014|slice(0, 5) }}<br />
+				<span class="label label-default">Cat. {{ entidad.CategoriaAntigua }}</span>
 			</p>
-			<span class="label label-default">Cat. {{ entidad.CategoriaAntigua }}</span>
 		</div>
-		<div class="col-md-8">
-			{% if entidad.Incluye %} <span class="text-success"><small><strong>Incluye</strong>
-				{{ entidad.Incluye }}</small></span>{% endif %}
-			{% if entidad.NoIncluye %} <span class="text-danger"><small><strong>No
-				incluye</strong> {{ entidad.NoIncluye }}</small></span>{% endif %}
+		<div class="col-md-10">
+			{% if entidad.Incluye %} <div class="text-success"><small><strong>Incluye</strong>
+				{{ entidad.Incluye }}</small></div>{% endif %}
+			{% if entidad.NoIncluye %} <div class="text-danger"><small><strong>No
+				incluye</strong> {{ entidad.NoIncluye }}</small></div>{% endif %}
 		</div>
 	</div>
 	{% elseif entidad.Incluye %}
