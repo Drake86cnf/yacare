@@ -76,30 +76,4 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
         
         return array('res' => $res);
     }
-
-    /**
-     * Ver un TramitePlano.
-     * 
-     * @Route("ver/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_INSPECTOR')")
-     * @Template()
-     */
-    public function verAction(Request $request)
-    {
-        $res = parent::verAction($request);
-        
-        $res = $res['res'];
-        
-        $Estados = $res->Entidad->getEstadosRequisitos();
-        $RequisitoEncontrado = false;
-        
-        foreach ($Estados as $estado) {
-            if ($estado->getAsociacionRequisito()->getRequisito()->getNombre() == 'Visado Obras Particulares') {
-                $RequisitoEncontrado = true;
-                break;
-            }
-        }
-        
-        return array('res' => $res, 'inicio_obra' => ($RequisitoEncontrado && $estado->getEstado() == 100));
-    }
 }

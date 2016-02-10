@@ -108,6 +108,24 @@ abstract class Tramite implements ITramite
     protected $Comprobante;  
     
     /**
+     * Busca y devuelve un estado de requisito en particular.
+     * 
+     * @param string $requisito
+     * @return NULL
+     */
+    public function ObtenerEstadoRequisitoPorCodigo($requisito) 
+    {
+        $Estados = $this->getEstadosRequisitos();
+        
+        foreach ($Estados as $estado) {
+            if ($estado->getAsociacionRequisito()->getRequisito()->getCodigo() == $requisito) {
+                return $estado;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Devuelve un colección de los actores que intervienen en este trámite, y el nombre de la propiedad
      * que refleja a cada uno.
      */

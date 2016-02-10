@@ -90,6 +90,18 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      */
     private $SuperficieRelevada = 0;
 
+    /**
+     * Consulta si el trámite tiene hecho el visado de Obras Particulares.
+     * 
+     * @return boolean
+     */
+    public function TieneVisadoOp()
+    {
+        $estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_obrasparticulares');
+        
+        return ($estado && $estado->getEstado() == 100);
+    }
+    
     public function getTipo()
     {
         switch ($this->getPlanoTipo()) {
