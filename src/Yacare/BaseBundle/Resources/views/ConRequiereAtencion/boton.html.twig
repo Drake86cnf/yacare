@@ -1,5 +1,5 @@
 {% if res.Entidad.RequiereAtencion %}
-    <a data-toggle="modal" class="btn btn-danger active" title="Haga clic para desactivar la advertencia"
+    <a data-toggle="modal" class="btn btn-danger" title="Haga clic para desactivar la advertencia"
     	href="{{ path(res.ObtenerRutaAccion('atencion'), { 'id': res.Entidad.Id, 'valor': not res.Entidad.RequiereAtencion }) }}">
     	<i class="fa fa-fw fa-warning"></i> ¡Requiere atención!</a>
 {% else %}
