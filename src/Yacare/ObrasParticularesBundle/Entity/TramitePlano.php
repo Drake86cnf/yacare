@@ -97,9 +97,9 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      */
     public function TieneVisadoOp()
     {
-        $estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_obrasparticulares');
+        $Estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_obrasparticulares');
         
-        return ($estado && $estado->getEstado() == 100);
+        return ($Estado && $Estado->getEstado() == 100);
     }
     
     public function getTipo()
