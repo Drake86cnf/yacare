@@ -35,13 +35,18 @@ function CambiarFiltroParent(filtro) {
 	{% for entidad in res.Entidades %}
 	<div class="row">
 		<div class="col-xs-2 text-muted">
-			{% if res.Filtros['nivel'] == 1 %}
-			    {{ entidad.Clanae2010|slice(0, 3) }}
-			{% elseif res.Filtros['nivel'] > 1 %}
-			    {{ entidad.Clamae2014 }}
-			{% else %}
-			    {{ entidad.Clanae2010|slice(0, 2) }}
-			{% endif %}</div>
+    	{% if entidad.Final %}
+    		<strong>{{ entidad.Clamae2014 }}</strong>
+    	{% elseif entidad.Final == 0 %}
+    		{{ entidad.Clamae2014 }}
+        {% elseif res.Filtros['nivel'] == 1 %}
+    	    {{ entidad.Clanae2010|slice(0, 3) }}
+    	{% elseif res.Filtros['nivel'] > 1 %}
+    	    {{ entidad.Clamae2014 }}
+    	{% else %}
+    	    {{ entidad.Clanae2010|slice(0, 2) }}
+    	{% endif %}
+    	</div>
 		<div class="col-xs-10">
 			{% if entidad.Final %}
 				<strong><a href="#" onclick="return seleccionarItem('{{ entidad.id }}', '{{ entidad.Nombre }}');">{{ entidad.Nombre }}</a></strong>
