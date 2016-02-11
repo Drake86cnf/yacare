@@ -26,7 +26,7 @@ class ActividadEtiqueta
      * 
      * @var Actividad
      * 
-     * @ORM\ManyToMany(targetEntity="Actividad",mappedBy="Etiquetas", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Actividad", mappedBy="Etiquetas", cascade={"persist"})
      */
     protected $Actividades;
     

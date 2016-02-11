@@ -36,6 +36,33 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
     
     
     /**
+     * @Route("listar/")
+     * @Template()
+     */
+    public function listarAction(Request $request)
+    {
+        $filtro_etiqueta = $this->ObtenerVariable($request, 'filtro_etiqueta');
+    
+        if ($filtro_etiqueta) {
+           $this->Joins[] = " LEFT JOIN r.Etiquetas e";
+           $this->Where .= " AND e.id=$filtro_etiqueta";
+        }
+
+        $RestuladoListar = parent::listarAction($request);
+        $res = $RestuladoListar['res'];
+
+        $Etiquetas = $this->ObtenerEtiquetas();
+        $EtiquetasArray = [];
+        foreach($Etiquetas as $Etiqueta) {
+            $EtiquetasArray[$Etiqueta->getId()] = $Etiqueta->getNombre();
+        }
+        $res->Filtros['etiqueta'] = new \Tapir\AbmBundle\Helper\Filtro('etiqueta', $filtro_etiqueta, $EtiquetasArray);
+
+        return $RestuladoListar;
+    }
+    
+    
+    /**
      * @Route("buscar/")
      * @Template()
      */
@@ -174,13 +201,9 @@ class ActividadController extends \Tapir\AbmBundle\Controller\AbmController
         
         return $i;
     }
-
-    /* public function guardarActionPrePersist($entity, $editForm)
-    {
-        $em = $this->getEm();
-        
-        
-        return parent::guardarActionPrePersist($entity, $editForm);
-    } */
+    
+    protected function ObtenerEtiquetas() {
+        return $this->getEm()->getRepository('Yacare\ComercioBundle\Entity\ActividadEtiqueta')->findBy( [ 'Suprimido' => 0] );
+    }
 }
 

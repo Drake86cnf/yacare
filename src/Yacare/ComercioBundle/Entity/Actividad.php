@@ -113,7 +113,7 @@ class Actividad implements Tree\NodeInterface
      *
      * @ORM\ManyToMany(targetEntity="Yacare\ComercioBundle\Entity\ActividadEtiqueta", inversedBy="Actividades")
      * @ORM\JoinTable(name="Comercio_Actividad_ActividadEtiqueta",
-     *     joinColumns={@ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true)})
+     *     joinColumns={ @ORM\JoinColumn(name="Actividad_id", referencedColumnName="id", nullable=true) })
      */
     protected $Etiquetas;
     
