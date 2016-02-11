@@ -71,7 +71,7 @@
 
 <div class="btn-group">
 	<button class="btn btn-sm btn-default dropdown-toggle" type="button"
-		id="dropdownMenuRoles" data-toggle="dropdown">
+		id="dropdownMenuEstados" data-toggle="dropdown">
 		<i class="fa fa-filter {% if filtro_estado %}text-warning{% endif %}"></i>
 			{% if not filtro_estado %}
 				Estado
@@ -81,7 +81,7 @@
 		<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu dropdown-menu-right"
-		aria-labelledby="dropdownMenuRoles">
+		aria-labelledby="dropdownMenuEstados">
 		<li role="presentation"><a data-toggle="ajax-link" role="menuitem"
 			tabindex="-1"
 			href="{{ path(res.ObtenerRutaAccion('listar'), res.Arrastre|merge({ 'filtro_estado': null, 'page': null })) }}">
