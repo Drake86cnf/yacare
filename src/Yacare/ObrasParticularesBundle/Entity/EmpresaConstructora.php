@@ -30,6 +30,15 @@ class EmpresaConstructora
     private $Persona;
     
     /**
+     * El nombre de fantasía.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $NombreFantasia;
+    
+    /**
      * El representante técnico.
      * 
      * @var \Yacare\ObrasParticularesBundle\Entity\Matriculado
@@ -50,7 +59,11 @@ class EmpresaConstructora
 
     public function __toString()
     {
-        return $this->getPersona()->getNombreVisible();
+        if($this->getNombreFantasia()) {
+            return $this->getNombreFantasia();
+        } else {
+            return $this->getPersona()->getNombreVisible();
+        }
     }
 
     /**
@@ -101,4 +114,22 @@ class EmpresaConstructora
         $this->RepresentanteTecnico = $RepresentanteTecnico;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getNombreFantasia()
+    {
+        return $this->NombreFantasia;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNombreFantasia($NombreFantasia)
+    {
+        $this->NombreFantasia = $NombreFantasia;
+        return $this;
+    }
+ 
 }

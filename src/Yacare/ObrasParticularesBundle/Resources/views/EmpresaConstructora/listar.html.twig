@@ -1,12 +1,14 @@
-{% extends 'TapirAbmBundle::listar.html.twig' %} {% block
-pagina_titulo %}Empresas constructoras{% endblock %} {% block
-pagina_contenido %}
+{% extends 'TapirAbmBundle::listar.html.twig' %}
+
+{% block pagina_titulo %}Empresas constructoras{% endblock %}
+
+{% block pagina_contenido %}
 <table class="table table-hoverselect">
 	<thead>
 		<tr>
 			<th>#</th>
 			<th>Nombre</th>
-			<th class="hidden-xs">Domicilio</th>
+			<th>Titular</th>
 			<th class="hidden-xs">Representante técnico</th>
 			<th class="hidden-xs hidden-print">Vencimiento</th>
 		</tr>
@@ -16,8 +18,8 @@ pagina_contenido %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}">
 			<td>{{ entity.id }}</td>
+			<td>{{ entity.NombreFantasia }}</td>
 			<td>{{ entity.Persona }}</td>
-			<td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
 			<td class="hidden-xs">{{ entity.RepresentanteTecnico.Persona }} <span
 				class="text-muted">(mat. {{ entity.RepresentanteTecnico.id }})</span></td>
 			<td class="hidden-xs hidden-print">{{
@@ -26,10 +28,12 @@ pagina_contenido %}
 		{% endfor %}
 	</tbody>
 </table>
-{% endblock %} {% block pagina_paginar %}{% include
-'TapirBaseBundle::paginar.html.twig' %}{% endblock %} {% block
-pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{%
-endblock %} {% block pagina_acciones2 %}
+{% endblock %}
+
+{% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
+{% block pagina_buscar %}{% include 'TapirBaseBundle::buscar.html.twig' %}{% endblock %}
+
+{% block pagina_acciones2 %}
 <a data-toggle="ajax-link"
 	href="{{ path(baseroute ~ '_listarhabilitadas', arrastre|merge({ 'filtro_buscar': null })) }}"
 	class="btn btn-default hidden-print"><i class="fa fa-print"></i> Lista

@@ -22,6 +22,9 @@ class EmpresaConstructoraType extends AbstractType
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona',
                 'required' => true))
+            ->add('NombreFantasia', null, array(
+                'label' => 'Nombre de fantasía',
+                'required' => false))
             ->add('RepresentanteTecnico', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Representante técnico',
                 'class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado',
