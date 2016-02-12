@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  */
 class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
 {
+
     public function __construct()
     {
         $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
@@ -48,7 +49,7 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
      * @ORM\Column(type="string", nullable=true)
      */
     protected $Hora;
-    
+
     /**
      * Setter con sanitización.
      */
@@ -57,8 +58,6 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
         $this->Hora = str_replace('.', ':', trim($Hora, "- \t\n\r\0\x0B"));
         return $this;
     }
-    
-    
 
     /**
      * @ignore
@@ -101,5 +100,4 @@ class ActaComercio extends \Yacare\InspeccionBundle\Entity\Acta
     {
         return $this->Hora;
     }
-  
 }
