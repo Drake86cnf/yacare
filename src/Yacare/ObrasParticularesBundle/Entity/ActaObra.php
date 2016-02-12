@@ -93,7 +93,6 @@ class ActaObra extends \Yacare\InspeccionBundle\Entity\Acta implements IActaObra
      */
     private $DescargoDetalle;
     
-    
     /**
      * Devuelve la fecha de vencimiento, si hay un plazo de compromiso.
      * 

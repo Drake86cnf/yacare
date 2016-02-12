@@ -20,6 +20,7 @@ class TramitePlanoType extends AbstractType
                 'property' => 'NombreVisible',
                 'class' => 'Yacare\BaseBundle\Entity\Persona', 
                 'required' => false)) */
+            ->add('NumeroPrevia', null, array('label' => 'Nº de previa'))
             ->add('Partida', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Partida', 
                 'class' => 'Yacare\CatastroBundle\Entity\Partida', 

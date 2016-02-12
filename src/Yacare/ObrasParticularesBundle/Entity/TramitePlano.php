@@ -30,6 +30,15 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     }
     
     /**
+     * El número de la previa correspondiete al trámite.
+     *
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $NumeroPrevia;
+    
+    /**
      * El o los destinos de una obra.
      *
      * @var \Yacare\ObrasParticularesBundle\Entity\ObraDestino
@@ -241,5 +250,21 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
         $this->InicioDeObra = $InicioDeObra;
         return $this;
     }
- 
+
+    /**
+     * @ignore
+     */
+    public function getNumeroPrevia()
+    {
+        return $this->NumeroPrevia;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNumeroPrevia($NumeroPrevia)
+    {
+        $this->NumeroPrevia = $NumeroPrevia;
+        return $this;
+    }
 }

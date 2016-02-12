@@ -10,13 +10,15 @@
     	<div class="row">
     		<div class="col-sm-6 col-xs-12">
             <h3 class="row-header">
-             {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}</h3>
+                {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}
+            </h3>
             {% if res.Entidad.Partida.Titular %}
     	    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
     	        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
     	    {% endif %}
     	    </div>
     	    <div class ="col-sm-6 col-xs-12 col-separator-left">
+    	    {{ bs.grid_label_text('Nº de previa', res.Entidad.NumeroPrevia) }}
     	    {{ bs.grid_label_text('Tipo', res.Entidad.getTipo) }}
     	    {% if res.Entidad.ObraDestinos|length > 0 %}
     		    {% set MuchosDest = [] %}
