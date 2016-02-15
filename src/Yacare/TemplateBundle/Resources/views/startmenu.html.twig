@@ -20,25 +20,25 @@
 					<i class="fa fa-map-o fa-fw text-muted"></i> Catastro</a></li>
 				
 				{% if tapir_hasanyrole('ROLE_COMERCIO_ADMINISTRADOR,ROLE_COMERCIO,ROLE_COMERCIO_INSPECTOR') %}
-				<li><a href="{{ path('yacare_comercio_default_inicio') }}" data-toggle="ajax-link">
-					<i class="fa fa-shopping-cart fa-fw text-muted"></i> Comercio</a></li>
+					<li><a href="{{ path('yacare_comercio_default_inicio') }}" data-toggle="ajax-link">
+						<i class="fa fa-shopping-cart fa-fw text-muted"></i> Comercio</a></li>
 				{% endif %}
 				
 				{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES,ROLE_OBRAS_PARTICULARES_ADMINISTRADOR,ROLE_OBRAS_PARTICULARES_INSPECTOR') %}
-            	<li><a href="{{ path('yacare_obrasparticulares_default_inicio') }}" data-toggle="ajax-link">
-            		<i class="fa fa-building-o fa-fw text-muted"></i> Obras particulares</a></li>
+            		<li><a href="{{ path('yacare_obrasparticulares_default_inicio') }}" data-toggle="ajax-link">
+            			<i class="fa fa-building-o fa-fw text-muted"></i> Obras particulares</a></li>
                 {% endif %}
                 
-				<li class="dropdown-header">Trámites</li>
-				{% if tapir_hasanyrole('ROLE_TRAMITES') %}
-				<li><a href="{{ path('yacare_tramites_default_inicio') }}" data-toggle="ajax-link">
-					<i class="fa fa-suitcase fa-fw text-muted"></i> Trámites</a></li>
+                {% if tapir_hasanyrole('ROLE_TRAMITES') %}
+					<li class="dropdown-header">Trámites</li>
+					<li><a href="{{ path('yacare_tramites_default_inicio') }}" data-toggle="ajax-link">
+						<i class="fa fa-suitcase fa-fw text-muted"></i> Trámites</a></li>
                 {% endif %}
 
-				<li class="dropdown-header">Nómina</li>
-				{% if tapir_hasanyrole('ROLE_NOMINA_INMUEBLES') %}
-				<li><a href="{{ path('yacare_nomina_inmueble_listar') }}" data-toggle="ajax-link">
-				<i class="fa fa-university fa-fw text-muted"></i> Inmuebles</a></li>
+                {% if tapir_hasanyrole('ROLE_NOMINA_INMUEBLES') %}
+        			<li class="dropdown-header">Nómina</li>
+        			<li><a href="{{ path('yacare_nomina_inmueble_listar') }}" data-toggle="ajax-link">
+        				<i class="fa fa-university fa-fw text-muted"></i> Inmuebles</a></li>
                 {% endif %}
 			</ul>
 		</li>

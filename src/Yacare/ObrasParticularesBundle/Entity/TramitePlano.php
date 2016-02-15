@@ -115,14 +115,14 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     /**
      * Devuelve si fueron aprobados los requisitos de la previa de un trámite.
      * 
-     * @return boolen
+     * @return boolean
      */
-    public function TienePreviaAprobada() 
+    public function TienePreviaAprobada()
     {
-        //TODO: construir comprobación de requisitos aprobados (para la previa)        
+        // TODO: construir comprobación de requisitos aprobados (para la previa).        
         return true;
     }
-    
+
     /**
      * Consulta si el trámite tiene hecho el visado de Obras Particulares.
      * 
@@ -134,7 +134,7 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
         
         return ($Estado && $Estado->getEstado() == 100);
     }
-    
+
     public function getTipo()
     {
         switch ($this->getPlanoTipo()) {
