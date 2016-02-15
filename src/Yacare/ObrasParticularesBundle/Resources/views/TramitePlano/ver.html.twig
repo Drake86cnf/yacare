@@ -9,28 +9,36 @@
     <div class="container-fluid">
     	<div class="row">
     		<div class="col-sm-6 col-xs-12">
-            <h3 class="row-header">
-                {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}
-            </h3>
-            {% if res.Entidad.Partida.Titular %}
-    	    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
-    	        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
-    	    {% endif %}
+                <h3 class="row-header">
+                    {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}
+                </h3>
+                {% if res.Entidad.Partida.Titular %}
+        	    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
+        	        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
+        	    {% endif %}
+        	    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+                	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}                
     	    </div>
     	    <div class ="col-sm-6 col-xs-12 col-separator-left">
-    	    {{ bs.grid_label_text('Nº de previa', res.Entidad.NumeroPrevia) }}
-    	    {{ bs.grid_label_text('Tipo', res.Entidad.getTipo) }}
-    	    {% if res.Entidad.ObraDestinos|length > 0 %}
-    		    {% set MuchosDest = [] %}
-                    {% for obra_destino in res.Entidad.ObraDestinos %}
-    		    	{% set MuchosDest = MuchosDest|merge([obra_destino]) %}
-    		    {% endfor %}
-    		    {{ bs.grid_label_text('Destino', MuchosDest|join(', ')) }}
-    		{% endif %}
-            {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
-            	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
+        	    {{ bs.grid_label_text('Nº de previa', res.Entidad.NumeroPrevia) }}
+        	    {{ bs.grid_label_text('Tipo', res.Entidad.getTipo) }}
+        	    {% if res.Entidad.ObraDestinos|length > 0 %}
+        		    {% set MuchosDest = [] %}
+                        {% for obra_destino in res.Entidad.ObraDestinos %}
+        		    	{% set MuchosDest = MuchosDest|merge([obra_destino]) %}
+        		    {% endfor %}
+        		    {{ bs.grid_label_text('Destino', MuchosDest|join(', ')) }}
+        		{% endif %}
+                {% if res.Entidad.ExpedienteNumero %}
+                	<h3 class="row-header">
+                		{{ bs.grid_label_text('Expediente', res.Entidad.ExpedienteNumero) }}
+                	</h3>
+            	{% endif %}
+            	{% if res.Entidad.FechaAprobadaPrevia %}
+            	    {{ bs.grid_label_text('Fecha aprobado', res.Entidad.FechaAprobadaPrevia|tapir_fecha('medium', 'none')) }}
+            	{% endif %}
     		</div>
-    	</div>
+    	</div><br />
     	<p class="text-info">Este trámite
             {% if res.Entidad.InicioDeObra %}
             	tiene permiso de inicio de obra emitido el día {{ res.Entidad.InicioDeObra|tapir_fecha('medium', 'none') }}
@@ -43,12 +51,19 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
-    {% if res.Entidad.TieneVisadoOp %}
-        {{ tgen.Button('Inicio de obra', { icon: ' fa-fort-awesome ', ajax: true, 
-            href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
+	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
+        {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, 
+            href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
+        {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA') and res.Entidad.TienePreviaAprobada 
+            and not res.Entidad.ExpedienteNumero %}
+            {{ tgen.Button('Caratular Previa', { icon: 'folder-open-o', modal: true, 
+                href: path(res.ObtenerRutaAccion('caratularprevia'), { 'id': res.Entidad.Id }) })|raw }}
+        {% endif %}
+        {% if res.Entidad.TieneVisadoOp %}
+            {{ tgen.Button('Inicio de obra', { icon: ' fa-fort-awesome ', ajax: true, 
+                href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
+        {% endif %}
     {% endif %}
-    {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, 
-        href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
     {# tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, 
     	href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw #}
 {% endblock %}

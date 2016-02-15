@@ -3,9 +3,7 @@ namespace Yacare\ObrasParticularesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Yacare\TramitesBundle\Entity\Tramite;
-use Symfony\Component\HttpFoundation\Tests\StringableObject;
-use Symfony\Component\Config\Definition\IntegerNode;
-use Symfony\Component\Config\Definition\FloatNode;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Representa una previa.
@@ -98,7 +96,33 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
      *
      */
     private $SuperficieRelevada = 0;
+    
+    /**
+     * Fecha de aprobada la previa.
+     * 
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\Range(
+     *     min = "-2 years",
+     *     max = "now",
+     *     minMessage = "Debe ingresar una fecha dentro de los dos últimos años.",
+     *     maxMessage = "Debe ingresar una fecha dentro de los dos últimos años." 
+     * )
+     */
+    private $FechaAprobadaPrevia = null;
 
+    /**
+     * Devuelve si fueron aprobados los requisitos de la previa de un trámite.
+     * 
+     * @return boolen
+     */
+    public function TienePreviaAprobada() 
+    {
+        //TODO: construir comprobación de requisitos aprobados (para la previa)        
+        return true;
+    }
+    
     /**
      * Consulta si el trámite tiene hecho el visado de Obras Particulares.
      * 
@@ -265,6 +289,23 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     public function setNumeroPrevia($NumeroPrevia)
     {
         $this->NumeroPrevia = $NumeroPrevia;
+        return $this;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getFechaAprobadaPrevia()
+    {
+        return $this->FechaAprobadaPrevia;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setFechaAprobadaPrevia(\DateTime $FechaAprobadaPrevia)
+    {
+        $this->FechaAprobadaPrevia = $FechaAprobadaPrevia;
         return $this;
     }
 }
