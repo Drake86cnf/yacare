@@ -67,9 +67,13 @@ class Bootstrap3Generator extends HtmlGenerator
     }
     
     public function Button($content, $attr = null) {
-        $attr = HtmlGenerator::MergeAttributes($attr, array(
-            'class' => 'btn btn-default'
-        ));
+        if (array_key_exists('class', $attr) && $attr['class']) {
+            $attr = HtmlGenerator::MergeAttributes($attr, array());
+        } else {
+            $attr = HtmlGenerator::MergeAttributes($attr, array(
+                'class' => 'btn btn-default'
+            ));
+        }
         
         if(array_key_exists('ajax', $attr) && $attr['ajax']) {
             $attr['data-toggle'] = 'ajax-link';
