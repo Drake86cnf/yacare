@@ -51,18 +51,18 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
+    {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA') 
+        and res.Entidad.TienePreviaAprobada and not res.Entidad.ExpedienteNumero %}
+        {{ tgen.Button('Caratular Previa', { icon: 'folder-open-o', modal: true, 
+            href: path(res.ObtenerRutaAccion('caratularprevia'), { 'id': res.Entidad.Id }) })|raw }}
+    {% endif %}
 	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
-        {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, 
-            href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
-        {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA') and res.Entidad.TienePreviaAprobada 
-            and not res.Entidad.ExpedienteNumero %}
-            {{ tgen.Button('Caratular Previa', { icon: 'folder-open-o', modal: true, 
-                href: path(res.ObtenerRutaAccion('caratularprevia'), { 'id': res.Entidad.Id }) })|raw }}
-        {% endif %}
         {% if res.Entidad.TieneVisadoOp %}
             {{ tgen.Button('Inicio de obra', { icon: ' fa-fort-awesome ', ajax: true, 
                 href: path(res.ObtenerRutaAccion('iniciodeobra'), { 'id': res.Entidad.Id }) })|raw }}
         {% endif %}
+        {{ tgen.Button('Adjuntos', { icon: 'paperclip', ajax: true, 
+            href: path(res.ObtenerRutaAccion('adjuntoslistar'), { 'id': res.Entidad.Id }) })|raw }}
     {% endif %}
     {# tgen.Button('Seguimiento', { icon: 'paper-plane', ajax: true, 
     	href: path(res.ObtenerRutaAccion('seguimientolistar'), { 'id': res.Entidad.Id }) })|raw #}
