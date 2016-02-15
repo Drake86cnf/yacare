@@ -7,6 +7,7 @@
 	preguntando si no se mando el nombre del formulario a utilizar dentro del request #}
     {% if not (app.request.query.get('form') == 'MatriculadoCrear') %}
         <div class="container-fluid">
+            {{ form_row(res.FormularioEditar.Numero) }}
             {{ form_row(res.FormularioEditar.Profesion) }}
             {{ form_row(res.FormularioEditar.FechaVencimiento) }}
             {{ form_row(res.FormularioEditar.Persona.Domicilio) }}

@@ -41,14 +41,4 @@ class EmpresaConstructoraController extends \Tapir\AbmBundle\Controller\AbmContr
         
         return $res;
     }
-    
-    /**
-     * Intercepto el prePersist para permitir poner ID manualmente.
-     * TODO: quitar una vez que carguen históricos.
-     */
-    public function guardarActionPrePersist($entity, $editForm)
-    {
-        $metadata = $this->getEm()->getClassMetaData(get_class($entity));
-        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
-    }
 }

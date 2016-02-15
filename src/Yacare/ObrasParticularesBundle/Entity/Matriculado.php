@@ -20,6 +20,15 @@ class Matriculado
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * El número de matrícula en el sistema viejo.
+     *
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $Numero;
+    
+    /**
      * La persona asociada.
      * 
      * @var \Yacare\BaseBundle\Entity\Persona
@@ -130,4 +139,16 @@ class Matriculado
     {
         $this->FechaVencimiento = $FechaVencimiento;
     }
+
+    public function getNumero()
+    {
+        return $this->Numero;
+    }
+
+    public function setNumero($Numero)
+    {
+        $this->Numero = $Numero;
+        return $this;
+    }
+ 
 }

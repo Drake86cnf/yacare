@@ -17,9 +17,10 @@ class MatriculadoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('id', null, array(
+            ->add('Numero', null, array(
                 'label' => 'Nº',
-                'attr' => [ 'class' => 'tapir-input-120' ]
+                'required' => false,
+                'attr' => [ 'class' => 'tapir-input-120', 'help' => 'Si es un registro histórico, escriba el número de matrícula actual aquí.' ]
             ))
             ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Profesion',

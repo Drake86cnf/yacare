@@ -20,6 +20,15 @@ class EmpresaConstructora
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     
     /**
+     * El número de matrícula en el sistema viejo.
+     *
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $Numero;
+    
+    /**
      * La persona juŕidica asociada.
      * 
      * @var \Yacare\BaseBundle\Entity\Persona
@@ -131,5 +140,23 @@ class EmpresaConstructora
         $this->NombreFantasia = $NombreFantasia;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getNumero()
+    {
+        return $this->Numero;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setNumero($Numero)
+    {
+        $this->Numero = $Numero;
+        return $this;
+    }
+ 
  
 }
