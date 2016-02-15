@@ -6,13 +6,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
 /**
  * Controlador de movimientos de previas.
  * 
  * @author Ezequiel Riquelme <rezquiel.tdf@gmail.com>
  * 
  * @Route("tramiteplano/")
+ * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
  */
 class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteController
 {
@@ -20,7 +20,6 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
 
     /**
      * @Route("adjuntos/listar/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
      * @Template("YacareObrasParticularesBundle:ActaObra:adjuntos_listar.html.twig")
      */
     public function adjuntoslistarAction(Request $request)
@@ -35,7 +34,6 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
      *
      * @Route("editar/")
      * @Route("crear/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
      * @Template()
      */
     public function editarAction(Request $request)
@@ -47,7 +45,6 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
      * El inicio de obra de un tramite plano.
      * 
      * @Route("iniciodeobra/")
-     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR')")
      * @Template()
      */
     public function iniciodeobraAction(Request $request)
@@ -56,15 +53,73 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
         $id = $this->ObtenerVariable($request, 'id');
         
         if ($id) {
-            $entity = $this->ObtenerEntidadPorId($id);
-            $entity->setInicioDeObra(new \DateTime('now'));
-            $formEditar = $this->createFormBuilder($entity);
+            $Entidad = $this->ObtenerEntidadPorId($id);
+            $Entidad->setInicioDeObra(new \DateTime('now'));
+            $formEditar = $this->createFormBuilder($Entidad);
         }
         $em->flush();
         $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoVerAction($this), $request);
         $res->Form = $formEditar;
-        $res->Entidad = $entity;
+        $res->Entidad = $Entidad;
         
+        return array('res' => $res);
+    }
+    
+    /**
+     * Caratula la previa de acuerod al Siaf.
+     * 
+     * @Route("caratularprevia/")
+     * @Security("has_role('ROLE_IDDQD') or has_role('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') or has_role('ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA')")
+     * @Template()
+     */
+    public function caratularpreviaAction(Request $request) 
+    {
+        $em = $this->getEm();
+        $id = $this->ObtenerVariable($request, 'id');
+        
+        if ($id) {
+            $Entidad = $this->ObtenerEntidadPorId($id);
+        }
+        
+        if (! $Entidad) {
+            throw $this->createNotFoundException('No se puede encontrar la entidad.');
+        }
+        
+        $FormEditarBuilder = $this->createFormBuilder($Entidad);
+        
+        $FormEditarBuilder
+            ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
+                'label' => 'Nº Expediente'))
+            ->add('FechaAprobadaPrevia', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
+                'label' => 'Fecha aprobado',));
+        
+        $FormEditar = $FormEditarBuilder->getForm();
+        $FormEditar->handleRequest($request);
+
+        if ($FormEditar->isValid()) {
+            $em->persist($Entidad);
+            $em->flush();
+
+            return $this->guardarActionAfterSuccess($request, $Entidad);
+        } else {
+            $Errores = $FormEditar->getErrors(true, true);
+        }
+
+        if ($Errores) {
+            foreach ($Errores as $error) {
+                $this->get('session')->getFlashBag()->add('danger', $error->getMessage());
+            }
+        } else {
+            $Errores = null;
+        }
+
+        $res = $this->ConstruirResultado(new \Tapir\AbmBundle\Helper\Resultados\ResultadoEditarGuardarAction($this),
+            $request);
+        $res->Entidad = $Entidad;
+        $res->AccionGuardar = 'caratularprevia';
+        $res->FormularioEditar = $FormEditar->createView();
+        $res->Errores = $Errores;
+
         return array('res' => $res);
     }
 }
