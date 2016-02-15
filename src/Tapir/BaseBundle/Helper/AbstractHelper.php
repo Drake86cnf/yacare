@@ -2,6 +2,7 @@
 namespace Tapir\BaseBundle\Helper;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 
 /**
  * Maneja los eventos "lyfecycle" para actuar ante ciertos cambios en las entidades.
@@ -43,6 +44,11 @@ abstract class AbstractHelper
         $this->EsEdicion = is_a($this->Argumentos, 'Doctrine\ORM\Event\PreUpdateEventArgs');
         
         $this->PreUpdatePersist($this->Entidad, $args);
+    }
+    
+    public function preFlush(PreFlushEventArgs $args)
+    {
+        
     }
     
     /**

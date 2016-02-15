@@ -22,13 +22,12 @@ class ActividadHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
             /*
              * No tiene id. Como es parte de un árbol, necesito asignar un id manualmente.
              */
-            $nuevoId = $this->getDoctrine()
-                ->getManager()
-                ->createQuery('SELECT MAX(r.id) FROM YacareComercioBundle:Actividad r')
+            $nuevoId = $this->em->createQuery('SELECT MAX(r.id) FROM YacareComercioBundle:Actividad r')
                 ->getSingleScalarResult();
             $actividad->setId(++ $nuevoId);
-            $metadata = $em->getClassMetaData(get_class($actividad));
-            $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+            $metadata = $this->em->getClassMetaData(get_class($actividad));
+            $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+            //$metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         }
         
         /*

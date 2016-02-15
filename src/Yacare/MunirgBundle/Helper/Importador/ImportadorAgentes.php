@@ -63,7 +63,8 @@ class ImportadorAgentes extends Importador
             // Asigno manualmente el ID
             $entity->setId((int) ($Row['legajo']));
             $metadata = $this->em->getClassMetaData(get_class($entity));
-            $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+            //$metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+            $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
             
             $Persona = $this->em->getRepository('YacareBaseBundle:Persona')->findOneBy(
                 array('DocumentoNumero' => trim($Row['nrodoc'])));

@@ -74,4 +74,15 @@ class MatriculadoController extends \Tapir\AbmBundle\Controller\AbmController
     {
         return parent::guardarAction($request);
     }
+    
+    /**
+     * Intercepto el prePersist para permitir poner ID manualmente.
+     * TODO: quitar una vez que carguen históricos.
+     */
+    public function guardarActionPrePersist($entity, $editForm)
+    {
+        $metadata = $this->getEm()->getClassMetaData(get_class($entity));
+        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+    }
+    
 }

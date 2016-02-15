@@ -17,6 +17,10 @@ class MatriculadoCrearType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('id', null, array(
+                'label' => 'Nº',
+                'attr' => [ 'class' => 'tapir-input-120' ]
+            ))
             ->add('Persona', 'Tapir\FormBundle\Form\Type\EntityIdType', array(
                 'label' => 'Persona',
                 'property' => 'NombreVisible',

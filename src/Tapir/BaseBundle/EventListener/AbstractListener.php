@@ -3,6 +3,7 @@ namespace Tapir\BaseBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
@@ -50,6 +51,11 @@ abstract class AbstractListener implements EventSubscriber
         return $this->prePersist($args);
     }
     
+    public function preFlush(PreFlushEventArgs $args)
+    {
+        
+    }
+    
     public function postFlush(PostFlushEventArgs $args)
     {
         $em = $args->getEntityManager();
@@ -67,6 +73,6 @@ abstract class AbstractListener implements EventSubscriber
     
     public function getSubscribedEvents()
     {
-        return [\Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate, \Doctrine\ORM\Events::postFlush];
+        return [ \Doctrine\ORM\Events::prePersist, \Doctrine\ORM\Events::preUpdate, \Doctrine\ORM\Events::postFlush, \Doctrine\ORM\Events::preFlush ];
     }
 }

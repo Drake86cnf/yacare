@@ -17,6 +17,10 @@ class MatriculadoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('id', null, array(
+                'label' => 'Nº',
+                'attr' => [ 'class' => 'tapir-input-120' ]
+            ))
             ->add('Profesion', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'label' => 'Profesion',
                 'required' => true,
@@ -39,7 +43,6 @@ class MatriculadoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado'));
+        $resolver->setDefaults([ 'data_class' => 'Yacare\ObrasParticularesBundle\Entity\Matriculado' ]);
     }
 }
