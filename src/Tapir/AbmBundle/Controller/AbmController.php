@@ -452,8 +452,8 @@ abstract class AbmController extends \Tapir\BaseBundle\Controller\BaseController
                 }
                 if (! $Errores) {
                     $em->persist($entity);
-                    $em->flush();
                     $this->guardarActionPostPersist($entity, $FormEditar);
+                    $em->flush();
                     $this->addFlash('success', 'Los cambios en "' . $entity . '" fueron guardados.');
                 }
             } else {
