@@ -17,5 +17,4 @@ class ObraDestino
     use \Tapir\BaseBundle\Entity\ConNombre;
     use \Tapir\BaseBundle\Entity\Versionable;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-    
 }
