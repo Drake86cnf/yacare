@@ -487,5 +487,4 @@ abstract class Tramite implements ITramite
         $this->TramitePadre = $TramitePadre;
         return $this;
     }
-
 }

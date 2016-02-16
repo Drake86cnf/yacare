@@ -46,6 +46,18 @@ class TramiteTipo implements ITramiteTipo
     protected $Etapas;
     
     /**
+     * Indica de qué departamento de la administración se realiza este trámite.
+     *
+     * @var \Yacare\OrganizacionBundle\Entity\Departamento
+     *
+     * @see \Yacare\OrganizacionBundle\Entity\Departamento
+     *
+     * @ORM\ManyToOne(targetEntity="Yacare\OrganizacionBundle\Entity\Departamento")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $Departamento;
+    
+    /**
      * El tipo de comprobante que se emite al finalizar un trámite de este tipo.
      *
      * @var \Yacare\TramitesBundle\Entity\ComprobanteTipo
@@ -234,5 +246,23 @@ class TramiteTipo implements ITramiteTipo
         $this->Etapas = $Etapas;
         return $this;
     }
+
+    /**
+     * @ignore
+     */
+    public function getDepartamento()
+    {
+        return $this->Departamento;
+    }
+
+    /**
+     * @ignore
+     */
+    public function setDepartamento($Departamento)
+    {
+        $this->Departamento = $Departamento;
+        return $this;
+    }
+ 
  
 }
