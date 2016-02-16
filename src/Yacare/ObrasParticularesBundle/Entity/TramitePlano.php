@@ -113,14 +113,38 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     private $FechaAprobadaPrevia = null;
 
     /**
-     * Devuelve si fueron aprobados los requisitos de la previa de un trámite.
+     * Devuelve si la previa fue aprobada.
      * 
      * @return boolean
      */
     public function TienePreviaAprobada()
     {
-        // TODO: construir comprobación de requisitos aprobados (para la previa).        
-        return true;
+        return ($this->TieneVisadoCatastro() && $this->TieneVisadoDut() && $this->TieneVisadoOp() &&
+             $this->TieneVisadoOs());
+    }
+
+    /**
+     * Consulta si el trámite tiene hecho el visado de Catastro.
+     *
+     * @return boolean
+     */
+    public function TieneVisadoCatastro()
+    {
+        $Estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_catastro');
+        
+        return ($Estado && $Estado->getEstado() == 100);
+    }
+
+    /**
+     * Consulta si el trámite tiene hecho el visado de Desarrollo Urbano Territorial.
+     *
+     * @return boolean
+     */
+    public function TieneVisadoDut()
+    {
+        $Estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_desarrollourbano');
+        
+        return ($Estado && $Estado->getEstado() == 100);
     }
 
     /**
@@ -131,6 +155,18 @@ class TramitePlano extends \Yacare\TramitesBundle\Entity\Tramite
     public function TieneVisadoOp()
     {
         $Estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_obrasparticulares');
+        
+        return ($Estado && $Estado->getEstado() == 100);
+    }
+
+    /**
+     * Consulta si el trámite tiene hecho el visado de Obras Sanitarias.
+     *
+     * @return boolean
+     */
+    public function TieneVisadoOs()
+    {
+        $Estado = $this->ObtenerEstadoRequisitoPorCodigo('req_visado_obrassanitarias');
         
         return ($Estado && $Estado->getEstado() == 100);
     }

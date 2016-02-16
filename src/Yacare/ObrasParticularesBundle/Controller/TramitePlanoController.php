@@ -66,9 +66,9 @@ class TramitePlanoController extends \Yacare\TramitesBundle\Controller\TramiteCo
         
         $FormEditarBuilder
             ->add('ExpedienteNumero', 'Yacare\AdministracionBundle\Form\Type\ExpedienteType', array(
-                'label' => 'Nº Expediente'))
+                'label' => 'Nº de expediente'))
             ->add('FechaAprobadaPrevia', 'Tapir\BaseBundle\Form\Type\FechaPasadoPresenteType', array(
-                'label' => 'Fecha aprobado'));
+                'label' => 'Fecha de aprobado'));
         
         $FormEditar = $FormEditarBuilder->getForm();
         $FormEditar->handleRequest($request);
