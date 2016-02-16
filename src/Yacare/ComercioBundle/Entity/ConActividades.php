@@ -75,6 +75,33 @@ trait ConActividades
         if($this->Actividad6 != null) { $res[] = $this->Actividad6; }
         return $res;
     }
+    
+    /**
+     * Devuelve las etiquetas de todas las actividades combinadas.
+     */
+    public function getActividadesEtiquetasCombinadas() {
+        $res = [];
+        if($this->getActividad1()) {
+            $res = array_merge($res, $this->getActividad1()->getEtiquetas()->getValues());
+        }
+        if($this->getActividad2()) {
+            $res = array_merge($res, $this->getActividad2()->getEtiquetas()->getValues());
+        }
+        if($this->getActividad3()) {
+            $res = array_merge($res, $this->getActividad3()->getEtiquetas()->getValues());
+        }
+        if($this->getActividad4()) {
+            $res = array_merge($res, $this->getActividad4()->getEtiquetas()->getValues());
+        }
+        if($this->getActividad5()) {
+            $res = array_merge($res, $this->getActividad5()->getEtiquetas()->getValues());
+        }
+        if($this->getActividad6()) {
+            $res = array_merge($res, $this->getActividad6()->getEtiquetas()->getValues());
+        }
+        
+        return $res;
+    }
 
     /**
      * Devuelve el factor de riesgo más alto entre las actividades del comercio.

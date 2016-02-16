@@ -9,8 +9,13 @@
 					<p class="col-sm-offset-1 text-muted">{{ EstadoRequisito.AsociacionRequisito.Requisito.Obs }}</p>
 				{% endif %}
 				</li>
-			{% elseif EstadoRequisito.AsociacionRequisito.Requisito.EsTramite and EstadoRequisito.Subtramite %}
-				<li class="hidden">Para {{ EstadoRequisito.Subtramite.TramiteTipo }}</li>
+			{% endif %}
+	    {% endif %}
+	{% endfor %}
+	{% for EstadoRequisito in tramite.EstadosRequisitos %}
+		{% if EstadoRequisito.EsNecesario %}
+		    {% if EstadoRequisito.AsociacionRequisito.Requisito.EsTramite and EstadoRequisito.Subtramite %}
+				<li class="hidden">Para {{ EstadoRequisito.Subtramite.TramiteTipo.Departamento }}</li>
 				{{ _self.listarcondiciones(EstadoRequisito.Subtramite, nivel + 1) }}
 			{% endif %}
 	    {% endif %}
@@ -24,18 +29,22 @@
 	<ul class="list-unstyled">
 	{% for EstadoRequisito in tramite.EstadosRequisitos %}
 		{% if EstadoRequisito.EsNecesario %}
-			
 		    {% if EstadoRequisito.AsociacionRequisito.Requisito.EsExterno %}
 				<li><i class="fa fa-square-o"></i> {{ EstadoRequisito.AsociacionRequisito }}
 				{% if EstadoRequisito.AsociacionRequisito.Requisito.Obs %}
 					<p class="col-sm-offset-1 text-muted">{{ EstadoRequisito.AsociacionRequisito.Requisito.Obs }}</p>
 				{% endif %}
 				</li>
-			{% elseif EstadoRequisito.AsociacionRequisito.Requisito.EsTramite and EstadoRequisito.Subtramite %}
-				<li class="hidden">Para {{ EstadoRequisito.Subtramite.TramiteTipo }}</li>
+			{% endif %}
+	    {% endif %}
+	{% endfor %}
+	
+	{% for EstadoRequisito in tramite.EstadosRequisitos %}
+		{% if EstadoRequisito.EsNecesario %}
+		    {% if EstadoRequisito.AsociacionRequisito.Requisito.EsTramite and EstadoRequisito.Subtramite %}
+				<li>(La siguiente documentación es solicitada por {{ EstadoRequisito.Subtramite.TramiteTipo.Departamento }})</li>
 				{{ _self.listarrequisitos(EstadoRequisito.Subtramite, nivel + 1) }}
 			{% endif %}
-			
 	    {% endif %}
 	{% endfor %}
 	</ul>	

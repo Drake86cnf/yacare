@@ -164,6 +164,17 @@
 	</div>
 	{% endif %}
 	
+	<h3>Características de las actividades</h3>
+	<ul class="list-unstyled">
+	{% for Etiqueta in res.Entidad.ActividadesEtiquetasCombinadas %}
+		<li>{{ Etiqueta }}
+		{% if Etiqueta.Obs %}
+			<p class="col-sm-offset-1 text-muted">{{ Etiqueta.Obs }}</p>
+		{% endif %}
+		</li>
+	{% endfor %}
+	</ul>
+	
 	{% if true %}
 	<p>
 		<i class="fa fa-info-circle"></i> El ejercicio de esta(s) actividad(es) tiene requisitos ambientales
@@ -182,10 +193,10 @@
 	
 	<h2>Sobre el trámite</h2>
 	
-	<p>Para iniciar el trámite &quot;{{ res.Tramite.TramiteTipo }}&quot; deberá cumplir las siguientes condiciones:</p>
+	<h3>Para iniciar el trámite &quot;{{ res.Tramite.TramiteTipo }}&quot; deberá cumplir las siguientes condiciones:</h3>
 	{{ tm.listarcondiciones(res.Tramite, 1) }}
 	
-	<p>Y presentar la siguiente documentación:</p>
+	<h3>Y presentar la siguiente documentación:</h3>
 	{{ tm.listarrequisitos(res.Tramite, 1) }}
 
 	<h2>Conclusión</h2>

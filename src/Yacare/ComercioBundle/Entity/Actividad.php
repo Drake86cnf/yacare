@@ -20,6 +20,13 @@ class Actividad implements Tree\NodeInterface
     use \Tapir\BaseBundle\Entity\Suprimible;
     use \Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
     use \Yacare\BaseBundle\Model\Tree\Node;
+
+
+    public function _construct()
+    {
+        $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Requisitos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     /**
      * Actividad que contiene a la actual.
@@ -151,12 +158,6 @@ class Actividad implements Tree\NodeInterface
             }
         }
         return false;
-    }
-
-    public function _construct()
-    {
-        $this->Etiquetas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Requisitos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
