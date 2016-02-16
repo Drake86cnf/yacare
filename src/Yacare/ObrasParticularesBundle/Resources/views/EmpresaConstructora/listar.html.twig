@@ -17,7 +17,7 @@
 		{% for entity in entities %}
 		<tr data-toggle="ajax-link"
 			href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}">
-			<td>{% if entity.Numero %}{{ entity.Numero }}{% else %}{{ entity.id }}{% endif %}</td>
+			<td>{% if entity.Numero %}{{ entity.Numero }}{% endif %}</td>
 			<td>{{ entity.NombreFantasia }}</td>
 			<td>{{ entity.Persona }}</td>
 			<td class="hidden-xs">{{ entity.RepresentanteTecnico.Persona }} <span
