@@ -51,9 +51,13 @@
 {% endblock pagina_contenido%}
 
 {% block pagina_acciones %}
-    {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA') 
-        and res.Entidad.TienePreviaAprobada and not res.Entidad.ExpedienteNumero %}
-        {{ tgen.Button('Caratular', { icon: 'folder-open-o', modal: true, 
+    {% if res.Entidad.TienePreviaAprobada and not res.Entidad.ExpedienteNumero %}
+    	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MESA_DE_ENTRADA') %}
+            {{ tgen.Button('Caratular', { icon: 'folder-open-o', modal: true, 
+                href: path(res.ObtenerRutaAccion('caratularprevia'), { 'id': res.Entidad.Id }) })|raw }}
+        {% endif %}
+    {% elseif tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') and res.Entidad.ExpedienteNumero %}
+    	{{ tgen.Button('Caratular', { icon: 'folder-open-o', modal: true, 
             href: path(res.ObtenerRutaAccion('caratularprevia'), { 'id': res.Entidad.Id }) })|raw }}
     {% endif %}
 	{% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR') %}
