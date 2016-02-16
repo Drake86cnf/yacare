@@ -5,6 +5,15 @@
 {% block pagina_titulo %} {{ res.Entidad }} {% endblock %}
 
 {% block pagina_contenido %}
+	<style>
+	   p.requiere-atencion {
+	       color: #FFFFFF;
+	       margin-top: 2px;
+	       margin-bottom: 4px;
+	       background-color: #B40404;
+	       padding: 2px 4px;
+	   }
+	</style>
     {% block tramite_encab %} {{ parent() }} {% endblock %}
     <div class="container-fluid">
     	<div class="row">
@@ -12,12 +21,15 @@
                 <h3 class="row-header">
                     {{ bs.grid_label_text('Partida', [ res.Entidad.Partida.Numero,res.Entidad.Partida]|join (', '))}}
                 </h3>
+        	    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
+                	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}
                 {% if res.Entidad.Partida.Titular %}
         	    	{{ bs.grid_label_text('Solicitante', res.Entidad.Partida.Titular) }}
         	        {{ bs.grid_label_text('Documento', res.Entidad.Partida.Titular.CuiltODocumento) }}
-        	    {% endif %}
-        	    {{ bs.grid_label_text('Profesional', res.Entidad.Profesional.Persona.NombreAmigable ~ 
-                	', mat. Nº ' ~ res.Entidad.Profesional.Id) }}                
+        	    {% else %}
+        	    	<p class="requiere-atencion">¡Atención! esta partida no tiene un titular adherido, 
+        	    		por favor reportar dicho hallazgo.</p>
+        	    {% endif %}                
     	    </div>
     	    <div class ="col-sm-6 col-xs-12 col-separator-left">
         	    {{ bs.grid_label_text('Nº de previa', res.Entidad.NumeroPrevia) }}

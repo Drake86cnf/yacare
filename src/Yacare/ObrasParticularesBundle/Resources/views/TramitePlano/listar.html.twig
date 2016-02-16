@@ -1,45 +1,49 @@
-{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %} 
+{% extends 'YacareTramitesBundle:Tramite:listar.html.twig' %}
+
 {% block pagina_titulo %}Aprobación de planos{% endblock %}
 
 {% block pagina_contenido %}
-<table class="table table-hoverselect">
-	<thead>
-		<tr>
-			<th>Nº</th>
-			<th>Solicitante</th>
-			<th>Fecha</th>
-			<th>Partida</th>
-			<th>Profesional</th>
-			<th>Estado </th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for entidad in res.Entidades %}
-		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': entidad.Id }) }}">
-			<td>{{ entidad.Id }}</td>
-			<td>{{ entidad.Partida.Titular }}</td>
-			<td>{{ entidad.createdAt|date("d/m/Y") }}</td>
-			<td>{{ entidad.Partida }}</td>
-			<td>{{ entidad.Profesional }}</td>
-			 <td>
-			    {% if entidad.Estado < 10 %}<span class="label label-danger">
-			    {% elseif entidad.Estado >= 10 and entidad.Estado < 90 %}<span class="label label-primary">
-			    {% elseif entidad.Estado == 100 %}<span class="label label-success">
-			    {% else %}<span class="label label-default">
-			    {% endif %}{{ entidad.EstadoNombre }}</span>
-				{% if entidad.EstaEnCurso %}
-					{% if entidad.RequisitosFaltantesCantidad == 0 %}
-						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
-					{% else %}
-						<span class="badge">{{ entidad.RequisitosObligatoriosCantidad - entidad.RequisitosFaltantesCantidad }} de 
-						    {{ entidad.RequisitosObligatoriosCantidad }}</span>
-					{% endif %}
-				{% endif %} 
-			</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
+    <table class="table table-hoverselect">
+    	<thead>
+    		<tr>
+    			<th>Nº</th>
+    			<th>Solicitante</th>
+    			<th>Fecha</th>
+    			<th>Partida</th>
+    			<th>Profesional</th>
+    			<th>Estado </th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% for entidad in res.Entidades %}
+    		<tr data-toggle="ajax-link" href="{{ path(res.ObtenerRutaAccion('ver'), { 'id': entidad.Id }) }}">
+    			<td>{{ entidad.Id }}</td>
+    			{% if entidad.Partida.Titular %} <td>{{ entidad.Partida.Titular }}</td>
+    			{% else %} <td class="text-danger">Partida sin titular <i class="fa fa-fw fa-warning text-danger"></i></td>
+    			{% endif %}
+    			
+    			<td>{{ entidad.createdAt|date("d/m/Y") }}</td>
+    			<td>{{ entidad.Partida }}</td>
+    			<td>{{ entidad.Profesional }}</td>
+    			 <td>
+    			    {% if entidad.Estado < 10 %}<span class="label label-danger">
+    			    {% elseif entidad.Estado >= 10 and entidad.Estado < 90 %}<span class="label label-primary">
+    			    {% elseif entidad.Estado == 100 %}<span class="label label-success">
+    			    {% else %}<span class="label label-default">
+    			    {% endif %}{{ entidad.EstadoNombre }}</span>
+    				{% if entidad.EstaEnCurso %}
+    					{% if entidad.RequisitosFaltantesCantidad == 0 %}
+    						<span class="label label-success"><i class="fa fa-thumbs-up"></i> ¡Listo!</span>
+    					{% else %}
+    						<span class="badge">{{ entidad.RequisitosObligatoriosCantidad - entidad.RequisitosFaltantesCantidad }} de 
+    						    {{ entidad.RequisitosObligatoriosCantidad }}</span>
+    					{% endif %}
+    				{% endif %} 
+    			</td>
+    		</tr>
+    		{% endfor %}
+    	</tbody>
+    </table>
 {% endblock %}
 
 {% block pagina_paginar %}{% include 'TapirBaseBundle::paginar.html.twig' %}{% endblock %}
