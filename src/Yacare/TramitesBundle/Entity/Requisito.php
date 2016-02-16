@@ -116,6 +116,13 @@ class Requisito
      * @ORM\Column(type="string", nullable=true)
      */
     private $Codigo;
+    
+    /**
+     * Devuelve true si el requisito es un trámite.
+     */
+    public function EsTramite() {
+        return $this->getTipo() == 'tra';
+    }
 
     /**
      * Devuelve el nomre normalizado del tipo de requisito.
