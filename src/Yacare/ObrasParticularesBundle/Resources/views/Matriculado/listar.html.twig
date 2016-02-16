@@ -20,7 +20,7 @@
 		<tr {% if tapir_hasanyrole('ROLE_OBRAS_PARTICULARES_ADMINISTRADOR, ROLE_OBRAS_PARTICULARES_MATRICULADO ') %}
 				data-toggle="ajax-link" href="{{ path(baseroute ~ '_editar', arrastre|merge({ 'id': entity.id })) }}"
 			{% endif %}>
-			<td>{% if entity.Numero %}{{ entity.Numero }}{% else %}{{ entity.id }}{% endif %}</td>
+			<td>{% if entity.Numero %}{{ entity.Numero }}{% endif %}</td>
 			<td>{{ entity.Persona }}</td>
 			<td class="hidden-xs">{{ entity.Persona.Domicilio }}</td>
 			<td class="hidden-xs">{{ entity.Profesion }}</td>
