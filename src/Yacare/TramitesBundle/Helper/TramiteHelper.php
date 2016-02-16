@@ -58,7 +58,7 @@ class TramiteHelper extends \Yacare\BaseBundle\Helper\AbstractHelper
                 $EstadoRequisito = new \Yacare\TramitesBundle\Entity\EstadoRequisito();
                 $EstadoRequisito->setTramite($entity);
                 
-                if ($AsociacionRequisito->getRequisito()->getTipo() == 'tra') {
+                if ($AsociacionRequisito->getRequisito()->EsTramite()) {
                     // El requisito es un subtrámite... tengo que iniciarlo
                     $SubTramiteTipo = $AsociacionRequisito->getRequisito()->getTramiteTipoEspejo();
                     if ($SubTramiteTipo && $SubTramiteTipo->getClase() && $SubTramiteTipo->getClase() != '\Yacare\TramitesBundle\Entity\TramiteSimple') {
