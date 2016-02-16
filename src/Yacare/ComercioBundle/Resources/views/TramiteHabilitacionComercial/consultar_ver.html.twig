@@ -136,10 +136,7 @@
 			<td></td><td colspan="3">
     		La actividad se declara como &quot;<strong>{{ actividad|lower }}</strong>&quot;,
     		tipificada como una actividad de categoría {{ actividad.CategoriaAntigua }} según el Clasificador
-    		Municipal de Actividades Económicas 2014 con el código <strong>{{ actividad.Clamae2014 }}</strong>
-    		(correspondiente con el código {{ actividad.Clanae2010 }} del Clasificador Nacional de Actividades
-    		Económicas ClaNAE 2010 del INDEC, en uso por AFIP).
-			</td>
+    		Municipal de Actividades Económicas 2014 con el código <strong>{{ actividad.Clamae2014 }}</strong>.</td>
 		</tr>
 		{% if actividad.Incluye or actividad.NoIncluye %}<tr><td></td><td colspan="3" class="small">{% endif %}
 		{% if actividad.Incluye %}
@@ -185,8 +182,10 @@
 	
 	<h2>Sobre el trámite</h2>
 	
-	<p>Para iniciar el trámite &quot;{{ res.Tramite.TramiteTipo }}&quot; deberá presentar la siguiente documentación:</p>
+	<p>Para iniciar el trámite &quot;{{ res.Tramite.TramiteTipo }}&quot; deberá cumplir las siguientes condiciones:</p>
+	{{ tm.listarcondiciones(res.Tramite, 1) }}
 	
+	<p>Y presentar la siguiente documentación:</p>
 	{{ tm.listarrequisitos(res.Tramite, 1) }}
 
 	<h2>Conclusión</h2>

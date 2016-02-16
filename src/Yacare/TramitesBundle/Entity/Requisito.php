@@ -123,6 +123,21 @@ class Requisito
     public function EsTramite() {
         return $this->getTipo() == 'tra';
     }
+    
+    /**
+     * Devuelve true si el requisito es una condición.
+     */
+    public function EsCondicion() {
+        return $this->getTipo() == 'cond';
+    }
+    
+    /**
+     * Devuelve true si el requisito es externo.
+     */
+    public function EsExterno() {
+        return $this->getTipo() == 'ext';
+    }
+    
 
     /**
      * Devuelve el nomre normalizado del tipo de requisito.
